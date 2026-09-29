@@ -1,0 +1,43 @@
+# Attu —— Milvus 官方 Web 可视化界面
+#
+# 镜像已在本地：zilliz/attu:v2.6（565MB），无需拉取
+# 来源：docker pull docker.m.daocloud.io/zilliz/attu:v2.6
+#       （已 docker tag 规范为 zilliz/attu:v2.6）
+#
+# ⚠️ `name: raglora` 是必须的（不是可选优化）：
+#    否则 compose 项目名取目录名 `docker`，与本机 Dify 的 compose 项目重名，
+#    一条不带 -f 的 `docker compose down` 就能拆掉 Dify 的全部容器与网络。
+#    本仓库踩过这个坑，详见 docker-compose.milvus.yml 的注释。
+#
+# ⚠️ 不要对本文件用 `down --remove-orphans`：
+#    它与 milvus/neo4j 两个 compose 同属项目 `raglora`，
+#    会把另外两个文件里的服务当成孤儿删掉。
+name: raglora
+
+services:
+  attu:
+    image: zilliz/attu:v2.6
+    container_name: raglora-attu
+    environment:
+      # Attu 连 Milvus 走 gRPC（19530）。
+      #
+      # 这里用 `host.docker.internal` 而不是容器名 `raglora-milvus`：
+      # 容器名只在同一 docker 网络内可解析，那要求 Attu 必须先加入
+      # `raglora_milvus_net`；而该网络由 milvus compose 创建，
+      # Milvus 没起时网络不存在，Attu 会**直接启动失败**。
+      # 走宿主地址则两者解耦：Milvus 没起时 Attu 照常起来，
+      # 只是在界面上连不上、可以等 Milvus 起来后刷新重试。
+      #
+      # Milvus 在 docker-compose.milvus.yml 里已发布 19530 到宿主，
+      # 因此 host.docker.internal 可达。
+      MILVUS_URL: host.docker.internal:19530
+    ports:
+      # ⚠️ 映射到宿主 3001 而不是 Attu 默认的 3000 —— 本机 3000 已被
+      #    用户的 `harness` 容器占用（实测 `docker compose up` 报
+      #    `Bind for 0.0.0.0:3000 failed: port is already allocated`）。
+      #    容器内部的 3000 不变，只改宿主映射。
+      #    浏览器打开 http://localhost:3001
+      - "3001:3000"
+    extra_hosts:
+      # 显式声明，避免部分 Docker Desktop 版本不自动注入该主机名
+      - "host.docker.internal:host-gateway"

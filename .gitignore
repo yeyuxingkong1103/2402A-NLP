@@ -8,3 +8,12 @@ venv/
 data/
 logs/
 conda_packages/
+
+# ---- 体积大 / 可重建的运行数据，不上传 ----
+**/qdrant_storage/
+**/node_modules/
+**/frontend/dist/
+**/datasets/
+**/tools/redis/
+**/.mimosa/
+**/.superpowers/

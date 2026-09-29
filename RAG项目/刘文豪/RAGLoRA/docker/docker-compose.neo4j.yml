@@ -1,0 +1,35 @@
+# Neo4j 社区版（图谱召回）
+# 镜像已在本地：neo4j:latest（1.06GB），无需拉取
+#
+# 注意：`name: raglora` 为偏离 brief 的必要修正 —— 否则 compose 项目名取目录名 `docker`，
+# 与本机 Dify 的 compose 项目重名，down 时可能误伤 Dify 容器/网络。
+#
+# 网络隔离：本文件与 docker-compose.milvus.yml 同属 compose 项目 `raglora`，
+# 但各自声明独立网络（本项目用 raglora_neo4j_net），不再共用隐式的
+# raglora_default。否则 down 其中一个会移除共享网络，而另一个的容器仍挂其上。
+# 注意：两文件项目名相同，仍共享项目命名空间；切记不要对它们使用
+#       `down --remove-orphans`（会把另一个文件的服务当成孤儿删掉）。
+name: raglora
+services:
+  neo4j:
+    image: neo4j:latest
+    container_name: raglora-neo4j
+    environment:
+      NEO4J_AUTH: neo4j/raglora123
+      NEO4J_server_memory_heap_initial__size: 512m
+      NEO4J_server_memory_heap_max__size: 1G
+      NEO4J_server_memory_pagecache_size: 512m
+    ports:
+      - "7474:7474"    # 浏览器控制台
+      - "7687:7687"    # bolt
+    volumes:
+      - neo4j_data:/data
+    networks:
+      - neo4j_net
+
+volumes:
+  neo4j_data:
+
+networks:
+  neo4j_net:
+    name: raglora_neo4j_net
