@@ -1,0 +1,54 @@
+# ==================== Web 框架 ====================
+fastapi==0.141.1
+uvicorn==0.53.0
+python-multipart          # 文件上传（FastAPI Form/File 依赖）
+
+# ==================== 大模型 ====================
+openai==3.13.0            # 兼容 DeepSeek 的 OpenAI 协议接口
+
+# ==================== 向量化与重排 ====================
+FlagEmbedding==1.4.2      # BGE-M3 / BGE-reranker
+sentence-transformers==6.0.1
+transformers==5.17.0
+torch==2.14.0             # 需与本机 CUDA 版本匹配，按官网指令安装
+
+# ==================== 向量数据库 ====================
+pymilvus==3.0.1           # 混合检索（稠密 + 稀疏）、RRF 融合
+
+# ==================== 关系库与缓存 ====================
+SQLAlchemy==2.0.52
+mysql-connector-python==26.7.0
+redis==8.1.0
+
+# ==================== RAG 框架 ====================
+langchain==1.4.0
+langchain-core==1.6.3
+langchain-openai==1.6.2   # 生态依赖；本项目用自定义 BaseChatModel 包装 DeepSeek
+langchain-milvus==0.4.0
+langchain-text-splitters==1.1.2
+
+# ==================== 文档解析 ====================
+# PDF 解析是「主 + 兜底」两条路径：
+#   主路径  MinerU（版面/OCR/公式/表格一体）
+#   兜底   下面这四个 —— PyMuPDF 取文本层、PaddleOCR 补图表文字、
+#           pdfplumber 补表格结构
+# MinerU 装在项目内的独立 venv（依赖与应用主环境冲突：它要求 openai<3，
+# 而本项目用 openai 3.x），不在本文件内声明。安装方式见 README。
+# 没装 MinerU 时项目照常运行，PDF 走兜底路径。
+pymupdf==1.28.2           # 去水印（redaction）+ 兜底路径的文本层提取
+pdfplumber==0.11.10       # 兜底路径的表格提取
+paddlepaddle==3.3.1       # PaddleOCR 的运行时（注意：需 enable_mkldnn=False，见 ocr_service）
+paddleocr==3.7.0          # 兜底路径的图表文字识别
+
+# ==================== 配置与日志 ====================
+pydantic==2.13.5
+python-dotenv==1.2.3
+
+# ==================== 测试 ====================
+pytest==9.1.1             # 接口测试（tests/）
+requests                  # 测试与评测脚本发 HTTP 请求
+
+# 说明：
+#   日志统一使用 Python 标准库 logging，不依赖第三方日志库
+#   RAGAS 评测依赖 langchain-core 0.3，与本文件中的版本不兼容，
+#   因此单独装在 evals/.venv，安装方式见 evals/README.md
