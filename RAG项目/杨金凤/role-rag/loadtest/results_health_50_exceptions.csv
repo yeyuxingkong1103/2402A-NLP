@@ -1,0 +1,7 @@
+Count,Message,Traceback,Nodes
+99,No tasks defined on ChatUser. Use the @task decorator or set the 'tasks' attribute of the User (or mark it as abstract = True if you only intend to subclass it),"  File ""/home/ginny/role-rag/.venv/lib/python3.12/site-packages/locust/user/task.py"", line 358, in run
+    self.schedule_task(self.get_next_task())
+                       ^^^^^^^^^^^^^^^^^^^^
+  File ""/home/ginny/role-rag/.venv/lib/python3.12/site-packages/locust/user/task.py"", line 502, in get_next_task
+    raise Exception(
+",local
