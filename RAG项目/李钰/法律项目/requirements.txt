@@ -1,0 +1,23 @@
+# 法律RAG问答系统 - Python依赖
+# 安装: pip install -r requirements.txt
+
+# ===== 核心依赖（必需） =====
+pymilvus>=2.4.0            # Milvus向量数据库客户端
+milvus-lite>=2.4.0         # Milvus本地文件模式后端
+pymupdf>=1.24.0            # PDF文本提取（PyMuPDF）
+langchain-ollama>=0.1.0    # Ollama嵌入/对话模型集成
+rank-bm25>=0.2.2           # BM25稀疏检索
+jieba>=0.42.1              # 中文分词（BM25用）
+
+# ===== 重排序（推荐） =====
+sentence-transformers>=2.7.0  # CrossEncoder重排序
+
+# ===== 多轮对话（可选，未安装自动降级为内存存储） =====
+redis>=5.0.0
+
+# ===== OCR解析（可选，仅扫描件PDF需要） =====
+# paddleocr>=2.7.0
+# paddlepaddle>=2.6.0
+
+# ===== MinerU版面分析（可选，复杂文档需要） =====
+# magic-pdf>=0.6.0
