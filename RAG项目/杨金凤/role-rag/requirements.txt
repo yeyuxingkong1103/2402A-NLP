@@ -1,0 +1,40 @@
+# Web 框架
+fastapi
+uvicorn[standard]
+python-dotenv
+python-multipart==0.0.32
+
+# LLM（OpenAI 兼容接口，用于 DeepSeek）
+openai
+
+# 多轮会话记忆（Redis）
+redis==8.1.0
+
+# MySQL 元数据存储（用户/角色/会话）
+SQLAlchemy==2.0.36
+PyMySQL==1.1.1
+
+# 向量库（Milvus 优先，USE_MILVUS=false 时降级 Chroma）
+pymilvus==3.0.1
+chromadb==1.5.9
+
+# 向量模型（会连带安装 torch；CPU 环境建议先单独装 CPU 版 torch，见 README）
+sentence-transformers==6.0.1
+
+# PDF 解析（B4 升级：PyMuPDF 正文 + pdfplumber 表格，替代 pypdf）
+PyMuPDF==1.28.2
+pdfplumber==0.11.10
+
+# 混合检索：中文分词 + BM25 关键词召回
+jieba==0.42.1
+rank_bm25==0.2.2
+
+# 测试
+pytest==8.3.5
+
+# RAGAS 评测（eval/，B 阶段）
+ragas==0.3.9
+langchain-openai==0.3.35
+
+# 压测（loadtest/，JMeter 的轻量替代）
+locust==2.46.5
