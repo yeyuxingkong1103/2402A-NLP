@@ -1,0 +1,132 @@
+name: doctor-rag-local
+
+services:
+  ollama:
+    profiles: ["llm-container"]
+    image: ${OLLAMA_IMAGE:-ollama/ollama:0.11.10}
+    container_name: rag-ollama
+    environment:
+      OLLAMA_KEEP_ALIVE: 24h
+      OLLAMA_NUM_PARALLEL: 1
+    ports: ["127.0.0.1:11434:11434"]
+    volumes: ["ollama_data:/root/.ollama"]
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.0
+    container_name: rag-mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_bin
+    environment:
+      MYSQL_DATABASE: ${RAG_MYSQL_DATABASE:-rag_roleplay}
+      MYSQL_USER: ${RAG_MYSQL_USER:-rag_user}
+      MYSQL_PASSWORD: ${RAG_MYSQL_PASSWORD:-rag_password}
+      MYSQL_ROOT_PASSWORD: ${RAG_MYSQL_ROOT_PASSWORD:-root_password}
+    ports: ["127.0.0.1:3306:3306"]
+    volumes: ["mysql_data:/var/lib/mysql"]
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+
+  redis:
+    image: redis:7.4-alpine
+    container_name: rag-redis
+    command: redis-server --appendonly yes --save 60 1
+    ports: ["127.0.0.1:6379:6379"]
+    volumes: ["redis_data:/data"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  redisinsight:
+    profiles: ["visual"]
+    image: redis/redisinsight:latest
+    container_name: rag-redisinsight
+    ports: ["127.0.0.1:5540:5540"]
+    volumes: ["redisinsight_data:/data"]
+    depends_on:
+      redis: {condition: service_healthy}
+    restart: unless-stopped
+
+  etcd:
+    image: quay.io/coreos/etcd:v3.5.25
+    container_name: rag-etcd
+    environment:
+      ETCD_AUTO_COMPACTION_MODE: revision
+      ETCD_AUTO_COMPACTION_RETENTION: "1000"
+      ETCD_QUOTA_BACKEND_BYTES: "4294967296"
+      ETCD_SNAPSHOT_COUNT: "50000"
+    command: etcd -advertise-client-urls=http://127.0.0.1:2379 -listen-client-urls=http://0.0.0.0:2379 --data-dir=/etcd
+    volumes: ["etcd3_data:/etcd"]
+    healthcheck:
+      test: ["CMD", "etcdctl", "endpoint", "health"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  minio:
+    image: minio/minio:RELEASE.2024-12-18T13-15-44Z
+    container_name: rag-minio
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    command: minio server /minio_data
+    volumes: ["minio3_data:/minio_data"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  milvus:
+    image: milvusdb/milvus:v3.0.1
+    container_name: rag-milvus
+    command: ["milvus", "run", "standalone"]
+    security_opt: ["seccomp:unconfined"]
+    environment:
+      ETCD_ENDPOINTS: etcd:2379
+      MINIO_ADDRESS: minio:9000
+    ports: ["127.0.0.1:19530:19530", "127.0.0.1:9091:9091"]
+    volumes: ["milvus3_data:/var/lib/milvus"]
+    depends_on:
+      etcd: {condition: service_healthy}
+      minio: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
+      interval: 10s
+      start_period: 30s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+
+  attu:
+    profiles: ["visual"]
+    image: zilliz/attu:latest
+    container_name: rag-attu
+    environment:
+      MILVUS_URL: milvus:19530
+    ports: ["127.0.0.1:3000:3000"]
+    depends_on:
+      milvus: {condition: service_healthy}
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+  mysql_data:
+  redis_data:
+  redisinsight_data:
+  etcd3_data:
+  minio3_data:
+  milvus3_data:
