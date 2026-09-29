@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>法律客服助手</title>
+  <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar" aria-label="主导航">
+      <a class="brand" href="./index.html">法助 RAG</a>
+      <div class="nav-links">
+        <a href="pages/chat.html">智能咨询</a>
+        <a href="pages/knowledge-bases.html">知识库上传</a>
+        <a href="pages/profile.html">个人中心</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">单端口本地联调 · 免登录演示</p>
+        <h1>法律客服助手</h1>
+        <p class="hero-text">在同一个后端端口里完成知识库上传、材料审核、发布和法律咨询，减少本地启动步骤。</p>
+        <div class="hero-actions">
+          <a class="button primary" href="pages/knowledge-bases.html">上传知识材料</a>
+          <a class="button secondary" href="pages/chat.html">开始咨询</a>
+        </div>
+      </div>
+      <aside class="hero-card" aria-label="当前联调状态">
+        <strong>当前模式</strong>
+        <span>FastAPI 托管前端静态资源</span>
+        <span>API 与页面共用 8010 端口</span>
+        <span>开发演示用户 guest-user</span>
+      </aside>
+    </section>
+
+    <section class="feature-grid" aria-label="核心功能">
+      <article class="feature-card">
+        <span class="feature-icon">📄</span>
+        <h2>上传材料</h2>
+        <p>选择本地 txt、md、html 或 json 文件，自动进入知识库治理流程。</p>
+      </article>
+      <article class="feature-card">
+        <span class="feature-icon">✅</span>
+        <h2>审核发布</h2>
+        <p>上传后生成待审核材料，可直接审核、发布并查看状态。</p>
+      </article>
+      <article class="feature-card">
+        <span class="feature-icon">💬</span>
+        <h2>法律咨询</h2>
+        <p>咨询页面直接调用后端聊天接口，回答保留引用与反馈入口。</p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

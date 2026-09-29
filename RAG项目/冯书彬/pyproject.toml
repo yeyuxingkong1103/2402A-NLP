@@ -1,0 +1,13 @@
+[project]
+name = "legal-rag-assistant"
+version = "0.1.0"
+description = "法律客服 RAG 助手"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+markers = [
+    "gpu: 需要本地 CUDA 和 BGE 模型文件的集成测试",
+]
+filterwarnings = [
+    "ignore:Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.:Warning",
+]
