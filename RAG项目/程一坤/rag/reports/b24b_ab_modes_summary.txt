@@ -1,0 +1,13 @@
+=== ③b/⑤ A/B 三格对照 ===
+组合                                     Recall@5   MRR@10     引用正确率      拒答准确率      报告文件
+tail=on  strip=single（留尾巴=改前）          1.0000     0.6278     1.0000     0.0000     eval_20260921_161933_b24b_on_single.json
+tail=off strip=single（去尾巴=现网基线）        1.0000     0.6444     1.0000     0.0000     eval_20260921_162200_b24b_off_single.json
+tail=off strip=loop（⑤ 候选）              1.0000     0.6444     1.0000     0.0000     eval_20260921_162436_b24b_off_loop.json
+
+=== 逐题改写差异（off_single vs off_loop，取 multi_turn per_item）===
+  multiturn-001
+     single: 签三年期的劳动合同 试用期最长不能超过多久 这个期间工资最低不能低于多少 | rank= 1 hit= True
+     loop  : 签三年期的劳动合同 试用期最长不能超过多久 期间工资最低不能低于多少 | rank= 1 hit= True
+  multiturn-004
+     single: 公司要我在离职后不去同行 需要给我钱吗 这个最长能约定几年 | rank= 2 hit= True
+     loop  : 公司要我在离职后不去同行 需要给我钱吗 最长能约定几年 | rank= 2 hit= True

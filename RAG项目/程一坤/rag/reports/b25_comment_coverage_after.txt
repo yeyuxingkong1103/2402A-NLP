@@ -1,0 +1,128 @@
+扫描文件数 = 109（backend/app/**/*.py）
+阈值 = 30%（口径：注释行∪docstring行 / 总行，含空行）
+
+| 文件                                           |   总行 |   空行 |   注释行 | docstr |     覆盖率 |     非空口径 |
+|----------------------------------------------|------|------|-------|--------|---------|----------|
+| app/pipeline/__init__.py                     |   21 |    1 |     0 |      0 |  0.0000 |   0.0000 |
+| app/pipeline/package_writer.py               |   88 |   11 |     0 |      0 |  0.0000 |   0.0000 |
+| app/cli/import_mysql.py                      |  101 |   18 |     2 |      1 |  0.0198 |   0.0241 |
+| app/api/legal_search.py                      |  194 |   25 |     4 |      3 |  0.0206 |   0.0237 |
+| app/pipeline/package_models.py               |  162 |   33 |     5 |      0 |  0.0309 |   0.0388 |
+| app/core/logging.py                          |   28 |    5 |     1 |      1 |  0.0357 |   0.0435 |
+| app/cli/index_legal_documents.py             |  183 |   33 |     7 |      0 |  0.0383 |   0.0467 |
+| app/pipeline/package_validator.py            |  180 |   30 |     8 |      0 |  0.0444 |   0.0533 |
+| app/db/batch_import.py                       |   66 |   11 |     4 |      4 |  0.0606 |   0.0727 |
+| app/db/milvus_store.py                       |  165 |   19 |    14 |      4 |  0.0848 |   0.0959 |
+| app/auth/router.py                           |  168 |   25 |    16 |      8 |  0.0952 |   0.1119 |
+| app/models/embedding.py                      |  194 |   20 |    19 |     14 |  0.0979 |   0.1092 |
+| app/ingest/run_offline_ingest.py             |  123 |   24 |    13 |      9 |  0.1057 |   0.1313 |
+| app/api/chat.py                              |  244 |   22 |    26 |      9 |  0.1066 |   0.1171 |
+| app/db/import_service.py                     |  278 |   31 |    33 |     16 |  0.1187 |   0.1336 |
+| app/ingest/offline_ingest.py                 |  276 |   31 |    33 |     19 |  0.1196 |   0.1347 |
+| app/api/memory.py                            |  172 |   25 |    23 |     23 |  0.1337 |   0.1565 |
+| app/api/review.py                            |  173 |   27 |    24 |     21 |  0.1387 |   0.1644 |
+| app/db/base.py                               |   14 |    6 |     2 |      2 |  0.1429 |   0.2500 |
+| app/db/engine.py                             |   14 |    4 |     2 |      2 |  0.1429 |   0.2000 |
+| app/models/reranker.py                       |  159 |   25 |    24 |     22 |  0.1509 |   0.1791 |
+| app/db/vector_index_service.py               |  250 |   42 |    38 |     11 |  0.1520 |   0.1827 |
+| app/retrieval/service.py                     |  266 |   27 |    43 |     25 |  0.1617 |   0.1799 |
+| app/models/mineru.py                         |  446 |   57 |    75 |     60 |  0.1682 |   0.1928 |
+| app/retrieval/keyword_search.py              |  295 |   41 |    50 |     25 |  0.1695 |   0.1969 |
+| app/memory/long_term.py                      |  232 |   23 |    40 |     35 |  0.1724 |   0.1914 |
+| app/models/qwen_vl.py                        |  297 |   40 |    52 |     30 |  0.1751 |   0.2023 |
+| app/models/llm.py                            |  247 |   34 |    45 |     36 |  0.1822 |   0.2113 |
+| app/main.py                                  |  164 |   28 |    30 |      9 |  0.1829 |   0.2206 |
+| app/auth/mailer.py                           |  133 |   23 |    25 |     23 |  0.1880 |   0.2273 |
+| app/crawler/runner.py                        |  107 |   16 |    21 |      0 |  0.1963 |   0.2308 |
+| app/crawler/whitelist.py                     |  140 |   18 |    30 |      1 |  0.2143 |   0.2459 |
+| app/db/import_cleanup.py                     |   79 |   13 |    17 |      7 |  0.2152 |   0.2576 |
+| app/ingest/cleaner.py                        |  124 |   26 |    28 |     17 |  0.2258 |   0.2857 |
+| app/ingest/parser.py                         |  211 |   45 |    48 |      0 |  0.2275 |   0.2892 |
+| app/core/config.py                           |  381 |   29 |    88 |     16 |  0.2310 |   0.2500 |
+| app/ingest/law_metadata_extractor.py         |  198 |   32 |    47 |     32 |  0.2374 |   0.2831 |
+| app/cli/demo_ask.py                          |  122 |   27 |    29 |     23 |  0.2377 |   0.3053 |
+| app/ingest/chunker.py                        |  181 |   30 |    44 |     15 |  0.2431 |   0.2914 |
+| app/retrieval/vector_search.py               |  290 |   32 |    72 |     27 |  0.2483 |   0.2791 |
+| app/review/review_service.py                 |  220 |   31 |    57 |     41 |  0.2591 |   0.3016 |
+| app/crawler/collect_labor_law.py             |  209 |   30 |    55 |     31 |  0.2632 |   0.3073 |
+| app/auth/service.py                          |  193 |   31 |    51 |     27 |  0.2642 |   0.3148 |
+| app/crawler/requester.py                     |  287 |   28 |    76 |      0 |  0.2648 |   0.2934 |
+| app/db/legal_metadata_writer.py              |  166 |   25 |    46 |     19 |  0.2771 |   0.3262 |
+| app/memory/summary_service.py                |  205 |   31 |    57 |     46 |  0.2780 |   0.3276 |
+| app/crawler/rate_limiter.py                  |   56 |   13 |    16 |      0 |  0.2857 |   0.3721 |
+| app/models/http_retry.py                     |  247 |   37 |    71 |     64 |  0.2874 |   0.3381 |
+| app/auth/schemas.py                          |   79 |   28 |    23 |     12 |  0.2911 |   0.4510 |
+| app/ingest/chunk_text.py ★                   |   50 |   10 |    15 |     11 |  0.3000 |   0.3750 |
+| app/ingest/pdf_parser.py                     |   89 |   21 |    27 |      7 |  0.3034 |   0.3971 |
+| app/api/users_me.py                          |   56 |   14 |    17 |     17 |  0.3036 |   0.4048 |
+| app/memory/memory_summarize.py ★             |   49 |    6 |    15 |     13 |  0.3061 |   0.3488 |
+| app/review/review_detail.py                  |  114 |   14 |    35 |     20 |  0.3070 |   0.3500 |
+| app/chat/memory_hooks.py ★                   |  151 |   21 |    47 |     40 |  0.3113 |   0.3615 |
+| app/retrieval/item_convert.py ★              |  109 |   12 |    34 |     28 |  0.3119 |   0.3505 |
+| app/ingest/article_splitter.py ★             |   60 |   12 |    19 |      6 |  0.3167 |   0.3958 |
+| app/auth/session_store.py                    |  102 |   27 |    33 |     21 |  0.3235 |   0.4400 |
+| app/chat/service.py                          |  230 |   25 |    75 |     56 |  0.3261 |   0.3659 |
+| app/chat/streaming.py ★                      |  202 |   22 |    67 |     36 |  0.3317 |   0.3722 |
+| app/crawler/crawl_record.py                  |   60 |   19 |    20 |      0 |  0.3333 |   0.4878 |
+| app/db/import_version_status.py ★            |   83 |   10 |    28 |     16 |  0.3373 |   0.3836 |
+| app/db/sql_models.py                         |   38 |    4 |    13 |     13 |  0.3421 |   0.3824 |
+| app/chat/prompt_builder.py                   |   90 |   12 |    31 |     25 |  0.3444 |   0.3974 |
+| app/ingest/title_normalizer.py ★             |  116 |   14 |    40 |     20 |  0.3448 |   0.3922 |
+| app/chat/guard.py                            |  230 |   54 |    81 |     62 |  0.3522 |   0.4602 |
+| app/ingest/law_date_rules.py ★               |  133 |   21 |    47 |     33 |  0.3534 |   0.4196 |
+| app/db/document_models.py ★                  |  164 |   27 |    59 |     24 |  0.3598 |   0.4307 |
+| app/chat/bootstrap.py ★                      |   86 |   13 |    31 |     19 |  0.3605 |   0.4247 |
+| app/retrieval/assembly.py                    |  232 |   37 |    84 |     72 |  0.3621 |   0.4308 |
+| app/auth/current_user.py                     |   55 |   16 |    20 |     14 |  0.3636 |   0.5128 |
+| app/auth/sql_store.py                        |  115 |   17 |    42 |     31 |  0.3652 |   0.4286 |
+| app/errors.py                                |  112 |   18 |    41 |      8 |  0.3661 |   0.4362 |
+| app/ingest/paragraph_items.py ★              |  116 |   26 |    43 |     30 |  0.3707 |   0.4778 |
+| app/retrieval/filters.py                     |  106 |   19 |    40 |     31 |  0.3774 |   0.4598 |
+| app/db/law_models.py ★                       |  175 |   52 |    67 |     32 |  0.3829 |   0.5447 |
+| app/crawler/robots_policy.py                 |   39 |    9 |    15 |      1 |  0.3846 |   0.5000 |
+| app/crawler/html_text.py                     |   93 |   13 |    36 |      7 |  0.3871 |   0.4500 |
+| app/retrieval/parent_collapse.py ★           |  250 |   26 |    98 |     61 |  0.3920 |   0.4375 |
+| app/cli/create_admin.py                      |   92 |   20 |    37 |     32 |  0.4022 |   0.5139 |
+| app/chat/citation_check.py                   |  235 |   38 |    95 |     54 |  0.4043 |   0.4822 |
+| app/pipeline/hashing.py                      |   12 |    4 |     5 |      5 |  0.4167 |   0.6250 |
+| app/retrieval/query_rewrite.py               |  201 |   31 |    85 |     62 |  0.4229 |   0.5000 |
+| app/api/session_routes.py                    |  261 |   31 |   111 |     74 |  0.4253 |   0.4826 |
+| app/chat/result.py ★                         |   42 |    6 |    18 |     16 |  0.4286 |   0.5000 |
+| app/retrieval/synonym_expansion.py ★         |  254 |   50 |   110 |     94 |  0.4331 |   0.5392 |
+| app/crawler/response_reader.py               |   53 |    8 |    23 |      6 |  0.4340 |   0.5111 |
+| app/retrieval/fusion.py                      |  162 |   22 |    72 |     49 |  0.4444 |   0.5143 |
+| app/db/chat_models.py                        |  114 |   28 |    52 |     18 |  0.4561 |   0.6047 |
+| app/memory/memory_schema.py ★                |  133 |   24 |    61 |     56 |  0.4586 |   0.5596 |
+| app/db/redis_client.py                       |   39 |   12 |    18 |     17 |  0.4615 |   0.6667 |
+| app/api/chat_persistence.py                  |  225 |   37 |   105 |     75 |  0.4667 |   0.5585 |
+| app/ingest/chinese_number.py                 |  136 |   23 |    67 |     48 |  0.4926 |   0.5929 |
+| app/ingest/article_number_rules.py           |  184 |   24 |    91 |     70 |  0.4946 |   0.5687 |
+| app/db/user_models.py ★                      |   48 |    9 |    24 |     15 |  0.5000 |   0.6154 |
+| app/chat/chat_store.py                       |  279 |   45 |   140 |     83 |  0.5018 |   0.5983 |
+| app/retrieval/context_builder.py             |  197 |   41 |    99 |     47 |  0.5025 |   0.6346 |
+| app/chat/chat_runtime.py                     |   56 |   14 |    29 |     19 |  0.5179 |   0.6905 |
+| app/ingest/chunk_fingerprint.py ★            |   45 |    8 |    24 |     21 |  0.5333 |   0.6486 |
+| app/memory/memory_settings.py ★              |   72 |   17 |    39 |     39 |  0.5417 |   0.7091 |
+| app/chat/chat_history.py                     |  174 |   21 |    96 |     53 |  0.5517 |   0.6275 |
+| app/chat/chat_title.py                       |   50 |   13 |    30 |     20 |  0.6000 |   0.8108 |
+| app/memory/summary_policy.py                 |   29 |    7 |    18 |      8 |  0.6207 |   0.8182 |
+| app/memory/short_term.py                     |  183 |   37 |   114 |    106 |  0.6230 |   0.7808 |
+| app/db/version_status.py                     |   35 |    8 |    27 |     21 |  0.7714 |   1.0000 |
+| app/auth/__init__.py                         |    1 |    0 |     1 |      1 |  1.0000 |   1.0000 |
+| app/memory/__init__.py                       |    1 |    0 |     1 |      1 |  1.0000 |   1.0000 |
+| app/retrieval/__init__.py                    |    1 |    0 |     1 |      1 |  1.0000 |   1.0000 |
+| app/review/__init__.py                       |    1 |    0 |     1 |      1 |  1.0000 |   1.0000 |
+
+低于 30% 的文件 = 49 / 109
+
+任务书点名的 20 个文件：找到 20 个
+  · 已达标（≥30%）：20 个
+  · 未达标（<30%）：0 个 → 
+  · 清单里 app/ 下找不到的：[]
+
+全 app/ 超出 300 行的文件（与'注释补齐'存在冲突）：
+  · app/models/mineru.py  446 行
+  · app/core/config.py  381 行
+  · 其中 290~300 行（补注释必超限）：app/models/qwen_vl.py(297), app/retrieval/keyword_search.py(295), app/retrieval/vector_search.py(290)
+
+已写入 C:\Users\92842\AppData\Local\Temp\b25_bak\coverage_after.json

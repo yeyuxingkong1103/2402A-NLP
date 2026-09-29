@@ -1,0 +1,46 @@
+====================================================================================================
+批次 26 Q4 接口真实调用探针   label=before
+====================================================================================================
+[1] uvicorn 已启动 pid=5420  port=8123  日志=C:\Users\92842\AppData\Local\Temp\b26_bak\uvicorn_before.log
+[2] 服务就绪=True
+[3] 已创建管理员会话令牌（真实 Redis，user_id=b26-probe-admin-before）
+
+----------------------------------------------------------------------------------------------------
+[4] 真实调用：GET /api/v1/admin/documents?status=approved&page=1&page_size=3
+----------------------------------------------------------------------------------------------------
+    HTTP 200   code=0   message=success
+    data 键：['items', 'page', 'page_size', 'total']
+    条目数：3 / total=11
+      - document_id=6 version_key=ver-0c4e9559866f93de844b6065 version_status=approved
+      - document_id=5 version_key=ver-a60472bf696d0928a5cfe511 version_status=approved
+      - document_id=3 version_key=ver-9bdfe906abcb8ef58a3c7f32 version_status=approved
+
+----------------------------------------------------------------------------------------------------
+[5] 真实调用：POST /api/v1/legal/search  {"query":"经济补偿怎么算","top_k":5}
+----------------------------------------------------------------------------------------------------
+    HTTP 200   code=0   message=success
+    命中条数：5
+    stats：{"vector_recall_count": 12, "keyword_recall_count": 20, "fused_count": 28, "reranked_count": 5, "synonym_expansion_count": 0}
+      - 中华人民共和国劳动合同法 / 第四十七条 document_type=law is_current=None effective_date=2008-01-01 repeal_date=None
+      - 中华人民共和国劳动合同法实施条例 / 第二十七条 document_type=administrative_regulation is_current=None effective_date=2008-09-18 repeal_date=None
+      - 中华人民共和国劳动合同法 / 第九十七条 document_type=law is_current=None effective_date=2008-01-01 repeal_date=None
+      - 中华人民共和国劳动合同法实施条例 / 第二十五条 document_type=administrative_regulation is_current=None effective_date=2008-09-18 repeal_date=None
+      - 中华人民共和国劳动合同法实施条例 / 第十条 document_type=administrative_regulation is_current=None effective_date=2008-09-18 repeal_date=None
+    响应字段（首条）：['article_number', 'chunk_id', 'content', 'document_id', 'document_type', 'effective_date', 'fusion_score', 'is_current', 'issuing_authority', 'item_number', 'jurisdiction', 'keyword_score', 'law_name', 'paragraph_number', 'repeal_date', 'rerank_score', 'retrieval_score', 'score_sources', 'source', 'vector_score']
+
+----------------------------------------------------------------------------------------------------
+[6] 检查：响应里是否出现 status 的原始取值
+----------------------------------------------------------------------------------------------------
+    'not_applicable' 出现在管理端响应：False｜出现在检索响应：False
+    'effective' 出现在管理端响应：False｜出现在检索响应：True
+    'amended' 出现在管理端响应：False｜出现在检索响应：False
+    '已废止' 出现在管理端响应：False｜出现在检索响应：False
+    '已失效' 出现在管理端响应：False｜出现在检索响应：False
+    → 接口响应未序列化 law_versions.status 字段本身，前端拿到的只有 is_current 布尔值
+
+----------------------------------------------------------------------------------------------------
+[7] 结论：两个接口 HTTP 状态均为 200 / 200，无 5xx、无异常信封
+----------------------------------------------------------------------------------------------------
+
+[8] 已撤销探针会话令牌（user_id=b26-probe-admin-before）
+[9] uvicorn 已停止（日志留在 C:\Users\92842\AppData\Local\Temp\b26_bak\uvicorn_before.log）

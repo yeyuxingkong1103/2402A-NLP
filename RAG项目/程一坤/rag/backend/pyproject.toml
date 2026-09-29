@@ -1,0 +1,14 @@
+[project]
+name = "legal-rag-backend"
+version = "0.1.0"
+description = "Legal RAG backend"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi==0.138.1",
+    "pydantic==2.13.4",
+    "uvicorn[standard]==0.49.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

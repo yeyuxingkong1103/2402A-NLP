@@ -1,0 +1,43 @@
+# 后端运行时依赖（全部 == 锁定版本）
+#
+# 版本口径（批次 22 裁决①）：**以本地开发环境实测为准**反向更新。
+# 采集方式：`C:/Users/92842/anaconda3/envs/rag/python.exe -m pip freeze`
+# 采集时间：2026-09-21
+#
+# 为什么以本地为准：本地 rag 环境是**跑全量测试的那个环境**（595 passed），
+# 把容器与本地对齐后，"本地绿"与"容器绿"才是同一套版本组合，避免
+# "requirements 锁的是另一套版本、本地绿了不代表容器绿"。
+# 代价：容器会以 fastapi 0.104.1 / starlette 0.27.0 / pydantic 2.5.0 构建
+# （比此前写的 0.138.1 / 1.3.1 / 2.13.4 旧）。若要整体升级，需另开一批
+# 做"依赖升级 + 全量回归"，不在本批范围内。
+#
+# 维护约定：
+# - 只列**直接依赖**（代码里真实 import 的包），不列传递依赖；
+# - 每条都用 == 锁死，不允许范围写法（保证容器可复现）。
+
+fastapi==0.104.1
+starlette==0.27.0
+pydantic==2.5.0
+uvicorn[standard]==0.24.0
+
+SQLAlchemy==2.0.51
+PyMySQL==1.2.3
+pymilvus==2.6.17
+redis==5.3.1
+
+jieba==0.42.1
+rank-bm25==0.2.2
+
+# PDF 页图渲染（批次 22）：Qwen-VL 兜底分支的输入来源；
+# 同时用作「PDF 文字层直取」的对照基线。不用 pdf2image（需要 poppler 外部二进制）
+PyMuPDF==1.28.0
+
+# 端到端脚本用（批次 23 补录）：scripts/e2e/ 的 3 个 HTTP 客户端脚本
+# （e2e_auth_persist / e2e_create_admin / e2e_review_publish）真实打本机后端的 SSE 与 REST。
+# 后端本体与评测链路都不用 requests（统一走标准库 urllib/http.client），
+# 但 e2e 脚本是"长期保留的验收工具"，缺它就跑不了，故一并锁进容器依赖。
+requests==2.34.2
+
+# 测试期依赖：pytest 跑用例；httpx 供 tests 里的 ASGITransport / TestClient 直打 app
+pytest==7.4.3
+httpx==0.25.2

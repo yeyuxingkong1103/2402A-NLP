@@ -1,0 +1,7479 @@
+{
+  "run_at": "2026-09-20 12:07:21 +0800",
+  "eval_set": "C:\\Users\\92842\\Desktop\\rag\\data\\evaluation\\eval_set_v1.jsonl",
+  "summary": {
+    "recall_at_5": 0.9286,
+    "mrr_at_10": 0.7351,
+    "citation_accuracy": 1.0,
+    "refusal_accuracy": 0.0,
+    "false_refusal_rate": 0.0,
+    "counts": {
+      "total": 50,
+      "graded": 42,
+      "refusal_questions": 8,
+      "answered": 42,
+      "total_citations": 192,
+      "invalid_citations": 0,
+      "answers_without_citation": 6,
+      "as_of_violations": 1
+    },
+    "as_of_violations": [
+      {
+        "id": "asof-035",
+        "violation": "女职工劳动保护特别规定第七条"
+      }
+    ],
+    "by_type": {
+      "direct_article": {
+        "count": 16,
+        "recall_at_5": 1.0,
+        "mrr10": 0.746875,
+        "refusal_ok": 0,
+        "refusal_total": 0,
+        "refusal_accuracy": null
+      },
+      "cross_law": {
+        "count": 8,
+        "recall_at_5": 1.0,
+        "mrr10": 0.80625,
+        "refusal_ok": 0,
+        "refusal_total": 0,
+        "refusal_accuracy": null
+      },
+      "followup_rewrite": {
+        "count": 6,
+        "recall_at_5": 1.0,
+        "mrr10": 0.7222166666666667,
+        "refusal_ok": 0,
+        "refusal_total": 0,
+        "refusal_accuracy": null
+      },
+      "as_of_date": {
+        "count": 6,
+        "recall_at_5": 0.8333333333333334,
+        "mrr10": 0.7738166666666667,
+        "refusal_ok": 0,
+        "refusal_total": 0,
+        "refusal_accuracy": null
+      },
+      "refusal": {
+        "count": 8,
+        "recall_at_5": null,
+        "mrr10": null,
+        "refusal_ok": 0,
+        "refusal_total": 8,
+        "refusal_accuracy": 0.0
+      },
+      "confusable": {
+        "count": 6,
+        "recall_at_5": 0.6666666666666666,
+        "mrr10": 0.5833333333333334,
+        "refusal_ok": 0,
+        "refusal_total": 0,
+        "refusal_accuracy": null
+      }
+    }
+  },
+  "worst_samples": [
+    {
+      "id": "refusal-037",
+      "type": "refusal",
+      "question": "上海2025年最低月工资标准具体是多少钱？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": true,
+      "golden": [],
+      "errors": [],
+      "retrieval_seconds": 0.88,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十八条",
+          "score": 0.5253
+        },
+        {
+          "rank": 2,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 7.7873
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十九条",
+          "score": 0.5432
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十五条",
+          "score": 0.5329
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条",
+          "score": 11.0233
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十二条",
+          "score": 9.4321
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十五条",
+          "score": 0.4959
+        },
+        {
+          "rank": 8,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十六条",
+          "score": 0.4808
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十条",
+          "score": 0.5108
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第五十五条",
+          "score": 0.4812
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 13,
+        "keyword_recall_count": 20,
+        "fused_count": 29,
+        "reranked_count": 10
+      },
+      "answer_seconds": 3.29,
+      "answer": "关于上海2025年的最低月工资具体数额，我翻了一下手头的法源清单，里面并没有上海的具体标准数字，所以没法给你一个准确金额——这种情况我不能凭印象编一个数给你。\n\n能确定的是制度层面的规则：国家实行最低工资保障制度，最低工资的具体标准由省、自治区、直辖市人民政府规定，并报国务院备案；用人单位支付劳动者的工资不得低于当地最低工资标准[1]。也就是说，上海的具体金额是由上海市人民政府发文确定的，通常会由上海市人力资源和社会保障局公布并执行，可能按年度调整。\n\n如果你要查准确数字，建议直接看上海市人社局官网或“上海人社”官方渠道发布的最新通知，以官方文件为准。另外提醒一句，最低工资一般是针对正常劳动情况下的月工资，加班费、特殊工作环境津贴等通常另算，具体口径也以当地规定为准。\n\n如果你愿意说下你是想核对工资是否达标，还是处理劳动争议，我可以帮你看还能从现有材料里找到哪些支持。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第四十八条"
+        },
+        {
+          "law": "最高法发布劳动争议典型案例",
+          "article": null
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第四十九条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十五条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1
+        ],
+        "invalid": [],
+        "total": 1,
+        "correct": 1,
+        "no_citation": false
+      },
+      "elapsed_seconds": 4.17,
+      "_penalty": 50,
+      "_reason": [
+        "拒答题被作答（拒答失败）"
+      ]
+    },
+    {
+      "id": "refusal-038",
+      "type": "refusal",
+      "question": "个人所得税专项附加扣除中，子女教育每月可以扣多少钱？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": true,
+      "golden": [],
+      "errors": [],
+      "retrieval_seconds": 0.64,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "工资支付暂行规定",
+          "article": "第十六条",
+          "score": 0.4782
+        },
+        {
+          "rank": 2,
+          "law": "工资支付暂行规定",
+          "article": "第十五条",
+          "score": 0.5344
+        },
+        {
+          "rank": 3,
+          "law": "工伤保险条例",
+          "article": "第三十九条",
+          "score": 0.5147
+        },
+        {
+          "rank": 4,
+          "law": "女职工劳动保护特别规定",
+          "article": "第八条",
+          "score": 0.4746
+        },
+        {
+          "rank": 5,
+          "law": "女职工劳动保护特别规定",
+          "article": "第七条",
+          "score": 0.4829
+        },
+        {
+          "rank": 6,
+          "law": "工伤保险条例",
+          "article": "第六十四条",
+          "score": 0.4679
+        },
+        {
+          "rank": 7,
+          "law": "工伤保险条例",
+          "article": "第三十四条",
+          "score": 0.5023
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条",
+          "score": 0.4682
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十七条",
+          "score": 0.4769
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十九条",
+          "score": 0.4861
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 12,
+        "keyword_recall_count": 20,
+        "fused_count": 30,
+        "reranked_count": 10
+      },
+      "answer_seconds": 4.49,
+      "answer": "你问的是子女教育专项附加扣除的每月标准——这个说实话，我手上这批材料答不了。\n\n这次检索到的法源只有三类内容：工资支付（含代扣代缴个人所得税的规则）、工伤保险待遇、女职工劳动保护。其中和个税沾边的只有一条：《工资支付暂行规定》第十五条，规定用人单位可以代扣代缴个人所得税[2]。这条只说明\"单位帮你扣缴个税\"这件事本身合法，并不涉及专项附加扣除能扣多少、需要什么条件。\n\n关于子女教育专项附加扣除的具体金额、扣除方式（父母双方怎么分摊）、申报途径这些，属于个人所得税专项附加扣除的制度内容，本次【法源清单】里完全没有，所以我不能凭印象给你一个数字——这种数字一旦说错，会直接影响你的申报和税负判断。\n\n给你两个靠谱的下一步：\n1. 打 12366 纳税服务热线，或直接看\"个人所得税\"APP 里专项附加扣除填报页面的说明，那里的口径是最新的、也随政策调整；\n2. 如果你手头有相关的政策原文或截图，可以发给我，我帮你按条文逐句捋清楚。\n\n另外提醒一句：扣除标准这几年有过调整，网上流传的旧数字不一定还适用，以官方渠道为准更稳妥。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "工资支付暂行规定",
+          "article": "第十六条"
+        },
+        {
+          "law": "工资支付暂行规定",
+          "article": "第十五条"
+        },
+        {
+          "law": "工伤保险条例",
+          "article": "第三十九条"
+        },
+        {
+          "law": "女职工劳动保护特别规定",
+          "article": "第八条"
+        },
+        {
+          "law": "女职工劳动保护特别规定",
+          "article": "第七条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          2
+        ],
+        "invalid": [],
+        "total": 1,
+        "correct": 1,
+        "no_citation": false
+      },
+      "elapsed_seconds": 5.13,
+      "_penalty": 50,
+      "_reason": [
+        "拒答题被作答（拒答失败）"
+      ]
+    },
+    {
+      "id": "refusal-039",
+      "type": "refusal",
+      "question": "交通事故对方全责，我可以主张哪些赔偿项目？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": true,
+      "golden": [],
+      "errors": [],
+      "retrieval_seconds": 1.2,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 0.5886
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十六条",
+          "score": 9.0734
+        },
+        {
+          "rank": 3,
+          "law": "工伤保险条例",
+          "article": "第十八条",
+          "score": 0.5566
+        },
+        {
+          "rank": 4,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第五十三条",
+          "score": 0.5575
+        },
+        {
+          "rank": 5,
+          "law": "工伤保险条例",
+          "article": "第十九条",
+          "score": 0.5555
+        },
+        {
+          "rank": 6,
+          "law": "工伤保险条例",
+          "article": "第五十五条",
+          "score": 0.6067
+        },
+        {
+          "rank": 7,
+          "law": "工伤保险条例",
+          "article": "第三十二条",
+          "score": 0.5619
+        },
+        {
+          "rank": 8,
+          "law": "工伤保险条例",
+          "article": "第三十条",
+          "score": 6.7698
+        },
+        {
+          "rank": 9,
+          "law": "工伤保险条例",
+          "article": "第十四条",
+          "score": 0.5862
+        },
+        {
+          "rank": 10,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第一条",
+          "score": 0.557
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 13,
+        "keyword_recall_count": 20,
+        "fused_count": 32,
+        "reranked_count": 10
+      },
+      "answer_seconds": 5.72,
+      "answer": "你问的这个挺实际的，不过我得先说实话：**这次检索到的法源清单里，没有能支撑交通事故赔偿项目的条文**，我不能凭记忆给你列清单，那样就违反了我只能依据清单作答的原则。\n\n清单里的内容都是劳动争议和工伤方向的，比如：\n\n- 转包工程中劳动者被认定工伤后，由承包人承担工伤保险待遇责任[1]；\n- 用人单位与劳动者约定不缴社保费无效，劳动者可据此解除合同并主张经济补偿[1]；\n- 申请工伤认定需要提交工伤认定申请表、劳动关系证明材料、医疗诊断证明等[3]；\n- 追索工伤保险待遇等案件，给付数额不当的法院可以变更[4]。\n\n所以像医疗费、误工费、护理费、残疾赔偿金这些具体项目怎么算、能不能叠加主张，清单里没有依据，我就不瞎说了。\n\n有一点可以提示你：如果这起事故是在**上下班途中或因工作原因**发生的，可能同时牵涉工伤那条线，那清单里的[3][4]就用得上——但也得先看能否被认定为工伤，这个我拿不准。\n\n建议你补充一下：事故发生的具体场景（是否在上下班途中、是否在执行工作任务）、伤情程度、是否已做责任认定和伤残鉴定。有了这些，我可以帮你在清单范围内再找找对应依据；更稳妥的做法还是带着材料咨询执业律师。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "最高法发布劳动争议典型案例",
+          "article": null
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十六条"
+        },
+        {
+          "law": "工伤保险条例",
+          "article": "第十八条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第五十三条"
+        },
+        {
+          "law": "工伤保险条例",
+          "article": "第十九条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          1,
+          3,
+          4,
+          3,
+          4
+        ],
+        "invalid": [],
+        "total": 6,
+        "correct": 6,
+        "no_citation": false
+      },
+      "elapsed_seconds": 6.93,
+      "_penalty": 50,
+      "_reason": [
+        "拒答题被作答（拒答失败）"
+      ]
+    },
+    {
+      "id": "refusal-040",
+      "type": "refusal",
+      "question": "夫妻一方欠的债，另一方要一起还吗？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": true,
+      "golden": [],
+      "errors": [],
+      "retrieval_seconds": 3.95,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第五十一条",
+          "score": 10.6315
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第十五条",
+          "score": 11.6012
+        },
+        {
+          "rank": 3,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第二十三条",
+          "score": 11.0205
+        },
+        {
+          "rank": 4,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十一条",
+          "score": 0.5531
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第二十七条",
+          "score": 0.5176
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动法",
+          "article": "第八十三条",
+          "score": 10.1224
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动法",
+          "article": "第八十条",
+          "score": 0.508
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第三十条",
+          "score": 0.5202
+        },
+        {
+          "rank": 9,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四条",
+          "score": 7.9653
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十六条",
+          "score": 0.5074
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 14,
+        "keyword_recall_count": 20,
+        "fused_count": 34,
+        "reranked_count": 10
+      },
+      "answer_seconds": 5.03,
+      "answer": "抱歉，本次回答未通过引用校验：回答缺少可核查的法条引用，无法保证内容可靠性。\n\n建议：\n1. 重新提问，或补充具体事实信息（发生时间、涉及主体、具体行为）\n2. 若涉及具体纠纷或权益，请携带完整材料咨询执业律师\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_failed: 回答中没有任何引用编号，但包含实质性结论",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第五十一条"
+        },
+        {
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第十五条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第二十三条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十一条"
+        },
+        {
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第二十七条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [],
+        "invalid": [],
+        "total": 0,
+        "correct": 0,
+        "no_citation": true
+      },
+      "elapsed_seconds": 8.98,
+      "_penalty": 50,
+      "_reason": [
+        "拒答题被作答（拒答失败）"
+      ]
+    },
+    {
+      "id": "refusal-041",
+      "type": "refusal",
+      "question": "新公司法对注册资本认缴期限有什么要求？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": true,
+      "golden": [],
+      "errors": [],
+      "retrieval_seconds": 0.83,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第五十七条",
+          "score": 0.5979
+        },
+        {
+          "rank": 2,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 0.4961
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十四条",
+          "score": 0.5052
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第九十七条",
+          "score": 0.533
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十七条",
+          "score": 0.5147
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十条",
+          "score": 6.108
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十四条",
+          "score": 0.5013
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第三十三条",
+          "score": 0.5169
+        },
+        {
+          "rank": 9,
+          "law": "工资支付暂行规定",
+          "article": "第二十条",
+          "score": 0.5378
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十条",
+          "score": 8.6238
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 14,
+        "keyword_recall_count": 20,
+        "fused_count": 33,
+        "reranked_count": 10
+      },
+      "answer_seconds": 4.42,
+      "answer": "这个问题挺关键的，但说实话，这次检索到的法源里**没有**新《公司法》关于注册资本认缴期限的条文，所以具体几年的要求我不能凭空给你说，免得误导你。\n\n我能从清单里说清楚的，只有一条跟\"注册资本\"沾边的内容：《劳动合同法》对经营劳务派遣业务的公司有注册资本要求——注册资本不得少于人民币二百万元，并且要取得劳动行政部门的行政许可[1]。但这是劳务派遣行业的**准入门槛**，跟股东出资的\"认缴期限\"是两回事，不能拿来套用。\n\n清单里其余材料，比如最高法劳动争议典型案例[2]、竞业限制期限不得超过二年[3]、经济补偿年限计算[4]、经济性裁员程序[5]，都属于劳动法领域，和公司注册资本登记制度没有关系。\n\n所以关于认缴期限，暂时没法给你有出处的答案。如果你愿意，可以补充一下你的具体场景（比如是2024年7月之后新设的公司、还是存量公司调整出资安排），或者告诉我需要查《公司法》哪一条，我再基于对应的法源帮你梳理。涉及工商登记的具体操作，各地市场监管部门的执行口径可能有差异，稳妥起见建议向当地登记机关确认，或者咨询执业律师。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。\n\n⚠️ 提示：回答中提到的部分法规名称不在本次检索到的法源清单内，相关表述未经原文核对，请以官方发布文本为准。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_warning_unknown_law: 回答中提到了清单外的法规：《公司法》。只能使用清单内的法规：《中华人民共和国劳动合同法》, 《最高法发布劳动争议典型案例》, 《中华人民共和国劳动合同法》, 《中华人民共和国劳动合同法》, 《中华人民共和国劳动法》",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第五十七条"
+        },
+        {
+          "law": "最高法发布劳动争议典型案例",
+          "article": null
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十四条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第九十七条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第二十七条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "invalid": [],
+        "total": 5,
+        "correct": 5,
+        "no_citation": false
+      },
+      "elapsed_seconds": 5.25,
+      "_penalty": 50,
+      "_reason": [
+        "拒答题被作答（拒答失败）"
+      ]
+    }
+  ],
+  "details": [
+    {
+      "id": "direct-001",
+      "type": "direct_article",
+      "question": "签三年期劳动合同，试用期最长不能超过多久？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第十九条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.96,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十一条",
+          "score": 0.7801
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十九条",
+          "score": 0.7956
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十三条",
+          "score": 0.6815
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十条",
+          "score": 0.6789
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十一条",
+          "score": 0.6495
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动法",
+          "article": "第三十二条",
+          "score": 0.6456
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十六条",
+          "score": 7.4381
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十条",
+          "score": 0.6473
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十条",
+          "score": 6.6381
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十五条",
+          "score": 0.6407
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 10,
+        "keyword_recall_count": 20,
+        "fused_count": 24,
+        "reranked_count": 10
+      },
+      "golden_rank": 2,
+      "hit_at_5": true,
+      "reciprocal_rank": 0.5,
+      "mrr_applicable": true,
+      "mrr10": 0.5,
+      "answer_seconds": 3.25,
+      "answer": "签三年期的合同，试用期最长是**六个月**。\n\n依据是《劳动合同法》第十九条：三年以上固定期限和无固定期限的劳动合同，试用期不得超过六个月[2]。《劳动法》第二十一条也明确，试用期最长不得超过六个月[1]。所以三年期正好落在\"三年以上\"这一档，上限就是六个月。\n\n顺带提醒两个容易被忽略的点：\n\n- 同一个用人单位和同一个劳动者，只能约定一次试用期，不能换岗、续签再\"重新试用\"一遍[2]。\n- 试用期是算在劳动合同期限里的，不是合同之外的额外时间；如果合同只写了试用期、没写正式期限，那试用期不成立，这段期限直接算作劳动合同期限[2]。\n\n另外，如果单位约定的试用期超过法定上限，劳动行政部门可以责令改正；超期部分已经实际履行的，单位要按你试用期满后的月工资为标准，就超出的那段时间支付赔偿金[3]。\n\n你的合同具体是怎么写的，如果拿不准可以再说说细节。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第二十一条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十九条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十三条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十一条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          2,
+          1,
+          2,
+          2,
+          3
+        ],
+        "invalid": [],
+        "total": 5,
+        "correct": 5,
+        "no_citation": false
+      },
+      "elapsed_seconds": 4.21,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "direct-002",
+      "type": "direct_article",
+      "question": "试用期工资最低不能低于多少？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第二十条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 4.59,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十五条",
+          "score": 0.7605
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十条",
+          "score": 0.7525
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十八条",
+          "score": 0.6163
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十九条",
+          "score": 0.6607
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十一条",
+          "score": 0.6593
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十三条",
+          "score": 0.6042
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十二条",
+          "score": 0.6191
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十四条",
+          "score": 12.2337
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十九条",
+          "score": 0.5954
+        },
+        {
+          "rank": 10,
+          "law": "工资支付暂行规定",
+          "article": "第十八条",
+          "score": 8.7914
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 9,
+        "keyword_recall_count": 20,
+        "fused_count": 25,
+        "reranked_count": 10
+      },
+      "golden_rank": 2,
+      "hit_at_5": true,
+      "reciprocal_rank": 0.5,
+      "mrr_applicable": true,
+      "mrr10": 0.5,
+      "answer_seconds": 4.74,
+      "answer": "试用期工资的底线其实是两条，得同时满足：\n\n**第一条：相对底线——不能低于\"八折\"**\n劳动者在试用期的工资不得低于本单位相同岗位最低档工资的80%，或者不得低于劳动合同约定工资的80%[1][2]。简单说，就是拿同岗位最低档工资或合同里约定的工资作比较，打八折是下限。\n\n**第二条：绝对底线——不能低于当地最低工资**\n同时，还不得低于用人单位所在地的最低工资标准[1][2][3]。这条是硬杠杠，哪怕按八折算出来的钱比它低，也得按最低工资发。最低工资的具体标准由省、自治区、直辖市人民政府规定，报国务院备案[3]。\n\n所以，如果合同约定工资的80%低于当地最低工资，实际就得按当地最低工资来发。\n\n需要说明的是，各地最低工资的具体数额不一样，我这边没法给出一个统一数字，你可以查一下用人单位所在地人社部门公布的最新标准。\n\n如果你愿意说一下所在城市、合同约定的工资和同岗位最低档工资，我可以帮你把这两条底线具体套一套。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十五条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第四十八条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十九条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第二十一条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          2,
+          1,
+          2,
+          3,
+          3
+        ],
+        "invalid": [],
+        "total": 6,
+        "correct": 6,
+        "no_citation": false
+      },
+      "elapsed_seconds": 9.33,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "direct-003",
+      "type": "direct_article",
+      "question": "入职后公司一直不签书面劳动合同，我可以要求什么赔偿？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第八十二条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 1.51,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第六条",
+          "score": 0.7053
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第五条",
+          "score": 0.6808
+        },
+        {
+          "rank": 3,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第七条",
+          "score": 0.6721
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十二条",
+          "score": 0.6817
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第七条",
+          "score": 0.6817
+        },
+        {
+          "rank": 6,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 0.6792
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第九十七条",
+          "score": 0.6508
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十一条",
+          "score": 0.6757
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十九条",
+          "score": 0.693
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十条",
+          "score": 0.6602
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 11,
+        "keyword_recall_count": 20,
+        "fused_count": 28,
+        "reranked_count": 10
+      },
+      "golden_rank": 4,
+      "hit_at_5": true,
+      "reciprocal_rank": 0.25,
+      "mrr_applicable": true,
+      "mrr10": 0.25,
+      "answer_seconds": 7.73,
+      "answer": "遇上这种情况确实挺让人头疼的。简单说，你能主张的主要是**二倍工资**和**补订书面合同**这两块。\n\n1. **二倍工资**：公司自用工之日起超过一个月不满一年没跟你签书面合同的，应当每月向你支付两倍的工资[4]。起算时间是\"用工之日起满一个月的次日\"，截止到\"补订书面合同的前一日\"[1]。\n\n2. **满一年仍未签**：从用工满一个月的次日至满一年的前一日，公司仍应支付两倍工资；同时从用工满一年那天起，视为已经和你订立了**无固定期限劳动合同**（就是没有确定终止时间的合同），公司应当立即补订书面合同[5]。\n\n3. **可能不支持的情形**：你主张二倍工资，法院一般会支持，但如果公司能举证证明是因不可抗力、或者你本人故意或重大过失导致没签的，就可能不予支持[3]。\n\n另外要注意\"是谁不签\"：如果是公司书面通知后你不愿订，公司可以书面通知终止劳动关系，且无需支付经济补偿[2]。所以建议你保留曾要求签合同的微信、邮件等记录。\n\n方便的话可以说下你入职多久了，能帮你判断大概能主张到哪一段。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第六条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第五条"
+        },
+        {
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第七条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十二条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第七条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          4,
+          1,
+          5,
+          3,
+          2
+        ],
+        "invalid": [],
+        "total": 5,
+        "correct": 5,
+        "no_citation": false
+      },
+      "elapsed_seconds": 9.24,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "direct-004",
+      "type": "direct_article",
+      "question": "什么情况下应当订立无固定期限劳动合同？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第十四条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.93,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十四条",
+          "score": 0.8163
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十一条",
+          "score": 0.7688
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十条",
+          "score": 0.7627
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十九条",
+          "score": 0.7246
+        },
+        {
+          "rank": 5,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第九条",
+          "score": 0.7074
+        },
+        {
+          "rank": 6,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第十一条",
+          "score": 0.7441
+        },
+        {
+          "rank": 7,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十四条",
+          "score": 0.7559
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十八条",
+          "score": 0.6973
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十二条",
+          "score": 0.7343
+        },
+        {
+          "rank": 10,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第八条",
+          "score": 0.7051
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 12,
+        "keyword_recall_count": 20,
+        "fused_count": 23,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 4.72,
+      "answer": "抱歉，本次回答未通过引用校验：回答缺少可核查的法条引用，无法保证内容可靠性。\n\n建议：\n1. 重新提问，或补充具体事实信息（发生时间、涉及主体、具体行为）\n2. 若涉及具体纠纷或权益，请携带完整材料咨询执业律师\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_failed: 发现无引用的实质性结论：「关于\"什么情况下应当订立无固定期限劳动合同\"，咱们分几种情形来看...」。每个实质结论后必须标注引用编号。",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十四条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十一条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第二十条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十九条"
+        },
+        {
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第九条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [],
+        "invalid": [],
+        "total": 0,
+        "correct": 0,
+        "no_citation": true
+      },
+      "elapsed_seconds": 5.65,
+      "_penalty": 5,
+      "_reason": [
+        "回答无任何引用"
+      ]
+    },
+    {
+      "id": "direct-005",
+      "type": "direct_article",
+      "question": "正式员工想辞职，需要提前多久通知公司？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第三十七条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 1.17,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动法",
+          "article": "第三十一条",
+          "score": 0.6901
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第三十七条",
+          "score": 0.6991
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十六条",
+          "score": 0.6647
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十条",
+          "score": 0.6542
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十八条",
+          "score": 0.6472
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第五条",
+          "score": 0.6219
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十七条",
+          "score": 0.6758
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十一条",
+          "score": 0.6391
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动法",
+          "article": "第三十二条",
+          "score": 0.6328
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十三条",
+          "score": 0.6211
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 13,
+        "keyword_recall_count": 20,
+        "fused_count": 27,
+        "reranked_count": 10
+      },
+      "golden_rank": 2,
+      "hit_at_5": true,
+      "reciprocal_rank": 0.5,
+      "mrr_applicable": true,
+      "mrr10": 0.5,
+      "answer_seconds": 3.77,
+      "answer": "正式员工辞职，核心答案就一句话：**提前 30 天，用书面形式通知公司**[2]。\n\n具体说几点你可能关心的：\n\n1. **正式员工**：提前三十日以书面形式通知用人单位，就可以解除劳动合同[2]；《劳动法》也是同样口径，劳动者解除劳动合同应当提前三十日以书面形式通知用人单位[1]。注意是\"通知\"，不是\"申请批准\"——你履行了提前通知的义务，期限到了就可以走。\n\n2. **还在试用期**：只需提前三日通知用人单位[2]，而且法规里也明确了劳动者在试用期内提前 3 日通知即可解除[5]。\n\n3. **公司本身有问题的情况**：如果公司未按约定提供劳动保护或劳动条件、未及时足额支付劳动报酬、未依法缴纳社保等，劳动者可以依法解除合同[5]，这类情形不受\"提前 30 天\"的限制。\n\n4. **书面形式建议留痕**：邮件、微信、快递等能证明送达时间的方式都算，具体认定可能因情况而异。\n\n如果你现在正卡在\"提交了但公司不批\"这一步，可以补充说说具体情况，我再帮你理一理。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第三十一条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第三十七条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第二十六条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十八条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          2,
+          2,
+          1,
+          2,
+          5,
+          5
+        ],
+        "invalid": [],
+        "total": 6,
+        "correct": 6,
+        "no_citation": false
+      },
+      "elapsed_seconds": 4.94,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "direct-006",
+      "type": "direct_article",
+      "question": "公司合法裁员的，经济补偿按什么标准算？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第四十七条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 1.33,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十七条",
+          "score": 0.7005
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条",
+          "score": 0.6885
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十五条",
+          "score": 0.6514
+        },
+        {
+          "rank": 4,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十六条",
+          "score": 0.6652
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十七条",
+          "score": 10.8973
+        },
+        {
+          "rank": 6,
+          "law": "工资支付暂行规定",
+          "article": "第十六条",
+          "score": 0.664
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十八条",
+          "score": 0.6588
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第九十七条",
+          "score": 0.6512
+        },
+        {
+          "rank": 9,
+          "law": "工资支付暂行规定",
+          "article": "第十八条",
+          "score": 0.6669
+        },
+        {
+          "rank": 10,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 12.489
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 11,
+        "keyword_recall_count": 20,
+        "fused_count": 27,
+        "reranked_count": 10
+      },
+      "golden_rank": 2,
+      "hit_at_5": true,
+      "reciprocal_rank": 0.5,
+      "mrr_applicable": true,
+      "mrr10": 0.5,
+      "answer_seconds": 3.7,
+      "answer": "公司合法裁员（比如经济性裁员、协商一致解除等），一般支付的是**经济补偿**，不是违法解除才有的赔偿金。怎么算，主要看两条。\n\n**算多少个月**：按你在这家公司工作的年限，每满一年算一个月工资；六个月以上不满一年按一年算；不满六个月算半个月工资[2]。\n\n**一个月工资怎么定**：指的是劳动合同解除或终止前十二个月的平均工资[2]，而且是**应得工资**，包括计时或计件工资、奖金、津贴和补贴等货币性收入；如果前12个月平均工资低于当地最低工资标准，就按最低工资标准算；工作不满12个月的，按实际工作的月数平均[1]。\n\n**有个封顶规则**：如果你的月工资高于用人单位所在直辖市或设区的市公布的上年度职工月平均工资三倍，就按三倍封顶算，且支付年限最高不超过12年[2]。\n\n所以大致是「年限 × 月平均工资」，高收入人群可能被\"三倍+12年\"这两道线卡住。具体金额还得看你实际工资构成和当地公布的数据。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十七条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十五条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十六条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十七条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          2,
+          2,
+          1,
+          2
+        ],
+        "invalid": [],
+        "total": 4,
+        "correct": 4,
+        "no_citation": false
+      },
+      "elapsed_seconds": 5.03,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "direct-007",
+      "type": "direct_article",
+      "question": "竞业限制期限最长可以约定几年？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第二十四条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 1.12,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十四条",
+          "score": 0.77
+        },
+        {
+          "rank": 2,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 0.6095
+        },
+        {
+          "rank": 3,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十八条",
+          "score": 0.6282
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十三条",
+          "score": 0.6014
+        },
+        {
+          "rank": 5,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十六条",
+          "score": 0.6109
+        },
+        {
+          "rank": 6,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十九条",
+          "score": 0.6526
+        },
+        {
+          "rank": 7,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第十四条",
+          "score": 0.623
+        },
+        {
+          "rank": 8,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第十三条",
+          "score": 0.6033
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十一条",
+          "score": 14.2853
+        },
+        {
+          "rank": 10,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十七条",
+          "score": 13.2762
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 9,
+        "keyword_recall_count": 20,
+        "fused_count": 23,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 3.31,
+      "answer": "竞业限制期限最长是**两年**。\n\n《劳动合同法》第二十四条明确：竞业限制的人员限于用人单位的高级管理人员、高级技术人员和其他负有保密义务的人员；对这类人员，在解除或者终止劳动合同后，到与本单位生产或经营同类产品、从事同类业务的有竞争关系的其他用人单位，或者自己开业生产、经营同类产品、从事同类业务的，竞业限制期限**不得超过二年**[1]。\n\n简单说几点方便你理解：\n\n- 两年是上限，约定三年、五年的，超出部分通常不被支持；约定一年、一年半也都合法，关键看双方约定。\n- 这个期限是从劳动合同解除或终止之后起算的，在职期间本来就有忠实义务，不在\"两年\"这个框架里[2]。\n- 另外提醒一下，约定了竞业限制，单位应当在竞业限制期内按月给经济补偿；如果因为单位的原因三个月没支付补偿，劳动者可以请求解除这个竞业限制约定[3][4]。\n\n如果你是想判断自己签的协议是否有效，可以再告诉我：你是哪类岗位、协议里约定了多久、有没有约定补偿，我帮你对着条文看看。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十四条"
+        },
+        {
+          "law": "最高法发布劳动争议典型案例",
+          "article": null
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十八条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十三条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十六条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "invalid": [],
+        "total": 4,
+        "correct": 4,
+        "no_citation": false
+      },
+      "elapsed_seconds": 4.43,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "direct-008",
+      "type": "direct_article",
+      "question": "非全日制用工每天和每周的工作时间是怎么规定的？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第六十八条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 3.83,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第六十八条",
+          "score": 0.7891
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动法",
+          "article": "第三十六条",
+          "score": 0.6424
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十一条",
+          "score": 0.6129
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十二条",
+          "score": 0.6976
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第六十九条",
+          "score": 0.6409
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第三十条",
+          "score": 0.6078
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十一条",
+          "score": 0.6598
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十条",
+          "score": 0.6347
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第六十七条",
+          "score": 0.698
+        },
+        {
+          "rank": 10,
+          "law": "工资支付暂行规定",
+          "article": "第十三条",
+          "score": 0.6183
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 10,
+        "keyword_recall_count": 20,
+        "fused_count": 26,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 3.08,
+      "answer": "非全日制用工，简单说就是\"小时工\"这种用工形式。它的时间限制，法律是有明确规定的：\n\n**每天一般不超过4小时，每周累计不超过24小时**[1]。\n\n这里有两个点值得注意：\n- 是\"以小时计酬为主\"的用工形式，计酬方式跟全日制不一样[1]；\n- 每天4小时是\"一般平均\"的口径，每周24小时是累计上限[1]。\n\n另外两个与此相关的规则，顺便说一下：\n- 非全日制用工可以订口头协议，而且劳动者可以同时与一个以上单位建立这种关系，只是后订的合同不能影响先订的合同履行[5]；\n- 报酬方面，小时工资不能低于用人单位所在地的最低小时工资标准，结算支付周期最长不超过15日[4]。\n\n至于标准工时制（每日不超过8小时、每周平均不超过44小时）[2]和加班上限（一般每日不超过1小时，特殊原因每日不超过3小时、每月不超过36小时）[3]，那是针对全日制用工的，和非全日制是两套不同的规则，别混着用。\n\n如果你是想确认自己的排班算不算合规，可以告诉我具体每天、每周大概的工时安排，我帮你对一下。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第六十八条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第三十六条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第四十一条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十二条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第六十九条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          1,
+          1,
+          5,
+          4,
+          2,
+          3
+        ],
+        "invalid": [],
+        "total": 7,
+        "correct": 7,
+        "no_citation": false
+      },
+      "elapsed_seconds": 6.92,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "direct-009",
+      "type": "direct_article",
+      "question": "做兼职（非全日制用工）可以约定试用期吗？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第七十条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.76,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十条",
+          "score": 0.7587
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十一条",
+          "score": 0.7261
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十九条",
+          "score": 0.713
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十三条",
+          "score": 0.6648
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十七条",
+          "score": 0.6611
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第六十九条",
+          "score": 0.6777
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十二条",
+          "score": 0.65
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第六十八条",
+          "score": 0.6676
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十一条",
+          "score": 0.6685
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第六十七条",
+          "score": 11.6018
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 10,
+        "keyword_recall_count": 20,
+        "fused_count": 23,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 3.75,
+      "answer": "抱歉，本次回答未通过引用校验：回答缺少可核查的法条引用，无法保证内容可靠性。\n\n建议：\n1. 重新提问，或补充具体事实信息（发生时间、涉及主体、具体行为）\n2. 若涉及具体纠纷或权益，请携带完整材料咨询执业律师\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_failed: 发现无引用的实质性结论：「《劳动合同法》第七十条直接规定：\"非全日制用工双方当事人不得约定试用期...」。每个实质结论后必须标注引用编号。",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第二十一条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十九条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十三条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十七条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [],
+        "invalid": [],
+        "total": 0,
+        "correct": 0,
+        "no_citation": true
+      },
+      "elapsed_seconds": 4.52,
+      "_penalty": 5,
+      "_reason": [
+        "回答无任何引用"
+      ]
+    },
+    {
+      "id": "direct-010",
+      "type": "direct_article",
+      "question": "女职工生育产假有多少天？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "女职工劳动保护特别规定",
+          "article": "第七条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.86,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "女职工劳动保护特别规定",
+          "article": "第七条",
+          "score": 0.8202
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动法",
+          "article": "第六十二条",
+          "score": 0.8152
+        },
+        {
+          "rank": 3,
+          "law": "职工带薪年休假条例",
+          "article": "第三条",
+          "score": 0.6417
+        },
+        {
+          "rank": 4,
+          "law": "女职工劳动保护特别规定",
+          "article": "第八条",
+          "score": 0.6724
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动法",
+          "article": "第六十一条",
+          "score": 0.597
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动法",
+          "article": "第六十三条",
+          "score": 0.6038
+        },
+        {
+          "rank": 7,
+          "law": "女职工劳动保护特别规定",
+          "article": "第六条",
+          "score": 0.6331
+        },
+        {
+          "rank": 8,
+          "law": "女职工劳动保护特别规定",
+          "article": "第九条",
+          "score": 0.6235
+        },
+        {
+          "rank": 9,
+          "law": "女职工劳动保护特别规定",
+          "article": "第十六条",
+          "score": 0.6076
+        },
+        {
+          "rank": 10,
+          "law": "女职工劳动保护特别规定",
+          "article": "第五条",
+          "score": 10.2513
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 11,
+        "keyword_recall_count": 20,
+        "fused_count": 26,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 3.4,
+      "answer": "女职工的基础产假是 **98天**，其中可以在产前先休15天[1]。另外还有几种能往上加的情形：\n\n- 难产的，增加15天[1]；\n- 生育多胞胎的，每多生育1个婴儿，增加15天[1]。\n\n比如顺产单胎就是98天；剖宫产（一般属难产情形）可到113天；双胞胎顺产也是113天。\n\n如果是流产，按怀孕时长算：怀孕未满4个月流产的，享受15天产假；怀孕满4个月流产的，享受42天产假[1]。\n\n《劳动法》那边有一条底线性规定——女职工生育享受不少于九十天的产假[2]，98天是在这个底线之上的具体标准。\n\n还有两点可能你会关心：产假期间的生育津贴，参加生育保险的按用人单位上年度职工月平均工资标准由生育保险基金支付，没参加的按产假前工资标准由单位支付[4]；怀孕七个月以上的，单位不得安排延长工作时间和夜班劳动[5]。另外，很多地方在98天基础上还有地方性的奖励假（比如各省的生育假），那部分属于地方规定，不在本次检索范围内，需要看所在省份的人口与计划生育条例，我可以不说准。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "女职工劳动保护特别规定",
+          "article": "第七条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第六十二条"
+        },
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第三条"
+        },
+        {
+          "law": "女职工劳动保护特别规定",
+          "article": "第八条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第六十一条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          1,
+          1,
+          1,
+          2,
+          4,
+          5
+        ],
+        "invalid": [],
+        "total": 7,
+        "correct": 7,
+        "no_citation": false
+      },
+      "elapsed_seconds": 4.26,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "direct-011",
+      "type": "direct_article",
+      "question": "年休假一般有几天？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第三条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 4.92,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "职工带薪年休假条例",
+          "article": "第三条",
+          "score": 0.7494
+        },
+        {
+          "rank": 2,
+          "law": "职工带薪年休假条例",
+          "article": "第五条",
+          "score": 0.6718
+        },
+        {
+          "rank": 3,
+          "law": "女职工劳动保护特别规定",
+          "article": "第七条",
+          "score": 0.6308
+        },
+        {
+          "rank": 4,
+          "law": "职工带薪年休假条例",
+          "article": "第四条",
+          "score": 0.6982
+        },
+        {
+          "rank": 5,
+          "law": "职工带薪年休假条例",
+          "article": "第二条",
+          "score": 0.6836
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十五条",
+          "score": 0.6973
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十条",
+          "score": 0.6394
+        },
+        {
+          "rank": 8,
+          "law": "职工带薪年休假条例",
+          "article": "第七条",
+          "score": 0.608
+        },
+        {
+          "rank": 9,
+          "law": "职工带薪年休假条例",
+          "article": "第六条",
+          "score": 7.0054
+        },
+        {
+          "rank": 10,
+          "law": "职工带薪年休假条例",
+          "article": "第八条",
+          "score": 6.312
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 8,
+        "keyword_recall_count": 20,
+        "fused_count": 22,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 3.46,
+      "answer": "年休假的天数主要看你的**累计工作年限**，具体是这样的：\n\n- 累计工作满1年、不满10年：5天；\n- 累计工作满10年、不满20年：10天；\n- 累计工作满20年：15天[1]。\n\n这里的\"累计工作年限\"是指你参加工作以来的总年限，不限于现在这家单位。另外，国家法定休假日、休息日是不计入年休假假期的[1]，也就是说假期可以连着周末一起休，实际休息天数会更多。\n\n前提是你要符合享受条件：连续工作1年以上，才享受带薪年休假[5]。休假期间，工资收入跟正常上班时一样[5]。\n\n需要提醒的是，有几种情况当年不享受年休假，比如请事假累计20天以上且单位不扣工资的、病假达到一定时长的等[4]，具体要看你属于哪种情形。\n\n如果你方便说一下自己的工作年限和单位情况，我可以帮你对照看看具体能休几天。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第三条"
+        },
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第五条"
+        },
+        {
+          "law": "女职工劳动保护特别规定",
+          "article": "第七条"
+        },
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第四条"
+        },
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第二条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          1,
+          5,
+          5,
+          4
+        ],
+        "invalid": [],
+        "total": 5,
+        "correct": 5,
+        "no_citation": false
+      },
+      "elapsed_seconds": 8.38,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "direct-012",
+      "type": "direct_article",
+      "question": "公司一直不安排休年假，也没给补偿，我可以主张什么？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第五条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 1.68,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "职工带薪年休假条例",
+          "article": "第七条",
+          "score": 0.7057
+        },
+        {
+          "rank": 2,
+          "law": "职工带薪年休假条例",
+          "article": "第五条",
+          "score": 0.6681
+        },
+        {
+          "rank": 3,
+          "law": "职工带薪年休假条例",
+          "article": "第八条",
+          "score": 0.6184
+        },
+        {
+          "rank": 4,
+          "law": "职工带薪年休假条例",
+          "article": "第六条",
+          "score": 0.6383
+        },
+        {
+          "rank": 5,
+          "law": "职工带薪年休假条例",
+          "article": "第二条",
+          "score": 0.6464
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十五条",
+          "score": 0.6365
+        },
+        {
+          "rank": 7,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 0.638
+        },
+        {
+          "rank": 8,
+          "law": "职工带薪年休假条例",
+          "article": "第四条",
+          "score": 0.6673
+        },
+        {
+          "rank": 9,
+          "law": "工伤保险条例",
+          "article": "第五十五条",
+          "score": 0.6105
+        },
+        {
+          "rank": 10,
+          "law": "工伤保险条例",
+          "article": "第十七条",
+          "score": 0.6128
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 10,
+        "keyword_recall_count": 20,
+        "fused_count": 28,
+        "reranked_count": 10
+      },
+      "golden_rank": 2,
+      "hit_at_5": true,
+      "reciprocal_rank": 0.5,
+      "mrr_applicable": true,
+      "mrr10": 0.5,
+      "answer_seconds": 5.49,
+      "answer": "抱歉，本次回答未通过引用校验：回答缺少可核查的法条引用，无法保证内容可靠性。\n\n建议：\n1. 重新提问，或补充具体事实信息（发生时间、涉及主体、具体行为）\n2. 若涉及具体纠纷或权益，请携带完整材料咨询执业律师\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_failed: 引用编号 [6] 越界：法源清单只有 5 条，有效范围是 [1] 到 [5]",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第七条"
+        },
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第五条"
+        },
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第八条"
+        },
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第六条"
+        },
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第二条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [],
+        "invalid": [],
+        "total": 0,
+        "correct": 0,
+        "no_citation": true
+      },
+      "elapsed_seconds": 7.17,
+      "_penalty": 5,
+      "_reason": [
+        "回答无任何引用"
+      ]
+    },
+    {
+      "id": "direct-013",
+      "type": "direct_article",
+      "question": "上下班路上被车撞了算工伤吗？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "工伤保险条例",
+          "article": "第十四条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.63,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "工伤保险条例",
+          "article": "第十四条",
+          "score": 0.7133
+        },
+        {
+          "rank": 2,
+          "law": "工伤保险条例",
+          "article": "第十九条",
+          "score": 0.6204
+        },
+        {
+          "rank": 3,
+          "law": "工伤保险条例",
+          "article": "第十五条",
+          "score": 0.6539
+        },
+        {
+          "rank": 4,
+          "law": "工伤保险条例",
+          "article": "第十六条",
+          "score": 0.6385
+        },
+        {
+          "rank": 5,
+          "law": "工伤保险条例",
+          "article": "第十八条",
+          "score": 0.612
+        },
+        {
+          "rank": 6,
+          "law": "工伤保险条例",
+          "article": "第三十条",
+          "score": 0.6391
+        },
+        {
+          "rank": 7,
+          "law": "工伤保险条例",
+          "article": "第十七条",
+          "score": 0.6459
+        },
+        {
+          "rank": 8,
+          "law": "工伤保险条例",
+          "article": "第三十八条",
+          "score": 4.5633
+        },
+        {
+          "rank": 9,
+          "law": "工伤保险条例",
+          "article": "第六十六条",
+          "score": 0.6195
+        },
+        {
+          "rank": 10,
+          "law": "工伤保险条例",
+          "article": "第五十七条",
+          "score": 4.4968
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 10,
+        "keyword_recall_count": 20,
+        "fused_count": 29,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 3.69,
+      "answer": "上下班路上被车撞，能不能算工伤，关键看一个东西——交警那份事故责任认定：只要你不是\"主要责任\"[1]。\n\n《工伤保险条例》第十四条列了几种应当认定为工伤的情形，其中第六项就是\"在上下班途中，受到非本人主要责任的交通事故或者城市轨道交通、客运轮渡、火车事故伤害的\"[1]。也就是说，得同时满足两点：一是\"上下班途中\"，二是\"非本人主要责任\"（同等责任、次要责任、无责任都算）。如果你自己负主要责任或全部责任，这一条就套不上了。\n\n另外提醒一句，即便符合第十四条，如果有故意犯罪、醉酒或吸毒、自残或自杀这些情形，也不得认定为工伤[4]。\n\n实操上，一般要提交工伤认定申请表、能证明劳动关系的材料、医疗诊断证明等[5]。如果单位不认为你算工伤，举证责任在单位那边，不用你自己扛着证明[2]。\n\n所以现在最要紧的，是拿到事故责任认定书，看上面怎么划分责任。这个结论直接决定后面怎么走。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "工伤保险条例",
+          "article": "第十四条"
+        },
+        {
+          "law": "工伤保险条例",
+          "article": "第十九条"
+        },
+        {
+          "law": "工伤保险条例",
+          "article": "第十五条"
+        },
+        {
+          "law": "工伤保险条例",
+          "article": "第十六条"
+        },
+        {
+          "law": "工伤保险条例",
+          "article": "第十八条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          1,
+          4,
+          5,
+          2
+        ],
+        "invalid": [],
+        "total": 5,
+        "correct": 5,
+        "no_citation": false
+      },
+      "elapsed_seconds": 4.32,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "direct-014",
+      "type": "direct_article",
+      "question": "工伤停工留薪期间工资怎么发？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "工伤保险条例",
+          "article": "第三十三条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.79,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "工伤保险条例",
+          "article": "第三十三条",
+          "score": 0.7998
+        },
+        {
+          "rank": 2,
+          "law": "工伤保险条例",
+          "article": "第三十九条",
+          "score": 0.7132
+        },
+        {
+          "rank": 3,
+          "law": "工伤保险条例",
+          "article": "第四十一条",
+          "score": 0.7377
+        },
+        {
+          "rank": 4,
+          "law": "工资支付暂行规定",
+          "article": "第十二条",
+          "score": 0.6998
+        },
+        {
+          "rank": 5,
+          "law": "工伤保险条例",
+          "article": "第三十五条",
+          "score": 0.7071
+        },
+        {
+          "rank": 6,
+          "law": "工伤保险条例",
+          "article": "第三十六条",
+          "score": 0.6971
+        },
+        {
+          "rank": 7,
+          "law": "工伤保险条例",
+          "article": "第三十七条",
+          "score": 0.6998
+        },
+        {
+          "rank": 8,
+          "law": "工伤保险条例",
+          "article": "第三十一条",
+          "score": 7.7296
+        },
+        {
+          "rank": 9,
+          "law": "工伤保险条例",
+          "article": "第十五条",
+          "score": 0.6821
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动法",
+          "article": "第五十一条",
+          "score": 7.7773
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 8,
+        "keyword_recall_count": 20,
+        "fused_count": 25,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 3.53,
+      "answer": "遇到工伤这种事，工资怎么发确实是大家最关心的。根据规定，职工因工作遭受事故伤害或患职业病，需要暂停工作接受工伤医疗的，在停工留薪期内，**原工资福利待遇不变，由所在单位按月支付**[1]。\n\n关于期限：停工留薪期一般不超过12个月；伤情严重或者情况特殊的，经设区的市级劳动能力鉴定委员会确认，可以适当延长，但延长不得超过12个月[1]。也就是说，最长一般不超过24个月。\n\n两个节点要注意：\n- **评定伤残等级后**，停发原待遇，改按伤残待遇的有关规定执行[1]；\n- 停工留薪期满后仍需治疗的，继续享受工伤医疗待遇[1]。\n\n另外，如果生活不能自理、在停工留薪期需要护理的，由所在单位负责[1]。\n\n至于\"原工资\"具体按哪些项目、什么口径计算，你给的这份材料里没有进一步规定，各地做法也可能有差异，这点我拿不准，建议结合你的工资条、劳动合同咨询当地社保部门或执业律师。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "工伤保险条例",
+          "article": "第三十三条"
+        },
+        {
+          "law": "工伤保险条例",
+          "article": "第三十九条"
+        },
+        {
+          "law": "工伤保险条例",
+          "article": "第四十一条"
+        },
+        {
+          "law": "工资支付暂行规定",
+          "article": "第十二条"
+        },
+        {
+          "law": "工伤保险条例",
+          "article": "第三十五条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "invalid": [],
+        "total": 5,
+        "correct": 5,
+        "no_citation": false
+      },
+      "elapsed_seconds": 4.31,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "direct-015",
+      "type": "direct_article",
+      "question": "周末和节假日加班费怎么算？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动法",
+          "article": "第四十四条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.76,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "工资支付暂行规定",
+          "article": "第七条",
+          "score": 0.6335
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第三十一条",
+          "score": 0.6342
+        },
+        {
+          "rank": 3,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十二条",
+          "score": 4.5674
+        },
+        {
+          "rank": 4,
+          "law": "工资支付暂行规定",
+          "article": "第十三条",
+          "score": 0.6414
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十四条",
+          "score": 0.6645
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十五条",
+          "score": 0.6241
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十二条",
+          "score": 0.5826
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动法",
+          "article": "第五十一条",
+          "score": 0.6234
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第六十二条",
+          "score": 0.6301
+        },
+        {
+          "rank": 10,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十五条",
+          "score": 4.1186
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 8,
+        "keyword_recall_count": 20,
+        "fused_count": 24,
+        "reranked_count": 10
+      },
+      "golden_rank": 5,
+      "hit_at_5": true,
+      "reciprocal_rank": 0.2,
+      "mrr_applicable": true,
+      "mrr10": 0.2,
+      "answer_seconds": 4.58,
+      "answer": "加班费这块，核心就看是\"休息日\"还是\"法定节假日\"，算法不一样：\n\n**休息日加班（比如周末）**：安排工作又不能安排补休的，按不低于本人日或小时工资标准的 **200%** 支付[4][5]。也就是说，能补休的话可以只补休不给钱；补不了休就得按 200% 给。\n\n**法定节假日加班（比如春节、国庆当天）**：按不低于本人日或小时工资标准的 **300%** 支付[4][5]。\n\n**平时工作日延时加班**：按不低于本人小时工资标准的 **150%** 支付[4][5]。\n\n如果是计件工资，完成计件定额任务后被安排延长工作时间，也按 150%、200%、300% 的原则，以计件单价的相应倍数支付[4]。另外，实行不定时工时制度的劳动者不执行上述规定[4]；综合计算工时制超过法定标准工时的部分视为延长工作时间，同样要付加班费[4]。\n\n单位安排加班就应当依法支付加班费，不得强迫或变相强迫加班[2]。\n\n顺便提一句举证：你主张加班费，一般要自己先就\"加班事实存在\"举证；但如果能证明相关证据由单位掌握、单位又不提供，则由单位承担不利后果[3]。所以平时注意留存考勤记录、排班表、加班通知等，会稳妥些。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "工资支付暂行规定",
+          "article": "第七条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第三十一条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十二条"
+        },
+        {
+          "law": "工资支付暂行规定",
+          "article": "第十三条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第四十四条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          4,
+          5,
+          4,
+          5,
+          4,
+          5,
+          4,
+          4,
+          4,
+          2,
+          3
+        ],
+        "invalid": [],
+        "total": 11,
+        "correct": 11,
+        "no_citation": false
+      },
+      "elapsed_seconds": 5.34,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "direct-016",
+      "type": "direct_article",
+      "question": "我给公司造成损失，公司能从我工资里扣钱赔偿吗？每月最多扣多少？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "工资支付暂行规定",
+          "article": "第十六条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.92,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "工资支付暂行规定",
+          "article": "第十六条",
+          "score": 0.7504
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第九十一条",
+          "score": 16.8789
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第九十条",
+          "score": 16.236
+        },
+        {
+          "rank": 4,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 14.5601
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第三十四条",
+          "score": 0.6272
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十七条",
+          "score": 0.6331
+        },
+        {
+          "rank": 7,
+          "law": "工资支付暂行规定",
+          "article": "第十八条",
+          "score": 0.6461
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十五条",
+          "score": 0.6271
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条",
+          "score": 0.6485
+        },
+        {
+          "rank": 10,
+          "law": "工资支付暂行规定",
+          "article": "第十五条",
+          "score": 0.6363
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 14,
+        "keyword_recall_count": 20,
+        "fused_count": 33,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 4.95,
+      "answer": "抱歉，本次回答未通过引用校验：回答缺少可核查的法条引用，无法保证内容可靠性。\n\n建议：\n1. 重新提问，或补充具体事实信息（发生时间、涉及主体、具体行为）\n2. 若涉及具体纠纷或权益，请携带完整材料咨询执业律师\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_failed: 发现无引用的实质性结论：「**\n\n前提是——必须是**因你本人原因**给公司造成了经济损失，而且**劳动合同里有约定**可以要...」。每个实质结论后必须标注引用编号。",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "工资支付暂行规定",
+          "article": "第十六条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第九十一条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第九十条"
+        },
+        {
+          "law": "最高法发布劳动争议典型案例",
+          "article": null
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第三十四条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [],
+        "invalid": [],
+        "total": 0,
+        "correct": 0,
+        "no_citation": true
+      },
+      "elapsed_seconds": 5.87,
+      "_penalty": 5,
+      "_reason": [
+        "回答无任何引用"
+      ]
+    },
+    {
+      "id": "cross-017",
+      "type": "cross_law",
+      "question": "公司拖了三个月才跟我补签劳动合同，双倍工资从哪天算到哪天？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第八十二条"
+        },
+        {
+          "law": "劳动合同法实施条例",
+          "article": "第六条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 1.15,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第六条",
+          "score": 0.7639
+        },
+        {
+          "rank": 2,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第六条",
+          "score": 0.6897
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第七条",
+          "score": 0.7047
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十二条",
+          "score": 0.6975
+        },
+        {
+          "rank": 5,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 0.6915
+        },
+        {
+          "rank": 6,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第九条",
+          "score": 0.6301
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第三十四条",
+          "score": 0.6481
+        },
+        {
+          "rank": 8,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第七条",
+          "score": 0.6368
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第九条",
+          "score": 0.6476
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第九十七条",
+          "score": 0.6398
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 11,
+        "keyword_recall_count": 20,
+        "fused_count": 31,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 4.74,
+      "answer": "公司拖了三个月才补签，这种情况一般是可以主张双倍工资的，关键就是算准\"起\"和\"止\"这两天。\n\n**起算日**：用工之日起满一个月的次日[1]。也就是说，第一个月是\"宽限期\"，不给双倍。\n\n**截止日**：补订书面劳动合同的前一日[1]。\n\n举个例子：假如你 1 月 1 日入职，4 月 1 日才补签书面合同，那双倍工资从 2 月 1 日起算，算到 3 月 31 日（补签的前一天），大约两个月。\n\n不满一个月的零头怎么算？按该月实际工作日计算[2]。\n\n另外提两点：\n- 如果拖满一年还没签，算法是自用工满一个月的次日至满一年的前一日，并且视为已订立无固定期限劳动合同[3]——你这才三个月，用不上这条。\n- 如果是因为劳动者自己故意不签，用人单位可以不用付双倍工资[5]。你说的是公司拖，那一般不属于这种情形，但实践中公司有时会反过来这么主张，建议把催签、沟通的记录留好。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第六条"
+        },
+        {
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第六条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第七条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十二条"
+        },
+        {
+          "law": "最高法发布劳动争议典型案例",
+          "article": null
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          1,
+          2,
+          3,
+          5
+        ],
+        "invalid": [],
+        "total": 5,
+        "correct": 5,
+        "no_citation": false
+      },
+      "elapsed_seconds": 5.88,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "cross-018",
+      "type": "cross_law",
+      "question": "我被公司辞退了，最后一个月工资什么时候必须结清？解除合同后公司还要给我办什么手续？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "工资支付暂行规定",
+          "article": "第九条"
+        },
+        {
+          "law": "劳动合同法",
+          "article": "第五十条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 1.5,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "工资支付暂行规定",
+          "article": "第九条",
+          "score": 0.725
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第五十条",
+          "score": 0.6971
+        },
+        {
+          "rank": 3,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第十八条",
+          "score": 0.6699
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十条",
+          "score": 0.6707
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动法",
+          "article": "第三十一条",
+          "score": 0.667
+        },
+        {
+          "rank": 6,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 16.2141
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十三条",
+          "score": 0.6487
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第五条",
+          "score": 0.6765
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第六条",
+          "score": 0.6663
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十六条",
+          "score": 0.6496
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 12,
+        "keyword_recall_count": 20,
+        "fused_count": 32,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 8.67,
+      "answer": "抱歉，本次回答未通过引用校验：回答缺少可核查的法条引用，无法保证内容可靠性。\n\n建议：\n1. 重新提问，或补充具体事实信息（发生时间、涉及主体、具体行为）\n2. 若涉及具体纠纷或权益，请携带完整材料咨询执业律师\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_failed: 发现无引用的实质性结论：「被辞退这事确实挺闹心的，先说结论：**最后一个月工资应当在解除劳动合同的时候一次结清**，不是等到公...」。每个实质结论后必须标注引用编号。",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "工资支付暂行规定",
+          "article": "第九条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第五十条"
+        },
+        {
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第十八条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第三十一条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [],
+        "invalid": [],
+        "total": 0,
+        "correct": 0,
+        "no_citation": true
+      },
+      "elapsed_seconds": 10.17,
+      "_penalty": 5,
+      "_reason": [
+        "回答无任何引用"
+      ]
+    },
+    {
+      "id": "cross-019",
+      "type": "cross_law",
+      "question": "公司一直没帮我交社保，我想离职，能拿到经济补偿吗？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第三十八条"
+        },
+        {
+          "law": "劳动合同法",
+          "article": "第四十六条"
+        },
+        {
+          "law": "劳动争议司法解释（二）",
+          "article": "第十九条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 2.32,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第十九条",
+          "score": 0.7052
+        },
+        {
+          "rank": 2,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 0.7274
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动法",
+          "article": "第一百条",
+          "score": 0.672
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条",
+          "score": 0.6659
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第五条",
+          "score": 0.6471
+        },
+        {
+          "rank": 6,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第一条",
+          "score": 0.6661
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十六条",
+          "score": 0.6641
+        },
+        {
+          "rank": 8,
+          "law": "工资支付暂行规定",
+          "article": "第十八条",
+          "score": 7.5137
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动法",
+          "article": "第九十一条",
+          "score": 0.6524
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第六条",
+          "score": 0.6467
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 12,
+        "keyword_recall_count": 20,
+        "fused_count": 30,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 4.99,
+      "answer": "遇到这种情况确实挺让人头疼的，不过好消息是：**一般是可以主张经济补偿的**，关键看你怎么\"走\"。\n\n首先，公司和你说好不缴社保、改发补助，这种约定在法律上是无效的——缴纳社保是法定义务，不能靠双方约定免除[1]。所以你完全有权利以\"公司未依法缴纳社会保险费\"为理由，主动解除劳动合同，并要求公司支付经济补偿[1]。最高法发布的典型案例里也有同样的结论：约定不缴社保无效，劳动者据此解除合同，用人单位要承担支付经济补偿的责任[2]。\n\n补偿怎么算？按你在本单位的工作年限，每满一年算一个月工资；六个月以上不满一年按一年算，不满六个月算半个月工资[4]。这里的\"月工资\"指的是解除前十二个月的平均工资[4]。\n\n给你两个小提醒：\n1. 辞职通知里最好书面写明解除原因是\"公司未依法缴纳社会保险费\"，别写成\"个人原因\"，否则可能影响主张。\n2. 如果公司事后依法补缴了社保，它可能会要求你返还此前以补助形式发给你的那部分钱[1]。\n\n另外，社保本身也可以向劳动行政部门反映，由其责令限期缴纳[3]。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第十九条"
+        },
+        {
+          "law": "最高法发布劳动争议典型案例",
+          "article": null
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第一百条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第五条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          1,
+          2,
+          4,
+          4,
+          1,
+          3
+        ],
+        "invalid": [],
+        "total": 7,
+        "correct": 7,
+        "no_citation": false
+      },
+      "elapsed_seconds": 7.32,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "cross-020",
+      "type": "cross_law",
+      "question": "员工发生工伤治疗期间，公司可以解除劳动合同吗？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "工伤保险条例",
+          "article": "第三十三条"
+        },
+        {
+          "law": "劳动合同法",
+          "article": "第四十二条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 1.08,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十三条",
+          "score": 0.7044
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十六条",
+          "score": 0.7153
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十条",
+          "score": 0.7125
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十九条",
+          "score": 0.7408
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十二条",
+          "score": 0.7422
+        },
+        {
+          "rank": 6,
+          "law": "工伤保险条例",
+          "article": "第三十六条",
+          "score": 0.7112
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十九条",
+          "score": 0.6937
+        },
+        {
+          "rank": 8,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 9.6277
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第三十八条",
+          "score": 0.6929
+        },
+        {
+          "rank": 10,
+          "law": "工伤保险条例",
+          "article": "第二十一条",
+          "score": 11.2444
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 15,
+        "keyword_recall_count": 20,
+        "fused_count": 35,
+        "reranked_count": 10
+      },
+      "golden_rank": 5,
+      "hit_at_5": true,
+      "reciprocal_rank": 0.2,
+      "mrr_applicable": true,
+      "mrr10": 0.2,
+      "answer_seconds": 10.41,
+      "answer": "员工工伤治疗期间公司能不能解除合同，关键看一个点：有没有作出\"丧失或者部分丧失劳动能力\"的确认（也就是劳动能力鉴定结论）。\n\n如果该职工因工负伤，并已被确认丧失或者部分丧失劳动能力，公司在两类解除上是受限的：一是按第四十条的\"无过失性辞退\"（员工患病、不能胜任工作、客观情况发生重大变化这类情形），二是按第四十一条的经济性裁员，都不得解除[5]。劳动法也有衔接规定——患职业病或者因工负伤并被确认丧失或者部分丧失劳动能力的，用人单位不得依据该法第二十六条、第二十七条解除劳动合同[4]。\n\n但治疗期间通常还没出鉴定结论，这种情况下能否解除，本次检索到的法源里没有直接对应的条文，我不好替你下结论，建议结合具体事实判断。\n\n另外提醒一点容易混淆的：如果属于依法终止工伤职工劳动合同的情形，单位除了按劳动合同法第四十七条支付经济补偿，还应按国家有关工伤保险的规定支付一次性工伤医疗补助金和伤残就业补助金[1]。这里说的是\"终止\"，和\"解除\"不是一回事。\n\n建议把工伤认定书、诊断材料、鉴定结论都留好；真有争议，可以申请劳动仲裁或找执业律师看看。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十三条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第二十六条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第二十九条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十二条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          5,
+          4,
+          1
+        ],
+        "invalid": [],
+        "total": 3,
+        "correct": 3,
+        "no_citation": false
+      },
+      "elapsed_seconds": 11.49,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "cross-021",
+      "type": "cross_law",
+      "question": "我才入职一年，有年休假吗？具体能休几天？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动法",
+          "article": "第四十五条"
+        },
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第二条"
+        },
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第三条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.91,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "职工带薪年休假条例",
+          "article": "第三条",
+          "score": 0.7375
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十五条",
+          "score": 0.7012
+        },
+        {
+          "rank": 3,
+          "law": "职工带薪年休假条例",
+          "article": "第五条",
+          "score": 0.6795
+        },
+        {
+          "rank": 4,
+          "law": "职工带薪年休假条例",
+          "article": "第四条",
+          "score": 0.693
+        },
+        {
+          "rank": 5,
+          "law": "职工带薪年休假条例",
+          "article": "第二条",
+          "score": 0.6842
+        },
+        {
+          "rank": 6,
+          "law": "职工带薪年休假条例",
+          "article": "第六条",
+          "score": 7.0054
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十条",
+          "score": 0.6173
+        },
+        {
+          "rank": 8,
+          "law": "职工带薪年休假条例",
+          "article": "第八条",
+          "score": 6.312
+        },
+        {
+          "rank": 9,
+          "law": "女职工劳动保护特别规定",
+          "article": "第七条",
+          "score": 0.6494
+        },
+        {
+          "rank": 10,
+          "law": "职工带薪年休假条例",
+          "article": "第七条",
+          "score": 0.6163
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 8,
+        "keyword_recall_count": 20,
+        "fused_count": 23,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 32.76,
+      "answer": "有的，只要连续工作满一年，就有年休假了[5]。\n\n**能不能休**\n《职工带薪年休假条例》规定，机关、团体、企业、事业单位、民办非企业单位、有雇工的个体工商户等单位的职工，连续工作1年以上的，享受带薪年休假；而且年休假期间拿的是和正常上班一样的工资[5]。所以刚入职满一年，是符合条件的。\n\n**能休几天**\n天数看的是\"累计工作年限\"，不是只看在这家公司干了多久[1]：\n- 累计工作满1年不满10年：5天\n- 满10年不满20年：10天\n- 满20年：15天\n\n国家法定休假日、休息日不算在年休假天数里[1]。\n\n所以如果你是毕业后第一次工作，满一年就是**5天**；但如果你之前在其他单位也工作过，累计年限可能已超过10年甚至20年，档次会相应提高——这点可以自己核一下社保或工作履历。\n\n另外提醒一句：如果当年请事假累计20天以上且单位照发工资，或者病假达到一定时长（按工作年限2～4个月），当年就不享受年休假了[4]。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第三条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第四十五条"
+        },
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第五条"
+        },
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第四条"
+        },
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第二条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          5,
+          5,
+          1,
+          1,
+          4
+        ],
+        "invalid": [],
+        "total": 5,
+        "correct": 5,
+        "no_citation": false
+      },
+      "elapsed_seconds": 33.67,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "cross-022",
+      "type": "cross_law",
+      "question": "公司欠我工资两年了，现在去申请仲裁还来得及吗？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动争议调解仲裁法",
+          "article": "第二十七条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 2.34,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第二十七条",
+          "score": 0.7058
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动法",
+          "article": "第八十二条",
+          "score": 0.6507
+        },
+        {
+          "rank": 3,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 12.5042
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第四十三条",
+          "score": 0.663
+        },
+        {
+          "rank": 5,
+          "law": "工资支付暂行规定",
+          "article": "第十九条",
+          "score": 0.6742
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第三十条",
+          "score": 0.7053
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动法",
+          "article": "第八十三条",
+          "score": 0.6817
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第四十四条",
+          "score": 0.6531
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第十六条",
+          "score": 0.6917
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第四十七条",
+          "score": 0.6601
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 11,
+        "keyword_recall_count": 20,
+        "fused_count": 30,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 9.26,
+      "answer": "这事的关键其实不是\"欠了两年\"，而是**你现在还在这家公司吗**。\n\n**如果你还在职**：劳动关系存续期间因拖欠劳动报酬发生争议的，劳动者申请仲裁不受一年仲裁时效的限制[1]。也就是说，欠了两年也可以申请，不用因为\"时间长\"就放弃。\n\n**如果你已经离职**：那就要看离职时间——应当自劳动关系终止之日起一年内提出[1]。超过一年再去申请，对方一旦拿时效抗辩，可能就比较被动了。\n\n另外还有两个可能\"救回来\"的点，都在同一条里：\n- **时效中断**：你向公司主张过权利（比如微信、短信催要工资）、向有关部门请求过权利救济，或者公司同意履行，时效从中断时起重新计算[1]。\n- **时效中止**：因不可抗力或其他正当理由没法申请仲裁的，原因消除后时效继续计算[1]。\n\n顺便说一句，清单里《劳动法》第八十二条还有\"六十日\"的老规定[2]，但目前通行适用的是《劳动争议调解仲裁法》的一年时效[1]，两者不一致时通常以前者为准。\n\n为了给你更准确的判断，方便说一下：**你现在还在职吗？如果离职了，大概什么时候离的？中间有没有催过工资、留没留记录？**\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第二十七条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第八十二条"
+        },
+        {
+          "law": "最高法发布劳动争议典型案例",
+          "article": null
+        },
+        {
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第四十三条"
+        },
+        {
+          "law": "工资支付暂行规定",
+          "article": "第十九条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          1,
+          1,
+          1,
+          2,
+          1
+        ],
+        "invalid": [],
+        "total": 6,
+        "correct": 6,
+        "no_citation": false
+      },
+      "elapsed_seconds": 11.6,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "cross-023",
+      "type": "cross_law",
+      "question": "公司安排我国庆加班，也安排周末加班，加班费标准一样吗？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动法",
+          "article": "第四十四条"
+        },
+        {
+          "law": "工资支付暂行规定",
+          "article": "第十三条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 1.28,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第三十一条",
+          "score": 0.646
+        },
+        {
+          "rank": 2,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十二条",
+          "score": 19.2574
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十五条",
+          "score": 0.6232
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十四条",
+          "score": 0.6466
+        },
+        {
+          "rank": 5,
+          "law": "工资支付暂行规定",
+          "article": "第十三条",
+          "score": 0.6267
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第六十二条",
+          "score": 0.6037
+        },
+        {
+          "rank": 7,
+          "law": "工资支付暂行规定",
+          "article": "第七条",
+          "score": 0.6095
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动法",
+          "article": "第五十一条",
+          "score": 0.6172
+        },
+        {
+          "rank": 9,
+          "law": "工资支付暂行规定",
+          "article": "第十一条",
+          "score": 0.6083
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十条",
+          "score": 0.6177
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 9,
+        "keyword_recall_count": 20,
+        "fused_count": 27,
+        "reranked_count": 10
+      },
+      "golden_rank": 4,
+      "hit_at_5": true,
+      "reciprocal_rank": 0.25,
+      "mrr_applicable": true,
+      "mrr10": 0.25,
+      "answer_seconds": 43.95,
+      "answer": "这事儿挺常见的，别着急，结论先给你：**标准不一样**，关键看加的是\"休息日\"还是\"法定休假日\"。\n\n按《劳动法》第四十四条，加班费分三档：\n- 平时延长工作时间：不低于工资的 **150%**[4]；\n- **休息日**安排工作、又不能安排补休的：不低于 **200%**[4]；\n- **法定休假日**安排工作：不低于 **300%**[4]。\n\n《工资支付暂行规定》第十三条也是同样的口径[5]。所以周末加班（属于休息日）一般是 200%，而且单位如果能安排补休，可以不发这笔加班费[4][5]；国庆期间如果碰上法定休假日，则是 300%，这一档一般不因补休而免除[4]。\n\n需要留意的是，国庆放假安排里往往既有法定休假日、也有调休来的休息日，具体哪几天算哪种，得看当年国务院的放假安排，你按实际日期对照一下更稳妥。\n\n另外，单位安排加班却不付加班费，劳动行政部门可以责令限期支付，逾期不付还可能加付赔偿金[3]。走维权时，加班事实原则上要你自己先举证；但如果有证据显示考勤等材料在单位手里、单位又不提供，不利后果由单位承担[2]。\n\n方便的话，你说下具体是哪几天加班、有没有补休、有没有打卡或排班记录，我可以帮你再理一下。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第三十一条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十二条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十五条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第四十四条"
+        },
+        {
+          "law": "工资支付暂行规定",
+          "article": "第十三条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          4,
+          4,
+          4,
+          5,
+          4,
+          5,
+          4,
+          3,
+          2
+        ],
+        "invalid": [],
+        "total": 9,
+        "correct": 9,
+        "no_citation": false
+      },
+      "elapsed_seconds": 45.22,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "cross-024",
+      "type": "cross_law",
+      "question": "公司没有法定理由把我开除了，我能拿到多少赔偿？还能再要一份经济补偿吗？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第八十七条"
+        },
+        {
+          "law": "劳动合同法实施条例",
+          "article": "第二十五条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 1.65,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十五条",
+          "score": 0.6439
+        },
+        {
+          "rank": 2,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 14.298
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条",
+          "score": 0.6572
+        },
+        {
+          "rank": 4,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十五条",
+          "score": 0.6456
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第五条",
+          "score": 0.6306
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十七条",
+          "score": 0.6599
+        },
+        {
+          "rank": 7,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十六条",
+          "score": 0.6292
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十六条",
+          "score": 0.6506
+        },
+        {
+          "rank": 9,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十七条",
+          "score": 11.1963
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动法",
+          "article": "第九十一条",
+          "score": 0.6523
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 13,
+        "keyword_recall_count": 20,
+        "fused_count": 31,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 7.55,
+      "answer": "遇到这种事确实让人窝火。先把最关心的两点说清：\n\n**一、赔偿金和经济补偿，通常不能同时拿两份。**\n《劳动合同法实施条例》第25条写得很明确：用人单位违反劳动合同法规定解除或终止劳动合同，依照劳动合同法第八十七条支付了赔偿金的，**不再支付经济补偿**；而且赔偿金的计算年限从用工之日起算[1]。所以\"要了赔偿金再要一份经济补偿\"这条路，法规上是堵住的。\n\n**二、具体金额怎么看。**\n经济补偿的计算标准是：在本单位工作每满一年支付一个月工资；六个月以上不满一年按一年算；不满六个月支付半个月工资[3]。这里的\"月工资\"指解除或终止劳动合同前十二个月的平均工资；如果月工资高于用人单位所在直辖市、设区的市公布的上年度职工月平均工资三倍，就按三倍数额算，且年限最高不超过十二年[3]。\n\n有一点要如实说明：赔偿金具体按经济补偿的几倍计算，本次检索到的法源里没有第八十七条的完整原文，我不能凭印象给你报一个确定数字，建议再查一下或问专业人士。另外，违法解除是否成立也要看具体证据，不好一概而论。\n\n想估个大概，麻烦告诉我：入职到离职的时间、离职前12个月平均工资、公司在哪个城市。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十五条"
+        },
+        {
+          "law": "最高法发布劳动争议典型案例",
+          "article": null
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十五条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第五条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          3,
+          3
+        ],
+        "invalid": [],
+        "total": 3,
+        "correct": 3,
+        "no_citation": false
+      },
+      "elapsed_seconds": 9.2,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "followup-025",
+      "type": "followup_rewrite",
+      "question": "那试用期工资不得低于多少？",
+      "context": "试用期最长不能超过多久？",
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第二十条"
+        },
+        {
+          "law": "劳动合同法实施条例",
+          "article": "第十五条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 1.07,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十五条",
+          "score": 0.7771
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十条",
+          "score": 0.7693
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十一条",
+          "score": 0.6889
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十九条",
+          "score": 0.6969
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十三条",
+          "score": 0.6523
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十八条",
+          "score": 0.6101
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十二条",
+          "score": 0.6497
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十条",
+          "score": 0.6162
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十一条",
+          "score": 8.6652
+        },
+        {
+          "rank": 10,
+          "law": "工资支付暂行规定",
+          "article": "第十八条",
+          "score": 8.7914
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 10,
+        "keyword_recall_count": 20,
+        "fused_count": 23,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 6.22,
+      "answer": "试用期工资有一条\"80%＋最低工资\"的底线。\n\n《劳动合同法》第二十条规定：劳动者在试用期的工资不得低于本单位相同岗位最低档工资或者劳动合同约定工资的百分之八十，并不得低于用人单位所在地的最低工资标准[2]。《劳动合同法实施条例》第十五条的表述更细一些：不得低于本单位相同岗位最低档工资的80%或者不得低于劳动合同约定工资的80%，并不得低于用人单位所在地的最低工资标准[1]。\n\n通俗说就是两道关卡：\n\n一是跟\"本单位相同岗位最低档工资\"或者\"劳动合同约定工资\"比，不能低于其中之一的80%。实践中较多按劳动合同约定工资的80%来算，比较直观。\n\n二是无论怎么算，都不能低于你单位所在地的最低工资标准[1][2]。这一条是托底的。\n\n举个例子：合同约定月工资5000元，试用期一般不低于4000元；如果当地最低工资标准是2200元，那就按4000元走。反过来，如果按约定工资算出的80%低于当地最低工资标准，就得以最低工资标准为准。\n\n具体基数该按\"同岗位最低档工资\"还是\"合同约定工资\"认定，实务中可能有不同理解，最好拿你的劳动合同和当地口径再核对一下。如果实际拿到的低于这个线，可以参考《劳动合同法》第八十三条关于违法约定试用期的赔偿责任[5]，向劳动行政部门反映。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十五条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第二十一条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十九条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十三条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          2,
+          1,
+          1,
+          2,
+          5
+        ],
+        "invalid": [],
+        "total": 5,
+        "correct": 5,
+        "no_citation": false
+      },
+      "elapsed_seconds": 9.95,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "followup-026",
+      "type": "followup_rewrite",
+      "question": "这笔钱从什么时候开始算，算到什么时候为止？",
+      "context": "公司一直没和我签书面劳动合同，我能要双倍工资吗？",
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法实施条例",
+          "article": "第六条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 1.87,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第九条",
+          "score": 0.5817
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十五条",
+          "score": 0.5814
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第六条",
+          "score": 0.6249
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第九十七条",
+          "score": 0.599
+        },
+        {
+          "rank": 5,
+          "law": "工资支付暂行规定",
+          "article": "第二十条",
+          "score": 0.6325
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十七条",
+          "score": 0.5868
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条",
+          "score": 0.5898
+        },
+        {
+          "rank": 8,
+          "law": "工资支付暂行规定",
+          "article": "第七条",
+          "score": 0.6007
+        },
+        {
+          "rank": 9,
+          "law": "工伤保险条例",
+          "article": "第三十五条",
+          "score": 0.5855
+        },
+        {
+          "rank": 10,
+          "law": "工资支付暂行规定",
+          "article": "第十三条",
+          "score": 0.594
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 13,
+        "keyword_recall_count": 20,
+        "fused_count": 33,
+        "reranked_count": 10
+      },
+      "golden_rank": 3,
+      "hit_at_5": true,
+      "reciprocal_rank": 0.3333,
+      "mrr_applicable": true,
+      "mrr10": 0.3333,
+      "answer_seconds": 4.72,
+      "answer": "你说的\"这笔钱\"具体是哪一种，起算和截止点其实不一样。清单里能看出三种常见情形：\n\n**一、没签书面劳动合同的二倍工资**\n起算时间是\"用工之日起满一个月的次日\"，截止时间是\"补订书面劳动合同的前一日\"[3]。\n\n**二、违法解除或终止劳动合同的赔偿金**\n赔偿金的计算年限\"自用工之日起计算\"[2]。注意，单位按劳动合同法第八十七条支付了赔偿金，就不再支付经济补偿了[2]。\n\n**三、劳动合同法施行之日存续的劳动合同，施行后解除或终止要付经济补偿的**\n经济补偿年限自该法施行之日起计算；施行前按当时有关规定，该给经济补偿的按当时规定执行[4]。另外，连续工作满10年的起始时间自用工之日起计算，包括该法施行前的工作年限[1]。\n\n所以，麻烦你补充一下这几点，我才能说得更贴近你的情况：这笔钱是二倍工资、赔偿金还是经济补偿？入职是哪天？有没有签书面合同、什么时候签或补签的？劳动关系是哪天解除或终止的？\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第九条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十五条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第六条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第九十七条"
+        },
+        {
+          "law": "工资支付暂行规定",
+          "article": "第二十条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          3,
+          2,
+          2,
+          4,
+          1
+        ],
+        "invalid": [],
+        "total": 5,
+        "correct": 5,
+        "no_citation": false
+      },
+      "elapsed_seconds": 13.55,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "followup-027",
+      "type": "followup_rewrite",
+      "question": "那女员工生孩子能休多少天产假？",
+      "context": "公司可以辞退怀孕的女员工吗？",
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "女职工劳动保护特别规定",
+          "article": "第七条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.81,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动法",
+          "article": "第六十二条",
+          "score": 0.7755
+        },
+        {
+          "rank": 2,
+          "law": "女职工劳动保护特别规定",
+          "article": "第七条",
+          "score": 0.7983
+        },
+        {
+          "rank": 3,
+          "law": "职工带薪年休假条例",
+          "article": "第三条",
+          "score": 0.6425
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动法",
+          "article": "第六十三条",
+          "score": 0.6098
+        },
+        {
+          "rank": 5,
+          "law": "女职工劳动保护特别规定",
+          "article": "第六条",
+          "score": 0.6317
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十五条",
+          "score": 0.595
+        },
+        {
+          "rank": 7,
+          "law": "女职工劳动保护特别规定",
+          "article": "第八条",
+          "score": 0.631
+        },
+        {
+          "rank": 8,
+          "law": "女职工劳动保护特别规定",
+          "article": "第九条",
+          "score": 0.6238
+        },
+        {
+          "rank": 9,
+          "law": "职工带薪年休假条例",
+          "article": "第四条",
+          "score": 0.6099
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 9,
+        "keyword_recall_count": 11,
+        "fused_count": 15,
+        "reranked_count": 9
+      },
+      "golden_rank": 2,
+      "hit_at_5": true,
+      "reciprocal_rank": 0.5,
+      "mrr_applicable": true,
+      "mrr10": 0.5,
+      "answer_seconds": 3.64,
+      "answer": "先说结论：按全国层面的规定，女员工生育一般可以休 **98天产假**，其中产前可以休假15天[2]。\n\n几种常见情况会往上加：\n- **难产**的，增加产假15天[2]；\n- **生育多胞胎**的，每多生育1个婴儿，增加产假15天[2]。\n\n另外，《劳动法》规定的底线是\"女职工生育享受不少于九十天的产假\"[1]，而《女职工劳动保护特别规定》把标准明确到了98天[2]，所以实践中一般按98天来执行。\n\n如果是流产，也有相应假期：怀孕未满4个月流产的，享受15天产假；怀孕满4个月流产的，享受42天产假[2]。\n\n需要提醒一句：上面说的是国家层面的规定。很多地方还会在此基础上额外规定延长产假（也就是常说的\"奖励假\"），具体天数因省份而异，这部分属于地方性规定，不在我这次能查到的法源范围内，建议你按所在省份再确认一下。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第六十二条"
+        },
+        {
+          "law": "女职工劳动保护特别规定",
+          "article": "第七条"
+        },
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第三条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第六十三条"
+        },
+        {
+          "law": "女职工劳动保护特别规定",
+          "article": "第六条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          2,
+          2,
+          2,
+          1,
+          2,
+          2
+        ],
+        "invalid": [],
+        "total": 6,
+        "correct": 6,
+        "no_citation": false
+      },
+      "elapsed_seconds": 9.37,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "followup-028",
+      "type": "followup_rewrite",
+      "question": "如果公司不让休，没休的天数怎么算钱？",
+      "context": "工作满十年年休假有几天？",
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第五条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 13.57,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "职工带薪年休假条例",
+          "article": "第五条",
+          "score": 0.7081
+        },
+        {
+          "rank": 2,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第六条",
+          "score": 0.644
+        },
+        {
+          "rank": 3,
+          "law": "职工带薪年休假条例",
+          "article": "第七条",
+          "score": 0.6793
+        },
+        {
+          "rank": 4,
+          "law": "职工带薪年休假条例",
+          "article": "第三条",
+          "score": 0.6611
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十四条",
+          "score": 0.6574
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十五条",
+          "score": 0.6758
+        },
+        {
+          "rank": 7,
+          "law": "职工带薪年休假条例",
+          "article": "第四条",
+          "score": 0.6741
+        },
+        {
+          "rank": 8,
+          "law": "工资支付暂行规定",
+          "article": "第十三条",
+          "score": 0.69
+        },
+        {
+          "rank": 9,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 8.5253
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十二条",
+          "score": 0.635
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 10,
+        "keyword_recall_count": 20,
+        "fused_count": 29,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 4.53,
+      "answer": "公司不让休年假，这事儿确实挺常见的，先说结论：没休的那几天，单位应当按你日工资收入的300%支付年休假工资报酬[1]。\n\n具体怎么算，分两步：\n\n**第一步，先确定你有几天年假。** 这看你的累计工作年限：满1年不满10年是5天，满10年不满20年是10天，满20年是15天[4]。注意国家法定休假日和休息日不计入年休假假期[4]。\n\n**第二步，把这些没休的天数乘以日工资的300%。** 条文是这样写的：\"对职工应休未休的年休假天数，单位应当按照该职工日工资收入的300%支付年休假工资报酬\"[1]。\n\n另外有两点值得留意：\n\n一是单位要\"不安排\"你的年假，前提是确有工作需要、并且经过你本人同意[1]，不是公司单方面说不休就不休。\n\n二是如果单位既不安排休假、也不给这笔钱，你可以向县级以上人事或劳动保障部门反映，由其责令限期改正；逾期不改的，除了要支付年休假工资报酬，还要按这个数额再加付赔偿金[3]。\n\n不过要说明的是，这份清单里没有关于\"日工资\"具体怎么折算的规定，这部分我拿不准，不好替你算数字。你要是方便，可以说下你的工作年限和月工资情况，我帮你理一下思路；实在有争议，建议找执业律师或当地劳动保障部门问清楚。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第五条"
+        },
+        {
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第六条"
+        },
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第七条"
+        },
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第三条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第四十四条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          4,
+          4,
+          1,
+          1,
+          3
+        ],
+        "invalid": [],
+        "total": 6,
+        "correct": 6,
+        "no_citation": false
+      },
+      "elapsed_seconds": 21.08,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "followup-029",
+      "type": "followup_rewrite",
+      "question": "要是单位拖着不申请，我自己可以去申请吗？期限是多久？",
+      "context": "员工发生工伤后，单位要在多久内申请工伤认定？",
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "工伤保险条例",
+          "article": "第十七条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.71,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "工伤保险条例",
+          "article": "第十七条",
+          "score": 0.672
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第二十七条",
+          "score": 0.622
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动法",
+          "article": "第八十三条",
+          "score": 0.6324
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动法",
+          "article": "第七十九条",
+          "score": 11.5776
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第二十九条",
+          "score": 0.6376
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第十二条",
+          "score": 11.403
+        },
+        {
+          "rank": 7,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第十二条",
+          "score": 0.6279
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第十四条",
+          "score": 0.6347
+        },
+        {
+          "rank": 9,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第二十四条",
+          "score": 0.6218
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第五十一条",
+          "score": 11.9127
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 14,
+        "keyword_recall_count": 20,
+        "fused_count": 33,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 3.4,
+      "answer": "可以的，单位拖着不申请，你自己也能去申请，但时间点要抓准。\n\n先说单位的义务：职工发生事故伤害，或者被诊断、鉴定为职业病，所在单位应当在事故发生之日或被诊断、鉴定之日起 **30日内**，向统筹地区社会保险行政部门提出工伤认定申请；有特殊情况，经报社保行政部门同意，时限可以适当延长[1]。\n\n如果单位没按这个期限申请，你本人、你的近亲属或者工会组织，都可以在事故发生之日或被诊断、鉴定之日起 **1年内**，直接向用人单位所在地统筹地区的社会保险行政部门提出工伤认定申请[1]。简单说，单位那条线是30天，你自己这条线是1年，别把1年拖过去。\n\n还有个对你有利的点：单位没在30日内提交申请，这期间发生的、符合条例规定的工伤待遇等有关费用，由该用人单位负担[1]。所以建议尽早去申请，同时把劳动合同、医疗记录、事故经过等材料留好。\n\n另外提醒一句，不同地区社保部门的具体办理窗口和材料要求可能有差异，这属于地方操作层面，建议直接问当地社保行政部门确认。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "工伤保险条例",
+          "article": "第十七条"
+        },
+        {
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第二十七条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第八十三条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第七十九条"
+        },
+        {
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第二十九条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          1,
+          1
+        ],
+        "invalid": [],
+        "total": 3,
+        "correct": 3,
+        "no_citation": false
+      },
+      "elapsed_seconds": 7.36,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "followup-030",
+      "type": "followup_rewrite",
+      "question": "如果我不想回去上班了，还能要赔偿金吗？",
+      "context": "公司违法解除了我的劳动合同，我能主张什么权利？",
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第四十八条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.72,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十五条",
+          "score": 0.6389
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十八条",
+          "score": 0.6293
+        },
+        {
+          "rank": 3,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十七条",
+          "score": 5.8695
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十一条",
+          "score": 0.6316
+        },
+        {
+          "rank": 5,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 5.6988
+        },
+        {
+          "rank": 6,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十五条",
+          "score": 0.6292
+        },
+        {
+          "rank": 7,
+          "law": "工资支付暂行规定",
+          "article": "第十八条",
+          "score": 0.6246
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动法",
+          "article": "第九十一条",
+          "score": 0.6447
+        },
+        {
+          "rank": 9,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第十九条",
+          "score": 6.2757
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十六条",
+          "score": 0.6402
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 13,
+        "keyword_recall_count": 20,
+        "fused_count": 32,
+        "reranked_count": 10
+      },
+      "golden_rank": 2,
+      "hit_at_5": true,
+      "reciprocal_rank": 0.5,
+      "mrr_applicable": true,
+      "mrr10": 0.5,
+      "answer_seconds": 5.7,
+      "answer": "可以的，前提是单位的解除属于\"违法解除\"——也就是不符合法律规定的情形解除或终止劳动合同。\n\n按《劳动合同法》第四十八条，单位违法解除或终止劳动合同时，你有两条路选：一是要求继续履行；二是你不要求继续履行，或者合同客观上已经没法继续履行，单位就应当依照第八十七条规定支付赔偿金[2]。所以\"不想再回去上班\"本身不影响你主张赔偿金，反而对应的是第二条路。\n\n还有两点容易踩坑，提醒一下：\n\n- 赔偿金和经济补偿不能同时拿。单位按第八十七条付了赔偿金，就不再另外支付经济补偿；赔偿金的计算年限从用工之日起算[1]。\n- 如果单位解除本身符合第三十九条、第四十条规定，只是没按第四十三条事先通知工会，你以\"违法解除\"为由要赔偿金，法院一般会支持，除非单位在起诉前已经把程序补正了[3]。\n\n不过要提醒的是，能不能拿到，核心还是看解除是否违法。你方便说一下单位是以什么理由、什么方式让你走的吗？比如有没有书面通知、写的什么原因。另外，如果你属于非全日制用工，任何一方都可以随时通知终止用工，单位也不支付经济补偿[4]，这种情况就不适用上面的结论了。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十五条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十八条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十七条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十一条"
+        },
+        {
+          "law": "最高法发布劳动争议典型案例",
+          "article": null
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          2,
+          1,
+          3,
+          4
+        ],
+        "invalid": [],
+        "total": 4,
+        "correct": 4,
+        "no_citation": false
+      },
+      "elapsed_seconds": 13.53,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "asof-031",
+      "type": "as_of_date",
+      "question": "公司和员工约定不缴社保，员工离职时能主张经济补偿吗？依据是什么？",
+      "context": null,
+      "as_of_date": "2025-08-15",
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第三十八条"
+        },
+        {
+          "law": "劳动合同法",
+          "article": "第四十六条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 1.1,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 0.7457
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十八条",
+          "score": 11.0705
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第五条",
+          "score": 0.6519
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动法",
+          "article": "第一百条",
+          "score": 0.6624
+        },
+        {
+          "rank": 5,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十五条",
+          "score": 0.6615
+        },
+        {
+          "rank": 6,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十七条",
+          "score": 10.067
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十六条",
+          "score": 0.6837
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十五条",
+          "score": 0.6565
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动法",
+          "article": "第九十一条",
+          "score": 0.667
+        },
+        {
+          "rank": 10,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十八条",
+          "score": 10.6141
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 11,
+        "keyword_recall_count": 20,
+        "fused_count": 30,
+        "reranked_count": 10
+      },
+      "golden_rank": 7,
+      "hit_at_5": false,
+      "reciprocal_rank": 0.1429,
+      "mrr_applicable": true,
+      "mrr10": 0.1429,
+      "absent_violation": null,
+      "answer_seconds": 6.68,
+      "answer": "这种约定在法律上站不住脚，员工通常是可以主张经济补偿的，下面说说依据。\n\n**约定不缴社保无效。** 缴纳社保是用人单位和劳动者的法定义务，除法律规定的事由外，不因双方约定而免除，双方有关不缴纳社会保险费的约定无效[1]。就算公司把社保费以\"补助\"形式直接发给你，也不影响这个结论[1]。\n\n**员工据此解除合同，可要求经济补偿。** 公司未依法缴纳社保，员工以此为由解除劳动合同，符合用人单位应当支付经济补偿的法定情形，法院会判决公司支付经济补偿[1]。这是最高法2025年8月发布的劳动争议典型案例中明确的规则（案例六：朱某与某保安公司劳动争议案）[1]。\n\n**另外还有行政层面的责任。** 用人单位无故不缴纳社会保险费的，由劳动行政部门责令其限期缴纳；逾期不缴的，可以加收滞纳金[4]。也就是说，除了经济补偿，你还可以向社保征收或劳动行政部门反映。\n\n**几点提醒：**\n- 建议保留好劳动合同、工资流水、社保未缴记录、以及能证明\"双方约定不缴\"的聊天记录或协议，方便日后主张权利；\n- 经济补偿的具体计算标准（比如按工作年限怎么算）本次法源里没有对应条文，我没法给你确切数字，需要的话可以再帮你查；\n- 你是主动辞职还是以\"未缴社保\"为由解除，对结果影响较大，这点值得先把事实理清楚。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "最高法发布劳动争议典型案例",
+          "article": null
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第二十八条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第五条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第一百条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十五条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          1,
+          1,
+          1,
+          4
+        ],
+        "invalid": [],
+        "total": 5,
+        "correct": 5,
+        "no_citation": false
+      },
+      "elapsed_seconds": 7.78,
+      "_penalty": 20,
+      "_reason": [
+        "golden 未进 top5（实际排名 7）"
+      ]
+    },
+    {
+      "id": "asof-032",
+      "type": "as_of_date",
+      "question": "公司和员工约定不缴社保，员工离职时能主张经济补偿吗？依据是什么？",
+      "context": null,
+      "as_of_date": "2025-09-15",
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动争议司法解释（二）",
+          "article": "第十九条"
+        },
+        {
+          "law": "劳动合同法",
+          "article": "第三十八条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 1.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第十九条",
+          "score": 0.7472
+        },
+        {
+          "rank": 2,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 0.7457
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十八条",
+          "score": 11.0705
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动法",
+          "article": "第一百条",
+          "score": 0.6624
+        },
+        {
+          "rank": 5,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十五条",
+          "score": 0.6615
+        },
+        {
+          "rank": 6,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十七条",
+          "score": 10.067
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十六条",
+          "score": 0.6837
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十五条",
+          "score": 0.6565
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动法",
+          "article": "第九十一条",
+          "score": 0.667
+        },
+        {
+          "rank": 10,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十八条",
+          "score": 10.6141
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 11,
+        "keyword_recall_count": 20,
+        "fused_count": 30,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 4.2,
+      "answer": "这事挺常见的，答案也比较明确：**能主张，但关键在于\"以什么理由离职\"。**\n\n根据最高法劳动争议司法解释（二）第十九条：用人单位与劳动者约定、或者劳动者承诺无需缴纳社保费的，法院应当认定该约定或承诺**无效**；用人单位未依法缴纳社保费，劳动者据此请求解除劳动合同、并要求用人单位支付经济补偿的，法院依法予以支持[1]。\n\n也就是说，那种\"不缴社保、把钱折成补贴发给你\"的约定，法律上是不认的。最高法发布的典型案例中就有这么一个案子：保安公司约定不缴社保、改发补助，员工以此为由解除劳动合同，法院判公司支付经济补偿[2]。\n\n有两点提醒：\n\n1. **离职理由要写对**。最好以\"公司未依法缴纳社会保险费\"为由提出解除，而不是写\"个人原因辞职\"，否则再主张经济补偿会比较被动（这里具体怎么操作，拿不准的建议先咨询执业律师）。\n2. **钱可能要退一部分**。如果公司后来依法补缴了社保，公司可以请求你返还此前已经发给你的那部分\"社保费补偿\"[1]。\n\n至于补缴本身，劳动行政部门还可以责令限期缴纳，逾期不缴的可加收滞纳金[4]。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第十九条"
+        },
+        {
+          "law": "最高法发布劳动争议典型案例",
+          "article": null
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第二十八条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第一百条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十五条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          2,
+          1,
+          4
+        ],
+        "invalid": [],
+        "total": 4,
+        "correct": 4,
+        "no_citation": false
+      },
+      "elapsed_seconds": 5.2,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "asof-033",
+      "type": "as_of_date",
+      "question": "劳动争议申请仲裁的时效期间是多久？",
+      "context": null,
+      "as_of_date": "2007-06-01",
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动法",
+          "article": "第八十二条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.77,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动法",
+          "article": "第八十二条",
+          "score": 0.7561
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动法",
+          "article": "第八十三条",
+          "score": 0.7397
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动法",
+          "article": "第八十四条",
+          "score": 0.6694
+        },
+        {
+          "rank": 4,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 0.6181
+        },
+        {
+          "rank": 5,
+          "law": "工资支付暂行规定",
+          "article": "第十九条",
+          "score": 0.6268
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动法",
+          "article": "第七十九条",
+          "score": 0.6524
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动法",
+          "article": "第七十七条",
+          "score": 0.6507
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第五十六条",
+          "score": 9.1898
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第九十七条",
+          "score": 0.6213
+        },
+        {
+          "rank": 10,
+          "law": "工伤保险条例",
+          "article": "第二十五条",
+          "score": 0.6291
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 11,
+        "keyword_recall_count": 20,
+        "fused_count": 26,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "absent_violation": null,
+      "answer_seconds": 3.75,
+      "answer": "抱歉，本次回答未通过引用校验：回答缺少可核查的法条引用，无法保证内容可靠性。\n\n建议：\n1. 重新提问，或补充具体事实信息（发生时间、涉及主体、具体行为）\n2. 若涉及具体纠纷或权益，请携带完整材料咨询执业律师\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_failed: 发现无引用的实质性结论：「\"劳动争议发生之日\"，通俗理解就是你知道或应当知道自己权益被侵害的那天，六十日从这天起算...」。每个实质结论后必须标注引用编号。",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第八十二条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第八十三条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第八十四条"
+        },
+        {
+          "law": "最高法发布劳动争议典型案例",
+          "article": null
+        },
+        {
+          "law": "工资支付暂行规定",
+          "article": "第十九条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [],
+        "invalid": [],
+        "total": 0,
+        "correct": 0,
+        "no_citation": true
+      },
+      "elapsed_seconds": 4.52,
+      "_penalty": 5,
+      "_reason": [
+        "回答无任何引用"
+      ]
+    },
+    {
+      "id": "asof-034",
+      "type": "as_of_date",
+      "question": "劳动争议申请仲裁的时效期间是多久？",
+      "context": null,
+      "as_of_date": "2010-06-01",
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动争议调解仲裁法",
+          "article": "第二十七条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.66,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第二十七条",
+          "score": 0.8249
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动法",
+          "article": "第八十二条",
+          "score": 0.7561
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第四十三条",
+          "score": 0.7489
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第五十条",
+          "score": 0.7362
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第二十九条",
+          "score": 0.7331
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动法",
+          "article": "第八十三条",
+          "score": 0.7397
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第三十条",
+          "score": 0.704
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第四十八条",
+          "score": 0.7203
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第四十七条",
+          "score": 0.7466
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第十四条",
+          "score": 0.7054
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 10,
+        "keyword_recall_count": 20,
+        "fused_count": 28,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 4.94,
+      "answer": "遇到这类问题，先把最关键的说清楚：一般情况下的仲裁时效是**一年**。\n\n具体来说：\n\n- **起算点**：从你知道或者应当知道权利被侵害之日起计算[1]。\n- **中断**：如果你向对方主张过权利、向有关部门请求过救济，或者对方同意履行义务，时效会中断，从中断时起重新计算一年[1]。\n- **中止**：因为不可抗力或者其他正当理由没法申请仲裁的，时效中止，原因消除后继续计算[1]。\n- **拖欠劳动报酬的特殊规则**：劳动关系存续期间因拖欠工资发生争议，申请仲裁不受这一年限制；但劳动关系终止的，应当自终止之日起一年内提出[1]。这条对讨薪的朋友比较重要。\n\n有一点需要提醒你：本次法源里《劳动法》第八十二条写的是\"六十日\"[2]，和上面的一年不一致。就仲裁时效而言，实践中通常按《劳动争议调解仲裁法》的一年掌握，但如果涉及具体案件的时间计算，建议向当地仲裁委或执业律师核实一下，避免因为理解偏差错过期限。\n\n另外，如果你关心的是\"申请后多久出结果\"，那是另一个期限：一般自受理之日起四十五日内结案，复杂案件经批准可延长十五日[3]。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第二十七条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第八十二条"
+        },
+        {
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第四十三条"
+        },
+        {
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第五十条"
+        },
+        {
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第二十九条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          1,
+          1,
+          1,
+          2,
+          3
+        ],
+        "invalid": [],
+        "total": 6,
+        "correct": 6,
+        "no_citation": false
+      },
+      "elapsed_seconds": 5.61,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "asof-035",
+      "type": "as_of_date",
+      "question": "女职工生孩子的产假是多少天？",
+      "context": null,
+      "as_of_date": "2010-06-01",
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动法",
+          "article": "第六十二条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.79,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动法",
+          "article": "第六十二条",
+          "score": 0.7832
+        },
+        {
+          "rank": 2,
+          "law": "女职工劳动保护特别规定",
+          "article": "第七条",
+          "score": 0.7986
+        },
+        {
+          "rank": 3,
+          "law": "职工带薪年休假条例",
+          "article": "第三条",
+          "score": 0.6212
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动法",
+          "article": "第六十三条",
+          "score": 0.6144
+        },
+        {
+          "rank": 5,
+          "law": "女职工劳动保护特别规定",
+          "article": "第八条",
+          "score": 0.6489
+        },
+        {
+          "rank": 6,
+          "law": "女职工劳动保护特别规定",
+          "article": "第六条",
+          "score": 0.6313
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动法",
+          "article": "第六十一条",
+          "score": 0.589
+        },
+        {
+          "rank": 8,
+          "law": "女职工劳动保护特别规定",
+          "article": "第九条",
+          "score": 0.6322
+        },
+        {
+          "rank": 9,
+          "law": "女职工劳动保护特别规定",
+          "article": "第十六条",
+          "score": 0.5985
+        },
+        {
+          "rank": 10,
+          "law": "职工带薪年休假条例",
+          "article": "第四条",
+          "score": 8.5533
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 10,
+        "keyword_recall_count": 20,
+        "fused_count": 26,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "absent_violation": "女职工劳动保护特别规定第七条",
+      "answer_seconds": 3.31,
+      "answer": "先说结论：基础产假是 **98 天**。\n\n《女职工劳动保护特别规定》第七条写得很明确——女职工生育享受 98 天产假，其中产前可以休假 15 天[2]。另外《劳动法》也规定女职工生育享受不少于 90 天产假[1]，98 天是比这个底线更高的具体标准。\n\n如果遇到特殊情况，还能再加：\n\n- 难产的，增加产假 15 天[2]；\n- 生育多胞胎的，每多生育 1 个婴儿，增加产假 15 天[2]。\n\n顺带说一下流产的情形：怀孕未满 4 个月流产的享受 15 天产假，怀孕满 4 个月流产的享受 42 天产假[2]，这块也属于产假范畴。\n\n还有一点值得留意：产假期间的待遇，已参加生育保险的，生育津贴按用人单位上年度职工月平均工资标准由生育保险基金支付；未参保的，按产假前工资标准由用人单位支付[5]。\n\n需要提醒的是，很多地方还规定了额外的\"奖励产假\"，天数各地不同，这属于地方性规定，不在我这次能查到的法源范围内，建议你按所在省市的具体政策再核实一下。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第六十二条"
+        },
+        {
+          "law": "女职工劳动保护特别规定",
+          "article": "第七条"
+        },
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第三条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第六十三条"
+        },
+        {
+          "law": "女职工劳动保护特别规定",
+          "article": "第八条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          2,
+          1,
+          2,
+          2,
+          2,
+          5
+        ],
+        "invalid": [],
+        "total": 6,
+        "correct": 6,
+        "no_citation": false
+      },
+      "elapsed_seconds": 4.09,
+      "_penalty": 15,
+      "_reason": [
+        "出现了不该出现的法源：女职工劳动保护特别规定第七条"
+      ]
+    },
+    {
+      "id": "asof-036",
+      "type": "as_of_date",
+      "question": "女职工生孩子的产假是多少天？",
+      "context": null,
+      "as_of_date": "2020-06-01",
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "女职工劳动保护特别规定",
+          "article": "第七条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 25.97,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动法",
+          "article": "第六十二条",
+          "score": 0.7834
+        },
+        {
+          "rank": 2,
+          "law": "女职工劳动保护特别规定",
+          "article": "第七条",
+          "score": 0.7986
+        },
+        {
+          "rank": 3,
+          "law": "职工带薪年休假条例",
+          "article": "第三条",
+          "score": 0.6212
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动法",
+          "article": "第六十三条",
+          "score": 0.6147
+        },
+        {
+          "rank": 5,
+          "law": "女职工劳动保护特别规定",
+          "article": "第八条",
+          "score": 0.6495
+        },
+        {
+          "rank": 6,
+          "law": "女职工劳动保护特别规定",
+          "article": "第六条",
+          "score": 0.6317
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动法",
+          "article": "第六十一条",
+          "score": 0.5894
+        },
+        {
+          "rank": 8,
+          "law": "女职工劳动保护特别规定",
+          "article": "第九条",
+          "score": 0.6326
+        },
+        {
+          "rank": 9,
+          "law": "女职工劳动保护特别规定",
+          "article": "第十六条",
+          "score": 0.599
+        },
+        {
+          "rank": 10,
+          "law": "职工带薪年休假条例",
+          "article": "第四条",
+          "score": 8.5533
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 10,
+        "keyword_recall_count": 20,
+        "fused_count": 26,
+        "reranked_count": 10
+      },
+      "golden_rank": 2,
+      "hit_at_5": true,
+      "reciprocal_rank": 0.5,
+      "mrr_applicable": true,
+      "mrr10": 0.5,
+      "answer_seconds": 3.81,
+      "answer": "女职工生孩子的基础产假是 **98天**，其中产前可以休假15天[2]。\n\n如果遇到特殊情况，还能往上加：\n\n- **难产**的，增加产假15天[2]；\n- **生育多胞胎**的，每多生育1个婴儿，增加产假15天[2]。\n\n也就是说，顺产单胎是98天；难产是113天；双胞胎是113天；如果是难产加双胞胎，则是128天。另外，《劳动法》也规定女职工生育享受不少于九十天的产假[1]，98天这个标准是符合并高于这个底线的。\n\n顺带说一句流产的情况：怀孕未满4个月流产的，享受15天产假；怀孕满4个月流产的，享受42天产假[2]。\n\n至于产假期间的待遇，参加了生育保险的，生育津贴按用人单位上年度职工月平均工资的标准由生育保险基金支付；没参加生育保险的，按产假前工资标准由用人单位支付[5]。\n\n需要提醒的是，上面这些是全国层面的规定。有些地方还会有额外的延长产假安排，那属于地方性规定，不在本次检索范围内，我没法凭现有材料判断，建议你按所在省份再核实一下。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第六十二条"
+        },
+        {
+          "law": "女职工劳动保护特别规定",
+          "article": "第七条"
+        },
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第三条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第六十三条"
+        },
+        {
+          "law": "女职工劳动保护特别规定",
+          "article": "第八条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          2,
+          2,
+          2,
+          1,
+          2,
+          5
+        ],
+        "invalid": [],
+        "total": 6,
+        "correct": 6,
+        "no_citation": false
+      },
+      "elapsed_seconds": 29.78,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "refusal-037",
+      "type": "refusal",
+      "question": "上海2025年最低月工资标准具体是多少钱？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": true,
+      "golden": [],
+      "errors": [],
+      "retrieval_seconds": 0.88,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十八条",
+          "score": 0.5253
+        },
+        {
+          "rank": 2,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 7.7873
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十九条",
+          "score": 0.5432
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十五条",
+          "score": 0.5329
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条",
+          "score": 11.0233
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十二条",
+          "score": 9.4321
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十五条",
+          "score": 0.4959
+        },
+        {
+          "rank": 8,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十六条",
+          "score": 0.4808
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十条",
+          "score": 0.5108
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第五十五条",
+          "score": 0.4812
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 13,
+        "keyword_recall_count": 20,
+        "fused_count": 29,
+        "reranked_count": 10
+      },
+      "answer_seconds": 3.29,
+      "answer": "关于上海2025年的最低月工资具体数额，我翻了一下手头的法源清单，里面并没有上海的具体标准数字，所以没法给你一个准确金额——这种情况我不能凭印象编一个数给你。\n\n能确定的是制度层面的规则：国家实行最低工资保障制度，最低工资的具体标准由省、自治区、直辖市人民政府规定，并报国务院备案；用人单位支付劳动者的工资不得低于当地最低工资标准[1]。也就是说，上海的具体金额是由上海市人民政府发文确定的，通常会由上海市人力资源和社会保障局公布并执行，可能按年度调整。\n\n如果你要查准确数字，建议直接看上海市人社局官网或“上海人社”官方渠道发布的最新通知，以官方文件为准。另外提醒一句，最低工资一般是针对正常劳动情况下的月工资，加班费、特殊工作环境津贴等通常另算，具体口径也以当地规定为准。\n\n如果你愿意说下你是想核对工资是否达标，还是处理劳动争议，我可以帮你看还能从现有材料里找到哪些支持。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第四十八条"
+        },
+        {
+          "law": "最高法发布劳动争议典型案例",
+          "article": null
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第四十九条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十五条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1
+        ],
+        "invalid": [],
+        "total": 1,
+        "correct": 1,
+        "no_citation": false
+      },
+      "elapsed_seconds": 4.17,
+      "_penalty": 50,
+      "_reason": [
+        "拒答题被作答（拒答失败）"
+      ]
+    },
+    {
+      "id": "refusal-038",
+      "type": "refusal",
+      "question": "个人所得税专项附加扣除中，子女教育每月可以扣多少钱？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": true,
+      "golden": [],
+      "errors": [],
+      "retrieval_seconds": 0.64,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "工资支付暂行规定",
+          "article": "第十六条",
+          "score": 0.4782
+        },
+        {
+          "rank": 2,
+          "law": "工资支付暂行规定",
+          "article": "第十五条",
+          "score": 0.5344
+        },
+        {
+          "rank": 3,
+          "law": "工伤保险条例",
+          "article": "第三十九条",
+          "score": 0.5147
+        },
+        {
+          "rank": 4,
+          "law": "女职工劳动保护特别规定",
+          "article": "第八条",
+          "score": 0.4746
+        },
+        {
+          "rank": 5,
+          "law": "女职工劳动保护特别规定",
+          "article": "第七条",
+          "score": 0.4829
+        },
+        {
+          "rank": 6,
+          "law": "工伤保险条例",
+          "article": "第六十四条",
+          "score": 0.4679
+        },
+        {
+          "rank": 7,
+          "law": "工伤保险条例",
+          "article": "第三十四条",
+          "score": 0.5023
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条",
+          "score": 0.4682
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十七条",
+          "score": 0.4769
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十九条",
+          "score": 0.4861
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 12,
+        "keyword_recall_count": 20,
+        "fused_count": 30,
+        "reranked_count": 10
+      },
+      "answer_seconds": 4.49,
+      "answer": "你问的是子女教育专项附加扣除的每月标准——这个说实话，我手上这批材料答不了。\n\n这次检索到的法源只有三类内容：工资支付（含代扣代缴个人所得税的规则）、工伤保险待遇、女职工劳动保护。其中和个税沾边的只有一条：《工资支付暂行规定》第十五条，规定用人单位可以代扣代缴个人所得税[2]。这条只说明\"单位帮你扣缴个税\"这件事本身合法，并不涉及专项附加扣除能扣多少、需要什么条件。\n\n关于子女教育专项附加扣除的具体金额、扣除方式（父母双方怎么分摊）、申报途径这些，属于个人所得税专项附加扣除的制度内容，本次【法源清单】里完全没有，所以我不能凭印象给你一个数字——这种数字一旦说错，会直接影响你的申报和税负判断。\n\n给你两个靠谱的下一步：\n1. 打 12366 纳税服务热线，或直接看\"个人所得税\"APP 里专项附加扣除填报页面的说明，那里的口径是最新的、也随政策调整；\n2. 如果你手头有相关的政策原文或截图，可以发给我，我帮你按条文逐句捋清楚。\n\n另外提醒一句：扣除标准这几年有过调整，网上流传的旧数字不一定还适用，以官方渠道为准更稳妥。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "工资支付暂行规定",
+          "article": "第十六条"
+        },
+        {
+          "law": "工资支付暂行规定",
+          "article": "第十五条"
+        },
+        {
+          "law": "工伤保险条例",
+          "article": "第三十九条"
+        },
+        {
+          "law": "女职工劳动保护特别规定",
+          "article": "第八条"
+        },
+        {
+          "law": "女职工劳动保护特别规定",
+          "article": "第七条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          2
+        ],
+        "invalid": [],
+        "total": 1,
+        "correct": 1,
+        "no_citation": false
+      },
+      "elapsed_seconds": 5.13,
+      "_penalty": 50,
+      "_reason": [
+        "拒答题被作答（拒答失败）"
+      ]
+    },
+    {
+      "id": "refusal-039",
+      "type": "refusal",
+      "question": "交通事故对方全责，我可以主张哪些赔偿项目？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": true,
+      "golden": [],
+      "errors": [],
+      "retrieval_seconds": 1.2,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 0.5886
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十六条",
+          "score": 9.0734
+        },
+        {
+          "rank": 3,
+          "law": "工伤保险条例",
+          "article": "第十八条",
+          "score": 0.5566
+        },
+        {
+          "rank": 4,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第五十三条",
+          "score": 0.5575
+        },
+        {
+          "rank": 5,
+          "law": "工伤保险条例",
+          "article": "第十九条",
+          "score": 0.5555
+        },
+        {
+          "rank": 6,
+          "law": "工伤保险条例",
+          "article": "第五十五条",
+          "score": 0.6067
+        },
+        {
+          "rank": 7,
+          "law": "工伤保险条例",
+          "article": "第三十二条",
+          "score": 0.5619
+        },
+        {
+          "rank": 8,
+          "law": "工伤保险条例",
+          "article": "第三十条",
+          "score": 6.7698
+        },
+        {
+          "rank": 9,
+          "law": "工伤保险条例",
+          "article": "第十四条",
+          "score": 0.5862
+        },
+        {
+          "rank": 10,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第一条",
+          "score": 0.557
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 13,
+        "keyword_recall_count": 20,
+        "fused_count": 32,
+        "reranked_count": 10
+      },
+      "answer_seconds": 5.72,
+      "answer": "你问的这个挺实际的，不过我得先说实话：**这次检索到的法源清单里，没有能支撑交通事故赔偿项目的条文**，我不能凭记忆给你列清单，那样就违反了我只能依据清单作答的原则。\n\n清单里的内容都是劳动争议和工伤方向的，比如：\n\n- 转包工程中劳动者被认定工伤后，由承包人承担工伤保险待遇责任[1]；\n- 用人单位与劳动者约定不缴社保费无效，劳动者可据此解除合同并主张经济补偿[1]；\n- 申请工伤认定需要提交工伤认定申请表、劳动关系证明材料、医疗诊断证明等[3]；\n- 追索工伤保险待遇等案件，给付数额不当的法院可以变更[4]。\n\n所以像医疗费、误工费、护理费、残疾赔偿金这些具体项目怎么算、能不能叠加主张，清单里没有依据，我就不瞎说了。\n\n有一点可以提示你：如果这起事故是在**上下班途中或因工作原因**发生的，可能同时牵涉工伤那条线，那清单里的[3][4]就用得上——但也得先看能否被认定为工伤，这个我拿不准。\n\n建议你补充一下：事故发生的具体场景（是否在上下班途中、是否在执行工作任务）、伤情程度、是否已做责任认定和伤残鉴定。有了这些，我可以帮你在清单范围内再找找对应依据；更稳妥的做法还是带着材料咨询执业律师。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "最高法发布劳动争议典型案例",
+          "article": null
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十六条"
+        },
+        {
+          "law": "工伤保险条例",
+          "article": "第十八条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第五十三条"
+        },
+        {
+          "law": "工伤保险条例",
+          "article": "第十九条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          1,
+          3,
+          4,
+          3,
+          4
+        ],
+        "invalid": [],
+        "total": 6,
+        "correct": 6,
+        "no_citation": false
+      },
+      "elapsed_seconds": 6.93,
+      "_penalty": 50,
+      "_reason": [
+        "拒答题被作答（拒答失败）"
+      ]
+    },
+    {
+      "id": "refusal-040",
+      "type": "refusal",
+      "question": "夫妻一方欠的债，另一方要一起还吗？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": true,
+      "golden": [],
+      "errors": [],
+      "retrieval_seconds": 3.95,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第五十一条",
+          "score": 10.6315
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第十五条",
+          "score": 11.6012
+        },
+        {
+          "rank": 3,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第二十三条",
+          "score": 11.0205
+        },
+        {
+          "rank": 4,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十一条",
+          "score": 0.5531
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第二十七条",
+          "score": 0.5176
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动法",
+          "article": "第八十三条",
+          "score": 10.1224
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动法",
+          "article": "第八十条",
+          "score": 0.508
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第三十条",
+          "score": 0.5202
+        },
+        {
+          "rank": 9,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四条",
+          "score": 7.9653
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十六条",
+          "score": 0.5074
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 14,
+        "keyword_recall_count": 20,
+        "fused_count": 34,
+        "reranked_count": 10
+      },
+      "answer_seconds": 5.03,
+      "answer": "抱歉，本次回答未通过引用校验：回答缺少可核查的法条引用，无法保证内容可靠性。\n\n建议：\n1. 重新提问，或补充具体事实信息（发生时间、涉及主体、具体行为）\n2. 若涉及具体纠纷或权益，请携带完整材料咨询执业律师\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_failed: 回答中没有任何引用编号，但包含实质性结论",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第五十一条"
+        },
+        {
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第十五条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第二十三条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十一条"
+        },
+        {
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第二十七条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [],
+        "invalid": [],
+        "total": 0,
+        "correct": 0,
+        "no_citation": true
+      },
+      "elapsed_seconds": 8.98,
+      "_penalty": 50,
+      "_reason": [
+        "拒答题被作答（拒答失败）"
+      ]
+    },
+    {
+      "id": "refusal-041",
+      "type": "refusal",
+      "question": "新公司法对注册资本认缴期限有什么要求？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": true,
+      "golden": [],
+      "errors": [],
+      "retrieval_seconds": 0.83,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第五十七条",
+          "score": 0.5979
+        },
+        {
+          "rank": 2,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 0.4961
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十四条",
+          "score": 0.5052
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第九十七条",
+          "score": 0.533
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十七条",
+          "score": 0.5147
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十条",
+          "score": 6.108
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十四条",
+          "score": 0.5013
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第三十三条",
+          "score": 0.5169
+        },
+        {
+          "rank": 9,
+          "law": "工资支付暂行规定",
+          "article": "第二十条",
+          "score": 0.5378
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十条",
+          "score": 8.6238
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 14,
+        "keyword_recall_count": 20,
+        "fused_count": 33,
+        "reranked_count": 10
+      },
+      "answer_seconds": 4.42,
+      "answer": "这个问题挺关键的，但说实话，这次检索到的法源里**没有**新《公司法》关于注册资本认缴期限的条文，所以具体几年的要求我不能凭空给你说，免得误导你。\n\n我能从清单里说清楚的，只有一条跟\"注册资本\"沾边的内容：《劳动合同法》对经营劳务派遣业务的公司有注册资本要求——注册资本不得少于人民币二百万元，并且要取得劳动行政部门的行政许可[1]。但这是劳务派遣行业的**准入门槛**，跟股东出资的\"认缴期限\"是两回事，不能拿来套用。\n\n清单里其余材料，比如最高法劳动争议典型案例[2]、竞业限制期限不得超过二年[3]、经济补偿年限计算[4]、经济性裁员程序[5]，都属于劳动法领域，和公司注册资本登记制度没有关系。\n\n所以关于认缴期限，暂时没法给你有出处的答案。如果你愿意，可以补充一下你的具体场景（比如是2024年7月之后新设的公司、还是存量公司调整出资安排），或者告诉我需要查《公司法》哪一条，我再基于对应的法源帮你梳理。涉及工商登记的具体操作，各地市场监管部门的执行口径可能有差异，稳妥起见建议向当地登记机关确认，或者咨询执业律师。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。\n\n⚠️ 提示：回答中提到的部分法规名称不在本次检索到的法源清单内，相关表述未经原文核对，请以官方发布文本为准。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_warning_unknown_law: 回答中提到了清单外的法规：《公司法》。只能使用清单内的法规：《中华人民共和国劳动合同法》, 《最高法发布劳动争议典型案例》, 《中华人民共和国劳动合同法》, 《中华人民共和国劳动合同法》, 《中华人民共和国劳动法》",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第五十七条"
+        },
+        {
+          "law": "最高法发布劳动争议典型案例",
+          "article": null
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十四条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第九十七条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第二十七条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "invalid": [],
+        "total": 5,
+        "correct": 5,
+        "no_citation": false
+      },
+      "elapsed_seconds": 5.25,
+      "_penalty": 50,
+      "_reason": [
+        "拒答题被作答（拒答失败）"
+      ]
+    },
+    {
+      "id": "refusal-042",
+      "type": "refusal",
+      "question": "2026年春节法定假日是哪几天？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": true,
+      "golden": [],
+      "errors": [],
+      "retrieval_seconds": 4.7,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "职工带薪年休假条例",
+          "article": "第三条",
+          "score": 0.5433
+        },
+        {
+          "rank": 2,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 6.5551
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十条",
+          "score": 0.5632
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十五条",
+          "score": 0.458
+        },
+        {
+          "rank": 5,
+          "law": "职工带薪年休假条例",
+          "article": "第二条",
+          "score": 0.4394
+        },
+        {
+          "rank": 6,
+          "law": "工资支付暂行规定",
+          "article": "第十一条",
+          "score": 0.4362
+        },
+        {
+          "rank": 7,
+          "law": "职工带薪年休假条例",
+          "article": "第五条",
+          "score": 0.4537
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动法",
+          "article": "第五十一条",
+          "score": 0.4343
+        },
+        {
+          "rank": 9,
+          "law": "职工带薪年休假条例",
+          "article": "第四条",
+          "score": 0.461
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十四条",
+          "score": 0.4424
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 10,
+        "keyword_recall_count": 20,
+        "fused_count": 27,
+        "reranked_count": 10
+      },
+      "answer_seconds": 8.07,
+      "answer": "春节确实是法定休假节日之一——《劳动法》第四十条规定，用人单位在春节等节日期间应当依法安排劳动者休假[3]。但这次给到的法源清单里，只有\"春节\"这个节日名称，没有2026年春节的具体日期和放假天数，也没有国务院办公厅年度放假安排通知的内容，所以我没法凭清单告诉你是哪几天。\n\n简单说：法律层面只确定了\"春节要放假\"这一原则[3]，真正落到\"2026年放哪几天、怎么调休\"，看的是国务院办公厅每年发布的节假日安排通知，那类文件不在本次清单范围内，我不能凭记忆替你补日期，免得说错。\n\n你可以做两件事：一是留意国务院办公厅发布的2026年部分节假日安排通知；二是如果涉及加班费、排班争议，先确认单位执行的放假方案，再对照通知核对。\n\n如果你是想问\"春节哪几天算法定节假日、加班费怎么算\"，可以再告诉我具体情形，我按清单里有的内容帮你梳理。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第三条"
+        },
+        {
+          "law": "最高法发布劳动争议典型案例",
+          "article": null
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第四十条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第四十五条"
+        },
+        {
+          "law": "职工带薪年休假条例",
+          "article": "第二条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          3,
+          3
+        ],
+        "invalid": [],
+        "total": 2,
+        "correct": 2,
+        "no_citation": false
+      },
+      "elapsed_seconds": 12.77,
+      "_penalty": 50,
+      "_reason": [
+        "拒答题被作答（拒答失败）"
+      ]
+    },
+    {
+      "id": "refusal-043",
+      "type": "refusal",
+      "question": "新冠疫情期间隔离在家，工资应该怎么发？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": true,
+      "golden": [],
+      "errors": [],
+      "retrieval_seconds": 0.63,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "工资支付暂行规定",
+          "article": "第六条",
+          "score": 0.6276
+        },
+        {
+          "rank": 2,
+          "law": "工资支付暂行规定",
+          "article": "第七条",
+          "score": 0.6172
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十六条",
+          "score": 0.5954
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动法",
+          "article": "第五十条",
+          "score": 0.622
+        },
+        {
+          "rank": 5,
+          "law": "工资支付暂行规定",
+          "article": "第十七条",
+          "score": 0.6041
+        },
+        {
+          "rank": 6,
+          "law": "工资支付暂行规定",
+          "article": "第十一条",
+          "score": 0.6095
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动法",
+          "article": "第五十一条",
+          "score": 7.7773
+        },
+        {
+          "rank": 8,
+          "law": "职工带薪年休假条例",
+          "article": "第二条",
+          "score": 5.4685
+        },
+        {
+          "rank": 9,
+          "law": "工资支付暂行规定",
+          "article": "第十二条",
+          "score": 0.6281
+        },
+        {
+          "rank": 10,
+          "law": "工伤保险条例",
+          "article": "第四十一条",
+          "score": 0.6022
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 12,
+        "keyword_recall_count": 20,
+        "fused_count": 30,
+        "reranked_count": 10
+      },
+      "answer_seconds": 4.84,
+      "answer": "关于“隔离期间工资怎么发”这个具体问题，说实话，本次检索到的法源清单里**没有直接对应的规定**（比如隔离期间按正常工资还是按病假处理这类规则，通常来自其他专门文件），我不能凭记忆替您补上，那样反而可能误导您。\n\n不过清单里有几条通用的工资支付规则，可以先帮您把底线框出来：\n\n- 工资得真金白银地发到您本人手里，不能用实物或者其他东西顶替，而且原则上要按月支付，**不得克扣或者无故拖欠**[4]。\n- 发工资得按您和单位约定的日期来；如果约定那天正好撞上节假日或休息日，应该提前到最近的工作日发[2]。\n- 单位还应当保存工资支付记录两年以上，并在发薪时给您一份个人的工资清单，方便您核对[1]。\n\n所以，如果单位以“隔离在家没上班”为由直接不发、或者长期拖着不发，从上面这几条看，至少是存在问题的；至于该按什么标准发、发多少，需要看具体的隔离情形（是政府强制隔离、还是单位安排、还是自己居家）以及当地和国家的专门规定，这部分超出了本次清单范围。\n\n建议您把两个信息补一下：**隔离是政府要求的还是单位要求的、单位目前实际怎么发的**，我再帮您对着能查到的依据梳理；也可以直接拨打 12333 咨询当地人社部门，或找执业律师看看具体材料。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "工资支付暂行规定",
+          "article": "第六条"
+        },
+        {
+          "law": "工资支付暂行规定",
+          "article": "第七条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第四十六条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第五十条"
+        },
+        {
+          "law": "工资支付暂行规定",
+          "article": "第十七条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          4,
+          2,
+          1
+        ],
+        "invalid": [],
+        "total": 3,
+        "correct": 3,
+        "no_citation": false
+      },
+      "elapsed_seconds": 5.47,
+      "_penalty": 50,
+      "_reason": [
+        "拒答题被作答（拒答失败）"
+      ]
+    },
+    {
+      "id": "refusal-044",
+      "type": "refusal",
+      "question": "深圳住房公积金的缴存比例上限是多少？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": true,
+      "golden": [],
+      "errors": [],
+      "retrieval_seconds": 0.8,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "工伤保险条例",
+          "article": "第三十五条",
+          "score": 0.4665
+        },
+        {
+          "rank": 2,
+          "law": "工伤保险条例",
+          "article": "第十三条",
+          "score": 0.4768
+        },
+        {
+          "rank": 3,
+          "law": "工伤保险条例",
+          "article": "第十二条",
+          "score": 0.452
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动法",
+          "article": "第七十五条",
+          "score": 0.4521
+        },
+        {
+          "rank": 5,
+          "law": "工伤保险条例",
+          "article": "第三十四条",
+          "score": 0.5175
+        },
+        {
+          "rank": 6,
+          "law": "工伤保险条例",
+          "article": "第十条",
+          "score": 0.4833
+        },
+        {
+          "rank": 7,
+          "law": "工伤保险条例",
+          "article": "第八条",
+          "score": 0.4617
+        },
+        {
+          "rank": 8,
+          "law": "工伤保险条例",
+          "article": "第三十六条",
+          "score": 0.448
+        },
+        {
+          "rank": 9,
+          "law": "工伤保险条例",
+          "article": "第三十九条",
+          "score": 0.4987
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第六十六条",
+          "score": 12.0076
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 13,
+        "keyword_recall_count": 20,
+        "fused_count": 32,
+        "reranked_count": 10
+      },
+      "answer_seconds": 10.23,
+      "answer": "这个问题我这边没法给你确切答案，得先说明一下原因，免得你误会。\n\n我这次拿到的法源清单里，只有《工伤保险条例》关于伤残待遇、工伤基金管理和生活护理费的几条，以及《中华人民共和国劳动法》第七十五条关于补充保险、储蓄性保险的规定[5]，里面完全没有涉及住房公积金的内容。住房公积金缴存比例属于《住房公积金管理条例》及地方具体政策调整的范围，而这些都不在本次清单中。按照我的工作方式，清单里没有的内容我不能凭印象补充，否则可能给你错误信息。\n\n另外还有一层：住房公积金缴存比例的具体标准，各地差异较大，深圳执行的是地方性规定，属于超出我本次覆盖范围的内容（本次仅限中国大陆全国层面的法源）。所以即便不谈清单限制，地方口径也需要以当地主管部门的最新发布为准。\n\n比较稳妥的做法是：直接登录深圳市住房公积金管理中心官网或拨打其服务热线查询，也可以到单位缴存银行网点问一下，那里的口径是最新的。如果你手上有具体的缴存争议（比如单位少缴），带上工资流水和缴存明细去咨询执业律师会更对症。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。\n\n⚠️ 提示：回答中提到的部分法规名称不在本次检索到的法源清单内，相关表述未经原文核对，请以官方发布文本为准。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_warning_unknown_law: 回答中提到了清单外的法规：《住房公积金管理条例》。只能使用清单内的法规：《工伤保险条例》, 《工伤保险条例》, 《工伤保险条例》, 《工伤保险条例》, 《中华人民共和国劳动法》",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "工伤保险条例",
+          "article": "第三十五条"
+        },
+        {
+          "law": "工伤保险条例",
+          "article": "第十三条"
+        },
+        {
+          "law": "工伤保险条例",
+          "article": "第十二条"
+        },
+        {
+          "law": "工伤保险条例",
+          "article": "第三十四条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第七十五条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          5
+        ],
+        "invalid": [],
+        "total": 1,
+        "correct": 1,
+        "no_citation": false
+      },
+      "elapsed_seconds": 11.04,
+      "_penalty": 50,
+      "_reason": [
+        "拒答题被作答（拒答失败）"
+      ]
+    },
+    {
+      "id": "confuse-045",
+      "type": "confusable",
+      "question": "经济补偿金和违法解除的赔偿金有什么区别？分别什么时候适用？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第四十六条"
+        },
+        {
+          "law": "劳动合同法",
+          "article": "第四十七条"
+        },
+        {
+          "law": "劳动合同法",
+          "article": "第八十七条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.73,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十五条",
+          "score": 0.6725
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十七条",
+          "score": 0.6034
+        },
+        {
+          "rank": 3,
+          "law": "工资支付暂行规定",
+          "article": "第十八条",
+          "score": 0.6759
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条",
+          "score": 0.6434
+        },
+        {
+          "rank": 5,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第十八条",
+          "score": 12.8028
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十七条",
+          "score": 0.6318
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十六条",
+          "score": 0.62
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十八条",
+          "score": 0.6064
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动法",
+          "article": "第九十一条",
+          "score": 11.1586
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第九十七条",
+          "score": 0.6624
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 12,
+        "keyword_recall_count": 20,
+        "fused_count": 29,
+        "reranked_count": 10
+      },
+      "golden_rank": 2,
+      "hit_at_5": true,
+      "reciprocal_rank": 0.5,
+      "mrr_applicable": true,
+      "mrr10": 0.5,
+      "answer_seconds": 4.92,
+      "answer": "简单说，经济补偿金是\"合法解除/终止时按年限给的补偿\"，违法解除赔偿金是\"单位违法解除时按二倍标准给的赔偿\"，两者不能同时拿。\n\n**经济补偿金**（《劳动合同法》第47条）：按你在本单位工作的年限，每满一年支付一个月工资；六个月以上不满一年的按一年算，不满六个月的给半个月工资[4]。如果你月工资高于当地上年度职工月平均工资三倍，就按三倍数额算，且年限最高不超过十二年；这里的\"月工资\"指解除或终止前十二个月的平均工资[4]。\n\n**违法解除赔偿金**（第87条）：用人单位违法解除或终止劳动合同的，按第47条经济补偿标准的二倍支付赔偿金[2]。也就是说，它是在经济补偿标准基础上翻倍。\n\n**两者关系**：单位违法解除、按第87条支付了赔偿金后，就不再支付经济补偿金；赔偿金的计算年限自用工之日起算[1]。所以不是\"补偿+赔偿\"叠加。\n\n**另外**：如果违法解除的合同本来还能继续履行，你要求继续履行的，可以主张从解除决定作出之日起到恢复履行前一日、按正常劳动工资标准支付的工资；如果双方对解除都有过错，各自承担相应责任[5]。\n\n如果你手头有具体的解除情形（比如被辞退的理由、有没有书面通知），可以告诉我，我帮你对照看看更接近哪种情况。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十五条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十七条"
+        },
+        {
+          "law": "工资支付暂行规定",
+          "article": "第十八条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条"
+        },
+        {
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第十八条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          4,
+          4,
+          2,
+          1,
+          5
+        ],
+        "invalid": [],
+        "total": 5,
+        "correct": 5,
+        "no_citation": false
+      },
+      "elapsed_seconds": 5.66,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "confuse-046",
+      "type": "confusable",
+      "question": "公司说我不能胜任工作把我辞退了，我应该拿经济补偿还是赔偿金？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第四十条"
+        },
+        {
+          "law": "劳动合同法",
+          "article": "第四十六条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.64,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十五条",
+          "score": 0.648
+        },
+        {
+          "rank": 2,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十五条",
+          "score": 0.6378
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条",
+          "score": 0.6523
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十三条",
+          "score": 0.6459
+        },
+        {
+          "rank": 5,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十六条",
+          "score": 14.4404
+        },
+        {
+          "rank": 6,
+          "law": "工资支付暂行规定",
+          "article": "第十八条",
+          "score": 0.6369
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动法",
+          "article": "第九十一条",
+          "score": 0.6574
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十六条",
+          "score": 19.205
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动争议调解仲裁法",
+          "article": "第二条",
+          "score": 11.6147
+        },
+        {
+          "rank": 10,
+          "law": "工资支付暂行规定",
+          "article": "第十六条",
+          "score": 0.6355
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 15,
+        "keyword_recall_count": 20,
+        "fused_count": 32,
+        "reranked_count": 10
+      },
+      "golden_rank": null,
+      "hit_at_5": false,
+      "reciprocal_rank": 0.0,
+      "mrr_applicable": false,
+      "mrr10": 0.0,
+      "answer_seconds": 7.0,
+      "answer": "遇到这种事确实挺闹心，不过先别急着定，关键得看这次解除是\"合法\"还是\"违法\"——拿经济补偿还是赔偿金，分水岭就在这里。\n\n如果属于**违法解除**，单位要按劳动合同法第八十七条支付赔偿金；而且已经支付赔偿金的，就不再支付经济补偿，赔偿金的计算年限从用工之日起算[1]。\n\n如果属于**合法解除**，通常走的是经济补偿：在本单位每满一年付一个月工资，六个月以上不满一年按一年算，不满六个月付半个月工资[3]。这里的\"月工资\"指解除前十二个月的平均工资[3]；如果你月工资高于当地上年度职工月平均工资三倍，则按三倍数额封顶，年限最多不超过十二年[3]。\n\n另外，如果是单位未按约定支付报酬、克扣或无故拖欠工资等原因，逼得你主动提出解除，那单位要付劳动报酬和经济补偿，还可能付赔偿金[2]。\n\n需要坦白说明的是：**本次法源清单里没有\"不能胜任工作\"能否作为解除理由的具体条文**，所以公司这个理由站不站得住、有没有走完法定程序，我这边判断不了。建议你把解除通知书、考勤和工资记录留好，找执业律师具体看一下——这一步会直接决定你主张的是补偿还是赔偿。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十五条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十五条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十三条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十六条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          3,
+          3,
+          3,
+          2
+        ],
+        "invalid": [],
+        "total": 5,
+        "correct": 5,
+        "no_citation": false
+      },
+      "elapsed_seconds": 7.64,
+      "_penalty": 20,
+      "_reason": [
+        "golden 未进 top5（实际排名 未召回）"
+      ]
+    },
+    {
+      "id": "confuse-047",
+      "type": "confusable",
+      "question": "竞业限制的补偿金和违约金是一回事吗？谁付给谁？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第二十三条"
+        },
+        {
+          "law": "劳动合同法",
+          "article": "第二十五条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.89,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十三条",
+          "score": 0.7135
+        },
+        {
+          "rank": 2,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第十五条",
+          "score": 0.7104
+        },
+        {
+          "rank": 3,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十条",
+          "score": 0.7105
+        },
+        {
+          "rank": 4,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十七条",
+          "score": 0.6861
+        },
+        {
+          "rank": 5,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 0.6738
+        },
+        {
+          "rank": 6,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十六条",
+          "score": 0.6728
+        },
+        {
+          "rank": 7,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十八条",
+          "score": 0.6725
+        },
+        {
+          "rank": 8,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十九条",
+          "score": 0.6616
+        },
+        {
+          "rank": 9,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第十四条",
+          "score": 0.6488
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十四条",
+          "score": 15.0801
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 9,
+        "keyword_recall_count": 20,
+        "fused_count": 23,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 5.49,
+      "answer": "这两者不是一回事，方向正好相反，简单记：补偿金是单位掏钱给你，违约金是你掏钱赔单位。\n\n**补偿金（单位 → 你）**：对负有保密义务的劳动者，单位可以在合同或保密协议里约定竞业限制条款，并约定在解除或终止劳动合同后、在竞业限制期限内**按月**给你经济补偿[1]。所以是先离职、再按月发，不是一次性买断。\n\n**违约金（你 → 单位）**：你如果违反竞业限制约定，应当按照约定向单位支付违约金[1]。\n\n两个还有点\"叠加\"关系，值得注意：\n\n- 你违约后，单位除了要违约金，还可以要求你**返还已经支付过的经济补偿**[2]；\n- 你支付违约金后，单位要求你按约定**继续履行**竞业限制义务的，法院也会支持[3]——不是赔了钱就自由了；\n- 反过来说，你履行了竞业限制义务，单位不付补偿，你可以要求它支付[4]。\n\n具体给多少、给几个月，法律没有统一数额，主要看你们的协议约定。如果约定了竞业限制却没写补偿标准，这块容易起争议，建议把协议拿出来具体看。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十三条"
+        },
+        {
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第十五条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十七条"
+        },
+        {
+          "law": "最高法发布劳动争议典型案例",
+          "article": null
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          1,
+          2,
+          3,
+          4
+        ],
+        "invalid": [],
+        "total": 5,
+        "correct": 5,
+        "no_citation": false
+      },
+      "elapsed_seconds": 6.38,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "confuse-048",
+      "type": "confusable",
+      "question": "法定节假日加班和周末加班的加班费标准一样吗？都是三倍吗？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动法",
+          "article": "第四十四条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.71,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十四条",
+          "score": 0.665
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第三十一条",
+          "score": 0.6039
+        },
+        {
+          "rank": 3,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十二条",
+          "score": 21.8191
+        },
+        {
+          "rank": 4,
+          "law": "工资支付暂行规定",
+          "article": "第七条",
+          "score": 0.5533
+        },
+        {
+          "rank": 5,
+          "law": "工资支付暂行规定",
+          "article": "第十三条",
+          "score": 0.626
+        },
+        {
+          "rank": 6,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 9.4861
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十五条",
+          "score": 0.5874
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动法",
+          "article": "第五十一条",
+          "score": 0.5889
+        },
+        {
+          "rank": 9,
+          "law": "职工带薪年休假条例",
+          "article": "第三条",
+          "score": 0.5831
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第六十二条",
+          "score": 0.585
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 9,
+        "keyword_recall_count": 20,
+        "fused_count": 25,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 3.98,
+      "answer": "这两个标准不一样，周末加班也不是三倍。\n\n简单说，加班分三种情形，钱也不一样[1]：\n\n- **平时工作日延长工作时间**：不低于工资的 **150%**；\n- **休息日（通常说的周末）安排工作、又不能安排补休**：不低于 **200%**；\n- **法定休假日（法定节假日）安排工作**：不低于 **300%**。\n\n所以只有法定节假日加班才是三倍；周末加班是两倍，而且如果单位安排了补休，按规定就不用再付这200%了[1]。《工资支付暂行规定》里对计件工资、综合计算工时也有对应口径，标准同样是150%、200%、300%[5]。\n\n另外提醒一句：单位安排加班就该依法付加班费，不能强迫或变相强迫加班[2]。如果主张加班费，通常要自己先就\"加班事实存在\"举证；但你有证据证明相关证据在单位手里、单位却不提供，不利后果由单位承担[3]。\n\n你具体是哪种情况（法定节假日还是周末、有没有补休），可以再说细点，我帮你对一下算法。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第四十四条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第三十一条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十二条"
+        },
+        {
+          "law": "工资支付暂行规定",
+          "article": "第七条"
+        },
+        {
+          "law": "工资支付暂行规定",
+          "article": "第十三条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          1,
+          5,
+          2,
+          3
+        ],
+        "invalid": [],
+        "total": 5,
+        "correct": 5,
+        "no_citation": false
+      },
+      "elapsed_seconds": 4.7,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "confuse-049",
+      "type": "confusable",
+      "question": "我退休以后被公司返聘，现在被辞退了，能要求公司付经济补偿吗？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动争议司法解释（一）",
+          "article": "第三十二条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 1.32,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十七条",
+          "score": 15.291
+        },
+        {
+          "rank": 2,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十六条",
+          "score": 0.6345
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十五条",
+          "score": 0.6394
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十七条",
+          "score": 0.6316
+        },
+        {
+          "rank": 5,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第十九条",
+          "score": 0.6478
+        },
+        {
+          "rank": 6,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 0.6284
+        },
+        {
+          "rank": 7,
+          "law": "工资支付暂行规定",
+          "article": "第十六条",
+          "score": 0.649
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条",
+          "score": 0.6448
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十六条",
+          "score": 0.664
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第九十七条",
+          "score": 0.6327
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 15,
+        "keyword_recall_count": 20,
+        "fused_count": 34,
+        "reranked_count": 10
+      },
+      "golden_rank": null,
+      "hit_at_5": false,
+      "reciprocal_rank": 0.0,
+      "mrr_applicable": false,
+      "mrr10": 0.0,
+      "answer_seconds": 6.86,
+      "answer": "先说结论：这个问题我手头的法源里**没有能直接支撑的答案**，得跟你说明白，免得给你错误预期。\n\n原因在于，退休返聘能不能要经济补偿，第一步要先看双方之间到底算**劳动关系**还是**劳务关系**（简单说，劳动关系受劳动法保护，能主张经济补偿；劳务关系一般按合同约定走，通常没有经济补偿这一说）。这个性质认定，是后续所有结论的前提。而本次检索到的这几条法源里，恰好没有覆盖\"退休返聘人员关系性质\"这一块内容，所以我不便凭印象给你下判断。\n\n我能说的，是清单里确实涉及到的部分：\n\n- 如果走的是劳动关系这条路径，且公司属于违法解除或终止，那么按规定支付了赔偿金后，就不再另行支付经济补偿；赔偿金的计算年限从用工之日起算[3]。\n- 经济补偿的月工资按你**应得工资**算，包括计时/计件工资以及奖金、津贴、补贴等货币性收入；解除前12个月平均工资低于当地最低工资标准的按最低工资算，工作不满12个月的按实际月数算平均[5]。\n\n另外清单里还提到竞业限制约定下双方的权利义务[1]，以及非因本人原因被安排到新单位时工作年限可合并计算[2]——这两条和你现在的情况关联不大，供你参考。\n\n建议你补充两点信息，我再帮你对照看看：**你是否已经开始按月领取基本养老金**，以及**返聘时签的是劳动合同还是劳务/聘用协议**。这两点对判断很关键。这种情况涉及身份认定，拿不准的话，找当地执业律师当面看下协议会更稳妥。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十七条"
+        },
+        {
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十六条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十五条"
+        },
+        {
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第十九条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十七条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          3,
+          5,
+          1,
+          2
+        ],
+        "invalid": [],
+        "total": 4,
+        "correct": 4,
+        "no_citation": false
+      },
+      "elapsed_seconds": 8.18,
+      "_penalty": 20,
+      "_reason": [
+        "golden 未进 top5（实际排名 未召回）"
+      ]
+    },
+    {
+      "id": "confuse-050",
+      "type": "confusable",
+      "question": "入职时公司让我签了自愿放弃社保的承诺书，现在我能以没交社保为由要经济补偿吗？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动争议司法解释（二）",
+          "article": "第十九条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 1.09,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第十九条",
+          "score": 0.7315
+        },
+        {
+          "rank": 2,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 0.7249
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动法",
+          "article": "第一百条",
+          "score": 0.6649
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第五条",
+          "score": 0.6372
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十二条",
+          "score": 13.1058
+        },
+        {
+          "rank": 6,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十七条",
+          "score": 12.8536
+        },
+        {
+          "rank": 7,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第一条",
+          "score": 0.6513
+        },
+        {
+          "rank": 8,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十六条",
+          "score": 12.6715
+        },
+        {
+          "rank": 9,
+          "law": "工伤保险条例",
+          "article": "第六十二条",
+          "score": 0.637
+        },
+        {
+          "rank": 10,
+          "law": "工伤保险条例",
+          "article": "第十条",
+          "score": 0.6398
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 11,
+        "keyword_recall_count": 20,
+        "fused_count": 30,
+        "reranked_count": 10
+      },
+      "golden_rank": 1,
+      "hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "mrr_applicable": true,
+      "mrr10": 1.0,
+      "answer_seconds": 67.49,
+      "answer": "遇到这种情况确实让人头疼，不过按现行规则，你签的那份\"自愿放弃社保\"承诺书，一般挡不住你主张经济补偿。\n\n**核心结论：这类约定或承诺是无效的。** 司法解释明确，用人单位与劳动者约定或者劳动者承诺无需缴纳社会保险费的，人民法院应当认定该约定或者承诺无效[1]。也就是说，签了字也不影响社保是双方的法定强制义务这一性质。\n\n**接下来你要做的是\"以此为由解除劳动合同\"。** 用人单位未依法缴纳社会保险费，劳动者根据劳动合同法第三十八条第一款第三项规定请求解除劳动合同、由用人单位支付经济补偿的，人民法院依法予以支持[1]。最高法发布的典型案例中，公司与员工约定不缴社保、改发补助，法院认定约定无效，判决公司支付解除劳动合同的经济补偿[2]。\n\n**两点提醒：**\n1. 如果公司已经把社保费以\"补助\"形式发给你，公司依法补缴后，请求你返还已支付的社保费补偿的，法院也会支持[1]。所以到手的钱未必能全留下，心里先有个数。\n2. 建议保留好承诺书、工资发放记录、社保缴费记录等材料，并以书面形式向公司提出解除（说明理由是未依法缴纳社保），再走劳动仲裁。\n\n具体能拿多少补偿、时效怎么算，还得看你所在城市和入职时间等细节，拿不准的话建议带材料咨询当地执业律师或仲裁机构。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第十九条"
+        },
+        {
+          "law": "最高法发布劳动争议典型案例",
+          "article": null
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第一百条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第五条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十二条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          1,
+          1,
+          2,
+          1
+        ],
+        "invalid": [],
+        "total": 4,
+        "correct": 4,
+        "no_citation": false
+      },
+      "elapsed_seconds": 68.58,
+      "_penalty": 0,
+      "_reason": []
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+==========================================================================================================================
+resolve_current_status(status, expiration_date) —— 生产函数实算（回填前 vs 回填后）
+==========================================================================================================================
+#  法规名                                         库内 status       回填前 is_current      回填后 is_current      变化
+1  最高人民法院关于审理劳动争议案件适用法律问题的解释（一）                effective       None                True                ← 变化
+2  最高法发布劳动争议典型案例                               not_applicable  None                True                ← 变化
+3  最高法发布劳动争议司法解释（二）和典型案例                       None            None                None                
+4  中华人民共和国劳动争议调解仲裁法                            None            None                None                
+5  中华人民共和国劳动合同法                                effective       None                True                ← 变化
+6  中华人民共和国劳动法                                  effective       None                True                ← 变化
+7  工资支付暂行规定                                    None            None                None                
+8  工伤保险条例                                      effective       None                True                ← 变化
+9  中华人民共和国劳动合同法实施条例                            None            None                None                
+10 女职工劳动保护特别规定                                 None            None                None                
+11 职工带薪年休假条例                                   None            None                None                
+
+受影响法规数：5 / 11
+  · 最高人民法院关于审理劳动争议案件适用法律问题的解释（一）                   status='effective'  is_current: None → True
+  · 最高法发布劳动争议典型案例                                  status='not_applicable'  is_current: None → True
+  · 中华人民共和国劳动合同法                                   status='effective'  is_current: None → True
+  · 中华人民共和国劳动法                                     status='effective'  is_current: None → True
+  · 工伤保险条例                                         status='effective'  is_current: None → True
+
+结论：
+  1) 影响面只有本批写入的 5 部（[01][02][05][06][08]），其余 6 部两遍完全相同；
+  2) 方向一律是 None（未知）→ True（现行），即把‘不知道’变成‘知道’；
+  3) 没有任何一部从 True/None 变成 False —— 不存在‘条文被静默隐藏’的风险
+     （检索侧只在 is_current is False 时才过滤，见 retrieval/keyword_search.py:268）。
+  4) 注意 status 的词表是**中文**：resolve_current_status 与索引侧只认
+     '已废止'/'已失效'。英文 'effective'/'not_applicable' 落进‘不属于已废止’分支，
+     所以行为上等价于‘未标注废止’，与写入前一致 —— 这也是接口不报错的根本原因。
