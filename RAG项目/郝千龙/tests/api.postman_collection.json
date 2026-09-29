@@ -1,0 +1,125 @@
+{
+  "info": {
+    "name": "RAG 角色扮演系统 API",
+    "_postman_id": "roleplay-api-collection",
+    "description": "Postman / APIpost 导入集合：注册/登录/角色/对话/知识库上传",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "BASE_URL", "value": "http://127.0.0.1:8000" },
+    { "key": "TOKEN", "value": "" },
+    { "key": "USERNAME", "value": "alice" },
+    { "key": "PASSWORD", "value": "alice1234" }
+  ],
+  "item": [
+    {
+      "name": "健康检查",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "{{BASE_URL}}/health", "host": ["{{BASE_URL}}"], "path": ["health"] }
+      }
+    },
+    {
+      "name": "注册",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "var json = pm.response.json();",
+              "if (json.token) { pm.environment.set('TOKEN', json.token); }"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"{{USERNAME}}\",\n  \"password\": \"{{PASSWORD}}\"\n}"
+        },
+        "url": { "raw": "{{BASE_URL}}/api/auth/register", "host": ["{{BASE_URL}}"], "path": ["api", "auth", "register"] }
+      }
+    },
+    {
+      "name": "登录",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "var json = pm.response.json();",
+              "pm.environment.set('TOKEN', json.token);",
+              "pm.environment.set('USER_ID', json.user_id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"{{USERNAME}}\",\n  \"password\": \"{{PASSWORD}}\"\n}"
+        },
+        "url": { "raw": "{{BASE_URL}}/api/auth/login", "host": ["{{BASE_URL}}"], "path": ["api", "auth", "login"] }
+      }
+    },
+    {
+      "name": "角色列表",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{TOKEN}}" }],
+        "url": { "raw": "{{BASE_URL}}/api/roles", "host": ["{{BASE_URL}}"], "path": ["api", "roles"] }
+      }
+    },
+    {
+      "name": "对话（非流式）",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{TOKEN}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"I miss you 怎么翻译？\",\n  \"role_code\": \"teacher\",\n  \"top_k\": 6\n}"
+        },
+        "url": { "raw": "{{BASE_URL}}/api/chat", "host": ["{{BASE_URL}}"], "path": ["api", "chat"] }
+      }
+    },
+    {
+      "name": "对话（流式）",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{TOKEN}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"go to sleep\",\n  \"role_code\": \"teacher\",\n  \"stream\": true\n}"
+        },
+        "url": { "raw": "{{BASE_URL}}/api/chat", "host": ["{{BASE_URL}}"], "path": ["api", "chat"] }
+      }
+    },
+    {
+      "name": "知识库上传",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{TOKEN}}" }],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "file", "type": "file", "src": [] }
+          ]
+        },
+        "url": { "raw": "{{BASE_URL}}/api/kb/upload", "host": ["{{BASE_URL}}"], "path": ["api", "kb", "upload"] }
+      }
+    }
+  ]
+}
