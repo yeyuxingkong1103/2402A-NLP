@@ -1,0 +1,74 @@
+{
+ "buckets": {
+  "auto|高危": {
+   "n": 97,
+   "recall": 53.0,
+   "mrr": 50.900000000000006,
+   "n_pos": 53,
+   "false_fb_positive": 0,
+   "false_fb_noplan": 0,
+   "missed_fb": 0,
+   "n_fb": 44,
+   "num_ok": 53,
+   "num_tot": 196,
+   "num_fail": 0,
+   "relaxed": 4
+  },
+  "auto|普通": {
+   "n": 135,
+   "recall": 135.0,
+   "mrr": 132.83333333333334,
+   "n_pos": 135,
+   "false_fb_positive": 0,
+   "false_fb_noplan": 0,
+   "missed_fb": 0,
+   "n_fb": 0,
+   "num_ok": 0,
+   "num_tot": 0,
+   "num_fail": 0,
+   "relaxed": 0
+  },
+  "collected|高危": {
+   "n": 16,
+   "recall": 15.0,
+   "mrr": 13.333333333333334,
+   "n_pos": 15,
+   "false_fb_positive": 0,
+   "false_fb_noplan": 0,
+   "missed_fb": 0,
+   "n_fb": 0,
+   "num_ok": 15,
+   "num_tot": 219,
+   "num_fail": 0,
+   "relaxed": 0,
+   "n_noplan": 1
+  },
+  "collected|普通": {
+   "n": 11,
+   "recall": 8.0,
+   "mrr": 6.833333333333333,
+   "n_pos": 8,
+   "false_fb_positive": 0,
+   "false_fb_noplan": 1,
+   "missed_fb": 0,
+   "n_fb": 0,
+   "num_ok": 0,
+   "num_tot": 0,
+   "num_fail": 0,
+   "relaxed": 0,
+   "n_noplan": 3
+  }
+ },
+ "failures": [
+  [
+   [
+    "collected",
+    "普通"
+   ],
+   "该放宽却兜底",
+   "辣椒茎基部或枝条处出现黑褐色病斑，整株萎蔫落叶，几天就死了，是什么病？",
+   "ok: rerank 0.9561 过"
+  ]
+ ],
+ "ok": true
+}
