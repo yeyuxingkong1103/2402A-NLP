@@ -1,0 +1,19 @@
+from typing import AsyncIterator, Protocol
+
+
+class LLMProvider(Protocol):
+    async def chat(self, messages: list[dict], **opts) -> str: ...
+
+    async def chat_stream(self, messages: list[dict], **opts) -> AsyncIterator[str]: ...
+
+
+class EmbeddingProvider(Protocol):
+    async def encode_dense(self, texts: list[str]) -> list[list[float]]: ...
+
+    async def encode_sparse(self, texts: list[str]) -> list[dict[int, float]]: ...
+
+    async def encode_query(self, text: str) -> tuple[list[float], dict[int, float]]: ...
+
+
+class RerankProvider(Protocol):
+    async def rerank(self, query: str, passages: list[str], top_m: int) -> list[tuple[int, float]]: ...
