@@ -1,0 +1,2742 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<!-- 站点图标：站内内联 data-URI（无外链、零额外请求）；默认 = 律师法锤，随角色/主题由脚本改 href -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20d%3D%22M6%204%20h20%20v5%20H6%20z%20M14%209%20h4%20v13%20h-4%20z%20M5%2025%20h22%20v3%20H5%20z%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23000000%22%20stroke-width%3D%222%22%20stroke-linejoin%3D%22round%22%20fill-rule%3D%22evenodd%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E">
+<title>明理</title>
+<!--
+  「明理」网页控制台（单页、无构建、零依赖、无 CDN、离线可用），由 FastAPI 托管在 /ui（见 legal_rag/api/app.py）。
+
+    * 布局：顶栏 + 左栏（会话列表）+ 主区（聊天）；**没有**第三根侧栏。
+    * 角色选择：主区工具栏里「一个按钮 + 展开列表」（role=listbox）；列表项**由 GET /roles 动态渲染**，
+      无知识库的角色以禁用态留在列表里并写明原因（数量不写死，随 /roles 实时变化）。
+    * 知识库：界面上**只有一个**「知识库」入口；面板打开后才有唯一一个「添加」主操作。
+    * 配色：严格取 docs/WEB-UX.md §6（蓝/红/绿 3 色相 + 中性灰，深浅两套十六进制值）。
+    * 已接上的请求：GET /health、GET /documents/fit-check（两个徽标）、GET /roles、POST /auth/register、
+      POST /auth/login、GET /auth/me、POST /auth/logout、GET /auth/username-available、GET|POST /sessions、
+      POST /chat（SSE：delta / citations / done / error）、GET /documents、POST /documents/fit-check、
+      POST /documents/upload、DELETE /documents/{doc_id}。
+    * 未登录时的网页门槛**不受后端 AUTH_REQUIRED 开关影响**：首屏即认证视图，输入框与「发送」禁用并写明原因，
+      提问入口在客户端就被拦住（不发请求）；身份只来自 HttpOnly Cookie，localStorage 只允许存 user_id。
+    * 页面内不使用浏览器原生弹窗（告警 / 确认 / 输入框三种都不用）；所有确认类交互统一用页内浮层
+      （确认模态、输入模态），并做 Esc 关闭 + 焦点回到触发元素（AC-K-3 / AC-N-12）。
+    * 页面上的三个表单统一把 action 指向 javascript: 空操作 + 提交处理器里 preventDefault()：绝不走原生表单提交，
+      避免默认 GET 把密码之类的输入拼进地址栏与浏览器历史（B1）。
+
+  依据：docs/WEB-UX.md（唯一依据，r4）。
+-->
+<!-- 主题：在解析阶段（首屏绘制前）就写死，避免出现相反主题的中间帧（AC-TH-5）。
+     未显式选择过 ⇒ 跟随系统 prefers-color-scheme；显式选择过 ⇒ 用户选择优先并覆盖系统（AC-TH-4）。 -->
+<script>
+(function () {
+  "use strict";
+  var KEY = "lr_theme";                 /* 四页唯一一致的键名；值只有 dark / light，不存任何凭据 */
+  var root = document.documentElement;
+  function systemTheme() {
+    try {
+      return (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
+    } catch (e) { return "dark"; }
+  }
+  function stored() {
+    try {
+      var v = localStorage.getItem(KEY);
+      return (v === "light" || v === "dark") ? v : "";
+    } catch (e) { return ""; }          /* 隐私模式：读不到就当未选择 */
+  }
+  function apply(theme) {
+    root.setAttribute("data-theme", theme);
+    root.style.colorScheme = theme;     /* 原生控件/滚动条跟随 */
+  }
+  window.__theme = {
+    KEY: KEY,
+    read: stored,
+    system: systemTheme,
+    current: function () { return root.getAttribute("data-theme") || systemTheme(); },
+    apply: apply,
+    set: function (theme, persist) {
+      apply(theme);
+      if (persist) {
+        try { localStorage.setItem(KEY, theme); } catch (e) { /* 隐私模式：本次生效，不持久化 */ }
+      }
+    }
+  };
+  apply(stored() || systemTheme());
+  /* ── B-8 / r17 §21：账号级偏好（theme + role_id）的「本地即时 + 服务端权威」 ──────
+     分工写死（`AC-PR-8`）：**本地立即生效**（解析期就读 ⇒ 首帧即正确、无闪跳），
+     随后**异步上报** `PUT /prefs`；`GET /prefs` 回来**以服务端为准**（本地即时值被覆盖）。
+     服务端不可达 ⇒ **保留本地效果** + `#prefsNote` 可见说明与「重试」，绝不静默、也不阻塞首屏。
+     键名白名单：`lr_theme` / `lr_role` / `lr_prefs_owner` —— **只存偏好，不存任何凭据**（`AC-PR-1/6`）。
+     `lr_prefs_owner` = 本地缓存归属哪个账号；`claim()` 在换账号时**清掉上一账号的缓存**。
+     ⚠️ 本段在四页**逐字相同**（同一份常量，便于审查交叉核对）。 */
+  var PREFS_THEME_KEY = "lr_theme";     /* 与 __theme.KEY 同值；写死字面量以便四页同源 */
+  var ROLE_KEY = "lr_role";
+  var OWNER_KEY = "lr_prefs_owner";
+  var bootUser = "";                    /* 页面脚本确认登录态后写入 */
+  var SESSION_KEY = "lr_session";       /* 登录态白名单键（与既有常量同值；只作"有没有会话"的开关） */
+  var hasSession = false;               /* 页面脚本确认「本次确实拿到登录态」后置真 */
+  /* 待上报项：`save()` 失败时把它记下来，点「重试」**优先重发**它。
+     ⚠️ t99/F-③：以前「重试」只会 `fetchServer()`（拉取）⇒ 服务端值把本地选择**覆盖掉**，
+     用户在故障期间改的主题被静默丢弃，与同屏文案「本机已生效…再同步」自相矛盾。 */
+  var pendingPatch = null;
+  function prefsNote(msg, withRetry) {
+    var el = document.getElementById("prefsNote");
+    if (!el) return;
+    if (!msg) { el.hidden = true; el.textContent = ""; return; }
+    el.hidden = false;
+    el.textContent = msg;
+    var old = document.getElementById("prefsRetry");
+    if (old) old.remove();
+    if (withRetry) {
+      var b = document.createElement("button");
+      b.type = "button"; b.id = "prefsRetry"; b.textContent = "重试";
+      b.style.marginLeft = "8px";
+      /* t99/F-③：先重发待上报项，无待上报才退回拉取（顺序写在 retry() 里） */
+      b.onclick = function () { window.__prefs.retry(); };
+      el.appendChild(b);
+    }
+  }
+  function flushPending() {
+    if (!pendingPatch) return Promise.resolve(false);
+    var patch = pendingPatch;
+    return reportPrefs(patch).then(function (res) {
+      if (res.ok || res.code === "unauthenticated") {
+        pendingPatch = null;                       /* 上报成功（或登录态已失效）⇒ 清待上报项 */
+        return true;
+      }
+      return false;                                /* 仍失败 ⇒ 保留，供再次重试 */
+    });
+  }
+  /* 「重试」的唯一入口：**优先重发**待上报项，失败则再给可见提示；无待上报才退回拉服务端。 */
+  function retryPrefs() {
+    return flushPending().then(function (resent) {
+      if (resent) {
+        /* 重发成功 ⇒ 以服务端为准回读一次（并清提示）。此时服务端值 = 本地值。 */
+        return window.__prefs.fetchServer();
+      }
+      /* 重发失败（pendingPatch 仍在）⇒ 再给一次可见提示 + 重试 */
+      if (pendingPatch) {
+        window.__prefs.status = "offline";
+        prefsNote("偏好仍未同步到账号（可再点「重试」）。本机已生效，刷新前一直有效。", true);
+        return null;
+      }
+      return window.__prefs.fetchServer();         /* 无待上报项 ⇒ 退回拉取（原行为） */
+    });
+  }
+  function sameOwner() {
+    /* 只有"没人认领"（干净设备=首次访问）或"同一个账号"时，本地缓存才算数；
+       别的账号留下的缓存一律不用 —— 这就是"换账号不残留"的机制。 */
+    try {
+      var o = localStorage.getItem(OWNER_KEY) || "";
+      return !o || !bootUser || o === bootUser;
+    } catch (e) { return false; }
+  }
+  function storedRole() {
+    if (!sameOwner()) return "";
+    try {
+      var v = localStorage.getItem(ROLE_KEY);
+      return (v && /^[a-z0-9_-]{1,64}$/.test(v)) ? v : "";
+    } catch (e) { return ""; }
+  }
+  function storedThemePref() {
+    try {
+      var v = localStorage.getItem(PREFS_THEME_KEY);
+      return (v === "light" || v === "dark") ? v : "";
+    } catch (e) { return ""; }
+  }
+  function putRole(roleId) {
+    try { localStorage.setItem(ROLE_KEY, roleId); } catch (e) { /* 隐私模式：本次生效不持久化 */ }
+  }
+  function reportPrefs(patch) {
+    return fetch("/prefs", {
+      method: "PUT", credentials: "same-origin",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(patch)
+    }).then(function (r) {
+      if (r.status === 401) { return { ok: false, code: "unauthenticated" }; }  /* 未登录：只写本地 */
+      if (!r.ok) { return { ok: false, code: "http_" + r.status, status: r.status }; }
+      return r.json().catch(function () { return {}; }).then(function (b) { return { ok: true, body: b }; });
+    }).catch(function (err) { return { ok: false, code: "network", error: err }; });
+  }
+  window.__prefs = {
+    THEME_KEY: PREFS_THEME_KEY, ROLE_KEY: ROLE_KEY, OWNER_KEY: OWNER_KEY,
+    readRole: storedRole, putRole: putRole, report: reportPrefs, note: prefsNote, status: "",
+    /* t99/F-④：页面脚本确认"本次有没有登录态"。没有会话时**跳过** `GET /prefs`
+       （无谓的 401；`AC-PR-7` 的降级提示只在真有会话、真取不到时才该出现）。 */
+    setSession: function (on) { hasSession = !!on; return hasSession; },
+    /* 「重试」：优先重发待上报项，无待上报才拉取（见 retryPrefs 注释） */
+    retry: function () { return retryPrefs(); },
+    /* 页面脚本确认登录态后调用：认领本地缓存；换账号则清掉上一账号的偏好缓存 */
+    claim: function (userId) {
+      bootUser = userId || "";
+      try {
+        var prev = localStorage.getItem(OWNER_KEY) || "";
+        if (prev && bootUser && prev !== bootUser) {
+          localStorage.removeItem(ROLE_KEY);          /* 上一账号的角色缓存 */
+          localStorage.removeItem(PREFS_THEME_KEY);   /* 上一账号的显式主题 */
+        }
+        if (bootUser) localStorage.setItem(OWNER_KEY, bootUser);
+        else localStorage.removeItem(OWNER_KEY);
+      } catch (e) { /* 隐私模式：忽略 */ }
+      return { theme: storedThemePref(), role: storedRole() };
+    },
+    /* 登出/未登录：清掉归属，使本地缓存不再归属任何人（下次登录不会"继承"上一账号） */
+    release: function () {
+      bootUser = "";
+      hasSession = false;                                   /* t99/F-④：登出后不再发 /prefs */
+      pendingPatch = null;                                  /* 换人就不该再把上一人的改动重发上去 */
+      try { localStorage.removeItem(OWNER_KEY); } catch (e) { /* 忽略 */ }
+    },
+    /* 拉取账号偏好（服务端权威）。401 = 未登录（常见情况，**不**提示、不算失败）；
+       网络/5xx ⇒ 保留本地效果 + 可见提示 + 可重试（`AC-PR-7①②③`）。 */
+    fetchServer: function () {
+      /* t99/F-④：**没有会话就直接跳过**。以前无论有没有登录态都发一次 `GET /prefs`，
+         未登录必然 401（无谓请求）；且有会话才谈得上"以服务端为准"。 */
+      if (!hasSession) return Promise.resolve(null);
+      return fetch("/prefs", { credentials: "same-origin", headers: { Accept: "application/json" } })
+        .then(function (r) {
+          if (r.status === 401) return null;
+          if (!r.ok) throw { status: r.status };
+          return r.json();
+        }).then(function (p) {
+          if (!p) return null;
+          var th = p.theme;
+          if (th === "light" || th === "dark") {
+            window.__theme.set(th, true);           /* 服务端权威 ⇒ 覆盖本地即时值 */
+          } else {
+            /* 服务端显式"未选择" ⇒ 跟随系统：清掉本地显式值，避免本地把系统偏好压住 */
+            try { localStorage.removeItem(PREFS_THEME_KEY); } catch (e) { /* 忽略 */ }
+            window.__theme.apply(window.__theme.system());
+          }
+          if (p.role_id) putRole(p.role_id);        /* 回写本地缓存（同一账号，供首屏/降级） */
+          if (typeof window.__prefsApply === "function") window.__prefsApply(p);
+          prefsNote("", false);
+          window.__prefs.status = "";
+          return p;
+        }).catch(function (err) {
+          window.__prefs.status = "offline";
+          prefsNote("偏好未能同步（" + ((err && err.status) ? "HTTP " + err.status : "网络不通") +
+            "）。当前按本机记录使用主题「" + (window.__theme.current() === "light" ? "浅色" : "深色") +
+            "」" + (storedRole() ? "，角色按本机记录" : "") + "。", true);
+          return null;
+        });
+    },
+    /* 上报一个偏好字段：**本地已经生效**，这里只做异步同步；失败 ⇒ 可见提示 + 可重试 */
+    save: function (patch) {
+      if (!bootUser) return Promise.resolve({ ok: false, code: "unauthenticated" });
+      return reportPrefs(patch).then(function (res) {
+        if (res.ok) { window.__prefs.status = ""; pendingPatch = null; prefsNote("", false); return res; }
+        if (res.code === "unauthenticated") return res;   /* 登录态已失效：不当作偏好失败 */
+        /* t99/F-③：**记下这次没上去的改动**，供「重试」重发（否则用户选择会被服务端值覆盖掉）。
+           多个字段失败时合并保留（后到的字段覆盖同名字段），不丢任何一次用户操作。 */
+        var merged = {};
+        if (pendingPatch) { for (var k in pendingPatch) merged[k] = pendingPatch[k]; }
+        for (var k2 in patch) merged[k2] = patch[k2];
+        pendingPatch = merged;
+        window.__prefs.status = "offline";
+        prefsNote("偏好未能同步到账号（" + (res.status ? "HTTP " + res.status : "网络不通") +
+          "）。本机已生效，可点「重试」重新上报。", true);
+        return res;
+      });
+    }
+  };
+  /* 标签页图标（AC-FAV-*）的**静态初值收口**：静态 href 已是一份可渲染的 SVG（默认角色=律师的法锤、
+     暗色版），这里在**解析阶段**（样式之前、首屏绘制之前）按已生效主题把它换成正确取色，
+     于是"首屏空白图标"与"初值不是图片"两个问题同时消失；
+     之后由页面主脚本的 syncFavicon() 按**当前角色 + 主题**继续切换（只改 href，元素计数恒 1）。 */
+  (function () {
+    var SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path ' +
+      'd="M6 4 h20 v5 H6 z M14 9 h4 v13 h-4 z M5 25 h22 v3 H5 z" ' +
+      'fill="INK" stroke="RING" stroke-width="2" stroke-linejoin="round" fill-rule="evenodd"></path></svg>';
+    function hrefFor(theme) {
+      return "data:image/svg+xml," + encodeURIComponent(SVG
+        .replace("INK", theme === "light" ? "#000000" : "#FFFFFF")
+        .replace("RING", theme === "light" ? "#FFFFFF" : "#000000"));
+    }
+    try {
+      var link = document.querySelector('link[rel~="icon"]');
+      if (!link) return;
+      link.setAttribute("href", hrefFor(root.getAttribute("data-theme") || systemTheme()));
+    } catch (e) { /* 任何异常都不该拦住首屏：静态 href 本身就是可渲染的图片 */ }
+  })();
+})();
+</script>
+<style>
+  /* ===================================================================
+     明理 · 对话页样式（第二批 r6 · §15 视觉标尺）
+     硬约束（可机判）：
+       · 字阶只有 12 / 13 / 14 / 16 / 20 / 24；行高倍数 12–13→1.5、14→1.55、16→1.6、20–24→1.3
+       · 间距/内边距/外边距/间隙/控件高度一律 4px 的倍数（8px 栅格优先）
+       · 圆角只有 0 / 6 / 8 / 10（输入框与主按钮 8、卡片与浮层 10、徽标 6）
+       · 三级背景亮度：--panel-2 > --panel > --bg；不用阴影代替层级
+       · 禁 CSS 渐变、禁霓虹、禁 emoji 装饰；错误色统一用 --danger（不再出现橙色）
+       · 每盒最小尺寸见 §15.1；裸滚动条已换成细中性滚动条
+     =================================================================== */
+  :root{
+    color-scheme:dark;
+    /* 三级背景（亮度单调递增） */
+    --bg:#0F1115;          /* L1 应用底：最深 */
+    --panel:#161A21;       /* L2 面板（左栏/主区/浮层） */
+    --panel-2:#1D222B;     /* L3 次级面（输入框、表头、当前行、按钮） */
+    --active:#1B2536;      /* 当前会话行激活底 */
+    /* 描边 */
+    --line:#2A3140;        /* 分隔线（装饰性，不承担 3:1 对比义务） */
+    --line-strong:#6B7484; /* 交互控件边界：对 --panel-2 3.39:1、对 --panel 3.70:1（≥3:1） */
+    /* 文本 */
+    --fg:#E6E9EF;          /* 正文 15.54:1（对 --bg） */
+    --muted:#98A2B3;       /* 次要文字 6.77:1（对 --panel） */
+    /* 语义色（只有蓝/红/绿 + 中性灰；错误一律 --danger） */
+    --accent:#4C8DFF;      /* 主操作 5.90:1（对 --bg） */
+    --ok:#34B37A;          /* 成功 6.54:1（对 --panel） */
+    --danger:#FF8579;      /* 危险文字/描边 7.38:1（对 --panel） */
+    --danger-solid:#C7362E;/* 危险实心底（白字 5.26:1） */
+    --on-accent:#0F1115;   /* 主按钮文字 = --bg（5.90:1） */
+    --on-danger:#FFFFFF;
+    --scrim:#0F1115;       /* 遮罩（中性） */
+    --shadow:#05070A;      /* 阴影（中性，仅浮层使用） */
+    /* 尺寸与形状 */
+    --sidebar-w:264px;     /* ≥1024 档；768–1023 档 240px */
+    --r-sm:6px;            /* 徽标 */
+    --r:8px;               /* 输入框 / 按钮 / 列表行 */
+    --r-lg:10px;           /* 卡片 / 浮层 */
+  }
+  /* 浅色主题：由开关写入的 data-theme 决定（不再用媒体查询，避免"系统偏好"与"用户选择"打架，AC-TH-4②） */
+  :root[data-theme="light"]{
+    color-scheme:light;
+      --bg:#FFFFFF; --panel:#F6F7F9; --panel-2:#EEF0F4; --active:#E7EEFC; --line:#D4D9E0;
+      --line-strong:#737B88;
+      --fg:#1A1D23; --muted:#5A6472; --accent:#2A63D4; --ok:#1F7A4D;
+      --danger:#B3261E; --danger-solid:#B3261E;
+      --on-accent:#FFFFFF;
+      --scrim:#1A1D23; --shadow:#B9BFC9;
+      }
+
+  /* 主题开关：右上角槽位（四页同一槽位 data-slot="theme"，AC-TH-2）；
+     就地辅助控件（§16 适用范围声明），不按"关闭类"判。可点区 ≥40×40（AC-TH-3④）。
+     默认（三张认证页）用 position:fixed 钉在右上角；**登录态顶栏 `/ui` 例外**见下方
+     `body.app [data-slot="theme"]`（t77 F1：它同时是 `#account` 的 DOM 子元素，
+     若仍 fixed 就会整块压住「退出登录」）。 */
+  [data-slot="theme"]{
+    position:fixed;top:8px;right:16px;z-index:30;
+    min-width:88px;min-height:40px;padding:8px 12px;
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:inherit;font-size:13px;line-height:1.5;font-weight:400;cursor:pointer;
+    background:var(--panel-2);color:var(--fg);border:1px solid var(--line-strong);border-radius:var(--r,8px);
+  }
+  [data-slot="theme"]:hover{border-color:var(--accent)}
+
+  /* ── t77 F1：登录态顶栏里主题开关不得压住「退出登录」 ──────────────────────
+     事实：`#themeBtn` 曾以 `position:fixed;top:8px;right:16px` 钉在右上角，
+     而 `#account`（`margin-left:auto` 的右侧组）里的「退出登录」右缘同样在 16px 处
+     ⇒ 两者**整块重叠**（实测 1386 档相交 81.6×40 = 3264 px²，
+     `elementFromPoint(登出中心)` 命中 `#themeLabel`，点登出只切主题）。
+     修法：把开关做成 `#account` 的**兄弟**（DOM 在 `#account` 之前，`AC-K-1` 次序不变），
+     在 `/ui` 上让它**回到文档流** ⇒ 它成为右侧组的「前一列」，天然与「退出登录」零相交，
+     且仍在右上角区域内、`top` 仍为 8px。
+     ⚠️ 如实登记的取舍：零相交 + 开关自身参与排版后，它到**视口右界**的距离由 16px
+     变为 121.2px（= 账号组宽 134 + 间隙 8 − … 实测值）；在 1386 档下开关与
+     「退出登录」之间是 8px 间隙。`AC-TH-2` 的判定对象是"四页之间到各自**容器**的边距差
+     ≤8px"，此改动未使其越界；AC-TH-3（≥40×40、可访问名）与 `top:8px` 均保持不变。
+     窄档（≤1023px）见下方媒体查询：回到 fixed 右上角（那两档账号组右缘离视口右界
+     还有 ≥88px，开关的 88px 落位与它零相交）。 */
+  /* ⚠️ 实现要点（踩过的坑，别再改回去）：
+     · 开关**不设** `margin-left:auto`，也**不**靠 `#account` 的 auto 余量定位 ——
+       顶栏里两个 auto 会把余量平分（实测开关被甩到 687.65px），或让 `#account`
+       右缘成为"可用区右界"而把开关推到 251.2px。
+     · 改为**确定性**做法：开关仍 `fixed; top:8px; right:16px`（与三张认证页逐值一致，
+       即 t66 已判通过、`AC-TH-2` 的右上角槽位），再用**顶栏右内边距 128px**
+       （= 开关宽 88 + 8px 间隙 + 预留 32）把整个顶栏内容推开
+       ⇒ 账号组右缘落在开关左缘之左 8px，二者**零相交**且都留在右上角。 */
+  body.app header{padding-right:128px}
+  body.app header > [data-slot="theme"]{
+    position:fixed;top:8px;right:16px;z-index:30;
+    flex:0 0 auto;margin-left:0;margin-right:0;
+  }
+
+  /* 边角四芒星（AC-STAR-*）：内联 SVG、中性单色（复用既有 --line-strong，不新增颜色变量）、
+     opacity .18 ≤ .20、无动画、pointer-events:none、零额外请求。
+     br 右下角（四页必留）；tl 左上角（可用空间不足时按 AC-STAR-3 允许隐藏，见下方媒体查询） */
+  .deco-star{position:fixed;width:24px;height:24px;color:var(--line-strong);opacity:.18;
+             pointer-events:none;animation:none;z-index:1}
+  .deco-star path{fill:currentColor;stroke:none}
+  .deco-star[data-corner="br"]{right:16px;bottom:16px}
+  .deco-star[data-corner="tl"]{left:16px;top:16px}
+  /* /ui 顶栏占据顶部整条，左上角放不下：把 tl 移到顶栏正下方（仍距左边 8px 在 8–32px 带内） */
+  body.app .deco-star[data-corner="tl"]{left:8px;top:56px;width:16px;height:16px}
+  @media (max-width:767px){
+    .deco-star[data-corner="tl"]{display:none}   /* AC-STAR-3：375 档允许隐藏左上，右下必留 */
+  }
+  @media (max-width:1023px){
+    body.app .deco-star[data-corner="tl"]{display:none}  /* /ui 窄档顶栏会换行，tl 无可用空间 */
+  }
+
+
+  *{box-sizing:border-box}
+  [hidden]{display:none !important}
+  html,body{height:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--fg);
+    font-size:14px;line-height:1.55;
+    font-family:"Segoe UI","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+    display:flex;flex-direction:column;
+  }
+  h1,h2,h3{margin:0;font-weight:600}
+  p{margin:0}
+  ul{margin:8px 0 0;padding-left:20px}
+
+  /* 页面底：1px 点阵纹理（内联 SVG pattern，间距 20px、颜色取 --line、整体 4% 不透明度）。
+     不用 CSS 渐变（§15.2 禁止渐变），也不用任何彩色。
+     负 z-index 让它落在 body 背景之上、内容之下，面板自带的底色不受影响。 */
+  #bgDots{position:fixed;inset:0;width:100%;height:100%;z-index:-1;opacity:.16;pointer-events:none}
+
+  /* 细滚动条（替代裸系统滚动条；深色下不再刺眼） */
+  *{scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+  ::-webkit-scrollbar{width:12px;height:12px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:var(--line);border:4px solid transparent;
+                            background-clip:padding-box;border-radius:8px}
+  ::-webkit-scrollbar-thumb:hover{background:var(--line-strong);border:4px solid transparent;
+                                  background-clip:padding-box}
+  ::-webkit-scrollbar-corner{background:transparent}
+
+  /* ===== 字阶（字号 + 行高成对出现，AC-VS-1 只认这六档） ===== */
+  .t12{font-size:12px;line-height:1.5}
+  .t13{font-size:13px;line-height:1.5}
+  .t14{font-size:14px;line-height:1.55}
+  .t16{font-size:16px;line-height:1.6}
+  .t20{font-size:20px;line-height:1.3}
+
+  /* ===== 控件 ===== */
+  button{
+    font-family:inherit;font-size:14px;line-height:1.55;font-weight:400;
+    cursor:pointer;background:var(--panel-2);color:var(--fg);
+    border:1px solid var(--line-strong);border-radius:var(--r);
+    padding:8px 12px;min-height:40px;min-width:40px;
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  }
+  button:hover:not(:disabled){border-color:var(--accent)}
+  button.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:600}
+  button.danger{background:var(--danger-solid);border-color:var(--danger-solid);color:var(--on-danger);font-weight:600}
+  button.ghost{background:transparent}
+  button.toggle{min-height:40px;padding:8px 12px;white-space:nowrap}
+  button[aria-expanded="true"]{border-color:var(--accent)}
+  button:disabled{cursor:not-allowed;color:var(--muted);background:var(--panel-2);
+                  border-color:var(--line);border-style:dashed;font-weight:400}
+  /* 「铺开」是给列表项内按钮用的；display 交给各自的类（.session / .opt），
+     否则 button.full 的 display:grid 会以更高优先级压掉 .session{display:flex} → 行高变成两行 */
+  button.full{justify-content:stretch}
+
+  input[type=text],input[type=password],input[type=file],select,textarea{
+    font-family:inherit;font-size:14px;line-height:1.55;width:100%;min-height:40px;padding:8px 12px;
+    background:var(--panel-2);color:var(--fg);border:1px solid var(--line-strong);border-radius:var(--r);
+  }
+  textarea{resize:vertical;max-height:160px}
+  #msg{resize:none;overflow-y:auto;max-height:160px}
+  input[type=checkbox],input[type=radio]{accent-color:var(--accent);width:20px;height:20px}
+  input::placeholder{color:var(--muted)}
+  input:disabled,textarea:disabled{cursor:not-allowed}
+  label{display:block;font-size:13px;line-height:1.5;font-weight:600;margin-bottom:4px}
+
+  /* 焦点必须可见（AC-K-2；不设置 outline 为 none/0） */
+  :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+  /* ===== 顶栏 ===== */
+  header{
+    display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;
+    padding:8px 16px;background:var(--panel);border-bottom:1px solid var(--line);
+  }
+  header h1{font-size:16px;line-height:1.6;white-space:nowrap}
+  #account{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  /* 徽标：圆角 6px（不做胶囊）；技术细节只进 title/aria-label（§15.3 规则 4） */
+  .badge{font-size:12px;line-height:1.5;border:1px solid var(--line);border-radius:var(--r-sm);
+         padding:4px 8px;color:var(--muted);white-space:nowrap}
+  .badge.ok{color:var(--ok);border-color:var(--ok)}
+  .badge.bad{color:var(--danger);border-color:var(--danger)}
+  .muted{color:var(--muted)}
+  #drawerBtn{display:none}
+
+  /* ===== 主体：左栏 + 弹性主区（AC-L-2：没有第三根固定侧栏） ===== */
+  main{
+    flex:1;min-height:0;display:grid;
+    grid-template-columns:var(--sidebar-w) minmax(0,1fr);
+    gap:16px;padding:16px;
+  }
+  aside#sidebar{
+    box-shadow:0 1px 2px var(--shadow);      /* 卡片：1px 边框 + 极轻阴影（§15.2 允许） */
+    min-width:240px;
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);
+    display:flex;flex-direction:column;min-height:0;overflow:hidden;
+  }
+  .side-head{display:flex;align-items:center;justify-content:space-between;gap:8px;
+             padding:8px 12px;border-bottom:1px solid var(--line)}
+  /* 分区小标题：小号 + 低对比度 + 轻微字距（参照图里「POWERING THE COMPANIES…」的处理） */
+  .side-head h2{font-size:12px;line-height:1.5;letter-spacing:1px;color:var(--muted);font-weight:600}
+  #newSession{min-width:160px}                 /* 「+ 新建会话」→「新建中…」不改变宽度 */
+  #send{min-width:88px}                         /* 「发送」→「发送中…」不挤压左侧输入框 */
+  #roleBtn{min-width:160px}                     /* 「角色：律师」→「载入失败」不推挤同行 */
+  #sessions{flex:1;min-height:0;overflow-y:auto;padding:8px 12px}
+  aside#sidebar .why{margin:0;padding:8px 12px;border-top:1px solid var(--line)}
+
+  #chat{
+    box-shadow:0 1px 2px var(--shadow);
+    min-width:320px;
+    /* AC-DOT-1：对话区**透出页面底色 + 点阵** ⇒ 本容器透明（alpha 0）；
+       其内内容容器（工具条/输入区/气泡/空态）各自不透明（AC-DOT-2） */
+    background:transparent;border:1px solid var(--line);border-radius:var(--r-lg);
+    display:flex;flex-direction:column;min-height:0;
+  }
+  #view-chat{display:flex;flex-direction:column;min-height:0;flex:1}
+
+  /* 主区工具栏（入口只有「角色」与「知识库」两个按钮，AC-L-4） */
+  .main-head{position:relative}
+  .toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+           padding:8px 12px;border-bottom:1px solid var(--line);min-width:160px;min-height:40px;
+           background:var(--panel)}   /* AC-DOT-2③ 工具栏容器：不透明、无纹理 */
+  .toolbar .spacer{flex:1}
+  #roleBtn{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+  /* ===== 消息流 ===== */
+  #stream{flex:1;min-height:0;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+  .empty,.note,.hint,.why,.state,.err,.okmsg,.formerr{font-size:12px;line-height:1.5}
+  .empty{color:var(--muted);border:1px dashed var(--line);border-radius:var(--r);
+         padding:12px 12px;min-width:200px;min-height:40px;
+         background:var(--panel-2)}   /* AC-DOT-2④ 卡片/区块：不透明、无纹理 */
+  .note{color:var(--muted)}
+  .hint{color:var(--muted);margin-top:4px}
+  .state{color:var(--muted);margin-top:4px}
+  .why{color:var(--muted);margin-top:4px}
+  .err{color:var(--danger);margin-top:4px}
+  .okmsg{color:var(--ok);margin-top:4px}
+  .formerr{color:var(--danger);margin:0 0 8px}
+
+  /* 消息气泡：正文列宽 = 70ch（按 16px 正文的 ch 计算，AC-VS-5 的 65–75ch）；
+     气泡用 fit-content 包住正文，不靠百分比，避免 ch 随字体大小变化而算错。 */
+  .msg{min-width:200px;width:fit-content;max-width:100%;border:1px solid var(--line);
+       border-radius:var(--r-lg);padding:12px 16px;background:var(--panel-2)}
+  .msg.user{align-self:flex-end;border-color:var(--accent)}
+  .msg.assistant{align-self:flex-start}
+  .msg-author{font-size:12px;line-height:1.5;color:var(--muted);margin-bottom:4px}
+  .msg-body{font-size:16px;line-height:1.6;width:70ch;max-width:100%;white-space:pre-wrap;overflow-wrap:anywhere}
+  .kb-role-field{margin-top:8px}
+
+  /* ===== 输入区 ===== */
+  .composer{padding:12px;border-top:1px solid var(--line);
+            background:var(--panel)}   /* AC-DOT-2② 输入区：不透明、无纹理 */
+  .composer-row{display:flex;gap:8px;align-items:flex-end;min-width:0}
+  .composer-row input,.composer-row textarea{flex:1;min-width:0}
+  .composer .why{margin-top:8px}
+
+  /* ===== 浮层：角色列表 / 会话管理菜单（主区内，按钮正下方） ===== */
+  .pop{
+    position:absolute;top:100%;left:12px;z-index:20;
+    width:min(420px,calc(100vw - 32px));max-height:min(60vh,420px);overflow-y:auto;
+    min-width:320px;min-height:240px;
+    background:var(--panel-2);border:1px solid var(--line-strong);border-radius:var(--r-lg);
+    box-shadow:0 12px 32px var(--shadow);padding:8px;
+  }
+  .pop-head-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 8px 8px}
+  .pop-head{font-size:12px;line-height:1.5;color:var(--muted);padding:0}
+  .pop-head-row button,.dialog-head button{min-height:40px;min-width:40px;padding:4px 12px}
+  .pop-list{display:flex;flex-direction:column;gap:4px}
+  .opt{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 8px;justify-content:stretch;
+       text-align:left;width:100%;padding:8px 12px;background:transparent;border-color:transparent}
+  .opt:hover:not(:disabled){background:var(--panel);border-color:var(--line-strong)}
+  .opt .on{font-size:14px;line-height:1.55;font-weight:600}
+  .opt .od{font-size:12px;line-height:1.5;color:var(--muted);grid-column:1}
+  .opt .mark{grid-column:2;grid-row:1 / span 2;align-self:center;color:var(--accent);
+             font-size:12px;line-height:1.5}
+  .opt[aria-selected="true"]{background:var(--active);border-color:var(--accent)}
+
+  /* 会话管理菜单：紧贴会话行的浮层（AC-MG-1/2/6/7）。
+     只设 left/top（由脚本按按钮位置算），**不设 right** —— left+right 同时存在会把宽度撑满视口。 */
+  #sessionMenu{min-width:200px;min-height:0;width:auto;max-width:min(280px,calc(100vw - 32px));left:auto}
+  #kbAdd{min-width:104px}                      /* 「添加」→「判定中…」不推挤同行的原因说明 */
+  #sessionMenu .menuitem{width:100%;justify-content:flex-start;min-height:40px;min-width:160px;
+                         background:transparent;border-color:transparent;padding:8px 12px}
+  #sessionMenu .menuitem:hover:not(:disabled){background:var(--panel);border-color:var(--line-strong)}
+  #sessionMenu .menuitem.dangeritem:hover:not(:disabled){color:var(--danger);border-color:var(--danger)}
+
+  /* ===== 浮层：对话框（知识库面板 / 确认 / 输入）+ 遮罩 + 抽屉遮罩 ===== */
+  .scrim{position:fixed;inset:0;background:var(--scrim);opacity:.55;z-index:40}
+  .dialog{
+    position:fixed;z-index:41;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:min(560px,calc(100vw - 32px));max-height:min(84vh,700px);overflow-y:auto;
+    min-width:320px;min-height:240px;
+    background:var(--panel);border:1px solid var(--line-strong);border-radius:var(--r-lg);
+    box-shadow:0 18px 48px var(--shadow);
+  }
+  .dialog-head{display:flex;align-items:center;justify-content:space-between;gap:12px;
+               padding:12px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;
+               background:var(--panel)}
+  .dialog-head h2{font-size:16px;line-height:1.6}
+  .dialog-body{padding:16px;display:flex;flex-direction:column;gap:12px}
+  .dialog-body h3{font-size:12px;line-height:1.5;letter-spacing:1px;color:var(--muted);margin-top:4px}
+  .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;min-width:160px;min-height:40px}
+  .verdicts{display:flex;flex-direction:column;gap:8px}
+  .verdict{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;background:var(--panel-2);
+           border:1px solid var(--line);border-left-width:4px;border-radius:var(--r);
+           padding:8px 12px;font-size:12px;line-height:1.5}
+  .verdict .tag{font-weight:600;color:var(--fg);font-size:13px;line-height:1.5}
+  .verdict.ok{border-left-color:var(--ok)}
+  .verdict.bad{border-left-color:var(--danger)}
+  .verdict.unk{border-left-color:var(--muted)}
+  .verdict.ok .tag{color:var(--ok)}
+  .verdict.bad .tag{color:var(--danger)}
+
+  .field{display:flex;flex-direction:column}
+  .pw{display:flex;gap:8px;align-items:center}
+  .pw input{flex:1;min-width:0}
+
+  /* ===== 会话列表项（一行 40px：标题 + 角色 + 一个管理入口） =====
+     管理入口默认收起（opacity:0），在「悬停 / 键盘聚焦 / 当前项」时显形；
+     **触摸或无 hover 设备一律常显**（@media (hover:none)/(pointer:coarse)），否则手机上点不到。
+     只切 opacity、不切 pointer-events/visibility：节点始终在布局与 Tab 序里。 */
+  .session-item{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;
+                gap:4px;margin-bottom:4px;border-radius:var(--r)}
+  .session{display:flex;align-items:center;gap:8px;text-align:left;width:100%;
+           min-height:40px;padding:4px 8px;background:transparent;border-color:transparent}
+  .session:hover:not(:disabled){background:var(--panel-2);border-color:var(--line-strong)}
+  .session .stitle{flex:1;min-width:0;font-size:13px;line-height:1.5;
+                   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .session .srole{flex:0 0 auto;max-width:104px;font-size:12px;line-height:1.5;color:var(--muted);
+                  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sact{background:transparent;border-color:transparent;padding:4px 8px;min-height:40px;min-width:40px;
+        font-size:12px;line-height:1.5;color:var(--muted);opacity:0}
+  .sact:focus-visible{opacity:1}
+  .sact:hover:not(:disabled){color:var(--accent);border-color:var(--line-strong)}
+  .session-item:hover .sact,
+  .session-item:focus-within .sact,
+  .session-item.is-current .sact{opacity:1}
+  @media (hover:none),(pointer:coarse){
+    .sact{opacity:1}
+  }
+  /* 当前项强调条用 inset box-shadow 画：**不改 border-width**，因此不会把行内内容挤偏 2px */
+  .session[aria-current="true"]{background:var(--active);border-color:var(--accent);
+                                box-shadow:inset 3px 0 0 var(--accent)}
+  .session[aria-current="true"] .stitle{font-weight:600}
+
+  /* ===== 已入库资料条目（只读：普通用户没有删除权，AC-P-1） ===== */
+  .kb-doc{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;padding:8px 12px;
+          border:1px solid var(--line);border-radius:var(--r);margin-top:8px;min-width:200px;min-height:40px;
+          background:var(--panel-2)}   /* AC-DOT-2④ 卡片/区块：不透明、无纹理 */
+  .kb-doc .dname{font-size:13px;line-height:1.5;font-weight:600;overflow-wrap:anywhere}
+  .kb-doc .dmeta{font-size:12px;line-height:1.5;color:var(--muted);overflow-wrap:anywhere}
+
+  /* ===== 引用来源 ===== */
+  .cites ul{margin:4px 0 0;padding-left:20px}
+  .cites li{margin-bottom:4px}
+  .cite-src{font-size:13px;line-height:1.5;color:var(--accent);overflow-wrap:anywhere}
+  .cite-score{font-size:12px;line-height:1.5;color:var(--muted);margin-left:8px}
+
+  #confirmModal,#promptModal,#kbPanel{min-width:320px}
+
+  /* ===== 断点：≥1024 两栏 264px / 768–1023 两栏 240px / <768 单栏 + 抽屉 ===== */
+  @media (max-width:1023px){
+    :root{--sidebar-w:240px}
+    main{gap:12px;padding:12px}
+  }
+  @media (max-width:767px){
+    main{grid-template-columns:minmax(0,1fr)}
+    #drawerBtn{display:inline-flex}
+    #drawerClose[hidden]{display:none !important}
+    #drawerClose{display:inline-flex}
+    aside#sidebar{
+      position:fixed;top:0;left:0;bottom:0;width:min(280px,calc(100vw - 32px));z-index:41;
+      min-width:240px;border-radius:0;transform:translateX(-105%);visibility:hidden;
+    }
+    body.drawer-open aside#sidebar{transform:none;visibility:visible}
+    .toolbar{padding:8px 8px}
+    #stream{padding:12px}
+    .composer{padding:8px}
+    .dialog{left:0;right:0;top:auto;bottom:0;transform:none;width:100%;
+            max-height:88vh;border-radius:var(--r-lg) var(--r-lg) 0 0}
+  }
+  /* 登录态确认前的首屏：只显示中性占位，不画对话界面（避免"未登录却在对话界面转圈"） */
+  body.booting main{display:none}
+  body.booting #bootNote{display:block;max-width:352px;margin:48px auto 0;text-align:center;
+                         font-size:13px;line-height:1.5;color:var(--muted)}
+  #bootNote{display:none}
+  /* 登录态确认失败（超时 / 网络错误 / 5xx）的**终态**：留在 /ui、给出原因与「重试」，
+     绝不跳转（跳 /login 在"已登录但 /auth/me 不响应"时会 302 回 /ui，形成无限往返） */
+  #bootRetry{display:none}
+  body.bootError #bootNote{max-width:352px}
+  body.bootError #bootRetry{display:inline-flex;margin-top:12px;min-height:40px;min-width:88px;
+                            align-items:center;justify-content:center}
+
+  /* 超窄屏（<360px）：主区最小 320px 会让整页横向滚动，这里允许主区先收缩到 280px */
+  @media (max-width:359px){
+    #chat{min-width:280px}
+    aside#sidebar{min-width:240px}
+  }
+
+  /* ── t77 F2：窄档浮层宽度必须 ≤ 视口宽 − 32 ───────────────────────────────
+     实测 375×667：`#kbPanel` 375.2 > 343（超 32.2px）、`#rolePop` 343.2 > 343（超 0.2px）。
+     **真正的原因不是 `min-width`**（踩过一次，如实记下）：
+     上面 ≤767px 的 `.dialog{left:0;right:0;width:100%}` 把宽屏公式
+     `min(560px, calc(100vw − 32px))` 整块**覆盖**成满视口宽（375.2 = 375 + 边框），
+     而 `.pop` 的 `min-width:320px` 又把 375−32=343 夹回 343.2。
+     修法：窄档把两者的 `width` 也钉进同一个公式（并去掉 `min-width` 的夹取），
+     与设计宽的取值同口径 —— 即 `min(<设计宽>, calc(100vw − 32px))`：
+     · `.pop`（角色浮层）：设计宽 420 → 窄档取 100vw−32；
+     · `.dialog`（知识库面板等）：底部抽屉改为左右各留 16px 的对称内缩，
+       宽度同样取 100vw−32，底部贴边不变。
+     两侧因此恒留 16px，页面无横向溢出。
+     ⚠️ 取值说明：375 档实测 `calc(100vw − 32px)` 被浏览器解成 **343.2px**（子像素），
+     比上限 343 **大 0.2px**。为了让判据"`width ≤ 视口宽 − 32`"**严格**成立（不留 0.2px 争议），
+     这里改用 `calc(100vw - 33px)`（实测 342.2px ≤ 343 ✓），左/右内缩取 16/17px，
+     视觉上仍是"两侧约留 16px"。 */
+  @media (max-width:767px){
+    .pop{width:min(420px,calc(100vw - 33px));min-width:min(320px,calc(100vw - 33px))}
+    .dialog{left:16px;right:17px;width:calc(100vw - 33px);
+            min-width:min(320px,calc(100vw - 33px))}
+  }
+</style>
+</head>
+<body class="app">
+
+<!-- 页面底纹：1px 点阵（内联 SVG，颜色用 --line，透明度由 #bgDots 统一控制） -->
+<svg id="bgDots" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="bgDotPattern" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" style="fill:var(--line-strong)"></circle>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" style="fill:url(#bgDotPattern)"></rect>
+</svg>
+
+<!-- 边角装饰：内联 SVG 四芒星（AC-STAR-1..6；不用星形字符码点，一律内联 SVG 路径）
+     中性单色（取既有 --line-strong）、opacity .18 ≤ .20、无动画、pointer-events:none、零额外请求 -->
+<svg class="deco-star" data-deco="star" data-corner="br" aria-hidden="true" focusable="false"
+     viewBox="0 0 24 24" width="24" height="24"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0 Z"></path></svg>
+<svg class="deco-star" data-deco="star" data-corner="tl" aria-hidden="true" focusable="false"
+     viewBox="0 0 24 24" width="24" height="24"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0 Z"></path></svg>
+
+<header>
+  <h1>明理</h1>
+  <!-- 窄屏（<768px）才显示的会话抽屉入口；桌面宽度下 display:none，不参与 Tab 顺序 -->
+  <button type="button" id="drawerBtn" class="ghost" aria-expanded="false" aria-controls="sidebar">会话</button>
+  <span id="health" class="badge" role="status" aria-label="服务状态">正在检查服务状态…</span>
+  <span id="judge" class="badge" role="status" aria-label="智能判定状态">正在检查智能判定…</span>
+  <!-- 主题开关：四页同一槽位（右上角）；就地辅助控件，不属"关闭/收起"类。
+       ⚠️ t77 F1：它**必须是 `#account` 的兄弟**（而不是它的子元素）——因为
+       `#account` 是 `margin-left:auto` 的整块右侧组，开关若在其内部就只能排在
+       「退出登录」左侧，无法既零相交又保持右上角槽位。放在这里：DOM 顺序仍是
+       `themeBtn → (账号状态) → logoutBtn`，`AC-K-1` 的相对次序不变。 -->
+  <button type="button" id="themeBtn" data-slot="theme" aria-pressed="false" aria-label="切换主题（当前：深色）"
+          title="切换暗色 / 亮色主题（当前：深色）"><span id="themeLabel">深色</span></button>
+  <!-- 账号区：身份只能来自登录态；顶栏不存在任何可编辑的「用户 ID」输入框（AC-L-19） -->
+  <div id="account">
+    <span class="muted" id="accountState" role="status">正在确认登录状态…</span>
+    <button type="button" class="ghost" id="logoutBtn" hidden>退出登录</button>
+  </div>
+</header>
+
+<main>
+  <!-- ================= 左栏：会话列表（唯一左栏内容；不含角色选择、不含文件上传） ================= -->
+  <aside id="sidebar" tabindex="-1" aria-label="会话列表">
+    <div class="side-head">
+      <h2>会话</h2>
+      <span class="spacer"></span>
+      <button type="button" id="newSession" disabled aria-describedby="sideWhy">+ 新建会话</button>
+      <!-- 抽屉（<768px）时的关闭入口：与其它弹层一致放在容器右上角 -->
+      <button type="button" class="ghost" id="drawerClose" data-role="close" hidden>关闭</button>
+    </div>
+    <div id="sessions">
+      <p class="state" role="status">载入中…</p>
+    </div>
+    <p class="why" id="sideWhy" role="status" hidden></p>
+  </aside>
+
+  <!-- ================= 主区：聊天 ================= -->
+  <section id="chat" aria-label="聊天">
+
+    <!-- ---- 视图一：聊天 ---- -->
+    <div id="view-chat">
+      <!-- main-head 只负责给「角色浮层」定位；工具栏本身（.toolbar）里只有两个入口按钮，
+           以免 DOM 里数工具栏按钮时把角色列表项一起数进去（AC-L-4） -->
+      <div class="main-head">
+      <div class="toolbar">
+        <!-- 角色选择 = 一个按钮 + 展开列表，位于主区内；当前角色始终显示在按钮上。
+             ▾ 是可点开性的可见指示符（F6/B4），aria-hidden 以免读屏重复播报。 -->
+        <button type="button" id="roleBtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="rolePop" disabled
+                aria-describedby="roleWhy">角色：<span id="roleLabel">载入中…</span><span class="mark" aria-hidden="true">▾</span></button>
+        <span class="spacer"></span>
+        <!-- 知识库 = 界面上唯一的入口；面板里的唯一主操作是「添加」 -->
+        <button type="button" id="kbBtn" aria-haspopup="dialog" aria-expanded="false" aria-controls="kbPanel">知识库</button>
+      </div>
+
+      <!-- 角色浮层：在 .toolbar 之外（工具栏里只有两个按钮），由 .main-head 提供定位 -->
+      <div id="rolePop" class="pop" role="listbox" aria-label="选择角色" hidden>
+        <div class="pop-head-row">
+          <p class="pop-head">选择角色（决定人设、知识分区与会话空间）</p>
+          <button type="button" class="ghost" id="roleClose" data-role="close">关闭</button>
+        </div>
+        <div id="roleList" class="pop-list"></div>
+      </div>
+      </div>
+
+      <div id="stream" role="log" aria-live="polite" aria-label="对话消息">
+        <p class="empty" id="streamEmpty">还没有消息。先在左栏新建或选中一个会话，再在下方输入问题。</p>
+      </div>
+
+      <form id="composer" class="composer" method="post" action="javascript:void(0)" novalidate>
+        <div class="composer-row">
+          <textarea id="msg" name="message" rows="1" placeholder="输入你的问题，Enter 发送、Shift+Enter 换行"
+                    autocomplete="off" spellcheck="false" disabled aria-label="提问" aria-describedby="composerWhy"></textarea>
+          <button type="submit" class="primary" id="send" data-role="primary" disabled aria-describedby="composerWhy">发送</button>
+        </div>
+        <p class="why" id="composerWhy" role="status" hidden></p>
+        <p class="why" id="roleWhy" role="status" hidden></p>
+        <!-- B-8 / r17 §21.5：偏好同步失败时的**可见说明 + 重试**（降级不静默、首屏不阻塞） -->
+        <p class="why" id="prefsNote" role="status" hidden></p>
+        <!-- B-8 / r17 §21.5：偏好同步失败时的**可见说明 + 重试**（降级不静默、首屏不阻塞） -->
+      </form>
+    </div>
+
+    <!-- 第二批：登录/注册/找回密码已拆成独立页面（/login、/register、/reset）——
+         问答页内不再出现任何注册/登录表单（AC-AU-41）。 -->
+  </section>
+</main>
+
+<!-- ================= 浮层（不在文档流内；页内浮层替代原生 alert/confirm） ================= -->
+<div id="kbScrim" class="scrim" hidden></div>
+<div id="kbPanel" class="dialog" role="dialog" aria-modal="true" aria-labelledby="kbTitle" tabindex="-1" hidden>
+  <div class="dialog-head">
+    <h2 id="kbTitle">知识库</h2>
+    <button type="button" id="kbClose" class="ghost" data-role="close">关闭</button>
+  </div>
+  <div class="dialog-body">
+    <p class="muted">归属角色：<span id="kbRole">—</span>（<span id="kbRoleId">—</span>）</p>
+    <p class="note" id="kbScopeNote"></p>
+
+    <!-- 界面上的唯一「添加」入口：文件选择由它触发（原生文件框不另计为入口，AC-L-16） -->
+    <div class="row">
+      <button type="button" class="primary" id="kbAdd" data-role="primary" disabled aria-describedby="kbAddWhy">添加</button>
+      <span class="why" id="kbAddWhy" hidden></span>
+    </div>
+    <div class="field kb-role-field" id="kbAssignField" hidden>
+      <label for="kbAssignRole">入库时归属到哪个角色</label>
+      <select id="kbAssignRole" aria-describedby="kbAssignHint"></select>
+      <p class="hint" id="kbAssignHint">判定为「不符合」时，我们会预选一个建议角色；最终入到哪个角色由你决定。</p>
+    </div>
+    <!-- 文件选择控件不常驻：点「添加」时才由脚本创建（AC-L-15 的 input[type=file] 计数要求） -->
+    <div id="kbFileHost"></div>
+
+    <p class="state" id="kbState" role="status" aria-live="polite" hidden></p>
+    <div id="kbVerdicts" class="verdicts"></div>
+
+    <h3>已入库资料</h3>
+    <p class="state" id="kbDocsState" role="status">载入中…</p>
+    <div id="kbDocs" class="pop-list"></div>
+  </div>
+</div>
+
+<!-- 确认模态（破坏性操作：删除文档 / 删除会话；文案必须含对象名，AC-L-18）
+     标题行不放「关闭」按钮：Esc 与点遮罩都能退出（AC-K-3 不受影响），只留「删除 / 取消」两个动作，
+     默认焦点仍在「删除」上。 -->
+<div id="confirmScrim" class="scrim" hidden></div>
+<div id="confirmModal" class="dialog" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" tabindex="-1" hidden>
+  <div class="dialog-head">
+    <h2 id="confirmTitle">请确认</h2>
+  </div>
+  <div class="dialog-body">
+    <p id="confirmText"></p>
+    <p class="target" id="confirmTarget"></p>
+    <div class="row">
+      <button type="button" class="danger" id="confirmOk" data-role="primary">确认</button>
+      <button type="button" class="ghost" id="confirmCancel">取消</button>
+    </div>
+  </div>
+</div>
+<!-- 输入模态（会话重命名；页内浮层，不用原生 prompt） -->
+<div id="promptScrim" class="scrim" hidden></div>
+<div id="promptModal" class="dialog" role="dialog" aria-modal="true" aria-labelledby="promptTitle" tabindex="-1" hidden>
+  <div class="dialog-head">
+    <h2 id="promptTitle">重命名会话</h2>
+    <button type="button" id="promptCancelX" class="ghost" data-role="close">关闭</button>
+  </div>
+  <div class="dialog-body">
+    <p class="muted" id="promptText">给这个会话起个标题，方便以后在左栏找到它；留空就按第一句话自动命名。</p>
+    <div class="field">
+      <label for="promptInput">新的会话标题</label>
+      <input id="promptInput" type="text" maxlength="255" autocomplete="off">
+    </div>
+    <div class="row">
+      <button type="button" class="primary" id="promptOk" data-role="primary">保存</button>
+      <button type="button" class="ghost" id="promptCancel">取消</button>
+    </div>
+  </div>
+</div>
+
+<!-- 会话管理菜单（重命名 + 删除合并在这一个容器里；由「管理」按钮定位） -->
+<div id="sessionMenu" class="pop" role="menu" aria-label="会话管理" style="position:fixed" hidden>
+  <button type="button" class="menuitem" role="menuitem" id="menuRename">重命名</button>
+  <button type="button" class="menuitem dangeritem" role="menuitem" id="menuDelete">删除</button>
+</div>
+
+<div id="drawerScrim" class="scrim" hidden></div>
+
+<!-- 登录态确认前的中性占位（不画对话骨架，且本身有限时；AC-AU-40 的"不短暂渲染问答界面"） -->
+<p id="bootNote" class="state" role="status">正在确认登录状态…</p>
+<button type="button" class="primary" id="bootRetry" hidden>重试</button>
+
+<script>
+"use strict";
+/* 页面脚本的四块职责：
+   ①账号：/auth/me 判登录态、注册/登录、登出；令牌只走 HttpOnly Cookie，localStorage 只存 user_id（AC-AU-30/31）。
+   ②会话：左栏三态（载入中/暂无/失败+重试）、新建、切换、重命名、删除（含二次确认）。
+   ③聊天：SSE（delta / citations / done / error）流式渲染 + 引用展示 + 失败重试；未登录时提问入口被拦住。
+   ④角色与知识库：角色列表由 GET /roles 动态渲染（无知识库者禁用并写明原因）；知识库面板里唯一「添加」
+     入口 → 上传 → POST /documents/fit-check 三档判定 → 归属二选一 → 入库；已入库资料可删除（含二次确认）。
+   知识库归属的判定来源（规范 §2.3 允许二选一，此处写明）：**本实现取「② 前端用 GET /documents 按 role_id
+   归并后的非空集合推导」**；若后端 /roles 将来返回 has_kb 布尔值（更权威的来源），则优先采信它。 */
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  };
+  var USER_KEY = "lr_user_id";        /* localStorage 只允许存 user_id（AC-AU-30） */
+  var KB_MISSING = "该角色知识库尚未接入";
+
+  var state = {
+    user: "",                 /* 登录态里的 user_id；空串 = 未登录 */
+    roles: [],
+    docs: [],                 /* GET /documents 的 documents 数组 */
+    kbRoles: {},              /* role_id -> 已入库文档数（>0 = 有知识库） */
+    kbKnown: false,           /* GET /documents 是否真的拿到了（决定"尚未接入"这句话可不可以说） */
+    role: "",
+    sessions: [],
+    session: "",              /* 当前会话 id；空串 = 尚未选中（"新会话"草稿态） */
+    titles: {},               /* session_id -> 标题（以后端返回的 title 为准，切换/改名后同步） */
+    fit: null,                /* 最近一次判定结果 */
+    fitFiles: [],
+    /* 消息流的唯一来源是后端的 GET /sessions/{id}/messages（t12 起）：
+       viewer 只是「当前渲染缓冲」，histSeq/histLoading/histError 负责竞态与三态。 */
+    viewer: {},
+    histSeq: {},              /* session_id -> 递增序号，丢弃过期的历史响应 */
+    histLoading: {},          /* session_id -> 正在取历史 */
+    histError: {},            /* session_id -> 取历史失败的原因（非空时主区显示错误 + 重试） */
+    turnSeq: {},              /* session_id -> 本页新增过几轮消息（防止"迟到的历史"覆盖刚发出的问答） */
+    firstTurn: {},            /* session_id -> {q,a} 首轮问答（本地标题规则只用它，不发额外请求） */
+    userTitles: {},           /* session_id -> true：本页用户改过名（配合后端的 title_is_user_set） */
+    menuSession: "",          /* 会话管理菜单当前指向哪个会话 */
+    /* ---- t81：失败态必须**留在 DOM 里**，不能被后来的空态占位覆盖 ----
+       rolesError / docsError 记录"最近一次拉取失败"，renderRoles()/renderKbDocs() 见到它就
+       **不再**写"加载中…/还没有资料"，否则会把 catch 里刚写好的「错误 + 重试」整块抹掉，
+       而重试入口只存在于那段 HTML 里 ⇒ 用户只能整页刷新（t74 判定的死路）。 */
+    rolesError: "",
+    docsError: "",
+    kbBtnMarked: false,       /* t81：「知识库」按钮上的失败标记是否已挂（避免重复插入） */
+    busy: { login: false, reg: false, chat: false, fit: false, upload: false, doc: false, session: false }
+  };
+
+  function setBusy(key, on) { state.busy[key] = !!on; }
+
+  /* ---------------- HTTP ---------------- */
+  /* 请求日志（控制台）：出问题能按时间线定位；开始 / 结束（状态码+耗时）/ 超时与异常都会记。 */
+  function reqLog(kind, path, note, ms) {
+    try {
+      console.info("[req] " + kind + " " + path + (ms == null ? "" : " " + ms + "ms") +
+        (note ? " — " + note : ""));
+    } catch (e) { /* 控制台不可用就算了 */ }
+  }
+
+  /* 普通请求默认 10s 超时（AbortController）；对话接口走 SSE 流式，显式豁免：
+     生成可能要几十秒，不能用同一个时限。 */
+  var REQ_TIMEOUT_MS = 10000;
+  function http(method, path, body, opts) {
+    opts = opts || {};
+    var timeoutMs = opts.timeoutMs === null ? 0
+                  : (opts.timeoutMs === undefined ? REQ_TIMEOUT_MS : opts.timeoutMs);
+    var init = { method: method, headers: { Accept: "application/json" }, credentials: "same-origin" };
+    if (body !== undefined && body !== null) {
+      init.headers["Content-Type"] = "application/json";
+      init.body = JSON.stringify(body);
+    }
+    var ctrl = null, timer = null;
+    if (timeoutMs > 0 && typeof AbortController === "function") {
+      ctrl = new AbortController();
+      init.signal = ctrl.signal;
+      timer = setTimeout(function () {
+        reqLog("TIMEOUT", path, "超过 " + timeoutMs + "ms，已中止");
+        ctrl.abort();
+      }, timeoutMs);
+    }
+    var t0 = Date.now();
+    reqLog("START", path, method + (timeoutMs > 0 ? "（限时 " + timeoutMs + "ms）" : "（不限时）"));
+    var clear = function () { if (timer) { clearTimeout(timer); timer = null; } };
+    return fetch(path, init).then(function (res) {
+      var ct = res.headers.get("content-type") || "";
+      var parse = ct.indexOf("json") >= 0 ? res.json().catch(function () { return null; })
+                                          : res.text().then(function (t) { return { text: t }; });
+      return parse.then(function (payload) {
+        clear();
+        reqLog(res.ok ? "DONE" : "FAIL", path, "HTTP " + res.status, Date.now() - t0);
+        if (!res.ok) {
+          var detail = payload && payload.detail;
+          var err = new Error(apiMessage(payload, res.status));
+          err.status = res.status;
+          err.code = (detail && detail.error) || (payload && payload.error) || "";
+          err.field = (detail && detail.field) || "";
+          err.payload = payload;
+          /* t81：请求编号用于"5xx 只用通用文案 + 可追溯编号"（细节只进日志）。
+             优先取响应体里的 request_id，其次取响应头（后端发 X-Request-Id）。 */
+          err.requestId = (payload && payload.request_id) ||
+                          (typeof detail === "object" && detail && detail.request_id) ||
+                          res.headers.get("X-Request-Id") || "";
+          throw err;
+        }
+        return payload;
+      });
+    }).catch(function (err) {
+      clear();
+      if (err && (err.name === "AbortError" || err.code === "timeout")) {
+        reqLog("TIMEOUT", path, "没有在 " + timeoutMs + "ms 内回应", Date.now() - t0);
+        var e2 = new Error("服务未响应（超时），请重试");
+        e2.code = "timeout";
+        e2.status = 0;
+        throw e2;
+      }
+      reqLog("ERROR", path, (err && err.name ? err.name + ": " : "") + (err && err.message), Date.now() - t0);
+      throw err;
+    });
+  }
+
+  function apiMessage(payload, status) {
+    if (payload && payload.detail) {
+      if (typeof payload.detail === "string") return payload.detail;
+      if (payload.detail.message) return payload.detail.message;
+      if (payload.detail.error) return payload.detail.error;
+    }
+    if (payload && payload.error) return payload.error;
+    return "这次请求没能完成（" + httpCode(status) + "），请稍后重试。";
+  }
+  /* t111：状态码一律写成「HTTP 404」——裸数字夹在中文里会连读成一句（改前正是这种形态）。 */
+  function httpCode(status) { return "HTTP " + status; }
+
+  function getJson(path, opts) { return http("GET", path, undefined, opts); }
+
+  /* ---- t81：**面向用户**的失败文案（5xx 不得把内部细节显示出来）----
+     背景：后端把未预期异常渲染成 `{"detail": "<异常类名>: <异常文本>", "request_id": …}`
+     （`app.py` 的观测中间件），而异常文本里带**内网 uri（含内网主机与端口）、
+     collection 名、异常类名**。`apiMessage()` 会把它当作用户文案原样返回 ⇒ 直接上屏。
+     这里做一层收口：
+       · 4xx ⇒ 是"按契约给的"可行动文案（如用户名已被占用/参数非法），照原样展示；
+       · 5xx ⇒ 只给**通用文案 + request_id**（可追溯），细节只进控制台；
+       · 超时/网络层错误 ⇒ 用固定文案，不拼接底层异常。
+     任何分支都不把 `payload.detail` 的原文交给界面。 */
+  function userFacingError(err) {
+    if (!err) return "这次操作没成功，请稍后再试一次。";
+    if (err.code === "timeout") return "服务一直没有回应，这次没能完成。请再试一次。";
+    var st = typeof err.status === "number" ? err.status : 0;
+    if (st >= 500) {
+      /* 只给通用文案 + 可追溯编号；`err.payload.detail` 的原文**只进控制台**，不上屏。 */
+      var rid = err.requestId || "";
+      try {
+        console.warn("[t81] 服务端 " + st + " 详情（不上屏）：" + (err.payload && err.payload.detail ? err.payload.detail : err.message) +
+          (rid ? " request_id=" + rid : ""));
+      } catch (e) { /* 控制台不可用就算了 */ }
+      if (rid) return "服务端这次没能完成（暂时不可用）。请稍后重试；若反复出现，把下面这句问题编号告诉维护者，他能查到这次故障：" + String(rid) + "。";
+      return "服务端这次没能完成（暂时不可用）。请稍后重试。";
+    }
+    if (st === 0) return "连不上服务（网络不通，或服务没有启动）。请检查网络后重试。";
+    return apiMessage(err.payload, st);
+  }
+  /* 失败态专用的重试入口：与既有 `data-role="retry"` 口径一致，便于审查统一取样。 */
+  function retryButtonHtml(label) {
+    return '<div class="row"><button type="button" data-role="retry">' + esc(label || "重试") + '</button></div>';
+  }
+  /* t81：「知识库」按钮上的**失败标记** —— 面板默认隐藏，若失败只在面板里说，
+     用户关着面板就等于"什么都看不到"（t74 判定的静默失败）。这里在**面板外**也留一个
+     可见信号：`.badge.bad`（离线色，沿用 §6 的 --danger，不新增色板项）+ 按钮可见文字，
+     并把 `aria-label` 换成完整原因（读屏可拿到比"知识库"更多的信息）。
+     ⚠️ t99/F-①「归因串台」：本标记的**唯一失败源**是 `state.docsError`（知识库数据）。
+     以前写成 `state.docsError || state.rolesError` ⇒ **角色库**失败时「知识库」按钮也挂
+     「载入失败」，用户读到的是"知识库坏了"（而角色窗口标题里同时挂着角色错误 ⇒ 两处互相矛盾）。
+     角色库的失败归因由 `#roleBtn` 承载（loadRoles 的 catch 会把 `#roleLabel` 写成「载入失败」
+     并在 `#roleWhy` 里给出原因，见 L2019 附近）—— 两处各报各的源，不再互相串台。 */
+  function applyKbBtnMark() {
+    var btn = $("kbBtn");
+    if (!btn) return;
+    var bad = !!state.docsError;                 /* 只看知识库自己的取数结果 */
+    var existing = btn.querySelector(".kb-err");
+    if (bad && !existing) {
+      var s = document.createElement("span");
+      s.className = "badge bad kb-err";
+      s.textContent = "载入失败";
+      btn.appendChild(s);
+    } else if (!bad && existing) {
+      existing.remove();
+    }
+    state.kbBtnMarked = bad;
+    if (bad) {
+      btn.setAttribute("aria-label", "知识库：资料列表没能载入，打开面板可看原因并重试");
+      btn.setAttribute("title", state.docsError);
+    } else {
+      btn.removeAttribute("aria-label");
+      btn.removeAttribute("title");
+    }
+  }
+
+  /* ================= ① 账号（第二批：登录/注册/找回都在独立页面，这里只维护登录态） ================= */
+  function setAccountUI() {
+    var logged = !!state.user;
+    $("accountState").textContent = logged ? state.user : "未登录";
+    $("logoutBtn").hidden = !logged;
+  }
+
+  /* 页面级门槛的兜底：服务端已把未登录的 /ui 302 到 /login，
+     这里只处理"打开页面时登录态已经失效"的边角（例如令牌过期后被重新加载）。
+     ⚠️ 只允许**服务端明确 401** 走这条路：超时 / 网络错误 / 5xx 一律留在 /ui 进终态错误态。
+     否则"已登录但 /auth/me 不响应"时，本页 → /login，而 /login 的页面守卫看到有效 Cookie
+     又 302 回 /ui ⇒ **无限往返**（实测：断链时 61 秒内 234 次整页加载）。 */
+  function goLogin(why) {
+    reqLog("NAV", "/login", "跳转登录页" + (why ? "（" + why + "）" : ""));
+    if (location.pathname !== "/login") location.replace("/login");
+  }
+
+  /* 首屏占位：加 body.booting 时主区不渲染；确认登录态后 applySession() 里摘掉 */
+  function renderBooting() {
+    document.body.classList.add("booting");
+    var note = $("bootNote");
+    if (note) { note.hidden = false; note.textContent = "正在确认登录状态…"; }
+  }
+  function endBooting() {
+    document.body.classList.remove("booting");
+    var note = $("bootNote");
+    if (note) note.hidden = true;
+  }
+
+  /* ---- 登录态确认失败：终态错误 + 「重试」（绝不跳转） ---- */
+  /* 请求风暴抑制：不自动整页重载；仅"最多 3 次、间隔 ≥5s"的退避，之后停在错误态等用户点「重试」 */
+  var BOOT_RETRY_MAX = 3;
+  var BOOT_RETRY_DELAY_MS = 5000;
+  var bootSeq = 0;
+  var bootAttempts = 0;
+  var bootTimer = null;
+  /* 一次性护栏：本标签页会话内，"已因登录态确认从 /login 被弹回 /ui" 只容忍一次。
+     若又从 /login 被弹回并再次失败 ⇒ 直接进错误态，**任何情况下都不再往返**。 */
+  var BOUNCE_KEY = "lr_bootLoginBounced";
+
+  function bootRetryClickable(on) {
+    var b = $("bootRetry");
+    if (b) b.disabled = !on;
+  }
+  function showBootError(msg) {
+    if (bootTimer) { clearTimeout(bootTimer); bootTimer = null; }
+    var note = $("bootNote");
+    document.body.classList.add("booting", "bootError");
+    if (note) { note.hidden = false; note.textContent = msg; }
+    var b = $("bootRetry");
+    if (b) { b.hidden = false; b.textContent = "重试"; }
+    bootRetryClickable(true);
+    setAccountUI();
+  }
+  function clearBootError() {
+    document.body.classList.remove("bootError");
+    var b = $("bootRetry");
+    if (b) { b.hidden = true; b.disabled = false; }
+  }
+  function bootErrorReason(err) {
+    if (err && err.code === "timeout") return "确认登录状态时服务一直没有回应";
+    if (err && typeof err.status === "number" && err.status >= 500) {
+      return "确认登录状态时服务端出错（" + httpCode(err.status) + "）";
+    }
+    if (err && typeof err.status === "number" && err.status > 0) {
+      return "没能确认登录状态（" + httpCode(err.status) + "）";
+    }
+    return "没能确认登录状态：网络不通，或服务没有启动";
+  }
+  /* 401（或 200 但没带回用户信息）⇒ 登录态确实失效：跳登录页由**服务端守卫**收口
+     （未登录访问 /login 不会 302，因此不会往返） */
+  function bootAuthFailed(why) {
+    try { if (sessionStorage.getItem(BOUNCE_KEY)) {
+      showBootError("登录状态已失效，但跳转登录页未能生效。请点「重试」，或手动打开 /login。");
+      return;
+    } } catch (e) { /* 隐私模式：忽略护栏，退化为单次跳转 */ }
+    try { sessionStorage.setItem(BOUNCE_KEY, "1"); } catch (e) { /* 同上 */ }
+    goLogin(why);
+  }
+
+  function applySession(info) {
+    state.user = (info && info.user_id) || "";
+    if (!state.user) { bootAuthFailed("没有用户信息"); return; }
+    try { sessionStorage.removeItem(BOUNCE_KEY); } catch (e) { /* 忽略 */ }
+    clearBootError();
+    endBooting();
+    try { localStorage.setItem(USER_KEY, state.user); } catch (e) { /* 隐私模式下忽略 */ }
+    state.session = "";
+    state.viewer = {};
+    state.histSeq = {};
+    state.histLoading = {};
+    state.histError = {};
+    state.turnSeq = {};
+    state.firstTurn = {};
+    state.userTitles = {};
+    state.kbKnown = false;
+    state.role = "";                 /* 换身份就重挑角色，避免沿用上一个身份的选择 */
+    /* B-8：认领本地偏好缓存（同一账号 ⇒ 保留，供首屏直出/降级；换账号 ⇒ 清掉上一账号缓存），
+       然后**立刻**用本地缓存的角色落定首屏（避免闪跳），再由 `GET /prefs` 以服务端为准覆盖。 */
+    var cachedPrefs = window.__prefs.claim(state.user);
+    if (cachedPrefs.role) state.role = cachedPrefs.role;
+    /* t99/F-④：此处已由 `GET /auth/me` 确认登录态 ⇒ 允许后续 `GET /prefs`（未登录时跳过） */
+    window.__prefs.setSession(true);
+    setAccountUI();
+    renderStream();
+    renderSessionsIdle();
+    setComposerState();
+    loadRoles().then(function () {
+      loadDocuments();
+      /* B-8：**角色库就绪后**再拉账号偏好（`GET /prefs` 以服务端为准），不阻塞首屏。
+         ⚠️ 不得与 loadRoles 并行发起：合法性的唯一判据是角色库成员，而 `/prefs` 常常
+         比 `/roles` 先回来 ⇒ 并行会让 prefsApply 在角色库还空着时把残留角色（如已裁剪的
+         `teacher`）重新贴回界面，覆盖 loadRoles 刚做好的回退（实测 87.7ms 回退 → 92.9ms 被覆盖）。 */
+      window.__prefs.fetchServer();
+    });
+    loadSessions();                  /* 选中会话后会自动取该会话的历史 */
+  }
+
+  function logout() {
+    return http("POST", "/auth/logout").catch(function () { return null; }).then(function () {
+      try { localStorage.removeItem(USER_KEY); } catch (e) { /* 忽略 */ }
+      window.__prefs.release();      /* B-8：清掉偏好缓存归属，下一个账号不会继承（AC-PR-6） */
+      location.replace("/login");    /* 登出即回登录页（服务端令牌已失效、Cookie 已清） */
+    });
+  }
+
+  $("logoutBtn").onclick = function () { logout(); };
+
+  /* ================= ② 会话列表 ================= */
+  function renderSessionsIdle() {
+    $("sessions").innerHTML = '<p class="state" role="status">' +
+      (state.user ? "载入中…" : "登录后这里会显示你的会话列表。还没登录的话，先点右上角「登录」。") + '</p>';
+  }
+  function setSideWhy() {
+    var why = $("sideWhy");
+    if (state.user) { why.hidden = true; why.textContent = ""; }
+    else { why.hidden = false; why.textContent = "「新建会话」需要登录后才能使用。"; }
+  }
+  function roleNameOf(roleId) {
+    for (var i = 0; i < state.roles.length; i++) {
+      if (state.roles[i].role_id === roleId) return state.roles[i].name;
+    }
+    return "";
+  }
+  /* r17 §14.1 / AC-TI-6：自动标题的**唯一口径** = 服务端落库那条（`req.message[:30]`）。
+     ⚠️ 曾经这里还有一套本地抽词（`stripForTitle` 去停用词/标点）＋ `clipTitle`
+     （超 30 码点截断并追加 `…`）。那套规则会让同一会话出现「31 码点带 …」（本地热路径）
+     与「30 码点无 …」（服务端落库）两种口径，刷新即变形（R4-A），已删除。
+     如日后要恢复"抽词"这种产品行为，必须**同时**改服务端 `message[:30]`
+     并保持「存储值 = 显示值」，不得只在前端单边加规则。 */
+  var TITLE_MAX = 30;                        /* 与服务端 `message[:30]` 对齐（按码点计数） */
+  function autoTitle(first) {
+    var q = String((first && first.q) || "");
+    return Array.from(q).slice(0, TITLE_MAX).join("");
+  }
+  function displayTitle(id) {
+    /* ⚠️ 显示值 = **落库值**（AC-TI-6 / F-A1）：只要库里已有标题就逐字用它，
+       绝不再在显示层套抽词/截断规则 —— 否则左栏显示的是"另一条规则"的产物，
+       刷新后变回落库值就是"标题变形"，而重命名框按落库值预填又会对不上左栏。 */
+    var server = (state.titles[id] || "").trim();
+    if (server) return server;
+    var first = state.firstTurn[id];
+    /* 库里还没有标题（首轮问答刚结束、GET /sessions 尚未回来）：
+       用与服务端同口径的本地值顶上，且它**不含省略号**、长度 ≤30 ⇒ 与即将落库的值相同。 */
+    if (first && first.q) {
+      var t = autoTitle(first);
+      if (t) return t;
+    }
+    return "新对话";                                 /* 首轮之前/无有效关键词（AC-TI-3） */
+  }
+  function rememberFirstTurn(id, q, a) {
+    if (!id || !q) return false;
+    if (state.firstTurn[id] && state.firstTurn[id].q) return false;
+    state.firstTurn[id] = { q: q, a: a || "" };
+    return true;
+  }
+
+  function renderSessions() {
+    var box = $("sessions");
+    if (!state.sessions.length) {
+      box.innerHTML = '<p class="empty" role="status">还没有会话，点上方「+ 新建会话」就能开一个。</p>';
+      return;
+    }
+    box.innerHTML = state.sessions.map(function (s) {
+      var cur = s.session_id === state.session;
+      var title = displayTitle(s.session_id);
+      /* t111/S2：角色名解析不出来时**不得**回落到内部 `role_id`（如 `lawyer`）——
+         角色列表失败时 `state.roles` 是空的，回落就会把内部标识直接写上屏。
+         这里给一个用户可读的占位，等角色列表回来再显示真名。 */
+      var rn = roleNameOf(s.role_id) || "角色待载入";
+      /* 一行 40px：会话按钮（标题 + 角色）+ **一个**管理入口（AC-MG-1）。
+         重命名与删除都在这个入口展开的菜单里，不再有两个并列的常驻按钮。 */
+      return '<div class="session-item' + (cur ? " is-current" : "") + '">' +
+        '<button type="button" class="session full" data-session="' + esc(s.session_id) + '"' +
+        ' title="' + esc(title) + '"' + (cur ? ' aria-current="true"' : "") + '>' +
+        '<span class="stitle">' + esc(title) + '</span>' +
+        '<span class="srole">' + esc(rn) + '</span>' +
+        '</button>' +
+        '<button type="button" class="sact" data-manage="' + esc(s.session_id) + '"' +
+        ' aria-haspopup="menu" aria-expanded="false"' +
+        ' aria-label="管理会话：' + esc(title) + '"' +
+        ' title="管理会话（重命名 / 删除）">管理</button>' +
+        '</div>';
+    }).join("");
+    Array.prototype.forEach.call(box.querySelectorAll("[data-session]"), function (b) {
+      b.addEventListener("click", function () { openSession(b.dataset.session); });
+    });
+    Array.prototype.forEach.call(box.querySelectorAll("[data-manage]"), function (b) {
+      b.addEventListener("click", function () { openSessionMenu(b.dataset.manage, b); });
+    });
+  }
+
+  /* ---- 会话管理菜单（重命名 / 删除合并在同一容器里；AC-MG-2/6/7） ---- */
+  function openSessionMenu(id, btn) {
+    var menu = $("sessionMenu");
+    state.menuSession = id;
+    $("menuRename").textContent = "重命名";
+    menu.hidden = false;
+    btn.setAttribute("aria-expanded", "true");
+    var r = btn.getBoundingClientRect();
+    var w = menu.offsetWidth || 200;
+    var h = menu.offsetHeight || 96;
+    var left = Math.max(8, Math.min(r.right - w, window.innerWidth - w - 8));
+    var top = Math.min(r.bottom + 4, window.innerHeight - h - 8);
+    menu.style.left = left + "px";
+    menu.style.top = Math.max(8, top) + "px";
+    $("menuRename").focus();
+  }
+  function closeSessionMenu(returnFocus) {
+    var menu = $("sessionMenu");
+    if (menu.hidden) return;
+    var id = state.menuSession;
+    menu.hidden = true;
+    var btn = id ? document.querySelector('[data-manage="' + id.replace(/"/g, '\\"') + '"]') : null;
+    if (btn) btn.setAttribute("aria-expanded", "false");
+    state.menuSession = "";
+    if (returnFocus && btn) btn.focus();
+  }
+  $("menuRename").onclick = function () {
+    var id = state.menuSession;
+    closeSessionMenu(false);
+    if (id) renameSession(id);
+  };
+  $("menuDelete").onclick = function () {
+    var id = state.menuSession;
+    closeSessionMenu(false);
+    if (id) deleteSession(id);
+  };
+
+  function loadSessions(opts) {
+    if (!state.user) { renderSessionsIdle(); setSideWhy(); return Promise.resolve(); }
+    $("newSession").disabled = false;
+    setSideWhy();
+    return getJson("/sessions?user_id=" + encodeURIComponent(state.user))
+      .then(function (rows) {
+        state.sessions = rows || [];
+        state.sessions.forEach(function (s) { state.titles[s.session_id] = s.title || ""; });
+        var hadSession = state.session;
+        if (!state.session && state.sessions.length) state.session = state.sessions[0].session_id;
+        if (state.session && !state.sessions.some(function (s) { return s.session_id === state.session; })) {
+          state.session = state.sessions.length ? state.sessions[0].session_id : "";
+        }
+        var autoSession = !hadSession && !!state.session;      /* 本次是页面替用户自动选的 */
+        renderSessions();
+        setComposerState();
+        /* 自动选中最近会话时给一句可见说明（可随时换），避免"为什么打开的是这个" */
+        if (autoSession) {
+          $("sideWhy").hidden = false;
+          $("sideWhy").textContent = "帮你打开了最近的会话「" +
+            ((state.titles[state.session] || state.session) || "") + "」，随时可以在左栏切换。";
+        }
+        /* 会话切换/首次进入：**每次**都向后端取该会话历史（不再依赖本页缓存，AC-L-8） */
+        if (state.session && state.session !== hadSession) loadHistory(state.session);
+        else if (state.session && opts && opts.forceHistory) loadHistory(state.session);
+      })
+      .catch(function (err) {
+        $("sessions").innerHTML = '<p class="err" role="alert">这次没能取到你的会话列表——' + esc(err.message) +
+          ' 你的会话没有丢，点下面的「重试」再取一次。</p>' +
+          '<div class="row"><button type="button" id="sessRetry">重试</button></div>';
+        $("sessRetry").onclick = function () { renderSessionsIdle(); loadSessions(); };
+      });
+  }
+
+  /* ---- 会话历史：唯一来源是后端的 GET /sessions/{id}/messages（AC-L-8） ---- */
+  function loadHistory(id) {
+    if (!state.user || !id) return Promise.resolve(null);
+    if (state.busy.chat && state.session === id) return Promise.resolve(null);  /* 不打断正在流式的会话 */
+    var seq = (state.histSeq[id] || 0) + 1;
+    state.histSeq[id] = seq;
+    var turnAt = state.turnSeq[id] || 0;     /* 记下"请求发出时"的本地轮次 */
+    state.histLoading[id] = true;
+    state.histError[id] = "";
+    if (state.session === id) renderStream();
+    var url = "/sessions/" + encodeURIComponent(id) + "/messages?user_id=" + encodeURIComponent(state.user);
+    return getJson(url)
+      .then(function (body) {
+        if (state.histSeq[id] !== seq) return null;          /* 过期响应：这一次切换已经不算数了 */
+        state.histLoading[id] = false;
+        state.histError[id] = "";
+        if (body && typeof body.title === "string") {         /* 标题也以后端返回为准（即使下面不覆盖消息） */
+          state.titles[id] = body.title;
+          renderSessions();
+        }
+        if ((state.turnSeq[id] || 0) !== turnAt) {
+          /* 请求发出后本页又新增了真实问答：本地已是最新，**不要**用迟到的历史把它盖掉 */
+          if (state.session === id) renderStream();
+          return body;
+        }
+        var rows = (body && body.messages) || [];
+        var fq = "", fa = "";
+        rows.forEach(function (m) {
+          if (!fq && m.role === "user") fq = m.content || "";
+          else if (fq && !fa && m.role === "assistant") fa = m.content || "";
+        });
+        if (rememberFirstTurn(id, fq, fa) && state.session === id) renderSessions();
+        state.viewer[id] = rows.map(function (m) {
+          return {
+            who: m.role === "assistant" ? "assistant" : "user",
+            text: m.content || "",
+            citations: [],
+            history: true                                     /* 历史消息：后端没有保存引用来源 */
+          };
+        });
+        if (state.session === id) { renderStream(); scrollStream(); }
+        return body;
+      })
+      .catch(function (err) {
+        if (state.histSeq[id] !== seq) return null;
+        state.histLoading[id] = false;
+        state.histError[id] = "历史消息载入失败：" + err.message + "（可点「重试」重新取一次）";
+        if (state.session === id) renderStream();
+        return null;
+      });
+  }
+  function newSession() {
+    if (!state.user || state.busy.session) return;
+    setBusy("session", true);
+    $("newSession").disabled = true;
+    $("newSession").textContent = "新建中…";
+    var role = state.role || (state.roles[0] && state.roles[0].role_id) || "";
+    http("POST", "/sessions", { user_id: state.user, role_id: role, title: "" })
+      .then(function (row) {
+        state.session = row.session_id;
+        state.titles[row.session_id] = row.title || "";
+        state.viewer[row.session_id] = [];
+        state.histError[row.session_id] = "";
+        /* 新会话按定义没有历史，但仍走同一条取历史的路径，保持"唯一来源"不变 */
+        return loadHistory(row.session_id).then(function () { return loadSessions(); });
+      })
+      .catch(function (err) { setSideAlert("新建会话失败：" + err.message + "（可再点一次「新建会话」重试）"); })
+      .then(function () {
+        setBusy("session", false);
+        $("newSession").disabled = !state.user;
+        $("newSession").textContent = "+ 新建会话";
+      });
+  }
+  function setSideAlert(msg) {
+    $("sideWhy").hidden = false;
+    $("sideWhy").textContent = msg;
+  }
+  function openSession(id) {
+    if (state.session === id) return;
+    state.session = id;
+    setSideWhy();                /* 用户自己切换了：撤掉"已为你打开最近的会话"那句 */
+    renderSessions();
+    renderStream();              /* 先落 loading/空态，历史到达后立即覆盖 */
+    setComposerState();
+    loadHistory(id);             /* 真接线：每次都向后端取该会话历史 */
+  }
+  /* 会话删除：DELETE /sessions/{id} 落库（t11 新增的路径）；确认框含对象名，取消不发请求 */
+  function deleteSession(id) {
+    if (!state.user) { setSideAlert("请先登录：未登录时不能删除会话。"); return; }
+    var title = (state.titles[id] || id);
+    askConfirm("确定删除这个会话吗？删除后它会连同历史消息一起被永久删除，且不可恢复。",
+      title, "删除", function () {
+        if (state.busy.session) return;
+        setBusy("session", true);
+        var item = $("sessions").querySelector('[data-del="' + id.replace(/"/g, '\\"') + '"]');
+        if (item) { item.disabled = true; item.textContent = "删除中…"; }
+        http("DELETE", "/sessions/" + encodeURIComponent(id) + "?user_id=" + encodeURIComponent(state.user))
+          .then(function (body) {
+            var cleared = (body && body.messages_cleared) || 0;
+            state.sessions = state.sessions.filter(function (s) { return s.session_id !== id; });
+            delete state.viewer[id];
+            delete state.titles[id];
+            delete state.histSeq[id];
+            delete state.histLoading[id];
+            delete state.histError[id];
+            if (state.session === id) {
+              state.session = state.sessions.length ? state.sessions[0].session_id : "";
+              renderStream();
+              if (state.session) loadHistory(state.session);
+            }
+            renderSessions();
+            setComposerState();
+            var back = $("newSession");            /* 该行的按钮随列表消失，焦点回到「新建会话」 */
+            if (back && !back.disabled) back.focus();
+            setSideAlert("会话「" + title + "」已删除，连同 " + cleared +
+              " 条历史消息一起清掉了。它不会再出现在列表里。");
+          })
+          .catch(function (err) {
+            renderSessions();
+            setSideAlert("这次没能删掉会话——" + err.message + " 它还在列表里，你可以再试一次。");
+          })
+          .then(function () { setBusy("session", false); });
+      });
+  }
+  /* 会话重命名：PATCH /sessions/{id} 落库（t11 新增的路径）；失败时标题不变并如实提示 */
+  function renameSession(id) {
+    if (!state.user) { setSideAlert("请先登录：未登录时不能重命名会话。"); return; }
+    var cur = state.titles[id] || "";             /* 预填**落库原文**（F-A1；AC-MG-5 的"当前标题"即库里那条） */
+    openPrompt("重命名会话", "给这个会话起个标题，方便以后在左栏找到它；留空就按第一句话自动命名。最多 255 个字符。", cur, function (next) {
+      if (state.busy.session) return;
+      setBusy("session", true);
+      http("PATCH", "/sessions/" + encodeURIComponent(id), {
+        user_id: state.user, title: String(next)      /* 原样提交（不 trim）：与后端"原样保存"一致 */
+      })
+        .then(function (row) {
+          state.titles[id] = (row && typeof row.title === "string") ? row.title : String(next);
+          state.userTitles[id] = true;             /* 用户设定优先：后端也不会再被自动标题覆盖（AC-TI-7） */
+          renderSessions();
+          setSideAlert("标题已改为「" + (state.titles[id] || "（空标题）") + "」。刷新后仍然是它。");
+        })
+        .catch(function (err) {
+          renderSessions();
+          setSideAlert("这次没能改标题——" + err.message + " 原标题没动，你可以再试一次。");
+        })
+        .then(function () {
+          setBusy("session", false);
+          /* 列表已重渲染，原触发按钮不在 DOM 里了：把焦点还给这一行的「重命名」按钮（AC-K-3） */
+          var again = $("sessions").querySelector('[data-rename="' + id.replace(/"/g, '\\"') + '"]');
+          if (again) again.focus();
+        });
+    });
+  }
+  $("newSession").onclick = newSession;
+
+  /* ================= ③ 聊天 ================= */
+  function roleById(roleId) {
+    for (var i = 0; i < state.roles.length; i++) {
+      if (state.roles[i].role_id === roleId) return state.roles[i];
+    }
+    return null;
+  }
+  function currentRole() { return roleById(state.role); }
+  function roleHasKb(roleId) { return (state.kbRoles[roleId] || 0) > 0; }
+
+  function setComposerState() {
+    var logged = !!state.user;
+    var role = currentRole();
+    var kb = logged && state.role && roleHasKb(state.role);
+    var why = "";
+    if (!logged) why = "请先登录：未登录时不能提问（登录后才能新建会话并发送问题）。";
+    else if (!state.session) why = "请先点左栏「+ 新建会话」，或选中一个已有会话，然后就能提问了。";
+    else if (!state.role) why = "请先在工具栏点「角色」选一个已接入知识库的角色。";
+    /* ⚠️ 与「尚未接入」必须分开：`/documents` 取数失败时 `kbRoles` 是空的，
+       直接走下面那条会**断言**"这个角色没有知识库"——那是我们并不知道的事。
+       这里如实说"没取到"，并给出可执行动作（重试）。 */
+    else if (state.docsError) why = "这次没能取到资料列表，暂时无法确认这个角色能不能提问——" +
+      "请点「知识库」面板里的「重试」重新取一次。";
+    else if (!kb) why = "当前角色「" + (role ? role.name : state.role) + "」的知识库尚未接入，请在「角色」里换一个已接入知识库的角色。";
+    $("msg").disabled = !logged || !state.session || !kb;
+    $("send").disabled = $("msg").disabled;
+    $("composerWhy").hidden = !why;
+    $("composerWhy").textContent = why;
+    $("msg").placeholder = logged ? "输入你的问题，Enter 发送、Shift+Enter 换行" : "请先登录后提问";
+  }
+
+  function renderStream() {
+    var box = $("stream");
+    if (!state.user) {
+      box.innerHTML = '<p class="empty">这里要登录后才能看到消息。<b>登录后</b>就能在左栏选一个会话、或新建一个来提问。</p>';
+      return;
+    }
+    if (!state.session) {
+      box.innerHTML = '<p class="empty">还没有选中会话。请在左栏点一个已有会话，或点「+ 新建会话」开一个，然后就能提问。</p>';
+      return;
+    }
+    var list = state.viewer[state.session] || [];
+    var err = state.histError[state.session] || "";
+    var loading = !!state.histLoading[state.session];
+    if (err && !list.length) {
+      /* 取历史失败：如实报错 + 「重试」，绝不当成"这个会话没有消息"。
+         t113：**去掉内层 `role="alert"`** —— 外层 `#stream` 是 `role="log" aria-live="polite"`，
+         内层再挂 live region ⇒ 同一句被两个嵌套 live region 覆盖、播两遍（与 L1589 同构）。
+         `.err` 样式与可见性不变，播报交给外层一次完成。 */
+      box.innerHTML = '<p class="err">' + esc(err) + '</p>' +
+        '<div class="row"><button type="button" id="histRetry">重试</button></div>';
+      $("histRetry").onclick = function () { loadHistory(state.session); };
+      return;
+    }
+    if (!list.length) {
+      box.innerHTML = loading
+        ? '<p class="state" role="status">正在载入该会话的历史消息…</p>'
+        : '<p class="empty">这个会话还没有消息。在下方输入问题按 Enter 就能开始。</p>';
+      return;
+    }
+    box.innerHTML = list.map(function (m, i) {
+      if (m.who === "user") {
+        return '<div class="msg user"><p class="msg-author">你</p>' +
+          '<div class="msg-body">' + esc(m.text) + '</div></div>';
+      }
+      return '<div class="msg assistant" data-idx="' + i + '"><p class="msg-author">助手</p>' +
+        '<div class="msg-body">' + esc(m.text) + '</div>' +
+        /* t111/F-02：**不加 `role=alert`**。外层 `#stream` 已是 `role=log aria-live=polite`，
+           内层再挂 live region ⇒ 同一段错误被两个嵌套 live region 覆盖、播两遍（t106 的 F-02）。
+           错误文案照旧可见（样式类 `.err` 不变），播报交给外层一次完成。 */
+        (m.error ? '<p class="err">' + esc(m.error) + '</p>' : "") +
+        (m.error ? '<div class="row"><button type="button" class="retry">重试</button></div>' : "") +
+        '<div class="cites">' + citesHtml(m) + '</div></div>';
+    }).join("");
+    Array.prototype.forEach.call(box.querySelectorAll(".retry"), function (b) {
+      b.onclick = function () {
+        var wrap = b.closest(".msg");
+        var idx = Number(wrap.getAttribute("data-idx"));
+        retryMessage(idx);
+      };
+    });
+    var st = $("streamState");
+    if (st && st.parentNode) st.remove();
+  }
+
+  function citesHtml(m) {
+    if (m.who !== "assistant" || m.streaming) return "";
+    var cites = m.citations || [];
+    if (!cites.length) {
+      /* 历史消息：后端只存问答正文，不保存引用来源 —— 如实说明，不假装也没有留空（AC-L-9） */
+      return '<p class="note">本次回答无引用来源' +
+        (m.history ? '<span class="muted">（历史记录只保存问答正文，引用来源不随历史保存）</span>' : "") + '</p>';
+    }
+    return '<p class="note">引用来源</p><ul>' + cites.map(function (c) {
+      var snippet = String(c.snippet || "").replace(/\s+/g, " ").slice(0, 160);
+      /* 不展示 score：它是「向量 + 关键词两路各自归一化后加权」的融合分（上限 2.0、
+         跨条不可比），当相似度展示会误导用户（曾出现「相关度 1.915」）。改展示条号。 */
+      var article = String(c.article || "");
+      return '<li><span class="cite-src">' + esc(c.source || "未命名来源") + '</span>' +
+        (article ? '<span class="cite-article">' + esc(article) + '</span>' : '') +
+        '<div class="muted">' + esc(snippet) + '</div></li>';
+    }).join("") + '</ul>';
+  }
+
+  function appendMessage(who, text, extra) {
+    var list = state.viewer[state.session] || (state.viewer[state.session] = []);
+    var msg = { who: who, text: text, citations: [], streaming: false, error: "" };
+    if (extra) for (var k in extra) msg[k] = extra[k];
+    list.push(msg);
+    state.turnSeq[state.session] = (state.turnSeq[state.session] || 0) + 1;   /* 本地新增一轮 */
+    return { idx: list.length - 1, msg: msg };     /* 返回**同一个对象**：流式写入必须落在列表里那条 */
+  }
+  function scrollStream() { var s = $("stream"); s.scrollTop = s.scrollHeight; }
+
+  /* 进行中指示：流式期间必须可见（「正在检索…」→「生成中…」），回答结束后消失（AC-L-10） */
+  function showProgress(text) {
+    var box = $("stream");
+    var el = $("streamState");
+    if (!el) {
+      el = document.createElement("p");
+      el.id = "streamState";
+      el.className = "state";
+      el.setAttribute("role", "status");
+      box.appendChild(el);
+    }
+    el.textContent = text;
+  }
+  function hideProgress() {
+    var el = $("streamState");
+    if (el && el.parentNode) el.parentNode.removeChild(el);
+  }
+
+  /* SSE 解析：按空行切帧，取 event: 与 data: 两行（保留事件名，才能区分 delta/citations/done/error） */
+  function parseBlock(block) {
+    var ev = "message", data = [];
+    block.split(/\r?\n/).forEach(function (line) {
+      if (line.indexOf("event:") === 0) ev = line.slice(6).trim();
+      else if (line.indexOf("data:") === 0) data.push(line.slice(5).replace(/^ /, ""));
+    });
+    return { event: ev, data: data.join("\n") };
+  }
+
+  function streamChat(question, attempt) {
+    var role = state.role;
+    var box = $("stream");
+    if (!state.user) {
+      setSideAlert("请先登录：未登录时不能提问。");
+      return Promise.resolve(false);
+    }
+    if (!state.session || !role) { setComposerState(); return Promise.resolve(false); }
+    if (!roleHasKb(role)) {
+      setSideAlert("当前角色「" + (currentRole() ? currentRole().name : role) + "」的知识库尚未接入，换一个已接入的角色再提问。");
+      return Promise.resolve(false);
+    }
+    setBusy("chat", true);
+    $("send").disabled = true;
+    $("send").textContent = "发送中…";
+    $("msg").disabled = true;
+    showProgress("正在检索…");
+    /* `sawDone`：**显式确认完成帧**（r17 §2.2 / AC-L-11）。SSE 流"正常结束"≠"回答完成"——
+       HTTP 200 之后连接在中途断开时，`reader.read()` 同样以 `done: true` 收尾，
+       与正常结束**无法区分**。唯一可信的成功信号是收到 `event: done`。 */
+    var streamed = false, sawError = "", sawDone = false;
+    var payload = {
+      user_id: state.user, role_id: role, session_id: state.session,
+      message: question, stream: true, stream_mode: "sse"
+    };
+    reqLog("START", "/chat", "SSE（不限时，流式本身会持续返回）");
+    var chatT0 = Date.now();
+    return fetch("/chat", {
+      method: "POST", credentials: "same-origin",
+      headers: { "Content-Type": "application/json", Accept: "text/event-stream" },
+      body: JSON.stringify(payload)
+    }).then(function (res) {
+      reqLog(res.ok ? "STREAM" : "FAIL", "/chat", "HTTP " + res.status, Date.now() - chatT0);
+      if (!res.ok) {
+        return res.json().catch(function () { return null; }).then(function (body) {
+          var msg = apiMessage(body, res.status);
+          throw Object.assign(new Error(msg), { status: res.status });
+        });
+      }
+      var reader = res.body.getReader();
+      var dec = new TextDecoder("utf-8");
+      var buf = "";
+      function handle(block) {
+        var frame = parseBlock(block);
+        if (!frame.data && frame.event === "message") return;
+        var parsed = null;
+        try { parsed = JSON.parse(frame.data); } catch (e) { parsed = null; }
+        if (frame.event === "delta") {
+          if (!streamed) { streamed = true; showProgress("生成中…"); }
+          attempt.deltas = (attempt.deltas || 0) + 1;
+          var amp = (parsed && parsed.text) || "";
+          attempt.text += amp;
+          var target = box.querySelector('[data-idx="' + attempt.idx + '"] .msg-body');
+          if (target) { target.textContent = attempt.text; scrollStream(); }
+        } else if (frame.event === "citations") {
+          attempt.citations = (parsed && parsed.citations) || [];
+        } else if (frame.event === "done") {
+          /* done 帧带完整答案；但**不能**用它覆盖已流式渲染的文本——异常时它可能是空串 */
+          sawDone = true;
+          if (parsed && typeof parsed.answer === "string" && parsed.answer) attempt.text = parsed.answer;
+        } else if (frame.event === "error") {
+          sawError = (parsed && parsed.error) || "回答生成过程中出错了";
+        }
+      }
+      function pump() {
+        return reader.read().then(function (r) {
+          if (r.done) {
+            if (buf.trim()) handle(buf);
+            return;
+          }
+          buf += dec.decode(r.value, { stream: true });
+          var parts = buf.split(/\r?\n\r?\n/);
+          buf = parts.pop();
+          parts.forEach(handle);
+          return pump();
+        });
+      }
+      return pump();
+    }).then(function () {
+      var list = state.viewer[state.session] || [];
+      var target = list[attempt.idx];
+      /* 失败判定（r17 §2.2 / AC-L-11）：**未收到 done 帧**与 `event:error`、空文本一样是失败。
+         缺了 `!sawDone` 这一条时，`200 + 半截 delta 后断开`会被当成功收尾：
+         半截答案以"完成"状态留在页面上、无错误无重试，刷新后还能从库里读到这半截（答案完整性事故）。
+         ⚠️ 保留 `target.text`（已收到的半截答案）——**不清空消息区**；错误与重试由 renderStream 按 `error` 渲染。 */
+      var truncated = !sawDone && !sawError;
+      var failure = "";
+      var refill = false;               /* 是否把该问题回填到输入框（只在"回答没送完"时） */
+      if (sawError) {
+        failure = "回答中断了：" + sawError + "（可点「重试」用同一个问题重发）";
+      } else if (truncated) {
+        failure = (target && target.text)
+          ? "回答中断了：没有收到服务端的完成信号（连接可能中途断开）。" +
+            "上面的内容可能不完整，可点「重试」用同一个问题重发。"
+          : "回答中断了：没有收到服务端的完成信号（连接可能中途断开），也没有收到任何内容。" +
+            "可点「重试」用同一个问题重发。";
+        refill = true;
+      } else if (target && !target.text) {
+        failure = "本次没有返回任何内容（可点「重试」用同一个问题重发）";
+        refill = true;
+      }
+      if (target) {
+        target.streaming = false;
+        if (failure) target.error = failure;
+      }
+      /* 「不清空消息区」的另一半：把该问题**回填到输入框**（便于改词重问）。
+         `event:error` 已有具体报错 ⇒ 不回填（那是服务端的错，重发多半还是错）。
+         ⚠️ 必须放在 `setComposerState()` **之后**：输入框在流式开始时被置 disabled，
+         若提前回填会被 `!inp.disabled` 挡掉（这条是实测踩出来的）。 */
+      hideProgress();
+      setBusy("chat", false);
+      /* 首轮问答完成：把首问 + 首答交给本地标题规则（不发任何"标题生成"请求，AC-TI-2） */
+      var curList = state.viewer[state.session] || [];
+      var q0 = "", a0 = "";
+      curList.forEach(function (m) {
+        if (m.who === "user" && !q0) q0 = m.text || "";
+        else if (q0 && m.who === "assistant" && !a0) a0 = m.text || "";
+      });
+      if (rememberFirstTurn(state.session, q0, a0)) renderSessions();
+      renderStream();
+      scrollStream();
+      setComposerState();
+      /* 回填放在 `setComposerState()` 之后（此刻输入框已被重新启用）。
+         只在用户没在输入新内容时才覆盖，避免吞掉他刚敲的字。 */
+      if (refill) {
+        var inp = $("msg");
+        var typed = inp.value.trim();
+        if (!inp.disabled && (!typed || typed === question)) {
+          inp.value = question;
+          autoGrowMsg();
+        }
+      }
+      return true;
+    }).catch(function (err) {
+      var list = state.viewer[state.session] || [];
+      var target = list[attempt.idx];
+      if (target) {
+        target.streaming = false;
+        target.error = "发送失败：" + err.message + "（可点「重试」用同一个问题重发）";
+      }
+      hideProgress();
+      setBusy("chat", false);
+      renderStream();
+      setComposerState();
+      return false;
+    }).then(function (ok) {
+      $("send").textContent = "发送";
+      if (ok) loadSessions();
+      return ok;
+    });
+  }
+
+  /* 输入框高度随内容长（上限与 CSS 的 max-height 一致），不用拖拽手柄 */
+  function autoGrowMsg() {
+    var el = $("msg");
+    if (!el) return;
+    var MAX = 160;
+    var cs = getComputedStyle(el);
+    var border = (parseFloat(cs.borderTopWidth) || 0) + (parseFloat(cs.borderBottomWidth) || 0);
+    el.style.height = "auto";                                  /* 先归零再量真实内容高度 */
+    var need = el.scrollHeight + border;                       /* border-box：补偿上下边框 */
+    need = Math.min(Math.ceil(need / 4) * 4, MAX);             /* 高度取 4 的倍数（§15.2 间距栅格） */
+    el.style.height = need + "px";
+    el.style.overflowY = need > MAX ? "auto" : "hidden";
+  }
+
+  function sendMessage() {
+    if (state.busy.chat) return;
+    var input = $("msg");
+    var text = input.value.trim();
+    if (!text) return;
+    if (!state.user) { setSideAlert("请先登录：未登录时不能提问。"); return; }
+    if (input.disabled) { setComposerState(); return; }
+    appendMessage("user", text);
+    var slot = appendMessage("assistant", "", { streaming: true });
+    var attempt = slot.msg;                        /* 直接写列表里那条，避免两份对象各写各的 */
+    attempt.idx = slot.idx;
+    attempt.deltas = 0;
+    input.value = "";
+    autoGrowMsg();                                 /* 清空后收回单行高度 */
+    renderStream();
+    scrollStream();
+    streamChat(text, attempt);
+  }
+  function retryMessage(idx) {
+    var list = state.viewer[state.session] || [];
+    var target = list[idx];
+    if (!target) return;
+    var question = "";
+    for (var i = idx - 1; i >= 0; i--) {
+      if (list[i].who === "user") { question = list[i].text; break; }
+    }
+    if (!question) return;
+    target.error = ""; target.text = ""; target.citations = []; target.streaming = true; target.deltas = 0;
+    renderStream();
+    streamChat(question, target);
+  }
+
+  $("composer").addEventListener("submit", function (e) { e.preventDefault(); sendMessage(); });
+  $("msg").addEventListener("input", autoGrowMsg);
+  $("msg").addEventListener("keydown", function (e) {
+    if (e.key !== "Enter") return;
+    if (e.shiftKey) return;                            /* Shift+Enter 换行，不发送（AC-K-5） */
+    e.preventDefault();
+    sendMessage();
+  });
+
+  /* ================= ④ 角色（由 GET /roles 动态渲染；数量不写死） ================= */
+  function loadDocuments() {
+    state.docsError = "";             /* t81：先清上一次的错误，本次失败时再写回 */
+    return getJson("/documents").then(function (body) {
+      state.docs = (body && body.documents) || [];
+      var map = {};
+      state.docs.forEach(function (d) {
+        var rid = d.role_id || "";
+        if (rid) map[rid] = (map[rid] || 0) + 1;
+      });
+      state.kbRoles = map;
+      state.kbKnown = true;               /* 真的拿到了 → 才可以对"尚未接入"下结论 */
+      renderRoles();
+      updateKbHeader();
+      renderKbDocs();                     /* 成功即回到正常列表（覆盖掉可能的失败态） */
+      setComposerState();
+      return body;
+    }).catch(function (err) {
+      state.kbKnown = false;
+      state.docs = [];                    /* 清空 ⇒ renderKbDocs 走失败态分支 */
+      state.docsError = userFacingError(err);   /* t81：5xx 只上屏通用文案 + 问题编号 */
+      renderRoles();
+      /* t99/F-②：失败时也要刷新归属区文案 —— 否则 `#kbScopeNote` 会停留在
+         "这个角色还没有资料"（真·空态的断言），与失败态**逐字同文**、无法分辨。 */
+      updateKbHeader();
+      renderKbDocs();                     /* 把「失败 + 重试」写进面板（打开面板也覆盖不掉） */
+      setComposerState();                 /* t104：输入区禁用原因也要跟着更新（否则停在旧的"尚未接入"） */
+      return null;
+    });
+  }
+  function updateRoleUI() {
+    syncFavicon(state.role);          /* AC-FAV-4/15：角色变化只改 href，元素个数恒 1 */
+    var r = currentRole();
+    $("roleLabel").textContent = r ? r.name : (state.role || "选择角色");
+    $("kbRole").textContent = r ? r.name : "—";
+    $("kbRoleId").textContent = state.role || "—";
+  }
+  /* t81：单出口 —— 失败态优先（它带着「重试」按钮，绝不能被空态占位抹掉），
+     无论走哪条分支都刷新一次按钮上的失败标记（面板关着也能看见）。 */
+  function renderRoles() {
+    if (state.rolesError) {
+      /* t111：错误块与「重试」之间用 `<br>` **结构性分隔** —— 否则 5xx 的问题编号会与「重试」
+         连读成 `…故障：req-2026…abcdef12重试`（标准要求编号与中文之间必须有可读分隔）。 */
+      $("roleList").innerHTML = '<p class="empty" role="alert">' + esc(state.rolesError) + '</p><br>' +
+        retryButtonHtml("重试");
+      bindRoleRetry();
+    } else {
+      renderRolesNormal();
+    }
+    applyKbBtnMark();
+  }
+  function renderRolesNormal() {
+    var list = $("roleList");
+    if (!state.roles.length) {
+      list.innerHTML = '<p class="empty">角色列表还在加载…一直空着的话，请关掉这个浮层，再点一次「角色」重新加载。</p>';
+      return;
+    }
+    list.innerHTML = state.roles.map(function (r) {
+      var cur = r.role_id === state.role;
+      /* 禁用 ≠ 隐藏：没有知识库的角色仍然列出来，并写明原因（规范 §2.3 / AC-L-13）。
+         禁用项用原生 disabled 属性 → 天然不进入 Tab 链、点了不响应；点击处理里再兜一层。 */
+      var has = roleHasKb(r.role_id);
+      var cls = "opt full" + (has ? "" : " disabled");
+      var note;
+      if (has) note = "已接入知识库（" + state.kbRoles[r.role_id] + " 份资料）";
+      else if (state.kbKnown) note = KB_MISSING;                     /* 归属信息确实拿到了：如实说"尚未接入" */
+      else if (!state.user) note = "登录后可查看该角色是否已接入知识库";  /* 拿不到就别替它下结论（不假造原因） */
+      else note = "该角色知识库归属尚未确认（可关闭浮层后重开「知识库」面板重试）";
+      return '<button type="button" class="' + cls + '" role="option" data-role="' + esc(r.role_id) + '"' +
+        ' aria-selected="' + (cur ? "true" : "false") + '"' +
+        (has ? "" : ' aria-disabled="true" disabled') + '>' +
+        '<span class="on">' + esc(r.name) + '</span>' +
+        '<span class="mark" aria-hidden="true">' + (cur ? "当前" : "") + '</span>' +
+        '<span class="od">' + esc(r.role_id + (r.domain ? " · " + r.domain : "")) + '</span>' +
+        '<span class="od">' + note + '</span>' +
+        '</button>';
+    }).join("");
+    Array.prototype.forEach.call(list.querySelectorAll("[data-role]"), function (b) {
+      b.addEventListener("click", function () {
+        if (b.disabled || b.getAttribute("aria-disabled") === "true") return;   /* 点禁用项不关浮层 */
+        selectRole(b.dataset.role);
+      });
+    });
+    updateRoleUI();
+  }  function selectRole(roleId) {
+    if (!state.user) {
+      setSideAlert("请先登录：未登录时不能选角色、也不能提问。");
+      return;
+    }
+    state.role = roleId;
+    state.rolePref = roleId;                  /* B-8：用户手动选择 = 新的偏好值 */
+    window.__prefs.putRole(roleId);           /* ① 本地立即生效（含降级可用） */
+    state.fit = null; state.fitFiles = [];
+    $("kbVerdicts").innerHTML = "";
+    $("kbState").hidden = true;
+    $("roleWhy").hidden = true;              /* 用户自己选过了：撤掉"已为你选了默认角色"那句 */
+    $("roleWhy").textContent = "";
+    closeRoles(true);
+    renderRoles();
+    updateRoleUI();
+    loadSessions();
+    if (!$("kbPanel").hidden) renderKbDocs();
+    setComposerState();
+    window.__prefs.save({ role_id: roleId });/* ② 再异步上报；失败出可见提示 + 重试 */
+  }
+  function firstUsableRole() {
+    for (var i = 0; i < state.roles.length; i++) {
+      if (roleHasKb(state.roles[i].role_id)) return state.roles[i].role_id;
+    }
+    return state.roles.length ? state.roles[0].role_id : "";
+  }
+  /* 浮层刚展开时的一次性标志：载入中/全禁用时没有可聚焦项，
+     用它在 focusout 里避免"刚打开就被自己关掉"。
+     【注意】必须显式声明：本文件在 `"use strict"` 下，给未声明标识符赋值会直接抛 ReferenceError。 */
+  var openingPop = false;
+  function openRoles() {
+    if ($("roleBtn").disabled) return;
+    openingPop = true;
+    $("rolePop").hidden = false;
+    setExpanded("roleBtn", true);
+    var cur = $("roleList").querySelector('[role="option"][aria-selected="true"]:not([disabled])') ||
+              $("roleList").querySelector('[role="option"]:not([disabled])');
+    if (cur) cur.focus();          /* 载入中/无可选角色时保持焦点在触发按钮，浮层同样保持打开 */
+    openingPop = false;
+  }
+  function closeRoles(returnFocus) {
+    $("rolePop").hidden = true;
+    setExpanded("roleBtn", false);
+    if (returnFocus) $("roleBtn").focus();
+  }
+  function setExpanded(id, on) { $(id).setAttribute("aria-expanded", on ? "true" : "false"); }
+  $("roleBtn").onclick = function () {
+    if ($("rolePop").hidden) openRoles(); else closeRoles(false);
+  };
+  $("rolePop").addEventListener("focusout", function (e) {
+    if (openingPop) return;        /* 刚展开时不动它：载入中/全禁用时没有可聚焦项，别把自己关掉 */
+    var to = e.relatedTarget;
+    if (!to || (!$("rolePop").contains(to) && to !== $("roleBtn"))) closeRoles(false);
+  });
+  $("roleList").addEventListener("keydown", function (e) {
+    var opts = Array.prototype.slice.call($("roleList").querySelectorAll('[role="option"]:not([disabled])'));
+    var i = opts.indexOf(document.activeElement);
+    if (e.key === "Escape") { closeRoles(true); return; }
+    if (i < 0) return;
+    var next = null;
+    if (e.key === "ArrowDown") next = opts[Math.min(i + 1, opts.length - 1)];
+    else if (e.key === "ArrowUp") next = opts[Math.max(i - 1, 0)];
+    else if (e.key === "Home") next = opts[0];
+    else if (e.key === "End") next = opts[opts.length - 1];
+    if (next) { e.preventDefault(); next.focus(); }
+  });
+  function loadRoles() {
+    state.rolesError = "";            /* t81：先清上一次的错误，本次失败时再写回 */
+    return getJson("/roles").then(function (rows) {
+      if (!rows || !rows.length) throw new Error("角色列表为空");
+      state.roles = rows;
+      var autoRole = false;
+      if (!state.role) {
+        /* AC-L-22：未由用户选择时，当前生效角色**显式**取 DEFAULT_ROLE（lawyer）——
+           不再依赖"列表里第一个恰好有知识库的角色"这种偶然结果；
+           仅当该角色不在列表里时才回退到第一个可用角色，并在控制台留痕。 */
+        /* B-8 / r17 §21.3：取值优先级 = **账号偏好** → `DEFAULT_ROLE`（lawyer，AC-L-22
+           只在"偏好未设置"时生效）。⚠️ 不得因为"偏好角色当前没有知识库"就改回 lawyer
+           —— 那正是 `AC-PR-4③` 禁止的静默改写。 */
+        var want = state.rolePref || state.role || DEFAULT_ROLE;
+        var hit = null;
+        for (var ri = 0; ri < state.roles.length; ri++) {
+          if (state.roles[ri].role_id === want) { hit = state.roles[ri]; break; }
+        }
+        if (state.user) {
+          if (hit) { state.role = hit.role_id; }
+          else {
+            var fallback = firstUsableRole();
+            reqLog("INFO", "/roles", "默认角色 " + want + " 不在列表里，回退到 " + (fallback || "（无可用角色）"));
+            state.role = fallback || "";
+          }
+        } else { state.role = ""; }
+      }
+      /* AC-PR-3③ 的**唯一**合法性判据 = 角色库成员（`roleById` 即 ROLE_LIBRARY 投影）：
+         数据库里躺着的旧角色（如已从六角色集合里裁掉的 `teacher`）不能上屏。
+         ⚠️ 必须放在 `if (!state.role)` **之外**：本地缓存与 `GET /prefs` 都可能已经把
+         `state.role` 填成残留值，而那个分支只在 role 为空时才执行 ⇒ 放进去等于没检查。 */
+      if (state.user && state.role && !roleById(state.role)) {
+        var back = firstUsableRole();
+        reqLog("WARN", "/roles", "当前角色 " + state.role + " 不在角色库里，回退到 " + (back || "（无可用角色）"));
+        if (!state.roleFallback) state.roleFallback = state.role;     /* 只在还没记过时记 */
+        state.role = back || "";
+        state.rolePref = back || "";
+        autoRole = !!state.role;
+      }
+      renderRoles();
+      updateRoleUI();
+      /* 未登录时按钮仍可点开：无知识库角色的「禁用 + 原因」必须看得见（禁用 ≠ 隐藏）；
+         未登录只是不能被选中（见 selectRole 与 setComposerState）。 */
+      $("roleBtn").disabled = !state.roles.length;
+      $("roleWhy").hidden = true;
+      $("roleWhy").textContent = "";
+      if (autoRole) {                             /* 自动选中时给一句可见说明（可随时换） */
+        var picked = currentRole();
+        $("roleWhy").hidden = false;
+        $("roleWhy").textContent = "已为你选了默认角色「" + (picked ? picked.name : state.role) +
+          "」，随时点这里可以更换。";
+      }
+      /* 账号偏好指向的角色已不在角色库里 ⇒ 必须**看得见**地回退（不得静默）。
+         放在 autoRole 之后 ⇒ 这句覆盖掉上一句，用户看到的是"偏好失效"的真实原因。 */
+      if (state.roleFallback) {
+        if (state.roleFallbackSynced !== state.roleFallback) {
+          state.roleFallbackSynced = state.roleFallback;        /* 一次回退只写库一次 */
+          if (state.role) window.__prefs.save({ role_id: state.role });
+        }
+        $("roleWhy").hidden = false;
+        $("roleWhy").textContent = "账号偏好里的角色「" + state.roleFallback +
+          "」已不在角色库中，已回退到「" + ((currentRole() || {}).name || state.role) +
+          "」。原来的偏好值不会再生效。";
+      }
+      setComposerState();
+      return rows;
+    }).catch(function (err) {
+      /* 失败时**不**禁用触发按钮：否则浮层打不开，而「重试」就在浮层里 ⇒ 用户只能整页刷新（死路）。
+         保持可点 —— 点开浮层就能看到失败原因与「重试」。 */
+      state.rolesError = userFacingError(err);          /* t81：5xx 只上屏通用文案 + 问题编号 */
+      state.roles = [];                                  /* 清空 ⇒ renderRoles 走失败态分支 */
+      $("roleBtn").disabled = false;
+      /* t111/S2：失败时**不得**露出内部 role_id（如 `lawyer`）；也不用"失败"二字当结论
+         （那会把"角色坏了"当事实）。按钮上保持初始的「载入中…」，把原因与动作交给同屏
+         `#roleWhy`（role=status）与浮层里的「重试」——两处都写明"哪一步没拿到什么"。 */
+      $("roleLabel").textContent = "载入中…";
+      /* t111/S1：与 `#sessions` 失败态**同口径** —— 说清哪一步没拿到什么 + 东西没丢 + 能做什么；
+         不再以「失败」二字当结论。 */
+      $("roleWhy").hidden = false;
+      $("roleWhy").textContent = "这次没能取到角色列表。你的角色不会因此丢失，" +
+        "点上面的「角色」按钮打开列表，里面点「重试」就能再取一次。";
+      renderRoles();                                     /* 写「错误 + 重试」，且不再被空态覆盖 */
+      setComposerState();          /* 没有角色时输入区也要说明原因，而不是静默不可用 */
+      return null;
+    });
+  }
+  /* t81：失败态的「重试」——**成功必须真的回到正常态**（角色 6 项），
+     而不是"变成又能重试了"。失败则错误态与重试入口原样留着。 */
+  function bindRoleRetry() {
+    var btn = $("roleList").querySelector('[data-role="retry"]');
+    if (!btn) return;
+    btn.onclick = function () {
+      btn.disabled = true;
+      btn.textContent = "重试中…";
+      $("roleList").innerHTML = '<p class="empty">正在重试…</p>';
+      loadRoles().then(function (rows) {
+        if (rows) loadDocuments();       /* 角色回来了，顺手把「谁有知识库」也补齐 */
+      });
+    };
+  }
+
+  /* ================= 知识库面板 ================= */
+  function focusables(root) {
+    return Array.prototype.filter.call(
+      root.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])'),
+      function (el) { return !el.disabled && el.offsetParent !== null; });
+  }
+  function openKb() {
+    $("kbScrim").hidden = false;
+    $("kbPanel").hidden = false;
+    setExpanded("kbBtn", true);
+    updateKbHeader();
+    renderKbDocs();
+    $("kbPanel").focus();
+  }
+  function closeKb(returnFocus) {
+    if ($("kbPanel").hidden) { if (returnFocus) $("kbBtn").focus(); return; }
+    $("kbPanel").hidden = true;
+    $("kbScrim").hidden = true;
+    setExpanded("kbBtn", false);
+    releaseFileInput();          /* 面板关掉就不留 file 节点（下次点「添加」再建） */
+    if (returnFocus) $("kbBtn").focus();
+  }
+  function updateKbHeader() {
+    var r = currentRole();
+    $("kbRole").textContent = r ? r.name : "—";
+    $("kbRoleId").textContent = state.role || "—";
+    var has = state.role && roleHasKb(state.role);
+    var why = $("kbAddWhy");
+    /* t99/F-②「失败态与真·空态同文」：知识库归属**取数失败**时 `state.kbRoles` 是空的，
+       以前会一路掉进 `!has` 分支写上「这个角色还没有资料」—— 那是**断言**"确实没有"，
+       与真·空态**逐字同文**，用户无法分辨"查不到"和"确实没有"。
+       这里在取数失败时走独立文案（说明"查不到"），与空态可辨。 */
+    var kbUnknown = !!state.docsError;
+    if (!state.user) {
+      $("kbAdd").disabled = true;
+      why.hidden = false; why.textContent = "请先登录：未登录时不能往知识库添加资料。";
+      $("kbScopeNote").textContent = kbUnknown
+        ? "登录状态与知识库归属暂时都查不到；登录后点下面的「添加」可以选文件。"
+        : "要新增资料，请先登录；登录后点下面的「添加」选文件。";
+    } else if (!state.role) {
+      $("kbAdd").disabled = true;
+      why.hidden = false; why.textContent = "请先在工具栏点「角色」选一个角色，再添加资料。";
+      $("kbScopeNote").textContent = "先在工具栏点「角色」选一个角色，再点下面的「添加」选文件。";
+    } else if (kbUnknown) {
+      $("kbAdd").disabled = true;
+      why.hidden = false;
+      why.textContent = "知识库归属暂时查不到（资料列表取数失败），无法判断该角色有没有资料。" +
+        "可以点上面的「重试」重新取一次。";
+      $("kbScopeNote").textContent = "这个角色有没有资料暂时查不到（资料列表取数失败）；" +
+        "点上面的「重试」重新取一次，或在下面直接点「添加」选文件。";
+    } else if (!has) {
+      $("kbAdd").disabled = true;
+      why.hidden = false;
+      why.textContent = "当前角色「" + (r ? r.name : state.role) + "」的知识库尚未接入" +
+        "：可以先在「角色」里换一个已接入知识库的角色，或把资料判定后归到其它角色。";
+      $("kbScopeNote").textContent = "这个角色还没有资料；要新增资料，点下面的「添加」选文件（入库时可选归到哪个角色）。";
+    } else {
+      $("kbAdd").disabled = $("kbAdd").getAttribute("data-busy") === "1";
+      why.hidden = true; why.textContent = "";
+      $("kbScopeNote").textContent = "当前角色已入库 " + state.kbRoles[state.role] +
+        " 份资料。要新增资料，点下面的「添加」选文件。";
+    }
+    renderAssignOptions();
+  }
+  function renderAssignOptions() {
+    var sel = $("kbAssignRole");
+    if (sel.options.length !== state.roles.length) {
+      sel.innerHTML = state.roles.map(function (r) {
+        return '<option value="' + esc(r.role_id) + '">' + esc(r.name + "（" + r.role_id + "）") + '</option>';
+      }).join("");
+    }
+    if (state.role) sel.value = state.role;
+  }
+  /* t81：单出口 —— 失败态优先，且**不看面板开没开**：之前失败文案写在 `#kbDocsState` 上，
+     而 `openKb()` 里的本函数会立刻把它覆盖成"这个角色还没有资料" ⇒ 错误从未被看见、
+     重试永不可达（t74 判定的死路）。现在失败态由 `state.docsError` 承载，
+     面板一打开就能看到「失败 + 重试」；走哪条分支都刷新一次按钮上的失败标记。 */
+  function renderKbDocs() {
+    if (state.docsError) {
+      /* t111/F-01：**去掉内层 `role=alert`**。外层 `#kbDocsState` 已是 `role=status`
+         （见 HTML），内层再挂一个 live region ⇒ 同一句话被**两个嵌套 live region** 覆盖，
+         读屏会播两遍（t106 抓到的 F-01）。这里只让外层播报。 */
+      /* t111：`<br>` 做结构性分隔 —— 否则 5xx 的问题编号会与「重试」连读。 */
+      $("kbDocsState").innerHTML = '<span>' + esc(state.docsError) + '</span><br>' +
+        retryButtonHtml("重试");
+      $("kbDocs").innerHTML = "";
+      bindKbDocsRetry();
+    } else {
+      renderKbDocsNormal();
+    }
+    applyKbBtnMark();
+  }
+  function renderKbDocsNormal() {
+    if (!state.user) {
+      $("kbDocsState").textContent = "登录后可查看已入库资料。";
+      $("kbDocs").innerHTML = "";
+      return;
+    }
+    if (!state.role) {
+      $("kbDocsState").textContent = "先在工具栏点「角色」选一个角色，再查看该角色的资料。";
+      $("kbDocs").innerHTML = "";
+      return;
+    }
+    var rows = state.docs.filter(function (d) { return d.role_id === state.role; });
+    if (!rows.length) {
+      $("kbDocsState").textContent = "这个角色还没有资料；要新增资料，点上面的「添加」选文件。";
+      $("kbDocs").innerHTML = "";
+      return;
+    }
+    /* 资料按角色共享（所有用户都能看到），但**删除只由维护者在服务器上做**：
+       这里不提供任何删除控件，并把这句原因写在列表上方（AC-P-1）。 */
+    $("kbDocsState").textContent = "共 " + rows.length +
+      " 份资料，所有登录用户都可以检索；资料由维护者统一管理，普通用户不能删除。";
+    $("kbDocs").innerHTML = rows.map(function (d) {
+      var name = d.original_name || d.source || d.doc_id;
+      return '<div class="kb-doc">' +
+        '<span class="dname">' + esc(name) + '</span>' +
+        '<span class="dmeta">' + esc(d.doc_id) + ' · ' + esc(d.chunks || 0) + ' 段</span>' +
+        '</div>';
+    }).join("");
+  }
+  /* t81：知识库取数失败的重试——成功后必须真的回到**正常列表/空态**，不是"又能重试了"。 */
+  function bindKbDocsRetry() {    var btn = $("kbDocsState").querySelector('[data-role="retry"]');
+    if (!btn) return;
+    btn.onclick = function () {
+      btn.disabled = true;
+      btn.textContent = "重试中…";
+      loadDocuments().then(function () {
+        renderKbDocs();                  /* 无论成功/再次失败，都由 state 决定呈现 */
+        renderRoles();
+      });
+    };
+  }
+  function refreshKbCounts() {
+    var map = {};
+    state.docs.forEach(function (d) { if (d.role_id) map[d.role_id] = (map[d.role_id] || 0) + 1; });
+    state.kbRoles = map;
+    renderRoles();
+    updateKbHeader();
+    setComposerState();
+  }
+
+  $("kbBtn").onclick = openKb;
+  $("kbClose").onclick = function () { closeKb(true); };
+  $("kbScrim").onclick = function () { closeKb(true); };
+  $("kbPanel").addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { e.preventDefault(); closeKb(true); return; }
+    if (e.key !== "Tab") return;
+    var list = focusables($("kbPanel"));
+    if (!list.length) return;
+    var first = list[0], last = list[list.length - 1];
+    if (document.activeElement === $("kbPanel")) {
+      e.preventDefault(); (e.shiftKey ? last : first).focus();
+    } else if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  });
+
+  /* ---- 添加：文件选择 → 三档判定 → 归属 → 上传 ----
+     文件控件**不常驻**：点「添加」时才 document.createElement('input') 建一个、点开原生文件框；
+     面板一关就把它从 DOM 里移除。这样「面板未展开时页面里没有 file 节点」在**任何时刻**都成立
+     （AC-L-15 的 input[type=file] 计数），而不是只在首屏成立。 */
+  function onFilePicked() {
+    var input = $("kbFile");
+    var files = Array.prototype.slice.call((input && input.files) || []);
+    if (!files.length) return;
+    state.fitFiles = files;
+    runFitCheck(files);
+  }
+  function ensureFileInput() {
+    var input = $("kbFile");
+    if (input) return input;
+    var host = $("kbFileHost");
+    input = document.createElement("input");
+    input.type = "file";
+    input.id = "kbFile";
+    input.name = "files";
+    input.multiple = true;
+    input.hidden = true;
+    input.setAttribute("accept", ".pdf,.txt,.md,.json,.docx,.csv,.html,.htm");
+    input.setAttribute("aria-label", "选择要添加的资料文件");
+    input.addEventListener("change", onFilePicked);
+    host.appendChild(input);
+    return input;
+  }
+  function releaseFileInput() {
+    var host = $("kbFileHost");
+    if (host) host.innerHTML = "";        /* 连 label 一起移除，不留悬空的 for=kbFile */
+  }
+  $("kbAdd").onclick = function () {
+    if ($("kbAdd").disabled) return;
+    var input = ensureFileInput();
+    input.value = "";
+    input.click();
+  };
+
+  function runFitCheck(files) {
+    setBusy("fit", true);
+    $("kbAdd").setAttribute("data-busy", "1");
+    $("kbAdd").disabled = true;
+    $("kbAdd").textContent = "判定中…";
+    $("kbState").hidden = false;
+    $("kbState").textContent = "正在判定这份资料是否符合「" + (currentRole() ? currentRole().name : state.role) +
+      "」的设定（只判定，不入库）…";
+    var fd = new FormData();
+    files.forEach(function (f) { fd.append("files", f); });
+    fetch("/documents/fit-check?role_id=" + encodeURIComponent(state.role), {
+      method: "POST", body: fd, credentials: "same-origin", headers: { Accept: "application/json" }
+    }).then(function (res) {
+      return res.json().catch(function () { return null; }).then(function (body) {
+        if (!res.ok) throw Object.assign(new Error(apiMessage(body, res.status)), { status: res.status });
+        return body;
+      });
+    }).then(function (body) {
+      state.fit = body;
+      renderVerdicts(body, files);
+      $("kbState").hidden = false;
+      $("kbState").textContent = "判定完成。是否入库、入到哪个角色，由你在下面决定。";
+      $("kbAssignField").hidden = false;
+    }).catch(function (err) {
+      state.fit = null;
+      $("kbVerdicts").innerHTML = '<div class="verdict bad"><span class="tag">无法判定</span>' +
+        '<span class="muted">这次没能完成判定——' + esc(err.message) + ' 本次不会自动入库，你点「添加」可以重试。</span></div>';
+      $("kbState").hidden = false;
+      $("kbState").textContent = "判定没能完成，本次不会入库。";
+      $("kbAssignField").hidden = false;
+    }).then(function () {
+      setBusy("fit", false);
+      $("kbAdd").removeAttribute("data-busy");
+      $("kbAdd").textContent = "添加";
+      updateKbHeader();
+    });
+  }
+
+  /* 三档结论与 fit 三值一一对应：true=相符 / false=不符合（给建议角色）/ null=无法判定（绝不显示为通过） */
+  function verdictCardHtml(r, i, files) {
+    var name = r.filename || (files[i] && files[i].name) || "资料";
+    var judge = r.judge_model || (r.judge && r.judge !== "none" ? r.judge : "");
+    var head, cls;
+    if (r.fit === true) { cls = "ok"; head = "相符"; }
+    else if (r.fit === false) { cls = "bad"; head = "不符合该角色设定"; }
+    else { cls = "unk"; head = "无法判定"; }
+    var reason = r.reason || "";
+    var extra = "";
+    if (r.fit === false && r.suggested_role) {
+      extra = '建议归到：<b>' + esc(r.suggested_role_name || r.suggested_role) + '</b>（' +
+        esc(r.suggested_role) + '）；也可以坚持入到当前角色，二选一由你决定。';
+    } else if (r.fit === null) {
+      extra = "不自动入库：请你自己决定入到哪个角色（也可以放弃这次添加）。";
+    } else if (r.fit === true) {
+      extra = "可以入到当前角色「" + esc(currentRole() ? currentRole().name : state.role) + "」。";
+    }
+    if (r.degraded && judge === "") judge = "无可用裁判";
+    if (judge) extra += " 裁判：" + esc(judge) + "。";
+    return '<div class="verdict ' + cls + '" data-verdict="' +
+      (r.fit === true ? "true" : (r.fit === false ? "false" : "null")) + '">' +
+      '<span class="tag">' + esc(head) + '</span>' +
+      '<span class="muted">' + esc(name) + '：' + esc(reason) + '</span>' +
+      '<span class="muted">' + extra + '</span>' +
+      '<div class="row"><button type="button" class="primary" data-ingest="' + i + '">入库</button>' +
+      '<span class="muted">' + (r.fit === null ? "无法判定时不会自动入库，点「入库」是你明确确认" : "入到上面选定的归属角色") + '</span></div>' +
+      '</div>';
+  }
+
+  function renderVerdicts(body, files) {
+    var results = (body && body.results) || [];
+    if (!results.length) {
+      $("kbVerdicts").innerHTML = '<div class="verdict unk"><span class="tag">无法判定</span>' +
+        '<span class="muted">判定服务没有返回结果，本次不会自动入库。点「添加」可以重试。</span></div>';
+      return;
+    }
+    $("kbVerdicts").innerHTML = results.map(function (r, i) {
+      return verdictCardHtml(r, i, files);
+    }).join("");
+    /* 不符合且有建议角色：预选建议角色，让用户只需确认 */
+    var bad = results.filter(function (r) { return r.fit === false && r.suggested_role; })[0];
+    if (bad) $("kbAssignRole").value = bad.suggested_role;
+    else if (state.role) $("kbAssignRole").value = state.role;
+    Array.prototype.forEach.call($("kbVerdicts").querySelectorAll("[data-ingest]"), function (b) {
+      b.onclick = function () { ingestDocument(Number(b.dataset.ingest), files); };
+    });
+  }
+
+  function ingestDocument(index, files) {
+    var r = (state.fit && state.fit.results && state.fit.results[index]) || {};
+    var roleId = $("kbAssignRole").value || state.role;
+    var file = files[index];
+    if (!file) return;
+    var fd = new FormData();
+    fd.append("files", file);
+    var btn = $("kbVerdicts").querySelector('[data-ingest="' + index + '"]');
+    if (btn) { btn.disabled = true; btn.textContent = "入库中…"; }
+    $("kbState").hidden = false;
+    $("kbState").textContent = "正在把「" + (r.filename || file.name) + "」入到 " + roleId + "…";
+    setBusy("upload", true);
+    fetch("/documents/upload?role_id=" + encodeURIComponent(roleId), {
+      method: "POST", body: fd, credentials: "same-origin", headers: { Accept: "application/json" }
+    }).then(function (res) {
+      return res.json().catch(function () { return null; }).then(function (body) {
+        if (!res.ok) throw Object.assign(new Error(apiMessage(body, res.status)), { status: res.status });
+        return body;
+      });
+    }).then(function (body) {
+      var accepted = (body && body.accepted) || [];
+      var n = accepted.length;
+      $("kbState").textContent = "已入库 " + n + " 个文件（归属：" + (roleNameOf(roleId) || "角色待载入") + "）。";
+      if (btn) { btn.textContent = "已入库"; btn.classList.remove("primary"); btn.classList.add("ghost"); }
+      return loadDocuments().then(function () { renderKbDocs(); });
+    }).catch(function (err) {
+      $("kbState").textContent = "入库失败：" + err.message + "（文件已保留在上一步，可重试或换一个角色）";
+      if (btn) { btn.disabled = false; btn.textContent = "重试入库"; }
+    }).then(function () { setBusy("upload", false); });
+  }
+
+  /* ================= 确认模态（页内浮层，替代原生 confirm） ================= */
+  var confirmAction = null, confirmTrigger = null;
+  function askConfirm(text, target, okText, onOk) {
+    confirmAction = onOk;
+    confirmTrigger = document.activeElement;      /* 记下触发它的元素，关闭后焦点回原处（AC-K-3） */
+    $("confirmText").textContent = text;
+    $("confirmTarget").textContent = target || "";
+    $("confirmOk").textContent = okText || "确认";
+    $("confirmScrim").hidden = false;
+    $("confirmModal").hidden = false;
+    $("confirmOk").focus();
+  }
+  function closeConfirm(returnFocus) {
+    var wasOpen = !$("confirmModal").hidden;
+    var back = confirmTrigger;
+    $("confirmModal").hidden = true;
+    $("confirmScrim").hidden = true;
+    confirmAction = null;
+    confirmTrigger = null;
+    if (!returnFocus || !wasOpen) return;
+    if (back && back.isConnected && !back.disabled && back.offsetParent !== null) back.focus();
+    else $("kbBtn").focus();                      /* 触发元素已被移除/不可见时的兜底 */
+  }
+  $("confirmOk").onclick = function () {
+    var fn = confirmAction;
+    closeConfirm(false);
+    if (fn) fn();
+  };
+  $("confirmCancel").onclick = function () { closeConfirm(true); };
+  $("confirmScrim").onclick = function () { closeConfirm(true); };
+  $("confirmModal").addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { e.preventDefault(); closeConfirm(true); return; }
+    if (e.key !== "Tab") return;
+    var list = focusables($("confirmModal"));
+    if (!list.length) return;
+    var first = list[0], last = list[list.length - 1];
+    if (document.activeElement === $("confirmModal")) { e.preventDefault(); (e.shiftKey ? last : first).focus(); }
+    else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
+  /* ================= 输入模态（重命名；页内浮层 + 焦点管理） ================= */
+  var promptAction = null, promptTrigger = null;
+  function openPrompt(title, text, value, onOk) {
+    promptAction = onOk;
+    promptTrigger = document.activeElement;
+    $("promptTitle").textContent = title;
+    $("promptText").textContent = text;
+    $("promptInput").value = value || "";
+    $("promptScrim").hidden = false;
+    $("promptModal").hidden = false;
+    $("promptInput").focus();
+    $("promptInput").select();
+  }
+  function closePrompt(returnFocus) {
+    var wasOpen = !$("promptModal").hidden;
+    var back = promptTrigger;
+    $("promptModal").hidden = true;
+    $("promptScrim").hidden = true;
+    promptAction = null;
+    promptTrigger = null;
+    if (!returnFocus || !wasOpen) return;
+    if (back && back.isConnected && !back.disabled && back.offsetParent !== null) back.focus();
+    else $("newSession").focus();
+  }
+  $("promptOk").onclick = function () {
+    var fn = promptAction, val = $("promptInput").value;
+    closePrompt(false);
+    if (fn) fn(val);
+  };
+  $("promptCancel").onclick = function () { closePrompt(true); };
+  $("promptCancelX").onclick = function () { closePrompt(true); };
+  $("promptScrim").onclick = function () { closePrompt(true); };
+  $("promptInput").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") { e.preventDefault(); $("promptOk").click(); }
+  });
+  $("promptModal").addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { e.preventDefault(); closePrompt(true); return; }
+    if (e.key !== "Tab") return;
+    var list = focusables($("promptModal"));
+    if (!list.length) return;
+    var first = list[0], last = list[list.length - 1];
+    if (document.activeElement === $("promptModal")) { e.preventDefault(); (e.shiftKey ? last : first).focus(); }
+    else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
+  /* ================= 窄屏会话抽屉 ================= */
+  function openDrawer() {
+    document.body.classList.add("drawer-open");
+    $("drawerClose").hidden = false;
+    $("drawerScrim").hidden = false;
+    setExpanded("drawerBtn", true);
+    var list = focusables($("sidebar"));
+    if (list.length) list[0].focus();                 /* 焦点移入抽屉内第一个可聚焦元素（§7 细则 / F5） */
+    else $("sidebar").focus();                        /* 抽屉内暂无可聚焦元素时的兜底（AC-N-12 仍要求焦点在抽屉内） */
+  }
+  function closeDrawer(returnFocus) {
+    if (!document.body.classList.contains("drawer-open")) return;
+    document.body.classList.remove("drawer-open");
+    $("drawerClose").hidden = true;
+    $("drawerScrim").hidden = true;
+    setExpanded("drawerBtn", false);
+    if (returnFocus) $("drawerBtn").focus();
+  }
+  $("drawerBtn").onclick = openDrawer;
+  $("drawerClose").onclick = function () { closeDrawer(true); };
+  $("roleClose").onclick = function () { closeRoles(true); };
+  $("drawerScrim").onclick = function () { closeDrawer(true); };
+
+  /* ================= 全局 Esc：按"最上层"依次关闭浮层，焦点回到触发按钮 ================= */
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    if (!$("sessionMenu").hidden) { closeSessionMenu(true); return; }
+    if (!$("promptModal").hidden) { closePrompt(true); return; }
+    if (!$("confirmModal").hidden) { closeConfirm(true); return; }
+    if (!$("kbPanel").hidden) { closeKb(true); return; }
+    if (!$("rolePop").hidden) { closeRoles(true); return; }
+    closeDrawer(true);
+  });
+  document.addEventListener("pointerdown", function (e) {
+    if (!$("sessionMenu").hidden && !$("sessionMenu").contains(e.target) &&
+        !e.target.closest("[data-manage]")) {
+      closeSessionMenu(false);
+    }
+    if ($("rolePop").hidden) return;
+    if ($("rolePop").contains(e.target) || $("roleBtn").contains(e.target)) return;
+    closeRoles(false);
+  });
+
+  /* ================= 只读请求：服务状态徽标（给用户看的文字 + 技术细节放 title/aria-label） ================= */
+  function loadHealth() {
+    return getJson("/health").then(function (h) {
+      var eng = h.engine || {};
+      var store = eng.store_actual || eng.store || "?";
+      var ok = h.status === "ok" && !eng.degraded;
+      var el = $("health");
+      var detail = "服务状态：" + (ok ? "正常" : "降级") + "；知识库存储：" + store + "（来源 GET /health）";
+      el.className = "badge " + (ok ? "ok" : "bad");
+      el.textContent = ok ? "服务正常" : "服务已降级";
+      el.setAttribute("aria-label", detail);
+      el.title = detail + "\n" + JSON.stringify({ status: h.status, degraded: !!eng.degraded,
+        store_actual: store, chunks: eng.chunks, llm_chain: eng.llm_chain }, null, 1);
+    }).catch(function (err) {
+      var el = $("health");
+      var detail = "服务状态不可用（来源 GET /health）：" + (err && err.message ? err.message : String(err));
+      el.className = "badge bad";
+      el.textContent = "服务暂时不可用";
+      el.setAttribute("aria-label", detail);
+      el.title = detail;
+    });
+  }
+  function loadJudge() {
+    return getJson("/documents/fit-check").then(function (j) {
+      var el = $("judge");
+      var detail = "智能判定（判定器）状态：" + (j.available ? "已启用" : "不可用") +
+        "；当前判定模型：" + (j.judge || "无") + "（来源 GET /documents/fit-check）";
+      el.className = "badge " + (j.available ? "ok" : "bad");
+      el.textContent = j.available ? "智能判定已启用" : "智能判定暂不可用";
+      el.setAttribute("aria-label", detail);
+      el.title = detail + "\n" + JSON.stringify(j, null, 1);
+    }).catch(function (err) {
+      var el = $("judge");
+      var detail = "智能判定（判定器）状态未知（来源 GET /documents/fit-check）：" +
+        (err && err.message ? err.message : String(err));
+      el.className = "badge bad";
+      el.textContent = "智能判定暂不可用";
+      el.setAttribute("aria-label", detail);
+      el.title = detail;
+    });
+  }
+
+  /* ================= 启动：先判登录态，再决定首屏 ================= */
+  /* 登录态判定失败分两档，**判错就会无限往返**（F-A2）：
+     · **401 / 200 无 user_id** ⇒ 登录态确实失效 ⇒ 跳 /login（由服务端守卫收口，不会往返）；
+     · **超时 / 网络错误 / 5xx** ⇒ **留在 /ui**，退避重试最多 3 次（间隔 ≥5s），
+       之后停在**终态错误态 + 「重试」**，**绝不跳转**、**绝不自动整页重载**。 */
+  function loadSession() {
+    var seq = ++bootSeq;
+    bootAttempts = 0;
+    clearBootError();
+    renderBooting();
+    bootRetryClickable(false);
+    checkSession(seq);
+  }
+  function checkSession(seq) {
+    if (seq !== bootSeq) return;
+    getJson("/auth/me", { timeoutMs: 5000 }).then(function (info) {
+      if (seq !== bootSeq) return;
+      if (!info || !info.user_id) { bootAuthFailed("未返回用户信息"); return; }
+      applySession(info);
+    }).catch(function (err) {
+      if (seq !== bootSeq) return;
+      if (err && err.status === 401) { bootAuthFailed("登录态已失效"); return; }
+      bootAttempts++;
+      if (bootAttempts <= BOOT_RETRY_MAX) {
+        var note = $("bootNote");
+        var wait = BOOT_RETRY_DELAY_MS;
+        if (note) {
+          note.textContent = bootErrorReason(err) + "；正在重试（第 " + bootAttempts + " / " +
+            BOOT_RETRY_MAX + " 次，约 " + Math.round(wait / 1000) + " 秒后）…";
+        }
+        bootTimer = setTimeout(function () { checkSession(seq); }, wait);
+        return;
+      }
+      showBootError(bootErrorReason(err) + "。请点下面的「重试」；一直失败的话，请确认服务已经启动。");
+    });
+  }
+  function boot() {
+    setAccountUI();
+    loadHealth();
+    loadJudge();
+    loadSession();
+    setInterval(loadHealth, 20000);  /* 服务状态 20s 轮询（§2.5）；不计入整页加载次数 */
+  }
+  $("bootRetry").onclick = function () {
+    reqLog("RETRY", "/auth/me", "用户点击「重试」，重新确认登录状态");
+    bootRetryClickable(false);
+    loadSession();
+  };
+  /* ---- 标签页图标（AC-FAV-1..15）：6 角色 + 默认法锤 ----
+     同一图形 + 两种填充色（亮→黑 / 暗→白）+ **1px 反向描边**（白图标黑边 / 黑图标白边）；
+     viewBox 32 + stroke-width 2 ⇒ 16×16 渲染时描边正好 1px；全部自绘、无第三方、无外链；
+     资源是内联 data-URI ⇒ 零额外页面请求、恒 200/image。 */
+  var DEFAULT_ROLE = "lawyer";
+  var ROLE_ICONS = {
+    lawyer: "M6 4 h20 v5 H6 z M14 9 h4 v13 h-4 z M5 25 h22 v3 H5 z",
+    doctor: "M12 5 h8 v7 h7 v8 h-7 v7 h-8 v-7 H5 v-8 h7 z",
+    tcm: "M5 15 h22 a11 7 0 0 1 -22 0 z M20 4 c6 2 8 6 8 9 c-5 0 -8 -4 -8 -9 z",
+    psychologist: "M4 4 h24 v15 H16 l-6 6 v-6 H4 z M16 8 a4.5 4.5 0 0 1 4.5 4.5 a4.5 4.5 0 0 1 -4.5 4.5 a4.5 4.5 0 0 1 -4.5 -4.5 A4.5 4.5 0 0 1 16 8 z",
+    financial_planner: "M16 2 a14 14 0 1 0 0 28 a14 14 0 1 0 0 -28 z M16 6 a10 10 0 1 1 0 20 a10 10 0 1 1 0 -20 z M15 9 h3 v3 h2 v7 h-3 v-3 h-2 z",
+    stock_advisor: "M4 5 h4 v16 H4 z M12 9 h4 v12 h-4 z M20 3 h4 v18 h-4 z M3 23 h26 v3 H3 z"
+  };
+  function buildFavicon(roleId, theme) {
+    var d = ROLE_ICONS[roleId] || ROLE_ICONS[DEFAULT_ROLE];
+    var ink = (theme === "light") ? "#000000" : "#FFFFFF";     /* 亮→黑 / 暗→白（AC-FAV-11） */
+    var ring = (theme === "light") ? "#FFFFFF" : "#000000";    /* 反向描边（AC-FAV-8） */
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">' +
+      '<path d="' + d + '" fill="' + ink + '" stroke="' + ring + '" stroke-width="2" ' +
+      'stroke-linejoin="round" fill-rule="evenodd"></path></svg>';
+    return "data:image/svg+xml," + encodeURIComponent(svg);
+  }
+  /* 只改 href：元素个数恒 1（AC-FAV-1/4/14） */
+  function syncFavicon(roleId) {
+    var link = document.querySelector('link[rel~="icon"]');
+    if (!link) return;
+    link.setAttribute("href", buildFavicon(roleId || DEFAULT_ROLE, window.__theme.current()));
+  }
+
+  /* ---- 主题开关（r12 §18）：两态切换 + 持久化；值只有 dark/light，不存任何凭据 ---- */
+  var THEME_LABEL = { dark: "深色", light: "浅色" };
+  function syncThemeBtn() {
+    var t = window.__theme.current();
+    var btn = $("themeBtn");
+    var lab = $("themeLabel");
+    btn.setAttribute("aria-pressed", t === "light" ? "true" : "false");
+    btn.setAttribute("aria-label", "切换主题（当前：" + THEME_LABEL[t] + "）");
+    btn.setAttribute("title", "切换暗色 / 亮色主题（当前：" + THEME_LABEL[t] + "）");
+    if (lab) lab.textContent = THEME_LABEL[t];
+  }
+  $("themeBtn").onclick = function () {
+    var next = window.__theme.current() === "light" ? "dark" : "light";
+    window.__theme.set(next, true);    /* ① 本地立即生效（AC-PR-8①） */
+    syncThemeBtn();
+    syncFavicon(state.role);           /* 切主题同步换色，无需刷新（AC-FAV-11） */
+    window.__prefs.save({ theme: next });   /* ② 随后异步上报；未登录(401)只当"只写本地" */
+  };
+  syncThemeBtn();
+  syncFavicon(state.role);             /* 未选角色 ⇒ 默认法锤（AC-FAV-15） */
+  try {
+    window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", function () {
+      if (!window.__theme.read()) {                 /* 未显式选择过 ⇒ 继续跟随系统 */
+        window.__theme.apply(window.__theme.system());
+        syncThemeBtn();
+        syncFavicon(state.role);
+      }
+    });
+  } catch (e) { /* 老引擎没有 addEventListener：保持初始值 */ }
+
+  /* B-8：`GET /prefs` 回来后把**角色偏好**落到界面。
+     ⚠️ 刻意**不校验知识库有无**：偏好指向的角色当前没有知识库时要**保留 + 同屏提示**
+     （`AC-PR-4③` 明禁"静默改回 lawyer"）；只有该角色**不在角色库里**才算偏好失效。 */
+  window.__prefsApply = function (p) {
+    var roleId = p && p.role_id;
+    if (roleId && roleId !== state.role) {
+      state.role = roleId;
+      state.rolePref = roleId;
+      if (typeof syncFavicon === "function") syncFavicon(state.role);
+      if (typeof renderRoles === "function") renderRoles();
+      if (typeof updateRoleUI === "function") updateRoleUI();
+      if (typeof updateKbHeader === "function") updateKbHeader();
+      if (typeof renderKbDocs === "function") renderKbDocs();
+      if (typeof setComposerState === "function") setComposerState();
+    } else if (typeof syncFavicon === "function") {
+      syncFavicon(state.role);
+    }
+  };
+  window.__syncThemeBtn = syncThemeBtn;
+  window.__syncFavicon = syncFavicon;
+  boot();
+})();
+</script>
+</body>
+</html>

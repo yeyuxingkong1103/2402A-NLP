@@ -1,0 +1,28 @@
+{
+  "store": "milvus",
+  "uri": "http://127.0.0.1:19530",
+  "db_name": "default",
+  "collection": "legal_rag_chunks_bge_m3_1024",
+  "embedding_model": "bge-m3",
+  "dim": 1024,
+  "metric_type": "COSINE",
+  "index_type": "HNSW",
+  "chunk_schema_version": 1,
+  "description": "legal_rag.chunk_schema=1; embedding.model=bge-m3; embedding.dim=1024; metric_type=COSINE; created_by=legal_rag.t2",
+  "schema_fields": [
+    "id",
+    "vector",
+    "text",
+    "source",
+    "doc_id",
+    "chunk_index",
+    "parent_id",
+    "is_parent",
+    "role_id",
+    "summary",
+    "created_at",
+    "updated_at"
+  ],
+  "created": false,
+  "updated_at": 1789823874.0651734
+}
