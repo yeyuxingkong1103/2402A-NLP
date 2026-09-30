@@ -1,0 +1,31 @@
+{
+  "info": {
+    "name": "RAG电力维修问答助手-接口集合",
+    "description": "第 0 步占位：仅包含健康检查接口，业务接口待后续步骤补充。",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000",
+      "description": "后端服务地址"
+    }
+  ],
+  "item": [
+    {
+      "name": "健康检查",
+      "description": "占位用例：验证服务是否存活",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        },
+        "description": "请求服务健康检查接口"
+      },
+      "response": []
+    }
+  ]
+}

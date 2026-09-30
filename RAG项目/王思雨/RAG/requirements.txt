@@ -1,0 +1,32 @@
+# ===== Web 服务相关 =====
+fastapi                # Web 框架，提供后端 HTTP 接口
+uvicorn                # ASGI 服务器，用于启动 FastAPI 应用
+python-dotenv          # 读取 .env 文件中的配置项
+
+# ===== 数据库与缓存相关 =====
+pymysql                # MySQL 驱动，用于连接 MySQL
+redis                  # Redis 客户端，用于连接 Redis
+pymilvus               # Milvus 客户端，用于连接向量数据库
+
+# ===== 大模型调用相关 =====
+requests               # 通用 HTTP 请求库
+openai                 # OpenAI 兼容 SDK，用于调用大模型接口
+langchain              # 大模型应用编排框架
+
+# ===== PDF 解析与 OCR 相关 =====
+pymupdf                # PDF 解析库（fitz），快速提取文本
+pdfplumber             # PDF 解析库，擅长表格与精细坐标提取
+paddleocr              # OCR 识别库，用于扫描件文字识别
+paddlepaddle           # PaddleOCR 依赖的深度学习框架
+mineru                 # 高质量 PDF 解析工具，用于复杂版面解析
+
+# ===== 向量化与重排相关 =====
+sentence-transformers  # 句向量模型加载库
+FlagEmbedding          # BGE-M3 与 BGE-Reranker 的官方加载库
+
+# ===== 评测与测试相关 =====
+ragas                  # RAG 效果评测框架
+langchain-openai       # LangChain 的 OpenAI 适配器，第 10 步用 ChatOpenAI 接 DeepSeek 做 RAGAS 评估模型
+langchain-core         # LangChain 核心接口，第 10 步自定义 RAGAS 评估 Embedding 用
+pytest                 # 单元测试框架
+pandas                 # 数据处理库，用于评测结果统计
