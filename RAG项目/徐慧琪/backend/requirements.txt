@@ -1,0 +1,52 @@
+# 入库链路依赖。锁精确版本——技术方案 11 章要求，`>=` 会踩破坏性升级。
+# 版本号是 2026-09-20 在本机 D:\Python 实测所得，不是方案里的估算值。
+python-docx==1.2.0
+# pypdf 只用于逐字命中校验的比对基线，不参与入库文本——入库文本一律来自 MinerU
+# （唯一例外：收费口径语料是政务公示的电子件，直取文本层，见设计文档 §一补记）
+pypdf==6.15.0
+pytest==9.1.1
+
+# 向量化与索引阶段依赖（版本号为 2026-09-22 本机实测）
+# numpy 用于 dense 向量的 L2 归一化，不引入 torch 之外的数值栈
+numpy==2.5.1
+# pymilvus 3.0.2 与 Milvus server v3.0.1 实测配对可用（技术方案 144 行定的版本）
+pymilvus==3.0.2
+# MySQL 8.4.11 默认 caching_sha2_password，PyMySQL 必须配 cryptography 才能完成认证。
+# 版本订正于 2026-09-23：原写 2.2.8，实测 PyPI 无 2.x（最高 1.2.3），实装即 1.2.3
+PyMySQL==1.2.3
+cryptography==49.0.0
+
+# 引擎不入本清单：MinerU 与 PaddleOCR-VL 各自独立 venv，走 subprocess 调用，
+# 见 app/ingest/parse_mineru.py 与 app/ingest/ocr_paddle.py
+
+# ---- 问答链路阶段依赖（版本号为 2026-09-23 本机实测）----
+# torch 走本地轮子 D:\Model\torch-2.13.0+cu126-cp312-cp312-win_amd64.whl，
+# 不写进本清单：pip 无法从 PyPI 取到同一构建，写死会让别处装不上。
+# 精排逐条打分时 torch 的 CUDA 可用性是硬要求，见设计文档第二节。
+langchain==1.3.14
+langchain-core==1.5.2        # ChatPromptTemplate / PydanticOutputParser 在 core 里
+langchain-ollama==1.1.0      # 律师侧：本地 qwen2.5:3b，数据不出域
+langchain-openai==1.4.1      # 公众侧：DeepSeek 走 OpenAI 兼容口
+sentence-transformers==5.7.0 # 精排 CrossEncoder，裸加载 D:\Model\reranker
+# pandas 只用于 rerank 的导入顺序规避：torch 载入后再导 sklearn 会 Windows 堆
+# 损坏，pandas 先导可绕开（见 app/compat.py 的 ensure_import_order）。
+# 它不是业务依赖——环境修复后本行应随那个规避函数一起删掉并复测
+pandas==3.0.5
+pydantic==2.13.4             # 输出契约与解析器
+
+# ---- HTTP 接口阶段依赖（版本号为 2026-09-29 本机实测）----
+# PyJWT：账号鉴权的 token 签发与校验。选它而不是自行拼 HMAC 或 python-jose：
+# 前者要自己处理 base64url、声明校验与算法白名单，那三处都是出错即静默越权的地方；
+PyJWT==2.13.0
+
+# 以下三个到**任务 3（应用装配）**才有使用者，所以上两批刻意没写进来：无使用者的
+# 依赖无法被验证 —— 装上了也没人 import，版本对不对、能不能跑，全要等到接线那一刻
+# 才知道，而那时才发现就是「按清单装的环境跑不起来」。现在 main.py 真的 import
+# fastapi、TestClient 真的用 httpx、启动命令真的是 uvicorn，三个版本都实测跑过：
+#   ①fastapi 0.115.14：应用本体与 TestClient。它带来的 starlette（实测 0.46.2）
+#     不单独锁 —— 版本区间由 fastapi 声明，另行锁定反而可能撞成不兼容；
+#   ②uvicorn 0.34.3：启动命令 `uvicorn app.main:app --app-dir backend` 用的服务器；
+#   ③httpx 0.28.1：starlette 的 TestClient 底层就走它，缺了连测试都收不起来。
+fastapi==0.115.14
+uvicorn==0.34.3
+httpx==0.28.1

@@ -1,0 +1,116 @@
+# Milvus standalone 单机三件套（etcd + minio + milvus），对齐技术方案 10.1。
+#
+# 存在的理由：技术方案 7.2 的三集合（law_chunks / case_chunks / memory_qa）需要
+# 一个 collection 内多向量列 + 混合检索 + 内置 RRFRanker，Milvus 原生支持，
+# 正好落"复合向量 + RRF 粗排"（技术方案 4.4 / 5.2）。
+#
+# 卷一律用 Docker 命名卷，不挂 /mnt/d：
+#   /mnt/d 是 Windows 文件系统经 drvfs 转发，Milvus 写入频繁会被拖慢。
+#   命名卷落在 /var/lib/docker，即 D:\WSL\Ubuntu\ext4.vhdx 内 —— 同样在 D 盘但走 ext4。
+#
+# 端口绑 127.0.0.1 而非 0.0.0.0：技术方案 10.1 要求 19530「仅内网」。
+#   Windows 侧靠 WSL2 的 localhost 转发访问，不受影响。
+#   若 Windows 侧连不上，再改成 0.0.0.0 重试（见 deploy/README 的排障一节）。
+services:
+  # Milvus 的元数据/协调依赖。数据落卷，容器重建不丢
+  etcd:
+    container_name: milvus-etcd
+    image: quay.io/coreos/etcd:v3.5.18
+    environment:
+      # 按 revision 自动压缩，避免 watch 历史无限增长撑爆磁盘
+      - ETCD_AUTO_COMPACTION_MODE=revision
+      - ETCD_AUTO_COMPACTION_RETENTION=1000
+      # 后端配额 4GB，够本项目用；超了 Milvus 会告警而非静默丢数据
+      - ETCD_QUOTA_BACKEND_BYTES=4294967296
+      - ETCD_SNAPSHOT_COUNT=50000
+    volumes:
+      - etcd_data:/etcd
+    command: etcd -advertise-client-urls=http://etcd:2379 -listen-client-urls http://0.0.0.0:2379 --data-dir /etcd
+    healthcheck:
+      test: ["CMD", "etcdctl", "endpoint", "health"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  # Milvus 的对象存储后端（存 binlog/索引文件）
+  minio:
+    container_name: milvus-minio
+    image: minio/minio:RELEASE.2024-12-18T13-15-44Z
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    # 9001 是控制台，只为排障时能看桶里有什么；9000 是 Milvus 用的 API 口
+    ports:
+      - "127.0.0.1:9001:9001"
+      - "127.0.0.1:9000:9000"
+    volumes:
+      - minio_data:/minio_data
+    command: minio server /minio_data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  milvus:
+    container_name: milvus-standalone
+    # 版本按技术方案 144 行定的 v3.0.1；改动需同步更新方案附录
+    image: milvusdb/milvus:v3.0.1
+    command: ["milvus", "run", "standalone"]
+    # Milvus 官方要求：其线程模型与默认 seccomp 冲突，必须放开
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      ETCD_ENDPOINTS: etcd:2379
+      MINIO_ADDRESS: minio:9000
+    volumes:
+      - milvus_data:/var/lib/milvus
+    # 19530 是 SDK 口（pymilvus 连这个），9091 是健康检查口
+    ports:
+      - "127.0.0.1:19530:19530"
+      - "127.0.0.1:9091:9091"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
+      interval: 30s
+      # 冷启动要加载大量元数据，官方建议 start_period 给足，否则会误判为不健康
+      start_period: 90s
+      timeout: 20s
+      retries: 3
+    depends_on:
+      - etcd
+      - minio
+
+  mysql:
+    container_name: fl-mysql
+    # 版本按技术方案 10.1 定的 mysql:8
+    image: mysql:8
+    # 凭证此处是开发环境默认值；生产按附录 B 走 .env，真实值不入仓库
+    environment:
+      MYSQL_ROOT_PASSWORD: devroot
+      MYSQL_DATABASE: fl_law
+      # 附录 C 要求 utf8mb4：法条含生僻字与全角标点，utf8 三字节存不下
+      MYSQL_INITDB_ARGS: "--character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
+    command:
+      # 本机 WSL 只分到 7.4G 内存，还要同时跑 Milvus 三件套，
+      # 故把 innodb 缓冲池压到 256M —— 默认 128M 偏小、默认值动态调整又可能吃太多
+      - --innodb-buffer-pool-size=256M
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    ports:
+      # 技术方案 10.1 要求 3306 仅内网；Windows 侧靠 WSL2 localhost 转发访问
+      - "127.0.0.1:3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      # 冷启动要初始化数据目录，start_period 给足否则会被误判
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pdevroot"]
+      interval: 30s
+      start_period: 60s
+      timeout: 20s
+      retries: 3
+
+volumes:
+  etcd_data:
+  minio_data:
+  milvus_data:
+  mysql_data:

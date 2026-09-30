@@ -1,0 +1,23 @@
+langchain-core>=0.3,<0.4
+langchain-community>=0.3,<0.4
+langchain-milvus>=0.2.0,<0.2.2
+langchain-openai>=0.2,<0.4
+langchain-text-splitters>=0.3,<0.4
+# pymilvus 必须锁 2.5.x：2.6+ 的 MilvusClient 不再向 ORM 连接表注册别名，
+# 而 langchain-milvus 0.2.0/0.2.1（兼容 langchain-core 0.3）内部仍用 ORM API，
+# 搭配 2.6+ 会报 ConnectionNotExistException（0.2.2 起才修复，但要求 core>=1.0）
+pymilvus>=2.5.7,<2.6
+sentence-transformers>=2.7
+torch>=2.0
+jieba>=0.42.1  # BM25 稀疏检索的中文分词
+rank_bm25>=0.2.2  # BM25 稀疏检索（与稠密向量做 RRF 混合召回）
+pypdf>=4.0
+docx2txt>=0.8
+redis>=5.0
+# ---------- 多用户多角色（FastAPI + MySQL + JWT） ----------
+fastapi>=0.110
+uvicorn>=0.27
+pyjwt>=2.8
+bcrypt>=3.2
+sqlalchemy>=2.0
+pymysql>=1.1  # SQLAlchemy 的 MySQL 驱动（纯 Python，无需编译）
