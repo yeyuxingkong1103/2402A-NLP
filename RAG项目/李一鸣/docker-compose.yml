@@ -1,0 +1,135 @@
+services:
+  app:
+    build: .
+    container_name: rag-roleplay-app
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      APP_ENV: prod
+      PROJECT_ROOT: /app
+      DATA_DIR: /app/data
+      UPLOAD_DIR: /app/data/uploads
+      INDEX_DIR: /app/data/indexes
+      LOCAL_VECTOR_INDEX: /app/data/indexes/chunks.json
+      LOG_DIR: /app/logs
+      DATABASE_URL: mysql+aiomysql://rag_user:rag_password@mysql:3306/rag_roleplay
+      REDIS_ENABLED: "true"
+      REDIS_URL: redis://redis:6379/0
+      MILVUS_ENABLED: "true"
+      MILVUS_URI: http://milvus:19530
+      EMBEDDING_PROVIDER: hash
+      LLM_PROVIDER: mock
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      milvus:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:8.0
+    container_name: rag-roleplay-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: rag_roleplay
+      MYSQL_USER: rag_user
+      MYSQL_PASSWORD: rag_password
+      MYSQL_ROOT_PASSWORD: root_password_change_me
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    container_name: rag-roleplay-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  etcd:
+    image: quay.io/coreos/etcd:v3.5.5
+    container_name: rag-milvus-etcd
+    command: >-
+      etcd --advertise-client-urls=http://etcd:2379
+      --listen-client-urls=http://0.0.0.0:2379
+      --initial-advertise-peer-urls=http://etcd:2380
+      --listen-peer-urls=http://0.0.0.0:2380
+      --initial-cluster=default=http://etcd:2380
+      --initial-cluster-state=new
+    volumes:
+      - milvus_etcd:/etcd
+
+  minio:
+    image: quay.io/minio/minio:latest
+    container_name: rag-milvus-minio
+    command: minio server /minio_data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - milvus_minio:/minio_data
+
+  milvus:
+    image: milvusdb/milvus:v2.6.11
+    container_name: rag-milvus
+    restart: unless-stopped
+    command: ["milvus", "run", "standalone"]
+    environment:
+      ETCD_ENDPOINTS: etcd:2379
+      MINIO_ADDRESS: minio:9000
+    ports:
+      - "19530:19530"
+      - "9091:9091"
+    volumes:
+      - milvus_data:/var/lib/milvus
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9091/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    depends_on:
+      - etcd
+      - minio
+
+  attu:
+    image: zilliz/attu:v2.4
+    container_name: rag-milvus-attu
+    restart: unless-stopped
+    environment:
+      MILVUS_URL: milvus:19530
+    ports:
+      - "3000:3000"
+    depends_on:
+      milvus:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
+  redis_data:
+  milvus_etcd:
+    name: rag_milvus_etcd_data
+    external: true
+  milvus_minio:
+    name: rag_milvus_minio_data
+    external: true
+  milvus_data:
+    name: rag_milvus_data
+    external: true
+
+networks:
+  default:
+    name: rag-milvus-net
+    external: true
