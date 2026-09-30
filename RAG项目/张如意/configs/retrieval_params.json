@@ -1,0 +1,127 @@
+{
+  "_comment": "检索层参数。改这里，不要散落在脚本里。",
+  "relevance_threshold_ngram": {
+    "value": 0.15,
+    "unit": "n-gram 覆盖率",
+    "scope": "冒烟测试用的关键词路（scripts/smoke_retrieval.py）",
+    "status": "pending: real_data",
+    "_why": "没有阈值，检索永远返回点什么，「暂无防治方案」兜底就是死代码——违背 CLAUDE.md 核心约束 2。",
+    "_basis": "实测：辣椒问白粉病（语料确实没有）最高分 0.038；肥料员（有答案）0.333。0.15 落在两者之间。",
+    "_caveat": "**这个数是我拍的，没有真实语料依据。** 冒烟测试用的问法也是我编的。"
+  },
+  "relevance_threshold_dense": {
+    "value": null,
+    "unit": "稠密余弦",
+    "status": "pending: real_data",
+    "_warning": "**不要直接把 0.15 用到稠密分上——那不是同一个量纲。**",
+    "_measured": {
+      "有答案_top1": "0.7088 ~ 0.7247（4 条）",
+      "无答案_top1": "0.4277 ~ 0.6506（5 条）",
+      "可分界": "约 0.67",
+      "margin": "仅 0.06 —— 贴着，换批问法可能翻过去"
+    },
+    "_conclusion": "稠密单路判断「有没有答案」不可靠。阈值应建在 **RRF 融合分** 上，单路分只参与排名。"
+  },
+  "relevance_threshold_rrf": {
+    "value": null,
+    "unit": "RRF 融合分（Milvus RRFRanker，k=60，两路）",
+    "status": "pending: real_data",
+    "_warning": "**分数尺度又变了第三种，别套用前两个。**",
+    "_scales": {
+      "n-gram": "0.03 ~ 0.46（冒烟测试用）",
+      "dense_cosine": "0.43 ~ 0.72",
+      "rrf_fused": "理论 0 ~ 2/(k+1) = 0.0328（k=60、两路都排第 1 时取到上限）"
+    },
+    "_why_null": "先不设。要先用真实 query 测出「有答案」与「无答案」的 RRF 分布，再定分界。",
+    "_note": "设成数字即启用分数兜底；null 表示只有「结果为空」才触发兜底。",
+    "_conclusion": "实测作废：RRF 融合分近似常数（有答案 0.03128~0.03279，无答案 0.01639~0.03279，余量 -0.00151）。仅用于排序，不用于判定。"
+  },
+  "dense_no_threshold": {
+    "value": true,
+    "status": "verified",
+    "_why": "稠密单路不设阈值，只参与 RRF 排名。实测有答案 top1 0.7088~0.7247、无答案 0.4277~0.6506，余量仅 0.06，任何固定值都可能误杀；且稠密与稀疏尺度不同，单给稠密设阈值无意义。"
+  },
+  "fallback_triggers": {
+    "status": "verified",
+    "_design": "三个触发条件，按可靠性排序",
+    "a_coverage_nocoverage": {
+      "trigger": "query 提到的病虫害在该作物下无卡",
+      "type": "确定性",
+      "reliability": "**主路径**，实测 7/8 兜底由此触发"
+    },
+    "b_pending_no_card": {
+      "trigger": "命中 pending:no_card 词（烂根/叶子发黄等）",
+      "type": "确定性",
+      "reliability": "可靠"
+    },
+    "c_rerank_lowscore": {
+      "trigger": "未提实体的问句，reranker 分低于阈值",
+      "type": "分数驱动",
+      "reliability": "次要，需真实语料校准"
+    }
+  },
+  "normalize_chain_max_hops": {
+    "value": 3,
+    "status": "verified",
+    "_why": "术语归一支持链式（起腻虫→蚜虫→瓜蚜，2 跳）。设硬上限防映射表变复杂后死循环。",
+    "_caveat": "放宽要同时证明不会 A→B→A 循环。"
+  },
+  "intent_longest_match_only": {
+    "value": true,
+    "status": "verified",
+    "_why": "「最多打几次」会同时命中它自己和子串「打几次」，只取最长，否则同一意图重复上报。"
+  },
+  "dedupe_by_clause_prefix": {
+    "value": 60,
+    "status": "verified",
+    "_why": "跨作物重复条款去重：三份标准共用模板，「3.2.7 肥料员」逐字相同，检索时只留一条。",
+    "_note": "键取条款正文前 60 字去空白。近似重复才合并——黄瓜的 3.2.1 与大蒜的措辞不同（「有害生物防治」vs「病虫害防治」），**不该合并**，实测正确保留。"
+  },
+  "colloquial_map": {
+    "verified_only": true,
+    "status": "verified",
+    "_why": "pending 条目不参与归一化，只在其术语被直接命中时触发兜底。"
+  },
+  "guess_layer": {
+    "count": 46,
+    "status": "pending: real_data",
+    "_why": "46 条 guess 映射的俗称侧全部是推测，本项目无真实农户语料。",
+    "_decision": "2026-09-17 决定保留——它们比没有映射强。不因为未验证就删。",
+    "_iteration": "前端加「答错了」按钮，农户反馈后逐条迭代。",
+    "_distinction": "evidence 字段区分 guess / corpus / corpus-infer / seed，便于定位问题条目。"
+  },
+  "relevance_threshold_dense_gate": {
+    "value": 0.67,
+    "unit": "稠密余弦（单路 limit=1 的最高分）",
+    "status": "pending: real_data",
+    "_why": "RRF 融合分不能做相关性判定（近似常数，实测余量为负）。稠密原始余弦是唯一有判别力的信号。",
+    "_measured": {
+      "有答案_top1": "0.7088~0.7247",
+      "无答案_top1": "0.4277~0.6506",
+      "可分界": "约 0.67",
+      "margin": "0.06"
+    },
+    "_caveat": "margin 只有 0.06，贴着。且样本是 11 条自编问法，**必须用真实农户问法重新校准**。",
+    "_status_note": "已降级为粗筛，不再是兜底闸门——两个分布重叠，见 relevance_threshold_rerank"
+  },
+  "relevance_threshold_rerank": {
+    "value": 0.1,
+    "unit": "BGE-reranker-v2-m3 归一化分",
+    "status": "pending: real_data",
+    "_history": {
+      "0.78": "初版，用 11 条**自编短问法**标定（有答案 0.7922+ / 无答案 ≤0.7664）",
+      "0.10": "2026-09-20 用 240 条评估集重标。0.78 在长口语问句上造成 15% 误兜底——如「打完药的空瓶子空袋子…」RRF 已排对，rerank 却只给 0.185"
+    },
+    "_scope": "**仅用于未提任何病虫害实体的问句**。提了实体的由覆盖检查确定性判定，跳闸门。",
+    "_why_low": "reranker 对「长口语问句 vs 条款式短文」的配对系统性给低分，阈值必须低；它的作用是挡掉「今天天气怎么样」这类近乎 0 分的，不是精细排序。",
+    "_caveat": "仍无真实农户语料依据。"
+  },
+  "coverage_check": {
+    "status": "verified",
+    "_role": "**兜底的主路径**，确定性判断，与分数无关。泛化了 pending:no_card 的机制。",
+    "_why": "「黄瓜枯萎病用什么药」与「黄瓜炭疽病用什么药」结构完全一样（同作物/同意图/同句式），只是前者语料里没有方案。任何文档级相关性打分都会给它高分：稠密 0.8951、reranker 0.8951，都高于可答问句的下界（稠密 0.6168、reranker 0.8699）——**三个分数路全部分布重叠，阈值分不开**。",
+    "_how": "从 chunks 建「病虫害实体 -> 有卡的作物」映射；query 里提到的实体若在该作物下无卡，直接兜底。",
+    "_measured": "16 条用例（8 可答 + 8 不可答）全部判定正确，其中 7/8 的兜底由本层触发。",
+    "_caveat": "实体提取靠后缀正则（病/虫/螨/蝇/螟/蛾/虱/草）+ 语料实体表，「什么病」这类疑问短语已列停用词。仍需真实语料检验误拦率。"
+  }
+}
