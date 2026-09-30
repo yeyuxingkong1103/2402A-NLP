@@ -1,0 +1,28 @@
+================================================================================================
+C5 保护范围对照（真实重导入路径：import_service.import_package）
+页面模板：<p>{status}</p> 为空 = 官网页面根本没写效力状态
+================================================================================================
+
+【场景一】先证明修复没有把刷新能力一起关掉——页面抽到新值仍要刷新
+  ① 首导（页面无状态）                  status=None  effective_date=None  promulgation_date=None  expiration_date=None
+  ② 重导入（页面写「已废止」）              status='已废止'  effective_date=None  promulgation_date=None  expiration_date=None
+  ③ 重导入（页面写「现行有效」）             status='现行有效'  effective_date=None  promulgation_date=None  expiration_date=None
+     ↑ ② 原值为空 → 新值写入；③ 原值非空但页面抽到不同的值 → **照旧刷新**。
+       结论：新规则是「新值非空才写」，不是「已有值永不更新」。
+
+【场景二】四个时效字段逐个验证「抽不到不清空」
+  ④ 人工填四个字段                    status='不适用'  effective_date=datetime.date(2008, 1, 1)  promulgation_date=datetime.date(2007, 6, 29)  expiration_date=datetime.date(2024, 12, 31)
+  ⑤ 重导入（页面无状态）                 status='不适用'  effective_date=datetime.date(2008, 1, 1)  promulgation_date=datetime.date(2007, 6, 29)  expiration_date=datetime.date(2024, 12, 31)
+     ✅ 保留  status
+     ✅ 保留  effective_date
+     ✅ 保留  promulgation_date
+     ✅ 保留  expiration_date
+
+【场景三】页面抽到新值时，人工值仍按既定口径让位于页面（批次 10 口径）
+  ⑥ 重导入（页面写「已废止」）              status='已废止'  effective_date=datetime.date(2008, 1, 1)  promulgation_date=datetime.date(2007, 6, 29)  expiration_date=datetime.date(2024, 12, 31)
+     ↑ status 被页面值覆盖（「时效以页面实际内容为准」），三个日期字段因页面抽不到而保留。
+
+================================================================================================
+结论：受保护的字段 = status / effective_date / promulgation_date / expiration_date
+      保护动作 = 「抽取器返回 None 时不写回」；抽取器返回非空值时不阻止刷新。
+================================================================================================

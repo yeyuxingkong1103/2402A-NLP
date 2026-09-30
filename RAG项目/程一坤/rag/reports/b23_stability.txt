@@ -1,0 +1,23 @@
+三次运行（同一份代码、同一份库）逐条对照
+题号             golden_rank 基线/全量/重跑         refusal 基线/全量/重跑               重跑结果
+------------------------------------------------------------------------------------------------
+direct-004     [1, 1, 1]                    [False, True, False]           ✔ 回到基线
+direct-009     [1, 1, 1]                    [False, True, False]           ✔ 回到基线
+direct-012     [2, 2, 2]                    [True, False, False]           ✗ 与基线仍不同
+direct-016     [1, 1, 1]                    [True, False, False]           ✗ 与基线仍不同
+cross-021      [1, 1, 1]                    [False, True, False]           ✔ 回到基线
+asof-033       [1, 1, 1]                    [True, False, False]           ✗ 与基线仍不同
+confuse-045    [2, 2, 2]                    [True, False, False]           ✗ 与基线仍不同
+direct-057     [1, 1, 1]                    [True, False, False]           ✗ 与基线仍不同
+direct-058     [1, 1, 1]                    [True, False, False]           ✗ 与基线仍不同
+cross-066      [1, 1, 1]                    [False, True, False]           ✔ 回到基线
+followup-072   [2, 3, 3]                    [True, False, False]           ✗ 与基线仍不同
+asof-074       [1, 1, 1]                    [False, True, True]            ✗ 与基线仍不同
+direct-090     [1, 1, 1]                    [True, False, True]            ✔ 回到基线
+------------------------------------------------------------------------------------------------
+13 条里，重跑结果【回到基线值】的 = 5 条
+13 条里，出现【基线→变→又变】来回跳的 = 5 条
+13 条里，三次 golden_rank 有过变化的 = 1 条
+
+解读：若差异由本次改造引入，重跑应稳定复现同一结果；实测多数回到基线/来回跳，
+      说明是上游（Embedding/重排/LLM）的采样波动，而非代码路径变化。

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="基于 LangGraph 与 Neo4j 的药品知识图谱问答助手" />
+    <title>知药 · 医疗助手</title>
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <aside class="history-rail" id="historyRail" aria-label="历史记录">
+      <div class="rail-brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img">
+            <path d="M24 7v34M7 24h34" />
+            <circle cx="24" cy="7" r="3" />
+            <circle cx="41" cy="24" r="3" />
+            <circle cx="24" cy="41" r="3" />
+            <circle cx="7" cy="24" r="3" />
+          </svg>
+        </span>
+        <span class="rail-brand-text">
+          <strong>知药</strong>
+          <small>药品知识图谱助手</small>
+        </span>
+        <button class="rail-collapse" id="railCollapseBtn" type="button" title="收起侧栏" aria-label="收起侧栏">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15 5l-7 7 7 7" />
+          </svg>
+        </button>
+      </div>
+
+      <button class="new-chat-btn" id="newChatBtn" type="button">
+        <span class="nc-plus">+</span>
+        <span class="nc-text">开启新对话</span>
+      </button>
+
+      <div class="rail-head">
+        <span class="rail-title">历史记录 <span class="rail-count" id="historyCount">0</span></span>
+        <button class="rail-clear" id="historyClearBtn" type="button">清空全部</button>
+      </div>
+
+      <div class="history-list" id="historyList">
+        <div class="empty-history">
+          <span class="empty-ico">🗂️</span>
+          还没有历史记录<br />开始第一次问答吧
+        </div>
+      </div>
+
+      <div class="rail-user" id="railUser" role="link" tabindex="0">
+        <span class="user-avatar" id="railUserAvatar">未</span>
+        <span class="user-info">
+          <strong id="railUserName">未登录</strong>
+          <small id="railUserSub">点击登录</small>
+        </span>
+        <button class="user-logout" id="railLogoutBtn" type="button" hidden>退出</button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+    <header class="topbar">
+      <div class="rail-actions">
+        <button class="rail-action-btn" id="sidebarToggleBtn" type="button" title="显示/隐藏侧栏" aria-label="显示/隐藏侧栏">☰</button>
+        <button class="rail-action-btn" id="sidebarNewBtn" type="button" title="新增对话" aria-label="新增对话">＋</button>
+      </div>
+      <div class="topbar-actions">
+        <div class="service-state" id="serviceState" aria-live="polite">
+          <span class="state-dot"></span>
+          <span id="serviceText">正在连接服务</span>
+        </div>
+        <div class="service-state" id="vectorState" aria-live="polite">
+          <span class="state-dot"></span>
+          <span id="vectorText">正在连接向量库</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-shell" id="pageShell">
+      <section class="welcome" id="welcome">
+        <div class="hero-symbol" aria-hidden="true">
+          <svg viewBox="0 0 120 120">
+            <path class="hero-cross" d="M60 29v62M29 60h62" />
+            <path class="hero-orbit" d="M17 61c0-23 19-42 43-42s43 19 43 42-19 42-43 42S17 84 17 61Z" />
+            <circle cx="60" cy="19" r="5" />
+            <circle cx="103" cy="61" r="5" />
+            <circle cx="60" cy="103" r="5" />
+          </svg>
+        </div>
+        <div class="eyebrow"><span></span> LANGGRAPH × NEO4J</div>
+        <h1>你好，我是 <em>知药</em></h1>
+        <p class="hero-copy">查询药品适应症、成分、规格、用法、禁忌及生产企业，让图谱为每次回答提供依据。</p>
+      </section>
+
+      <section class="conversation" id="conversation" aria-live="polite" aria-label="当前对话">
+        <div class="message-list" id="messageList"></div>
+      </section>
+
+      <section class="composer-wrap" id="composerWrap">
+        <div class="attach-panel" id="attachPanel" hidden>
+          <div class="attach-panel-head">
+            <span class="attach-panel-title">上传图片（最多 3 张）</span>
+            <span class="attach-ready" id="attachReady" hidden>已就绪 ✓</span>
+            <button class="attach-panel-close" id="attachPanelClose" type="button" title="关闭并清除上传">✕</button>
+          </div>
+          <p class="attach-hint" id="attachHint" hidden>最多上传 3 张图片</p>
+          <div class="attach-panel-body">
+            <div class="attach-thumbs" id="attachThumbs"></div>
+            <button class="attach-add-tile" id="attachAddTile" type="button" title="继续添加图片">+</button>
+          </div>
+        </div>
+
+        <form class="composer" id="qaForm">
+          <label class="sr-only" for="qaInput">输入药品问题</label>
+          <div class="composer-input-row">
+            <button type="button" class="tool-btn" id="webSearchBtn" aria-pressed="false" title="开启后，本次问答会在本地检索后追加 Tavily 联网搜索">🌐</button>
+            <button type="button" class="tool-btn" id="qaAttachBtn" title="上传图片，拍照识别分析">📎</button>
+            <button type="button" class="tool-btn" id="clearChatBtn" title="清空对话，回到初始页面">🗑️</button>
+            <textarea
+              id="qaInput"
+              rows="1"
+              maxlength="1000"
+              placeholder="问我一个药品相关问题…"
+              autocomplete="off"
+            ></textarea>
+            <button class="send-button" id="qaSendBtn" type="submit" aria-label="发送问题">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m5 12 14-7-5 14-2.4-5.6L5 12Z" />
+              </svg>
+            </button>
+          </div>
+          <input id="qaImageInput" type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" multiple hidden />
+        </form>
+
+        <p class="disclaimer" id="disclaimer">回答来自当前药品知识图谱，仅供信息参考，具体用药请咨询医生或药师。</p>
+      </section>
+    </main>
+    </div>
+
+    <div class="lightbox" id="lightbox" hidden>
+      <button type="button" class="lightbox-close" id="lightboxClose" aria-label="关闭预览">✕</button>
+      <img id="lightboxImg" alt="图片预览" />
+    </div>
+
+    <div class="source-modal" id="sourceModal" hidden>
+      <div class="source-modal-box">
+        <div class="source-modal-head">
+          <span class="source-modal-title" id="sourceModalTitle">来源数据</span>
+          <button class="source-modal-close" id="sourceModalClose" type="button" aria-label="关闭">✕</button>
+        </div>
+        <div class="source-modal-meta" id="sourceModalMeta" hidden></div>
+        <div class="source-modal-text" id="sourceModalText"></div>
+      </div>
+    </div>
+
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

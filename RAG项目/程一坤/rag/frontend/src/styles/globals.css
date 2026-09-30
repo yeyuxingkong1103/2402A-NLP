@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * 全局样式：专业克制的「法律文书」基调。
+ * 墨色正文 + 宣纸底 + 印章红点缀，衬线体承标题，无衬线体承正文。
+ */
+
+:root {
+  --paper: #faf9f6;
+  --paper-raised: #ffffff;
+  --rule: #e3e1da;
+}
+
+html {
+  /* 避免路由切换时页面横向抖动 */
+  overflow-y: scroll;
+}
+
+body {
+  background-color: var(--paper);
+  color: #2e2e29;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 正文中文排版：加大行高与字距，长段落更易读 */
+.prose-legal {
+  line-height: 1.85;
+  letter-spacing: 0.01em;
+}
+
+/* 细边线分隔，替代重边框，保持文书感 */
+.rule-line {
+  border-color: var(--rule);
+}
+
+/* 滚动条：细、低对比，不抢视觉 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c2c2b8 transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #c2c2b8;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* 键盘焦点环：可访问性必需，用印章红保证在浅底上足够明显 */
+:focus-visible {
+  outline: 2px solid #a8482f;
+  outline-offset: 2px;
+}
+
+/* 流式输出时的光标，提示内容仍在生成 */
+.streaming-caret::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background-color: #a8482f;
+  animation: caret-blink 1s steps(2, start) infinite;
+}
+
+@keyframes caret-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .streaming-caret::after {
+    animation: none;
+  }
+}

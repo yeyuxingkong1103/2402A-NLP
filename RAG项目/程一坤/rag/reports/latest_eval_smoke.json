@@ -1,0 +1,445 @@
+{
+  "run_at": "2026-09-20 11:58:33 +0800",
+  "eval_set": "C:\\Users\\92842\\Desktop\\rag\\data\\evaluation\\eval_set_v1.jsonl",
+  "summary": {
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.4167,
+    "citation_accuracy": 1.0,
+    "refusal_accuracy": 0.0,
+    "false_refusal_rate": 0.0,
+    "counts": {
+      "total": 3,
+      "graded": 3,
+      "refusal_questions": 0,
+      "answered": 3,
+      "total_citations": 17,
+      "invalid_citations": 0,
+      "answers_without_citation": 0,
+      "as_of_violations": 0
+    },
+    "as_of_violations": [],
+    "by_type": {
+      "direct_article": {
+        "count": 3,
+        "recall_at_5": 1.0,
+        "mrr10": 0.4166666666666667,
+        "refusal_ok": 0,
+        "refusal_total": 0,
+        "refusal_accuracy": null
+      }
+    }
+  },
+  "worst_samples": [],
+  "details": [
+    {
+      "id": "direct-001",
+      "type": "direct_article",
+      "question": "签三年期劳动合同，试用期最长不能超过多久？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第十九条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.81,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十一条",
+          "score": 0.7801
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十九条",
+          "score": 0.7956
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十三条",
+          "score": 0.6815
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十条",
+          "score": 0.6789
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十一条",
+          "score": 0.6495
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动法",
+          "article": "第三十二条",
+          "score": 0.6456
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十六条",
+          "score": 7.4381
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十条",
+          "score": 0.6473
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十条",
+          "score": 6.6381
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十五条",
+          "score": 0.6407
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 10,
+        "keyword_recall_count": 20,
+        "fused_count": 24,
+        "reranked_count": 10
+      },
+      "golden_rank": 2,
+      "hit_at_5": true,
+      "reciprocal_rank": 0.5,
+      "mrr_applicable": true,
+      "mrr10": 0.5,
+      "answer_seconds": 3.06,
+      "answer": "签三年期的劳动合同，试用期最长是**六个月**。\n\n依据是《劳动合同法》第十九条：劳动合同期限三年以上固定期限和无固定期限的，试用期不得超过六个月[2]。《劳动法》第二十一条也规定试用期最长不得超过六个月[1]。所以三年期正好落在\"三年以上\"这一档，六个月就是上限。\n\n顺便说几个容易踩的点：\n\n- 同一家单位和同一个劳动者，只能约定一次试用期[2]。换岗、续签再\"重新试用\"是不行的。\n- 试用期必须包含在劳动合同期限内；如果合同只写了试用期、没写正式期限，那试用期不成立，这段期间直接算作劳动合同期限[2]。\n- 如果单位约定的试用期超过法定上限，劳动行政部门可以责令改正；超期部分已经实际履行的，单位要以试用期满月工资为标准，按超出的期间支付赔偿金[3]。\n\n所以签三年合同，谈六个月试用期是合法的，超过六个月的部分就有问题了。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第二十一条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十九条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十三条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十一条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          2,
+          1,
+          2,
+          2,
+          3
+        ],
+        "invalid": [],
+        "total": 5,
+        "correct": 5,
+        "no_citation": false
+      },
+      "elapsed_seconds": 3.88,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "direct-002",
+      "type": "direct_article",
+      "question": "试用期工资最低不能低于多少？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第二十条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 0.73,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十五条",
+          "score": 0.7605
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十条",
+          "score": 0.7525
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十八条",
+          "score": 0.6164
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十九条",
+          "score": 0.6605
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十一条",
+          "score": 0.6591
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十三条",
+          "score": 0.6041
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十二条",
+          "score": 0.6189
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十四条",
+          "score": 12.2337
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动法",
+          "article": "第四十九条",
+          "score": 0.5955
+        },
+        {
+          "rank": 10,
+          "law": "工资支付暂行规定",
+          "article": "第十八条",
+          "score": 8.7914
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 9,
+        "keyword_recall_count": 20,
+        "fused_count": 25,
+        "reranked_count": 10
+      },
+      "golden_rank": 2,
+      "hit_at_5": true,
+      "reciprocal_rank": 0.5,
+      "mrr_applicable": true,
+      "mrr10": 0.5,
+      "answer_seconds": 3.37,
+      "answer": "试用期工资有两条\"底线\"，得同时满足：\n\n**第一条：不能低于\"本单位相同岗位最低档工资\"或者\"劳动合同约定工资\"的80%。**\n也就是说，看你合同的约定工资，试用期至少要给到它的八成；如果单位同岗位有最低档工资，也不能低于那一档的八成[2]。实施条例里说得更细一点，是\"不得低于本单位相同岗位最低档工资的80%或者不得低于劳动合同约定工资的80%\"[1]。\n\n**第二条：还不能低于用人单位所在地的最低工资标准。**\n这条是硬杠杠。国家实行最低工资保障制度，具体标准由各省、自治区、直辖市人民政府规定[3]；用人单位支付劳动者的工资不得低于当地最低工资标准[3]。\n\n简单说，实际能拿到多少，是\"合同约定工资的80%\"和\"当地最低工资标准\"这两个数里取高的那个。比如合同约定5000元，八成是4000元，而当地最低工资是2690元，那就按4000元执行。\n\n另外顺便提一句，试用期长短本身也有限制：合同期限三个月以上不满一年的，试用期不超过一个月；一年以上不满三年的，不超过二个月；三年以上及无固定期限的，不超过六个月[4]，而且同一单位对同一人只能约定一次试用期[4]。\n\n具体到你的情况，如果能告诉我合同约定的工资和所在城市，可以帮你算得更准一些。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第十五条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第二十条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第四十八条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十九条"
+        },
+        {
+          "law": "中华人民共和国劳动法",
+          "article": "第二十一条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          2,
+          1,
+          3,
+          3,
+          4,
+          4
+        ],
+        "invalid": [],
+        "total": 6,
+        "correct": 6,
+        "no_citation": false
+      },
+      "elapsed_seconds": 4.1,
+      "_penalty": 0,
+      "_reason": []
+    },
+    {
+      "id": "direct-003",
+      "type": "direct_article",
+      "question": "入职后公司一直不签书面劳动合同，我可以要求什么赔偿？",
+      "context": null,
+      "as_of_date": null,
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第八十二条"
+        }
+      ],
+      "errors": [],
+      "retrieval_seconds": 1.47,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第六条",
+          "score": 0.7053
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第五条",
+          "score": 0.6808
+        },
+        {
+          "rank": 3,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第七条",
+          "score": 0.6721
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十二条",
+          "score": 0.6817
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第七条",
+          "score": 0.6817
+        },
+        {
+          "rank": 6,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "score": 0.6792
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第九十七条",
+          "score": 0.6508
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十一条",
+          "score": 0.6757
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十九条",
+          "score": 0.693
+        },
+        {
+          "rank": 10,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第十条",
+          "score": 0.6602
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 11,
+        "keyword_recall_count": 20,
+        "fused_count": 28,
+        "reranked_count": 10
+      },
+      "golden_rank": 4,
+      "hit_at_5": true,
+      "reciprocal_rank": 0.25,
+      "mrr_applicable": true,
+      "mrr10": 0.25,
+      "answer_seconds": 6.48,
+      "answer": "入职后一直不签书面合同，确实挺让人头疼的。按你提供的信息，能主张的主要是**二倍工资**和**补签合同**两块。\n\n**1. 二倍工资差额**\n用人单位自用工之日起超过一个月不满一年没签书面合同的，应当向你每月支付二倍的工资[4]，同时补订书面合同[1]。计算期间是：从用工满一个月的次日起，到补订书面合同的前一日止[1]。也就是说，第一个月是不算的，从第二个月开始才起算。\n\n**2. 满一年还没签的情况**\n如果满一年仍未签，公司要支付自用工满一个月次日至满一年前一日的两倍工资，并且视为自用工满一年当日已经订立了无固定期限劳动合同，应当立即补订书面合同[5]。这种情况下的二倍工资一般算到满一年前一日为止。\n\n**3. 可能的例外**\n如果公司能举证证明是**不可抗力**、**你本人故意或重大过失**导致没签，或者存在其他法定情形，法院可能不支持二倍工资请求[3]。另外，如果是在一个月内、经公司书面通知后你不愿签，公司可以终止劳动关系且无需支付经济补偿，但要付清实际工作时间的报酬[2]。\n\n具体能主张多少，要看你入职时间和未签的时长。如果方便，可以补充一下入职日期和目前状态，我再帮你捋一捋。\n\n内容仅供法律信息参考，不能替代律师出具的正式法律意见。",
+      "refused_flag": false,
+      "guardrails": [
+        "citation_check_passed",
+        "guardrails_applied"
+      ],
+      "source_count": 5,
+      "sources": [
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第六条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第五条"
+        },
+        {
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第七条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法",
+          "article": "第八十二条"
+        },
+        {
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第七条"
+        }
+      ],
+      "refusal_by_text": false,
+      "citation_audit": {
+        "citations": [
+          4,
+          1,
+          1,
+          5,
+          3,
+          2
+        ],
+        "invalid": [],
+        "total": 6,
+        "correct": 6,
+        "no_citation": false
+      },
+      "elapsed_seconds": 7.95,
+      "_penalty": 0,
+      "_reason": []
+    }
+  ]
+}

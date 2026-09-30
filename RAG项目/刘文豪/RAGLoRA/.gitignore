@@ -1,0 +1,35 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# ---- 虚拟环境（本项目用 conda rag_env，仓内不存环境） ----
+venv/
+.venv/
+
+# ---- 数据与模型产物（体积大，可重建） ----
+qdrant_storage/
+datasets/
+*.log
+backend/logs/
+backend/eval/*.jsonl
+
+# ---- 前端 ----
+frontend/node_modules/
+frontend/dist/
+
+# ---- Redis 免安装版的数据与日志 ----
+tools/redis/data/
+tools/redis/*.log
+tools/redis/dump.rdb
+tools/redis/*.pdb
+
+# ---- 嵌入微调产物（Plan 7） ----
+backend/finetune/out/
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini

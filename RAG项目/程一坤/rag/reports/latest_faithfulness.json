@@ -1,0 +1,905 @@
+{
+  "summary": {
+    "eval_json": "reports\\latest_eval_baseline95.json",
+    "total_details": 95,
+    "scored": 78,
+    "valid_scores": 77,
+    "parse_failed": 1,
+    "skipped": 17,
+    "faithfulness_mean": 0.9736,
+    "llm_calls": 78,
+    "estimated_input_tokens": 125366,
+    "estimated_output_tokens": 4680,
+    "estimated_cost_cny": 0.1347,
+    "price_assumption": "输入 1.0 元/百万token，输出 2.0 元/百万token（估算用，以供应商账单为准）",
+    "elapsed_seconds": 452.0
+  },
+  "worst_samples": [
+    {
+      "id": "direct-095",
+      "type": "direct_article",
+      "score": 0.75,
+      "reason": "核心结论及特殊情形均与解释第32条一致，但关于劳动关系与劳务关系法律适用路径区别的断言在注入法条中无依据。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1742
+    },
+    {
+      "id": "direct-060",
+      "type": "direct_article",
+      "score": 0.8,
+      "reason": "休年休假工资、未休年休假300%报酬、年休假天数等主要结论均有法条支持，但“正常休年休假拿很大概率工资”的表述无法由注入法条原文支持。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1383
+    },
+    {
+      "id": "asof-034",
+      "type": "as_of_date",
+      "score": 0.83,
+      "reason": "关于1年时效、起算点、中断、中止、拖欠劳动报酬例外及《劳动法》六十日规定的结论均与注入法条一致，但“实务中一般按较新的《劳动争议调解仲裁法》执行”属法条原文之外的法律适用断言，无法从原文得到支持。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1687
+    },
+    {
+      "id": "cross-068",
+      "type": "cross_law",
+      "score": 0.83,
+      "reason": "关于五级伤残津贴70%、由用人单位支付、保留劳动关系并缴纳社保、低于最低工资补足差额、一次性伤残补助金18个月及解除劳动关系后两项补助金等结论均与注入的第三十六条一致，但'本人工资指受伤前12个月平均月缴费工资'这一定义在注入法条原文中查不到，属无据断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 2087
+    },
+    {
+      "id": "direct-005",
+      "type": "direct_article",
+      "score": 0.85,
+      "reason": "提前三十日书面通知、试用期提前三日、通知期非批准期等核心结论均与法条[1][2]一致，但'邮件、企业内部系统提交也算书面形式'的说法在原文中查不到，属超出法条的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1510
+    }
+  ],
+  "records": [
+    {
+      "id": "direct-001",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答中关于六个月上限、只能约定一次试用期、违法约定试用期的行政责任与赔偿金、试用期提前三日解除等结论均能在注入法条原文中找到依据，无超出法条的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1332
+    },
+    {
+      "id": "direct-002",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答关于80%两条底线、当地最低工资标准、省级政府规定并报国务院备案以及取较高值等结论，均能由注入的[1][2][3]法条原文直接支持，举例的80%计算也属合理转述，且明确说明地方最低工资具体数额无法确定，无超出原文的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1442
+    },
+    {
+      "id": "direct-003",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答中各结论（二倍工资及补订合同、起算与截止时间、满一年视为无固定期限合同、免责情形、一个月内不签可终止且无需经济补偿但须付劳动报酬）均与注入的法条原文[1]-[5]一致，无原文之外的臆断内容。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1703
+    },
+    {
+      "id": "direct-004",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答中所有结论（定义、协商一致、满十年、国企改制、连续两次续订、满一年视为订立、合同期满后一个月续订、劳动法十年规定、内容协商及第十八条、无固定期限不等于不能解除）均可在注入法条[1]-[5]中逐一找到对应依据，无超出原文的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 2541
+    },
+    {
+      "id": "direct-005",
+      "type": "direct_article",
+      "score": 0.85,
+      "reason": "提前三十日书面通知、试用期提前三日、通知期非批准期等核心结论均与法条[1][2]一致，但'邮件、企业内部系统提交也算书面形式'的说法在原文中查不到，属超出法条的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1510
+    },
+    {
+      "id": "direct-006",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答中的年限计算、月工资定义、高收入封顶、违法解除赔偿金等结论均能由注入法条[1]-[4]原文支持，无超出法条的断言或数字。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1591
+    },
+    {
+      "id": "direct-007",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答中关于竞业限制最长两年、人员范围、经济补偿、未约定补偿的计算标准及三个月未付可解除等结论均能由注入的法条原文直接支持。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 8185
+    },
+    {
+      "id": "direct-008",
+      "type": "direct_article",
+      "score": 0.9,
+      "reason": "大部分结论均能对应法条原文，但“长期超时可能被认定为全日制用工”属于原文未规定的额外推断，故扣分。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1291
+    },
+    {
+      "id": "direct-009",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答中关于非全日制用工不得约定试用期、全日制试用期上限及各期限档次、违法约定试用期的行政责任与赔偿金等结论，均与注入的《劳动合同法》第七十条、第十九条、第八十三条及《劳动法》第二十一条原文一致，其余建议咨询属程序性提示不计入。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1579
+    },
+    {
+      "id": "direct-010",
+      "type": "direct_article",
+      "score": 0.86,
+      "reason": "产假98天、难产/多胞胎增加、流产产假及不少于90天等结论均与注入法条一致，但“各省一般叠加地方奖励假、常见再增加几十天”属法条原文之外的断言，无法支持，故扣分。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1209
+    },
+    {
+      "id": "direct-011",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答关于年休假天数、不享受情形、统筹安排等内容均与注入法条原文一致，未出现无法支持的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1503
+    },
+    {
+      "id": "direct-012",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答仅为未通过引用校验的说明与程序性建议，未作出任何实体法律结论，依规则无结论时给1.0。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1234
+    },
+    {
+      "id": "direct-013",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答的认定条件、排除情形（故意犯罪/醉酒吸毒/自残自杀）及用人单位举证责任等结论均可由注入的第十四条、第十六条、第十九条原文支持，程序性提示与未提及事项的说明不计入不忠实。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1705
+    },
+    {
+      "id": "direct-014",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答中关于停工留薪期待遇、期限、延长程序、评残后待遇、护理责任及本人工资定义等结论均与注入的《工伤保险条例》第三十三条、第六十四条原文一致，无超出法条的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 2113
+    },
+    {
+      "id": "direct-015",
+      "type": "direct_article",
+      "score": 0.86,
+      "reason": "回答中休息日200%（不能补休）、法定休假日300%、工作日延长150%、不得强迫加班、工资提前支付等结论均与注入法条一致，但“月工资÷21.75天”这一计算数字在法条原文中查不到，属无依据断言，故按比例扣分。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1799
+    },
+    {
+      "id": "direct-016",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答为纯拒答与程序性提示，未包含任何实体法律结论，按规则计满分。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1005
+    },
+    {
+      "id": "cross-017",
+      "type": "cross_law",
+      "score": 1.0,
+      "reason": "回答中的起算日（满一个月次日）、截止日（补签前一日）、不满一月按实际工作日、满一年未签的截止与无固定期限劳动合同视为订立、劳动者故意不签用人单位免责等结论均能由注入法条[1][2][3][5]直接支持，举例推算亦与条文一致，无超出原文的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 8001
+    },
+    {
+      "id": "cross-018",
+      "type": "cross_law",
+      "score": 1.0,
+      "reason": "回答中工资一次付清、出具解除证明、十五日内办理档案社保转移、工作交接、经济补偿支付时点、合同文本保存二年、违法解除期间工资等结论均可在注入法条[1][2][3]中逐条找到依据。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1693
+    },
+    {
+      "id": "cross-019",
+      "type": "cross_law",
+      "score": 1.0,
+      "reason": "回答中的经济补偿、协议无效、补缴返还、滞纳金等结论均能在注入法条中找到依据，未出现原文之外的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 8141
+    },
+    {
+      "id": "cross-020",
+      "type": "cross_law",
+      "score": 0.95,
+      "reason": "回答的核心结论（第四十二条、第四十条、第二十九条、实施条例第二十三条的内容及限制范围的表述）均能在注入法条原文中找到对应，仅\"合同期满\"作为依法终止的举例属轻微延伸，不影响整体忠实。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1950
+    },
+    {
+      "id": "cross-021",
+      "type": "cross_law",
+      "score": 1.0,
+      "reason": "回答中关于享受条件、天数标准、累计工作年限、法定节假日不计入、休假期间工资、事假病假不享受情形等结论均可在注入法条[1][2][4][5]中找到依据，且对入职当年折算问题明确表示资料未规定，无超出原文的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1558
+    },
+    {
+      "id": "cross-022",
+      "type": "cross_law",
+      "score": 1.0,
+      "reason": "回答中关于时效一年、在职不受时效限制、离职后自终止之日起一年、时效中断与中止情形、以及书面/口头申请要求等结论，均能在[1][2][4]法条原文中找到对应依据，且对《劳动法》第八十二条冲突的表述也如实标注并承认不确定，无原文外的臆断。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1823
+    },
+    {
+      "id": "cross-023",
+      "type": "cross_law",
+      "score": 1.0,
+      "reason": "回答中休息日200%、法定休假日300%、禁止强迫加班、加付赔偿金、加班费举证责任等结论均可由注入的[1]-[5]法条原文支持，无原文之外的数字或断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1991
+    },
+    {
+      "id": "cross-024",
+      "type": "cross_law",
+      "score": 1.0,
+      "reason": "回答中的赔偿金、不再叠加经济补偿、计算年限、经济补偿标准及法院撤销变更等结论均能由注入法条[1][2][4]支持，未出现原文之外的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 8207
+    },
+    {
+      "id": "followup-025",
+      "type": "followup_rewrite",
+      "score": 1.0,
+      "reason": "回答中的试用期工资两条底线（80%标准、当地最低工资标准）、试用期期限上限及不满三个月不得约定试用期、超期支付赔偿金等结论均能在注入法条[1][2][3][5]中找到依据，举例仅为法条的正确适用，未出现法条之外的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1482
+    },
+    {
+      "id": "followup-026",
+      "type": "followup_rewrite",
+      "score": 1.0,
+      "reason": "回答中关于二倍工资起止时间、违法解除赔偿金计算年限及经济补偿分段规则的结论均能在注入法条原文中找到直接依据。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1928
+    },
+    {
+      "id": "followup-027",
+      "type": "followup_rewrite",
+      "score": 1.0,
+      "reason": "回答中98天基础产假、产前15天包含在内、难产及多胞胎各加15天、劳动法90天底线、流产15/42天、生育津贴支付方式等结论均能在注入法条[1][2][5]中找到依据，地方奖励假部分明确说明超出可查范围，不计为不忠实。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1338
+    },
+    {
+      "id": "followup-028",
+      "type": "followup_rewrite",
+      "score": 0.9,
+      "reason": "300%折算、年限对应天数、责令改正及加付赔偿金等核心结论均能由注入法条[1][3][5]直接支持，仅“累计工作指参加工作以来总年限、以社保档案为准”的解释性表述超出原文范围。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1610
+    },
+    {
+      "id": "followup-029",
+      "type": "followup_rewrite",
+      "score": 1.0,
+      "reason": "回答的30日期限、1年申请期限、申请主体、起算点及单位负担费用等结论均能在《工伤保险条例》第十七条原文中找到依据，其余为程序性提示，不计入结论。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1893
+    },
+    {
+      "id": "followup-030",
+      "type": "followup_rewrite",
+      "score": 0.875,
+      "reason": "大部分结论可由注入法条支持，但关于非全日制用工‘没有赔偿金’的断言，[3]仅规定不支付经济补偿，未明确提及赔偿金，属于原文之外的推论。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1587
+    },
+    {
+      "id": "asof-031",
+      "type": "as_of_date",
+      "score": 1.0,
+      "reason": "回答的各项结论（约定不缴社保无效、劳动者据此解除可主张经济补偿、请求权基础为《劳动合同法》第四十六条第一项、劳动法第一百条的滞纳金规定）均能在注入的案例[1]及法条[4][5]原文中找到依据，实务提醒部分属程序性提示不计入结论。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 8085
+    },
+    {
+      "id": "asof-032",
+      "type": "as_of_date",
+      "score": 1.0,
+      "reason": "回答中的约定无效、以未缴社保为由解除可获经济补偿、补缴后可要求返还补偿、行政责令缴纳及滞纳金等结论均能在注入法条[1][2][4][5]中找到依据，未出现无法支持的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 8134
+    },
+    {
+      "id": "asof-033",
+      "type": "as_of_date",
+      "score": 1.0,
+      "reason": "回答为纯拒答与程序性提示，未给出任何实体法律结论，不涉及与法条原文不一致的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 7592
+    },
+    {
+      "id": "asof-034",
+      "type": "as_of_date",
+      "score": 0.83,
+      "reason": "关于1年时效、起算点、中断、中止、拖欠劳动报酬例外及《劳动法》六十日规定的结论均与注入法条一致，但“实务中一般按较新的《劳动争议调解仲裁法》执行”属法条原文之外的法律适用断言，无法从原文得到支持。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1687
+    },
+    {
+      "id": "asof-035",
+      "type": "as_of_date",
+      "score": 1.0,
+      "reason": "回答中关于产假不少于九十天、怀孕七个月以上及哺乳期不得安排延长工作时间和夜班劳动等结论，均能在注入的《劳动法》法条原文中找到依据，未出现原文之外的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1112
+    },
+    {
+      "id": "asof-036",
+      "type": "as_of_date",
+      "score": 1.0,
+      "reason": "回答中的98天基础产假、产前15天、难产加15天、多胞胎每多1婴加15天、流产15天/42天及劳动法不少于90天的表述均能对应注入法条原文，地方奖励假部分已明确声明超出可查范围，无未支持断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1247
+    },
+    {
+      "id": "refusal-037",
+      "type": "refusal",
+      "score": null,
+      "reason": null,
+      "skipped": true,
+      "skip_reason": "拒答题不打分"
+    },
+    {
+      "id": "refusal-038",
+      "type": "refusal",
+      "score": null,
+      "reason": null,
+      "skipped": true,
+      "skip_reason": "拒答题不打分"
+    },
+    {
+      "id": "refusal-039",
+      "type": "refusal",
+      "score": null,
+      "reason": null,
+      "skipped": true,
+      "skip_reason": "拒答题不打分"
+    },
+    {
+      "id": "refusal-040",
+      "type": "refusal",
+      "score": null,
+      "reason": null,
+      "skipped": true,
+      "skip_reason": "拒答题不打分"
+    },
+    {
+      "id": "refusal-041",
+      "type": "refusal",
+      "score": null,
+      "reason": null,
+      "skipped": true,
+      "skip_reason": "拒答题不打分"
+    },
+    {
+      "id": "refusal-042",
+      "type": "refusal",
+      "score": null,
+      "reason": null,
+      "skipped": true,
+      "skip_reason": "拒答题不打分"
+    },
+    {
+      "id": "refusal-043",
+      "type": "refusal",
+      "score": null,
+      "reason": null,
+      "skipped": true,
+      "skip_reason": "拒答题不打分"
+    },
+    {
+      "id": "refusal-044",
+      "type": "refusal",
+      "score": null,
+      "reason": null,
+      "skipped": true,
+      "skip_reason": "拒答题不打分"
+    },
+    {
+      "id": "confuse-045",
+      "type": "confusable",
+      "score": 1.0,
+      "reason": "回答为纯拒答与程序性提示，未提出任何实体结论，故按规则计为满分。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1137
+    },
+    {
+      "id": "confuse-046",
+      "type": "confusable",
+      "score": 0.9,
+      "reason": "违法解除二倍赔偿金、赔偿金与经济补偿不并得、赔偿金年限自用工之日起算、经济补偿计算标准及关联公司年限合并计算等结论均有对应法条支持，仅“合法解除即为经济补偿”属对第47条的轻微合理引申，整体忠实。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1890
+    },
+    {
+      "id": "confuse-047",
+      "type": "confusable",
+      "score": 0.9,
+      "reason": "补偿金与违约金的方向、按月支付及返还经济补偿并支付违约金等结论均与法条一致，但“违约金通常一次性”法条原文未规定，属原文外断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 8002
+    },
+    {
+      "id": "confuse-048",
+      "type": "confusable",
+      "score": 1.0,
+      "reason": "回答中关于加班费标准、补休前提、计件工资计算及行政责任等结论均能在注入法条中找到对应依据。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1999
+    },
+    {
+      "id": "confuse-049",
+      "type": "confusable",
+      "score": 1.0,
+      "reason": "回答中的经济补偿适用条件和计算方式均有法条[1]和[5]支持，劳动争议处理路径有法条[3]支持，且明确承认法源清单未直接规定退休返聘，未出现原文之外的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 2304
+    },
+    {
+      "id": "confuse-050",
+      "type": "confusable",
+      "score": 1.0,
+      "reason": "回答的核心结论均有注入法条原文支持，包括承诺无效、可解除并主张经济补偿、补缴后返还补偿及行政责令缴纳滞纳金等。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 8027
+    },
+    {
+      "id": "direct-051",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答仅为拒答与程序性提示，未提出任何实体法律结论，按规则无结论计1.0。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 973
+    },
+    {
+      "id": "direct-052",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答中关于全日制按月支付、周/日/小时工资制、非全日制十五日上限、遇节假日提前至最近工作日支付等结论均能在注入的法条[1][2]原文中找到对应依据，无超出原文的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1335
+    },
+    {
+      "id": "direct-053",
+      "type": "direct_article",
+      "score": 0.86,
+      "reason": "除“一个工资支付周期一般对应单位约定的工资发放周期”在注入法条中无依据外，其余工资支付、破产清偿等结论均与《工资支付暂行规定》第十二条、第十四条一致。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1685
+    },
+    {
+      "id": "direct-054",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答中的核心结论均可由注入的法条[3]、[2]、[1]支持，未发现超出法条原文的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 7890
+    },
+    {
+      "id": "direct-055",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答中的45日、延期不超过15日、最长60日、受理5日、送达5日、答辩10日、逾期可起诉及劳动法60日口径等结论均可在注入法条中找到对应依据，无超出法条的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1614
+    },
+    {
+      "id": "direct-056",
+      "type": "direct_article",
+      "score": null,
+      "reason": "输出不可解析: {\"score\": 0.87, \"reason\": \"追索劳动报酬终局裁决、以裁决书载明为准、数项请求每项不超标的、混合事项按非终局处理、用人单位三十日内向中院",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1747,
+      "parse_failed": true
+    },
+    {
+      "id": "direct-057",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答为纯拒答/程序性提示，未给出任何法律结论，不存在无法被法条原文支持的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1743
+    },
+    {
+      "id": "direct-058",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答为纯拒答与程序性提示，未提出任何实体结论，无需法条支持。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1250
+    },
+    {
+      "id": "direct-059",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答中的年休假天数和不享受当年年休假情形的结论均可由《职工带薪年休假条例》第三条、第四条支持，且对'按照规定不扣工资'的前提作了合理澄清。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1519
+    },
+    {
+      "id": "direct-060",
+      "type": "direct_article",
+      "score": 0.8,
+      "reason": "休年休假工资、未休年休假300%报酬、年休假天数等主要结论均有法条支持，但“正常休年休假拿很大概率工资”的表述无法由注入法条原文支持。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1383
+    },
+    {
+      "id": "direct-061",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答关于仲裁不收费、申请程序、仲裁时效等结论均与注入的《劳动争议调解仲裁法》第五十三条、第二十八条、第二十七条原文一致，无超出法条的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 8051
+    },
+    {
+      "id": "direct-062",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答中一级伤残27个月本人工资、二至四级月数、保留劳动关系退出岗位、一级伤残津贴90%及低于最低工资由基金补足等结论，均与注入的《工伤保险条例》第三十五条原文一致，无原文之外的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 2234
+    },
+    {
+      "id": "cross-063",
+      "type": "cross_law",
+      "score": 1.0,
+      "reason": "回答中的各项后果均可在注入的《职工带薪年休假条例》相关法条中找到依据，无不支持结论。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1675
+    },
+    {
+      "id": "cross-064",
+      "type": "cross_law",
+      "score": 1.0,
+      "reason": "回答中的各项结论均可对应注入法条（[1]-[5]），未出现原文之外的期限、比例或断言，建议性表述属程序性提示不计入。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1598
+    },
+    {
+      "id": "cross-065",
+      "type": "cross_law",
+      "score": 1.0,
+      "reason": "回答中申请支付令、申请仲裁、直接起诉、调解协议具劳动合同约束力及司法确认等各项结论均能在法条[1][2][3][4]原文中找到对应依据，无超出原文的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1633
+    },
+    {
+      "id": "cross-066",
+      "type": "cross_law",
+      "score": 1.0,
+      "reason": "回答中关于先予执行适用范围、申请条件、劳动者可不提供担保以及用人单位不履行可申请强制执行、不服裁决起诉不予受理等结论，均能由注入的第四十四条和司法解释第十条原文直接支持，无超出法条的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1711
+    },
+    {
+      "id": "cross-067",
+      "type": "cross_law",
+      "score": 1.0,
+      "reason": "回答仅为拒答与程序性提示，未提出任何实质法律结论，不存在与法条原文相悖的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1089
+    },
+    {
+      "id": "cross-068",
+      "type": "cross_law",
+      "score": 0.83,
+      "reason": "关于五级伤残津贴70%、由用人单位支付、保留劳动关系并缴纳社保、低于最低工资补足差额、一次性伤残补助金18个月及解除劳动关系后两项补助金等结论均与注入的第三十六条一致，但'本人工资指受伤前12个月平均月缴费工资'这一定义在注入法条原文中查不到，属无据断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 2087
+    },
+    {
+      "id": "followup-069",
+      "type": "followup_rewrite",
+      "score": 1.0,
+      "reason": "回答中关于病假三档不享受年休假的条件、年休假天数及法定节假日不计入的结论，均与注入的《职工带薪年休假条例》第四条、第三条原文一致，无原文之外的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1508
+    },
+    {
+      "id": "followup-070",
+      "type": "followup_rewrite",
+      "score": null,
+      "reason": null,
+      "skipped": true,
+      "skip_reason": "拒答题不打分"
+    },
+    {
+      "id": "followup-071",
+      "type": "followup_rewrite",
+      "score": null,
+      "reason": null,
+      "skipped": true,
+      "skip_reason": "拒答题不打分"
+    },
+    {
+      "id": "followup-072",
+      "type": "followup_rewrite",
+      "score": 1.0,
+      "reason": "回答为未通过引用校验的拒答，仅含程序性建议，未提出任何实体结论，按规则计为完全忠实。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1572
+    },
+    {
+      "id": "asof-073",
+      "type": "as_of_date",
+      "score": 1.0,
+      "reason": "回答中的法律结论均能在注入的法条原文中找到对应依据，表述一致，无超出原文的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1461
+    },
+    {
+      "id": "asof-074",
+      "type": "as_of_date",
+      "score": 1.0,
+      "reason": "回答的年休假制度、连续工作满一年享受年休假、休假期间按劳动合同标准支付工资等结论均对应[1][3]原文，对具体天数、补偿等未提供内容明确承认资料未涵盖，无编造断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1252
+    },
+    {
+      "id": "asof-075",
+      "type": "as_of_date",
+      "score": 1.0,
+      "reason": "回答中98天产假、产前15天、难产及多胞胎各增15天、流产15/42天、劳动法不少于90天的结论均与注入法条[1][2]一致，地方奖励假部分已明确说明超出可查法源范围，无原文外断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1257
+    },
+    {
+      "id": "refusal-076",
+      "type": "refusal",
+      "score": null,
+      "reason": null,
+      "skipped": true,
+      "skip_reason": "拒答题不打分"
+    },
+    {
+      "id": "refusal-077",
+      "type": "refusal",
+      "score": null,
+      "reason": null,
+      "skipped": true,
+      "skip_reason": "拒答题不打分"
+    },
+    {
+      "id": "refusal-078",
+      "type": "refusal",
+      "score": null,
+      "reason": null,
+      "skipped": true,
+      "skip_reason": "拒答题不打分"
+    },
+    {
+      "id": "refusal-079",
+      "type": "refusal",
+      "score": null,
+      "reason": null,
+      "skipped": true,
+      "skip_reason": "拒答题不打分"
+    },
+    {
+      "id": "refusal-080",
+      "type": "refusal",
+      "score": null,
+      "reason": null,
+      "skipped": true,
+      "skip_reason": "拒答题不打分"
+    },
+    {
+      "id": "refusal-081",
+      "type": "refusal",
+      "score": null,
+      "reason": null,
+      "skipped": true,
+      "skip_reason": "拒答题不打分"
+    },
+    {
+      "id": "refusal-082",
+      "type": "refusal",
+      "score": null,
+      "reason": null,
+      "skipped": true,
+      "skip_reason": "拒答题不打分"
+    },
+    {
+      "id": "confuse-083",
+      "type": "confusable",
+      "score": 1.0,
+      "reason": "回答中关于裁员人数门槛、提前三十日说明、向劳动行政部门报告、优先留用及六个月内优先招用等结论均可在注入的《劳动合同法》第四十一条和《劳动法》第二十七条中找到依据，未出现原文之外的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1882
+    },
+    {
+      "id": "confuse-084",
+      "type": "confusable",
+      "score": 1.0,
+      "reason": "回答关于加班费补发、加付赔偿金的前置程序与50%—100%比例、举证责任等结论均能从注入的《劳动合同法》第三十一条、第八十五条、《工资支付暂行规定》第十八条及劳动争议司法解释第四十二条中找到依据。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1643
+    },
+    {
+      "id": "confuse-085",
+      "type": "confusable",
+      "score": 1.0,
+      "reason": "回答关于第四十条代通知金三种情形、计算标准及严重违纪不在其中的结论均能从注入法条得到支持，未出现法条外的具体断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1614
+    },
+    {
+      "id": "direct-086",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答中的双倍工资起算、截止、满一年视为无固定期限合同及三种例外情形等结论，均能在注入的法条原文中找到对应依据。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1581
+    },
+    {
+      "id": "direct-087",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答中关于解除劳动合同、经济补偿、放弃社保约定无效、补缴后返还补偿及行政责令补缴滞纳金等法律结论均能在注入法条原文中找到依据，实操建议不计入结论。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 8501
+    },
+    {
+      "id": "direct-088",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答中关于休息日加班可先安排补休、法定节假日加班应付300%工资且无补休替代、未补休应支付200%加班费、以及行政责令支付和加付赔偿金等结论，均能被《劳动法》第四十四条和《劳动合同法》第八十五条支持。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1710
+    },
+    {
+      "id": "direct-089",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答中各实质结论（可折算、每年5天、未休按日工资300%支付、部门责令改正并加付赔偿金等）均能在注入的法条原文中找到依据，未发现法条外的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1657
+    },
+    {
+      "id": "direct-090",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答为纯拒答与程序性提示，未提出任何实体法律结论，不涉及与法条原文的冲突。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1054
+    },
+    {
+      "id": "direct-091",
+      "type": "direct_article",
+      "score": 0.9,
+      "reason": "多数结论可由《劳动争议调解仲裁法》第二十七条直接支持，但“现行实践中一般按一年执行”的实践适用判断在注入法条中无直接依据。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1840
+    },
+    {
+      "id": "direct-092",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答中的支付令申请、凭工资欠条直接起诉、凭调解协议申请支付令、劳动行政部门责令限期支付及50%-100%加付赔偿金、工资按月货币支付不得克扣拖欠等结论均可在对应法条原文[1][2][3][4][5]中找到依据，无超出原文的断言或数字。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1528
+    },
+    {
+      "id": "direct-093",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答关于经济性裁员的法定情形、二十人以上或占比百分之十以上的提前三十日说明并报告程序、优先留用人员及六个月内重新招用优先通知等结论，均能在《劳动合同法》第四十一条和《劳动法》第二十七条原文中找到对应依据，无超出法条原文的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 8269
+    },
+    {
+      "id": "direct-094",
+      "type": "direct_article",
+      "score": 1.0,
+      "reason": "回答中关于试用期工资不低于约定工资80%且不低于最低工资、试用期期限上限及超期赔偿金等结论均能在注入法条[1][2][3][4][5]中找到依据，无原文外的断言。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1496
+    },
+    {
+      "id": "direct-095",
+      "type": "direct_article",
+      "score": 0.75,
+      "reason": "核心结论及特殊情形均与解释第32条一致，但关于劳动关系与劳务关系法律适用路径区别的断言在注入法条中无依据。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 1742
+    }
+  ]
+}

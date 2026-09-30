@@ -1,0 +1,46 @@
+{
+  "info": {
+    "name": "Medical RAG API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {"key": "baseUrl", "value": "http://127.0.0.1:8000/api/v1"},
+    {"key": "token", "value": ""},
+    {"key": "roleId", "value": "1"}
+  ],
+  "item": [
+    {
+      "name": "Login",
+      "event": [{
+        "listen": "test",
+        "script": {"exec": ["pm.collectionVariables.set('token', pm.response.json().access_token);"]}
+      }],
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {"mode": "raw", "raw": "{\"username\":\"admin\",\"password\":\"ChangeMe123!\"}"},
+        "url": "{{baseUrl}}/auth/login"
+      }
+    },
+    {
+      "name": "List roles",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+        "url": "{{baseUrl}}/roles"
+      }
+    },
+    {
+      "name": "Chat",
+      "request": {
+        "method": "POST",
+        "header": [
+          {"key": "Authorization", "value": "Bearer {{token}}"},
+          {"key": "Content-Type", "value": "application/json"}
+        ],
+        "body": {"mode": "raw", "raw": "{\"message\":\"高血压饮食要注意什么？\",\"role_id\":{{roleId}},\"session_id\":\"postman\"}"},
+        "url": "{{baseUrl}}/chat"
+      }
+    }
+  ]
+}

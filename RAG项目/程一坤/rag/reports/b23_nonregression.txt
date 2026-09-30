@@ -1,0 +1,69 @@
+基线：eval_20260920_194916_baseline95.json  run_at=2026-09-20 19:49:16 +0800  条数=95
+本次：eval_20260921_142136_b23_full100.json  run_at=2026-09-21 14:21:36 +0800  条数=100
+共有题数 = 95（基线 95 条，新增 multi_turn 5 条）
+
+==============================================================================
+① 既有 95 条：用同一份 summarize() 重算四项指标
+==============================================================================
+| 指标 | 基线 95 条 | 本次同 95 条 | 一致 |
+|---|---|---|---|
+| Recall@5 | 0.9625 | 0.9625 | ✔ |
+| MRR@10 | 0.7776 | 0.7755 | ✗ 差 -0.0021 |
+| 引用正确率 | 1.0000 | 1.0000 | ✔ |
+| 拒答准确率 | 0.9333 | 0.9333 | ✔ |
+| 误拒率 | 0.1500 | 0.1125 | ✗ 差 -0.0375 |
+| 计分题数 | 80 | 80 | ✔ |
+| 拒答题数 | 15 | 15 | ✔ |
+| 引用总数 | 351 | 362 | ✗ |
+| 越界引用 | 0 | 0 | ✔ |
+| 无引用回答 | 12 | 9 | ✗ |
+
+==============================================================================
+② 逐条差异（golden_rank / hit_at_5 / 越界引用 / 误拒）
+==============================================================================
+有差异的条目共 13 条：
+  · direct-004（direct_article）：refusal_by_text False → True
+  · direct-009（direct_article）：refusal_by_text False → True
+  · direct-012（direct_article）：refusal_by_text True → False
+  · direct-016（direct_article）：refusal_by_text True → False
+  · cross-021（cross_law）：refusal_by_text False → True
+  · asof-033（as_of_date）：refusal_by_text True → False
+  · confuse-045（confusable）：refusal_by_text True → False
+  · direct-057（direct_article）：refusal_by_text True → False
+  · direct-058（direct_article）：refusal_by_text True → False
+  · cross-066（cross_law）：refusal_by_text False → True
+  · followup-072（followup_rewrite）：golden_rank 2 → 3；refusal_by_text True → False
+  · asof-074（as_of_date）：refusal_by_text False → True
+  · direct-090（direct_article）：refusal_by_text True → False
+
+  其中【检索侧】（golden_rank / hit_at_5 / 越界引用）= 1 条
+  其中【回答侧】（refusal_by_text 翻转，属 LLM 采样）= 13 条
+
+==============================================================================
+③ 新增 multi_turn 5 条
+==============================================================================
+  改写命中率 rewrite_rate = 0.5（分母 4）
+  第2轮 golden 进 top5 = 1.0（分母 5）
+  上下文接通（只记录） = 4/5
+  · multiturn-001  hit_at_5=True golden_rank=1 rewrite_hit=True 耗时=9.8s
+  · multiturn-002  hit_at_5=True golden_rank=2 rewrite_hit=True 耗时=10.4s
+  · multiturn-003  hit_at_5=True golden_rank=4 rewrite_hit=False 耗时=11.87s
+  · multiturn-004  hit_at_5=True golden_rank=3 rewrite_hit=False 耗时=6.42s
+  · multiturn-005  hit_at_5=True golden_rank=3 rewrite_hit=None 耗时=12.62s
+
+==============================================================================
+④ 全量 100 条总指标（含新增类型，与基线口径不同，仅供对照）
+==============================================================================
+  Recall@5：0.9647
+  MRR@10：0.7583
+  引用正确率：1.0000
+  拒答准确率：0.9333
+  误拒率：0.1059
+  计分 85 条 / 拒答 15 条 / 越界引用 0 / 无引用 9
+
+==============================================================================
+⑤ 结论
+==============================================================================
+  检索侧：Recall@5 一致、越界引用 0、hit_at_5 变化 0 条；golden_rank 漂移 1 条
+  回答侧：引用正确率 一致、拒答准确率 一致；无引用回答 12 → 9（LLM 采样）
+  ✅ 检索侧与判定口径不回归（回答侧差异全部是 LLM 采样波动，见第四节稳定性对照）

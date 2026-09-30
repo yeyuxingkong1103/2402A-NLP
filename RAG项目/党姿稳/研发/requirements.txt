@@ -1,0 +1,60 @@
+# ============================================================
+# 完整依赖（生产环境 / 算力云部署）
+# 安装：pip install -r requirements.txt
+#
+# 只想在本机快速跑通链路（LOCAL_MODE=true）请改用：
+#   pip install -r requirements-local.txt
+# 那个文件不含 torch / paddle 系列，安装快得多。
+# ============================================================
+
+# ---------------- Web 服务 ----------------
+fastapi
+uvicorn[standard]
+sse-starlette
+python-multipart
+
+# ---------------- 前端页面 ----------------
+streamlit
+
+# ---------------- 存储 ----------------
+redis
+pymysql
+pymilvus
+
+# ---------------- 大模型调用 ----------------
+openai
+httpx
+
+# ---------------- 向量化与重排 ----------------
+# 本地 hash 降级模式不需要这两个包
+sentence-transformers
+FlagEmbedding
+
+# ---------------- 检索 ----------------
+numpy
+jieba
+rank-bm25
+# 多路召回与分块用（retrieval_lc.py / chunking.py）
+langchain
+langchain-text-splitters
+
+# ---------------- PDF 解析 ----------------
+pyMuPDF
+pdfplumber
+# OCR 与版面分析，体积较大且需要额外系统依赖，本地测试可跳过
+paddleocr
+paddlepaddle
+mineru
+
+# ---------------- 评测 ----------------
+ragas
+datasets
+matplotlib
+
+# ---------------- 测试数据生成 ----------------
+reportlab
+
+# ---------------- 基础设施 ----------------
+python-dotenv
+loguru
+pydantic

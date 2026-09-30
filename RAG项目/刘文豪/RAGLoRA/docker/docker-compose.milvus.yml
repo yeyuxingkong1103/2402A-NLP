@@ -1,0 +1,47 @@
+# Milvus standalone（嵌入式 etcd + minio，单容器模式）
+# 镜像已在本地：milvusdb/milvus:v2.6.6（3.55GB），无需拉取
+#
+# 注意（偏离 brief 的两处必要修正，详见 .superpowers/sdd/task-4-report.md）：
+# 1. `name: raglora` —— 否则 compose 项目名会取 compose 文件所在目录名 `docker`，
+#    与本机 Dify 的 compose 项目重名（Dify 容器即 docker-*），会导致 down 时误动 Dify。
+# 2. `DEPLOY_MODE: STANDALONE` —— brief 原文缺少此项，Milvus 会 panic：
+#    "embedded etcd can not be used under distributed mode"。
+#    官方 standalone_embed.sh 亦设置该变量。
+#
+# 网络隔离：本文件与 docker-compose.neo4j.yml 同属 compose 项目 `raglora`，
+# 但各自声明独立网络（本项目用 raglora_milvus_net），不再共用隐式的
+# raglora_default。否则 `down.sh all` 先 down Milvus 时会连带移除共享网络，
+# 而 Neo4j 容器仍挂在该网络上。
+# 注意：两文件项目名相同，仍共享项目命名空间；切记不要对它们使用
+#       `down --remove-orphans`（会把另一个文件的服务当成孤儿删掉）。
+name: raglora
+services:
+  milvus:
+    image: milvusdb/milvus:v2.6.6
+    container_name: raglora-milvus
+    command: ["milvus", "run", "standalone"]
+    environment:
+      DEPLOY_MODE: STANDALONE
+      ETCD_USE_EMBED: "true"
+      ETCD_DATA_DIR: /var/lib/milvus/etcd
+      COMMON_STORAGETYPE: local
+    ports:
+      - "19530:19530"
+      - "9091:9091"
+    volumes:
+      - milvus_data:/var/lib/milvus
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
+      interval: 30s
+      start_period: 90s
+      timeout: 20s
+      retries: 3
+    networks:
+      - milvus_net
+
+volumes:
+  milvus_data:
+
+networks:
+  milvus_net:
+    name: raglora_milvus_net

@@ -1,0 +1,12 @@
+新实现 md5: 142581ce0396b783fda15e707d0025cf
+
+== [1/2] 新实现（当前代码）==
+  exit=0 | 2 passed, 18 deselected in 0.02s | 
+
+== [2/2] 旧行为（只退回 mentioned_laws 过滤那一处）==
+  exit=1 | 2 failed, 18 deselected in 0.06s | FAILED tests/test_citation_check.py::test_document_title_not_reported_as_unknown_law；FAILED tests/test_citation_check.py::test_common_document_titles_not_reported_as_unknown_law
+
+生产代码还原: 字节一致 ✅
+
+== 还原后复跑 test_citation_check.py 全量 ==
+  exit=0 | 20 passed in 0.02s

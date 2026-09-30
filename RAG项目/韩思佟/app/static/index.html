@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>知愈 · 医疗知识问答</title>
+  <script>
+    (() => {
+      const base = document.createElement("base");
+      const path = window.location.pathname.replace(/\/chat\/?$/, "/");
+      base.href = new URL(path, window.location.origin).href;
+      document.head.append(base);
+    })();
+  </script>
+  <link rel="stylesheet" href="static/app.css">
+  <script src="static/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="chat" aria-label="知愈首页"><span class="brand-mark" aria-hidden="true">✦</span><span>知愈<small>有据可循的健康问答</small></span></a>
+      <div class="sidebar-label">全科健康问答</div>
+      <div class="role-list" aria-label="医生服务"><div class="role-button active doctor-card"><span class="role-icon" aria-hidden="true">+</span><span class="role-name">健康医生<span class="role-kind">通用健康咨询</span></span></div></div>
+      <div class="sidebar-note"><span class="note-icon" aria-hidden="true">↗</span><strong>先了解，再行动</strong><p>可以咨询常见健康问题；当前可引用的专属指南主要覆盖高血压。</p></div>
+      <div class="sidebar-bottom"><span class="status-dot"></span><span id="service-status">正在连接后端</span></div>
+    </aside>
+
+    <main class="main-panel">
+      <header class="topbar">
+        <div><div class="eyebrow">YOUR HEALTH, WITH CONTEXT</div><h1 id="role-title">医疗知识问答</h1></div>
+        <button id="account-button" class="account-button" type="button"><span aria-hidden="true">○</span> <span id="account-label">登录 / 注册</span></button>
+      </header>
+      <div class="chat-toolbar"><p id="role-description">连接资料，让每一次提问更有依据。</p><button id="clear-button" class="text-button" type="button" disabled>清空对话</button></div>
+      <div id="service-banner" class="service-message" role="status"><span id="service-message">正在检查问答服务…</span><button id="reload-roles" class="text-button" type="button" hidden>重新连接</button></div>
+
+      <section id="conversation" class="conversation" aria-label="对话内容" tabindex="0">
+        <div id="welcome" class="welcome">
+          <div class="welcome-symbol" aria-hidden="true">✦</div>
+          <div class="eyebrow">从一个问题开始</div>
+          <h2>关于健康，<br>你想了解什么？</h2>
+          <p id="welcome-description">咨询常见健康问题，获得通俗解释、风险提示和下一步建议。</p>
+          <div class="suggestions" id="suggestions">
+            <button type="button" data-question="感冒发热时需要观察哪些情况？"><span>常见症状</span>感冒发热时需要观察什么？<b aria-hidden="true">↗</b></button>
+            <button type="button" data-question="出现胸痛或呼吸困难时应该怎么办？"><span>风险识别</span>哪些情况需要及时就医？<b aria-hidden="true">↗</b></button>
+            <button type="button" data-question="在家测量血压需要注意什么？"><span>指南示例</span>在家测量血压要注意什么？<b aria-hidden="true">↗</b></button>
+          </div>
+        </div>
+        <div id="messages" class="messages" aria-live="polite" aria-relevant="additions"></div>
+        <div id="pending" class="pending" role="status" hidden><span class="pulse-dot"></span><span>正在整理回答，首次提问可能需要稍等…</span></div>
+      </section>
+
+      <div class="composer-area">
+        <p id="notice" class="notice" role="status" hidden></p>
+        <form id="chat-form" class="composer">
+          <label class="sr-only" for="message-input">输入你的问题</label>
+          <textarea id="message-input" rows="2" maxlength="500" placeholder="先登录或注册，再开始提问…" disabled required></textarea>
+          <div class="composer-bottom"><span id="composer-hint">Enter 发送 · Shift + Enter 换行</span><div class="send-group"><span id="char-count">0 / 500</span><button id="send-button" type="submit" disabled>发送 <span aria-hidden="true">↑</span></button></div></div>
+        </form>
+        <p class="disclaimer">回答仅供健康知识学习，不能替代医生诊断。出现急症请及时就医。<span>问题会发送给 DeepSeek 在线模型，请勿提交敏感个人信息。</span></p>
+      </div>
+    </main>
+  </div>
+
+  <dialog id="account-dialog" aria-labelledby="account-title">
+    <button class="dialog-close" id="close-dialog" type="button" aria-label="关闭">×</button>
+    <div class="dialog-mark" aria-hidden="true">✦</div>
+    <h2 id="account-title">开始你的对话</h2>
+    <p class="muted">使用演示账号登录，或创建一个新账号。</p>
+    <div class="auth-tabs" role="group" aria-label="账号操作"><button id="login-tab" type="button" class="active" aria-pressed="true">登录</button><button id="register-tab" type="button" aria-pressed="false">注册</button></div>
+    <form id="account-form">
+      <label for="username">用户名</label><input id="username" name="username" minlength="2" maxlength="20" autocomplete="username" required placeholder="2–20 个字符">
+      <label for="password">密码</label><input id="password" name="password" type="password" minlength="4" maxlength="50" autocomplete="current-password" required placeholder="4–50 个字符">
+      <p id="account-error" class="account-error" role="alert" hidden></p>
+      <button id="auth-submit" class="primary-button" type="submit">登录并开始</button>
+    </form>
+    <p class="dialog-footnote">当前页面不保存密码或聊天内容到浏览器存储。刷新后需重新登录；服务端仍可能保留近期对话记忆。</p>
+  </dialog>
+</body>
+</html>

@@ -1,0 +1,468 @@
+#!/usr/bin/env bash
+# =============================================================================
+# 法律 RAG 一键安装脚本（Ubuntu 22.04+，批次 33）
+#
+# 按序执行七步，每步有检查与明确提示，失败即停并给出修复提示：
+#   a) 服务器配置门槛检查（CPU/内存/磁盘/系统版本，低于门槛直接退出）
+#   b) 安装 Miniconda（已装跳过）→ 创建 conda 环境 rag（Python 3.11+）
+#   c) 安装 Python 依赖 backend/requirements.txt（清华 PyPI 镜像）
+#   d) 安装/启动 Redis、MySQL、Milvus（Docker 方式；已有外部实例自动跳过）
+#   e) 上传代码（archive 解压 / git 拉取，--method 二选一）
+#   f) 初始化数据库（建库建表 → 导入法律数据包 → 建 Milvus collection 并索引）
+#   g) 创建管理员账号（复用 app.cli.create_admin，须先注册邮箱，可 --skip）
+#
+# 幂等：重复执行不重复安装/不重复建库；已存在的资源自动跳过。
+# dry-run：--dry-run 只打印将执行的命令，不落任何盘、不启任何容器。
+# 安全：不打印任何密钥；数据库口令通过环境变量传入（见第 d 步说明）。
+# =============================================================================
+set -euo pipefail
+
+# ----------------------------- 全局配置（可用环境变量覆盖） -----------------------------
+INSTALL_DIR="${INSTALL_DIR:-/opt/legal-rag}"          # 代码部署目录
+CONDA_BASE="${CONDA_BASE:-$HOME/anaconda3}"           # Miniconda 安装位置，保持既有路径兼容
+ENV_NAME="${ENV_NAME:-rag}"                           # conda 环境名（与本地一致）
+PYTHON_VERSION="${PYTHON_VERSION:-3.11}"              # 环境Python版本
+# Miniconda 下载源可通过环境变量覆盖；清华源失败时自动尝试官方源，便于现场切换。
+MINICONDA_URL="${MINICONDA_URL:-https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh}"
+MINICONDA_FALLBACK_URL="${MINICONDA_FALLBACK_URL:-https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh}"
+# 门槛依据：按实际可用资源而非云厂商标称规格核算，避免 8G ECS 的 MemTotal 因系统预留低于 8000MB 而被误拦。
+# 内存——Milvus standalone 约 3~4G + MySQL 约 0.5G + Redis + 后端 + 前端 + 系统约 5~6G，
+#       8G 规格机器实际 MemTotal 约 7.6~7.8G，7000MB 硬门槛可留出约 0.6~0.8G 余量；5500MB 为警告线。
+# 磁盘——按根分区可用空间核算；Milvus 镜像约 1.5G + 数据小于 1G + 代码小于 10M，
+#       30GB 硬门槛、20GB 警告线足以覆盖本期部署并保留运行余量。
+# CPU——2 核可承载演示并发；低于 2 核直接拒绝。
+MIN_CPU=2
+HARD_MIN_MEM_MB=7000     # 硬门槛：低于此值默认退出
+WARN_MEM_MB=5500         # 警告线：低于此值需显式 --allow-below-threshold 才继续
+HARD_MIN_DISK_GB=30      # 按根分区可用空间计算
+WARN_DISK_GB=20          # 按根分区可用空间计算
+DATA_CONTAINERS_DEFAULT="rag-redis rag-mysql rag-milvus"
+
+DRY_RUN=false
+RUN_METHOD="archive"        # archive | git
+ARCHIVE_PATH=""
+GIT_REPO=""
+GIT_REF="main"
+PACKAGES_ROOT="data"        # 法律数据包根目录（相对 INSTALL_DIR）
+ADMIN_EMAIL=""              # 为空则跳过第 g 步并提示
+SKIP_DATA_SERVICES=false
+ALLOW_BELOW_THRESHOLD=false   # 低于硬门槛时是否仅警告并继续
+MIN_MEM_MB_OVERRIDE=""        # 可选：临时覆盖内存硬门槛
+MIN_DISK_GB_OVERRIDE=""       # 可选：临时覆盖磁盘硬门槛
+
+# ----------------------------- 输出与错误处理 -----------------------------
+if [ -t 1 ]; then
+  C_GREEN='\033[0;32m'; C_YELLOW='\033[1;33m'; C_RED='\033[0;31m'; C_OFF='\033[0m'
+else
+  C_GREEN=''; C_YELLOW=''; C_RED=''; C_OFF=''
+fi
+step_no=0
+CURRENT_STEP="初始化"
+LAST_COMMAND=""
+
+log()  { printf "${C_GREEN}[install]%s %s${C_OFF}\n" "[$1]" "$2"; }
+warn() { printf "${C_YELLOW}[install][警告]%s %s${C_OFF}\n" "[$1]" "$2"; }
+die()  { printf "${C_RED}[install][失败]%s %s${C_OFF}\n" "[$1]" "$2" >&2; exit 1; }
+
+# 全局失败处理必须使用默认值，避免 set -u 让 trap 自己失败而吞掉原始错误。
+handle_error() {
+  local exit_code="$?"
+  local failed_step="${CURRENT_STEP:-未知步骤}"
+  local failed_step_no="${step_no:-未知}"
+  local failed_command="${LAST_COMMAND:-未记录（可能是直接执行的命令）}"
+  printf "${C_RED}[install][失败] 第 %s 步（%s）执行失败，已停止。${C_OFF}\n" \
+    "$failed_step_no" "$failed_step" >&2
+  printf "[失败命令] %s\n[退出码] %s\n[修复提示] 检查上方原始错误；确认网络、权限和参数后重跑脚本。\n" \
+    "$failed_command" "$exit_code" >&2
+  return "$exit_code"
+}
+trap 'handle_error' ERR
+
+# 命令执行包装：记录完整命令并在失败时给出步骤、命令、退出码和修复提示。
+run() {
+  LAST_COMMAND="$*"
+  if $DRY_RUN; then
+    printf "${C_YELLOW}[dry-run]%s %s\n" "" "$LAST_COMMAND"
+    return 0
+  fi
+  if "$@"; then
+    return 0
+  else
+    local command_exit_code="$?"
+  fi
+  printf "${C_RED}[install][失败] 第 %s 步（%s）执行失败。${C_OFF}\n" \
+    "${step_no:-未知}" "${CURRENT_STEP:-未知步骤}" >&2
+  printf "[失败命令] %s\n[退出码] %s\n[修复提示] 检查网络、权限和参数后重跑脚本。\n" \
+    "${LAST_COMMAND:-未记录}" "$command_exit_code" >&2
+  return "$command_exit_code"
+}
+
+usage() {
+  sed -n '2,20p' "$0" | sed 's/^# \{0,1\}//'
+  echo
+  echo "用法：$(basename "$0") [--dry-run] [--method archive|git] [--archive <包路径>]"
+  echo "         [--repo <git-url> --ref <分支>] [--install-dir <目录>]"
+  echo "         默认 INSTALL_DIR：/opt/legal-rag（第 c/e 步统一使用该目录）"
+  echo "         [--packages-root <数据包根目录>] [--admin-email <邮箱>]"
+  echo "         [--skip-data-services] [--allow-below-threshold]"
+  echo "         [--min-mem-mb <MB>] [--min-disk-gb <GB>]"
+  exit 0
+}
+
+# ----------------------------- 参数解析 -----------------------------
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --dry-run) DRY_RUN=true ;;
+    --method) RUN_METHOD="$2"; shift ;;
+    --archive) ARCHIVE_PATH="$2"; shift ;;
+    --repo) GIT_REPO="$2"; shift ;;
+    --ref) GIT_REF="$2"; shift ;;
+    --install-dir) INSTALL_DIR="$2"; shift ;;
+    --packages-root) PACKAGES_ROOT="$2"; shift ;;
+    --admin-email) ADMIN_EMAIL="$2"; shift ;;
+    --skip-data-services) SKIP_DATA_SERVICES=true ;;
+    --allow-below-threshold) ALLOW_BELOW_THRESHOLD=true ;;
+    --min-mem-mb) MIN_MEM_MB_OVERRIDE="$2"; shift ;;
+    --min-disk-gb) MIN_DISK_GB_OVERRIDE="$2"; shift ;;
+    -h|--help) usage ;;
+    *) die "参数" "未知参数：$1（-h 查看用法）" ;;
+  esac
+  shift
+done
+
+validate_positive_integer() {
+  case "$2" in
+    ""|*[!0-9]*) die "参数" "$1 必须是正整数：$2" ;;
+    0) die "参数" "$1 必须大于 0" ;;
+  esac
+}
+
+if [ -n "$MIN_MEM_MB_OVERRIDE" ]; then
+  validate_positive_integer "--min-mem-mb" "$MIN_MEM_MB_OVERRIDE"
+  HARD_MIN_MEM_MB="$MIN_MEM_MB_OVERRIDE"
+fi
+if [ -n "$MIN_DISK_GB_OVERRIDE" ]; then
+  validate_positive_integer "--min-disk-gb" "$MIN_DISK_GB_OVERRIDE"
+  HARD_MIN_DISK_GB="$MIN_DISK_GB_OVERRIDE"
+fi
+
+if $DRY_RUN; then
+  warn "dry-run" "演练模式：只打印将执行的命令，不落盘、不启容器、不装软件"
+fi
+
+step() {
+  step_no=$((step_no + 1))
+  CURRENT_STEP="$1"
+  log "$CURRENT_STEP" "—— 第 $step_no 步 ——"
+}
+
+# 服务端口探测：0=可达（外部实例已存在），1=不可达
+port_open() {
+  if command -v nc >/dev/null 2>&1; then
+    nc -z -w 2 "$1" "$2" >/dev/null 2>&1
+  else
+    (exec 3<>"/dev/tcp/$1/$2") >/dev/null 2>&1
+  fi
+}
+
+# =============================================================================
+# 第 a 步：服务器配置门槛检查
+# =============================================================================
+step "a-服务器门槛检查"
+
+OS_ID=""; OS_VERSION_ID=""
+if [ -r /etc/os-release ]; then
+  # shellcheck disable=SC1091
+  OS_ID="$(. /etc/os-release && echo "$ID")"
+  OS_VERSION_ID="$(. /etc/os-release && echo "${VERSION_ID:-}")"
+fi
+if [ "$OS_ID" != "ubuntu" ]; then
+  if $DRY_RUN; then
+    warn "a-服务器门槛检查" "非 Ubuntu 系统（$OS_ID），真实部署仅支持 Ubuntu 22.04+"
+  else
+    die "a-服务器门槛检查" "本脚本仅支持 Ubuntu（当前：${OS_ID:-未知}）。CentOS/其他请自行适配"
+  fi
+fi
+
+CURRENT_CPU="$(nproc 2>/dev/null || echo 0)"
+CURRENT_MEM_MB="$(awk '/MemTotal/ {print int($2/1024)}' /proc/meminfo 2>/dev/null || echo 0)"
+CURRENT_DISK_GB="$(df -BG --output=avail / 2>/dev/null | tail -1 | tr -dc '0-9' || echo 0)"
+
+if [ "$CURRENT_CPU" -lt "$MIN_CPU" ]; then
+  die "a-服务器门槛检查" "CPU 仅 ${CURRENT_CPU} 核，低于硬门槛 ${MIN_CPU} 核。先升配再装"
+fi
+log "a-服务器门槛检查" "CPU=${CURRENT_CPU} 核 / 内存=${CURRENT_MEM_MB}MB / 根分区可用=${CURRENT_DISK_GB}GB / 系统=${OS_ID} ${OS_VERSION_ID}"
+
+# 内存：低于警告线默认退出；只有 dry-run 或显式 --allow-below-threshold 才降级为醒目警告继续。
+if [ "$CURRENT_MEM_MB" -lt "$WARN_MEM_MB" ]; then
+  if $DRY_RUN || $ALLOW_BELOW_THRESHOLD; then
+    warn "a-服务器门槛检查" "醒目提示：内存 ${CURRENT_MEM_MB}MB 低于警告线 ${WARN_MEM_MB}MB / 硬门槛 ${HARD_MIN_MEM_MB}MB，已按允许降级继续；请确认机器能承载 Milvus + MySQL + Redis + 前后端"
+  else
+    die "a-服务器门槛检查" "内存 ${CURRENT_MEM_MB}MB 低于硬门槛 ${HARD_MIN_MEM_MB}MB。若确认现场资源足够，可追加 --allow-below-threshold 降级为警告继续"
+  fi
+elif [ "$CURRENT_MEM_MB" -lt "$HARD_MIN_MEM_MB" ]; then
+  warn "a-服务器门槛检查" "内存 ${CURRENT_MEM_MB}MB 在 ${WARN_MEM_MB}~${HARD_MIN_MEM_MB}MB 警告区间：能跑但并发一高可能不稳，是否继续由你决定（10 秒后自动继续，Ctrl+C 退出）"
+  sleep 10
+fi
+
+# 磁盘：低于警告线默认退出；只有 dry-run 或显式 --allow-below-threshold 才降级为醒目警告继续。
+if [ "$CURRENT_DISK_GB" -lt "$WARN_DISK_GB" ]; then
+  if $DRY_RUN || $ALLOW_BELOW_THRESHOLD; then
+    warn "a-服务器门槛检查" "醒目提示：根分区可用 ${CURRENT_DISK_GB}GB 低于警告线 ${WARN_DISK_GB}GB / 硬门槛 ${HARD_MIN_DISK_GB}GB，已按允许降级继续；请先确认镜像、数据和日志空间"
+  else
+    die "a-服务器门槛检查" "根分区可用 ${CURRENT_DISK_GB}GB 低于硬门槛 ${HARD_MIN_DISK_GB}GB。若确认现场空间足够，可追加 --allow-below-threshold 降级为警告继续"
+  fi
+elif [ "$CURRENT_DISK_GB" -lt "$HARD_MIN_DISK_GB" ]; then
+  warn "a-服务器门槛检查" "磁盘可用 ${CURRENT_DISK_GB}GB 在 ${WARN_DISK_GB}~${HARD_MIN_DISK_GB}GB 警告区间：数据增长后可能吃紧"
+fi
+if [ "${OS_VERSION_ID:-}" ] && [ "${OS_VERSION_ID%%.*}" -lt 22 ]; then
+  warn "a-服务器门槛检查" "Ubuntu ${OS_VERSION_ID} 低于推荐版本 22.04，未阻断但风险自担"
+fi
+
+# =============================================================================
+# 第 b 步：安装 Miniconda + 创建 conda 环境 rag
+# =============================================================================
+step "b-安装Miniconda与rag环境"
+
+if [ -x "$CONDA_BASE/bin/conda" ]; then
+  log "b-安装Miniconda与rag环境" "已存在 $CONDA_BASE/bin/conda，跳过安装"
+else
+  log "b-安装Miniconda与rag环境" "下载并静默安装 Miniconda 到 $CONDA_BASE（约 1~3 分钟，取决于网速）"
+  MINICONDA_INSTALLER="/tmp/miniconda3-$(date +%s).sh"
+  LAST_COMMAND="wget -q --show-progress $MINICONDA_URL -O $MINICONDA_INSTALLER"
+  if ! run wget -q --show-progress "$MINICONDA_URL" -O "$MINICONDA_INSTALLER"; then
+    warn "b-安装Miniconda与rag环境" "主下载源失败：$MINICONDA_URL；尝试备选源：$MINICONDA_FALLBACK_URL"
+    if ! run wget -q --show-progress "$MINICONDA_FALLBACK_URL" -O "$MINICONDA_INSTALLER"; then
+      die "b-安装Miniconda与rag环境" "Miniconda 下载失败。可通过 MINICONDA_URL / MINICONDA_FALLBACK_URL 切换可访问源后重试"
+    fi
+  fi
+  run bash "$MINICONDA_INSTALLER" -b -p "$CONDA_BASE"
+  run rm -f "$MINICONDA_INSTALLER"
+fi
+
+if [ -x "$CONDA_BASE/envs/$ENV_NAME/bin/python" ]; then
+  log "b-安装Miniconda与rag环境" "conda 环境 $ENV_NAME 已存在，跳过创建"
+else
+  log "b-安装Miniconda与rag环境" "创建 conda 环境 $ENV_NAME（Python $PYTHON_VERSION）"
+  run "$CONDA_BASE/bin/conda" create -n "$ENV_NAME" "python=$PYTHON_VERSION" -y
+fi
+
+PY_BIN="$CONDA_BASE/envs/$ENV_NAME/bin/python"
+if ! $DRY_RUN; then
+  PY_VER="$("$PY_BIN" -c 'import sys; print("%d.%d" % sys.version_info[:2])')"
+  PY_MAJOR="${PY_VER%%.*}"; PY_MINOR="${PY_VER##*.}"
+  if [ "$PY_MAJOR" -lt 3 ] || { [ "$PY_MAJOR" -eq 3 ] && [ "$PY_MINOR" -lt 11 ]; }; then
+    die "b-安装Miniconda与rag环境" "环境 $ENV_NAME 的 Python 为 $PY_VER，需要 3.11+"
+  fi
+  log "b-安装Miniconda与rag环境" "Python $PY_VER（$PY_BIN）"
+fi
+
+# =============================================================================
+# 第 c 步：安装 Python 依赖
+# =============================================================================
+step "c-安装Python依赖"
+
+log "c-安装Python依赖" "pip install -r backend/requirements.txt（清华源）"
+run "$CONDA_BASE/envs/$ENV_NAME/bin/pip" install --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple
+run "$CONDA_BASE/envs/$ENV_NAME/bin/pip" install -r "$INSTALL_DIR/backend/requirements.txt" -i https://pypi.tuna.tsinghua.edu.cn/simple
+if ! $DRY_RUN; then
+  "$PY_BIN" -c "import fastapi, pymilvus, sqlalchemy" 2>/dev/null \
+    || die "c-安装Python依赖" "关键依赖导入失败，检查上方 pip 报错；修复后重跑本脚本"
+fi
+
+# =============================================================================
+# 第 d 步：安装/启动 Redis、MySQL、Milvus（Docker 优先；已有外部实例则跳过）
+# =============================================================================
+step "d-数据服务Redis/MySQL/Milvus"
+
+if $SKIP_DATA_SERVICES; then
+  log "d-数据服务Redis/MySQL/Milvus" "按 --skip-data-services 跳过（假设使用外部实例）"
+elif ! command -v docker >/dev/null 2>&1; then
+  warn "d-数据服务Redis/MySQL/Milvus" "本机无 docker。若 Redis/MySQL/Milvus 走外部实例请确认可连通；否则先安装 Docker：curl -fsSL https://get.docker.com | bash"
+else
+  # ---- Redis ----
+  if port_open 127.0.0.1 6379; then
+    log "d-数据服务Redis/MySQL/Milvus" "端口 6379 已有 Redis 在跑（外部实例），跳过安装"
+  else
+    log "d-数据服务Redis/MySQL/Milvus" "以 Docker 启动 Redis（容器名 rag-redis，启用 AOF 持久化）"
+    run docker inspect rag-redis >/dev/null 2>&1 && run docker start rag-redis \
+      || run docker run -d --name rag-redis --restart unless-stopped -p 6379:6379 \
+           -v rag_redis_data:/data redis:7-alpine redis-server --appendonly yes
+    if ! $DRY_RUN; then
+      # 既有容器可能由旧参数创建，运行时切换 AOF 并触发持久化配置落盘。
+      docker exec rag-redis redis-cli CONFIG SET appendonly yes >/dev/null
+      docker exec rag-redis redis-cli CONFIG REWRITE >/dev/null 2>&1 || true
+      REDIS_AOF_STATE="$(docker exec rag-redis redis-cli CONFIG GET appendonly | tail -1 | tr -d '\r')"
+      [ "$REDIS_AOF_STATE" = "yes" ] || die "d-数据服务Redis/MySQL/Milvus" "Redis AOF 未启用，请检查 rag-redis 配置"
+      log "d-数据服务Redis/MySQL/Milvus" "Redis AOF 已启用（appendonly yes）"
+    fi
+  fi
+
+  # ---- MySQL ----
+  # 口令从环境变量传入，绝不打印：MYSQL_ROOT_PASSWORD（必填）、MYSQL_APP_PASSWORD（必填）
+  if port_open 127.0.0.1 3306; then
+    log "d-数据服务Redis/MySQL/Milvus" "端口 3306 已有 MySQL 在跑（外部实例），跳过安装与建库（建库请自行执行第 f 步 SQL）"
+  else
+    if ! $DRY_RUN; then
+      : "${MYSQL_ROOT_PASSWORD:?请先 export MYSQL_ROOT_PASSWORD=<root口令> 再执行}"
+      : "${MYSQL_APP_PASSWORD:?请先 export MYSQL_APP_PASSWORD=<应用账号口令> 再执行}"
+    fi
+    log "d-数据服务Redis/MySQL/Milvus" "以 Docker 启动 MySQL 8（容器名 rag-mysql，口令经环境变量传入不打印）"
+    run docker inspect rag-mysql >/dev/null 2>&1 && run docker start rag-mysql \
+      || run env MYSQL_ROOT_PASSWORD="$MYSQL_ROOT_PASSWORD" docker run -d --name rag-mysql \
+           --restart unless-stopped -p 3306:3306 \
+           -e MYSQL_ROOT_PASSWORD -e MYSQL_DATABASE=legal_rag \
+           -e MYSQL_USER=legal_rag -e MYSQL_PASSWORD="$MYSQL_APP_PASSWORD" mysql:8.0
+    if ! $DRY_RUN; then
+      log "d-数据服务Redis/MySQL/Milvus" "等待 MySQL 就绪（首次初始化约 30 秒）"
+      for _ in $(seq 1 30); do
+        docker exec rag-mysql mysqladmin ping -uroot -p"$MYSQL_ROOT_PASSWORD" --silent 2>/dev/null && break
+        sleep 2
+      done
+      docker exec rag-mysql mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e \
+        "CREATE DATABASE IF NOT EXISTS legal_rag DEFAULT CHARACTER SET utf8mb4; CREATE USER IF NOT EXISTS 'legal_rag'@'%' IDENTIFIED BY '$MYSQL_APP_PASSWORD'; GRANT ALL PRIVILEGES ON legal_rag.* TO 'legal_rag'@'%'; FLUSH PRIVILEGES;" >/dev/null
+      log "d-数据服务Redis/MySQL/Milvus" "MySQL 建库 legal_rag 与账号 legal_rag 完成（幂等）"
+    else
+      printf "${C_YELLOW}[dry-run]%s 等待MySQL就绪 + 幂等建库建账号（真实执行需 export MYSQL_ROOT_PASSWORD / MYSQL_APP_PASSWORD）\n" ""
+    fi
+  fi
+
+  # ---- Milvus ----
+  if port_open 127.0.0.1 19530; then
+    log "d-数据服务Redis/MySQL/Milvus" "端口 19530 已有 Milvus 在跑（外部实例），跳过安装"
+  else
+    log "d-数据服务Redis/MySQL/Milvus" "以 Docker 启动 Milvus 2.4 standalone（容器名 rag-milvus，内嵌 etcd）"
+    run docker inspect rag-milvus >/dev/null 2>&1 && run docker start rag-milvus \
+      || run docker run -d --name rag-milvus --restart unless-stopped \
+           -p 19530:19530 -p 9091:9091 \
+           -v rag_milvus_data:/var/lib/milvus \
+           -e ETCD_USE_EMBED=true -e ETCD_DATA_DIR=/var/lib/milvus/etcd \
+           -e ETCD_CONFIG_PATH=/milvus/configs/embedEtcd.yaml \
+           -e COMMON_STORAGETYPE=local \
+           milvusdb/milvus:v2.4.15 milvus run standalone
+  fi
+fi
+
+# =============================================================================
+# 第 e 步：上传代码（archive / git 二选一）
+# =============================================================================
+step "e-上传代码"
+
+if [ -d "$INSTALL_DIR/backend" ] && [ -d "$INSTALL_DIR/frontend" ]; then
+  log "e-上传代码" "$INSTALL_DIR 已有代码，跳过（如需更新请先备份并清空该目录）"
+else
+  case "$RUN_METHOD" in
+    archive)
+      [ -n "$ARCHIVE_PATH" ] || die "e-上传代码" "--method archive 需同时给 --archive <本地 tar.gz/zip 路径>"
+      if [ ! -f "$ARCHIVE_PATH" ]; then
+        if $DRY_RUN; then
+          warn "e-上传代码" "压缩包不存在：$ARCHIVE_PATH（dry-run 继续演练，真实执行前请先上传）"
+        else
+          die "e-上传代码" "压缩包不存在：$ARCHIVE_PATH"
+        fi
+      fi
+      log "e-上传代码" "解压 $ARCHIVE_PATH 到 $INSTALL_DIR"
+      run mkdir -p "$INSTALL_DIR"
+      case "$ARCHIVE_PATH" in
+        *.tar.gz|*.tgz) run tar -xzf "$ARCHIVE_PATH" -C "$INSTALL_DIR" ;;
+        *.zip) run unzip -q "$ARCHIVE_PATH" -d "$INSTALL_DIR" ;;
+        *) die "e-上传代码" "不认识的压缩包格式（支持 tar.gz / zip）：$ARCHIVE_PATH" ;;
+      esac
+      ;;
+    git)
+      [ -n "$GIT_REPO" ] || die "e-上传代码" "--method git 需同时给 --repo <git-url>"
+      if [ -d "$INSTALL_DIR/.git" ]; then
+        log "e-上传代码" "$INSTALL_DIR 已是 git 仓库，拉取最新 $GIT_REF"
+        run git -C "$INSTALL_DIR" fetch --all
+        run git -C "$INSTALL_DIR" checkout "$GIT_REF"
+        run git -C "$INSTALL_DIR" pull origin "$GIT_REF"
+      else
+        log "e-上传代码" "git clone $GIT_REPO（分支 $GIT_REF）到 $INSTALL_DIR"
+        run git clone --branch "$GIT_REF" "$GIT_REPO" "$INSTALL_DIR"
+      fi
+      ;;
+    *) die "e-上传代码" "--method 只支持 archive | git" ;;
+  esac
+fi
+if ! $DRY_RUN; then
+  [ -f "$INSTALL_DIR/backend/requirements.txt" ] || die "e-上传代码" "解压/克隆后未见 $INSTALL_DIR/backend/requirements.txt，检查包内容"
+  if [ -f "$INSTALL_DIR/.env" ] || [ -f "$INSTALL_DIR/frontend/.env" ]; then
+    warn "e-上传代码" "交付目录发现 .env 文件：请立即移除并重新打包；真实密钥禁止随包上传"
+  fi
+fi
+
+# =============================================================================
+# 第 f 步：初始化数据库（建库建表 → 导入数据 → Milvus collection 与索引）
+# =============================================================================
+step "f-初始化数据库"
+
+ENV_FILE="$INSTALL_DIR/.env.production"
+if [ ! -f "$ENV_FILE" ]; then
+  if $DRY_RUN; then
+    warn "f-初始化数据库" "缺少 $ENV_FILE（dry-run 继续演练；真实执行前必须先放置生产配置）"
+  else
+    die "f-初始化数据库" "缺少 $ENV_FILE（生产环境配置必须先就位，占位符替换为真实值）。配置说明见 .env.production 头部注释"
+  fi
+fi
+if ! $DRY_RUN; then
+  grep -q "<" "$ENV_FILE" && die "f-初始化数据库" "$ENV_FILE 里还有 <...> 占位符未替换成真实值，先替换再初始化"
+fi
+
+# 导入与索引 CLI 经环境变量拿连接串；production 下 config.py 只认 .env.production
+# 注意：不用 source —— 值里的 <...> 占位符/特殊字符会被 shell 当重定向或展开，
+# 改为与 config.py 一致的逐行最小解析（KEY=VALUE、跳过注释与空行）
+run_load_env() {
+  if $DRY_RUN; then
+    printf "${C_YELLOW}[dry-run]%s 按最小解析加载 %s 的全部 KEY=VALUE 到环境变量\n" "" "$ENV_FILE"
+  else
+    local line key value
+    while IFS= read -r line || [ -n "$line" ]; do
+      line="${line%$'\r'}"
+      case "$line" in ''|\#*) continue ;; esac
+      case "$line" in *=*) ;; *) continue ;; esac
+      key="${line%%=*}"
+      value="${line#*=}"
+      export "$key=$value"
+    done < "$ENV_FILE"
+  fi
+}
+
+log "f-初始化数据库" "建表（SQLAlchemy create_all，随导入 CLI 自动执行）+ 导入法律数据包"
+run_load_env
+# CLI 用 python -m 方式运行，必须在 backend/ 目录下（包导入路径依赖）
+run bash -c "cd '$INSTALL_DIR/backend' && '$PY_BIN' -m app.cli.import_mysql --packages-root '$INSTALL_DIR/$PACKAGES_ROOT'"
+
+log "f-初始化数据库" "建 Milvus collection（--recreate-collection 幂等重建）并全量索引"
+run bash -c "cd '$INSTALL_DIR/backend' && '$PY_BIN' -m app.cli.index_legal_documents \
+  --recreate-collection --limit 100000 --embedding-batch-size 32"
+
+# =============================================================================
+# 第 g 步：创建管理员账号（须先注册该邮箱）
+# =============================================================================
+step "g-创建管理员账号"
+
+if [ -z "$ADMIN_EMAIL" ]; then
+  warn "g-创建管理员账号" "未提供 --admin-email，跳过。后续手动执行："
+  echo "    1) 先启动服务（./scripts/deploy/run.sh）并在页面 http://<host>:3000/register 注册账号"
+  echo "    2) cd $INSTALL_DIR/backend && $PY_BIN -m app.cli.create_admin --email <已注册邮箱>"
+else
+  log "g-创建管理员账号" "把已注册邮箱升级为管理员：$ADMIN_EMAIL"
+  run_load_env
+  run bash -c "cd '$INSTALL_DIR/backend' && '$PY_BIN' -m app.cli.create_admin --email '$ADMIN_EMAIL'"
+fi
+
+# =============================================================================
+# 收尾：打印下一步
+# =============================================================================
+step_no=$((step_no + 1))
+printf "${C_GREEN}[install] ===== 第 %s 步：完成。下一步该做什么 =====${C_OFF}\n" "$step_no"
+if $DRY_RUN; then
+  echo "  本次为 dry-run 演练，未做任何真实变更。真实安装：去掉 --dry-run 重跑。"
+fi
+echo "  1) 编辑 $ENV_FILE，把所有 <...> 占位符替换为真实值（密钥不外传、不入库）"
+echo "  2) 启动服务：   $INSTALL_DIR/scripts/deploy/run.sh"
+echo "  3) 注册首个账号：页面 http://<host>:3000/register 注册（生产需 SMTP 真发信）"
+echo "  4) 升级管理员：  cd $INSTALL_DIR/backend && $PY_BIN -m app.cli.create_admin --email <该邮箱>"
+echo "  5) 验收：       curl http://127.0.0.1:${BACKEND_PORT:-8001}/health/ready 与页面问答各一次"
+echo "  日志位置：$INSTALL_DIR/logs/（backend.log / frontend.log）"
+echo "  仅在真实 Ubuntu 上验证过的步骤之外，本脚本未做破坏性操作；重复执行安全（幂等）"

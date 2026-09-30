@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#234e44">
+  <title>律知 · 法律问答工作台</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23234e44'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-size='38' fill='white'%3E律%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-8 8H4l1.7-4A8 8 0 1 1 20 11.5Z"/><path d="M8 10h8M8 14h5"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v17M8 21h8M4 7l8-2 8 2M4 7l-3 7h6L4 7Zm16 0-3 7h6l-3-7ZM1 14c0 4 6 4 6 0m10 0c0 4 6 4 6 0"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 5v15M12 6C9 3 4 4 2 5v14c3-1 7-1 10 1 3-2 7-2 10-1V5c-2-1-7-2-10 1Z"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H5v20h14V7l-5-5Zm0 0v6h5M8 12h8M8 16h8"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></symbol>
+    <symbol id="i-out" viewBox="0 0 24 24"><path d="M14 3h7v7m0-7L10 14M10 3H4v17h17v-6"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V3H3v13h5"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3Z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 2 8 4v6c0 5-8 10-8 10S4 17 4 12V6l8-4Z"/><path d="m8 12 3 3 5-6"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 10a8 8 0 1 0-1 7M20 4v6h-6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  </svg>
+
+  <button id="backdrop" class="backdrop" aria-label="关闭侧栏" hidden></button>
+  <aside class="sidebar" aria-label="角色和会话">
+    <a class="brand" href="/" aria-label="律知首页"><span class="brand-mark">律</span><span><strong>律知<span class="brand-dot">.</span></strong><small>LEGAL INTELLIGENCE</small></span></a>
+    <button id="new-chat" class="new-chat"><svg><use href="#i-plus"/></svg>开启新对话<span>↗</span></button>
+    <div class="section-label">你的法律伙伴 <span>02</span></div>
+    <div class="role-list">
+      <button class="role-button active" data-role="1" aria-pressed="true"><span class="role-icon"><svg><use href="#i-scale"/></svg></span><span><strong>法律助手</strong><small>严谨分析 · 条文检索</small></span><i></i></button>
+      <button class="role-button" data-role="2" aria-pressed="false"><span class="role-icon"><svg><use href="#i-book"/></svg></span><span><strong>法学老师</strong><small>通俗讲解 · 案例学习</small></span><i></i></button>
+    </div>
+    <div class="history-heading section-label">最近对话 <svg><use href="#i-chat"/></svg></div>
+    <nav id="history" class="history" aria-label="最近对话"></nav>
+    <div class="sidebar-bottom">
+      <div class="memory-note"><svg><use href="#i-spark"/></svg><div><strong>让每一次交流，都有记忆</strong><p>保留当前上下文，连接相关旧对话。</p></div></div>
+      <button id="user-button" class="user-button" title="切换本地用户"><span id="avatar" class="avatar">U</span><span><strong id="user-name">user1</strong><small>本地个人工作台</small></span><svg><use href="#i-chevron"/></svg></button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="breadcrumb"><button id="menu-button" class="icon-button mobile-only" aria-label="打开会话菜单"><svg><use href="#i-menu"/></svg></button><span>工作台</span><span class="slash">/</span><strong>法律问答</strong><span class="beta">BETA</span></div>
+      <div class="topbar-actions"><span id="connection" class="connection"><i></i><span>检查服务中</span></span><button id="export-button" class="icon-button" title="导出当前对话" aria-label="导出当前对话"><svg><use href="#i-download"/></svg></button><button id="sources-toggle" class="icon-button panel-toggle" aria-label="查看参考资料"><svg><use href="#i-book"/></svg></button></div>
+    </header>
+
+    <div id="chat-scroll" class="chat-scroll">
+      <section id="welcome" class="welcome">
+        <div class="eyebrow"><span></span> 以法律为依据，让理解更清晰</div>
+        <div class="hero-heading"><h1>每一个法律问题，<br>都值得<span>有据可循。</span></h1><div class="hero-seal" aria-hidden="true"><svg><use href="#i-scale"/></svg><span>知 法 · 明 理</span></div></div>
+        <p id="welcome-description" class="welcome-description">我是你的法律助手。一起从条文出发，<br class="desktop-break">找到问题的依据，理清复杂的法律关系。</p>
+        <div class="capabilities"><span><svg><use href="#i-file"/></svg>基于原文回答</span><span><svg><use href="#i-book"/></svg>引用可追溯</span><span><svg><use href="#i-chat"/></svg>支持连续追问</span></div>
+        <div class="suggestion-heading"><span>从一个问题开始</span><small>试试这样问</small></div>
+        <div id="suggestions" class="suggestions">
+          <button data-question="正当防卫需要满足哪些条件？请结合条文说明。"><span class="suggestion-icon"><svg><use href="#i-shield"/></svg></span><span class="suggestion-tag">权利与边界</span><strong>怎样才算正当防卫？</strong><span class="suggestion-bottom">理解适用条件与法律边界<svg><use href="#i-arrow"/></svg></span></button>
+          <button data-question="盗窃罪与抢劫罪有什么区别？"><span class="suggestion-icon"><svg><use href="#i-scale"/></svg></span><span class="suggestion-tag">罪名辨析</span><strong>盗窃与抢劫，有何不同？</strong><span class="suggestion-bottom">对比犯罪构成与认定要点<svg><use href="#i-arrow"/></svg></span></button>
+          <button data-question="请解释什么是犯罪未遂，并举一个简单例子。"><span class="suggestion-icon"><svg><use href="#i-book"/></svg></span><span class="suggestion-tag">概念学习</span><strong>如何理解犯罪未遂？</strong><span class="suggestion-bottom">用一个例子读懂法律概念<svg><use href="#i-arrow"/></svg></span></button>
+          <button data-question="缓刑需要满足什么条件？哪些人不能适用缓刑？"><span class="suggestion-icon"><svg><use href="#i-file"/></svg></span><span class="suggestion-tag">条文检索</span><strong>哪些情形可以适用缓刑？</strong><span class="suggestion-bottom">查找适用条件与限制规定<svg><use href="#i-arrow"/></svg></span></button>
+        </div>
+      </section>
+      <section id="messages" class="messages" aria-label="对话内容" hidden></section>
+    </div>
+
+    <footer class="composer-area">
+      <form id="chat-form" class="composer">
+        <label for="question" class="sr-only">输入法律问题</label>
+        <textarea id="question" rows="2" maxlength="2000" placeholder="描述你的法律问题，或继续追问…"></textarea>
+        <div class="composer-bottom"><span class="composer-role"><svg><use href="#i-scale"/></svg><span id="composer-role">法律助手</span><span class="divider"></span><span id="knowledge-tag" class="knowledge-tag">法律知识库</span></span><div class="send-controls"><span id="char-count">0 / 2000</span><button id="send-button" type="submit" aria-label="发送问题" disabled><svg><use href="#i-up"/></svg></button></div></div>
+      </form>
+      <div class="composer-hint"><span>回答基于已上传资料，请结合原文核实。</span><span class="keyboard-hint">Enter 发送 <span>·</span> Shift + Enter 换行</span></div>
+    </footer>
+  </main>
+
+  <aside class="source-panel" aria-label="知识库和参考资料">
+    <div class="panel-heading"><span><svg><use href="#i-book"/></svg>参考资料</span><button id="close-sources" class="icon-button panel-toggle" aria-label="关闭参考资料"><svg><use href="#i-close"/></svg></button><span class="panel-heading-note">SOURCE</span></div>
+    <div class="panel-content">
+      <div class="section-label">当前知识库 <span id="dataset-label" class="tiny-label">资料</span></div>
+      <a id="document-link" class="document-card" href="/api/document" target="_blank" rel="noopener"><span class="pdf-icon"><svg><use href="#i-file"/></svg><small id="document-type">FILE</small></span><span class="document-info"><strong id="document-title">正在检查资料…</strong><span id="document-subtitle">单个文件或资料文件夹</span><small id="document-meta">正在检查知识库…</small></span><svg class="document-arrow"><use href="#i-out"/></svg></a>
+      <div class="source-title"><h2>本次参考</h2><span id="source-count">0</span></div>
+      <div id="sources" class="sources"><div class="empty-sources"><div class="empty-source-icon"><svg><use href="#i-file"/></svg></div><strong>答案有出处，理解有依据</strong><p>提问后，相关的资料原文<br>会出现在这里。</p><div class="empty-lines"><i></i><i></i><i></i></div></div></div>
+      <div class="reading-tip"><svg><use href="#i-spark"/></svg><p>点击引用位置，可以打开对应的原始文件；PDF 会跳转到所引页码。</p></div>
+    </div>
+    <div class="service-card"><div class="service-title"><strong>工作台状态</strong><button id="refresh-status" class="icon-button" aria-label="刷新服务状态" title="刷新服务状态"><svg><use href="#i-refresh"/></svg></button></div><div id="services" class="services"><span>正在检查本地连接…</span></div><p>新会话独立保存上下文；同一用户与角色共享长期记忆。</p></div>
+    <div class="panel-footer">律知 <span>·</span> 让法律知识触手可及</div>
+  </aside>
+
+  <dialog id="user-dialog"><form id="user-form"><div class="dialog-heading"><h2>切换本地用户</h2><button id="close-dialog" type="button" class="icon-button" aria-label="关闭"><svg><use href="#i-close"/></svg></button></div><p>不同用户的聊天记忆分别保存。此 ID 用于本机区分用户，并非登录验证。</p><label for="user-input">用户 ID</label><input id="user-input" required maxlength="32" pattern="[A-Za-z0-9_-]{1,32}" placeholder="例如 user1" autocomplete="off"><small>英文、数字、下划线或短横线，最多 32 位</small><button type="submit" class="dialog-submit">进入工作台 <svg><use href="#i-arrow"/></svg></button></form></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+</body>
+</html>

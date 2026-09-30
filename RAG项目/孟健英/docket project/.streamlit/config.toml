@@ -1,0 +1,15 @@
+[theme]
+base = "light"
+primaryColor = "#1565C0"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F5F8FC"
+textColor = "#1F2937"
+
+[browser]
+gatherUsageStats = false
+
+[server]
+# WSL 下 watchdog/inotify 兼容性差，轮询模式又会引发文件监听相关的进程问题，
+# 直接关掉文件监听（改代码后手动刷新即可）
+fileWatcherType = "none"
+headless = true

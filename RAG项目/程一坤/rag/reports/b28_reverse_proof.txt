@@ -1,0 +1,30 @@
+== 已临时退回旧实现（撤掉两处分级分支）==
+无引用的确定性结论：保留回答 + 追加警示，不发 replace。
+    
+        修正前该档落入 CitationError 分支 → 前端整段替换，好回答被丢弃。
+        """
+        tokens, context = run_stream(UNCITED_CONCLUSION_ANSWER)
+>       assert tokens == UNCITED_CONCLUSION_ANSWER + [
+            f"\n\n{UNCITED_CONCLUSION_WARNING}",
+            f"\n\n{DISCLAIMER}",
+        ]
+E       AssertionError: assert ['根据劳动合同法[1]，...单位必须提前三十日通知。'] == ['根据劳动合同法[1]，...律师出具的正式法律意见。']
+E         Right contains 2 more items, first extra item: '\n\n⚠️ 提示：本次回答有部分结论未标注引用，请以引用条目为准，未标注部分请对照法源清单或官方发布文本核实。'
+E         Use -v to get more diff
+
+backend\tests\test_chat_stream_service.py:128: AssertionError
+============================== warnings summary ===============================
+..\..\anaconda3\envs\rag\Lib\site-packages\jieba\_compat.py:18
+  C:\Users\92842\anaconda3\envs\rag\Lib\site-packages\jieba\_compat.py:18: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+    import pkg_resources
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend\tests\test_guardrail_graded.py::test_uncited_conclusion_keeps_answer_and_warns
+FAILED backend\tests\test_chat_stream_service.py::TestChatStream::test_uncited_conclusion_appends_warning_not_replace
+2 failed, 1 warning in 0.90s
+
+EXIT 1
+还原 service.py: 一致
+还原 streaming.py: 一致
+还原校验: 通过

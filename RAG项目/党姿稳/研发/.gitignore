@@ -1,0 +1,32 @@
+# 环境与密钥（务必不要提交）
+.env
+
+# 本地运行期数据
+storage/
+logs/
+models/
+deploy/
+*.log
+
+# 知识库原始文档与生成物
+data/legal/*.pdf
+data/medical/*.pdf
+data/english/*.pdf
+data/generated_pdfs/*.pdf
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# 评测产物
+eval_report.json
+eval_report.png
+
+# 编辑器
+.idea/
+.vscode/
+.DS_Store

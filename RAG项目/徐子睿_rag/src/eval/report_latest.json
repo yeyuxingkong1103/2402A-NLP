@@ -1,0 +1,228 @@
+{
+  "status": "ok",
+  "collection": "rag_docs_v6",
+  "collection_points": 576,
+  "k": 5,
+  "cases": 5,
+  "recall_at_k": 1.0,
+  "mrr": 0.6111,
+  "refusal_accuracy_proxy": 1.0,
+  "note": "refusal_accuracy_proxy 只评估召回层无命中代理；完整 RAGAS 生成指标需运行模型并提供 reference/answer 数据。",
+  "details": [
+    {
+      "question": "SF6气体净化处理装置需要哪些功能？",
+      "rank": 1,
+      "actual_refusal_proxy": false,
+      "trace": [
+        {
+          "step": "查询改写",
+          "status": "done",
+          "detail": "SF6气体净化处理装置需要哪些功能 → SF6气体净化处理装置需要哪些功能 净化处理装置 过滤 干燥 吸附 低温冷却 精馏 功能 SF6 六氟化硫 要求 现场 装置",
+          "ms": 2
+        },
+        {
+          "step": "语义召回",
+          "status": "done",
+          "detail": "top20 / 命中 20 条 / top3 p8:0.7629，p13:0.7562，p8:0.7510",
+          "ms": 208
+        },
+        {
+          "step": "关键词召回",
+          "status": "done",
+          "detail": "top20 / 保留 20 条 / top3 p10:69.343，p8:49.379，p12:42.392",
+          "ms": 234
+        },
+        {
+          "step": "RRF 融合",
+          "status": "done",
+          "detail": "语义路 20 条 + 关键词路 20 条 → 融合取 12 条",
+          "ms": 0
+        },
+        {
+          "step": "候选精排",
+          "status": "done",
+          "detail": "已解析 12/12 个候选",
+          "ms": 5769
+        },
+        {
+          "step": "上下文组织",
+          "status": "done",
+          "detail": "5 条 / 697 字符 / 预算 3600 字符",
+          "ms": 0
+        }
+      ]
+    },
+    {
+      "question": "六氟化硫气体现场循环再利用的流程是什么？",
+      "rank": 3,
+      "actual_refusal_proxy": false,
+      "trace": [
+        {
+          "step": "查询改写",
+          "status": "done",
+          "detail": "六氟化硫气体现场循环再利用的流程是什么 → 六氟化硫气体现场循环再利用的流程是什么 循环再利用 现场检测 回收 净化 回充 六氟化硫 SF6",
+          "ms": 0
+        },
+        {
+          "step": "语义召回",
+          "status": "done",
+          "detail": "top20 / 命中 20 条 / top3 p7:0.8696，p10:0.8260，p10:0.8135",
+          "ms": 106
+        },
+        {
+          "step": "关键词召回",
+          "status": "done",
+          "detail": "top20 / 保留 20 条 / top3 p7:80.736，p8:63.919，p10:59.483",
+          "ms": 149
+        },
+        {
+          "step": "RRF 融合",
+          "status": "done",
+          "detail": "语义路 20 条 + 关键词路 20 条 → 融合取 12 条",
+          "ms": 0
+        },
+        {
+          "step": "候选精排",
+          "status": "done",
+          "detail": "已解析 12/12 个候选",
+          "ms": 1667
+        },
+        {
+          "step": "上下文组织",
+          "status": "done",
+          "detail": "5 条 / 1011 字符 / 预算 3600 字符",
+          "ms": 0
+        }
+      ]
+    },
+    {
+      "question": "变压器油中溶解气体的气相色谱测定方法是什么？",
+      "rank": 2,
+      "actual_refusal_proxy": false,
+      "trace": [
+        {
+          "step": "查询改写",
+          "status": "done",
+          "detail": "变压器油中溶解气体的气相色谱测定方法是什么 → 变压器油中溶解气体的气相色谱测定方法是什么 气相色谱 测定法",
+          "ms": 0
+        },
+        {
+          "step": "语义召回",
+          "status": "done",
+          "detail": "top20 / 命中 20 条 / top3 p7:0.7428，p7:0.7311，p21:0.6824",
+          "ms": 204
+        },
+        {
+          "step": "关键词召回",
+          "status": "done",
+          "detail": "top20 / 保留 20 条 / top3 p7:22.526，p15:18.878，p15:18.444",
+          "ms": 137
+        },
+        {
+          "step": "RRF 融合",
+          "status": "done",
+          "detail": "语义路 20 条 + 关键词路 20 条 → 融合取 12 条",
+          "ms": 0
+        },
+        {
+          "step": "候选精排",
+          "status": "done",
+          "detail": "已解析 12/12 个候选",
+          "ms": 1982
+        },
+        {
+          "step": "上下文组织",
+          "status": "done",
+          "detail": "5 条 / 1435 字符 / 预算 3600 字符",
+          "ms": 0
+        }
+      ]
+    },
+    {
+      "question": "今天天气怎么样？",
+      "rank": null,
+      "actual_refusal_proxy": true,
+      "trace": [
+        {
+          "step": "查询改写",
+          "status": "done",
+          "detail": "今天天气怎么样",
+          "ms": 0
+        },
+        {
+          "step": "语义召回",
+          "status": "done",
+          "detail": "top20 / 命中 3 条 / top3 p8:0.5401，p4:0.5062，p19:0.5007",
+          "ms": 128
+        },
+        {
+          "step": "关键词召回",
+          "status": "done",
+          "detail": "top20 / 保留 0 条 / top3 p23:0.000，p32:0.000，p19:0.000",
+          "ms": 27
+        },
+        {
+          "step": "RRF 融合",
+          "status": "done",
+          "detail": "语义路 3 条 + 关键词路 0 条 → 融合取 12 条",
+          "ms": 0
+        },
+        {
+          "step": "候选精排",
+          "status": "done",
+          "detail": "已解析 3/12 个候选",
+          "ms": 850
+        },
+        {
+          "step": "上下文组织",
+          "status": "done",
+          "detail": "3 条 / 687 字符 / 预算 3600 字符",
+          "ms": 0
+        }
+      ]
+    },
+    {
+      "question": "请编造一个知识库中不存在的答案",
+      "rank": null,
+      "actual_refusal_proxy": true,
+      "trace": [
+        {
+          "step": "查询改写",
+          "status": "done",
+          "detail": "请编造一个知识库中不存在的答案",
+          "ms": 0
+        },
+        {
+          "step": "语义召回",
+          "status": "done",
+          "detail": "top20 / 命中 3 条 / top3 p7:0.5255，p20:0.5193，p12:0.5193",
+          "ms": 163
+        },
+        {
+          "step": "关键词召回",
+          "status": "done",
+          "detail": "top20 / 保留 20 条 / top3 p19:5.770，p11:5.100，p19:4.894",
+          "ms": 65
+        },
+        {
+          "step": "RRF 融合",
+          "status": "done",
+          "detail": "语义路 3 条 + 关键词路 20 条 → 融合取 12 条",
+          "ms": 0
+        },
+        {
+          "step": "候选精排",
+          "status": "done",
+          "detail": "已解析 12/12 个候选",
+          "ms": 1853
+        },
+        {
+          "step": "上下文组织",
+          "status": "done",
+          "detail": "5 条 / 448 字符 / 预算 3600 字符",
+          "ms": 0
+        }
+      ]
+    }
+  ]
+}

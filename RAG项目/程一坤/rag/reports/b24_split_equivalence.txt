@@ -1,0 +1,54 @@
+================================================================================================
+A. 源码逐字比较（旧文件 vs 新模块）
+================================================================================================
+  ✔ prepare_env                旧   611 字符 / 新   611 字符  所在模块=run_eval
+  ✔ normalize_article          旧   603 字符 / 新   603 字符  所在模块=legal_matching
+  ✔ canonical_title            旧   202 字符 / 新   202 字符  所在模块=legal_matching
+  ✔ title_matches              旧   220 字符 / 新   220 字符  所在模块=legal_matching
+  ✔ article_matches            旧   201 字符 / 新   201 字符  所在模块=legal_matching
+  ✔ refused_by_text            旧   257 字符 / 新   257 字符  所在模块=answer_judging
+  ✔ refusal_failure_reason     旧   413 字符 / 新   413 字符  所在模块=answer_judging
+  ✔ citation_audit             旧   445 字符 / 新   445 字符  所在模块=answer_judging
+  ✔ first_golden_rank          旧   484 字符 / 新   484 字符  所在模块=legal_matching
+  ✔ absent_violation           旧   446 字符 / 新   446 字符  所在模块=legal_matching
+  ✔ with_retry                 旧   494 字符 / 新   494 字符  所在模块=item_runner
+  ✔ run_item                   旧  3893 字符 / 新  3893 字符  所在模块=item_runner
+  ✔ summarize                  旧  3458 字符 / 新  3458 字符  所在模块=aggregate
+  ✔ worst_samples              旧  1499 字符 / 新  1499 字符  所在模块=aggregate
+  ✔ render_markdown            旧  2965 字符 / 新  2965 字符  所在模块=render_report
+  ✔ main                       旧  4856 字符 / 新  4856 字符  所在模块=run_eval
+
+  常量比较：
+    ✔ REFUSAL_PHRASES          长度 218 / 218  模块=answer_judging
+    ✔ CITATION_PATTERN         长度 26 / 26  模块=answer_judging
+    ✔ STATUTE_BASIS_PATTERNS   长度 194 / 194  模块=answer_judging
+    ✔ LAW_ALIASES              长度 319 / 319  模块=legal_matching
+
+================================================================================================
+B. 行为等价：用批次 23 全量 100 条的真实 payload 重放
+================================================================================================
+  重放来源：eval_20260921_142136_b23_full100.json（100 条明细）
+  summarize      逐字节一致 = True
+  worst_samples  逐字节一致 = True
+  render_markdown 逐字节一致 = True（5191 字符）
+  附加重放 eval_20260921_144515_b24_mt_on.json                  一致 = True
+  附加重放 eval_20260921_144942_b24_tail_on.json                一致 = True
+  附加重放 eval_20260921_145223_b24_tail_off.json               一致 = True
+  附加重放 eval_20260921_145507_b24_tail_on_r2.json             一致 = True
+  附加重放 eval_20260921_145737_b24_tail_off_r2.json            一致 = True
+  附加重放 eval_20260921_150017_b24_tail_on_r3.json             一致 = True
+
+================================================================================================
+C. 新入口可用性
+================================================================================================
+  --help 退出码 = 0
+  usage: run_eval.py [-h] [--eval-set EVAL_SET] [--output-dir OUTPUT_DIR]
+                     [--limit LIMIT] [--only ONLY] [--tag TAG]
+                     [--no-context-writeback]
+  
+  运行评测集，产出 JSON + Markdown 报告。
+  
+
+================================================================================================
+结论：源码/常量不一致项 = 无
+================================================================================================

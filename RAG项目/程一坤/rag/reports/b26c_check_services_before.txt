@@ -1,0 +1,30 @@
+### check_services BEFORE ###
+=== 服务健康自检 ===
+
+[1] Docker 容器
+✅ 容器 my-redis
+   Up 9 hours
+✅ 容器 milvus-standalone
+   Up 9 hours (healthy)
+
+[2] Redis
+✅ Redis ping（redis://127.0.0.1:6379/0）
+   PONG
+
+[3] MySQL
+✅ MySQL 连接（127.0.0.1:3306/legal_rag）
+   documents=11  document_chunks=1627  law_versions=11  document_versions=11
+
+[4] Milvus
+✅ Milvus 连接（127.0.0.1:19530）
+✅ 集合 legal_documents 存在
+✅ 向量数一致性
+   Milvus=1627 == MySQL.document_chunks=1627
+✅ 版本状态统计
+   approved=11   （approved=11，其它=0）
+
+[5] 外部 API —— 跳过（加 --with-api 才会真实调用，避免浪费额度）
+
+=== 结果 ===
+✅ 全部通过（退出码 0）
+exit=0

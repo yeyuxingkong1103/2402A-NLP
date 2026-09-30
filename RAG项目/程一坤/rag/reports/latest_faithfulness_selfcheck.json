@@ -1,0 +1,33 @@
+{
+  "selfcheck_at": "20260920_150256",
+  "all_below_0_6": true,
+  "records": [
+    {
+      "id": "selfcheck-01-编造法条",
+      "type": "selfcheck",
+      "score": 0.0,
+      "reason": "回答称产假不少于九十八天并引用[1]，但注入原文[1]为『不少于九十天』，且[2]的98天及难产加30天在注入原文中无据，两处结论均不被支持。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 463
+    },
+    {
+      "id": "selfcheck-02-条改写",
+      "type": "selfcheck",
+      "score": 0.0,
+      "reason": "法条原文为“不少于九十天”，回答称“不少于一百二十天”，数字不符；“产假期间不得降低工资”在原文中也无依据，两处结论均不被支持。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 437
+    },
+    {
+      "id": "selfcheck-03-超范围",
+      "type": "selfcheck",
+      "score": 0.5,
+      "reason": "试用期工资80%及最低工资标准的结论有法条原文支持，但“试用期最长十二个月、超过部分按转正工资计算”在注入法条中查无依据，属原文之外的断言，故2个结论中仅1个被支持。",
+      "skipped": false,
+      "skip_reason": "",
+      "prompt_chars": 526
+    }
+  ]
+}

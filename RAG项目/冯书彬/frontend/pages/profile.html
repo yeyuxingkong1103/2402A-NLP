@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人中心 - 法律客服助手</title>
+  <link rel="stylesheet" href="../css/common.css">
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar" aria-label="主导航">
+      <a class="brand" href="../index.html">法助 RAG</a>
+      <div class="nav-links">
+        <a href="./chat.html">智能咨询</a>
+        <a href="./knowledge-bases.html">知识库上传</a>
+        <a aria-current="page" href="./profile.html">个人中心</a>
+      </div>
+    </nav>
+
+    <section class="page-heading">
+      <p class="eyebrow">Profile</p>
+      <h1>个人中心</h1>
+      <p>本地演示用户为 guest-user，个人数据仅展示脱敏内容。</p>
+    </section>
+
+    <section class="dashboard-grid">
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Memory</p>
+            <h2>长期记忆</h2>
+          </div>
+          <label class="switch-row"><input id="memory-toggle" type="checkbox" checked>启用自动提取</label>
+        </div>
+        <section id="memory-list" class="memory-list"></section>
+      </section>
+
+      <section class="panel danger-panel">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Data Control</p>
+            <h2>数据控制</h2>
+          </div>
+        </div>
+        <p>可导出个人数据，也可注销演示账号数据。</p>
+        <div class="action-row">
+          <button class="button secondary" data-testid="export-button" id="export-button">申请数据导出</button>
+          <button class="button danger" data-testid="delete-account-button" id="delete-account-button">注销账号</button>
+        </div>
+        <p id="profile-status" class="status-text" role="status"></p>
+      </section>
+    </section>
+  </main>
+  <script type="module" src="../js/pages/profile.js"></script>
+</body>
+</html>

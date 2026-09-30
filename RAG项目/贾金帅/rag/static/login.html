@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="知药 · 药品知识图谱助手登录" />
+    <title>登录 · 知药医疗助手</title>
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body class="auth-page">
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <main class="auth-panel">
+      <section class="auth-brand-side">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <path d="M24 7v34M7 24h34" />
+              <circle cx="24" cy="7" r="3" />
+              <circle cx="41" cy="24" r="3" />
+              <circle cx="24" cy="41" r="3" />
+              <circle cx="7" cy="24" r="3" />
+            </svg>
+          </span>
+          <span>
+            <strong>知药</strong>
+            <small>药品知识图谱助手</small>
+          </span>
+        </div>
+
+        <div class="auth-brand-hero">
+          <div class="eyebrow"><span></span> GRAPHRAG × NEO4J</div>
+          <h2>让每一次用药问答，<br />都有<em>图谱依据</em></h2>
+          <p>登录后即可查询药品适应症、成分、规格、用法、禁忌及生产企业，三路检索融合，由大模型生成循证回答。</p>
+
+          <div class="auth-feature-list">
+            <div class="auth-feature blue">
+              <span class="auth-f-icon">结</span>
+              <strong>结构化检索</strong>
+              <small>药品字段精确匹配</small>
+            </div>
+            <div class="auth-feature violet">
+              <span class="auth-f-icon">图</span>
+              <strong>知识图谱</strong>
+              <small>疾病-药品多跳推理</small>
+            </div>
+            <div class="auth-feature teal">
+              <span class="auth-f-icon">量</span>
+              <strong>向量语义</strong>
+              <small>模糊问法语义召回</small>
+            </div>
+          </div>
+        </div>
+
+        <p class="auth-brand-foot">NMPA 药品数据 · OTC 说明书 · 医保目录</p>
+      </section>
+
+      <section class="auth-form-side">
+        <div class="auth-mode-tabs" role="tablist" aria-label="登录或注册">
+          <button class="auth-tab active" id="tabLogin" type="button" role="tab" aria-selected="true">登录</button>
+          <button class="auth-tab" id="tabRegister" type="button" role="tab" aria-selected="false">注册</button>
+        </div>
+
+        <h3 id="authTitle">欢迎回来</h3>
+        <p class="auth-sub" id="authSub">登录以继续使用知药医疗助手</p>
+
+        <p class="auth-error" id="authError" hidden></p>
+
+        <form id="authForm" novalidate>
+          <div class="auth-field">
+            <label for="authUsername">账号 / 手机号</label>
+            <div class="auth-input-wrap">
+              <span class="auth-lead" aria-hidden="true">👤</span>
+              <input
+                id="authUsername"
+                type="text"
+                placeholder="请输入账号或手机号"
+                autocomplete="username"
+                maxlength="32"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="auth-field">
+            <label for="authPassword">密码</label>
+            <div class="auth-input-wrap">
+              <span class="auth-lead" aria-hidden="true">🔒</span>
+              <input
+                id="authPassword"
+                type="password"
+                placeholder="请输入密码"
+                autocomplete="current-password"
+                maxlength="64"
+                required
+              />
+              <button type="button" class="auth-tail" id="togglePassword">显示</button>
+            </div>
+          </div>
+
+          <div class="auth-field" id="confirmField" hidden>
+            <label for="authConfirm">确认密码</label>
+            <div class="auth-input-wrap">
+              <span class="auth-lead" aria-hidden="true">🔐</span>
+              <input
+                id="authConfirm"
+                type="password"
+                placeholder="请再次输入密码"
+                autocomplete="new-password"
+                maxlength="64"
+              />
+            </div>
+          </div>
+
+          <div class="auth-options" id="loginOptions">
+            <label class="auth-remember">
+              <input id="rememberMe" type="checkbox" checked />
+              记住我
+            </label>
+            <a class="auth-link" href="#" id="forgotLink">忘记密码？</a>
+          </div>
+
+          <button class="auth-btn" id="authSubmit" type="submit">登 录</button>
+        </form>
+
+        <div class="auth-divider">或</div>
+
+        <p class="auth-switch-row" id="switchRow">
+          还没有账号？<a class="auth-link" href="#" id="switchLink">立即注册</a>
+        </p>
+        <p class="auth-demo-hint">演示账号：admin ／ 123456（首次启动自动创建）</p>
+      </section>
+    </main>
+
+    <script>
+      "use strict";
+
+      const AUTH_TOKEN_KEY = "medrag_token";
+      const AUTH_USER_KEY = "medrag_user";
+
+      const form = document.getElementById("authForm");
+      const usernameInput = document.getElementById("authUsername");
+      const passwordInput = document.getElementById("authPassword");
+      const confirmField = document.getElementById("confirmField");
+      const confirmInput = document.getElementById("authConfirm");
+      const loginOptions = document.getElementById("loginOptions");
+      const submitBtn = document.getElementById("authSubmit");
+      const titleEl = document.getElementById("authTitle");
+      const subEl = document.getElementById("authSub");
+      const errorEl = document.getElementById("authError");
+      const tabLogin = document.getElementById("tabLogin");
+      const tabRegister = document.getElementById("tabRegister");
+      const switchRow = document.getElementById("switchRow");
+      const switchLink = document.getElementById("switchLink");
+      const togglePassword = document.getElementById("togglePassword");
+      const rememberMe = document.getElementById("rememberMe");
+      const forgotLink = document.getElementById("forgotLink");
+
+      let mode = "login";
+
+      function getToken() {
+        try {
+          return localStorage.getItem(AUTH_TOKEN_KEY) || "";
+        } catch (_) {
+          return "";
+        }
+      }
+
+      function setMode(next) {
+        mode = next;
+        const isRegister = mode === "register";
+        tabLogin.classList.toggle("active", !isRegister);
+        tabRegister.classList.toggle("active", isRegister);
+        tabLogin.setAttribute("aria-selected", String(!isRegister));
+        tabRegister.setAttribute("aria-selected", String(isRegister));
+        titleEl.textContent = isRegister ? "创建账号" : "欢迎回来";
+        subEl.textContent = isRegister ? "注册后即可使用知药医疗助手" : "登录以继续使用知药医疗助手";
+        confirmField.hidden = !isRegister;
+        loginOptions.hidden = isRegister;
+        switchRow.innerHTML = isRegister
+          ? '已有账号？<a class="auth-link" href="#" id="switchLink">去登录</a>'
+          : '还没有账号？<a class="auth-link" href="#" id="switchLink">立即注册</a>';
+        document.getElementById("switchLink").addEventListener("click", (e) => {
+          e.preventDefault();
+          setMode(isRegister ? "login" : "register");
+        });
+        submitBtn.textContent = isRegister ? "注 册" : "登 录";
+        passwordInput.setAttribute("autocomplete", isRegister ? "new-password" : "current-password");
+        confirmInput.required = isRegister;
+        errorEl.hidden = true;
+        usernameInput.focus();
+      }
+
+      function showError(message) {
+        errorEl.textContent = message;
+        errorEl.hidden = false;
+      }
+
+      function saveAuth(token, user) {
+        try {
+          localStorage.setItem(AUTH_TOKEN_KEY, token);
+          localStorage.setItem(AUTH_USER_KEY, JSON.stringify(user));
+        } catch (_) {
+          // Storage may be disabled; the page still works for this visit.
+        }
+      }
+
+      async function submitAuth(event) {
+        event.preventDefault();
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value;
+        errorEl.hidden = true;
+
+        if (!username || !password) {
+          showError("请输入账号和密码");
+          return;
+        }
+        if (mode === "register") {
+          if (password !== confirmInput.value) {
+            showError("两次输入的密码不一致");
+            return;
+          }
+          if (password.length < 6) {
+            showError("密码长度至少 6 位");
+            return;
+          }
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = mode === "register" ? "注册中…" : "登录中…";
+        try {
+          const response = await fetch(
+            mode === "register" ? "/api/auth/register" : "/api/auth/login",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ username, password }),
+            }
+          );
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok) {
+            throw new Error(data.detail || "操作失败，请稍后再试");
+          }
+          saveAuth(data.token, data.user);
+          if (mode === "login" && rememberMe.checked) {
+            try {
+              localStorage.setItem("medrag_remember", "1");
+            } catch (_) {}
+          }
+          window.location.href = "/";
+        } catch (error) {
+          showError(error.message || "网络异常，请稍后再试");
+          submitBtn.disabled = false;
+          submitBtn.textContent = mode === "register" ? "注 册" : "登 录";
+        }
+      }
+
+      form.addEventListener("submit", submitAuth);
+      tabLogin.addEventListener("click", () => setMode("login"));
+      tabRegister.addEventListener("click", () => setMode("register"));
+      togglePassword.addEventListener("click", () => {
+        const visible = passwordInput.type === "text";
+        passwordInput.type = visible ? "password" : "text";
+        togglePassword.textContent = visible ? "显示" : "隐藏";
+      });
+      forgotLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        showError("忘记密码请联系管理员重置");
+      });
+
+      // 已登录（服务端 Cookie 有效）时直接进入主页面
+      fetch("/api/auth/me")
+        .then((res) => {
+          if (res.ok) window.location.href = "/";
+        })
+        .catch(() => {});
+
+      usernameInput.focus();
+    </script>
+  </body>
+</html>

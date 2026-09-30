@@ -1,0 +1,22 @@
+# 依赖与构建产物
+node_modules/
+.next/
+out/
+build/
+
+# 环境变量（含后端地址，本地配置不入库）
+.env
+.env.local
+.env.*.local
+
+# Next.js 生成的类型声明
+next-env.d.ts
+
+# 日志与系统文件
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# TypeScript 增量构建信息
+*.tsbuildinfo

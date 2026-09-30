@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAG 角色扮演系统</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- 顶部导航 -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="logo">
+      <span class="logo-icon">R</span>
+      <span class="logo-text">RAG 系统</span>
+    </div>
+    <div class="topbar-controls">
+      <select id="roleSelect" class="select-control"></select>
+      <div class="divider"></div>
+      <span class="status-dot" id="statusDot"></span>
+      <span class="status-text" id="statusText">连接中</span>
+    </div>
+  </div>
+</header>
+
+<!-- 聊天主体 -->
+<main class="chat-main">
+  <div class="chat-container" id="chatContainer">
+
+    <!-- 欢迎页（无消息时显示） -->
+    <div class="welcome-screen" id="welcomeScreen">
+      <div class="welcome-icon">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="32" r="30" stroke="#5b6af5" stroke-width="2"/>
+          <path d="M20 24h24M20 32h24M20 40h16" stroke="#5b6af5" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h1>有什么可以帮你的？</h1>
+      <p id="welcomeSubtitle">选择角色后开始提问，系统会从知识库检索相关内容</p>
+      <div class="suggestion-cards" id="suggestionCards">
+        <!-- 动态生成 -->
+      </div>
+    </div>
+
+    <!-- 消息列表 -->
+    <div class="messages" id="messages"></div>
+
+  </div>
+</main>
+
+<!-- 底部输入区 -->
+<footer class="input-footer">
+  <div class="input-container">
+    <div class="input-wrapper">
+      <textarea id="userInput" placeholder="给角色提个问题..." rows="1"></textarea>
+      <button id="sendBtn" class="send-btn" disabled>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M10 4v12M4 10l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="input-meta">
+      <label class="meta-item">用户ID <input type="number" id="userId" value="1" min="1" class="meta-input"></label>
+      <label class="meta-item">引用 <input type="number" id="topK" value="5" min="1" max="20" class="meta-input"></label>
+      <button id="clearBtn" class="meta-btn">清空记忆</button>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js?v=2"></script>
+</body>
+</html>
