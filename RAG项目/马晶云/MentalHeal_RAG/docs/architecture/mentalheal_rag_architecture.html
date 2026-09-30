@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MentalHeal RAG 系统详细架构图</title>
+<style>
+  :root { --ink:#263b34; --muted:#6c8177; --line:#78988a; --blue:#e6f2ff; --blue-border:#82add2; --green:#e5f7ef; --green-border:#78bea0; --orange:#fff1d9; --orange-border:#e3ae61; --rose:#ffe8e8; --rose-border:#df9292; --violet:#eeeaff; --violet-border:#a69ad8; --white:#fff; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:28px; color:var(--ink); background:#f7f9f8; font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Arial,sans-serif; }
+  .page { width:1500px; margin:0 auto; padding:34px 38px 42px; background:#fff; box-shadow:0 8px 35px #29483a18; }
+  h1 { margin:0 0 8px; font-size:30px; letter-spacing:.02em; }
+  .subtitle { margin:0 0 28px; color:var(--muted); font-size:15px; }
+  .legend { display:flex; gap:22px; margin:0 0 22px; color:#60756b; font-size:13px; }
+  .legend span { display:flex; align-items:center; gap:7px; }
+  .dot { width:14px; height:14px; border:1px solid; border-radius:4px; display:inline-block; }
+  .dot.online { background:var(--blue); border-color:var(--blue-border); }
+  .dot.offline { background:var(--green); border-color:var(--green-border); }
+  .dot.ai { background:var(--rose); border-color:var(--rose-border); }
+  .dot.data { background:var(--violet); border-color:var(--violet-border); }
+  .canvas { display:grid; grid-template-columns: 660px 88px 660px; align-items:start; }
+  .column { display:flex; flex-direction:column; gap:12px; }
+  .column-title { padding:13px 18px; border-radius:12px; font-size:20px; font-weight:800; }
+  .online-title { color:#21577c; background:#dceeff; border:1px solid var(--blue-border); }
+  .offline-title { color:#216b4c; background:#dcf4e8; border:1px solid var(--green-border); }
+  .box { position:relative; padding:15px 16px; border:1px solid; border-radius:13px; }
+  .blue { background:var(--blue); border-color:var(--blue-border); }
+  .green { background:var(--green); border-color:var(--green-border); }
+  .orange { background:var(--orange); border-color:var(--orange-border); }
+  .rose { background:var(--rose); border-color:var(--rose-border); }
+  .violet { background:var(--violet); border-color:var(--violet-border); }
+  .box h2 { margin:0 0 11px; font-size:18px; }
+  .box p { margin:9px 0 0; color:#61766c; font-size:12px; line-height:1.6; }
+  .badges { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .badge { min-height:40px; display:flex; align-items:center; justify-content:center; padding:8px 7px; text-align:center; color:#275a7f; background:#c9e2fb; border:1px solid #8bb7df; border-radius:8px; font-size:13px; }
+  .green .badge { color:#21664a; background:#bdebd6; border-color:#80c9aa; }
+  .orange .badge { color:#825421; background:#ffd07e; border-color:#e7b15d; }
+  .rose .badge { color:#8d3e48; background:#ffc0c0; border-color:#e39a9a; }
+  .violet .badge { color:#5a4d8b; background:#d9d1fa; border-color:#aba0df; }
+  .flow { min-height:100%; display:flex; align-items:center; justify-content:center; color:#6c8b7d; font-size:14px; writing-mode:vertical-rl; }
+  .arrow { position:relative; display:block; width:2px; height:54px; margin:0 auto 7px; background:#7d9b8d; }
+  .arrow:after { content:""; position:absolute; left:-5px; bottom:-1px; border-left:6px solid transparent; border-right:6px solid transparent; border-top:10px solid #7d9b8d; }
+  .flow-label { padding:8px 5px; text-align:center; writing-mode:horizontal-tb; }
+  .split { display:grid; grid-template-columns:1fr 1fr; gap:11px; }
+  .split .box { min-height:104px; }
+  .mini-flow { display:flex; align-items:center; justify-content:center; gap:8px; color:#719084; font-size:20px; }
+  .mini-flow span { color:#668579; font-size:12px; }
+  .storage { margin-top:22px; }
+  .storage h2 { margin-bottom:14px; }
+  .storage-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+  .storage-item { padding:13px 10px; text-align:center; border:1px solid var(--violet-border); border-radius:9px; color:#574c89; background:#e8e3ff; }
+  .storage-item b { display:block; margin-bottom:5px; font-size:15px; }
+  .storage-item small { color:#756ba0; font-size:11px; line-height:1.5; }
+  .deploy { margin-top:22px; padding:16px 18px; border:1px dashed #9bb3a8; border-radius:12px; background:#fbfdfc; }
+  .deploy h2 { margin:0 0 10px; font-size:17px; }
+  .deploy-flow { display:flex; align-items:center; justify-content:space-between; gap:8px; color:#496c5b; font-size:13px; }
+  .deploy-flow b { padding:9px 13px; background:#eef7f1; border:1px solid #c2ddcc; border-radius:8px; white-space:nowrap; }
+  .deploy-flow i { color:#8ca397; font-style:normal; font-size:18px; }
+  .notes { margin-top:22px; padding-top:15px; border-top:1px solid #e4ece7; color:#74867d; font-size:12px; line-height:1.8; }
+  .notes b { color:#4c695a; }
+  @media print { body { padding:0; background:#fff; } .page { width:1500px; box-shadow:none; } }
+</style>
+</head>
+<body>
+<main class="page">
+  <h1>MentalHeal RAG 心理健康陪伴系统详细架构图</h1>
+  <p class="subtitle">在线问答链路 + 离线知识库处理链路｜Vue 3 + Vite · FastAPI · MySQL · Redis · Milvus · DeepSeek</p>
+  <div class="legend">
+    <span><i class="dot online"></i>在线问答链路</span>
+    <span><i class="dot offline"></i>离线知识库链路</span>
+    <span><i class="dot ai"></i>模型与生成</span>
+    <span><i class="dot data"></i>数据存储与基础设施</span>
+  </div>
+
+  <section class="canvas">
+    <section class="column">
+      <div class="column-title online-title">在线问答链路 · Online RAG</div>
+      <div class="box blue">
+        <h2>用户端 · Vue 3 + Vite</h2>
+        <div class="badges"><div class="badge">登录 / 注册</div><div class="badge">心理健康聊天页</div><div class="badge">历史会话</div></div>
+        <div class="badges" style="margin-top:8px"><div class="badge" style="grid-column:1 / span 2">流式回答展示 · SSE</div><div class="badge">引用来源面板</div></div>
+      </div>
+      <div class="mini-flow">↓ <span>POST /api/v1/chat/stream</span></div>
+      <div class="box blue">
+        <h2>接口层 · FastAPI</h2>
+        <div class="badges"><div class="badge">认证 / CORS</div><div class="badge">聊天接口</div><div class="badge">历史 / 角色接口</div></div>
+        <p>接收问题、校验身份、返回 SSE 事件：session · progress · sources · delta · done</p>
+      </div>
+      <div class="mini-flow">↓ <span>进入 ChatService 编排</span></div>
+      <div class="box orange">
+        <h2>业务编排层 · ChatService</h2>
+        <div class="badges"><div class="badge">读取会话历史</div><div class="badge">选择心理健康角色</div><div class="badge">保存问答记录</div></div>
+        <p>统一串联：安全检测 → 读取缓存 → 知识检索 → DeepSeek 生成 → 保存结果</p>
+      </div>
+      <div class="mini-flow">↓ <span>安全优先分流</span></div>
+      <div class="box rose">
+        <h2>安全策略 · Safety</h2>
+        <div class="badges"><div class="badge">自伤 / 自杀检测</div><div class="badge">固定危机响应</div><div class="badge">非诊断边界</div></div>
+        <p>高风险问题优先给出安全提醒，不进入普通生成链路。</p>
+      </div>
+      <div class="mini-flow">↓ <span>普通问题进入混合检索</span></div>
+      <div class="box blue">
+        <h2>RAG 检索 · KnowledgeRetriever</h2>
+        <div class="split">
+          <div class="box blue"><h2>语义检索</h2><div class="badges"><div class="badge">BGE-m3 向量</div><div class="badge">Milvus Top-K</div></div></div>
+          <div class="box blue"><h2>词法检索</h2><div class="badges"><div class="badge">BM25</div><div class="badge">中文关键词</div></div></div>
+        </div>
+        <div class="mini-flow" style="margin:10px 0">↓ <span>快速筛选候选 → CPU BGE-reranker 精排 → 去重 / Top-K</span></div>
+        <div class="badges"><div class="badge">向量分数</div><div class="badge">BM25 分数</div><div class="badge">词面匹配</div></div>
+      </div>
+      <div class="mini-flow">↓ <span>上下文 + 历史 + 角色指令</span></div>
+      <div class="box rose">
+        <h2>生成层 · DeepSeek</h2>
+        <div class="badges"><div class="badge">系统提示词</div><div class="badge">参考资料</div><div class="badge">流式生成</div></div>
+        <p>通过 DeepSeek API 生成简体中文、温和且有边界的心理健康科普回答。</p>
+      </div>
+      <div class="mini-flow">↓ <span>写回会话并返回前端</span></div>
+    </section>
+
+    <div class="flow"><span class="arrow"></span><div class="flow-label">在线请求<br>调用<br>数据层</div><span class="arrow"></span></div>
+
+    <section class="column">
+      <div class="column-title offline-title">离线知识库链路 · Knowledge Ingestion</div>
+      <div class="box green">
+        <h2>原始资料 · data/raw/</h2>
+        <div class="badges"><div class="badge">心理健康 PDF</div><div class="badge">指南 / 科普资料</div><div class="badge">本地上传文件</div></div>
+      </div>
+      <div class="mini-flow">↓ <span>文档导入任务</span></div>
+      <div class="box green">
+        <h2>解析与 OCR · ingestion/</h2>
+        <div class="badges"><div class="badge">MinerU Cloud</div><div class="badge">PDF 页面解析</div><div class="badge">OCR / 图片文字</div></div>
+        <p>按页提取文本，保留文档 ID、来源文件和页码元数据。</p>
+      </div>
+      <div class="mini-flow">↓ <span>清洗、标准化、分块</span></div>
+      <div class="box green">
+        <h2>文本处理 · cleaning / chunking</h2>
+        <div class="badges"><div class="badge">去噪与清洗</div><div class="badge">1200 字分块</div><div class="badge">160 字重叠</div></div>
+        <p>生成可追溯 chunk：chunk_id、document_id、页码、标题、正文和元数据。</p>
+      </div>
+      <div class="mini-flow">↓ <span>离线向量化</span></div>
+      <div class="box green">
+        <h2>Embedding · BGE-m3</h2>
+        <div class="badges"><div class="badge">1024 维向量</div><div class="badge">批量编码</div><div class="badge">归一化向量</div></div>
+      </div>
+      <div class="mini-flow">↓ <span>写入结构化库与向量库</span></div>
+      <div class="split">
+        <div class="box violet"><h2>MySQL</h2><div class="badges"><div class="badge">文档元数据</div><div class="badge">KnowledgeChunk</div></div></div>
+        <div class="box violet"><h2>Milvus</h2><div class="badges"><div class="badge">knowledge_chunks</div><div class="badge">HNSW / COSINE</div></div></div>
+      </div>
+      <div class="box green">
+        <h2>离线链路的作用</h2>
+        <p>提前完成解析、清洗、分块和向量化；在线问答只需检索已入库内容，减少实时处理耗时，并保证回答可以展示来源页码。</p>
+      </div>
+    </section>
+  </section>
+
+  <section class="box violet storage">
+    <h2>数据与基础设施层</h2>
+    <div class="storage-grid">
+      <div class="storage-item"><b>MySQL</b><small>用户、角色、会话、消息、文档、评测记录</small></div>
+      <div class="storage-item"><b>Redis</b><small>短期聊天记忆、查询缓存、任务状态</small></div>
+      <div class="storage-item"><b>Milvus</b><small>知识库向量与语义检索</small></div>
+      <div class="storage-item"><b>Docker</b><small>Milvus / etcd / MinIO 运行环境</small></div>
+    </div>
+  </section>
+
+  <section class="deploy">
+    <h2>本地开发部署链路</h2>
+    <div class="deploy-flow"><b>浏览器</b><i>→</i><b>Vite :5173</b><i>→</i><b>FastAPI :8000</b><i>→</i><b>MySQL / Redis / Milvus</b><i>→</i><b>DeepSeek API</b></div>
+  </section>
+
+  <div class="notes"><b>关键设计说明：</b>在线链路采用 SSE 流式输出；普通问题使用 Milvus 向量检索 + BM25 词法检索 + BGE-reranker 精排；高风险心理危机表达由安全策略优先拦截；知识库通过离线 ingestion 管道预处理，避免在线解析 PDF。</div>
+</main>
+</body>
+</html>
