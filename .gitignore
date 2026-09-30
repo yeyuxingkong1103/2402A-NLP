@@ -1,26 +1,25 @@
-HEAD
-# 临时与缓存
+# Python
 __pycache__/
 *.py[cod]
-.env
-logs/
-data_cache/
-.pytest_cache/
-.idea/
-.vscode/
-
-__pycache__/
 *.pyc
 .venv/
 venv/
-.idea/
-.vscode/
-.env
-data/
-logs/
 conda_packages/
 
-# ---- 体积大 / 可重建的运行数据，不上传 ----
+# 环境变量与配置
+.env
+
+# 日志与缓存
+logs/
+data_cache/
+.pytest_cache/
+
+# IDE
+.idea/
+.vscode/
+
+# 体积大 / 可重建的运行数据
+data/
 **/qdrant_storage/
 **/node_modules/
 **/frontend/dist/
@@ -28,4 +27,3 @@ conda_packages/
 **/tools/redis/
 **/.mimosa/
 **/.superpowers/
- 716aa225a446156552b55e053ef8fbc452ff5818
