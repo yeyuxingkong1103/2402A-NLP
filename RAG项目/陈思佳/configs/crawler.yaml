@@ -1,0 +1,119 @@
+crawler:
+  seed_urls:
+    - "https://www.moe.gov.cn/srcsite/A26/s8001/202204/t20220420_619921.html"
+  allowed_domains:
+    - "www.moe.gov.cn"
+    - "moe.gov.cn"
+  max_pages: 3
+  request_timeout_seconds: 20
+  delay_seconds: 1
+  user_agent: "EducationRAGBot/0.1 (+for educational RAG research; contact: teacher@example.com)"
+  output_dir: "data/raw"
+  follow_links: false
+  download_file_types:
+    - ".pdf"
+    - ".docx"
+    - ".doc"
+  allowed_file_urls:
+    - "https://www.moe.gov.cn/srcsite/A26/s8001/202204/W020220420582344386456.pdf"
+    - "https://www.moe.gov.cn/srcsite/A26/s8001/202204/W020220420582355009892.pdf"
+    - "https://www.moe.gov.cn/srcsite/A26/s8001/202204/W020220420582349487953.pdf"
+    - "https://www.moe.gov.cn/srcsite/A26/s8001/202204/W020220420582345700037.pdf"
+    - "https://www.moe.gov.cn/srcsite/A26/s8001/202204/W020220420582353002089.pdf"
+    - "https://www.moe.gov.cn/srcsite/A26/s8001/202204/W020220420582343217634.pdf"
+    - "https://www.moe.gov.cn/srcsite/A26/s8001/202204/W020220420582343475848.pdf"
+    - "https://www.moe.gov.cn/srcsite/A26/s8001/202204/W020220420582357585169.pdf"
+    - "https://www.moe.gov.cn/srcsite/A26/s8001/202204/W020230605524875861384.pdf"
+    - "https://www.moe.gov.cn/srcsite/A26/s8001/202204/W020220420582359998122.pdf"
+    - "https://www.moe.gov.cn/srcsite/A26/s8001/202204/W020220420582361024968.pdf"
+
+mineru:
+  enabled: true
+  api_url: "https://mineru.net"
+  api_key: ""  # 优先读取环境变量 MINERU_API_KEY，不建议把密钥写入配置文件
+  timeout_seconds: 1800
+  upload_field: "file"
+  extra_form:
+    model_version: "pipeline"
+    is_ocr: true
+    enable_formula: true
+    enable_table: true
+    language: "ch"
+  response_text_fields:
+    - "markdown"
+    - "text"
+    - "content"
+    - "data.markdown"
+    - "data.text"
+  parsed_output_dir: "data/parsed"
+  artifact_output_dir: "data/mineru"
+
+chunking:
+  chunk_size: 900
+  chunk_overlap: 120
+  min_chunk_chars: 80
+  output_path: "data/chunks/document_chunks.jsonl"
+
+embedding:
+  provider: "sentence_transformers"
+  model_name: "D:/lyw/人工智能/专高6/薛杰/bge-m3"
+  device: "cpu"
+  batch_size: 8
+  normalize_embeddings: true
+  max_seq_length: 8192
+
+milvus:
+  uri: "http://localhost:19530"
+  token: ""  # 如使用 Milvus Cloud，建议通过环境变量 MILVUS_TOKEN 设置
+  collection_name: "edu_rag_teacher_chunks"
+  vector_dim: 1024
+  drop_existing: false
+  metric_type: "COSINE"
+  index_type: "HNSW"
+  index_params:
+    M: 16
+    efConstruction: 200
+  search_params:
+    ef: 64
+
+qa:
+  provider: "dashscope"
+  api_key: ""  # 优先读取环境变量 DASHSCOPE_API_KEY，不建议把密钥写入配置文件
+  base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+  model: "qwen-plus"
+  temperature: 0.2
+  top_k: 5
+  max_context_chars: 6000
+  timeout_seconds: 120
+
+hybrid_search:
+  enabled: true
+  keyword_top_k: 20
+  candidate_multiplier: 4
+  rrf_k: 60
+  vector_weight: 1.0
+  keyword_weight: 1.0
+
+rerank:
+  enabled: false
+  model_name: "BAAI/bge-reranker-v2-m3"
+  device: "cpu"
+  batch_size: 16
+  max_candidates: 20
+
+memory:
+  redis_url: "redis://localhost:6379/0"
+  namespace: "edu_rag"
+  recent_message_limit: 12
+  session_ttl_seconds: 604800
+  long_term_limit: 20
+
+database:
+  url: "sqlite:///data/education_rag.db"
+  echo: false
+
+metadata_defaults:
+  subject: "语文"
+  grade: "九年级"
+  textbook_version: "义务教育课程标准（2022年版）"
+  document_type: "课程标准"
