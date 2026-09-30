@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>登录 - RAG Assistant</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="auth-body">
+  <div class="auth-card">
+    <h1>RAG Assistant</h1>
+    <p class="subtitle">多角色智能助手</p>
+    <form id="auth-form">
+      <input id="username" placeholder="用户名" autocomplete="username" required>
+      <input id="password" type="password" placeholder="密码" autocomplete="current-password" required>
+      <button id="submit-btn" type="submit">登录</button>
+      <button id="toggle-btn" type="button" class="link-btn">没有账号？注册</button>
+    </form>
+    <p id="error" class="error"></p>
+  </div>
+  <script>
+    let mode = 'login';
+    const form = document.getElementById('auth-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const toggleBtn = document.getElementById('toggle-btn');
+    const errorEl = document.getElementById('error');
+
+    toggleBtn.addEventListener('click', () => {
+      mode = mode === 'login' ? 'register' : 'login';
+      submitBtn.textContent = mode === 'login' ? '登录' : '注册';
+      toggleBtn.textContent = mode === 'login' ? '没有账号？注册' : '已有账号？登录';
+      errorEl.textContent = '';
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorEl.textContent = '';
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const resp = await fetch(`/api/auth/${mode}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+      if (!resp.ok) {
+        const body = await resp.json().catch(() => ({}));
+        errorEl.textContent = body.detail || '操作失败';
+        return;
+      }
+      if (mode === 'register') {
+        mode = 'login';
+        submitBtn.textContent = '登录';
+        toggleBtn.textContent = '没有账号？注册';
+        errorEl.textContent = '注册成功，请登录';
+        return;
+      }
+      const body = await resp.json();
+      localStorage.setItem('token', body.access_token);
+      location.href = '/index.html';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+# nginx 反向代理 + 负载均衡
+#
+# 镜像已在本地：nginx:latest
+#
+# ⚠️ `name: raglora` 必须保留 —— 否则 compose 项目名取目录名 `docker`，
+#    与本机 Dify 的 compose 项目重名，一条不带 -f 的 down 就能拆掉 Dify。
+#    本仓库踩过这个坑（详见 docker-compose.milvus.yml 注释）。
+#
+# ⚠️ 不要对本文件用 `down --remove-orphans`（与另两个 compose 同属项目 raglora）。
+name: raglora
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: raglora-nginx
+    ports:
+      # 宿主 8080 -> 容器 80。**不用 80**：Windows 上 80 常被其它服务占用，
+      # 且本机已有 Dify 的 docker-nginx-1，容易混淆。
+      - "8080:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    extra_hosts:
+      # upstream 里用 host.docker.internal 指向宿主上的各个 uvicorn worker，
+      # 这样 worker 的增减不需要重建 nginx 容器之外的任何东西。
+      - "host.docker.internal:host-gateway"

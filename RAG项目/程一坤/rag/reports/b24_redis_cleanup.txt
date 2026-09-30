@@ -1,0 +1,23 @@
+Redis: redis://127.0.0.1:6379/0   PING=True
+删除前 DBSIZE = 44
+
+=== 白名单待删（11 个）===
+  DEL short_memory:ablation_runner:ablation_followup-025:messages            type=list   ttl=    8433 len=6
+  DEL short_memory:ablation_runner:ablation_followup-026:messages            type=list   ttl=    8434 len=6
+  DEL short_memory:ablation_runner:ablation_followup-027:messages            type=list   ttl=    8435 len=6
+  DEL short_memory:ablation_runner:ablation_followup-028:messages            type=list   ttl=    8436 len=6
+  DEL short_memory:ablation_runner:ablation_followup-029:messages            type=list   ttl=    8436 len=6
+  DEL short_memory:ablation_runner:ablation_followup-030:messages            type=list   ttl=    8437 len=6
+  DEL short_memory:ablation_runner:ablation_followup-069:messages            type=list   ttl=    8628 len=6
+  DEL short_memory:ablation_runner:ablation_followup-070:messages            type=list   ttl=    8634 len=6
+  DEL short_memory:ablation_runner:ablation_followup-071:messages            type=list   ttl=    8635 len=6
+  DEL short_memory:ablation_runner:ablation_followup-072:messages            type=list   ttl=    8635 len=6
+  DEL short_memory:u-verify-5c:s-5c:messages                                 type=list   ttl=      -1 len=1
+
+=== 不在授权范围、本次不动（33 个）===
+  session:*                28 个
+  user_sessions:*          5 个
+
+=== 删除结果 === 请求 11 个，实际删除 11 个
+删除后 DBSIZE = 33
+白名单残留（应为 0）= 0  []

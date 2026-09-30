@@ -1,0 +1,7 @@
+$ python scripts/check_imports.py
+C:\Users\92842\anaconda3\envs\rag\Lib\site-packages\jieba\_compat.py:18: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+<unknown>:6: SyntaxWarning: invalid escape sequence '\s'
+扫描文件数: 107（backend/app 由 pytest 覆盖，此处跳过）
+✅ 全部 app.* 导入均可解析（模块存在 + 符号存在）
+退出码=0

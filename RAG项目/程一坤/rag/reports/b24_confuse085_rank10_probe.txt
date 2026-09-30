@@ -1,0 +1,24 @@
+C:\Users\92842\anaconda3\envs\rag\Lib\site-packages\jieba\_compat.py:18: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+Building prefix dict from the default dictionary ...
+Loading model from cache C:\Users\92842\AppData\Local\Temp\jieba.cache
+Loading model cost 0.440 seconds.
+Prefix dict has been built successfully.
+题目：员工严重违反公司规章制度被开除，公司需要提前30天通知他或者额外支付一个月工资吗？
+期望：[{'law': '劳动合同法', 'article': '第三十九条'}]
+重放轮数：6
+
+A 侧(拆分前)第10位：{'rank': 10, 'law': '中华人民共和国劳动合同法', 'article': '第三十九条', 'score': 15.6716}
+B 侧(拆分后)第10位：{'rank': 10, 'law': '中华人民共和国劳动合同法', 'article': '第三十八条', 'score': 0.6176}
+
+------------------------------------------------------------------------------------
+  轮 | stats                                                | 第10位 | 含第三十九条
+------------------------------------------------------------------------------------
+  1 | {"vector_recall_count": 13, "keyword_recall_count": 20, "fused_count": 31, "reranked_count": 10, "synonym_expansion_count": 0} | 第三十九条(15.6716) | 有
+  2 | {"vector_recall_count": 13, "keyword_recall_count": 20, "fused_count": 31, "reranked_count": 10, "synonym_expansion_count": 0} | 第三十八条(0.6176) | 无
+  3 | {"vector_recall_count": 13, "keyword_recall_count": 20, "fused_count": 31, "reranked_count": 10, "synonym_expansion_count": 0} | 第三十九条(15.6716) | 有
+  4 | {"vector_recall_count": 13, "keyword_recall_count": 20, "fused_count": 31, "reranked_count": 10, "synonym_expansion_count": 0} | 第三十九条(15.6716) | 有
+  5 | {"vector_recall_count": 13, "keyword_recall_count": 20, "fused_count": 31, "reranked_count": 10, "synonym_expansion_count": 0} | 第三十八条(0.6176) | 无
+  6 | {"vector_recall_count": 13, "keyword_recall_count": 20, "fused_count": 31, "reranked_count": 10, "synonym_expansion_count": 0} | 第三十九条(15.6716) | 有
+------------------------------------------------------------------------------------
+含第三十九条的轮次：4/6（不稳定 → 归因上游/环境）

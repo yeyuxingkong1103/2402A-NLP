@@ -1,0 +1,73 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./src/**/*.{ts,tsx}"],
+  theme: {
+    extend: {
+      colors: {
+        paper: "#FAF9F6",
+        ink: {
+          50: "#F7F7F5",
+          100: "#EDEDE9",
+          200: "#DCDCD5",
+          300: "#C2C2B8",
+          400: "#9C9C90",
+          500: "#7A7A6E",
+          600: "#5C5C52",
+          700: "#44443D",
+          800: "#2E2E29",
+          900: "#1C1C19",
+        },
+        seal: {
+          50: "#FBF3F1",
+          100: "#F5DCD6",
+          200: "#E8B3A6",
+          300: "#D98672",
+          400: "#C4624A",
+          500: "#A8482F",
+          600: "#8A3822",
+          700: "#6B2A19",
+          800: "#4D1E12",
+          900: "#30130B",
+        },
+        jade: {
+          50: "#F1F7F3",
+          100: "#D7E9DE",
+          200: "#A9CFB8",
+          300: "#74AF8B",
+          400: "#4A8F63",
+          500: "#33714A",
+          600: "#275839",
+          700: "#1D432C",
+          800: "#152F20",
+          900: "#0D1E15",
+        },
+      },
+      fontFamily: {
+        sans: [
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "PingFang SC",
+          "Hiragino Sans GB",
+          "Microsoft YaHei",
+          "Source Han Sans SC",
+          "Noto Sans CJK SC",
+          "sans-serif",
+        ],
+        serif: [
+          "Songti SC",
+          "SimSun",
+          "Source Han Serif SC",
+          "Noto Serif CJK SC",
+          "Georgia",
+          "serif",
+        ],
+      },
+      maxWidth: {
+        reading: "46rem",
+        shell: "84rem",
+      },
+    },
+  },
+  plugins: [],
+};

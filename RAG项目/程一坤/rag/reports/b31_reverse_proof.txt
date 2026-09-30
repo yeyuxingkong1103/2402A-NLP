@@ -1,0 +1,40 @@
+[0] 改后文件 md5 = 5fed85eb6fef85df7648695e5130f0dc
+
+[1] 新实现（未退回）跑新用例：
+      ......                                                                   [100%]
+      6 passed in 0.33s
+
+    exit=0（期望 0）
+
+[2] 临时退回旧行为（仅 model 那一行 → None，保留 current_llm_model 定义）：
+              _run_persist(store)
+          
+      >       assert [call["model"] for call in store.calls] == ["model-a", "model-b"]
+      E       AssertionError: assert [None, None] == ['model-a', 'model-b']
+      E         At index 0 diff: None != 'model-a'
+      E         Use -v to get more diff
+      
+      tests\test_chat_persistence.py:93: AssertionError
+      =========================== short test summary info ===========================
+      FAILED tests/test_chat_persistence.py::test_persist_turn_writes_model_from_current_config
+      FAILED tests/test_chat_persistence.py::test_persist_turn_model_follows_config_change
+      2 failed, 4 passed in 0.36s
+
+    exit=1（期望非 0 = 新用例失败）
+
+[3] 还原后 md5 = 5fed85eb6fef85df7648695e5130f0dc
+    与改后文件一致: True
+    CRLF 数 = 0（期望 0）
+
+[4] 还原后再跑一次新用例：
+      ......                                                                   [100%]
+      6 passed in 0.33s
+
+    exit=0（期望 0）
+
+结论：
+  - 新实现通过      : True
+  - 旧行为令用例失败: True
+  - 字节级还原一致  : True
+  - 还原后复跑通过  : True
+  反向证明成立

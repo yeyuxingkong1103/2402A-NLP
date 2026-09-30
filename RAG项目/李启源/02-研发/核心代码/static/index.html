@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG智能问答系统</title>
+    <style>
+        :root {
+            --surface-0: #05070C;
+            --surface-1: #0A0D12;
+            --surface-2: #0F131C;
+            --surface-3: #161D2B;
+            --surface-4: #1E2636;
+            --accent: #38BDF8;
+            --accent-dim: #0369a1;
+            --text-primary: #f0f9ff;
+            --text-secondary: #7dd3fc;
+            --text-muted: #94a3b8;
+            --radius: 12px;
+            --radius-full: 999px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--surface-0);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: clamp(1rem, 3vw, 2rem);
+            gap: clamp(1rem, 2vw, 1.5rem);
+        }
+
+        header {
+            background: var(--surface-2);
+            padding: clamp(1rem, 2vw, 1.5rem);
+            border-radius: var(--radius);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        h1 {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        .kb-selector {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .kb-selector label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        select {
+            background: var(--surface-3);
+            color: var(--text-primary);
+            border: 1px solid var(--surface-4);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        select:hover {
+            border-color: var(--accent);
+        }
+
+        select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+        }
+
+        .chat-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            overflow: hidden;
+        }
+
+        .messages {
+            background: var(--surface-1);
+            border-radius: var(--radius);
+            padding: clamp(1rem, 2vw, 1.5rem);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            display: grid;
+            gap: 0.75rem;
+            padding: 1rem;
+            border-radius: var(--radius);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            background: var(--surface-3);
+            margin-left: 20%;
+        }
+
+        .message.assistant {
+            background: var(--surface-2);
+            margin-right: 20%;
+        }
+
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .message-content {
+            color: var(--text-primary);
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .sources {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--surface-4);
+        }
+
+        .sources-title {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .source-item {
+            background: var(--surface-3);
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .source-title {
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .source-content {
+            color: var(--text-muted);
+            font-size: 0.8125rem;
+        }
+
+        .metadata {
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--surface-4);
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .input-area {
+            background: var(--surface-2);
+            padding: clamp(1rem, 2vw, 1.5rem);
+            border-radius: var(--radius);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0.75rem;
+            align-items: end;
+        }
+
+        textarea {
+            background: var(--surface-3);
+            color: var(--text-primary);
+            border: 1px solid var(--surface-4);
+            padding: 0.875rem 1rem;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-family: inherit;
+            resize: none;
+            outline: none;
+            transition: all 0.2s;
+            min-height: 56px;
+            max-height: 150px;
+        }
+
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+        }
+
+        button {
+            background: var(--accent);
+            color: var(--surface-0);
+            border: none;
+            padding: 0.875rem 2rem;
+            border-radius: var(--radius-full);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        button:hover:not(:disabled) {
+            background: var(--text-secondary);
+            transform: translateY(-1px);
+        }
+
+        button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid var(--surface-4);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-muted);
+            gap: 1rem;
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .message.user {
+                margin-left: 10%;
+            }
+            .message.assistant {
+                margin-right: 10%;
+            }
+            header {
+                grid-template-columns: 1fr;
+            }
+            .kb-selector {
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💬 RAG智能问答系统</h1>
+            <div class="kb-selector">
+                <label for="kb-select">知识库:</label>
+                <select id="kb-select">
+                    <option value="1">产品知识库</option>
+                    <option value="2">售后知识库</option>
+                </select>
+            </div>
+        </header>
+
+        <div class="chat-container">
+            <div class="messages" id="messages">
+                <div class="empty-state">
+                    <div class="empty-icon">💭</div>
+                    <div>开始对话，向我提问任何问题</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-area">
+            <textarea
+                id="user-input"
+                placeholder="输入您的问题..."
+                rows="1"
+                autofocus
+            ></textarea>
+            <button id="send-btn" onclick="sendMessage()">发送</button>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = window.location.origin;
+        let sessionId = null;
+
+        // 自动调整textarea高度
+        const textarea = document.getElementById('user-input');
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 150) + 'px';
+        });
+
+        // 回车发送（Shift+Enter换行）
+        textarea.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        async function sendMessage() {
+            const input = document.getElementById('user-input');
+            const sendBtn = document.getElementById('send-btn');
+            const query = input.value.trim();
+
+            if (!query) return;
+
+            // 清空输入框并重置高度
+            input.value = '';
+            input.style.height = 'auto';
+
+            // 禁用输入
+            input.disabled = true;
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = '<span class="loading"></span>';
+
+            // 显示用户消息
+            addMessage('user', query);
+
+            try {
+                const kbId = document.getElementById('kb-select').value;
+                const response = await fetch(`${API_BASE}/api/v1/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        query: query,
+                        knowledge_base_id: parseInt(kbId),
+                        session_id: sessionId
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorBody = await response.json().catch(() => null);
+                    const detail = errorBody?.detail || errorBody?.error || `HTTP ${response.status}`;
+                    throw new Error(detail);
+                }
+
+                const data = await response.json();
+                sessionId = data.session_id;
+
+                // 显示助手回复
+                addMessage('assistant', data.answer, data.sources, data.metadata);
+
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage('assistant', `❌ 请求失败: ${error.message}\n\n请确保后端服务正在运行。`, null, null);
+            } finally {
+                // 恢复输入
+                input.disabled = false;
+                sendBtn.disabled = false;
+                sendBtn.textContent = '发送';
+                input.focus();
+            }
+        }
+
+        function addMessage(role, content, sources = null, metadata = null) {
+            const messagesDiv = document.getElementById('messages');
+
+            // 移除空状态
+            const emptyState = messagesDiv.querySelector('.empty-state');
+            if (emptyState) {
+                emptyState.remove();
+            }
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}`;
+
+            let html = `
+                <div class="message-header">
+                    ${role === 'user' ? '👤 您' : '🤖 助手'}
+                </div>
+                <div class="message-content">${escapeHtml(content)}</div>
+            `;
+
+            if (sources && sources.length > 0) {
+                html += '<div class="sources"><div class="sources-title">📚 参考来源:</div>';
+                sources.forEach(source => {
+                    const content = source.content || source.text || '';
+                    const title = source.doc_title || source.source || 'Unknown';
+                    const score = source.score || 0;
+                    html += `
+                        <div class="source-item">
+                            <div class="source-title">${escapeHtml(title)} (相似度: ${(score * 100).toFixed(1)}%)</div>
+                            <div class="source-content">${escapeHtml(content.substring(0, 150))}...</div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+
+            if (metadata) {
+                html += `
+                    <div class="metadata">
+                        <span>⏱️ 总耗时: ${metadata.total_time?.toFixed(2) || 'N/A'}s</span>
+                        <span>🔍 检索: ${metadata.retrieved_count || 0}条</span>
+                        <span>✨ 重排: ${metadata.reranked_count || 0}条</span>
+                    </div>
+                `;
+            }
+
+            messageDiv.innerHTML = html;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 页面加载时检查服务状态
+        async function checkHealth() {
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                console.log('✅ 服务状态:', data);
+            } catch (error) {
+                console.error('❌ 服务未启动:', error);
+            }
+        }
+
+        checkHealth();
+    </script>
+</body>
+</html>

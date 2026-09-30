@@ -1,0 +1,99 @@
+########## STEP 1 / 3 ：正式迁移 --apply ##########
+====================================================================================================
+law_versions.status 迁移（英文 → 中文）
+====================================================================================================
+  迁移前 status 分布：
+      <NULL>           6 行
+      effective        4 行
+      not_applicable   1 行
+
+
+  将迁移 5 行（逐行 UPDATE，逐行核对 rowcount）：
+      id=89   'effective' → '现行有效'    rowcount=1 ✅
+      id=90   'not_applicable' → '不适用'    rowcount=1 ✅
+      id=93   'effective' → '现行有效'    rowcount=1 ✅
+      id=94   'effective' → '现行有效'    rowcount=1 ✅
+      id=96   'effective' → '现行有效'    rowcount=1 ✅
+
+  [OK] 已提交；回滚记录：reports\law_status_vocabulary_migration_20260921_170034.json
+
+  迁移后 status 分布：
+      <NULL>           6 行
+      现行有效             4 行
+      不适用              1 行
+
+LAW_STATUS_VOCABULARY_MIGRATION_DONE
+exit=0
+
+########## STEP 2 / 3 ：回滚验证 --rollback ##########
+====================================================================================================
+law_versions.status 回滚（中文 → 英文）
+====================================================================================================
+  迁移前 status 分布：
+      <NULL>           6 行
+      现行有效             4 行
+      不适用              1 行
+
+  回滚记录：law_status_vocabulary_migration_20260921_170034.json（5 行，迁移于 2026-09-21T17:00:34）
+      id=89   '现行有效' → 'effective'    rowcount=1 ✅
+      id=90   '不适用' → 'not_applicable'    rowcount=1 ✅
+      id=93   '现行有效' → 'effective'    rowcount=1 ✅
+      id=94   '现行有效' → 'effective'    rowcount=1 ✅
+      id=96   '现行有效' → 'effective'    rowcount=1 ✅
+
+  [OK] 已回滚 5 行
+
+  迁移后 status 分布：
+      <NULL>           6 行
+      effective        4 行
+      not_applicable   1 行
+
+LAW_STATUS_VOCABULARY_MIGRATION_DONE
+exit=0
+
+########## STEP 3 / 3 ：再次迁移 --apply（确认可重复执行、幂等方向）##########
+====================================================================================================
+law_versions.status 迁移（英文 → 中文）
+====================================================================================================
+  迁移前 status 分布：
+      <NULL>           6 行
+      effective        4 行
+      not_applicable   1 行
+
+
+  将迁移 5 行（逐行 UPDATE，逐行核对 rowcount）：
+      id=89   'effective' → '现行有效'    rowcount=1 ✅
+      id=90   'not_applicable' → '不适用'    rowcount=1 ✅
+      id=93   'effective' → '现行有效'    rowcount=1 ✅
+      id=94   'effective' → '现行有效'    rowcount=1 ✅
+      id=96   'effective' → '现行有效'    rowcount=1 ✅
+
+  [OK] 已提交；回滚记录：reports\law_status_vocabulary_migration_20260921_170035.json
+
+  迁移后 status 分布：
+      <NULL>           6 行
+      现行有效             4 行
+      不适用              1 行
+
+LAW_STATUS_VOCABULARY_MIGRATION_DONE
+exit=0
+
+########## 附加：再次 --apply 应报 SKIP（幂等）##########
+====================================================================================================
+law_versions.status 迁移（英文 → 中文）
+====================================================================================================
+  迁移前 status 分布：
+      <NULL>           6 行
+      现行有效             4 行
+      不适用              1 行
+
+  [SKIP] 库里没有任何英文取值，无需迁移（本脚本幂等）
+
+  迁移后 status 分布：
+      <NULL>           6 行
+      现行有效             4 行
+      不适用              1 行
+
+LAW_STATUS_VOCABULARY_MIGRATION_DONE
+exit=0
+ALL_DONE

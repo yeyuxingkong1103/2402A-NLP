@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!-- 解析：HTML5 文档声明 -->
+<html lang="zh-CN">
+<!-- 解析：中文页面 -->
+<head>
+  <meta charset="UTF-8" />
+  <!-- 解析：UTF-8 编码（中文显示） -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- 解析：移动端视口适配 -->
+  <title>角色扮演 · RAG Chat</title>
+  <!-- 解析：页面标题 -->
+  <link rel="stylesheet" href="/static/style.css" />
+  <!-- 解析：样式表（FastAPI /static 托管） -->
+</head>
+<body>
+  <!-- 登录视图 -->
+  <!-- 解析：登录/注册界面（登录成功后隐藏） -->
+  <div id="login-view" class="login-view">
+    <!-- 解析：登录容器 -->
+    <div class="login-card">
+      <!-- 解析：登录卡片 -->
+      <h1>🎭 角色扮演系统</h1>
+      <!-- 解析：标题 -->
+      <p class="subtitle">基于 RAG 的多角色对话 · 长期记忆 · 领域知识库</p>
+      <!-- 解析：副标题（系统三大能力） -->
+      <div class="tabs">
+        <!-- 解析：登录/注册标签组 -->
+        <button id="tab-login" class="tab active">登录</button>
+        <!-- 解析：登录标签（默认选中） -->
+        <button id="tab-register" class="tab">注册</button>
+        <!-- 解析：注册标签 -->
+      </div>
+      <input id="username" type="text" placeholder="用户名" autocomplete="username" />
+      <!-- 解析：用户名输入框 -->
+      <input id="password" type="password" placeholder="密码" autocomplete="current-password" />
+      <!-- 解析：密码输入框 -->
+      <button id="auth-btn" class="primary-btn">登 录</button>
+      <!-- 解析：登录/注册按钮（文字随模式切换） -->
+      <p id="auth-error" class="error-text"></p>
+      <!-- 解析：错误提示区（JS 填充） -->
+    </div>
+  </div>
+
+  <!-- 主界面 -->
+  <!-- 解析：登录后的主界面（初始隐藏） -->
+  <div id="main-view" class="main-view hidden">
+    <!-- 解析：主界面容器 -->
+    <aside class="sidebar">
+      <!-- 解析：左侧边栏（角色列表+知识库） -->
+      <div class="sidebar-header">
+        <!-- 解析：边栏头部 -->
+        <h2>🎭 角色</h2>
+        <!-- 解析：标题 -->
+        <button id="logout-btn" class="ghost-btn" title="退出登录">退出</button>
+        <!-- 解析：退出按钮 -->
+      </div>
+      <div id="role-list" class="role-list"></div>
+      <!-- 解析：角色卡片列表（JS 动态渲染） -->
+      <div class="kb-panel">
+        <!-- 解析：知识库面板 -->
+        <h3>📚 知识库</h3>
+        <!-- 解析：标题 -->
+        <input id="kb-file" type="file" accept=".pdf,.jpg,.jpeg,.png" hidden />
+        <!-- 解析：文件选择（隐藏，PDF 与图片，对应后端 OCR/表格能力） -->
+        <button id="kb-upload-btn" class="small-btn">上传 PDF / 图片</button>
+        <!-- 解析：上传按钮（触发文件选择） -->
+        <div id="kb-docs" class="kb-docs"></div>
+        <!-- 解析：文档列表（JS 动态渲染） -->
+      </div>
+    </aside>
+
+    <main class="chat-area">
+      <!-- 解析：右侧聊天区 -->
+      <header class="chat-header">
+        <!-- 解析：聊天头部 -->
+        <div id="chat-avatar" class="avatar">?</div>
+        <!-- 解析：角色头像（选角色后变首字） -->
+        <div>
+          <div id="chat-role-name" class="role-name">选择角色开始对话</div>
+          <!-- 解析：角色名（默认提示） -->
+          <div id="chat-role-category" class="role-category"></div>
+          <!-- 解析：角色分类 -->
+        </div>
+      </header>
+      <div id="chat-messages" class="chat-messages">
+        <!-- 解析：消息区（气泡渲染于此） -->
+        <div class="welcome-tip">← 在左侧选择一个角色，开始你们的对话吧</div>
+        <!-- 解析：欢迎提示（首条消息时移除） -->
+      </div>
+      <div class="chat-input-bar">
+        <!-- 解析：输入栏 -->
+        <textarea id="chat-input" rows="1" placeholder="输入消息，Enter 发送，Shift+Enter 换行"></textarea>
+        <!-- 解析：消息输入框（自适应高度） -->
+        <button id="send-btn" class="primary-btn">发送</button>
+        <!-- 解析：发送按钮 -->
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+  <!-- 解析：前端逻辑脚本 -->
+</body>
+</html>

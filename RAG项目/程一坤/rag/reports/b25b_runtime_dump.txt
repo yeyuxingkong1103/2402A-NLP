@@ -1,0 +1,30 @@
+==============================================================================
+【A. config.py 拆分：运行时等价】
+  ✅ 字段清单（==============================================================================
+【A. config.py 拆分：运行时等价】
+  ✅ 字段清单（名/类型/默认值）逐项相同 —— 60 个字段
+  ✅ Settings() 实例逐字段取值相同
+  ✅ 每个字段的运行时类型相同 —— []
+  ✅ REQUIRED_IN_PRODUCTION 相同 —— ('EMBEDDING_API_KEY', 'RERANKER_API_KEY', 'LLM_API_BASE_URL', 'LLM_API_KEY', 'LLM_MODEL', 'SMTP_HOST', 'SMTP_USERNAME', 'SMTP_PASSWORD', 'SMTP_FROM_EMAIL')
+  ✅ PROJECT_ROOT_DIRECTORY 再导出且值相同 —— C:\Users\92842\Desktop\rag
+  ✅ ENVIRONMENT_FILE_PATH 再导出且值相同
+  ✅ Settings.from_environment 签名相同 —— () -> 'Settings'
+  ✅ load_environment_file 签名相同
+  ✅ .env 解析行为相同（写入条数 + 变量取值） —— 条数=3 值={'B25B_ALPHA': '1', 'B25B_BETA': '2', 'B25B_GAMMA': ''}
+
+==============================================================================
+【B. mineru.py 拆分：运行时等价】
+  ✅ MineruClient.__init__ 签名完全相同 —— 19 个参数
+  ✅ 方法集合 = 旧集合减去已搬迁的 2 个（差额恰好） —— 旧 15 个 − 2 = 13 / 新 13 个
+  ✅ 模块级常量相同（MAX_FILE_BYTES / MAX_PAGES） —— 209715200 / 200
+  ---- parse() 场景：ok ----
+  ✅ [ok] 返回结果逐字段相同 —— {"content": "# 标题\n\n正文内容\n", "page_count": 3, "complete": true, "error": ""}
+  ✅ [ok] last_trace 相同（已剔除 elapsed_seconds 计时） —— 旧 0.0s / 新 0.0s
+  ✅ [ok] 实际发出的请求序列完全相同 —— 4 次请求
+  ---- parse() 场景：failed ----
+  ✅ [failed] 返回结果逐字段相同 —— {"content": "", "page_count": 0, "complete": false, "error": "MinerU 任务失败：解析服务内部错误"}
+  ✅ [failed] last_trace 相同（已剔除 elapsed_seconds 计时） —— 旧 0.0s / 新 0.0s
+  ✅ [failed] 实际发出的请求序列完全相同 —— 3 次请求
+
+==============================================================================
+结论：18/18 项对拍通过 —— ✅ 拆分前后运行时行为一致

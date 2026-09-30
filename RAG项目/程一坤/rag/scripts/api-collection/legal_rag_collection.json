@@ -1,0 +1,357 @@
+{
+  "info": {
+    "_postman_id": "b3f7a1c2-5d4e-4f6a-9b8c-1e2d3f4a5b6c",
+    "name": "法律RAG接口测试集合",
+    "description": "覆盖当前代码全部 21 个端点（与 docs/接口文档.md 对照，缺口见集合末尾说明）。\n\n## 使用步骤\n1. 导入本文件（Postman: Import → File；ApiPost: 导入 → Postman 集合）。\n2. 修改集合变量 `base_url`（默认 http://127.0.0.1:8000）。\n3. 准备测试账号：先手动调「3.1 发送注册验证码」（注册验证码不回显，需从邮箱取；development 只对「密码重置验证码」回显 debug_code，集成测试走 ENVIRONMENT=test 固定码旁路），把验证码填进集合变量 `verify_code`，再调「3.2 注册」；或直接用已有账号调「3.3 登录」——登录成功后测试脚本自动把 token 写入集合变量 `token`，后续请求自动带上。\n4. `document_id`、`memory_id` 需按实际数据填集合变量（管理员接口返回的 id 列表里取）。\n\n## 通用约定（docs/接口文档.md §2）\n- 通用响应：`{\"code\":0,\"message\":\"success\",\"data\":{},\"request_id\":\"...\"}`\n- 通用错误码：40000 参数错误 / 40001 资源不存在 / 40100 未认证或令牌失效 / 40300 无权限 / 40900 资源冲突 / 42900 频率超限 / 50000 系统内部错误 / 50001 模型服务不可用 / 50002 向量数据库不可用 / 50003 缓存或记忆服务不可用\n- 认证：`Authorization: Bearer <token>`；令牌有效期 SESSION_TTL_SECONDS（默认 2 小时），存 Redis\n\n## 文档与代码不一致（当前代码未实现，集合中无对应请求）\n- 角色接口 4.1~4.4（无 /roles 端点）\n- 知识库接口 5.1~5.5（只有 5.6 legal/search）\n- 采集任务 6.1/6.2（无采集触发/查询端点）\n- 非流式问答 7.3（POST /api/v1/chat/completions，文档已注明后续扩展）\n- 反馈接口 9（POST /api/v1/messages/{message_id}/feedback）",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://127.0.0.1:8000" },
+    { "key": "token", "value": "" },
+    { "key": "verify_code", "value": "" },
+    { "key": "reset_code", "value": "" },
+    { "key": "session_id", "value": "" },
+    { "key": "document_id", "value": "1" },
+    { "key": "memory_id", "value": "1" },
+    { "key": "test_email", "value": "tester@qq.com" },
+    { "key": "test_password", "value": "ChangeMe_2026" }
+  ],
+  "auth": { "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string" } ] },
+  "item": [
+    {
+      "name": "认证（6 个端点）",
+      "item": [
+        {
+          "name": "3.1 发送注册验证码",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{base_url}}/api/v1/auth/register/code", "host": ["{{base_url}}"], "path": ["api", "v1", "auth", "register", "code"] },
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"{{test_email}}\"\n}" },
+            "description": "发送注册验证码到邮箱（SMTP 真发信；development 环境不回显此接口的验证码）。\n期望响应：`{\"code\":0,\"message\":\"验证码已发送\",\"data\":{\"status\":\"sent\"}}`\n错误：40000 邮箱格式错误；42900 发送频率超限。"
+          }
+        },
+        {
+          "name": "3.2 用户注册",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{base_url}}/api/v1/auth/register", "host": ["{{base_url}}"], "path": ["api", "v1", "auth", "register"] },
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"{{test_email}}\",\n  \"code\": \"{{verify_code}}\",\n  \"password\": \"{{test_password}}\"\n}" },
+            "description": "用验证码注册并直接返回访问令牌。\n期望响应：`{\"code\":0,\"message\":\"注册成功\",\"data\":{\"access_token\":\"...\",\"token_type\":\"bearer\"}}`\n错误：40000 验证码错误/已注册/密码强度不足；42900 频率超限。\n提示：已注册账号请直接跑 3.3 登录。"
+          }
+        },
+        {
+          "name": "3.3 用户登录（token 自动写入集合变量）",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.response.json();",
+                  "if (data.code === 0 && data.data && data.data.access_token) {",
+                  "    pm.collectionVariables.set('token', data.data.access_token);",
+                  "    console.log('token 已写入集合变量');",
+                  "} else {",
+                  "    console.log('登录失败：', data.message);",
+                  "}",
+                  "pm.test('登录返回 code=0', function () { pm.expect(data.code).to.eql(0); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{base_url}}/api/v1/auth/login", "host": ["{{base_url}}"], "path": ["api", "v1", "auth", "login"] },
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"{{test_email}}\",\n  \"password\": \"{{test_password}}\"\n}" },
+            "description": "登录并签发会话令牌（服务端存 Redis）。\n期望响应：`{\"code\":0,\"message\":\"登录成功\",\"data\":{\"access_token\":\"...\",\"token_type\":\"bearer\"}}`\n错误：40100 密码错误/账号不存在。\n本请求的测试脚本自动提取 access_token 写入集合变量 token。"
+          }
+        },
+        {
+          "name": "3.4 发送密码重置验证码",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.response.json();",
+                  "if (data.data && data.data.debug_code) {",
+                  "    pm.collectionVariables.set('reset_code', data.data.debug_code);",
+                  "    console.log('development 环境回显的验证码已写入集合变量 reset_code');",
+                  "}",
+                  "pm.test('验证码已发送', function () { pm.expect(data.code).to.eql(0); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{base_url}}/api/v1/auth/password-reset/code", "host": ["{{base_url}}"], "path": ["api", "v1", "auth", "password-reset", "code"] },
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"{{test_email}}\"\n}" },
+            "description": "发送密码重置验证码。\n期望响应：`{\"code\":0,\"message\":\"验证码已发送\",\"data\":{\"status\":\"sent\"}}`；**development 环境额外返回 `debug_code`**（测试脚本自动写入集合变量 reset_code），production 不回显。\n错误：40000 邮箱格式错误；42900 频率超限。"
+          }
+        },
+        {
+          "name": "3.5 重置密码",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{base_url}}/api/v1/auth/password-reset", "host": ["{{base_url}}"], "path": ["api", "v1", "auth", "password-reset"] },
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"{{test_email}}\",\n  \"password\": \"{{test_password}}\",\n  \"code\": \"{{reset_code}}\"\n}" },
+            "description": "验证验证码并重置密码（重置后旧令牌全部失效）。\n期望响应：`{\"code\":0,\"message\":\"密码重置成功\",\"data\":{\"status\":\"reset\"}}`\n错误：40000 验证码错误/密码强度不足。"
+          }
+        },
+        {
+          "name": "3.7 注销登录",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{base_url}}/api/v1/auth/logout", "host": ["{{base_url}}"], "path": ["api", "v1", "auth", "logout"] },
+            "description": "注销当前令牌（服务端删除 Redis 会话，立即失效；重复注销幂等仍返回 success）。\n期望响应：`{\"code\":0,\"message\":\"注销成功\",\"data\":{\"status\":\"logged_out\"}}`\n错误：40100 未认证。注销后请重新跑 3.3 拿新 token。"
+          }
+        }
+      ]
+    },
+    {
+      "name": "用户",
+      "item": [
+        {
+          "name": "3.8 查询当前登录用户",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{base_url}}/api/v1/users/me", "host": ["{{base_url}}"], "path": ["api", "v1", "users", "me"] },
+            "description": "返回当前登录用户信息（含 is_admin 标识，管理员接口前置校验用）。\n期望响应：`{\"code\":0,...,\"data\":{\"user_id\":...,\"email\":\"...\",\"is_admin\":true|false}}`\n错误：40100 未认证/令牌失效。"
+          }
+        }
+      ]
+    },
+    {
+      "name": "问答（SSE 流式）",
+      "item": [
+        {
+          "name": "7.2 发起问答 POST /chat/stream",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{base_url}}/api/v1/chat/stream", "host": ["{{base_url}}"], "path": ["api", "v1", "chat", "stream"] },
+            "body": { "mode": "raw", "raw": "{\n  \"session_id\": \"\",\n  \"character_id\": \"legal-assistant\",\n  \"message\": \"公司解除劳动合同需要提前多久通知？\",\n  \"options\": {\n    \"top_k\": 8,\n    \"enable_query_rewrite\": true,\n    \"enable_long_term_memory\": true,\n    \"jurisdiction\": \"中国大陆\",\n    \"as_of_date\": null,\n    \"document_types\": [\"law\", \"judicial_interpretation\"]\n  }\n}" },
+            "description": "SSE 流式问答（当前唯一问答实现；Postman 会自动分段渲染 event-stream）。\nsession_id 传空串或新值时按首问自动建档；传已有会话 ID 时校验归属。\n期望 SSE 事件序列：`message_start` → `token`×N →（护栏触发时 `replace`）→ `citation`×N → `message_end`；异常发 `error`（{\"code\":50001,\"message\":\"模型服务暂时不可用\",\"retryable\":true}）。\n错误（流开始前，普通 HTTP）：40100 未认证；40001 会话不存在或不属于本人（404，不暴露存在性）。\noptions 可省略；top_k 1~50；message 1~10000 字符。"
+          }
+        }
+      ]
+    },
+    {
+      "name": "会话与消息",
+      "item": [
+        {
+          "name": "7.1 创建会话",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.response.json();",
+                  "if (data.code === 0 && data.data && data.data.session_id) {",
+                  "    pm.collectionVariables.set('session_id', data.data.session_id);",
+                  "    console.log('session_id 已写入集合变量：', data.data.session_id);",
+                  "}",
+                  "pm.test('创建会话 201', function () { pm.expect(pm.response.code).to.eql(201); pm.expect(data.code).to.eql(0); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{base_url}}/api/v1/sessions", "host": ["{{base_url}}"], "path": ["api", "v1", "sessions"] },
+            "body": { "mode": "raw", "raw": "{\n  \"character_id\": \"legal-assistant\",\n  \"title\": \"接口测试会话\"\n}" },
+            "description": "创建会话（两个字段都可省略；title 传空由服务端兜底命名；user_id 一律取认证上下文）。\n期望响应 201：`{\"code\":0,...,\"data\":{\"session_id\":\"session_xxxxxxxx\",\"character_id\":\"legal-assistant\",\"title\":\"...\",\"created_at\":\"...\"}}`\n错误：40100 未认证。测试脚本自动把 session_id 写入集合变量。"
+          }
+        },
+        {
+          "name": "7.5 会话列表",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/sessions?page=1&page_size=20",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "sessions"],
+              "query": [
+                { "key": "page", "value": "1", "description": "页码，1 起始" },
+                { "key": "page_size", "value": "20", "description": "每页条数，1~100" }
+              ]
+            },
+            "description": "本人会话分页列表（updated_at 倒序，附 message_count）。\n期望响应：`{\"code\":0,...,\"data\":{\"items\":[{\"session_id\":\"...\",\"character_id\":\"...\",\"title\":\"...\",\"message_count\":4,\"created_at\":\"...\",\"updated_at\":\"...\"}]}}`\n错误：40100 未认证；422 page<1 或 page_size>100（参数校验）。"
+          }
+        },
+        {
+          "name": "7.6 消息历史",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/sessions/{{session_id}}/messages?page=1&page_size=50",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "sessions", "{{session_id}}", "messages"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "page_size", "value": "50", "description": "1~100" }
+              ]
+            },
+            "description": "指定会话的分页历史消息（按 message_id 正序；assistant 消息的 message_id 与 SSE message_start 一致；citations 已反序列化）。\n期望响应：`{\"code\":0,...,\"data\":{\"items\":[{\"message_id\":\"12\",\"role\":\"user\",\"content\":\"...\",\"citations\":null,\"model\":null,\"created_at\":\"...\"},...]}}`\n错误：40001 会话不存在或不属于本人（404，不暴露存在性）；40100 未认证。先跑 7.1 或 7.2 拿到 session_id。"
+          }
+        },
+        {
+          "name": "删除会话",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{base_url}}/api/v1/sessions/{{session_id}}", "host": ["{{base_url}}"], "path": ["api", "v1", "sessions", "{{session_id}}"] },
+            "description": "删除本人指定会话（连带消息）。\n期望响应：`{\"code\":0,\"message\":\"success\",...}`\n错误：40001 会话不存在或不属于本人（404）；40100 未认证。\n注意：删除后 7.6 会 404。"
+          }
+        }
+      ]
+    },
+    {
+      "name": "记忆（8.1~8.3）",
+      "item": [
+        {
+          "name": "8.1 查询长期记忆",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/memories?character_id=legal-assistant&page=1&page_size=20",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "memories"],
+              "query": [
+                { "key": "character_id", "value": "legal-assistant", "description": "可省略；省略时查全部角色" },
+                { "key": "page", "value": "1" },
+                { "key": "page_size", "value": "20", "description": "1~100" }
+              ]
+            },
+            "description": "本人长期记忆分页列表（user_id 一律取认证上下文；已软删/已过期不出现在列表）。\n期望响应：`{\"code\":0,...,\"data\":{\"items\":[{\"memory_id\":...,\"content\":\"...\",\"character_id\":\"...\",\"created_at\":\"...\"}]}}`\n错误：40100 未认证。"
+          }
+        },
+        {
+          "name": "8.2 删除长期记忆",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{base_url}}/api/v1/memories/{{memory_id}}", "host": ["{{base_url}}"], "path": ["api", "v1", "memories", "{{memory_id}}"] },
+            "description": "删除本人指定长期记忆（软删）。\n期望响应：`{\"code\":0,\"message\":\"success\",...}`\n错误：40001 记忆不存在或不属于本人；40100 未认证。memory_id 从 8.1 的列表里取，填进集合变量。"
+          }
+        },
+        {
+          "name": "8.3 关闭/开启长期记忆",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{base_url}}/api/v1/users/me/memory-settings", "host": ["{{base_url}}"], "path": ["api", "v1", "users", "me", "memory-settings"] },
+            "body": { "mode": "raw", "raw": "{\n  \"long_term_memory_enabled\": false\n}" },
+            "description": "开关本人长期记忆（关闭后既不写入也不读取）。\n期望响应：`{\"code\":0,...,\"data\":{\"long_term_memory_enabled\":false}}`\n错误：40100 未认证。"
+          }
+        }
+      ]
+    },
+    {
+      "name": "管理员审核（需管理员账号）",
+      "item": [
+        {
+          "name": "6.3 查询待审核文档",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/admin/documents?status=pending_review&page=1&page_size=20",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "admin", "documents"],
+              "query": [
+                { "key": "status", "value": "pending_review", "description": "审核状态（pending_review/approved/rejected）" },
+                { "key": "page", "value": "1" },
+                { "key": "page_size", "value": "20", "description": "1~100" }
+              ]
+            },
+            "description": "按审核状态分页列出文档版本（提交时间倒序）。\n期望响应：`{\"code\":0,...,\"data\":{\"items\":[{\"document_id\":...,\"version\":1,\"status\":\"pending_review\",...}],\"total\":...}}`\n错误：40300 非管理员；40000 status 非法；40100 未认证。\n从返回里取 document_id 填进集合变量。"
+          }
+        },
+        {
+          "name": "6.5 查询待审核文档详情",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/admin/documents/{{document_id}}/detail?preview_chunks=5",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "admin", "documents", "{{document_id}}", "detail"],
+              "query": [ { "key": "preview_chunks", "value": "5", "description": "分块预览条数，默认 5，上限 20" } ]
+            },
+            "description": "审核文档详情（元数据 + 分块预览，内容服务端截断）。\n期望响应：`{\"code\":0,...,\"data\":{\"document\":{...},\"preview_chunks\":[...]}}`\n错误：40001 文档不存在；40300 非管理员。"
+          }
+        },
+        {
+          "name": "6.4 审核并发布文档",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{base_url}}/api/v1/admin/documents/{{document_id}}/review", "host": ["{{base_url}}"], "path": ["api", "v1", "admin", "documents", "{{document_id}}", "review"] },
+            "body": { "mode": "raw", "raw": "{\n  \"decision\": \"approve\",\n  \"review_note\": \"内容核对无误\"\n}" },
+            "description": "提交审核决定（decision：approve 通过 / reject 驳回；review_note 可省略，≤1024 字）。\n期望响应：`{\"code\":0,\"message\":\"success\",\"data\":{\"document_id\":...,\"status\":\"approved\"|\"rejected\"}}`\n错误：40000 decision 非法；40001 文档不存在；40900 该版本已被审核过（重复操作）；40300 非管理员。\n⚠️ 通过后该版本会进入索引重建流程。"
+          }
+        }
+      ]
+    },
+    {
+      "name": "法律检索",
+      "item": [
+        {
+          "name": "5.6 法律知识检索（POST /legal/search）",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{base_url}}/api/v1/legal/search", "host": ["{{base_url}}"], "path": ["api", "v1", "legal", "search"] },
+            "body": { "mode": "raw", "raw": "{\n  \"query\": \"公司解除劳动合同需要提前多久通知？\",\n  \"knowledge_base_ids\": [\"kb_labor_law_001\"],\n  \"jurisdiction\": \"中国大陆\",\n  \"legal_domain\": \"labor_law\",\n  \"document_types\": [\"law\", \"judicial_interpretation\"],\n  \"top_k\": 10,\n  \"enable_hybrid_search\": true,\n  \"enable_rerank\": true\n}" },
+            "description": "混合检索 + 重排（不含 LLM 生成，压测低成本链路也走这里）。\n首期固定值：knowledge_base_ids 仅支持 [\"kb_labor_law_001\"]，legal_domain 仅支持 \"labor_law\"（传别的直接 400）；document_types 枚举 law/administrative_regulation/judicial_interpretation/case；top_k 1~50；query 1~2000 字符；身份只取认证上下文（user_id 字段被忽略）。\n期望响应：`{\"code\":0,...,\"data\":{\"results\":[...],\"total\":...}}`\n错误：40000 参数错误（知识库/法域不合法）；40100 未认证。"
+          }
+        }
+      ]
+    },
+    {
+      "name": "健康检查",
+      "item": [
+        {
+          "name": "10.1 存活检查 GET /health/live",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{base_url}}/health/live", "host": ["{{base_url}}"], "path": ["health", "live"] },
+            "description": "仅检查 API 进程是否存活，不检查外部依赖。\n期望响应：`{\"code\":0,...,\"data\":{\"status\":\"alive\"}}`"
+          }
+        },
+        {
+          "name": "10.2 就绪检查 GET /health/ready",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{base_url}}/health/ready", "host": ["{{base_url}}"], "path": ["health", "ready"] },
+            "description": "检查 MySQL、Redis、Milvus、模型服务是否达到提供服务条件。\n期望响应：`{\"code\":0,...,\"data\":{\"status\":\"ready\"}}`\n依赖任一不可用时返回非 0 code（50000/50001/50002/50003 对应系统/模型/向量库/缓存）。部署验收与 run.sh 健康等待均用它。"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+# RAGLoRA 后端依赖清单
+#
+# ⚠️ 本项目遵循「绝不重复安装」原则：以下依赖**绝大多数已在 rag_env 中**，
+#    此文件主要用于换机部署时的环境重建参考，正常运行无需 pip install。
+#
+# 环境：D:\anaconda3\envs\rag_env  (Python 3.10.14)
+#
+# 已存在，无需安装：
+fastapi==0.128.0
+uvicorn==0.40.0
+pydantic==2.12.5
+sqlalchemy==2.0.48
+pymysql==2.2.8
+redis==7.2.1
+torch==2.5.1+cu121
+transformers==4.39.3
+sentence-transformers==2.6.1
+numpy==2.2.6
+jieba==0.42.1
+PyMuPDF==1.27.2.3
+httpx==0.28.1
+openai==2.36.0
+tqdm==4.67.3
+rank-bm25==0.2.2
+
+# 本项目唯一新增的依赖（M0 已安装完成）：
+qdrant-client>=1.19.0
+
+# 明确不装（附原因）：
+#   FlagEmbedding  —— 要求 transformers>=4.44.2，会破坏 rag_env 现有版本链；
+#                     改用原生 transformers 手写 dense+sparse，数学等价。
+
+# Plan 2/3 新增（2026-09-15）：
+ragas==0.4.3
+pymilvus==3.0.1
+pdfplumber==0.11.10

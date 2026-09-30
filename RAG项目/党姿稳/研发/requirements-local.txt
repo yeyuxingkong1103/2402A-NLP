@@ -1,0 +1,33 @@
+# ============================================================
+# 本地测试依赖（LOCAL_MODE=true）
+# 不含 torch / paddle 系列，安装体积小、速度快。
+# 配合 deepseek 云端模型 + hash 向量化，可在本机跑通完整链路。
+#
+# 安装：pip install -r requirements-local.txt
+# ============================================================
+
+fastapi
+uvicorn[standard]
+sse-starlette
+python-multipart
+
+streamlit
+
+openai
+httpx
+
+numpy
+jieba
+rank-bm25
+
+# 多路召回与分块用（retrieval_lc.py / chunking.py）
+langchain
+langchain-text-splitters
+
+pyMuPDF
+pdfplumber
+reportlab
+
+python-dotenv
+loguru
+pydantic

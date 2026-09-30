@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>国标文档知识库问答平台</title>
+<!--
+  static/index.html —— 国标文档知识库问答平台的前端单页界面
+
+  在链路中的位置：浏览器（本文件） → HTTP / SSE → backend/server.py → pipeline / retrieval / roleplay → Ollama + Milvus
+  依赖：无任何前端框架与 CDN；仅用浏览器原生的 fetch / FormData / TextDecoder / ReadableStream 访问同源接口
+  对应《代码说明.md》第七章
+
+  对接 backend/server.py 的接口：
+    POST   /api/upload                  上传 PDF 并触发后台构建线程（立即返回，进度靠轮询）
+    GET    /api/build/status            查询构建进度（steps / running）
+    GET    /api/documents               已入库文档登记信息（data/documents.json）
+    POST   /api/search                  跑一遍混合检索并返回 trace / candidates / results（不生成答案）
+    POST   /api/ask/stream              SSE 流式问答
+    GET    /api/kb/overview             知识库统计与文档列表（扫描 Milvus 真实点数）
+    GET    /api/kb/chunks?source=       某文档的 chunk 明细
+    DELETE /api/kb/document?source=     删除文档（Milvus 向量 + 登记信息 + 原始 PDF）
+    GET    /api/roleplay/roles          角色列表
+    POST   /api/roleplay/sessions       新建会话
+    POST   /api/roleplay/chat           执行一次角色聊天
+
+  页签（nav 按钮的 data-tab 与 section#tab-* 的 id 后缀一一对应，默认激活 build）：
+    build     文档构建：上传 PDF、轮询构建进度、查看已入库文档
+    kb        知识库：统计卡片 + 文档表 + 行内展开 chunk 明细
+    pipeline  检索：查询改写 → 双路召回 → RRF 融合 → 精排 → 结果 的全链路透视
+    demo      问答：流式问答，右侧展示处理过程 trace 与页码引用
+    roleplay  角色扮演：角色提示词 + 会话记忆 + 知识库引用
+
+  文件结构：index.html（结构）+ styles.css（样式）+ js/（交互逻辑，按页签分块，用普通 <script> 按顺序加载）
+-->
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<!-- 页头：标题与副标题，纯静态展示，不绑定任何数据 -->
+<header>
+  <div>
+    <h1>国标文档知识库问答平台</h1>
+    <div class="sub">PDF 入库 · 智能检索 · 溯源问答 · 全流程本地运行</div>
+  </div>
+</header>
+<!-- 主导航：5 个页签按钮，data-tab 的值决定显示 section#tab-<data-tab>；切换逻辑在 <script> 的「页签切换」块 -->
+<nav>
+  <button class="active" data-tab="build">文档构建</button>
+  <button data-tab="kb">知识库</button>
+  <button data-tab="pipeline">检索</button>
+  <button data-tab="demo">问答</button>
+  <button data-tab="roleplay">角色扮演</button>
+</nav>
+<main>
+
+<!-- ============ 文档构建 ============ -->
+<!-- 页签 1「文档构建」：POST /api/upload 上传 → 轮询 GET /api/build/status 看进度 → GET /api/documents 看结果 -->
+<section id="tab-build" class="page active">
+  <!-- 上传卡片：上传成功后由后端后台线程执行 build_pipeline，前端不等待构建结束 -->
+  <div class="card">
+    <h2>上传 PDF 构建知识库 <span class="tag cyan">解析 → 清洗 → 分块 → 向量化 → 入库</span></h2>
+    <!-- 上传区：点击整个 dropzone 等同于点隐藏的 fileInput；accept=".pdf" 只是前端过滤，后端仍会校验扩展名 -->
+    <div class="dropzone" id="dropzone">
+      <div class="big">点击选择或拖拽 PDF 到此处</div>
+      <div class="muted">上传后自动构建，实时显示各环节状态与耗时</div>
+      <input type="file" id="fileInput" accept=".pdf" hidden>
+    </div>
+    <!-- 上传按钮初始禁用，选中/拖入文件后才启用；刷新按钮重新拉取 GET /api/documents -->
+    <div style="margin-top:14px;display:flex;gap:10px">
+      <button class="btn" id="uploadBtn" disabled>上传并构建</button>
+      <button class="btn gray" id="refreshBtn">刷新文档列表</button>
+    </div>
+  </div>
+  <!-- 构建进度卡片：默认隐藏，点上传后显示；步骤列表由 pollStatus() 按轮询结果整体重绘 -->
+  <div class="card" id="buildCard" style="display:none">
+    <h2>⏱ 构建进度</h2>
+    <div class="steps" id="steps"></div>
+    <div class="loading" id="buildLoading" style="display:none">构建进行中…</div>
+  </div>
+  <div class="card">
+    <!-- 已入库文档表：数据来自 GET /api/documents（后端登记信息，不是实时扫描 Milvus） -->
+    <h2>已入库文档</h2>
+    <table>
+      <thead><tr><th>文件名</th><th>大小</th><th>页数</th><th>块数</th><th>向量</th><th>构建耗时</th><th>入库时间</th></tr></thead>
+      <tbody id="docBody"><tr><td colspan="7" class="empty">加载中…</td></tr></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 知识库 ============ -->
+<section id="tab-kb" class="page">
+  <div class="stat-grid" id="kbStats"></div>
+  <div class="card">
+    <h2>知识库文档 <span class="tag blue">点击行展开 chunk 明细</span></h2>
+    <table>
+      <thead><tr><th>文件名</th><th>块数</th><th>页数</th><th>大小</th><th>入库时间</th><th>操作</th></tr></thead>
+      <tbody id="kbBody"><tr><td colspan="6" class="empty">加载中…</td></tr></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 检索 ============ -->
+<section id="tab-pipeline" class="page">
+  <div class="card">
+    <h2>混合检索 <span class="tag violet">双路召回 · 融合 · 精排</span></h2>
+    <div class="input-row">
+      <input id="searchQ" placeholder="输入问题，如：SF6气体净化处理装置需要哪些功能？">
+      <select id="searchK">
+        <option value="3">Top 3</option><option value="5" selected>Top 5</option><option value="10">Top 10</option>
+      </select>
+      <button class="btn" id="searchBtn">检索</button>
+    </div>
+    <div class="hint">回车直接检索 · 试试：SF6气体净化处理装置需要哪些功能？ / SF6气体回收装置应具备哪些功能？</div>
+  </div>
+  <div id="chainResult"><div class="empty">输入问题后展示检索全过程：查询改写 → 双路召回 → 融合 → 精排 → 结果</div></div>
+</section>
+
+<!-- ============ 问答 ============ -->
+<section id="tab-demo" class="page">
+  <div class="card">
+    <h2>常用问题 <span class="tag green">点击快速提问</span></h2>
+    <div id="demoChips"></div>
+  </div>
+  <div class="card">
+    <div class="qa-layout">
+      <div class="qa-main">
+        <h2>知识库问答</h2>
+        <div class="input-row">
+          <input id="askQ" placeholder="输入问题，Enter 发送，Shift+Enter 换行">
+          <button class="btn" id="askBtn">发送</button>
+        </div>
+        <div class="hint">Ctrl+K 聚焦输入框 · 仅依据知识库内容回答，无依据将拒答</div>
+        <div id="askResult"></div>
+      </div>
+      <div class="trace-panel">
+        <h2>处理过程</h2>
+        <div id="tracePanel" class="empty">发送问题后展示各环节状态</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 角色扮演 ============ -->
+<section id="tab-roleplay" class="page">
+  <div class="card">
+    <h2>RAG 角色扮演 <span class="tag violet">角色提示词 · SQLite 记忆 · 知识库引用</span></h2>
+    <div class="input-row">
+      <input id="rpUser" value="demo-user" placeholder="用户 ID">
+      <select id="rpRole"><option value="friend">加载角色中…</option></select>
+      <button class="btn gray" id="rpNew">新建会话</button>
+    </div>
+    <div class="hint">本地保存会话；专业问题会自动检索知识库并附引用。</div>
+  </div>
+  <div class="card">
+    <div id="rpMessages" class="rp-messages"><div class="empty">选择角色并开始聊天</div></div>
+    <div class="input-row" style="margin-top:14px">
+      <input id="rpInput" placeholder="输入消息，Enter 发送">
+      <button class="btn" id="rpSend">发送</button>
+    </div>
+    <div id="rpMeta" class="hint"></div>
+  </div>
+</section>
+
+</main>
+
+<script src="/js/util.js"></script>
+<script src="/js/build.js"></script>
+<script src="/js/kb.js"></script>
+<script src="/js/chain.js"></script>
+<script src="/js/ask.js"></script>
+<script src="/js/roleplay.js"></script>
+<script src="/js/init.js"></script>
+</body>
+</html>

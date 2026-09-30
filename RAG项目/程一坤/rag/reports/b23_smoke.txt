@@ -1,0 +1,50 @@
+=== 1) 纯函数：rewrite_hit ===
+  ✔ changed 命中 + 锚点命中: got=True want=True
+  ✔ 锚点缺失: got=False want=False
+  ✔ changed 与期望不符: got=False want=False
+  ✔ 无锚点断言视为通过: got=True want=True
+  ✔ must_not_contain 命中即失败: got=False want=False
+  ✔ 无断言 → None: got=None want=None
+=== 2) 纯函数：context_carryover / merge / cleanup ===
+  ✔ 上一轮正文被带进来: got=True want=True
+  ✔ 没带进来: got=False want=False
+  ✔ 空输入 → None: got=None want=None
+  ✔ 合并引用审计: got={'citations': [1, 2, 9], 'invalid': [9], 'total': 3, 'correct': 2, 'no_citation': False} want={'citations': [1, 2, 9], 'invalid': [9], 'total': 3, 'correct': 2, 'no_citation': False}
+  ✔ 删除失败返回描述而不抛: got='RuntimeError: redis down' want='RuntimeError: redis down'
+  ✔ 存储缺失返回描述: got='short_term_memory_unavailable' want='short_term_memory_unavailable'
+=== 3) run_multi_turn_item：正常两轮 ===
+  题目： multiturn-001
+  ✔ 轮数: got=2 want=2
+  ✔ 逐轮都已执行: got=[1, 2] want=[1, 2]
+  ✔ 第1轮改写未变: got=False want=False
+  ✔ 第1轮 rewrite_hit=None（不是断言轮）: got=None want=None
+  ✔ 第2轮 rewrite_hit=True: got=True want=True
+  ✔ 第2轮上下文接通: got=True want=True
+  ✔ 回写后窗口条数: got=4 want=4
+  ✔ 整题 hit_at_5（第2轮）: got=True want=True
+  ✔ 整题 golden_rank: got=1 want=1
+  ✔ 整题引用合并（每轮 1 条 → 合并 2 条）: got=2 want=2
+  ✔ 跑前清理 1 次 + 跑后清理 1 次: got=2 want=2
+  ✔ 跑完无残留: got=[] want=[]
+  ✔ question 拼接: got='签三年期的劳动合同，试用期最长不能超过多久？ → 那这个期间工资最低不能低于多少？' want='签三年期的劳动合同，试用期最长不能超过多久？ → 那这个期间工资最低不能低于多少？'
+  ✔ rewrite_rate: got=1.0 want=1.0
+  ✔ turn2_hit_at_5: got=1.0 want=1.0
+  ✔ 回写标记: got=[True] want=[True]
+=== 4) writeback=False（反向对照）→ 改写应失效 ===
+  ✔ 未回写 → 上下文未接通: got=False want=False
+  ✔ 未回写 → rewrite_hit=False: got=False want=False
+  ✔ 未回写 → 无消息残留: got=[] want=[]
+  ✔ 反向 rewrite_rate: got=0.0 want=0.0
+  ✔ 反向 turn2_hit_at_5: got=0.0 want=0.0
+=== 5) 异常路径：第1轮 chat 抛错，仍要清会话且不丢整题 ===
+  ✔ 异常被记进 turns: got=True want=True
+  ✔ 异常题也清了会话: got=[] want=[]
+  ✔ session_cleanup_after 无错: got=None want=None
+=== 6) 空 turns 题 ===
+  ✔ 空 turns 报错不抛: got=['multi_turn_has_no_turns'] want=['multi_turn_has_no_turns']
+=== 7) 与既有 summarize 兼容（老 95 条路径不受影响） ===
+  ✔ 老题型 Recall@5 不受影响: got=1.0 want=1.0
+  ✔ 老题型计数: got=2 want=2
+  ✔ multi_turn 计入 by_type: got=1 want=1
+
+✅ 冒烟全部通过

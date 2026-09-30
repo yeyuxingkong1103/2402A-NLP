@@ -1,0 +1,8 @@
+== 1) 新实现基线 ==
+    5 passed in 0.04s
+== 2) 退回旧行为（report 不登记 failures）==
+    4 failed, 1 passed in 0.10s
+== 3) 字节级还原 ==
+还原后 md5 一致: True
+== 4) 还原后复跑 ==
+    5 passed in 0.04s

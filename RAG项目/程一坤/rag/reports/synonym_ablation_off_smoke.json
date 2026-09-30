@@ -1,0 +1,236 @@
+{
+  "arm": "off",
+  "tag": "smoke",
+  "synonym_expansion_enabled": false,
+  "synonym_table_version": null,
+  "run_at": "2026-09-20T16:58:41+08:00",
+  "eval_set": "C:\\Users\\92842\\Desktop\\rag\\data\\evaluation\\eval_set_v1.jsonl",
+  "summary": {
+    "total": 2,
+    "graded": 2,
+    "recall_at_5": 0.5,
+    "mrr_at_10": 0.1,
+    "absent_violation_count": 0,
+    "absent_violation_ids": [],
+    "golden_top10_hits": 1,
+    "questions_expanded": 0,
+    "expansion_question_ids": []
+  },
+  "details": [
+    {
+      "id": "asof-031",
+      "type": "as_of_date",
+      "question": "公司和员工约定不缴社保，员工离职时能主张经济补偿吗？依据是什么？",
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动合同法",
+          "article": "第三十八条"
+        },
+        {
+          "law": "劳动合同法",
+          "article": "第四十六条"
+        }
+      ],
+      "golden_rank": 5,
+      "hit_at_5": true,
+      "mrr10": 0.2,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "最高法发布劳动争议典型案例",
+          "article": null,
+          "vector": 0.7459,
+          "keyword": 15.9335,
+          "rerank": 0.5744
+        },
+        {
+          "rank": 2,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十八条",
+          "vector": null,
+          "keyword": 11.0705,
+          "rerank": 0.4765
+        },
+        {
+          "rank": 3,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第五条",
+          "vector": 0.6521,
+          "keyword": null,
+          "rerank": 0.3526
+        },
+        {
+          "rank": 4,
+          "law": "中华人民共和国劳动法",
+          "article": "第一百条",
+          "vector": 0.6621,
+          "keyword": null,
+          "rerank": 0.2292
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十六条",
+          "vector": 0.6842,
+          "keyword": null,
+          "rerank": 0.224
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条",
+          "vector": null,
+          "keyword": 9.0278,
+          "rerank": 0.1847
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第七十一条",
+          "vector": 0.6541,
+          "keyword": null,
+          "rerank": 0.1127
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十五条",
+          "vector": 0.6562,
+          "keyword": null,
+          "rerank": 0.1127
+        },
+        {
+          "rank": 9,
+          "law": "中华人民共和国劳动法",
+          "article": "第九十一条",
+          "vector": 0.6672,
+          "keyword": null,
+          "rerank": 0.1087
+        },
+        {
+          "rank": 10,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十七条",
+          "vector": null,
+          "keyword": 10.067,
+          "rerank": 0.1026
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 11,
+        "keyword_recall_count": 20,
+        "fused_count": 30,
+        "reranked_count": 10,
+        "synonym_expansion_count": 0
+      },
+      "expansion_phrases": [],
+      "absent_violation": null
+    },
+    {
+      "id": "confuse-049",
+      "type": "confusable",
+      "question": "我退休以后被公司返聘，现在被辞退了，能要求公司付经济补偿吗？",
+      "expect_refusal": false,
+      "golden": [
+        {
+          "law": "劳动争议司法解释（一）",
+          "article": "第三十二条"
+        }
+      ],
+      "golden_rank": null,
+      "hit_at_5": false,
+      "mrr10": 0.0,
+      "retrieved": [
+        {
+          "rank": 1,
+          "law": "中华人民共和国劳动法",
+          "article": "第二十八条",
+          "vector": 0.6238,
+          "keyword": null,
+          "rerank": 0.4897
+        },
+        {
+          "rank": 2,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第三十七条",
+          "vector": null,
+          "keyword": 15.291,
+          "rerank": 0.4773
+        },
+        {
+          "rank": 3,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第一条",
+          "vector": 0.6305,
+          "keyword": null,
+          "rerank": 0.4467
+        },
+        {
+          "rank": 4,
+          "law": "最高人民法院关于审理劳动争议案件适用法律问题的解释（一）",
+          "article": "第四十六条",
+          "vector": 0.635,
+          "keyword": null,
+          "rerank": 0.3592
+        },
+        {
+          "rank": 5,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十七条",
+          "vector": 0.6452,
+          "keyword": null,
+          "rerank": 0.3362
+        },
+        {
+          "rank": 6,
+          "law": "中华人民共和国劳动合同法实施条例",
+          "article": "第二十五条",
+          "vector": 0.6398,
+          "keyword": null,
+          "rerank": 0.3301
+        },
+        {
+          "rank": 7,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第四十六条",
+          "vector": 0.6641,
+          "keyword": null,
+          "rerank": 0.3138
+        },
+        {
+          "rank": 8,
+          "law": "中华人民共和国劳动合同法",
+          "article": "第九十七条",
+          "vector": 0.6327,
+          "keyword": null,
+          "rerank": 0.3083
+        },
+        {
+          "rank": 9,
+          "law": "最高法发布劳动争议司法解释（二）和典型案例",
+          "article": "第十九条",
+          "vector": 0.6482,
+          "keyword": null,
+          "rerank": 0.2839
+        },
+        {
+          "rank": 10,
+          "law": "工资支付暂行规定",
+          "article": "第十六条",
+          "vector": 0.6489,
+          "keyword": null,
+          "rerank": 0.2812
+        }
+      ],
+      "retrieval_stats": {
+        "vector_recall_count": 15,
+        "keyword_recall_count": 20,
+        "fused_count": 34,
+        "reranked_count": 10,
+        "synonym_expansion_count": 0
+      },
+      "expansion_phrases": []
+    }
+  ]
+}

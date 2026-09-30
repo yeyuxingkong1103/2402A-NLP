@@ -1,0 +1,135 @@
+A 侧（拆分前）：eval_20260921_153118_b24_split_before.json  run_at=2026-09-21 15:31:18 +0800  条数=100
+B 侧（拆分后）：eval_20260921_152102_b24_split_after.json  run_at=2026-09-21 15:21:02 +0800  条数=100
+题号集合一致 = True（100 vs 100）
+
+==================================================================================
+① 用同一份 summarize() 重算六项指标（A 侧 vs B 侧）
+==================================================================================
+| 指标 | A 拆分前 | B 拆分后 | 一致 |
+|---|---|---|---|
+| Recall@5 | 0.9647 | 0.9647 | ✔ |
+| MRR@10 | 0.7613 | 0.7601 | ✗ 差 -0.0012 |
+| 引用正确率 | 1.0000 | 1.0000 | ✔ |
+| 拒答准确率 | 0.9333 | 0.9333 | ✔ |
+| 误拒率 | 0.0824 | 0.1176 | ✗ 差 +0.0352 |
+| 计分题数 | 85 | 85 | ✔ |
+| 拒答题数 | 15 | 15 | ✔ |
+| 引用总数 | 408 | 411 | ✗ |
+| 越界引用 | 0 | 0 | ✔ |
+| 无引用回答 | 7 | 10 | ✗ |
+
+  multi_turn 段：
+    count: 5 → 5  ✔
+    asserted_count: 4 → 4  ✔
+    graded_count: 5 → 5  ✔
+    rewrite_rate: 1.0 → 1.0  ✔
+    turn2_hit_at_5: 1.0 → 1.0  ✔
+    rewrite_rate_denominator: 4 → 4  ✔
+    turn2_hit_at_5_denominator: 5 → 5  ✔
+    context_carryover_true: 4 → 4  ✔
+    context_carryover_recorded: 5 → 5  ✔
+    context_writeback: [True] → [True]  ✔
+    per_item: [{'id': 'multiturn-001', 'rewrite_hit': True, 'rewrite_turn': 2, 'changed': True, 'rewritten_query': '签三年期的劳动合同 试用期最长不能超过多久 这个期间工资最低不能低于多少', 'context_carryover': True, 'turn2_golden_rank': 1, 'turn2_hit_at_5': True}, {'id': 'multiturn-002', 'rewrite_hit': True, 'rewrite_turn': 2, 'changed': True, 'rewritten_query': '工作满十年 年休假有几天 些天没休成，钱按什么标准算', 'context_carryover': True, 'turn2_golden_rank': 2, 'turn2_hit_at_5': True}, {'id': 'multiturn-003', 'rewrite_hit': True, 'rewrite_turn': 2, 'changed': True, 'rewritten_query': '公司可以辞退怀孕的女员工吗 她能休多久', 'context_carryover': True, 'turn2_golden_rank': 3, 'turn2_hit_at_5': True}, {'id': 'multiturn-004', 'rewrite_hit': True, 'rewrite_turn': 2, 'changed': True, 'rewritten_query': '公司要我在离职后不去同行 需要给我钱吗 这个最长能约定几年', 'context_carryover': True, 'turn2_golden_rank': 2, 'turn2_hit_at_5': True}, {'id': 'multiturn-005', 'rewrite_hit': None, 'rewrite_turn': None, 'changed': None, 'rewritten_query': None, 'context_carryover': False, 'turn2_golden_rank': 3, 'turn2_hit_at_5': True}] → [{'id': 'multiturn-001', 'rewrite_hit': True, 'rewrite_turn': 2, 'changed': True, 'rewritten_query': '签三年期的劳动合同 试用期最长不能超过多久 这个期间工资最低不能低于多少', 'context_carryover': True, 'turn2_golden_rank': 1, 'turn2_hit_at_5': True}, {'id': 'multiturn-002', 'rewrite_hit': True, 'rewrite_turn': 2, 'changed': True, 'rewritten_query': '工作满十年 年休假有几天 些天没休成，钱按什么标准算', 'context_carryover': True, 'turn2_golden_rank': 2, 'turn2_hit_at_5': True}, {'id': 'multiturn-003', 'rewrite_hit': True, 'rewrite_turn': 2, 'changed': True, 'rewritten_query': '公司可以辞退怀孕的女员工吗 她能休多久', 'context_carryover': True, 'turn2_golden_rank': 3, 'turn2_hit_at_5': True}, {'id': 'multiturn-004', 'rewrite_hit': True, 'rewrite_turn': 2, 'changed': True, 'rewritten_query': '公司要我在离职后不去同行 需要给我钱吗 这个最长能约定几年', 'context_carryover': True, 'turn2_golden_rank': 2, 'turn2_hit_at_5': True}, {'id': 'multiturn-005', 'rewrite_hit': None, 'rewrite_turn': None, 'changed': None, 'rewritten_query': None, 'context_carryover': False, 'turn2_golden_rank': 3, 'turn2_hit_at_5': True}]  ✔
+
+==================================================================================
+② 逐条差异分类
+==================================================================================
+【检索侧 + 改写侧】差异 = 1 条
+  · confuse-085（confusable）：golden_rank 10 → None
+
+【回答侧 refusal_by_text 翻转】= 11 条
+  · direct-009（direct_article）：refusal_by_text False → True
+  · cross-024（cross_law）：refusal_by_text False → True
+  · followup-025（followup_rewrite）：refusal_by_text True → False
+  · direct-055（direct_article）：refusal_by_text False → True
+  · direct-058（direct_article）：refusal_by_text True → False
+  · cross-066（cross_law）：refusal_by_text True → False
+  · cross-067（cross_law）：refusal_by_text False → True
+  · asof-073（as_of_date）：refusal_by_text False → True
+  · asof-074（as_of_date）：refusal_by_text False → True
+  · multiturn-003（multi_turn）：refusal_by_text True → False
+  · multiturn-004（multi_turn）：refusal_by_text False → True
+  形态：A 侧有→B 侧无 = 4 条；A 侧无→B 侧有 = 7 条；两组重叠 = 0 条
+  → 重叠少说明是逐题独立随机（非系统性方向偏移），符合采样波动形态
+
+【仅回答文本不同】= 71 条
+  · direct-001（direct_article）：仅回答文本不同（采样）
+  · direct-002（direct_article）：仅回答文本不同（采样）
+  · direct-003（direct_article）：仅回答文本不同（采样）
+  · direct-005（direct_article）：仅回答文本不同（采样）
+  · direct-006（direct_article）：仅回答文本不同（采样）
+  · direct-007（direct_article）：仅回答文本不同（采样）
+  · direct-008（direct_article）：仅回答文本不同（采样）
+  · direct-010（direct_article）：仅回答文本不同（采样）
+  · direct-011（direct_article）：仅回答文本不同（采样）
+  · direct-012（direct_article）：仅回答文本不同（采样）
+  · direct-013（direct_article）：仅回答文本不同（采样）
+  · direct-014（direct_article）：仅回答文本不同（采样）
+  · direct-015（direct_article）：仅回答文本不同（采样）
+  · direct-016（direct_article）：仅回答文本不同（采样）
+  · cross-017（cross_law）：仅回答文本不同（采样）
+  · cross-018（cross_law）：仅回答文本不同（采样）
+  · cross-019（cross_law）：仅回答文本不同（采样）
+  · cross-020（cross_law）：仅回答文本不同（采样）
+  · cross-021（cross_law）：仅回答文本不同（采样）
+  · cross-022（cross_law）：仅回答文本不同（采样）
+  · cross-023（cross_law）：仅回答文本不同（采样）
+  · followup-026（followup_rewrite）：仅回答文本不同（采样）
+  · followup-027（followup_rewrite）：仅回答文本不同（采样）
+  · followup-028（followup_rewrite）：仅回答文本不同（采样）
+  · followup-029（followup_rewrite）：仅回答文本不同（采样）
+  · followup-030（followup_rewrite）：仅回答文本不同（采样）
+  · asof-031（as_of_date）：仅回答文本不同（采样）
+  · asof-032（as_of_date）：仅回答文本不同（采样）
+  · asof-033（as_of_date）：仅回答文本不同（采样）
+  · asof-034（as_of_date）：仅回答文本不同（采样）
+  · asof-035（as_of_date）：仅回答文本不同（采样）
+  · asof-036（as_of_date）：仅回答文本不同（采样）
+  · confuse-045（confusable）：仅回答文本不同（采样）
+  · confuse-046（confusable）：仅回答文本不同（采样）
+  · confuse-047（confusable）：仅回答文本不同（采样）
+  · confuse-048（confusable）：仅回答文本不同（采样）
+  · confuse-049（confusable）：仅回答文本不同（采样）
+  · confuse-050（confusable）：仅回答文本不同（采样）
+  · direct-051（direct_article）：仅回答文本不同（采样）
+  · direct-052（direct_article）：仅回答文本不同（采样）
+  · direct-053（direct_article）：仅回答文本不同（采样）
+  · direct-054（direct_article）：仅回答文本不同（采样）
+  · direct-056（direct_article）：仅回答文本不同（采样）
+  · direct-057（direct_article）：仅回答文本不同（采样）
+  · direct-059（direct_article）：仅回答文本不同（采样）
+  · direct-060（direct_article）：仅回答文本不同（采样）
+  · direct-061（direct_article）：仅回答文本不同（采样）
+  · direct-062（direct_article）：仅回答文本不同（采样）
+  · cross-063（cross_law）：仅回答文本不同（采样）
+  · cross-064（cross_law）：仅回答文本不同（采样）
+  · cross-065（cross_law）：仅回答文本不同（采样）
+  · cross-068（cross_law）：仅回答文本不同（采样）
+  · followup-069（followup_rewrite）：仅回答文本不同（采样）
+  · followup-072（followup_rewrite）：仅回答文本不同（采样）
+  · asof-075（as_of_date）：仅回答文本不同（采样）
+  · refusal-080（refusal）：仅回答文本不同（采样）
+  · confuse-083（confusable）：仅回答文本不同（采样）
+  · confuse-084（confusable）：仅回答文本不同（采样）
+  · direct-086（direct_article）：仅回答文本不同（采样）
+  · direct-087（direct_article）：仅回答文本不同（采样）
+  · direct-088（direct_article）：仅回答文本不同（采样）
+  · direct-089（direct_article）：仅回答文本不同（采样）
+  · direct-090（direct_article）：仅回答文本不同（采样）
+  · direct-091（direct_article）：仅回答文本不同（采样）
+  · direct-092（direct_article）：仅回答文本不同（采样）
+  · direct-093（direct_article）：仅回答文本不同（采样）
+  · direct-094（direct_article）：仅回答文本不同（采样）
+  · direct-095（direct_article）：仅回答文本不同（采样）
+  · multiturn-001（multi_turn）：仅回答文本不同（采样）
+  · multiturn-002（multi_turn）：仅回答文本不同（采样）
+  · multiturn-005（multi_turn）：仅回答文本不同（采样）
+
+==================================================================================
+③ 结论
+==================================================================================
+  检索侧逐条一致：❌
+  六项指标逐位一致：❌
+  multi_turn 段逐位一致：✅
+  回答侧 refusal_by_text 翻转 11 条（LLM 采样，非拆分引入）
+  ⚠ 存在需解释的差异，见上方明细

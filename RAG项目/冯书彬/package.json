@@ -1,0 +1,15 @@
+{
+  "name": "legal-rag-assistant-e2e",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:e2e": "playwright test",
+    "test:e2e:chromium": "playwright test --project=chromium",
+    "test:e2e:real": "node frontend/tests/run-real-e2e.mjs",
+    "test:e2e:real:rag": "node frontend/tests/run-real-e2e.mjs rag"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0"
+  }
+}
