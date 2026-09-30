@@ -1,0 +1,77 @@
+# ---- 远程仓库的规则 ----
+__pycache__/
+*.pyc
+.venv/
+venv/
+.idea/
+.vscode/
+.env
+data/
+logs/
+conda_packages/
+
+# ---- 体积大 / 可重建的运行数据，不上传 ----
+**/qdrant_storage/
+**/node_modules/
+**/frontend/dist/
+**/datasets/
+**/tools/redis/
+**/.mimosa/
+**/.superpowers/
+
+# ---- 你本地的规则 ----
+# Python
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Environment
+.env.*
+!.env.example
+
+# Logs
+logs/*.log
+*.log
+
+# Data
+_data/
+data/raw/*
+data/processed/*
+data/cleaned/*
+data/chunks/*
+data/vectorized/*
+data/failed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/cleaned/.gitkeep
+!data/chunks/.gitkeep
+!data/vectorized/.gitkeep
+!data/failed/.gitkeep
+
+# Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# IDE
+.DS_Store
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Secrets
+*.pem
+*.key
+*.crt
