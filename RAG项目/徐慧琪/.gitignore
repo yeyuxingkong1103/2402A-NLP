@@ -1,0 +1,16 @@
+# 徐慧琪 项目本地忽略规则。
+# 仓库根 .gitignore 已覆盖 __pycache__/、.pytest_cache/、.venv/、venv/、
+# .env、logs/、data/、**/.superpowers/ 等；此处只补根规则没覆盖的项，
+# 以及本目录被单独拷贝走时仍需成立的几条。
+
+# Claude Code 本地工具目录 —— 根 .gitignore 未覆盖，故必须在此声明
+.claude/
+
+# 以下几条根规则已有，重复声明以保证本目录被单独拷出后依然生效
+.env
+.venv/
+venv/
+logs/
+.pytest_cache/
+__pycache__/
+*.py[cod]
