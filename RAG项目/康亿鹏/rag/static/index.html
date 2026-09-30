@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAG 知识库问答</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <!-- 全局错误/提示条 -->
+  <div id="toast" class="toast" hidden></div>
+
+  <!-- 登录视图 -->
+  <section id="login-view" class="auth-card">
+    <h1 class="title">RAG 知识库问答</h1>
+    <p class="subtitle">登录后开始提问</p>
+    <form id="login-form" class="form">
+      <label class="field">
+        <span>用户名</span>
+        <input type="text" id="login-username" autocomplete="username" required>
+      </label>
+      <label class="field">
+        <span>密码</span>
+        <input type="password" id="login-password" autocomplete="current-password" required>
+      </label>
+      <button type="submit" class="btn btn-primary">登录</button>
+    </form>
+    <a href="#" id="to-register" class="link">没有账号？去注册</a>
+  </section>
+
+  <!-- 注册视图 -->
+  <section id="register-view" class="auth-card" hidden>
+    <h1 class="title">注册新账号</h1>
+    <form id="register-form" class="form">
+      <label class="field">
+        <span>用户名</span>
+        <input type="text" id="reg-username" autocomplete="username" required>
+      </label>
+      <label class="field">
+        <span>密码</span>
+        <input type="password" id="reg-password" autocomplete="new-password" required>
+      </label>
+      <button type="submit" class="btn btn-primary">注册</button>
+    </form>
+    <a href="#" id="to-login" class="link">已有账号？去登录</a>
+  </section>
+
+  <!-- 聊天视图 -->
+  <section id="chat-view" class="chat-wrap" hidden>
+    <header class="chat-header">
+      <div class="domain-picker">
+        <label for="domain-select">领域</label>
+        <select id="domain-select"></select>
+      </div>
+      <div class="domain-picker">
+        <label for="role-select">向谁提问</label>
+        <select id="role-select"></select>
+      </div>
+      <div class="header-actions">
+        <button id="clear-btn" class="btn btn-ghost">清空历史</button>
+        <button id="logout-btn" class="btn btn-ghost">退出</button>
+      </div>
+    </header>
+
+    <main id="messages" class="messages"></main>
+
+    <form id="chat-form" class="chat-input">
+      <textarea id="question-input" placeholder="输入问题，回车发送，Shift+Enter 换行" rows="1" required></textarea>
+      <button type="submit" id="send-btn" class="btn btn-primary">发送</button>
+    </form>
+  </section>
+
+  <script src="/app.js"></script>
+</body>
+</html>
