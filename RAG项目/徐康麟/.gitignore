@@ -1,0 +1,71 @@
+# 虚拟环境
+.venv/
+venv/
+# 框架试验环境（P0：Python 3.10，专装 prometheus-client / structlog / SQLAlchemy 等待评估的
+# 成熟框架；与主 .venv（3.14，跑存量测试）隔离。见 docs/REFACTOR-PLAN.md §5 的 P0）
+venv310/
+venv3*/
+
+# 索引与运行时产物（交付清单需要有版本基线 ⇒ 只放行 milvus_manifest.json；db/pkl/爬取状态继续忽略）
+index/*
+!index/milvus_manifest.json
+*.pkl
+.agent-teams/
+
+# 运行期日志与上传（含滚动备份，勿入库）
+logs/
+*.log
+*.log.*
+uploads/
+
+# Ollama 模型缓存（体积巨大，指向工作区时别入库）
+.ollama-models/
+
+# 自检临时目录
+.selfcheck_out/
+.testtmp/
+.pytmp/
+.pytest-tmp/
+.pytest_cache/
+.tmp/
+.wheels/
+.pylibs/
+.venv-site/
+.pip-cache/
+run/
+
+# 密钥
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# --- 2026-09-17 引入 VCS（git init）时补充 ---
+# 依据实测体积：.pytmp 442MB / data 206MB / .tmp 117MB / logs 41MB 必须排除；
+# knowledge 35MB（法条语料，产品资产）与 handoff 7.3MB（证据）纳入版本管理。
+# 原始语料：可重新抓取，且按纪律不上传（RAG 用不到 raw）
+data/
+# 私钥与凭据：绝不入库（deploy.sh 里用到 .ssh/dsh_ubuntu_ed25519）
+.ssh/
+.credentials*
+*.pem
+*.key
+# 其他本机缓存与编辑器
+.npm-cache/
+.idea/
+.vscode/
+*.swp
+
+# Serena（语义代码工具）的项目级记忆/配置：本地状态，不入库
+.serena/
+
+# ===== DSH 无关插件与一次性脚本 =====
+dsh-plugin-auto-handoff/
+.dsh/
+install-dsh-auto-handoff.ps1
+install-dsh-context-compressor.ps1
+remove-dsh-context-compressor.ps1
+handoff/AUTO-HANDOFF-PLUGIN.md
+_verify-host-fix.cjs

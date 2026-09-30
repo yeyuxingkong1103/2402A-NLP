@@ -1,0 +1,42 @@
+# 真实后端依赖（体积大：torch / onnxruntime，按需安装）
+# 安装： .venv\Scripts\python.exe -m pip install -r requirements-full.txt
+# --- 真实后端依赖 ---
+# 注意：本文件已通过 -r 引入 requirements.txt，其中的
+#       fastapi / uvicorn / httpx / python-multipart / pymilvus / redis
+#       （HTTP 服务、文件上传、向量库、缓存与接口测试的硬依赖）无需在此重复声明。
+-r requirements.txt
+
+# --- 向量库：ChromaDB（本地轻量，替代 Milvus）---
+chromadb>=1.0
+
+# --- 向量化 / 重排：BGE-m3 / BGE-rerank（torch 路线，本阶段改用 Ollama 免 torch）---
+# 注意：本机 huggingface.co 不可达，权重走 ModelScope（modelscope.cn 可达）
+sentence-transformers>=5.0
+FlagEmbedding>=1.3
+modelscope>=1.20
+torch>=2.4
+
+# --- 记忆与业务数据 ---
+pymysql>=1.1
+
+# --- 文档解析：PDF 表格还原 + 扫描件 OCR ---
+# `pdfplumber` 用**表格线**识别表格并转 Markdown（`ingest/loaders.py`）。
+# 缺失时**不静默**：`Document.parse.tables_engine == "unavailable"` + WARNING，
+# PDF 仍按 pypdf 的文字层入库（只是没有表格结构）。
+pdfplumber>=0.11
+# `rapidocr-onnxruntime`：**扫描件 OCR**（PP-OCR 的 ONNX 版，CPU 就能跑，模型随包带）。
+# 判定口径：文字层**平均每页 < 20 字**即视为疑似扫描件 ⇒ 逐页渲染后 OCR；
+# 引擎缺失 ⇒ `parse.ocr_status="unavailable"` + WARNING，扫描件会**抽不出文字**（会显式告警）。
+# 更重的替代品 `paddleocr`（中文更强）也在支持列表里，装了会优先用；
+# ⚠️ 本机 Python 3.14 / Windows **装不了 paddlepaddle**（无可用发行版），
+#    所以 paddle 分支只按 API 写、**未本机实测**（rapidocr 分支已实测）。
+# 2026-09-28 **部署机（Ubuntu / Python 3.10）实测**：本机 1.2.3、云端 1.4.4
+#    **返回结构一致**（`engine(img) -> ([[box, text, score], ...], elapse)`）；
+#    代码只用 `item[1]`（文本）⇒ `>=1.2` 可用。
+#    ⚠️ 但 1.4.4 的 `score` 是 **float**（1.2.3 是 str）—— 别按字符串去用它。
+rapidocr-onnxruntime>=1.2
+
+# --- 可选增强（optional，缺失时代码自动降级，不影响主链路）---
+# 注意：`psutil` 与 `nvidia-ml-py` **已于 2026-09-29 提升为 `requirements.txt` 的主依赖**
+# （系统层指标的主路径），不再列在这里。见 requirements.txt 内对应注释。
+# 本段保留给将来新增的、确实属于"可选"的增强包。

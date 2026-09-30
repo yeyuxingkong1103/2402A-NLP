@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Role RAG · 多角色知识问答</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<div id="login-mask" class="mask">
+  <form class="login-card" id="login-form">
+    <h1>Role RAG</h1>
+    <p class="sub">多用户 · 多角色 · 本地模型 · 混合检索</p>
+    <label>用户名<input id="login-user" value="alice" autocomplete="username" /></label>
+    <label>密码<input id="login-pass" type="password" value="alice123" autocomplete="current-password" /></label>
+    <button type="submit" id="login-btn">登录</button>
+    <div class="hint">内置账号：alice/alice123 · bob/bob123 · carol/carol123 · admin/admin123（管理员）</div>
+    <div class="error" id="login-error"></div>
+  </form>
+</div>
+
+<div class="layout" id="layout" hidden>
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="logo">◎</span>
+      <div>
+        <div class="title">Role RAG</div>
+        <div class="tiny" id="user-line">-</div>
+      </div>
+    </div>
+    <button class="new-session" id="btn-new">＋ 新建会话</button>
+    <div class="section-title">我的会话</div>
+    <div class="session-list" id="session-list"></div>
+    <div class="sidebar-foot">
+      <button class="ghost" id="btn-refresh-state">刷新状态</button>
+      <button class="ghost" id="btn-logout">退出登录</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="role-picker" id="role-picker"></div>
+      <div class="controls">
+        <label class="tiny">检索模式
+          <select id="mode-select">
+            <option value="hybrid">混合（三路 RRF）</option>
+            <option value="dense">稠密 BGE-M3</option>
+            <option value="sparse">稀疏 lexical</option>
+            <option value="bm25">BM25 关键词</option>
+          </select>
+        </label>
+        <label class="tiny">召回条数
+          <input id="topk-input" type="number" min="1" max="20" value="6" />
+        </label>
+      </div>
+    </header>
+
+    <section class="chat" id="chat"></section>
+
+    <footer class="composer">
+      <textarea id="input" rows="2" placeholder="输入问题，Enter 发送，Shift+Enter 换行"></textarea>
+      <button id="btn-send">发送</button>
+    </footer>
+  </main>
+
+  <aside class="panel">
+    <div class="tabs">
+      <button class="tab active" data-tab="state">运行状态</button>
+      <button class="tab" data-tab="memory">记忆</button>
+      <button class="tab" data-tab="debug">检索调试</button>
+      <button class="tab" data-tab="logs">日志</button>
+    </div>
+    <div class="tab-body" id="tab-state"></div>
+    <div class="tab-body" id="tab-memory" hidden></div>
+    <div class="tab-body" id="tab-debug" hidden>
+      <div class="debug-form">
+        <input id="debug-query" placeholder="输入 query 比较四种检索模式" />
+        <button id="btn-debug">比较</button>
+      </div>
+      <div id="debug-result"></div>
+    </div>
+    <div class="tab-body" id="tab-logs" hidden></div>
+  </aside>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

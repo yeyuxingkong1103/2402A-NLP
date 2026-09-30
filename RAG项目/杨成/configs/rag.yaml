@@ -1,0 +1,72 @@
+project:
+  name: hypertension_rag
+  language: zh
+  domain: medical_hypertension
+
+models:
+  embedding: D:\\桌面缓存\\bge-m3
+  reranker: D:\\桌面缓存\\bge-reranker-v2-m3\\bge-reranker-v2-m3
+  use_fp16: false
+
+milvus:
+  uri: http://127.0.0.1:19530
+  collection: hypertension_rag
+  vector_dim: 1024
+  metric_type: COSINE
+  index:
+    dense_type: HNSW
+    M: 16
+    efConstruction: 200
+    sparse_type: SPARSE_INVERTED_INDEX
+    sparse_metric: BM25
+
+identity:
+  primary_key: sha256(document_id:child_id)[:32]
+  documents:
+    hypertension_guideline_2025:
+      version: "2025"
+      name: 国家基层高血压防治管理指南2025版
+    hypertension_nutrition_exercise_2024:
+      version: "2024"
+      name: 高血压营养和运动指导原则（2024年版）
+    hypertension_guideline_2024_revision:
+      version: "2024"
+      name: 中国高血压防治指南2024修订版
+    pediatric_upper_respiratory_infection_2016:
+      version: "2016"
+      name: 关于儿童上呼吸道感染的防治知识
+    influenza_treatment_2025:
+      version: "2025"
+      name: 流行性感冒诊疗方案（2025年版）
+    hypertension_education_2005:
+      version: "2005"
+      name: 防治高血压宣传教育知识要点
+
+retrieval:
+  dense_top_k: 20
+  bm25_top_k: 20
+  fusion: rrf
+  rrf_k: 60
+  fused_top_k: 10
+  rerank_top_k: 5
+  min_rerank_score: 0.3
+
+generation:
+  provider: deepseek
+  model: deepseek-chat
+  timeout_seconds: 60
+  temperature: 0.1
+
+memory:
+  database: data/runtime/memory.sqlite3
+  short_term_rounds: 6
+  long_term_enabled: true
+
+data:
+  raw_dir: data/raw
+  parsed_dir: data/parsed
+  chunks_dir: data/processed/chunks
+  tables_dir: data/processed/tables
+  vectors_dir: data/processed/vectors
+  evaluation_dir: data/processed
+  runs_dir: data/runs

@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<!-- 站点图标：站内内联 data-URI（无外链、零额外请求）；默认 = 律师法锤，随角色/主题由脚本改 href -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20d%3D%22M6%204%20h20%20v5%20H6%20z%20M14%209%20h4%20v13%20h-4%20z%20M5%2025%20h22%20v3%20H5%20z%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23000000%22%20stroke-width%3D%222%22%20stroke-linejoin%3D%22round%22%20fill-rule%3D%22evenodd%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E">
+<title>重置密码 · 明理</title>
+<!-- 第二批：认证页独立化（docs/WEB-UX.md r6 §13/§15）。单页、无构建、零依赖、无外链。 -->
+<!-- 主题：在解析阶段（首屏绘制前）就写死，避免出现相反主题的中间帧（AC-TH-5）。
+     未显式选择过 ⇒ 跟随系统 prefers-color-scheme；显式选择过 ⇒ 用户选择优先并覆盖系统（AC-TH-4）。 -->
+<script>
+(function () {
+  "use strict";
+  var KEY = "lr_theme";                 /* 四页唯一一致的键名；值只有 dark / light，不存任何凭据 */
+  var root = document.documentElement;
+  function systemTheme() {
+    try {
+      return (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
+    } catch (e) { return "dark"; }
+  }
+  function stored() {
+    try {
+      var v = localStorage.getItem(KEY);
+      return (v === "light" || v === "dark") ? v : "";
+    } catch (e) { return ""; }          /* 隐私模式：读不到就当未选择 */
+  }
+  function apply(theme) {
+    root.setAttribute("data-theme", theme);
+    root.style.colorScheme = theme;     /* 原生控件/滚动条跟随 */
+  }
+  window.__theme = {
+    KEY: KEY,
+    read: stored,
+    system: systemTheme,
+    current: function () { return root.getAttribute("data-theme") || systemTheme(); },
+    apply: apply,
+    set: function (theme, persist) {
+      apply(theme);
+      if (persist) {
+        try { localStorage.setItem(KEY, theme); } catch (e) { /* 隐私模式：本次生效，不持久化 */ }
+      }
+    }
+  };
+  apply(stored() || systemTheme());
+  /* ── B-8 / r17 §21：账号级偏好（theme + role_id）的「本地即时 + 服务端权威」 ──────
+     分工写死（`AC-PR-8`）：**本地立即生效**（解析期就读 ⇒ 首帧即正确、无闪跳），
+     随后**异步上报** `PUT /prefs`；`GET /prefs` 回来**以服务端为准**（本地即时值被覆盖）。
+     服务端不可达 ⇒ **保留本地效果** + `#prefsNote` 可见说明与「重试」，绝不静默、也不阻塞首屏。
+     键名白名单：`lr_theme` / `lr_role` / `lr_prefs_owner` —— **只存偏好，不存任何凭据**（`AC-PR-1/6`）。
+     `lr_prefs_owner` = 本地缓存归属哪个账号；`claim()` 在换账号时**清掉上一账号的缓存**。
+     ⚠️ 本段在四页**逐字相同**（同一份常量，便于审查交叉核对）。 */
+  var PREFS_THEME_KEY = "lr_theme";     /* 与 __theme.KEY 同值；写死字面量以便四页同源 */
+  var ROLE_KEY = "lr_role";
+  var OWNER_KEY = "lr_prefs_owner";
+  var bootUser = "";                    /* 页面脚本确认登录态后写入 */
+  var SESSION_KEY = "lr_session";       /* 登录态白名单键（与既有常量同值；只作"有没有会话"的开关） */
+  var hasSession = false;               /* 页面脚本确认「本次确实拿到登录态」后置真 */
+  /* 待上报项：`save()` 失败时把它记下来，点「重试」**优先重发**它。
+     ⚠️ t99/F-③：以前「重试」只会 `fetchServer()`（拉取）⇒ 服务端值把本地选择**覆盖掉**，
+     用户在故障期间改的主题被静默丢弃，与同屏文案「本机已生效…再同步」自相矛盾。 */
+  var pendingPatch = null;
+  function prefsNote(msg, withRetry) {
+    var el = document.getElementById("prefsNote");
+    if (!el) return;
+    if (!msg) { el.hidden = true; el.textContent = ""; return; }
+    el.hidden = false;
+    el.textContent = msg;
+    var old = document.getElementById("prefsRetry");
+    if (old) old.remove();
+    if (withRetry) {
+      var b = document.createElement("button");
+      b.type = "button"; b.id = "prefsRetry"; b.textContent = "重试";
+      b.style.marginLeft = "8px";
+      /* t99/F-③：先重发待上报项，无待上报才退回拉取（顺序写在 retry() 里） */
+      b.onclick = function () { window.__prefs.retry(); };
+      el.appendChild(b);
+    }
+  }
+  function flushPending() {
+    if (!pendingPatch) return Promise.resolve(false);
+    var patch = pendingPatch;
+    return reportPrefs(patch).then(function (res) {
+      if (res.ok || res.code === "unauthenticated") {
+        pendingPatch = null;                       /* 上报成功（或登录态已失效）⇒ 清待上报项 */
+        return true;
+      }
+      return false;                                /* 仍失败 ⇒ 保留，供再次重试 */
+    });
+  }
+  /* 「重试」的唯一入口：**优先重发**待上报项，失败则再给可见提示；无待上报才退回拉服务端。 */
+  function retryPrefs() {
+    return flushPending().then(function (resent) {
+      if (resent) {
+        /* 重发成功 ⇒ 以服务端为准回读一次（并清提示）。此时服务端值 = 本地值。 */
+        return window.__prefs.fetchServer();
+      }
+      /* 重发失败（pendingPatch 仍在）⇒ 再给一次可见提示 + 重试 */
+      if (pendingPatch) {
+        window.__prefs.status = "offline";
+        prefsNote("偏好仍未同步到账号（可再点「重试」）。本机已生效，刷新前一直有效。", true);
+        return null;
+      }
+      return window.__prefs.fetchServer();         /* 无待上报项 ⇒ 退回拉取（原行为） */
+    });
+  }
+  function sameOwner() {
+    /* 只有"没人认领"（干净设备=首次访问）或"同一个账号"时，本地缓存才算数；
+       别的账号留下的缓存一律不用 —— 这就是"换账号不残留"的机制。 */
+    try {
+      var o = localStorage.getItem(OWNER_KEY) || "";
+      return !o || !bootUser || o === bootUser;
+    } catch (e) { return false; }
+  }
+  function storedRole() {
+    if (!sameOwner()) return "";
+    try {
+      var v = localStorage.getItem(ROLE_KEY);
+      return (v && /^[a-z0-9_-]{1,64}$/.test(v)) ? v : "";
+    } catch (e) { return ""; }
+  }
+  function storedThemePref() {
+    try {
+      var v = localStorage.getItem(PREFS_THEME_KEY);
+      return (v === "light" || v === "dark") ? v : "";
+    } catch (e) { return ""; }
+  }
+  function putRole(roleId) {
+    try { localStorage.setItem(ROLE_KEY, roleId); } catch (e) { /* 隐私模式：本次生效不持久化 */ }
+  }
+  function reportPrefs(patch) {
+    return fetch("/prefs", {
+      method: "PUT", credentials: "same-origin",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(patch)
+    }).then(function (r) {
+      if (r.status === 401) { return { ok: false, code: "unauthenticated" }; }  /* 未登录：只写本地 */
+      if (!r.ok) { return { ok: false, code: "http_" + r.status, status: r.status }; }
+      return r.json().catch(function () { return {}; }).then(function (b) { return { ok: true, body: b }; });
+    }).catch(function (err) { return { ok: false, code: "network", error: err }; });
+  }
+  window.__prefs = {
+    THEME_KEY: PREFS_THEME_KEY, ROLE_KEY: ROLE_KEY, OWNER_KEY: OWNER_KEY,
+    readRole: storedRole, putRole: putRole, report: reportPrefs, note: prefsNote, status: "",
+    /* t99/F-④：页面脚本确认"本次有没有登录态"。没有会话时**跳过** `GET /prefs`
+       （无谓的 401；`AC-PR-7` 的降级提示只在真有会话、真取不到时才该出现）。 */
+    setSession: function (on) { hasSession = !!on; return hasSession; },
+    /* 「重试」：优先重发待上报项，无待上报才拉取（见 retryPrefs 注释） */
+    retry: function () { return retryPrefs(); },
+    /* 页面脚本确认登录态后调用：认领本地缓存；换账号则清掉上一账号的偏好缓存 */
+    claim: function (userId) {
+      bootUser = userId || "";
+      try {
+        var prev = localStorage.getItem(OWNER_KEY) || "";
+        if (prev && bootUser && prev !== bootUser) {
+          localStorage.removeItem(ROLE_KEY);          /* 上一账号的角色缓存 */
+          localStorage.removeItem(PREFS_THEME_KEY);   /* 上一账号的显式主题 */
+        }
+        if (bootUser) localStorage.setItem(OWNER_KEY, bootUser);
+        else localStorage.removeItem(OWNER_KEY);
+      } catch (e) { /* 隐私模式：忽略 */ }
+      return { theme: storedThemePref(), role: storedRole() };
+    },
+    /* 登出/未登录：清掉归属，使本地缓存不再归属任何人（下次登录不会"继承"上一账号） */
+    release: function () {
+      bootUser = "";
+      hasSession = false;                                   /* t99/F-④：登出后不再发 /prefs */
+      pendingPatch = null;                                  /* 换人就不该再把上一人的改动重发上去 */
+      try { localStorage.removeItem(OWNER_KEY); } catch (e) { /* 忽略 */ }
+    },
+    /* 拉取账号偏好（服务端权威）。401 = 未登录（常见情况，**不**提示、不算失败）；
+       网络/5xx ⇒ 保留本地效果 + 可见提示 + 可重试（`AC-PR-7①②③`）。 */
+    fetchServer: function () {
+      /* t99/F-④：**没有会话就直接跳过**。以前无论有没有登录态都发一次 `GET /prefs`，
+         未登录必然 401（无谓请求）；且有会话才谈得上"以服务端为准"。 */
+      if (!hasSession) return Promise.resolve(null);
+      return fetch("/prefs", { credentials: "same-origin", headers: { Accept: "application/json" } })
+        .then(function (r) {
+          if (r.status === 401) return null;
+          if (!r.ok) throw { status: r.status };
+          return r.json();
+        }).then(function (p) {
+          if (!p) return null;
+          var th = p.theme;
+          if (th === "light" || th === "dark") {
+            window.__theme.set(th, true);           /* 服务端权威 ⇒ 覆盖本地即时值 */
+          } else {
+            /* 服务端显式"未选择" ⇒ 跟随系统：清掉本地显式值，避免本地把系统偏好压住 */
+            try { localStorage.removeItem(PREFS_THEME_KEY); } catch (e) { /* 忽略 */ }
+            window.__theme.apply(window.__theme.system());
+          }
+          if (p.role_id) putRole(p.role_id);        /* 回写本地缓存（同一账号，供首屏/降级） */
+          if (typeof window.__prefsApply === "function") window.__prefsApply(p);
+          prefsNote("", false);
+          window.__prefs.status = "";
+          return p;
+        }).catch(function (err) {
+          window.__prefs.status = "offline";
+          prefsNote("偏好未能同步（" + ((err && err.status) ? "HTTP " + err.status : "网络不通") +
+            "）。当前按本机记录使用主题「" + (window.__theme.current() === "light" ? "浅色" : "深色") +
+            "」" + (storedRole() ? "，角色按本机记录" : "") + "。", true);
+          return null;
+        });
+    },
+    /* 上报一个偏好字段：**本地已经生效**，这里只做异步同步；失败 ⇒ 可见提示 + 可重试 */
+    save: function (patch) {
+      if (!bootUser) return Promise.resolve({ ok: false, code: "unauthenticated" });
+      return reportPrefs(patch).then(function (res) {
+        if (res.ok) { window.__prefs.status = ""; pendingPatch = null; prefsNote("", false); return res; }
+        if (res.code === "unauthenticated") return res;   /* 登录态已失效：不当作偏好失败 */
+        /* t99/F-③：**记下这次没上去的改动**，供「重试」重发（否则用户选择会被服务端值覆盖掉）。
+           多个字段失败时合并保留（后到的字段覆盖同名字段），不丢任何一次用户操作。 */
+        var merged = {};
+        if (pendingPatch) { for (var k in pendingPatch) merged[k] = pendingPatch[k]; }
+        for (var k2 in patch) merged[k2] = patch[k2];
+        pendingPatch = merged;
+        window.__prefs.status = "offline";
+        prefsNote("偏好未能同步到账号（" + (res.status ? "HTTP " + res.status : "网络不通") +
+          "）。本机已生效，可点「重试」重新上报。", true);
+        return res;
+      });
+    }
+  };
+  /* 标签页图标（AC-FAV-*）的**静态初值收口**：静态 href 已是一份可渲染的 SVG（默认角色=律师的法锤、
+     暗色版），这里在**解析阶段**（样式之前、首屏绘制之前）按已生效主题把它换成正确取色，
+     于是"首屏空白图标"与"初值不是图片"两个问题同时消失；
+     之后由页面主脚本的 syncFavicon() 按**当前角色 + 主题**继续切换（只改 href，元素计数恒 1）。 */
+  (function () {
+    var SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path ' +
+      'd="M6 4 h20 v5 H6 z M14 9 h4 v13 h-4 z M5 25 h22 v3 H5 z" ' +
+      'fill="INK" stroke="RING" stroke-width="2" stroke-linejoin="round" fill-rule="evenodd"></path></svg>';
+    function hrefFor(theme) {
+      return "data:image/svg+xml," + encodeURIComponent(SVG
+        .replace("INK", theme === "light" ? "#000000" : "#FFFFFF")
+        .replace("RING", theme === "light" ? "#FFFFFF" : "#000000"));
+    }
+    try {
+      var link = document.querySelector('link[rel~="icon"]');
+      if (!link) return;
+      link.setAttribute("href", hrefFor(root.getAttribute("data-theme") || systemTheme()));
+    } catch (e) { /* 任何异常都不该拦住首屏：静态 href 本身就是可渲染的图片 */ }
+  })();
+})();
+</script>
+<style>
+  /* ===== 认证页样式（与对话页同一套 token 与视觉标尺：§15.2） ===== */
+  :root{
+    color-scheme:dark;
+    --bg:#0F1115; --panel:#161A21; --panel-2:#1D222B; --active:#1B2536;
+    --line:#2A3140; --line-strong:#6B7484;
+    --fg:#E6E9EF; --muted:#98A2B3;
+    --accent:#4C8DFF; --ok:#34B37A; --danger:#FF8579; --danger-solid:#C7362E;
+    --on-accent:#0F1115; --on-danger:#FFFFFF;
+    --r-sm:6px; --r:8px; --r-lg:10px;
+  }
+  /* 浅色主题：由开关写入的 data-theme 决定（不再用媒体查询，避免"系统偏好"与"用户选择"打架，AC-TH-4②） */
+  :root[data-theme="light"]{
+    color-scheme:light;
+      --bg:#FFFFFF; --panel:#F6F7F9; --panel-2:#EEF0F4; --active:#E7EEFC; --line:#D4D9E0;
+      --line-strong:#737B88;
+      --fg:#1A1D23; --muted:#5A6472; --accent:#2A63D4; --ok:#1F7A4D;
+      --danger:#B3261E; --danger-solid:#B3261E; --on-accent:#FFFFFF;
+      }
+
+  /* 主题开关：右上角固定槽位（四页同一槽位 data-slot="theme"，AC-TH-2）；
+     就地辅助控件（§16 适用范围声明），不按"关闭类"判。可点区 ≥40×40（AC-TH-3④）。 */
+  [data-slot="theme"]{
+    position:fixed;top:8px;right:16px;z-index:30;
+    min-width:88px;min-height:40px;padding:8px 12px;
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:inherit;font-size:13px;line-height:1.5;font-weight:400;cursor:pointer;
+    background:var(--panel-2);color:var(--fg);border:1px solid var(--line-strong);border-radius:var(--r,8px);
+  }
+  [data-slot="theme"]:hover{border-color:var(--accent)}
+
+  /* 边角四芒星（AC-STAR-*）：内联 SVG、中性单色（复用既有 --line-strong，不新增颜色变量）、
+     opacity .18 ≤ .20、无动画、pointer-events:none、零额外请求。
+     br 右下角（四页必留）；tl 左上角（可用空间不足时按 AC-STAR-3 允许隐藏，见下方媒体查询） */
+  .deco-star{position:fixed;width:24px;height:24px;color:var(--line-strong);opacity:.18;
+             pointer-events:none;animation:none;z-index:1}
+  .deco-star path{fill:currentColor;stroke:none}
+  .deco-star[data-corner="br"]{right:16px;bottom:16px}
+  .deco-star[data-corner="tl"]{left:16px;top:16px}
+  /* /ui 顶栏占据顶部整条，左上角放不下：把 tl 移到顶栏正下方（仍距左边 8px 在 8–32px 带内） */
+  body.app .deco-star[data-corner="tl"]{left:8px;top:56px;width:16px;height:16px}
+  @media (max-width:767px){
+    .deco-star[data-corner="tl"]{display:none}   /* AC-STAR-3：375 档允许隐藏左上，右下必留 */
+  }
+  @media (max-width:1023px){
+    body.app .deco-star[data-corner="tl"]{display:none}  /* /ui 窄档顶栏会换行，tl 无可用空间 */
+  }
+
+  *{box-sizing:border-box}
+  [hidden]{display:none !important}
+  html,body{height:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--fg);
+    font-size:14px;line-height:1.55;
+    font-family:"Segoe UI","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  }
+  *{scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+  ::-webkit-scrollbar{width:12px;height:12px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:var(--line);border:4px solid transparent;
+                            background-clip:padding-box;border-radius:8px}
+  ::-webkit-scrollbar-thumb:hover{background:var(--line-strong);border:4px solid transparent;
+                                  background-clip:padding-box}
+  h1,h2{margin:0;font-weight:600}
+  p{margin:0}
+  /* 页面底纹：1px 点阵（内联 SVG，颜色取 --line，整体 4% 不透明度；不用渐变、不加彩色） */
+  #bgDots{position:fixed;inset:0;width:100%;height:100%;z-index:-1;opacity:.16;pointer-events:none}
+  /* 次级链接（忘记密码等）：紧贴所属输入框下方、右对齐到输入框右边缘（间距 8px） */
+  .after-input{display:flex;justify-content:flex-end;margin-top:8px}
+  /* 服务未就绪：明确提示 + 重试（不含空白页、不含无限等待） */
+  .svc{border:1px solid var(--danger);border-radius:var(--r);padding:12px;margin-top:16px;
+       background:var(--panel);font-size:13px;line-height:1.5}
+  .svc p{color:var(--danger)}
+  .svc .row{display:flex;gap:8px;margin-top:8px}
+  .recovery{box-shadow:0 1px 2px var(--shadow)}
+  .auth-wrap{
+    min-height:100vh;min-width:280px;
+    display:flex;flex-direction:column;align-items:center;
+    padding:48px 16px;
+  }
+  .auth-col{width:100%;min-width:280px;max-width:352px}
+  /* 品牌 → 标题 → 表单 的节奏（参照图的"页头 → 表单"：品牌小而安静，标题才是主角） */
+  .brand{font-size:16px;line-height:1.6;font-weight:600;text-align:center;letter-spacing:1px;color:var(--muted)}
+  .auth-col h1{font-size:20px;line-height:1.3;text-align:center;margin:8px 0 24px}
+  form{display:flex;flex-direction:column;gap:24px}
+  .field{display:flex;flex-direction:column;min-width:280px}
+  .label-row{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+  label{display:block;font-size:13px;line-height:1.5;font-weight:600;margin-bottom:4px}
+  input[type=text],input[type=password]{
+    font-family:inherit;font-size:14px;line-height:1.55;width:100%;min-height:40px;padding:8px 12px;
+    background:var(--panel-2);color:var(--fg);border:1px solid var(--line-strong);border-radius:var(--r);
+  }
+  input::placeholder{color:var(--muted)}
+  .pw{position:relative}
+  .pw input{padding-right:64px}
+  /* 显示/隐藏：纯文字按钮贴在输入框内右侧（不画边框、不填底色，避免"补丁感"） */
+  .toggle{
+    font-family:inherit;font-size:12px;line-height:1.5;cursor:pointer;
+    position:absolute;right:0;top:0;height:40px;min-width:56px;
+    background:transparent;color:var(--muted);border:0;border-radius:var(--r);
+    /* t77 F3：显式写死 4 的倍数内边距。此前未声明 ⇒ 落到浏览器 UA 默认 `1px 6px`，
+       实测计算值 padding = 1px 6px ⇒ `AC-VS-2`（margin/padding/gap/height 非 4 的倍数者 = 0）违规。 */
+    padding:4px 8px;
+  }
+  .toggle:hover{color:var(--fg)}
+  button.primary{
+    font-family:inherit;font-size:14px;line-height:1.55;font-weight:600;cursor:pointer;
+    background:var(--accent);color:var(--on-accent);border:1px solid var(--accent);
+    border-radius:var(--r);min-height:40px;padding:8px 16px;
+  }
+  button.danger{background:var(--danger-solid);color:var(--on-danger);border-color:var(--danger-solid)}
+  button.primary:disabled{cursor:not-allowed;background:var(--panel-2);color:var(--muted);
+                          border-color:var(--line);border-style:dashed;font-weight:400}
+  .btn-block{width:100%;display:block}
+  :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  .hint,.state,.note,.err,.okmsg,.formerr,.exp{font-size:12px;line-height:1.5}
+  .hint{color:var(--muted);margin-top:4px}
+  .state{color:var(--muted);margin-top:4px}
+  .note{color:var(--muted);margin-top:8px}
+  .err{color:var(--danger);margin-top:4px}
+  .okmsg{color:var(--ok);margin-top:4px}
+  .formerr{color:var(--danger);margin-bottom:8px}
+  .exp{color:var(--muted);margin-top:8px}
+  .link{color:var(--accent);text-decoration:none;font-size:13px;line-height:1.5}
+  .link:hover{text-decoration:underline}
+  /* 主按钮下方只有一行链接（AC-AU-48） */
+  .alt{font-size:13px;line-height:1.5;text-align:center;margin-top:16px;color:var(--muted)}
+  .foot{font-size:12px;line-height:1.5;color:var(--muted);margin-top:24px}
+  .foot p+p{margin-top:8px}
+  /* 一次性恢复码：首屏可见 + 醒目警告（AC-AU-49） */
+  .recovery{border:1px solid var(--line-strong);border-radius:var(--r-lg);padding:16px;
+            background:var(--panel);min-width:280px;min-height:240px}
+  .recovery h2{font-size:20px;line-height:1.3}
+  .warn{font-size:13px;line-height:1.5;font-weight:600;color:var(--danger);
+        border-left:3px solid var(--danger);padding-left:12px;margin:12px 0}
+  .code{font-size:20px;line-height:1.3;font-weight:600;letter-spacing:1px;word-break:break-all;
+        background:var(--panel-2);border:1px solid var(--line-strong);border-radius:var(--r);
+        padding:12px;margin:8px 0}
+  /* 恢复码块：**独占整行**（不被任何控件挤压、不随机断行）；复制控件放在它正下方、右对齐。
+     间距 8px（≤16px，满足 AC-RC-13）；复制用次级描边样式（不占主色、不做第二个满宽主按钮）；
+     视觉尺寸更小但用 padding + min-height 撑到 40×40 的可点区。 */
+  .code-row{display:flex;flex-direction:column;align-items:stretch;gap:8px;margin:8px 0}
+  .code-row .code{width:100%;margin:0;overflow-wrap:anywhere}
+  .copy-row{display:flex;justify-content:flex-end}
+  .copy-row button{
+    font-family:inherit;font-size:13px;line-height:1.5;font-weight:400;cursor:pointer;
+    background:transparent;color:var(--fg);border:1px solid var(--line-strong);border-radius:var(--r);
+    min-height:40px;min-width:96px;padding:8px 12px;
+  }
+  .copy-row button:hover{border-color:var(--accent)}
+  .quote{font-size:13px;line-height:1.5;font-weight:600;background:var(--panel-2);
+         border:1px dashed var(--line-strong);border-radius:var(--r);padding:8px 12px;margin:4px 0 8px}
+</style>
+</head>
+<body>
+<!-- 页面底纹：1px 点阵（内联 SVG，颜色用 --line） -->
+<svg id="bgDots" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="bgDotPattern" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" style="fill:var(--line-strong)"></circle>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" style="fill:url(#bgDotPattern)"></rect>
+</svg>
+<!-- 主题开关：四页同一槽位（右上角）；就地辅助控件，不属"关闭/收起"类 -->
+<button type="button" id="themeBtn" data-slot="theme" aria-pressed="false" aria-label="切换主题（当前：深色）"
+        title="切换暗色 / 亮色主题（当前：深色）"><span id="themeLabel">深色</span></button>
+
+<!-- 边角装饰：内联 SVG 四芒星（AC-STAR-1..6；不用星形字符码点，一律内联 SVG 路径）
+     中性单色（取既有 --line-strong）、opacity .18 ≤ .20、无动画、pointer-events:none、零额外请求 -->
+<svg class="deco-star" data-deco="star" data-corner="br" aria-hidden="true" focusable="false"
+     viewBox="0 0 24 24" width="24" height="24"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0 Z"></path></svg>
+<svg class="deco-star" data-deco="star" data-corner="tl" aria-hidden="true" focusable="false"
+     viewBox="0 0 24 24" width="24" height="24"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0 Z"></path></svg>
+
+<main class="auth-wrap">
+  <div class="auth-col">
+    <p class="brand">明理</p>
+    <h1>重置密码</h1>
+    <form id="resetForm" method="post" action="javascript:void(0)" novalidate>
+      <p class="formerr" id="formErr" role="alert" hidden></p>
+      <div class="field">
+        <label for="username">用户名</label>
+        <input id="username" name="username" type="text" autocomplete="username" autocapitalize="none"
+               spellcheck="false" aria-describedby="userHint userErr">
+        <p class="hint" id="userHint">填你注册时用的那个用户名，不区分大小写。</p>
+        <p class="err" id="userErr" role="alert" hidden></p>
+      </div>
+      <div class="field">
+        <label for="recoveryCode">恢复码</label>
+        <input id="recoveryCode" name="recovery_code" type="text" autocomplete="off" spellcheck="false" aria-describedby="recoveryCodeHint">
+        <p class="hint" id="recoveryCodeHint">请输入注册时的恢复码</p>
+      </div>
+      <div class="field">
+        <label for="newPassword">新密码</label>
+        <div class="pw">
+          <input id="newPassword" name="new_password" type="password" maxlength="128"
+                 autocomplete="new-password" aria-describedby="passHint passErr passCount">
+          <button type="button" class="toggle" data-pw="newPassword" aria-label="显示密码">显示</button>
+        </div>
+        <p class="hint" id="passHint">支持字母、数字、符号、空格</p>
+        <p class="err" id="passErr" role="alert" hidden></p>
+        <p class="state" id="passCount" role="status">已输入 0 个字符</p>
+      </div>
+      <button type="submit" class="primary btn-block" id="submitBtn" data-role="primary">重置密码</button>
+    </form>
+    <p class="alt">想起密码了？<a class="link" href="/login" data-role="secondary">回登录页</a></p>
+    <div class="svc" id="svcNote" role="alert" hidden>
+      <p>服务未就绪：暂时没有收到回应，请稍后重试。</p>
+      <div class="row"><button type="button" class="primary" id="svcRetry" data-role="primary">重试</button></div>
+    </div>
+    <!-- B-8 / r17 §21.5：偏好同步失败时的**可见说明 + 重试**（降级不静默、首屏不阻塞） -->
+    <p class="state" id="prefsNote" role="status" hidden></p>
+    <!-- B-8 / r17 §21.5：偏好同步失败时的**可见说明 + 重试**（降级不静默、首屏不阻塞） -->
+    <div class="foot">
+      <p>为了保护您的隐私，我们不会收集手机号码、邮箱，也不会给您发验证码——只用用户名和密码就能使用。</p>
+      <p>密码以不可逆的方式保存，我们也无法查看或还原它。</p>
+      <p>本服务提供多角色知识库问答：已接入知识库的角色可直接提问，其余角色将陆续开放。未登录时不能提问。</p>
+    </div>
+  </div>
+</main>
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var PW_MAX = 128;
+  function setErr(el, msg) {
+    if (msg) { el.textContent = msg; el.hidden = false; } else { el.textContent = ""; el.hidden = true; }
+  }
+  function fieldError(input, errEl, msg) {
+    setErr(errEl, msg);
+    if (msg) { input.setAttribute("aria-invalid", "true"); } else { input.removeAttribute("aria-invalid"); }
+  }
+  function chars(el) { return Array.from(String(el.value == null ? "" : el.value)); }
+  function normalizeUser(raw) {
+    var s = String(raw == null ? "" : raw);
+    try { if (s.normalize) s = s.normalize("NFKC"); } catch (e) { /* 老引擎忽略 */ }
+    return s.trim().toLowerCase();
+  }
+  function userProblem(name) {
+    if (!name) return "请输入用户名：字母、数字、下划线或连字符，3–32 位。";
+    if (name.length < 3) return "用户名至少 3 位，当前 " + name.length + " 位。";
+    if (name.length > 32) return "用户名最多 32 位，当前 " + name.length + " 位。";
+    if (!/^[a-z0-9_-]+$/.test(name)) return "用户名只能用字母、数字、下划线、连字符。";
+    if (!/[a-z_-]/.test(name)) return "用户名不能全是数字，请加一个字母或下划线。";
+    return "";
+  }
+  function passProblem(pw) {
+    var n = chars({ value: pw }).length;
+    if (n < 10) return "密码至少 10 个字符，当前 " + n + " 个字符。";
+    if (n > PW_MAX) return "密码最多 " + PW_MAX + " 个字符。";
+    return "";
+  }
+  /* 键盘靠 maxlength=128 兜住；粘贴/拖入超限时拒绝并给可见提示（不静默截断） */
+  function pasteGuard(input, errEl, countEl) {
+    return function (e) {
+      var dt = e.clipboardData || e.dataTransfer;
+      if (!dt || typeof dt.getData !== "function") return;
+      var incoming = String(dt.getData("text") || "");
+      if (!incoming) return;
+      var cur = String(input.value == null ? "" : input.value);
+      var start = typeof input.selectionStart === "number" ? input.selectionStart : cur.length;
+      var end = typeof input.selectionEnd === "number" ? input.selectionEnd : start;
+      var projected = Array.from(cur.slice(0, start) + incoming + cur.slice(end));
+      if (projected.length > PW_MAX) {
+        e.preventDefault();
+        fieldError(input, errEl, "密码最多 " + PW_MAX + " 个字符：这次要粘进来的内容有 " +
+          Array.from(incoming).length + " 个字符，粘进来会达到 " + projected.length +
+          " 个字符、超过上限，所以这里保持原样未改动；请缩短到 " + PW_MAX + " 个字符以内再粘贴。");
+      } else {
+        fieldError(input, errEl, "");
+      }
+      if (countEl) countEl.textContent = "已输入 " + chars(input).length + " 个字符";
+    };
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-pw]"), function (btn) {
+    btn.onclick = function () {
+      var input = $(btn.dataset.pw);
+      var show = input.type === "password";
+      input.type = show ? "text" : "password";
+      btn.textContent = show ? "隐藏" : "显示";
+      btn.setAttribute("aria-label", show ? "隐藏密码" : "显示密码");
+    };
+  });
+  function showServiceDown() {
+    var el = $("svcNote");
+    if (el) el.hidden = false;
+    var btn = $("svcRetry");
+    if (btn) btn.onclick = function () { location.reload(); };
+  }
+  function post(path, body) {
+    var ctrl = typeof AbortController === "function" ? new AbortController() : null;
+    var timer = null;
+    var init = {
+      method: "POST", credentials: "same-origin",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(body)
+    };
+    if (ctrl) {
+      init.signal = ctrl.signal;
+      timer = setTimeout(function () { ctrl.abort(); }, 10000);   /* 10s 限时：不等无限 */
+    }
+    return fetch(path, init).then(function (res) {
+      if (timer) clearTimeout(timer);
+      return res.json().catch(function () { return null; }).then(function (payload) {
+        var detail = payload && payload.detail ? payload.detail : payload;
+        if (!res.ok) {
+          var err = new Error((detail && (detail.message || detail.error)) || ("请求失败（HTTP " + res.status + "）"));
+          err.status = res.status;
+          err.code = (detail && detail.error) || "";
+          err.field = (detail && detail.field) || "";
+          throw err;
+        }
+        return payload;
+      });
+    }).catch(function (err) {
+      if (timer) clearTimeout(timer);
+      if (err && (err.name === "AbortError" || err.code === "timeout")) {
+        showServiceDown();
+        var e2 = new Error("服务未响应（超时），请重试");
+        e2.code = "timeout";
+        throw e2;
+      }
+      if (err instanceof TypeError) showServiceDown();   /* 网络层失败：服务不可达 */
+      throw err;
+    });
+  }
+  /* 恢复码面板：**成功之后才由脚本创建**（面板里的确认输入框在成功前不存在，
+     这样 /reset 的表单始终恰好三个控件、register 页也不会多出一个常驻输入框）。 */
+  var PHRASE = "我已得知这是恢复码及其功能";
+  function showRecovery(opts, onGo) {
+    var form = document.querySelector("main form");   /* 本页唯一的表单（三个认证页各自只有一个） */
+    var sec = document.createElement("section");
+    sec.id = "recovery";
+    sec.className = "recovery";
+    sec.setAttribute("aria-labelledby", "recTitle");
+    sec.innerHTML =
+      '<h2 id="recTitle">' + opts.title + '</h2>' +
+      (opts.note ? '<p class="note">' + opts.note + '</p>' : '') +
+      '<p class="warn" role="alert">这串码只显示这一次。请现在就抄下来；关掉页面后，我们也没法再给你看一遍。</p>' +
+      '<div class="code-row">' +
+      '<p class="code" id="recCode"></p>' +
+      '<div class="copy-row">' +
+      '<button type="button" id="recCopy" data-role="copy" aria-label="复制恢复码">复制恢复码</button>' +
+      '</div>' +
+      '</div>' +
+      '<p class="state" id="recCopyState" role="status" aria-live="polite"></p>' +
+      '<p class="hint">' + opts.hint + '</p>' +
+      '<div class="field">' +
+      '<label for="recPaste">把刚才复制的恢复码粘贴到这里（粘贴或手抄都可以）</label>' +
+      '<input id="recPaste" type="text" autocomplete="off" spellcheck="false"' +
+      ' aria-describedby="recPasteHint recPasteErr recPasteState">' +
+      '<p class="hint" id="recPasteHint">这道门是防止你还没保存就点进对话；不填就无法确认你手上真有这串码。</p>' +
+      '<p class="err" id="recPasteErr" role="alert" hidden></p>' +
+      '<p class="state" id="recPasteState" role="status" aria-live="polite"></p>' +
+      '</div>' +
+      '<div class="field">' +
+      '<label for="recConfirm">请逐字输入下面这句话，确认你已经保存好</label>' +
+      '<p class="quote">' + PHRASE + '</p>' +
+      '<input id="recConfirm" type="text" autocomplete="off" spellcheck="false" disabled' +
+      ' aria-describedby="recHint recLockHint recErr recState">' +
+      '<p class="hint" id="recLockHint" role="status" aria-live="polite" data-role="lock-reason">先在上一步粘贴恢复码：这一步的按钮此时是灰的，还点不动。</p>' +
+      '<p class="hint" id="recHint">这样做是为了确保你手里真的抄下了这串码。输错一个字，下面的按钮都不会亮。</p>' +
+      '<p class="err" id="recErr" role="alert" hidden></p>' +
+      '<p class="state" id="recState" role="status" aria-live="polite"></p>' +
+      '</div>' +
+      '<button type="button" class="primary btn-block" id="recGo" data-role="primary" disabled>' + opts.go + '</button>';
+    form.hidden = true;
+    var alt = document.querySelector(".alt");
+    if (alt) alt.hidden = true;
+    form.parentNode.insertBefore(sec, form.nextSibling);   /* 放在表单原来的位置（页脚说明之前） */
+    $("recCode").textContent = opts.code;      /* 用 textContent，避免把码当 HTML 解析 */
+    var code = String(opts.code || "");
+    var input = $("recConfirm"), errEl = $("recErr"), btn = $("recGo"), state = $("recState");
+    var paste = $("recPaste"), pasteErr = $("recPasteErr"), pasteState = $("recPasteState");
+    var copyBtn = $("recCopy"), copyState = $("recCopyState");
+    var codeOk = false;
+
+    /* ---- 复制：优先 clipboard API；非安全上下文（http://<IP>）没有它 → textarea + execCommand；
+           两条都失败 → 选中文本并提示手动复制。**禁止静默失败**，每一步都写日志。 ---- */
+    function log(level, msg) {
+      try { (console[level] || console.log)("[recovery] " + msg); } catch (e) { /* 忽略 */ }
+    }
+    function copyViaExecCommand() {
+      var ta = document.createElement("textarea");
+      ta.value = code;
+      ta.setAttribute("readonly", "readonly");
+      ta.style.position = "fixed";
+      ta.style.top = "-1000px";
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) { ok = false; log("warn", "execCommand copy 抛错：" + e.message); }
+      ta.remove();
+      return ok;
+    }
+    /* 显式选中恢复码文本（Range + Selection；临时 textarea 的选区不算） */
+    function selectCodeText() {
+      try {
+        var range = document.createRange();
+        range.selectNodeContents($("recCode"));
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        return sel.toString();
+      } catch (e) {
+        log("warn", "自动选中恢复码失败：" + e.message);
+        return "";
+      }
+    }
+    /* 非安全上下文：**复制与选中两件事都做**（r8 AC-RC-9 是双要求，不二选一） */
+    function legacyCopyAndSelect() {
+      var copied = copyViaExecCommand();                 /* 用户手势内同步执行 */
+      log(copied ? "info" : "warn", "execCommand 回退复制：" + (copied ? "成功" : "失败"));
+      var selected = selectCodeText();                   /* 无论上一步成败，都选中码文本 */
+      log("info", "已显式选中恢复码文本（选中长度 " + selected.length + "）");
+      copyState.textContent = copied
+        ? "已复制到剪贴板；若粘贴不出来，请手动复制——恢复码已为你选中，按 Ctrl+C 即可。"
+        : "这里不能自动写剪贴板：请手动复制——恢复码已为你选中，按 Ctrl+C 即可。";
+    }
+    function resetCopyLabel() { copyBtn.textContent = "复制恢复码"; }
+    copyBtn.onclick = function () {
+      log("info", "点击复制恢复码（navigator.clipboard：" + (typeof navigator !== "undefined" && navigator.clipboard ? "有" : "无") + "）");
+      if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).then(function () {
+          copyBtn.textContent = "已复制";
+          copyState.textContent = "恢复码已复制到剪贴板。";
+          log("info", "复制成功（clipboard API）");
+          setTimeout(resetCopyLabel, 2000);
+        }).catch(function (err) {
+          log("warn", "clipboard API 失败：" + err.message + "，改用回退路径");
+          legacyCopyAndSelect();
+          copyBtn.textContent = "已复制";
+          setTimeout(resetCopyLabel, 2000);
+        });
+        return;
+      }
+      legacyCopyAndSelect();
+      copyBtn.textContent = "已复制";
+      setTimeout(resetCopyLabel, 2000);
+    };
+
+    function sync() {
+      var ok = codeOk && input.value === PHRASE;       /* 两道门：码已回填 且 确认句逐字正确 */
+      btn.disabled = !ok;
+      /* 诊断要**指向当前真正没过的那道门**（t89 F1b）：
+         码没通过时（含"回填被清空"）绝不能报"句子不一致"——那是误导性诊断，
+         因为用户可能一个字都没输、或者连输入框都还没解锁。 */
+      if (!codeOk) {
+        setErr(errEl, "");
+        state.textContent = "";
+        if (!input.value && !input.disabled) {
+          setErr(errEl, "请先在上面的「粘贴恢复码」里填上那串码；填对了这一格才能输入。");
+        }
+        return;
+      }
+      if (!input.value) { setErr(errEl, ""); state.textContent = ""; }
+      else if (ok) { setErr(errEl, ""); state.textContent = "已确认，可以继续了。"; }
+      else { setErr(errEl, "和上面那句还不完全一样。请整句照抄，别漏掉「及其功能」四个字。"); state.textContent = ""; }
+    }
+    /* 回填比对：trim + 去掉空白与连字符，大小写敏感 */
+    function normalizeCode(v) {
+      return String(v == null ? "" : v).replace(/[\s\-‐-―]+/g, "").trim();
+    }
+    function checkPaste() {
+      var raw = paste.value;
+      if (!raw) {
+        /* t89 F1a：回填被**清空**时，确认输入框必须回到 disabled（与"未回填"同一状态），
+           否则会出现"门已开却没有任何码"的中间态；同时清掉已输入的确认句，
+           避免把上一次的残留值当成"已通过"。 */
+        codeOk = false;
+        setErr(pasteErr, "");
+        paste.removeAttribute("aria-invalid");
+        pasteState.textContent = "";
+        input.disabled = true;            /* ← 回到 disabled（本条修复的核心） */
+        if (input.value) input.value = ""; /* ← 清掉残留的确认句 */
+      }
+      else if (normalizeCode(raw) === normalizeCode(code)) {
+        codeOk = true;
+        setErr(pasteErr, "");
+        paste.removeAttribute("aria-invalid");
+        pasteState.textContent = "这串码对上了。请把下面那句话一字不差地抄一遍。";
+        log("info", "回填匹配成功，确认句输入框已解锁");
+        if (input.disabled) { input.disabled = false; input.focus(); }
+      } else {
+        codeOk = false;
+        input.disabled = true;
+        input.value = "";
+        /* 错误文案只说明"不一致 + 下一步怎么做"：不含正确码的任何片段、长度或首字符 */
+        setErr(pasteErr, "与本次恢复码不一致，请重新复制或核对后粘贴。");
+        paste.setAttribute("aria-invalid", "true");
+        pasteState.textContent = "";
+        log("warn", "回填不匹配（输入长度 " + normalizeCode(raw).length + "，与本次码不同）");
+      }
+      sync();
+    }
+    paste.addEventListener("input", checkPaste);
+    input.addEventListener("input", sync);
+    btn.onclick = function () { if (!btn.disabled) onGo(); };
+    sync();
+    paste.focus();
+    return sec;
+  }
+  /* ---- 标签页图标（AC-FAV-1..15）：6 角色 + 默认法锤 ----
+     同一图形 + 两种填充色（亮→黑 / 暗→白）+ **1px 反向描边**（白图标黑边 / 黑图标白边）；
+     viewBox 32 + stroke-width 2 ⇒ 16×16 渲染时描边正好 1px；全部自绘、无第三方、无外链；
+     资源是内联 data-URI ⇒ 零额外页面请求、恒 200/image。 */
+  var DEFAULT_ROLE = "lawyer";
+  var ROLE_ICONS = {
+    lawyer: "M6 4 h20 v5 H6 z M14 9 h4 v13 h-4 z M5 25 h22 v3 H5 z",
+    doctor: "M12 5 h8 v7 h7 v8 h-7 v7 h-8 v-7 H5 v-8 h7 z",
+    tcm: "M5 15 h22 a11 7 0 0 1 -22 0 z M20 4 c6 2 8 6 8 9 c-5 0 -8 -4 -8 -9 z",
+    psychologist: "M4 4 h24 v15 H16 l-6 6 v-6 H4 z M16 8 a4.5 4.5 0 0 1 4.5 4.5 a4.5 4.5 0 0 1 -4.5 4.5 a4.5 4.5 0 0 1 -4.5 -4.5 A4.5 4.5 0 0 1 16 8 z",
+    financial_planner: "M16 2 a14 14 0 1 0 0 28 a14 14 0 1 0 0 -28 z M16 6 a10 10 0 1 1 0 20 a10 10 0 1 1 0 -20 z M15 9 h3 v3 h2 v7 h-3 v-3 h-2 z",
+    stock_advisor: "M4 5 h4 v16 H4 z M12 9 h4 v12 h-4 z M20 3 h4 v18 h-4 z M3 23 h26 v3 H3 z"
+  };
+  function buildFavicon(roleId, theme) {
+    var d = ROLE_ICONS[roleId] || ROLE_ICONS[DEFAULT_ROLE];
+    var ink = (theme === "light") ? "#000000" : "#FFFFFF";     /* 亮→黑 / 暗→白（AC-FAV-11） */
+    var ring = (theme === "light") ? "#FFFFFF" : "#000000";    /* 反向描边（AC-FAV-8） */
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">' +
+      '<path d="' + d + '" fill="' + ink + '" stroke="' + ring + '" stroke-width="2" ' +
+      'stroke-linejoin="round" fill-rule="evenodd"></path></svg>';
+    return "data:image/svg+xml," + encodeURIComponent(svg);
+  }
+  /* 只改 href：元素个数恒 1（AC-FAV-1/4/14） */
+  function syncFavicon(roleId) {
+    var link = document.querySelector('link[rel~="icon"]');
+    if (!link) return;
+    link.setAttribute("href", buildFavicon(roleId || DEFAULT_ROLE, window.__theme.current()));
+  }
+
+  /* ---- 主题开关（r12 §18）：两态切换 + 持久化；值只有 dark/light，不存任何凭据 ---- */
+  var THEME_LABEL = { dark: "深色", light: "浅色" };
+  function syncThemeBtn() {
+    var t = window.__theme.current();
+    var btn = $("themeBtn");
+    var lab = $("themeLabel");
+    btn.setAttribute("aria-pressed", t === "light" ? "true" : "false");
+    btn.setAttribute("aria-label", "切换主题（当前：" + THEME_LABEL[t] + "）");
+    btn.setAttribute("title", "切换暗色 / 亮色主题（当前：" + THEME_LABEL[t] + "）");
+    if (lab) lab.textContent = THEME_LABEL[t];
+  }
+  $("themeBtn").onclick = function () {
+    var next = window.__theme.current() === "light" ? "dark" : "light";
+    window.__theme.set(next, true);    /* ① 本地立即生效（AC-PR-8①） */
+    syncThemeBtn();
+    syncFavicon();                     /* 切主题同步换色，无需刷新（AC-FAV-11） */
+    window.__prefs.save({ theme: next });   /* ② 随后异步上报；未登录(401)只当"只写本地" */
+  };
+  syncThemeBtn();
+  syncFavicon(DEFAULT_ROLE);           /* 认证页无角色上下文 ⇒ 默认法锤（AC-FAV-5③/15） */
+  try {
+    window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", function () {
+      if (!window.__theme.read()) {                 /* 未显式选择过 ⇒ 继续跟随系统 */
+        window.__theme.apply(window.__theme.system());
+        syncThemeBtn();
+        syncFavicon();
+      }
+    });
+  } catch (e) { /* 老引擎没有 addEventListener：保持初始值 */ }
+
+  /* 认证页的偏好引导：claim("") 只建立"未反配给任何账号"的基准（避免继承上一账号缓存），
+     再异步 fetchServer() 拉服务端偏好 —— 401（未登录）静默跳过、其他失败给可见提示 + 重试。
+     整段异步执行 ⇒ **不阻塞首屏**（AC-PR-7②）。 */
+  function bootPrefs() {
+    try { window.__prefs.claim(""); } catch (e) { /* 忽略 */ }
+    try { window.__prefs.setSession(false); } catch (e2) { /* 忽略 */ }
+    window.__prefs.fetchServer();
+    if (typeof window.__syncThemeBtn === "function") window.__syncThemeBtn();
+    if (typeof window.__syncFavicon === "function") window.__syncFavicon();
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bootPrefs);
+  } else { bootPrefs(); }
+  window.__syncThemeBtn = syncThemeBtn;
+  window.__syncFavicon = syncFavicon;
+  window.__auth = { $: $, setErr: setErr, fieldError: fieldError, chars: chars, normalizeUser: normalizeUser,
+                    userProblem: userProblem, passProblem: passProblem, pasteGuard: pasteGuard, post: post,
+                    showRecovery: showRecovery, PHRASE: PHRASE, PW_MAX: PW_MAX };
+})();
+
+(function () {
+  "use strict";
+  var a = window.__auth, $ = a.$;
+  var form = $("resetForm"), btn = $("submitBtn"), busy = false;
+  function passGate() {
+    var p = $("newPassword").value;
+    var n = a.chars({ value: p }).length;
+    $("passCount").textContent = "已输入 " + n + " 个字符";
+    a.fieldError($("newPassword"), $("passErr"), n === 0 ? "" : a.passProblem(p));
+  }
+  $("newPassword").addEventListener("input", passGate);
+  $("newPassword").addEventListener("paste", a.pasteGuard($("newPassword"), $("passErr"), $("passCount")));
+  $("newPassword").addEventListener("drop", a.pasteGuard($("newPassword"), $("passErr"), $("passCount")));
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();                       /* 绝不走原生 GET 提交 */
+    if (busy) return;
+    a.setErr($("formErr"), "");
+    var name = a.normalizeUser($("username").value);
+    $("username").value = name;
+    var code = $("recoveryCode").value.trim();
+    var bad = name ? "" : "请输入用户名。";
+    if (!bad && !code) bad = "请输入恢复码。";
+    if (bad) { a.fieldError($("username"), $("userErr"), name ? "" : bad); $("username").focus(); return; }
+    var pw = $("newPassword").value;
+    var pwBad = a.passProblem(pw);
+    if (pwBad) { a.fieldError($("newPassword"), $("passErr"), pwBad); $("newPassword").focus(); return; }
+    busy = true; btn.disabled = true; btn.textContent = "重置中…";
+    a.post("/auth/reset", { username: name, recovery_code: code, new_password: pw })
+      .then(function (info) {
+        a.showRecovery({
+          title: "密码已重置，请重新登录",
+          note: "旧密码与旧恢复码都已经作废。这是新的恢复码：",
+          code: (info && info.recovery_code) || "（没有拿到新恢复码，请联系维护者）",
+          hint: "忘记密码时用这串新码重置；旧码已经不能用，我们也不会通过短信或邮件发送它。",
+          go: "我已保存，去登录"
+        }, function () { location.assign("/login?reset=1"); });
+      })
+      .catch(function (err) {
+        if (err.status === 401 || err.code === "invalid_recovery") {
+          a.setErr($("formErr"), "用户名、恢复码或新密码不正确。请核对后重试；恢复码在注册时只显示过一次。");
+          $("username").setAttribute("aria-invalid", "true");
+        } else {
+          a.setErr($("formErr"), err.message + "（可稍后重试）");
+        }
+        busy = false; btn.disabled = false; btn.textContent = "重置密码";
+      });
+  });
+})();
+
+</script>
+</body>
+</html>

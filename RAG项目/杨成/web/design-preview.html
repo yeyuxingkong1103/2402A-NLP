@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>页面视觉方案预览 · 基层高血压 RAG 专家系统</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      --bg: #eef3f5;
+      --surface: #ffffff;
+      --surface-soft: #f4f8f9;
+      --text: #18313d;
+      --muted: #72838b;
+      --line: #d9e4e7;
+      --accent: #0c7c84;
+      --accent-strong: #075d68;
+      --accent-soft: #dff4f1;
+      --user-bubble: #0c7c84;
+      --assistant-bubble: #f1f7f7;
+      --shadow: 0 18px 50px rgba(24, 49, 61, 0.10);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--text); transition: background .25s, color .25s; }
+    button, textarea { font: inherit; }
+    button { cursor: pointer; }
+
+    .preview-bar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px clamp(18px, 4vw, 56px);
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+      backdrop-filter: blur(18px);
+    }
+    .preview-title { display: flex; align-items: center; gap: 12px; }
+    .preview-title strong { font-size: 15px; }
+    .preview-title span { color: var(--muted); font-size: 13px; }
+    .theme-picker { display: flex; gap: 8px; padding: 4px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-soft); }
+    .theme-picker button { border: 0; border-radius: 10px; padding: 8px 12px; color: var(--muted); background: transparent; font-size: 13px; }
+    .theme-picker button.active { color: var(--surface); background: var(--accent); font-weight: 700; }
+
+    .app-shell { display: grid; grid-template-columns: 278px minmax(0, 1fr); width: min(1440px, 100%); min-height: calc(100vh - 65px); margin: 0 auto; }
+    .sidebar { display: flex; flex-direction: column; gap: 28px; padding: 34px 24px; border-right: 1px solid var(--line); background: var(--surface); }
+    .brand { display: flex; gap: 12px; align-items: flex-start; }
+    .brand-mark { display: grid; flex: 0 0 38px; place-items: center; width: 38px; height: 38px; border-radius: 12px; color: #fff; background: var(--accent); font-weight: 800; }
+    .brand h1 { margin: 0; font-size: 16px; line-height: 1.45; }
+    .brand p { margin: 3px 0 0; color: var(--muted); font-size: 12px; }
+    .new-chat { border: 0; border-radius: 12px; padding: 12px 14px; color: #fff; background: var(--accent); font-weight: 700; text-align: left; box-shadow: 0 8px 18px color-mix(in srgb, var(--accent) 22%, transparent); }
+    .sidebar-label { margin: 0 0 10px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+    .history { display: grid; gap: 6px; }
+    .history button { overflow: hidden; border: 0; border-radius: 10px; padding: 11px 12px; color: var(--text); background: transparent; text-align: left; text-overflow: ellipsis; white-space: nowrap; }
+    .history button.active, .history button:hover { background: var(--accent-soft); color: var(--accent-strong); }
+    .system-card { margin-top: auto; padding: 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-soft); }
+    .system-card p { margin: 0 0 9px; color: var(--muted); font-size: 12px; }
+    .system-status { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 700; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #2bb673; box-shadow: 0 0 0 4px color-mix(in srgb, #2bb673 16%, transparent); }
+
+    .content { display: flex; flex-direction: column; min-width: 0; padding: clamp(22px, 4vw, 54px); }
+    .content-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; margin-bottom: 28px; }
+    .eyebrow { margin: 0 0 8px; color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .content-header h2 { margin: 0; font-size: clamp(24px, 3vw, 34px); letter-spacing: -.03em; }
+    .content-header p { max-width: 540px; margin: 8px 0 0; color: var(--muted); line-height: 1.6; }
+    .mode-pill { flex: 0 0 auto; padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; color: var(--accent-strong); background: var(--surface); font-size: 12px; font-weight: 700; }
+
+    .chat-card { display: grid; grid-template-rows: auto 1fr auto; min-height: 610px; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+    .chat-card-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 22px; border-bottom: 1px solid var(--line); }
+    .chat-card-header strong { font-size: 14px; }
+    .chat-card-header span { color: var(--muted); font-size: 12px; }
+    .messages { display: grid; align-content: start; gap: 18px; padding: 28px clamp(18px, 4vw, 48px); background: linear-gradient(180deg, var(--surface), var(--surface-soft)); }
+    .message-row { display: flex; gap: 12px; align-items: flex-start; max-width: 780px; }
+    .message-row.user { justify-self: end; flex-direction: row-reverse; }
+    .avatar { display: grid; flex: 0 0 32px; place-items: center; width: 32px; height: 32px; border-radius: 10px; color: var(--accent-strong); background: var(--accent-soft); font-size: 12px; font-weight: 800; }
+    .user .avatar { color: #fff; background: var(--user-bubble); }
+    .message-meta { margin: 0 0 5px; color: var(--muted); font-size: 11px; }
+    .bubble { padding: 14px 16px; border: 1px solid var(--line); border-radius: 4px 16px 16px 16px; color: var(--text); background: var(--assistant-bubble); line-height: 1.7; }
+    .user .bubble { border: 0; border-radius: 16px 4px 16px 16px; color: #fff; background: var(--user-bubble); }
+    .answer-tag { display: inline-flex; align-items: center; gap: 5px; margin-bottom: 8px; color: var(--accent); font-size: 11px; font-weight: 800; }
+    .answer-tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+    .composer { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: end; padding: 18px 22px; border-top: 1px solid var(--line); background: var(--surface); }
+    .composer textarea { width: 100%; min-height: 54px; resize: none; border: 1px solid var(--line); border-radius: 13px; padding: 14px; outline: 0; color: var(--text); background: var(--surface-soft); line-height: 1.5; }
+    .composer textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 14%, transparent); }
+    .send { border: 0; border-radius: 12px; padding: 14px 18px; color: #fff; background: var(--accent); font-weight: 800; }
+    .composer-note { grid-column: 1 / -1; color: var(--muted); font-size: 11px; }
+
+    .sources { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+    .source { padding: 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+    .source-index { display: inline-grid; place-items: center; width: 22px; height: 22px; margin-bottom: 10px; border-radius: 7px; color: var(--accent-strong); background: var(--accent-soft); font-size: 11px; font-weight: 800; }
+    .source strong { display: block; margin-bottom: 5px; font-size: 13px; }
+    .source span { color: var(--muted); font-size: 12px; line-height: 1.5; }
+
+    body[data-theme="modern"] { --bg: #f5f5f7; --surface: #fff; --surface-soft: #f8f8fa; --text: #25252b; --muted: #85858e; --line: #e8e8ed; --accent: #6756d9; --accent-strong: #5142b5; --accent-soft: #eeebff; --user-bubble: #6756d9; --assistant-bubble: #f7f7f9; --shadow: 0 18px 50px rgba(54, 47, 100, .08); --radius: 24px; }
+    body[data-theme="modern"] .sidebar { background: #fbfbfc; }
+    body[data-theme="modern"] .messages { background: var(--surface); }
+    body[data-theme="modern"] .brand-mark { border-radius: 50%; }
+    body[data-theme="modern"] .mode-pill { color: var(--accent-strong); }
+
+    body[data-theme="workbench"] { color-scheme: dark; --bg: #0b141b; --surface: #12222b; --surface-soft: #0e1b23; --text: #e4f1f1; --muted: #7f9aa0; --line: #27414a; --accent: #27c4b2; --accent-strong: #8cf4e4; --accent-soft: #153e42; --user-bubble: #167d91; --assistant-bubble: #142b34; --shadow: 0 18px 60px rgba(0, 0, 0, .28); --radius: 12px; }
+    body[data-theme="workbench"] .preview-bar { background: color-mix(in srgb, #0b141b 88%, transparent); }
+    body[data-theme="workbench"] .sidebar { background: #0e1b23; }
+    body[data-theme="workbench"] .messages { background: #0d1a22; }
+    body[data-theme="workbench"] .source-index { color: var(--accent-strong); }
+    body[data-theme="workbench"] .chat-card { box-shadow: 0 0 0 1px rgba(39, 196, 178, .08), var(--shadow); }
+
+    @media (max-width: 850px) {
+      .preview-bar { align-items: flex-start; flex-direction: column; }
+      .app-shell { grid-template-columns: 1fr; }
+      .sidebar { gap: 18px; border-right: 0; border-bottom: 1px solid var(--line); padding: 20px; }
+      .system-card { display: none; }
+      .content { padding: 24px 16px; }
+      .content-header { flex-direction: column; }
+      .sources { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 540px) {
+      .theme-picker { width: 100%; }
+      .theme-picker button { flex: 1; padding: 8px 5px; }
+      .composer { grid-template-columns: 1fr; }
+      .send { width: 100%; }
+      .message-row { max-width: 100%; }
+    }
+  </style>
+</head>
+<body data-theme="medical">
+  <header class="preview-bar">
+    <div class="preview-title">
+      <strong>页面视觉方案预览</strong>
+      <span>只展示样式，不会发送请求</span>
+    </div>
+    <nav id="theme-picker" class="theme-picker" aria-label="切换页面方案">
+      <button type="button" data-theme="medical" class="active">方案 A · 医疗专业版</button>
+      <button type="button" data-theme="modern">方案 B · 现代 AI 对话版</button>
+      <button type="button" data-theme="workbench">方案 C · 深色专家工作台</button>
+    </nav>
+  </header>
+
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">+</div>
+        <div>
+          <h1>基层高血压<br />RAG 专家系统</h1>
+          <p>基层医疗知识助手</p>
+        </div>
+      </div>
+      <button class="new-chat" type="button">＋ 新建会话</button>
+      <section>
+        <p class="sidebar-label">最近会话</p>
+        <div class="history">
+          <button class="active" type="button">氨氯地平的禁忌证是什么？</button>
+          <button type="button">高血压患者如何运动？</button>
+          <button type="button">家庭血压怎么测量？</button>
+        </div>
+      </section>
+      <div class="system-card">
+        <p>知识库状态</p>
+        <div class="system-status"><i class="status-dot"></i> Milvus 已连接</div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="content-header">
+        <div>
+          <p class="eyebrow">Knowledge-grounded assistant</p>
+          <h2>你好，今天想了解什么？</h2>
+          <p>基于本地指南和专业资料回答，回答会保留检索来源，方便核对依据。</p>
+        </div>
+        <div class="mode-pill">本地知识库 · RAG</div>
+      </header>
+
+      <section class="chat-card" aria-label="对话预览">
+        <header class="chat-card-header">
+          <strong>氨氯地平的禁忌证是什么？</strong>
+          <span>刚刚 · 1 条回答</span>
+        </header>
+        <div class="messages">
+          <div class="message-row user">
+            <div class="avatar">我</div>
+            <div>
+              <p class="message-meta">用户</p>
+              <div class="bubble">氨氯地平的禁忌证是什么？</div>
+            </div>
+          </div>
+          <div class="message-row">
+            <div class="avatar">AI</div>
+            <div>
+              <p class="message-meta">基层高血压 RAG 助手</p>
+              <div class="bubble">
+                <div class="answer-tag">基于本地知识库回答</div>
+                氨氯地平禁用于对二氢吡啶类药物过敏的患者。使用过程中应关注低血压、踝部水肿等不良反应，并结合患者具体情况进行评估。
+              </div>
+            </div>
+          </div>
+        </div>
+        <form class="composer" onsubmit="return false">
+          <textarea aria-label="问题输入" placeholder="输入你的问题……"></textarea>
+          <button class="send" type="button">发送问题</button>
+          <span class="composer-note">回答仅供学习和辅助参考，不能替代医生面对面诊疗。</span>
+        </form>
+      </section>
+
+      <section class="sources" aria-label="检索来源">
+        <article class="source"><span class="source-index">01</span><strong>中国高血压防治指南</strong><span>5 高血压治疗 · table_row</span></article>
+        <article class="source"><span class="source-index">02</span><strong>基层用药指导</strong><span>常用降压药物 · Rerank 0.9821</span></article>
+        <article class="source"><span class="source-index">03</span><strong>药物治疗原则</strong><span>规范化治疗 · Rerank 0.9416</span></article>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('#theme-picker button');
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const theme = button.dataset.theme;
+        document.body.dataset.theme = theme;
+        buttons.forEach((item) => item.classList.toggle('active', item === button));
+      });
+    });
+  </script>
+</body>
+</html>
