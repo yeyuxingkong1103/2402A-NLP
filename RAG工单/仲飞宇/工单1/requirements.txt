@@ -1,0 +1,28 @@
+# 工单编号：人工智能NLP-RAG-基于PDF文档的问答系统
+# 工单01 - 基于PDF文档的问答系统
+# 核心依赖（不含语音，语音见 requirements-asr.txt）
+
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-multipart==0.0.20
+pydantic==2.10.4
+pydantic-settings==2.7.0
+
+# PDF 解析：文字 + find_tables() 表格重建
+pymupdf==1.25.1
+
+# 向量库：Milvus Standalone（经 pymilvus 客户端连接）
+pymilvus==2.5.3
+
+# 【必须钉住 <81】pymilvus 2.5.3 在 import 时 `from pkg_resources import ...`，
+# 而 setuptools 84 已把 pkg_resources 从包里移除 → 直接 ModuleNotFoundError。
+# 它的依赖声明只写了 `setuptools>69`，拦不住 84，所以这里显式降级。
+setuptools<81
+
+# 中文分词（工单06 混合检索的 BM25 地基）
+jieba==0.42.1
+
+# LLM / Embedding 走 ollama 原生 HTTP API
+httpx==0.28.1
+
+numpy==2.2.1
