@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="731" height="1110" viewBox="0 0 731 1110" font-family='"Microsoft YaHei","PingFang SC","Noto Sans CJK SC","Hiragino Sans GB",sans-serif'>
+<defs>
+<marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker>
+<marker id="arwd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/></marker>
+</defs>
+<rect width="731" height="1110" fill="#ffffff"/>
+<text x="34" y="52" font-size="17" font-weight="600" fill="#0f172a">图 4 · 检索内部：混合召回 → 融合 → 精排</text>
+<path d="M 334.2 122.0 C 334.2 138.0 334.2 134.0 334.2 150.0" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arw)"/>
+<path d="M 257.2 181.5 C 231.7 181.5 231.7 272.5 206.2 272.5" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arw)"/>
+  <rect x="221.0" y="217.0" width="21.5" height="20" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="231.7" y="227.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5" fill="#475569">是</text>
+<path d="M 411.1 181.5 C 345.7 181.5 345.7 272.5 280.2 272.5" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arw)"/>
+  <rect x="334.9" y="217.0" width="21.5" height="20" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="345.7" y="227.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5" fill="#475569">否</text>
+<path d="M 133.1 304.0 C 133.1 320.0 334.2 316.0 334.2 332.0" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arw)"/>
+<path d="M 334.2 304.0 C 334.2 320.0 334.2 316.0 334.2 332.0" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arw)"/>
+<path d="M 334.2 374.0 C 334.2 390.0 265.2 386.0 265.2 402.0" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arw)"/>
+<path d="M 334.2 374.0 C 334.2 390.0 459.7 386.0 459.7 402.0" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arw)"/>
+<path d="M 265.2 465.0 C 265.2 481.0 233.5 477.0 233.5 493.0" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arw)"/>
+<path d="M 459.7 465.0 C 459.7 481.0 455.9 477.0 455.9 493.0" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arw)"/>
+<path d="M 233.5 556.0 C 233.5 572.0 334.2 568.0 334.2 584.0" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arw)"/>
+<path d="M 455.9 556.0 C 455.9 572.0 334.2 568.0 334.2 584.0" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arw)"/>
+<path d="M 334.2 647.0 C 334.2 663.0 334.2 659.0 334.2 675.0" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arw)"/>
+<path d="M 334.2 754.0 C 334.2 773.2 334.2 773.2 334.2 792.5" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arw)"/>
+<path d="M 388.2 813.5 C 425.2 813.5 425.2 813.5 462.2 813.5" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arw)"/>
+  <rect x="410.7" y="803.5" width="29.0" height="20" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="425.2" y="813.5" text-anchor="middle" dominant-baseline="middle" font-size="11.5" fill="#475569">bge</text>
+<path d="M 334.2 834.5 C 334.2 853.8 334.2 853.8 334.2 873.0" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arw)"/>
+  <rect x="291.2" y="843.8" width="85.9" height="20" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="334.2" y="853.8" text-anchor="middle" dominant-baseline="middle" font-size="11.5" fill="#475569">score_fusion</text>
+<path d="M 671.0 813.5 C 464.6 813.5 464.6 904.5 258.2 904.5" fill="none" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#arwd)"/>
+  <rect x="448.1" y="849.0" width="33.0" height="20" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="464.6" y="859.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5" fill="#475569">降级</text>
+<path d="M 334.2 936.0 C 334.2 952.0 334.2 948.0 334.2 964.0" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arw)"/>
+<path d="M 334.2 1006.0 C 334.2 1022.0 334.2 1018.0 334.2 1034.0" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arw)"/>
+  <rect x="280.2" y="80.0" width="108.0" height="42.0" rx="21.0" fill="#0f172a" stroke="#0f172a" stroke-width="1.6"/>
+  <text x="334.2" y="101.0" text-anchor="middle" dominant-baseline="middle" font-size="14.0" fill="#ffffff">问题</text>
+  <path d="M 270.2 150.0 H 398.1 L 411.1 163.0 V 200.0 L 398.1 213.0 H 270.2 L 257.2 200.0 V 163.0 Z" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.6"/>
+  <text x="334.2" y="171.0" text-anchor="middle" dominant-baseline="middle" font-size="14.0" fill="#0f172a">启用 Query 改写？</text>
+  <text x="334.2" y="194.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5" fill="#b45309">默认关</text>
+  <rect x="60.0" y="241.0" width="146.2" height="63.0" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="1.6"/>
+  <text x="133.1" y="262.0" text-anchor="middle" dominant-baseline="middle" font-size="14.0" fill="#0f172a">改写成多条 query</text>
+  <text x="133.1" y="285.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5" fill="#15803d">原问题恒在首位</text>
+  <rect x="280.2" y="241.0" width="108.0" height="63.0" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="1.6"/>
+  <text x="334.2" y="262.0" text-anchor="middle" dominant-baseline="middle" font-size="14.0" fill="#0f172a">单条原问题</text>
+  <text x="334.2" y="285.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5" fill="#15803d">默认路径</text>
+  <rect x="236.2" y="332.0" width="195.9" height="42.0" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="1.6"/>
+  <text x="334.2" y="353.0" text-anchor="middle" dominant-baseline="middle" font-size="14.0" fill="#0f172a">每条 query 各跑两路召回</text>
+  <rect x="152.8" y="402.0" width="224.9" height="63.0" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="1.6"/>
+  <text x="265.2" y="423.0" text-anchor="middle" dominant-baseline="middle" font-size="14.0" fill="#0f172a">① 稠密召回</text>
+  <text x="265.2" y="446.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5" fill="#15803d">embedding.embed_query → 1024 维</text>
+  <rect x="403.7" y="402.0" width="111.9" height="63.0" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="1.6"/>
+  <text x="459.7" y="423.0" text-anchor="middle" dominant-baseline="middle" font-size="14.0" fill="#0f172a">② BM25 召回</text>
+  <text x="459.7" y="446.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5" fill="#15803d">jieba 分词</text>
+  <rect x="124.7" y="493.0" width="217.5" height="63.0" rx="8" fill="#ccfbf1" stroke="#14b8a6" stroke-width="1.6"/>
+  <text x="233.5" y="514.0" text-anchor="middle" dominant-baseline="middle" font-size="14.0" fill="#0f172a">milvus_store.search</text>
+  <text x="233.5" y="537.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5" fill="#0f766e">role_id 过滤 + SCORE_THRESHOLD</text>
+  <rect x="368.2" y="493.0" width="175.5" height="63.0" rx="8" fill="#ccfbf1" stroke="#14b8a6" stroke-width="1.6"/>
+  <text x="455.9" y="514.0" text-anchor="middle" dominant-baseline="middle" font-size="14.0" fill="#0f172a">BM25Index.search</text>
+  <text x="455.9" y="537.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5" fill="#0f766e">每进程缓存 · 故意不设阈值</text>
+  <rect x="182.1" y="584.0" width="304.3" height="63.0" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="1.6"/>
+  <text x="334.2" y="605.0" text-anchor="middle" dominant-baseline="middle" font-size="14.0" fill="#0f172a">③ RRF 融合</text>
+  <text x="334.2" y="628.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5" fill="#15803d">只看排名、不看分数，k=60 → 天然吸收两路不同量纲</text>
+  <rect x="204.2" y="675.0" width="260.0" height="79.0" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="1.6"/>
+  <text x="334.2" y="696.0" text-anchor="middle" dominant-baseline="middle" font-size="14.0" fill="#0f172a">④ 池宽截断到 RERANK_POOL</text>
+  <text x="334.2" y="719.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5" fill="#15803d">融合分已排序，取最好的 N 条</text>
+  <text x="334.2" y="735.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5" fill="#15803d">（开改写时条数可达池宽数倍，不截会超时）</text>
+  <path d="M 293.2 792.5 H 375.2 L 388.2 805.5 V 821.5 L 375.2 834.5 H 293.2 L 280.2 821.5 V 805.5 Z" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.6"/>
+  <text x="334.2" y="813.5" text-anchor="middle" dominant-baseline="middle" font-size="14.0" fill="#0f172a">RERANKER？</text>
+  <rect x="462.2" y="782.0" width="208.8" height="63.0" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="1.6"/>
+  <text x="566.6" y="803.0" text-anchor="middle" dominant-baseline="middle" font-size="14.0" fill="#0f172a">bge-reranker 交叉编码</text>
+  <text x="566.6" y="826.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5" fill="#15803d">逐对打分；不可用/分数残缺则降级</text>
+  <rect x="258.2" y="873.0" width="151.9" height="63.0" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="1.6"/>
+  <text x="334.2" y="894.0" text-anchor="middle" dominant-baseline="middle" font-size="14.0" fill="#0f172a">按融合分排序</text>
+  <text x="334.2" y="917.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5" fill="#15803d">score_fusion（默认）</text>
+  <rect x="267.4" y="964.0" width="133.6" height="42.0" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="1.6"/>
+  <text x="334.2" y="985.0" text-anchor="middle" dominant-baseline="middle" font-size="14.0" fill="#0f172a">⑤ 截断到 TOP_K</text>
+  <rect x="235.5" y="1034.0" width="197.3" height="42.0" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="1.6"/>
+  <text x="334.2" y="1055.0" text-anchor="middle" dominant-baseline="middle" font-size="14.0" fill="#0f172a">chunks → 交给提示词模板</text>
+</svg>
