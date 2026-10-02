@@ -1,0 +1,20 @@
+# 密钥与配置（.env 含 DEEPSEEK_API_KEY，严禁上传）
+.env
+
+# 本地模型（2.2G，按 README 单独下载）
+models/
+
+# 运行时产物
+logs/
+__pycache__/
+*.pyc
+.pytest_cache/
+data/feedback.jsonl
+.streamlit/secrets.toml
+
+# 大体积 PDF（源指南，自行下载；解析后的 .txt 保留）
+data/guidelines/*.pdf
+
+# 系统文件
+Thumbs.db
+.DS_Store
