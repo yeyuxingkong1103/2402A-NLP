@@ -1,0 +1,62 @@
+# =============================================================================
+# conda 环境定义文件：gao6gongdan
+# =============================================================================
+# 创建环境：
+#     conda env create -f environment.yml
+#     conda activate gao6gongdan
+#
+# 说明：
+# 1) 本文件只声明「检索 + 生成 + 界面 + 评估 + 测试」所需的依赖。
+# 2) **不含 vLLM / SGLang**：推理服务需要独立的 torch/CUDA 组合，
+#    与主环境装在一起极易冲突，请单独建环境（见 scripts/run_vllm.sh）。
+# 3) pip 段用于安装 conda 源里没有或版本较新的包。
+# =============================================================================
+name: gao6gongdan
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  # ---- 基础数值与数据处理 ----
+  - numpy>=1.26,<3
+  - pandas>=2.0
+  - tqdm>=4.66
+  # ---- 配置、数据模型、日志 ----
+  - pydantic>=2.5
+  - pyyaml>=6.0
+  # ---- 存储 ----
+  - sqlalchemy>=2.0
+  # ---- PDF 解析 ----
+  - pymupdf>=1.24
+  # ---- 测试 ----
+  - pytest>=7.4
+  - requests>=2.31
+  - pip
+  - pip:
+      # ---- 日志（conda-forge 也有，但 pip 版本更新更及时） ----
+      - loguru>=0.7
+      # ---- 表格提取（PyMuPDF 表格能力不足时的备选） ----
+      - pdfplumber>=0.11
+      # ---- 中文分词 ----
+      - jieba>=0.42
+      # ---- 关键词检索 ----
+      - rank-bm25>=0.2.2
+      # ---- 向量化与向量库 ----
+      - sentence-transformers>=2.3
+      - chromadb>=0.4
+      # ---- RAG 框架与 LLM 客户端 ----
+      - langchain>=0.2
+      - langchain-community>=0.2
+      - langchain-chroma>=0.1
+      - openai>=1.30
+      # ---- 网页界面 ----
+      # 语音输入用 st.audio_input（录音控件）需 >=1.40；
+      # 更低版本自动退化为上传音频文件，功能等价。
+      - streamlit>=1.40
+      # ---- 语音识别（ASR）----
+      # 优先调用 vLLM 的 Whisper 服务（见 scripts/run_whisper.sh），只需 openai；
+      # 离线方案用本地 transformers Whisper（只支持 WAV，无 ffmpeg 时无法解码 mp3）。
+      - transformers>=4.40
+      # ---- 评估 ----
+      - ragas>=0.1.7
+      - datasets>=2.18

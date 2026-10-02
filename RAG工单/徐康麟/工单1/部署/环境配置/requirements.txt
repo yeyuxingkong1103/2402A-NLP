@@ -1,0 +1,63 @@
+# ============================================================
+# 工单1：基于 PDF 文档的 RAG 问答系统 —— Python 依赖清单
+# 运行环境：Python 3.11（conda 环境名 gao6gongdan）
+# 说明：
+#   1) 本文件覆盖“检索 + 生成 + 界面 + 评估 + 测试”全链路依赖。
+#   2) vLLM / SGLang 推理服务**不在本环境安装**，见 scripts/run_vllm.sh，
+#      二者与主环境隔离，避免 CUDA / torch 版本冲突。
+#   3) 所有依赖均可离线预下载：先 `pip download -r requirements.txt -d wheels/`，
+#      再到算力云上用 `pip install --no-index --find-links wheels/ -r requirements.txt`。
+# ============================================================
+
+# ---------- 核心：配置 / 数据模型 / 日志 ----------
+pydantic>=2.5,<3
+pydantic-settings>=2.1
+PyYAML>=6.0
+loguru>=0.7
+
+# ---------- PDF 解析 ----------
+pymupdf>=1.24          # 文字 + 页码 + 读取速度（主力解析器）
+pdfplumber>=0.11       # 表格提取（PyMuPDF 表格能力不足时兜底）
+
+# ---------- 向量化与向量库 ----------
+numpy>=1.26,<3
+sentence-transformers>=2.3   # BGE-M3 / bge-large-zh-v1.5 / bge-small-zh-v1.5
+chromadb>=0.4                # 向量库（优先方案）
+# faiss-cpu                  # 可选：Chroma 不可用时改用的本地索引后端
+
+# ---------- 关键词检索 ----------
+rank-bm25>=0.2.2       # BM25 关键词索引（混合检索的另一路）
+jieba>=0.42            # 中文分词
+
+# ---------- RAG 框架 / LLM 客户端 ----------
+langchain>=0.2
+langchain-community>=0.2
+langchain-chroma>=0.1
+openai>=1.30           # 调用 vLLM / SGLang 的 OpenAI 兼容接口
+
+# ---------- 存储 ----------
+SQLAlchemy>=2.0        # SQLite ORM（对话 / 反馈 / 分块 / 评估）
+pandas>=2.0
+
+# ---------- 网页界面 ----------
+# 注意：语音输入使用 st.audio_input（录音控件），需要 streamlit>=1.40；
+# 更低版本会自动退化为 st.file_uploader 上传音频文件，功能等价。
+streamlit>=1.40
+
+# ---------- 语音识别（ASR）----------
+# 首选方案：调用 vLLM 起的 Whisper 服务（见 scripts/run_whisper.sh），
+# 只需 openai 客户端，不额外装推理依赖。
+# 离线方案：本地 transformers Whisper，需要下面的 transformers + torch，
+# 且**只支持 WAV**（无 ffmpeg 时无法解码 mp3/m4a）。
+transformers>=4.40
+# librosa/soundfile 仅在需要解码非 WAV 音频时安装（可选）
+# soundfile>=0.12
+
+# ---------- 评估 ----------
+ragas>=0.1.7           # RAGAS 四项指标
+datasets>=2.18
+
+# ---------- 测试与工具 ----------
+pytest>=7.4
+requests>=2.31
+tqdm>=4.66
