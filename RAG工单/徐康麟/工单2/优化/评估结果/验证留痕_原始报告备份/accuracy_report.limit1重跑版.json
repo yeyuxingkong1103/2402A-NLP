@@ -1,0 +1,200 @@
+{
+  "meta": {
+    "工单": "人工智能NLP-RAG-基于PDF文档的问答系统优化",
+    "阶段": "优化 / 前后对比（T7）",
+    "生成时间": "2026-10-03T16:55:34",
+    "基线来源": [
+      "E:\\gao6gongdan\\工单2\\优化\\基线\\baseline_results.json",
+      "E:\\gao6gongdan\\工单2\\优化\\基线\\baseline_repro_retrieval.json",
+      "E:\\gao6gongdan\\工单2\\优化\\基线\\baseline_retrieval.json"
+    ],
+    "复现命令": "pwsh -NoProfile -File run_py.ps1 优化/脚本/compare_optimization.py",
+    "判分口径": "工单1 check_answer（FUZZY_THRESHOLD=0.62 未放宽）",
+    "检索命中口径": "最终上下文是否含证据块（证据定位复用 研发/scripts/selftest_retrieval.py::locate_evidence）",
+    "首字口径": "流式首块计时；预热后统计，冷启动首题值另行记录",
+    "RAGAS": "未运行（依赖不可用，本机断网）"
+  },
+  "environment": {
+    "优化后": {
+      "嵌入模型": "bge-m3:latest",
+      "嵌入维度": 1024,
+      "嵌入后端": "ollama",
+      "重排模式": "rule",
+      "重排模型": "BAAI/bge-reranker-base",
+      "LLM 后端": "ollama",
+      "LLM 模型": "qwen2.5:3b",
+      "分块数": 1669,
+      "索引目录": "E:\\gao6gongdan\\工单2\\研发\\data\\index\\bge-m3-1024"
+    },
+    "基线（工单1 记录，摘自 ragas_report.md §0）": {
+      "文档": "招股说明书1.pdf",
+      "RAG 组模式": "LLM 生成",
+      "嵌入模型": "sentence-transformers",
+      "向量库后端": "numpy",
+      "分块数": "2967",
+      "LLM 服务": "http://127.0.0.1:8000/v1",
+      "LLM 模型": "Qwen2.5-7B-Instruct-AWQ",
+      "生成时间": "2026-10-02 19:41:02",
+      "指标": "RAG 系统",
+      "题目数": "10",
+      "答案准确率": "0.5",
+      "“不清楚”回复正确率": "1.0",
+      "引用正确率": "1.0",
+      "首字响应时间 平均(ms)": "11518.33",
+      "首字响应时间 P95(ms)": "57312.92",
+      "首字响应时间 最大(ms)": "57312.92",
+      "端到端 平均(ms)": "14186.86",
+      "题号": "问题",
+      "33": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别",
+      "34": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+      "95": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+      "207": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+      "260": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "531": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+      "543": "武汉兴图新科电子股份有限公司注册资本是多少？",
+      "793": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？",
+      "795": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+      "957": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？"
+    }
+  },
+  "before": {
+    "accuracy": 0.5,
+    "retrieval_hit_rate": 1.0,
+    "evidence_rank1_rate": 1.0,
+    "evidence_rank1_rate_strict": 1.0,
+    "vector_top5_hit_rate": 0.2,
+    "vector_top20_hit_rate": 0.4,
+    "first_token_avg_ms": 11518.33,
+    "first_token_p95_ms": 57312.92,
+    "first_token_max_ms": 57312.92,
+    "total_avg_ms": 14186.86,
+    "citation_accuracy": 1.0,
+    "chunk_count": 2967,
+    "context_size": 8
+  },
+  "after": {
+    "count": 1,
+    "correct": 1,
+    "accuracy": 1.0,
+    "retrieval_hit_count": 1,
+    "retrieval_hit_rate": 1.0,
+    "evidence_rank1_count": 1,
+    "evidence_rank1_rate": 1.0,
+    "evidence_rank1_rate_strict": 1.0,
+    "evidence_located_count": 1,
+    "evidence_top2_count": 1,
+    "evidence_top2_rate": 1.0,
+    "first_token_avg_ms": 120.84,
+    "first_token_p95_ms": 120.84,
+    "first_token_max_ms": 120.84,
+    "total_avg_ms": 4875.55,
+    "citation_total": 5,
+    "citation_valid": 5,
+    "citation_accuracy": 1.0,
+    "context_size": 5,
+    "chunk_count": 1669,
+    "vector_top5_hit_rate": 0.0,
+    "vector_top20_hit_rate": 0.0
+  },
+  "after_extractive_path": {
+    "count": 1,
+    "correct": 1,
+    "accuracy": 1.0,
+    "retrieval_hit_count": 1,
+    "retrieval_hit_rate": 1.0,
+    "evidence_rank1_count": 1,
+    "evidence_rank1_rate": 1.0,
+    "evidence_rank1_rate_strict": 1.0,
+    "evidence_located_count": 1,
+    "evidence_top2_count": 1,
+    "evidence_top2_rate": 1.0,
+    "first_token_avg_ms": 26.24,
+    "first_token_p95_ms": 26.24,
+    "first_token_max_ms": 26.24,
+    "total_avg_ms": 1351.97,
+    "citation_total": 5,
+    "citation_valid": 5,
+    "citation_accuracy": 1.0,
+    "context_size": 5
+  },
+  "vector_only_stage": {
+    "before（工单1 索引 2967×512 bge-small-zh-v1.5）": {
+      "top5_hit_rate": 0.2,
+      "top20_hit_rate": 0.4
+    },
+    "after（工单2 索引 bge-m3 1024 维 + 子块级召回）": {
+      "top5_hit_rate": 0.0,
+      "top20_hit_rate": 0.0,
+      "per_question_rank_raw_query": {
+        "260": null
+      },
+      "per_question_rank_rewritten_query": {
+        "260": null
+      }
+    }
+  },
+  "cold_start_first_token_ms": 120.84,
+  "answer_length": {
+    "口径": "去掉引用标签 `[页码: N]` 与首尾空白后的字符数；仅作「多值齐备」旁证，不是优化目标",
+    "before": {
+      "avg": 50.0,
+      "min": 50,
+      "max": 50
+    },
+    "after": {
+      "avg": 150.0,
+      "min": 150,
+      "max": 150
+    },
+    "参考答案": {
+      "avg": 65.0,
+      "min": 65,
+      "max": 65
+    }
+  },
+  "per_question": [
+    {
+      "question_id": 260,
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "golden": "报告期内，公司来自军用领域的收入分别为6,464.51万元、14,414.16万元、18,780.67万元和4,627.14万元。",
+      "before": {
+        "answer": "[页码: 129] 6,464.51 万元、14,414.16 万元、18,780.67 万元和4,627.14 万元。",
+        "is_correct": true,
+        "judge_reason": "金额全部命中(4个)",
+        "first_token_ms": 1654.75,
+        "total_ms": 7326.81,
+        "citation_pages": [
+          129
+        ],
+        "retrieval_rank": 1,
+        "retrieval_hit": true
+      },
+      "after": {
+        "answer": "（1）行业和客户集中度高①行业集中度高的影响发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的收入分别为6,464.51 万元、14,414.16 万元、18,780.67 万元和4,627.14 万元，占主营业务收入比重分别为82.10%、97.31%、94.84%和94.34%。 [页码: 129]",
+        "is_correct": true,
+        "judge_reason": "参考答案为答案子串（忽略标点）",
+        "mode": "extractive",
+        "is_unknown": false,
+        "first_token_ms": 120.84,
+        "total_ms": 4875.55,
+        "citation_pages": [
+          129,
+          130,
+          343,
+          394,
+          4
+        ],
+        "citation_valid": true,
+        "retrieval_rank": 1,
+        "retrieval_hit": true,
+        "retrieved_pages": [
+          129,
+          130,
+          343,
+          394,
+          4
+        ]
+      }
+    }
+  ]
+}

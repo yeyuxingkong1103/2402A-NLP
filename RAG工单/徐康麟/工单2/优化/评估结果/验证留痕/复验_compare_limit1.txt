@@ -1,0 +1,107 @@
+2026-10-03T17:26:28.850+08:00 | INFO     | app.core.logging_conf - 日志系统初始化完成
+2026-10-03T17:26:28.916+08:00 | INFO     | app.core.chunker - 分块已加载
+2026-10-03T17:26:28.949+08:00 | WARNING  | app.core.reranker - 未找到本地重排模型目录，使用规则重排（mode=rule）
+2026-10-03T17:26:29.020+08:00 | INFO     | app.core.retriever - 分块表已设置
+2026-10-03T17:26:29.061+08:00 | INFO     | app.core.vector_store - 向量索引加载完成
+2026-10-03T17:26:29.166+08:00 | INFO     | app.core.bm25_index - BM25 索引加载完成
+2026-10-03T17:26:29.208+08:00 | INFO     | app.core.retriever - 索引加载完成
+2026-10-03T17:26:29.212+08:00 | INFO     | app.core.qa_engine - 索引加载完成
+2026-10-03T17:26:29.257+08:00 | INFO     | app.core.llm_client - LLM 后端已选定
+2026-10-03T17:26:29.269+08:00 | INFO     | app.core.vector_store - 向量索引加载完成
+2026-10-03T17:26:29.318+08:00 | INFO     | app.core.embedder - 嵌入预热完成
+2026-10-03T17:26:29.391+08:00 | INFO     | app.core.qa_engine - 预热完成
+2026-10-03T17:26:29.398+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:26:29.418+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+Building prefix dict from the default dictionary ...
+Loading model from cache C:\Users\徐康麟\AppData\Local\Temp\dsh-UkygON\jieba.cache
+Loading model cost 0.914 seconds.
+Prefix dict has been built successfully.
+2026-10-03T17:26:31.247+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:31.258+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:31.259+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:31.494+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:31.511+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:31.513+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:31.716+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:31.728+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:31.729+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:31.946+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:31.956+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:31.957+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:31.962+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:31.963+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:26:31.984+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:26:33.058+08:00 | WARNING  | app.core.generator - LLM 答案未通过一致性校验，回退抽取式答案
+2026-10-03T17:26:33.076+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:26:33.077+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:26:33.118+08:00 | INFO     | app.core.retriever - 分块表已设置
+2026-10-03T17:26:33.132+08:00 | INFO     | app.core.vector_store - 向量索引加载完成
+2026-10-03T17:26:33.216+08:00 | INFO     | app.core.bm25_index - BM25 索引加载完成
+2026-10-03T17:26:33.265+08:00 | INFO     | app.core.retriever - 索引加载完成
+2026-10-03T17:26:33.267+08:00 | INFO     | app.core.qa_engine - 索引加载完成
+2026-10-03T17:26:33.301+08:00 | INFO     | app.core.embedder - 嵌入预热完成
+2026-10-03T17:26:33.364+08:00 | INFO     | app.core.qa_engine - 预热完成
+2026-10-03T17:26:33.372+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:26:33.392+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:26:33.525+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:33.534+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:33.535+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:33.661+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:33.671+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:33.672+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:33.794+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:33.803+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:33.803+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:33.923+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:33.933+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:33.933+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:33.937+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:33.937+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:26:33.948+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:26:33.980+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:26:33.981+08:00 | INFO     | app.core.evaluator - 单题评估完成
+[防覆盖保护] 部分运行（--limit 1 < 全库 10 题）→ 输出改到 E:\gao6gongdan\工单2\.tmp_review\compare_partial\limit1；正式交付目录 E:\gao6gongdan\工单2\优化\评估结果 **未被写入**。
+============================================================================================
+工单2 优化前后对比评估：人工智能NLP-RAG-基于PDF文档的问答系统优化
+基线来源     : baseline_results.json / baseline_repro_retrieval.json / baseline_retrieval.json
+判分口径     : 工单1 check_answer（FUZZY_THRESHOLD=0.62，不放宽）
+题目数       : 1/10   索引分块：1669   页码范围：1..548
+============================================================================================
+优化后环境   : 嵌入=bge-m3:latest(1024维) 重排=rule LLM=qwen2.5:3b 分块=1669
+纯向量单路   : 原始问句口径（与 T6 基线可比）top-5 0/1、top-20 0/1；改写后查询口径 top-5 0/1、top-20 0/1
+预热         : 总 90.25 ms（首字按预热后统计；冷启动数值另行记录）
+--------------------------------------------------------------------------------------------
+运行：最终交付路径（混合检索 + 生成 + 一致性校验，mode=rag）
+  [rag 1/1] Q260 ✅ 首字=176ms 证据位次=1 引用=[129, 130, 343, 394, 4] mode=extractive
+--------------------------------------------------------------------------------------------
+运行：纯抽取式路径（LLM 关闭，mode=extractive，作为稳健性对照）
+  [extractive 1/1] Q260 ✅ 首字=8ms 证据位次=1 引用=[129, 130, 343, 394, 4] mode=extractive
+
+CSV   : E:\gao6gongdan\工单2\.tmp_review\compare_partial\limit1\optimization_compare.csv
+JSON  : E:\gao6gongdan\工单2\.tmp_review\compare_partial\limit1\accuracy_report.json
+MD    : E:\gao6gongdan\工单2\.tmp_review\compare_partial\limit1\optimization_compare.md
+  RAGAS 声明已更新（保留既有内容）: E:\gao6gongdan\工单2\.tmp_review\compare_partial\limit1\ragas_report.md
+RAGAS : E:\gao6gongdan\工单2\.tmp_review\compare_partial\limit1\ragas_report.md（追加声明；正式路径 未触碰）
+
+============================================================================================
+优化前后对比（真实运行值）
+指标                                优化前(基线)           优化后               变化
+--------------------------------------------------------------------------------------------
+答案准确率                             0.5000            1.0000            +0.5000
+检索命中率（终果含证据）                      1.0000            1.0000            +0.0000
+证据排第 1 位比例                        1.0000            1.0000            +0.0000
+纯向量 top-5 命中率                     0.2000            0.0000            -0.2000
+纯向量 top-20 命中率                    0.4000            0.0000            -0.4000
+首字均值 ms                           11518.33          176.27            -11342.06
+首字 P95 ms                         57312.92          176.27            -57136.65
+首字最大 ms                           57312.92          176.27            -57136.65
+端到端均值 ms                          14186.86          3667.79           -10519.07
+引用正确率                             1.0000            1.0000            +0.0000
+分块数                               2967              1669              -1298
+--------------------------------------------------------------------------------------------
+准确率 = 1/1 = 1.0000（达标线 0.90：✅ 达标）
+首字最大 = 176.27 ms（红线 3000 ms：✅ 达标）
+冷启动首题首字（预热前，仅供参考）= 176.27 ms
+纯抽取式路径（对照）= 准确率 1.0000 (1/1)
+RAGAS = 未运行（依赖不可用，本机断网）
+============================================================================================

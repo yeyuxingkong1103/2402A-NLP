@@ -1,0 +1,424 @@
+2026-10-03T17:26:48.405+08:00 | INFO     | app.core.logging_conf - 日志系统初始化完成
+2026-10-03T17:26:48.444+08:00 | INFO     | app.core.chunker - 分块已加载
+2026-10-03T17:26:48.608+08:00 | WARNING  | app.core.reranker - 未找到本地重排模型目录，使用规则重排（mode=rule）
+2026-10-03T17:26:48.648+08:00 | INFO     | app.core.retriever - 分块表已设置
+2026-10-03T17:26:48.661+08:00 | INFO     | app.core.vector_store - 向量索引加载完成
+2026-10-03T17:26:48.745+08:00 | INFO     | app.core.bm25_index - BM25 索引加载完成
+2026-10-03T17:26:48.781+08:00 | INFO     | app.core.retriever - 索引加载完成
+2026-10-03T17:26:48.783+08:00 | INFO     | app.core.qa_engine - 索引加载完成
+2026-10-03T17:26:48.834+08:00 | INFO     | app.core.llm_client - LLM 后端已选定
+2026-10-03T17:26:48.847+08:00 | INFO     | app.core.vector_store - 向量索引加载完成
+2026-10-03T17:26:49.345+08:00 | INFO     | app.core.embedder - 嵌入预热完成
+2026-10-03T17:26:49.371+08:00 | INFO     | app.core.qa_engine - 预热完成
+2026-10-03T17:26:49.379+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:26:49.401+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+Building prefix dict from the default dictionary ...
+Loading model from cache C:\Users\徐康麟\AppData\Local\Temp\dsh-UkygON\jieba.cache
+Loading model cost 0.702 seconds.
+Prefix dict has been built successfully.
+2026-10-03T17:26:50.767+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:50.776+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:50.777+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:50.959+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:50.972+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:50.972+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:51.175+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:51.185+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:51.186+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:51.408+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:51.420+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:51.421+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:51.427+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:51.427+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:26:51.445+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:26:52.711+08:00 | WARNING  | app.core.generator - LLM 答案未通过一致性校验，回退抽取式答案
+2026-10-03T17:26:52.731+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:26:52.732+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:26:52.741+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:26:52.761+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:26:52.773+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:52.774+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:52.826+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:52.827+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:52.879+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:52.880+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:52.924+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:52.925+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:52.928+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:52.929+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:26:52.945+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:26:53.623+08:00 | WARNING  | app.core.generator - LLM 答案未通过一致性校验，回退抽取式答案
+2026-10-03T17:26:53.639+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:26:53.640+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:26:53.651+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:26:53.677+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:26:53.833+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:53.844+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:53.844+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:54.009+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:54.022+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:54.023+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:54.170+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:54.179+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:54.180+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:54.365+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:54.376+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:54.377+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:54.381+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:54.381+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:26:54.405+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:26:54.969+08:00 | WARNING  | app.core.generator - LLM 答案未通过一致性校验，回退抽取式答案
+2026-10-03T17:26:54.986+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:26:54.987+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:26:54.996+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:26:55.016+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:26:55.032+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:55.032+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:55.094+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:55.095+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:55.134+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:55.135+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:55.175+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:55.175+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:55.179+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:55.179+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:26:55.199+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:26:55.967+08:00 | WARNING  | app.core.generator - LLM 答案未通过一致性校验，回退抽取式答案
+2026-10-03T17:26:55.987+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:26:55.990+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:26:56.001+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:26:56.027+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:26:56.041+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:56.041+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:56.071+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:56.072+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:56.138+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:56.139+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:56.178+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:56.178+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:56.180+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:56.180+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:26:56.195+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:26:56.506+08:00 | WARNING  | app.core.generator - LLM 答案未通过一致性校验，回退抽取式答案
+2026-10-03T17:26:56.527+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:26:56.527+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:26:56.535+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:26:56.556+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:26:56.572+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:56.573+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:56.633+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:56.633+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:56.682+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:56.682+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:56.730+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:56.730+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:56.732+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:56.733+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:26:56.744+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:26:57.511+08:00 | WARNING  | app.core.generator - LLM 答案未通过一致性校验，回退抽取式答案
+2026-10-03T17:26:57.533+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:26:57.534+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:26:57.541+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:26:57.571+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:26:57.592+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:57.592+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:57.625+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:57.626+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:57.666+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:57.667+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:57.668+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:57.669+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:26:57.679+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:26:58.230+08:00 | WARNING  | app.core.generator - LLM 答案未通过一致性校验，回退抽取式答案
+2026-10-03T17:26:58.250+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:26:58.251+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:26:58.260+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:26:58.279+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:26:58.414+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:58.424+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:58.425+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:58.597+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:58.608+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:58.608+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:58.794+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:58.803+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:58.804+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:58.966+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:26:58.983+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:58.984+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:58.987+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:58.987+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:26:59.004+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:26:59.402+08:00 | WARNING  | app.core.generator - LLM 答案未通过一致性校验，回退抽取式答案
+2026-10-03T17:26:59.420+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:26:59.421+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:26:59.430+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:26:59.451+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:26:59.463+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:59.464+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:59.497+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:59.499+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:59.544+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:59.545+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:59.596+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:59.596+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:26:59.597+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:26:59.598+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:26:59.604+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:27:00.385+08:00 | WARNING  | app.core.generator - LLM 答案未通过一致性校验，回退抽取式答案
+2026-10-03T17:27:00.402+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:27:00.403+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:27:00.410+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:27:00.430+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:27:00.557+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:00.566+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:00.566+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:00.716+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:00.729+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:00.730+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:00.894+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:00.905+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:00.906+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:01.068+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:01.077+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:01.078+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:01.082+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:01.082+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:27:01.102+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:27:01.346+08:00 | WARNING  | app.core.generator - LLM 答案未通过一致性校验，回退抽取式答案
+2026-10-03T17:27:01.367+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:27:01.368+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:27:01.414+08:00 | INFO     | app.core.retriever - 分块表已设置
+2026-10-03T17:27:01.437+08:00 | INFO     | app.core.vector_store - 向量索引加载完成
+2026-10-03T17:27:01.531+08:00 | INFO     | app.core.bm25_index - BM25 索引加载完成
+2026-10-03T17:27:01.574+08:00 | INFO     | app.core.retriever - 索引加载完成
+2026-10-03T17:27:01.578+08:00 | INFO     | app.core.qa_engine - 索引加载完成
+2026-10-03T17:27:01.601+08:00 | INFO     | app.core.embedder - 嵌入预热完成
+2026-10-03T17:27:01.680+08:00 | INFO     | app.core.qa_engine - 预热完成
+2026-10-03T17:27:01.688+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:27:01.708+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:27:01.871+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:01.882+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:01.883+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:02.071+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:02.084+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:02.084+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:02.211+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:02.220+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:02.221+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:02.352+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:02.363+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:02.364+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:02.367+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:02.367+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:27:02.379+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:27:02.396+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:27:02.397+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:27:02.405+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:27:02.424+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:27:02.438+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:02.440+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:02.449+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:02.449+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:02.462+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:02.463+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:02.475+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:02.477+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:02.478+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:02.478+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:27:02.491+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:27:02.510+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:27:02.511+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:27:02.520+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:27:02.540+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:27:02.665+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:02.675+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:02.677+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:02.808+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:02.818+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:02.819+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:02.947+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:02.958+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:02.959+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:03.095+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:03.106+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.106+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:03.110+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.110+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:27:03.123+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:27:03.141+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:27:03.142+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:27:03.150+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:27:03.171+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:27:03.185+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.185+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:03.200+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.201+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:03.214+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.215+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:03.242+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.242+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:03.244+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.245+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:27:03.255+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:27:03.273+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:27:03.274+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:27:03.282+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:27:03.301+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:27:03.313+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.314+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:03.325+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.325+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:03.340+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.340+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:03.354+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.355+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:03.356+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.357+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:27:03.369+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:27:03.386+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:27:03.387+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:27:03.394+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:27:03.413+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:27:03.432+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.432+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:03.447+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.449+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:03.471+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.471+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:03.492+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.492+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:03.496+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.498+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:27:03.510+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:27:03.528+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:27:03.529+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:27:03.539+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:27:03.558+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:27:03.576+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.576+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:03.595+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.596+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:03.608+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.608+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:03.610+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.610+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:27:03.620+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:27:03.638+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:27:03.639+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:27:03.648+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:27:03.668+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:27:03.813+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:03.822+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.823+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:03.957+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:03.969+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:03.969+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:04.101+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:04.111+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:04.111+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:04.262+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:04.273+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:04.274+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:04.277+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:04.277+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:27:04.295+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:27:04.319+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:27:04.319+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:27:04.328+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:27:04.352+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:27:04.366+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:04.366+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:04.375+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:04.376+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:04.393+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:04.394+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:04.407+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:04.407+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:04.409+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:04.410+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:27:04.417+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:27:04.438+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:27:04.440+08:00 | INFO     | app.core.evaluator - 单题评估完成
+2026-10-03T17:27:04.447+08:00 | INFO     | app.core.conversation - 新建会话
+2026-10-03T17:27:04.469+08:00 | DEBUG    | app.core.conversation - 会话自动命名
+2026-10-03T17:27:04.613+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:04.623+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:04.624+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:04.748+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:04.758+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:04.758+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:04.898+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:04.907+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:04.907+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:05.058+08:00 | INFO     | app.core.retriever - 数值型问题已补充多值齐备块进入精排池
+2026-10-03T17:27:05.069+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:05.070+08:00 | INFO     | app.core.retriever - 检索完成
+2026-10-03T17:27:05.073+08:00 | INFO     | app.core.reranker - 重排完成
+2026-10-03T17:27:05.073+08:00 | INFO     | app.core.retriever - 多变体检索完成
+2026-10-03T17:27:05.094+08:00 | INFO     | app.core.generator - 抽取式回答完成（跨度+轻模板）
+2026-10-03T17:27:05.113+08:00 | INFO     | app.storage.sqlite_manager - 写入检索追踪
+2026-10-03T17:27:05.114+08:00 | INFO     | app.core.evaluator - 单题评估完成
+============================================================================================
+工单2 优化前后对比评估：人工智能NLP-RAG-基于PDF文档的问答系统优化
+基线来源     : baseline_results.json / baseline_repro_retrieval.json / baseline_retrieval.json
+判分口径     : 工单1 check_answer（FUZZY_THRESHOLD=0.62，不放宽）
+题目数       : 10/10   索引分块：1669   页码范围：1..548
+============================================================================================
+优化后环境   : 嵌入=bge-m3:latest(1024维) 重排=rule LLM=qwen2.5:3b 分块=1669
+纯向量单路   : 原始问句口径（与 T6 基线可比）top-5 4/10、top-20 6/10；改写后查询口径 top-5 4/10、top-20 6/10
+预热         : 总 45.12 ms（首字按预热后统计；冷启动数值另行记录）
+--------------------------------------------------------------------------------------------
+运行：最终交付路径（混合检索 + 生成 + 一致性校验，mode=rag）
+  [rag 1/10] Q260 ✅ 首字=180ms 证据位次=1 引用=[129, 130, 343, 394, 4] mode=extractive
+  [rag 2/10] Q95 ❌ 首字=123ms 证据位次=2 引用=[160, 181, 241, 182, 155] mode=extractive
+  [rag 3/10] Q33 ✅ 首字=127ms 证据位次=1 引用=[129, 378, 340, 36, 4] mode=extractive
+  [rag 4/10] Q34 ✅ 首字=469ms 证据位次=1 引用=[152, 153, 541, 545, 22] mode=extractive
+  [rag 5/10] Q957 ✅ 首字=98ms 证据位次=1 引用=[181, 154, 172, 26, 241] mode=extractive
+  [rag 6/10] Q793 ✅ 首字=599ms 证据位次=1 引用=[152, 153, 151, 37, 5] mode=extractive
+  [rag 7/10] Q795 ✅ 首字=121ms 证据位次=1 引用=[181, 96, 241, 94, 158] mode=extractive
+  [rag 8/10] Q543 ✅ 首字=137ms 证据位次=1 引用=[52, 22, 56, 68, 56] mode=extractive
+  [rag 9/10] Q531 ✅ 首字=596ms 证据位次=1 引用=[52, 22, 22, 68, 63] mode=extractive
+  [rag 10/10] Q207 ✅ 首字=127ms 证据位次=4 引用=[490, 23, 491, 479, 30] mode=extractive
+--------------------------------------------------------------------------------------------
+运行：纯抽取式路径（LLM 关闭，mode=extractive，作为稳健性对照）
+  [extractive 1/10] Q260 ✅ 首字=9ms 证据位次=1 引用=[129, 130, 343, 394, 4] mode=extractive
+  [extractive 2/10] Q95 ❌ 首字=11ms 证据位次=2 引用=[160, 181, 241, 182, 155] mode=extractive
+  [extractive 3/10] Q33 ✅ 首字=10ms 证据位次=1 引用=[129, 378, 340, 36, 4] mode=extractive
+  [extractive 4/10] Q34 ✅ 首字=8ms 证据位次=1 引用=[152, 153, 541, 545, 22] mode=extractive
+  [extractive 5/10] Q957 ✅ 首字=9ms 证据位次=1 引用=[181, 154, 172, 26, 241] mode=extractive
+  [extractive 6/10] Q793 ✅ 首字=10ms 证据位次=1 引用=[152, 153, 151, 37, 5] mode=extractive
+  [extractive 7/10] Q795 ✅ 首字=8ms 证据位次=1 引用=[181, 96, 241, 94, 158] mode=extractive
+  [extractive 8/10] Q543 ✅ 首字=16ms 证据位次=1 引用=[52, 22, 56, 68, 56] mode=extractive
+  [extractive 9/10] Q531 ✅ 首字=5ms 证据位次=1 引用=[52, 22, 22, 68, 63] mode=extractive
+  [extractive 10/10] Q207 ✅ 首字=18ms 证据位次=4 引用=[490, 23, 491, 479, 30] mode=extractive
+[防覆盖保护] 本次覆盖 10/10 题 → 允许写正式交付路径 E:\gao6gongdan\工单2\优化\评估结果
+
+CSV   : E:\gao6gongdan\工单2\优化\评估结果\optimization_compare.csv
+JSON  : E:\gao6gongdan\工单2\优化\评估结果\accuracy_report.json
+MD    : E:\gao6gongdan\工单2\优化\评估结果\optimization_compare.md
+  RAGAS 声明已更新（保留既有内容）: E:\gao6gongdan\工单2\优化\评估结果\ragas_report.md
+RAGAS : E:\gao6gongdan\工单2\优化\评估结果\ragas_report.md（追加声明；正式路径 已写）
+
+============================================================================================
+优化前后对比（真实运行值）
+指标                                优化前(基线)           优化后               变化
+--------------------------------------------------------------------------------------------
+答案准确率                             0.5000            0.9000            +0.4000
+检索命中率（终果含证据）                      1.0000            1.0000            +0.0000
+证据排第 1 位比例                        0.6000            0.8000            +0.2000
+纯向量 top-5 命中率                     0.2000            0.4000            +0.2000
+纯向量 top-20 命中率                    0.4000            0.6000            +0.2000
+首字均值 ms                           11518.33          257.78            -11260.55
+首字 P95 ms                         57312.92          597.75            -56715.17
+首字最大 ms                           57312.92          598.99            -56713.93
+端到端均值 ms                          14186.86          1179.31           -13007.55
+引用正确率                             1.0000            1.0000            +0.0000
+分块数                               2967              1669              -1298
+--------------------------------------------------------------------------------------------
+准确率 = 9/10 = 0.9000（达标线 0.90：✅ 达标）
+首字最大 = 598.99 ms（红线 3000 ms：✅ 达标）
+冷启动首题首字（预热前，仅供参考）= 180.50 ms
+纯抽取式路径（对照）= 准确率 0.9000 (9/10)
+RAGAS = 未运行（依赖不可用，本机断网）
+============================================================================================

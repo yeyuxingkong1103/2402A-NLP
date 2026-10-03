@@ -1,0 +1,46 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.15, pytest-7.4.4, pluggy-1.6.0
+rootdir: E:\gao6gongdan\����2\����
+configfile: pytest.ini
+plugins: anyio-4.13.0, asyncio-0.23.3, cov-4.1.0
+asyncio: mode=Mode.STRICT
+collected 32 items
+
+����\����\test_api_v2.py .......                                         [ 21%]
+����\����\test_concurrency_v2.py ...                                     [ 31%]
+����\����\test_fault_tolerance.py .................F.                    [ 90%]
+����\����\test_multiturn_v2.py ...                                       [100%]
+
+================================== FAILURES ===================================
+___________________ test_logs_are_json_lines_and_non_empty ____________________
+
+log_baseline = {'app.log': 40362299, 'error.log': 427087, 'rag_trace.jsonl': 33205262}
+log_identity = {'app.log': '293c7e56d269e26ba6c956e307ef00ce426fefae', 'error.log': 'cc623188196f0cdee6a8132171913621d0527842', 'rag_trace.jsonl': 'ab696f6039697631815c9c2c250e038db665962d'}
+
+    def test_logs_are_json_lines_and_non_empty(log_baseline, log_identity):
+        """��־������ڡ��ǿա���**����������������**��Ϊ�Ϸ� JSON������ 9����
+    
+        ��������ɣ���Ҫ����``����/��־/`` ��**�޸�ǰ��ʷ��**��������ȱ�������� ``Errno 22``��
+        Ҳ��һ�Ρ�˫����ͬ��˿ڡ���ɵ������Ƿ� JSON���ʱ�����
+        **ֻУ��Ự��ʼ���������ֽ�**��``log_baseline`` ��ƫ�ƣ���
+        �Ȳ���ȫ�ļ�ɨ�裬Ҳ���á�β�����ڻ�ɨ��������������Ȼ�ǰ��У������У���
+        ��ʷ��־�������**����������ɾ��**��
+    
+        \u26a0\ufe0f **\u8eab\u4efd\u5b88\u536b\uff082026-10-03 \u8865\uff09**\uff1a\u5b57\u8282\u504f\u79fb\u53e3\u5f84\u53ea\u5728**\u6587\u4ef6\u8eab\u4efd\u672a\u53d8**\u65f6\u6709\u6548\u3002
+        ���Ự�ڼ���־��**��ת/�ض�**��``logging_conf._rotate`` �ڲ���д�ߴ���ʱ�ɸ����ɹ�����
+        ��ƫ�������ļ����������� �� ��������**��Ĭ�˻��ɿն��ԣ����̣�**��
+        ������ж����ݣ����˾�**�к첢��ȷд"�����ж���������"**��������"û�⵽"��"ͨ��"��
+        """
+        assert LOG_DIR.exists(), f"��־Ŀ¼������: {LOG_DIR}"
+        rotated = log_rotated_since(log_identity)
+>       assert not rotated, (
+            f"ȡ֤��������־�ļ�����ת/�ض�: {rotated} ���� �ֽ�ƫ�ƿھ�ʧЧ��"
+            f"������־�����Զ���**�����ж�**���Ȳ��ǡ���־�����⡹��Ҳ���ǡ�ͨ���������������ܡ�"
+        )
+E       AssertionError: ȡ֤��������־�ļ�����ת/�ض�: ['rag_trace.jsonl'] ���� �ֽ�ƫ�ƿھ�ʧЧ��������־�����Զ���**�����ж�**���Ȳ��ǡ���־�����⡹��Ҳ���ǡ�ͨ���������������ܡ�
+E       assert not ['rag_trace.jsonl']
+
+����\����\test_fault_tolerance.py:495: AssertionError
+=========================== short test summary info ===========================
+FAILED ����\����\test_fault_tolerance.py::test_logs_are_json_lines_and_non_empty
+=================== 1 failed, 31 passed in 75.36s (0:01:15) ===================

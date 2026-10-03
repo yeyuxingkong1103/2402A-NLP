@@ -1,0 +1,48 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.15, pytest-7.4.4, pluggy-1.6.0
+rootdir: E:\gao6gongdan\����2\����
+configfile: pytest.ini
+plugins: anyio-4.13.0, asyncio-0.23.3, cov-4.1.0
+asyncio: mode=Mode.STRICT
+collected 32 items
+
+����\����\test_api_v2.py .......                                         [ 21%]
+����\����\test_concurrency_v2.py ...                                     [ 31%]
+����\����\test_fault_tolerance.py ...................                    [ 90%]
+����\����\test_multiturn_v2.py F..                                       [100%]
+
+================================== FAILURES ===================================
+________________ test_three_turn_conversation_with_coreference ________________
+
+server = <conftest.ServerHandle object at 0x00000267676FDC90>
+db_path = WindowsPath('E:/gao6gongdan/����2/�з�/data/index/rag.sqlite3')
+
+    def test_three_turn_conversation_with_coreference(server, db_path):
+        """3 �ֶԻ�����ָ��׷�ʣ�����д��Ч�������⡢��ʷ��켣��ȷ��⡣"""
+        status, body = post_json(server.base_url, "/api/conversations", {})
+        assert status == 200 and body.get("ok"), body
+        cid = body["conversation_id"]
+    
+        turns = []
+        for question in (TURN_1, TURN_2, TURN_3):
+            status, body = ask_once(server.base_url, question, conversation_id=cid)
+            assert status == 200 and body.get("ok"), f"{question!r} ����ʧ��: {body}"
+            answer = body["answer"]
+            assert (answer.get("answer") or "").strip(), f"{question!r} ��Ϊ��"
+>           assert not answer.get("is_unknown"), f"{question!r} ����ܴ�{answer.get('answer')}��"
+E           AssertionError: '����ע���ַ�����' ����ܴ𡸲������
+E           assert not True
+E            +  where True = <built-in method get of dict object at 0x000002671298C780>('is_unknown')
+E            +    where <built-in method get of dict object at 0x000002671298C780> = {'answer': '�����', 'citations': [], 'first_token_ms': 373.52, 'is_unknown': True, ...}.get
+
+����\����\test_multiturn_v2.py:58: AssertionError
+---------------------------- Captured stdout call -----------------------------
+
+[����] Q: �人��ͼ�¿Ƶ��ӹɷ����޹�˾������������˭��
+       A: '�����������ǳ̼��� [ҳ��: 52]'  ����ҳ=[52, 22, 22, 68, 63]
+
+[����] Q: ������ע���ʱ��أ�
+       A: 'ע���ʱ���5,520 ��Ԫ [ҳ��: 52]'  ����ҳ=[52, 22, 56, 68, 56]
+=========================== short test summary info ===========================
+FAILED ����\����\test_multiturn_v2.py::test_three_turn_conversation_with_coreference
+================== 1 failed, 31 passed in 101.83s (0:01:41) ===================

@@ -1,0 +1,386 @@
+{
+  "meta": {
+    "工单": "人工智能NLP-RAG-基于PDF文档的问答系统优化",
+    "阶段": "优化 / 基线采集（回答路径审计 v3：生成器级强关联配对）",
+    "sources": [
+      "E:\\gao6gongdan\\工单1\\logs\\rag_trace.jsonl",
+      "E:\\gao6gongdan\\工单1\\logs\\rag_trace.jsonl.1"
+    ],
+    "配对方法": "Generator.generate_extractive 的 enter 入参带 question，exit 结果带 answer/mode/primary_chunk_id；按同函数 enter/exit 的进入顺序 FIFO 配对，不依赖 QAEngine.ask 的嵌套推断。并用 Generator.generate 一级做交叉校验。",
+    "为何不用 ask 级配对": "实测 ask enter=1350 / exit=1338（12 个未闭合），嵌套最大深度 21，任何「最近 enter」或「栈式」推断都可能错配。",
+    "judge": "工单1 Evaluator.check_answer（只读副本），FUZZY_THRESHOLD 未改动",
+    "FUZZY_THRESHOLD": 0.62,
+    "reproduce_cmd": "pwsh -NoProfile -File run_py.ps1 -B 优化/脚本/audit_answer_paths_generator.py"
+  },
+  "file_scan": [
+    {
+      "Generator.generate.enter": 1331,
+      "Generator.generate_extractive.enter": 1254,
+      "Generator.generate_extractive.exit": 1254,
+      "Generator.generate.exit": 1331,
+      "Generator.generate.unclosed": 0,
+      "Generator.generate_extractive.unclosed": 0,
+      "file": "rag_trace.jsonl"
+    },
+    {
+      "Generator.generate.enter": 1461,
+      "Generator.generate_extractive.enter": 1414,
+      "Generator.generate_extractive.exit": 1414,
+      "Generator.generate.exit": 1461,
+      "Generator.generate.unclosed": 0,
+      "Generator.generate_extractive.unclosed": 0,
+      "file": "rag_trace.jsonl.1"
+    }
+  ],
+  "per_file": {
+    "rag_trace.jsonl": {
+      "extractive_observations_on_10_questions": 1110,
+      "mode_counter_all_generator_calls": {
+        "Generator.generate.enter": 1331,
+        "Generator.generate_extractive.enter": 1254,
+        "Generator.generate_extractive.exit": 1254,
+        "Generator.generate.exit": 1331,
+        "Generator.generate.unclosed": 0,
+        "Generator.generate_extractive.unclosed": 0
+      }
+    },
+    "rag_trace.jsonl.1": {
+      "extractive_observations_on_10_questions": 1266,
+      "mode_counter_all_generator_calls": {
+        "Generator.generate.enter": 1461,
+        "Generator.generate_extractive.enter": 1414,
+        "Generator.generate_extractive.exit": 1414,
+        "Generator.generate.exit": 1461,
+        "Generator.generate.unclosed": 0,
+        "Generator.generate_extractive.unclosed": 0
+      }
+    }
+  },
+  "extractive_summary": {
+    "questions_covered": 10,
+    "observations": 2376,
+    "correct_observations": 2358,
+    "observation_accuracy": 0.9924,
+    "questions_all_answers_correct": 7,
+    "questions_at_least_one_correct": 10,
+    "questions_with_single_distinct_answer": 7
+  },
+  "per_question": [
+    {
+      "question_id": 33,
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别是多少？",
+      "golden": "报告期内，公司来自军用领域的收入占主营业务收入的比重分别为82.10%、97.31%、94.84%和94.34%。",
+      "observations": 158,
+      "correct_observations": 158,
+      "observation_accuracy": 1.0,
+      "distinct_answers": 1,
+      "all_answers_correct": true,
+      "at_least_one_correct": true,
+      "answers": [
+        {
+          "answer": "报告期内，公司来自军用领域的收入占主营业务收入的比重分别为82.10%、97.31%、94.84%、94.34%。",
+          "is_correct": true,
+          "reason": "比例全部命中",
+          "occurrences": 158,
+          "primary_chunk_ids": [
+            "c000619"
+          ],
+          "files": [
+            "rag_trace.jsonl",
+            "rag_trace.jsonl.1"
+          ],
+          "cross_checked_in_generate": 126
+        }
+      ]
+    },
+    {
+      "question_id": 34,
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+      "golden": "电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、机柜等金属壳体制造企业，竞争充分、采购便利。",
+      "observations": 158,
+      "correct_observations": 158,
+      "observation_accuracy": 1.0,
+      "distinct_answers": 1,
+      "all_answers_correct": true,
+      "at_least_one_correct": true,
+      "answers": [
+        {
+          "answer": "电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、 机柜等金属壳体制造企业，竞争充分，采购便利。",
+          "is_correct": true,
+          "reason": "参考答案为答案子串（忽略标点）",
+          "occurrences": 158,
+          "primary_chunk_ids": [
+            "c000712"
+          ],
+          "files": [
+            "rag_trace.jsonl",
+            "rag_trace.jsonl.1"
+          ],
+          "cross_checked_in_generate": 124
+        }
+      ]
+    },
+    {
+      "question_id": 95,
+      "question": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+      "golden": "公司参与制定了全军第一个视频指挥系统技术标准，即《某视频指挥系统技术规范（1.0版）》（招股书中亦简称《某视频技术规范1.0》）。该标准由军事科学院牵头，联合数据通信科学技术研究所、北京大学共同制定，兴图新科是参与制定者与试验验证者。",
+      "observations": 158,
+      "correct_observations": 158,
+      "observation_accuracy": 1.0,
+      "distinct_answers": 1,
+      "all_answers_correct": true,
+      "at_least_one_correct": true,
+      "answers": [
+        {
+          "answer": "公司参与制定了全军第一个视频指挥系统技术标准（即《某视频指挥系统技术规范（1.0 版）》）。",
+          "is_correct": true,
+          "reason": "答案为参考答案子串（忽略标点）",
+          "occurrences": 158,
+          "primary_chunk_ids": [
+            "c000740"
+          ],
+          "files": [
+            "rag_trace.jsonl",
+            "rag_trace.jsonl.1"
+          ],
+          "cross_checked_in_generate": 129
+        }
+      ]
+    },
+    {
+      "question_id": 207,
+      "question": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+      "golden": "公司计划使用本次发行募集资金15,000.00万元用于补充流动资金。",
+      "observations": 158,
+      "correct_observations": 158,
+      "observation_accuracy": 1.0,
+      "distinct_answers": 1,
+      "all_answers_correct": true,
+      "at_least_one_correct": true,
+      "answers": [
+        {
+          "answer": "公司计划使用本次发行募集资金 15,000.00 万元用于补充流动资金。",
+          "is_correct": true,
+          "reason": "参考答案为答案子串（忽略标点）",
+          "occurrences": 158,
+          "primary_chunk_ids": [
+            "c000151"
+          ],
+          "files": [
+            "rag_trace.jsonl",
+            "rag_trace.jsonl.1"
+          ],
+          "cross_checked_in_generate": 127
+        }
+      ]
+    },
+    {
+      "question_id": 260,
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "golden": "报告期内，公司来自军用领域的收入分别为6,464.51万元、14,414.16万元、18,780.67万元和4,627.14万元。",
+      "observations": 290,
+      "correct_observations": 287,
+      "observation_accuracy": 0.9897,
+      "distinct_answers": 2,
+      "all_answers_correct": false,
+      "at_least_one_correct": true,
+      "answers": [
+        {
+          "answer": "报告期内，公司来自军用领域的收入分别为6,464.51 万元、14,414.16 万元、18,780.67 万元、4,627.14 万元。",
+          "is_correct": true,
+          "reason": "金额全部命中(4个)",
+          "occurrences": 287,
+          "primary_chunk_ids": [
+            "c000619"
+          ],
+          "files": [
+            "rag_trace.jsonl",
+            "rag_trace.jsonl.1"
+          ],
+          "cross_checked_in_generate": 157
+        },
+        {
+          "answer": "法定代表人是程家明。",
+          "is_correct": false,
+          "reason": "未命中：缺少数值 ['14414.16', '18780.67', '4627.14', '6464.51']",
+          "occurrences": 3,
+          "primary_chunk_ids": [
+            "c000265"
+          ],
+          "files": [
+            "rag_trace.jsonl",
+            "rag_trace.jsonl.1"
+          ],
+          "cross_checked_in_generate": 0
+        }
+      ]
+    },
+    {
+      "question_id": 531,
+      "question": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+      "golden": "法定代表人是程家明。",
+      "observations": 393,
+      "correct_observations": 390,
+      "observation_accuracy": 0.9924,
+      "distinct_answers": 2,
+      "all_answers_correct": false,
+      "at_least_one_correct": true,
+      "answers": [
+        {
+          "answer": "法定代表人是程家明。",
+          "is_correct": true,
+          "reason": "参考答案为答案子串（忽略标点）",
+          "occurrences": 390,
+          "primary_chunk_ids": [
+            "c000022",
+            "c000109",
+            "c000265"
+          ],
+          "files": [
+            "rag_trace.jsonl",
+            "rag_trace.jsonl.1"
+          ],
+          "cross_checked_in_generate": 252
+        },
+        {
+          "answer": "报告期内，公司来自军用领域的收入分别为6,464.51 万元、14,414.16 万元、18,780.67 万元、4,627.14 万元。",
+          "is_correct": false,
+          "reason": "未命中：文本与数值均不匹配",
+          "occurrences": 3,
+          "primary_chunk_ids": [
+            "c000619"
+          ],
+          "files": [
+            "rag_trace.jsonl",
+            "rag_trace.jsonl.1"
+          ],
+          "cross_checked_in_generate": 0
+        }
+      ]
+    },
+    {
+      "question_id": 543,
+      "question": "武汉兴图新科电子股份有限公司注册资本是多少？",
+      "golden": "注册资本为5,520万元。",
+      "observations": 587,
+      "correct_observations": 575,
+      "observation_accuracy": 0.9796,
+      "distinct_answers": 2,
+      "all_answers_correct": false,
+      "at_least_one_correct": true,
+      "answers": [
+        {
+          "answer": "注册资本为 5,520 万元。",
+          "is_correct": true,
+          "reason": "参考答案为答案子串（忽略标点）",
+          "occurrences": 575,
+          "primary_chunk_ids": [
+            "c000022",
+            "c000109",
+            "c000265"
+          ],
+          "files": [
+            "rag_trace.jsonl",
+            "rag_trace.jsonl.1"
+          ],
+          "cross_checked_in_generate": 373
+        },
+        {
+          "answer": "根据招股意向书第 300 页：公司的办公地址位于武汉市东湖新技术开发区，办公场所为租赁取得。",
+          "is_correct": false,
+          "reason": "未命中：缺少数值 ['5520']",
+          "occurrences": 12,
+          "primary_chunk_ids": [
+            "c000300"
+          ],
+          "files": [
+            "rag_trace.jsonl",
+            "rag_trace.jsonl.1"
+          ],
+          "cross_checked_in_generate": 8
+        }
+      ]
+    },
+    {
+      "question_id": 793,
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？",
+      "golden": "电子信息行业的下游为各类终端用户，覆盖范围广泛，主要包括军队、政府机关、能源等行业企业。",
+      "observations": 158,
+      "correct_observations": 158,
+      "observation_accuracy": 1.0,
+      "distinct_answers": 1,
+      "all_answers_correct": true,
+      "at_least_one_correct": true,
+      "answers": [
+        {
+          "answer": "电子信息行业的下游行业为各类终端用户，覆盖范围广泛，主要包括军队、政府机关、能源等行业企业。",
+          "is_correct": true,
+          "reason": "字符二元组相似度 0.92 ≥ 0.62",
+          "occurrences": 158,
+          "primary_chunk_ids": [
+            "c000712"
+          ],
+          "files": [
+            "rag_trace.jsonl",
+            "rag_trace.jsonl.1"
+          ],
+          "cross_checked_in_generate": 130
+        }
+      ]
+    },
+    {
+      "question_id": 795,
+      "question": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+      "golden": "2014年12月，某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统）荣获国家科技进步一等奖；根据总体单位、军方用户出具的证明文件和承研合同，民营企业兴图新科是该工程网络化视频指挥系统的唯一参与者。",
+      "observations": 158,
+      "correct_observations": 158,
+      "observation_accuracy": 1.0,
+      "distinct_answers": 1,
+      "all_answers_correct": true,
+      "at_least_one_correct": true,
+      "answers": [
+        {
+          "answer": "2014年12月，某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统）荣获国家科技进步一等奖。",
+          "is_correct": true,
+          "reason": "答案为参考答案子串（忽略标点）",
+          "occurrences": 158,
+          "primary_chunk_ids": [
+            "c000731"
+          ],
+          "files": [
+            "rag_trace.jsonl",
+            "rag_trace.jsonl.1"
+          ],
+          "cross_checked_in_generate": 132
+        }
+      ]
+    },
+    {
+      "question_id": 957,
+      "question": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+      "golden": "公司目前已经成为军队视频指挥（视频指挥控制）领域的重要供应商。",
+      "observations": 158,
+      "correct_observations": 158,
+      "observation_accuracy": 1.0,
+      "distinct_answers": 1,
+      "all_answers_correct": true,
+      "at_least_one_correct": true,
+      "answers": [
+        {
+          "answer": "公司目前已经成为国防军队视频指挥领域的重要供应商。",
+          "is_correct": true,
+          "reason": "字符二元组相似度 0.68 ≥ 0.62",
+          "occurrences": 158,
+          "primary_chunk_ids": [
+            "c000721"
+          ],
+          "files": [
+            "rag_trace.jsonl",
+            "rag_trace.jsonl.1"
+          ],
+          "cross_checked_in_generate": 129
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+section,key,question_id,metric,before,after,delta,note
+summary,ALL,,accuracy,0.5,0.9,0.4,确定性 check_answer，阈值 0.62 未放宽
+summary,ALL,,retrieval_hit_rate,1.0,1.0,0.0,最终上下文是否含证据块（基线 8 条上下文 / 优化后 5 条）
+summary,ALL,,evidence_rank1_rate,0.6,0.8,0.2,证据排在第 1 位的题数比例（含 Q95/Q207 替代判据）
+summary,ALL,,evidence_rank1_rate_strict,0.625,1.0,0.375,严格口径：只算有严格证据块的题（排除替代判据题 Q95/Q207），与 T6 §4.2.1 的基线口径同源
+summary,ALL,,vector_top5_hit_rate,0.2,0.4,0.2,纯向量单路 top-5 命中（嵌入/索引层可比指标）
+summary,ALL,,vector_top20_hit_rate,0.4,0.6,0.2,纯向量单路 top-20 命中
+summary,ALL,,first_token_avg_ms,11518.33,375.42,-11142.91,流式首块；优化后为预热后稳态
+summary,ALL,,first_token_p95_ms,57312.92,701.38,-56611.54,
+summary,ALL,,first_token_max_ms,57312.92,706.84,-56606.08,验收红线 ≤3000ms
+summary,ALL,,total_avg_ms,14186.86,1236.65,-12950.21,端到端均值
+summary,ALL,,citation_accuracy,1.0,1.0,0.0,"引用页 ∈ [1,548] 且可回查到真实 chunk"
+summary,ALL,,chunk_count,2967,1669,-1298,索引分块总数
+question,Q33,,is_correct,0,1,1,报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别
+question,Q33,,retrieval_rank,1,1,0,证据在最终上下文中的位次
+question,Q33,,retrieval_hit,1,1,0,最终上下文是否含证据块
+question,Q33,,first_token_ms,899.53,706.84,-192.69,
+question,Q33,,total_ms,2443.07,1978.2,-464.87,
+question,Q33,,citation_pages,129,129|378|340|36|4,,
+question,Q33,,answer,[页码: 129] 82.10%,"（1）行业和客户集中度高①行业集中度高的影响发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的收入分别为6,464.51 万元、14,414.16 万元、18,780.67 万元和4,627.14 万元，占主营业务收入比重分别为82.10%、97.31%、94.84%和94.34%。 [页码: 129]",,完整答案文本
+question,Q33,,judge_reason,"未命中：缺少数值 ['94.34', '94.84', '97.31']",比例全部命中,,判分理由
+question,Q34,,is_correct,1,1,0,根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？
+question,Q34,,retrieval_rank,2,1,-1,证据在最终上下文中的位次
+question,Q34,,retrieval_hit,1,1,0,最终上下文是否含证据块
+question,Q34,,first_token_ms,57312.92,478.66,-56834.26,
+question,Q34,,total_ms,60555.11,966.18,-59588.93,
+question,Q34,,citation_pages,152,152|153|541|545|22,,
+question,Q34,,answer,- [页码: 152] 电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、机柜等金属壳体制造企业。,（四）行业竞争格局1、行业上下游情况电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、机柜等金属壳体制造企业 [页码: 152],,完整答案文本
+question,Q34,,judge_reason,字符二元组相似度 0.72 ≥ 0.62,字符二元组相似度 0.63 ≥ 0.62,,判分理由
+question,Q95,,is_correct,0,0,0,武汉兴图新科电子股份有限公司参与制定了哪个技术标准？
+question,Q95,,retrieval_rank,null,2,,证据在最终上下文中的位次
+question,Q95,,retrieval_hit,1,1,0,最终上下文是否含证据块
+question,Q95,,first_token_ms,5414.05,694.7,-4719.35,
+question,Q95,,total_ms,6427.26,1333.21,-5094.05,
+question,Q95,,citation_pages,22,160|181|241|182|155,,
+question,Q95,,answer,[页码: 22] 未知。,参与制定了全军第一个视频指挥系统技术标准 [页码: 160],,完整答案文本
+question,Q95,,judge_reason,未命中：缺少数值 ['1'],未命中：缺少数值 ['1'],,判分理由
+question,Q207,,is_correct,1,1,0,武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？
+question,Q207,,retrieval_rank,1,4,3,证据在最终上下文中的位次
+question,Q207,,retrieval_hit,1,1,0,最终上下文是否含证据块
+question,Q207,,first_token_ms,37225.65,141.17,-37084.48,
+question,Q207,,total_ms,39170.73,1023.77,-38146.96,
+question,Q207,,citation_pages,490,490|23|491|479|30,,
+question,Q207,,answer,"[页码: 490] 15,000 万元","1、项目概况为满足公司业务发展和新产品研发等对营运资金的需求，增强公司抗风险能力，公司在满足上述募集资金投资项目资金需求的同时，拟使用本次发行募集资金15,000 万元用于补充流动资金。 [页码: 490]",,完整答案文本
+question,Q207,,judge_reason,金额全部命中(1个),金额全部命中(1个),,判分理由
+question,Q260,,is_correct,1,1,0,报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？
+question,Q260,,retrieval_rank,1,1,0,证据在最终上下文中的位次
+question,Q260,,retrieval_hit,1,1,0,最终上下文是否含证据块
+question,Q260,,first_token_ms,1654.75,151.7,-1503.05,
+question,Q260,,total_ms,7326.81,2711.17,-4615.64,
+question,Q260,,citation_pages,129,129|130|343|394|4,,
+question,Q260,,answer,"[页码: 129] 6,464.51 万元、14,414.16 万元、18,780.67 万元和4,627.14 万元。","（1）行业和客户集中度高①行业集中度高的影响发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的收入分别为6,464.51 万元、14,414.16 万元、18,780.67 万元和4,627.14 万元，占主营业务收入比重分别为82.10%、97.31%、94.84%和94.34%。 [页码: 129]",,完整答案文本
+question,Q260,,judge_reason,金额全部命中(4个),参考答案为答案子串（忽略标点）,,判分理由
+question,Q531,,is_correct,0,1,1,武汉兴图新科电子股份有限公司法定代表人是谁？
+question,Q531,,retrieval_rank,1,1,0,证据在最终上下文中的位次
+question,Q531,,retrieval_hit,1,1,0,最终上下文是否含证据块
+question,Q531,,first_token_ms,4391.15,124.7,-4266.45,
+question,Q531,,total_ms,5963.46,496.91,-5466.55,
+question,Q531,,citation_pages,52,52|22|22|68|63,,
+question,Q531,,answer,[页码: 52] 法定代表人：程家明,法定代表人是程家明 [页码: 52],,完整答案文本
+question,Q531,,judge_reason,未命中：文本与数值均不匹配,参考答案为答案子串（忽略标点）,,判分理由
+question,Q543,,is_correct,1,1,0,武汉兴图新科电子股份有限公司注册资本是多少？
+question,Q543,,retrieval_rank,1,1,0,证据在最终上下文中的位次
+question,Q543,,retrieval_hit,1,1,0,最终上下文是否含证据块
+question,Q543,,first_token_ms,1269.74,151.01,-1118.73,
+question,Q543,,total_ms,3772.78,1111.35,-2661.43,
+question,Q543,,citation_pages,52,52|22|56|68|56,,
+question,Q543,,answer,"[页码: 52] 武汉兴图新科电子股份有限公司注册资本：5,520 万元。","注册资本是5,520 万元 [页码: 52]",,完整答案文本
+question,Q543,,judge_reason,金额全部命中(1个),金额全部命中(1个),,判分理由
+question,Q793,,is_correct,0,1,1,根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？
+question,Q793,,retrieval_rank,1,1,0,证据在最终上下文中的位次
+question,Q793,,retrieval_hit,1,1,0,最终上下文是否含证据块
+question,Q793,,first_token_ms,1127.83,620.01,-507.82,
+question,Q793,,total_ms,3217.22,1019.18,-2198.04,
+question,Q793,,citation_pages,152,152|153|151|37|5,,
+question,Q793,,answer,- 下游行业包括军队、政府机关、能源等行业企业 [页码: 152]。,下游行业为各类终端用户，覆盖范围广泛，主要包括军队、政府机关、能源等行业企业。 [页码: 152],,完整答案文本
+question,Q793,,judge_reason,未命中：文本与数值均不匹配,字符二元组相似度 0.68 ≥ 0.62,,判分理由
+question,Q795,,is_correct,1,1,0,武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？
+question,Q795,,retrieval_rank,4,1,-3,证据在最终上下文中的位次
+question,Q795,,retrieval_hit,1,1,0,最终上下文是否含证据块
+question,Q795,,first_token_ms,4737.5,552.92,-4184.58,
+question,Q795,,total_ms,8242.82,1117.88,-7124.94,
+question,Q795,,citation_pages,158,181|96|241|94|158,,
+question,Q795,,answer,- [页码: 158] 2014 年12月，“某情报、指挥、控制与通信网络一体化工程”荣获国家科技进步一等奖。,某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR 系统）荣获国家科技进步一等奖。 [页码: 181],,完整答案文本
+question,Q795,,judge_reason,关键实体命中,关键实体命中,,判分理由
+question,Q957,,is_correct,0,1,1,武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？
+question,Q957,,retrieval_rank,8,1,-7,证据在最终上下文中的位次
+question,Q957,,retrieval_hit,1,1,0,最终上下文是否含证据块
+question,Q957,,first_token_ms,1150.17,132.44,-1017.73,
+question,Q957,,total_ms,4749.32,608.63,-4140.69,
+question,Q957,,citation_pages,194,181|154|172|26|241,,
+question,Q957,,answer,- [页码: 194] 队成规模、成建制进行部署，已经成为军方视频指挥核心系统及产品的为数不多的重要供应商。,公司目前已经成为军队视频指挥控制领域的重要供应商 [页码: 181],,完整答案文本
+question,Q957,,judge_reason,未命中：文本与数值均不匹配,字符二元组相似度 0.79 ≥ 0.62,,判分理由

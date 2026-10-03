@@ -1,0 +1,39 @@
+# =============================================================================
+# 工单2 运行环境：人工智能NLP-RAG-基于PDF文档的问答系统优化
+# 用法（算力云）:
+#   conda env create -f 研发/environment.yml
+#   conda activate rag-pdf-qa
+#   streamlit run 研发/app/ui/streamlit_app.py
+# 本机说明：本机不存在名为 gao6gongdan 的 conda 环境，实际解释器为
+#   E:\gao6gongdan\工单1\.venv\Scripts\python.exe（Python 3.11，CPU 版 torch）
+#   统一入口 run_py.ps1（可用 RAG_SCHEDULER_PYTHON 覆盖解释器）。
+# =============================================================================
+name: rag-pdf-qa
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  # 核心依赖（本机已具备的等价版本见 研发/requirements.txt）
+  - numpy>=1.26
+  - pydantic>=2.5
+  - requests>=2.31
+  - httpx>=0.26
+  - fastapi>=0.109
+  - uvicorn>=0.27
+  - pytest>=7.4
+  - pip:
+      - pymupdf>=1.24.0          # PDF 解析 + find_tables()（替代不可用的 pdfplumber）
+      - jieba>=0.42.1            # 中文分词
+      - sentence-transformers>=2.3.1   # 降级嵌入（bge-small-zh-v1.5，512 维）
+      - torch>=2.0.0             # sentence-transformers 依赖（CPU 版即可）
+      - streamlit>=1.30.0        # 前端（本机不可用，云端使用）
+      - loguru>=0.7.0            # 可选：日志（未安装时自实现 JSON logger）
+      - rank-bm25>=0.2.2         # 可选：BM25（未安装时自实现 PureBM25）
+      - openai>=1.10.0           # OpenAI 兼容后端（vLLM/SGLang）
+      - pandas>=2.0.0            # 可选：报表
+      - matplotlib>=3.8.0        # 可选：图表
+      # 说明：
+      #   * chromadb / langchain 本工单未使用（向量库用 numpy 精确检索，见 app/core/vector_store.py）
+      #   * ragas 本机不可用且断网，评估走确定性判分；报告中 RAGAS 一律标注「未运行」

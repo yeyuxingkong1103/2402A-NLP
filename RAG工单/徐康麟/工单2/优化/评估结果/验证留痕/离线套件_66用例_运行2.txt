@@ -1,0 +1,102 @@
+..........F.FF....................................................       [100%]
+================================== FAILURES ===================================
+________________ test_accuracy_report_covers_all_ten_questions ________________
+
+    def test_accuracy_report_covers_all_ten_questions():
+        """交付汇总必须覆盖 10 题：``after.count == 10`` 且 ``per_question`` 长度 == 10。
+    
+        这一条正是 1 题冒烟运行会打破的断言（失效时实测 count=1、per_question=1）。
+        """
+        payload = _load_json(ACCURACY_REPORT)
+        after = payload.get("after") or {}
+        per_question = payload.get("per_question") or []
+        count = after.get("count")
+        print(f"\n[交付完整性] accuracy_report.json：after.count={count}、per_question 长度={len(per_question)}")
+>       assert count == EXPECTED_QUESTIONS, (
+            f"accuracy_report.json 的 after.count={count!r}，应为 {EXPECTED_QUESTIONS}——"
+            f"交付汇总被部分运行覆盖。\n{_REPAIR_HINT}"
+        )
+E       AssertionError: accuracy_report.json 的 after.count=1，应为 10——交付汇总被部分运行覆盖。
+E         修复方式（实现方执行，本用例只判红）：
+E           全量重跑（不得带 --limit）：
+E             pwsh -NoProfile -File run_py.ps1 优化/脚本/compare_optimization.py
+E           并给该脚本加防覆盖保护：--limit/部分运行只许写临时目录，不得写 优化/评估结果/。
+E       assert 1 == 10
+
+测试\离线\test_deliverable_integrity.py:155: AssertionError
+---------------------------- Captured stdout call -----------------------------
+
+[交付完整性] accuracy_report.json：after.count=1、per_question 长度=1
+___________ test_compare_md_question_count_statement_is_consistent ____________
+
+    def test_compare_md_question_count_statement_is_consistent():
+        """对比报告的题目数表述必须全文一致，不得自相矛盾。"""
+        text = COMPARE_MD.read_text(encoding="utf-8")
+        value, total, label = _accuracy_from_md(text)
+        print(f"\n[交付完整性] 对比表准确率行标签 = {label!r}（解析分母 {total} 题 / 优化后值 {value}）")
+        assert label, f"{COMPARE_MD} 里找不到「准确率」行，报告结构已变（{_REPAIR_HINT}）"
+    
+        # 口径 A：题目数必须显式声明为 10 题（由题目数而非行文推断得出）
+        declared_total = total if total is not None else 0
+        assert declared_total == EXPECTED_QUESTIONS, (
+            f"对比表未声明「{EXPECTED_QUESTIONS} 题」口径（实测标签 {label!r}，推出分母 {declared_total}）。\n{_REPAIR_HINT}"
+        )
+        # 口径 B：不得同时出现「10 题」与「1/1」这类互相矛盾的表述
+        has_one_of_one = re.search(r"\b1\s*/\s*1\b", text) is not None
+        has_ten = re.search(rf"{EXPECTED_QUESTIONS}\s*题", text) is not None
+>       assert not (has_one_of_one and has_ten), (
+            f"{COMPARE_MD} 同时出现「{EXPECTED_QUESTIONS} 题」与「1/1」——报告自相矛盾（1 题运行覆盖了 10 题结论）。\n"
+            f"{_REPAIR_HINT}"
+        )
+E       AssertionError: E:\gao6gongdan\工单2\优化\评估结果\optimization_compare.md 同时出现「10 题」与「1/1」——报告自相矛盾（1 题运行覆盖了 10 题结论）。
+E         修复方式（实现方执行，本用例只判红）：
+E           全量重跑（不得带 --limit）：
+E             pwsh -NoProfile -File run_py.ps1 优化/脚本/compare_optimization.py
+E           并给该脚本加防覆盖保护：--limit/部分运行只许写临时目录，不得写 优化/评估结果/。
+E       assert not (True and True)
+
+测试\离线\test_deliverable_integrity.py:196: AssertionError
+---------------------------- Captured stdout call -----------------------------
+
+[交付完整性] 对比表准确率行标签 = '答案准确率（10 题）'（解析分母 10 题 / 优化后值 1.0）
+___________ test_accuracy_is_consistent_across_reports_and_records ____________
+
+    def test_accuracy_is_consistent_across_reports_and_records():
+        """md / csv / 逐题记录三处准确率必须一致（本次实测 0.90，即 9/10）。"""
+        md_text = COMPARE_MD.read_text(encoding="utf-8")
+        md_value, md_total, md_label = _accuracy_from_md(md_text)
+        csv_value = _accuracy_from_csv(COMPARE_CSV.read_text(encoding="utf-8"))
+        fact_value, fact_total = _accuracy_from_eval_records()
+    
+        print(
+            f"\n[交付完整性] 准确率核对：md={md_value}（分母 {md_total} 题）、csv={csv_value}、"
+            f"逐题重算={fact_value:.4f}（{round(fact_value * fact_total)}/{fact_total}）"
+        )
+        assert md_total == EXPECTED_QUESTIONS, (
+            f"对比报告的准确率分母为 {md_total} 题，应为 {EXPECTED_QUESTIONS} 题。\n{_REPAIR_HINT}"
+        )
+        assert fact_total == EXPECTED_QUESTIONS, f"逐题证据只有 {fact_total} 条，应为 {EXPECTED_QUESTIONS} 条。"
+        assert abs(fact_value - EXPECTED_ACCURACY) < 1e-6, (
+            f"逐题重算准确率 {fact_value:.4f}，与工单门槛下的实测值 {EXPECTED_ACCURACY} 不符——"
+            f"若这是真实的新结果，请先复核判分口径是否被改动（环境事实 §4.2 明令不得放宽）。"
+        )
+>       assert md_value is not None and abs(md_value - fact_value) < 1e-6, (
+            f"对比报告准确率 {md_value} 与逐题重算 {fact_value:.4f} 不一致。\n{_REPAIR_HINT}"
+        )
+E       AssertionError: 对比报告准确率 1.0 与逐题重算 0.9000 不一致。
+E         修复方式（实现方执行，本用例只判红）：
+E           全量重跑（不得带 --limit）：
+E             pwsh -NoProfile -File run_py.ps1 优化/脚本/compare_optimization.py
+E           并给该脚本加防覆盖保护：--limit/部分运行只许写临时目录，不得写 优化/评估结果/。
+E       assert (1.0 is not None and 0.09999999999999998 < 1e-06)
+E        +  where 0.09999999999999998 = abs((1.0 - 0.9))
+
+测试\离线\test_deliverable_integrity.py:226: AssertionError
+---------------------------- Captured stdout call -----------------------------
+
+[交付完整性] 准确率核对：md=1.0（分母 10 题）、csv=1.0、逐题重算=0.9000（9/10）
+=========================== short test summary info ===========================
+FAILED 测试\离线\test_deliverable_integrity.py::test_accuracy_report_covers_all_ten_questions
+FAILED 测试\离线\test_deliverable_integrity.py::test_compare_md_question_count_statement_is_consistent
+FAILED 测试\离线\test_deliverable_integrity.py::test_accuracy_is_consistent_across_reports_and_records
+3 failed, 63 passed in 43.41s
