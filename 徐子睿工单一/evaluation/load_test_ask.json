@@ -1,0 +1,62 @@
+{
+  "base": "http://127.0.0.1:8100",
+  "path": "/api/ask",
+  "results": [
+    {
+      "concurrency": 1,
+      "requests": 5,
+      "wall_s": 7.95,
+      "qps": 0.63,
+      "avg_ms": 1590,
+      "p95_ms": 3379,
+      "min_ms": 821,
+      "max_ms": 3379,
+      "errors": 0,
+      "codes": {
+        "200": 5
+      }
+    },
+    {
+      "concurrency": 2,
+      "requests": 5,
+      "wall_s": 3.87,
+      "qps": 1.29,
+      "avg_ms": 1421,
+      "p95_ms": 1745,
+      "min_ms": 742,
+      "max_ms": 1745,
+      "errors": 0,
+      "codes": {
+        "200": 5
+      }
+    },
+    {
+      "concurrency": 4,
+      "requests": 5,
+      "wall_s": 3.87,
+      "qps": 1.29,
+      "avg_ms": 2222,
+      "p95_ms": 3255,
+      "min_ms": 786,
+      "max_ms": 3255,
+      "errors": 0,
+      "codes": {
+        "200": 5
+      }
+    },
+    {
+      "concurrency": 8,
+      "requests": 5,
+      "wall_s": 3.98,
+      "qps": 1.26,
+      "avg_ms": 2371,
+      "p95_ms": 3922,
+      "min_ms": 780,
+      "max_ms": 3922,
+      "errors": 0,
+      "codes": {
+        "200": 5
+      }
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "base": "http://127.0.0.1:8100",
+  "path": "/api/search",
+  "results": [
+    {
+      "concurrency": 1,
+      "requests": 20,
+      "wall_s": 3.46,
+      "qps": 5.77,
+      "avg_ms": 173,
+      "p95_ms": 1270,
+      "min_ms": 91,
+      "max_ms": 1270,
+      "errors": 0,
+      "codes": {
+        "200": 20
+      }
+    },
+    {
+      "concurrency": 5,
+      "requests": 20,
+      "wall_s": 2.28,
+      "qps": 8.76,
+      "avg_ms": 502,
+      "p95_ms": 630,
+      "min_ms": 263,
+      "max_ms": 630,
+      "errors": 0,
+      "codes": {
+        "200": 20
+      }
+    },
+    {
+      "concurrency": 10,
+      "requests": 20,
+      "wall_s": 6.61,
+      "qps": 3.03,
+      "avg_ms": 2660,
+      "p95_ms": 4005,
+      "min_ms": 101,
+      "max_ms": 4005,
+      "errors": 0,
+      "codes": {
+        "200": 20
+      }
+    },
+    {
+      "concurrency": 20,
+      "requests": 20,
+      "wall_s": 2.35,
+      "qps": 8.51,
+      "avg_ms": 1172,
+      "p95_ms": 2222,
+      "min_ms": 127,
+      "max_ms": 2222,
+      "errors": 0,
+      "codes": {
+        "200": 20
+      }
+    }
+  ]
+}

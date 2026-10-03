@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "project": "人工智能 NLP-RAG-基于 PDF 文档的问答系统",
+    "purpose": "多语言（中英双语）验收：与 eval_questions.json 同一批题目（同 id、同一金标准页码/证据），仅把问题改成英文问法，用于验证「跨语检索」能力。",
+    "gold_source": "evaluation/eval_questions.json（同 id 继承 page + evidence）"
+  },
+  "questions": [
+    {"id": 260, "question": "During the reporting period, what was the company's revenue from the military domain?"},
+    {"id": 95, "question": "Which technical standard did Wuhan Xingtu Xinke Electronics Co., Ltd. participate in formulating?"},
+    {"id": 33, "question": "During the reporting period, what proportion of the main business revenue came from the military domain?"},
+    {"id": 34, "question": "According to the prospectus, which enterprises are in the upstream of the electronic information industry?"},
+    {"id": 957, "question": "In which field has Wuhan Xingtu Xinke Electronics Co., Ltd. become an important supplier?"},
+    {"id": 793, "question": "According to the prospectus, what industries are mainly included in the downstream of the electronic information industry?"},
+    {"id": 795, "question": "Which project that the company participated in won the first prize of the National Science and Technology Progress Award?"},
+    {"id": 543, "question": "What is the registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd.?"},
+    {"id": 531, "question": "Who is the legal representative of Wuhan Xingtu Xinke Electronics Co., Ltd.?"},
+    {"id": 207, "question": "How much of the raised funds does the company plan to use to replenish working capital?"}
+  ]
+}
