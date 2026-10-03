@@ -1,0 +1,97 @@
+# 工单编号：人工智能NLP-RAG-基于PDF文档的问答系统
+# 工单01 - 基于PDF文档的问答系统
+#
+# Milvus Standalone + Attu 可视化 + etcd + MinIO
+#
+# 【为什么是 Standalone 而不是 Milvus Lite】
+# Lite 不监听 TCP 端口 → Attu 连不上；且单进程文件锁过不了"高并发"验收。
+#
+# 【内存预算】WSL 上限 8GB（.wslconfig 已配），本栈实测占用约 1.5–2GB：
+#   etcd  ~80MB   MinIO ~150MB   milvus ~800MB   attu ~30MB
+# 剩余留给 bge-m3(0.66GB) + qwen3:8b(5.2GB) 的显存之外的部分。
+#
+# 【启动】
+#   docker compose -f docker-compose.milvus.yml up -d
+#   等约 30–60 秒后： docker compose -f docker-compose.milvus.yml ps
+# 【Attu】浏览器打开 http://localhost:8000  （Milvus 默认 localhost:19530）
+# 【停止】docker compose -f docker-compose.milvus.yml down   （加 -v 连数据一起删）
+
+services:
+  etcd:
+    image: quay.io/coreos/etcd:v3.5.16
+    container_name: rag-milvus-etcd
+    environment:
+      - ETCD_AUTO_COMPACTION_MODE=revision
+      - ETCD_AUTO_COMPACTION_RETENTION=1000
+      - ETCD_QUOTA_BACKEND_BYTES=4294967296
+      - ETCD_SNAPSHOT_COUNT=50000
+    volumes:
+      - etcd_data:/etcd
+    command: etcd -advertise-client-urls=http://etcd:2379 -listen-client-urls http://0.0.0.0:2379 --data-dir /etcd
+    healthcheck:
+      test: ["CMD", "etcdctl", "endpoint", "health"]
+      interval: 30s
+      timeout: 20s
+      retries: 5
+    restart: unless-stopped
+
+  minio:
+    image: minio/minio:RELEASE.2024-12-18T13-15-44Z
+    container_name: rag-milvus-minio
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - minio_data:/minio_data
+    command: minio server /minio_data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 5
+    # 控制台端口不对外暴露，减少与宿主端口冲突
+    restart: unless-stopped
+
+  milvus:
+    image: milvusdb/milvus:v2.5.4
+    container_name: rag-milvus-standalone
+    command: ["milvus", "run", "standalone"]
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      ETCD_ENDPOINTS: etcd:2379
+      MINIO_ADDRESS: minio:9000
+      # 与 .wslconfig 的 8GB 上限匹配，避免 Milvus 把内存吃满触发 OOM
+      # （Milvus 默认按宿主机内存的 70% 预留，宿主机 16GB → 会预留 ~11GB，必炸）
+      MALLOC_ARENA_MAX: 2
+    volumes:
+      - milvus_data:/var/lib/milvus
+    ports:
+      - "19530:19530"      # SDK / pymilvus
+      - "9091:9091"        # metrics & health
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
+      interval: 30s
+      start_period: 90s
+      timeout: 20s
+      retries: 5
+    depends_on:
+      - etcd
+      - minio
+    restart: unless-stopped
+
+  attu:
+    image: zilliz/attu:v2.5
+    container_name: rag-milvus-attu
+    environment:
+      MILVUS_URL: milvus:19530
+    ports:
+      - "8000:3000"        # 浏览器 http://localhost:8000
+    depends_on:
+      - milvus
+    restart: unless-stopped
+
+volumes:
+  etcd_data:
+  minio_data:
+  milvus_data:
