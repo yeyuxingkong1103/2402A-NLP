@@ -1,0 +1,49 @@
+# ===== Web 框架 =====
+fastapi
+uvicorn[standard]
+python-multipart
+
+# ===== 配置 / 工具 =====
+python-dotenv
+pydantic
+pydantic-settings
+requests
+
+# ===== 数据库 =====
+pymilvus>=2.5.0
+redis
+pymysql
+pymongo
+
+# ===== 检索 / 向量 =====
+FlagEmbedding
+rank_bm25
+jieba
+numpy
+
+# ===== 文档解析（基础：纯文本 PDF）=====
+pymupdf
+pdfplumber
+
+# ===== 前端 / 可视化 =====
+streamlit
+plotly
+pandas
+
+# ===== RAG 框架 =====
+langchain
+langchain-core
+langchain-community
+langchain-openai
+llama-index
+llama-index-vector-stores-milvus
+
+# ===== 评测 =====
+ragas
+datasets
+
+# ===== 测试 =====
+pytest
+
+# ===== 可选：知识图谱 =====
+neo4j
