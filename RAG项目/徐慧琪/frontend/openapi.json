@@ -1,0 +1,954 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "法律条文检索与公众咨询",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/healthz": {
+      "get": {
+        "summary": "Healthz",
+        "description": "连通性检查（设计 §四）。\n\n查的是 app.state 里那套**真在用的**连接，不是新开的：新开一个只能证明「库还\n在」，证明不了「服务手里那套连接还能用」—— 而后者才是「这个实例该不该被摘掉」\n的判据（MySQL 的 wait_timeout 到期后正是这种形态：库活着、实例的读路径已断）。\n\n响应体是 healthz 自己的契约（要能一眼看出哪个依赖挂了），不是 §七 的\n错误形状；它不含任何异常原文（探针的异常只在日志里），故与「通用文案」那条\n的立意一致。依赖不可用 → 503，让编排层据此摘流量。",
+        "operationId": "healthz_healthz_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics": {
+      "get": {
+        "summary": "Endpoint",
+        "description": "`/metrics` 的响应。内网端点的鉴权处置（本轮不鉴权、记为部署项）见任务 8 报告。\n\n未装配时给一份**形状完全相同**的空读数（读的人不必分两种形状），而不是 500：\n监控拉不到数据时会告警，让它拿到「零流量」比拿到 500 更容易被误读成故障。",
+        "operationId": "endpoint_metrics_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Login",
+        "description": "校验口令并签发 token。\n\ntoken 有效期取 security.TOKEN_TTL_S（8 小时）：它同时是「停用账号的已签发\ntoken 的残留窗口」的**名义**值 —— 实际窗口已被鉴权依赖的逐请求查库压到即时\n（见 deps.current_user），所以这里的 TTL 只承担「一个工作日」的语义。",
+        "operationId": "login_api_v1_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/public/qa": {
+      "post": {
+        "tags": [
+          "public"
+        ],
+        "summary": "Public Qa",
+        "description": "公众侧问答（设计 §四）：匿名、只读、响应含律师与费用区块。\n\n侧别**显式**传 SIDE_PUBLIC：Answerer 的默认侧是 internal（`answer(question,\nside=\"internal\")`），漏传的后果是公众侧被当成律师侧 —— 既拿不到附加区块\n（_extras_for 按侧短路），又用上律师侧的提示词（少了公众侧那三条合规约束）。\n两者都不会报错，只会让合规要求静默失效，故它是本函数里唯一的显式传参。\n\n故障（Milvus/LLM 不可用）→ 503、无依据 → 200 由 status 表达：两者都由\nraise_if_answer_failed 判，本函数不重复判（重复判就是第二份口径）。",
+        "operationId": "public_qa_api_v1_public_qa_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicQAAnswer"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/lawyers/recommend": {
+      "get": {
+        "tags": [
+          "public"
+        ],
+        "summary": "Recommend Lawyers",
+        "description": "推荐示例律师卡片（设计 §四：「接 `lawyers` + `fees`」）。\n\n本端点**只接 lawyers，不跑费用链路**（fees 只到免责声明与字段口径那一层）。\n四条理由，按硬度排序：\n  ①**没有问句就没有案由**，而费用链路的检索需要一段查询文本：`attach.build`\n    的 search_fn 在案由为空时回退到「原问句」，这条端点两样都没有。空查询在\n    fee_search 里直接返回空集 → estimate 归到 `no_corpus`（「语料未收录该案由\n    的收费口径」）——那是把「我们没查」说成「语料里没有」，正是 ③a 的红线。\n  ②**编一个查询串（如「律师费」）会产出一个与任何案由都不相干的价格**，而\n    数字回查只保证「数字能在片段里逐字找到」，挡不住「取错片段」——③b-1 的\n    终审点名过这一形态。给一个没有前提的区间，比不给更误导。\n  ③**唯一合法的复用点（`extras_fn`）是问句入参、且藏在 Answerer 私有属性里**：\n    要么伸手取私有属性、要么在本路由里把 `build_extras_fn` 的装配再抄一遍\n    （LLM 客户端、留痕表、search_fn 三处）。后者正是设计 §三 定调第 3 条\n    要消灭的「两处各存一份口径」，且分叉后表现为「CLI 有区间、接口没区间」。\n  ④**成本与暴露面不匹配**：这条端点匿名、当前无限流（任务 6 才有），而费用\n    链路每次要一次编码 + 一次 Milvus 检索 + 一次 DeepSeek 生成。\n代价（已知）：`fee_range` 恒为 null。它在契约里的键位保留（见 schemas），\n故将来设计层回答了「cause 从哪来」之后填充它不需要改契约。\n\nfield 取 `cause.GENERIC_FIELD`（「通用」）：没有输入可判领域，就不猜一个；\n卡片本身带 `demo` 与「示例数据」标注（lawyers.DEMO_MODE），演示期的虚假宣传\n风险由那两处挡，不在这里补一句免责。\n\n匿名可读（设计 §六）：本端点不挂任何鉴权依赖，故意如此 —— 它与 /public/qa\n一样属于「公众可读的三个」，把它们也 404 化会把该公开的挡掉。",
+        "operationId": "recommend_lawyers_api_v1_lawyers_recommend_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LawyerRecommendResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/qa": {
+      "post": {
+        "tags": [
+          "lawyer"
+        ],
+        "summary": "Lawyer Qa",
+        "description": "律师侧问答（FR-7.1）：任意已登录角色都可问，不再按角色细分。\n\n侧别**显式**传 SIDE_INTERNAL：Answerer.answer 的签名默认值恰好也是\n\"internal\"，所以漏传**今天不会红**（拿到的仍是律师侧提示词）—— 但那是\n「默认值恰好等于想要的值」，两者一旦分家（默认改成 public 或加第三个侧别），\n律师侧会静默用上公众侧提示词，而它少了「可给出条款号规范引用格式」这条\n（FR-7.4 的原料）。故测试断言的是**调用参数**（answerer.calls 里的元组），\n不是响应内容 —— 内容分不出侧别，参数才分得出。\n\nresponse_model 用 `QAAnswer`（律师侧基类）：它天然没有 `lawyers`/`fee_range`\n两个键 —— 设计 §四 的红线是「不是置空，是根本不出现」（律师侧不经过\nrecommend/ 的红线在契约层也要成立）。用 `PublicQAAnswer` + 置空是另一种做法，\n那种做法要靠每个出口记得传对模型，而漏传的表现是两个键悄悄出现、没有红灯。\n\n故障与无依据的区分交给 `errors.raise_if_answer_failed` 一个入口（任务 3\n交接第 2 条）：本函数不判 `status == \"error\"` —— 那是第二份口径，\n两份口径分家时表现为「某个端点偶尔把故障答成没依据」。",
+        "operationId": "lawyer_qa_api_v1_qa_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QAAnswer"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/search": {
+      "post": {
+        "tags": [
+          "lawyer"
+        ],
+        "summary": "Lawyer Search",
+        "description": "律师侧检索（FR-7.1 的「检索」半边）：只检索，**不调 LLM**。\n\n这条端点存在的理由就是「便宜、可反复打」：检索链路（抽号 → 取条 → 编码 →\n粗排 → 回填 → 精排）一次约 2 秒且不花钱，而完整问答还要一次 DeepSeek 生成。\n律师在正式提问前反复调整说法、比对召回，走的就是这条路径。\n\ntop_k 缺省取 pipeline.RERANK_OUTPUT_TOPK（**默认值只有那一处字面量**），\n上限在 schema 层卡（超限 400）—— 见 SearchRequest 与 MAX_TOP_K 的注释。\n四个重资源全部来自 app.state（本节不装配任何东西，§三 定调第 2 条）。",
+        "operationId": "lawyer_search_api_v1_search_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/search": {
+      "post": {
+        "tags": [
+          "lawyer"
+        ],
+        "summary": "Search Cases",
+        "description": "历史案件检索（FR-5.3）的**接口位**：已注册、已鉴权，但返回 501（设计 §二 第 6 条）。\n\n为什么注册一个永不成功的端点：接口清单要稳定 —— 前端可以提前把入口接上、\n按 501 显示「即将开放」，而不是等案件表落地后再改一次路由与契约；同时它让\n「律师侧专用路径」这一组在路由表里今天就是完整的（未认证探测这三条得到的\n都是同一种 404，若少了这一条，探测者能数出「现在只有两条」）。\n\n**不解析请求体**（有意）：案件检索的输入形状要等案件表落地才能定，现在钉一个\n形状出来就是猜；而声明了 body 参数之后，畸形请求体会先撞上 400 校验失败，\n把 501 这个唯一有信息量的答复盖掉 —— 一个「未实现」的端点对已认证调用方\n应当只有一种结局。鉴权依赖**要挂**：它属于 §六 里「律师侧专用路径」那一组，\n未认证时必须是 404 而不是 501（未认证的人不该知道这个功能存在）。\n\nreason 会原样进响应（FeatureNotImplemented 是唯一打开 public_detail 的类型）：\n它由服务端写死、不含用户输入、不含下游异常原文，与 503 那种「下游把原文\n塞进异常」不同类（设计 §七 第 4 行要求「reason 写明」）。",
+        "operationId": "search_cases_api_v1_cases_search_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Search Cases Api V1 Cases Search Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/law/nav": {
+      "get": {
+        "tags": [
+          "law"
+        ],
+        "summary": "Nav",
+        "description": "编—章—节导航树（FR-7.3：逐级浏览并定位）。\n\n树完全由 `article.path` 折叠而来，**不猜任何层级**：库里有什么编就有什么编\n（例如不补一个不存在的「第二编」）。层级数不固定 —— 实测本库的 path 有 2、\n3、4 三种深度（297/785/178 行），故按段落下标泛化，而不是写死编/章/节三个\n字段：写死会让四层的 178 行在折叠时静默丢失（少几个节点，没有任何报错）。\n\n响应形状（本任务自定，理由见报告「存疑与需裁决项」）：`{\"request_id\", \"laws\": [...]}`，\n每个 law 下是 `{\"law_id\", \"nodes\"}`，节点带 `title`/`level`/`path`/`articles`/`children`。\n按 law_id 分树而不是合成一棵：跳转 URL 需要 law_id（客户端不该硬编码\n\"minfadian\"），而两部法的 path 前缀完全可能重名（\"第一编 总则\" 不止民法典有），\n合并会把别家的章节静默揉进来。今天库里只有一部法，故 laws 恒为一个元素；\n形状按多法设计，是为「加第二部法」时客户端不必改契约。\n\n装配未完成 → 503（services_of 的唯一出口）：那是「我们坏了」，\n与「这一条不存在」的 404 是两种结论（§七 的 503/200 同族口径）。",
+        "operationId": "nav_api_v1_law_nav_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NavResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/law/{law_id}/articles/{article_no}": {
+      "get": {
+        "tags": [
+          "law"
+        ],
+        "summary": "Article",
+        "description": "条文原文（FR-7.2 的落点：引用的「一键跳转」打到这条路径）。\n\n取条**复用 `article_lookup.fetch_articles`**，不在这里另写 SQL：那条查询\n带着两个必须一致的口径 —— 效力读 `law_version.status`（不是条表副本）、\n条号列是 VARCHAR 而下游块里是 int。第二份 SQL 的形态是「第一份改了、这份\n没改」，而 FR-7.2 的跳转准确率正是靠这个口径：库里能查到、块里对得上。\n\n参数校验：`article_no` 是路径段（字符串），**显式转 int，转不动就 404**。\n不转的后果是它直接进 SQL 的参数位，pymysql 把 'abc' 交给 VARCHAR 列不会报错，\n查询返回空 → 仍然是 404，看着一样 —— 但那只是巧合（这一列的隐式转换恰好\n宽容）；若哪天列类型收紧或换成数值列，同样的输入会变成 500。转不动判 404\n而不是 400：请求的是一条不存在的路径形状，与「第 9999 条不存在」同类，\n§二 第 9 条要的也是这两种情形对外不可区分。取不到（条不存在、law_id 不在\n库中）一律 404 —— 与「未认证」同码是有意的，这一条本来就不存在\n「存在但不给你看」的情形。",
+        "operationId": "article_api_v1_law__law_id__articles__article_no__get",
+        "parameters": [
+          {
+            "name": "law_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Law Id"
+            }
+          },
+          {
+            "name": "article_no",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Article No"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArticleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/audit/export": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Export Audit",
+        "description": "按时间范围导出审计行（FR-6.4），新→旧，最多 limit 行（列见 db/audit.py）。\n\n鉴权：partner（`require_roles(Role.PARTNER)`）—— 角色不够与未认证都是 404，\n由 deps 那一条落好。请求被本端点自己审计成 action=\"export\"（中间件在收尾写，\n与其它 action 同一条路径），故「谁导了审计」本身也可追溯（设计 §五 的 action\n清单里就有 export，不是可选项）。\n\n连接用 `Services.conn`：与审计写入同一条（写入选择的理由见 core/audit.py）。\n代价：这条读走业务的 REPEATABLE READ 会话，读视图取决于这条连接上一次提交的\n时刻 —— 本实例每次请求收尾都会 commit 一次审计，故实际新鲜度是「上一个请求」；\n代价与账目见任务 7 报告的存疑项。\n\n时间比较交给 MySQL（`fetch_between` 的 WHERE）：应用侧不把 datetime 转成字符串\n再比，避免第二套格式化口径（两处格式化就是两个口径，差一秒就漏行）。",
+        "operationId": "export_audit_api_v1_admin_audit_export_get",
+        "parameters": [
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 5000,
+              "minimum": 1,
+              "default": 1000,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response Export Audit Api V1 Admin Audit Export Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ArticleResponse": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "title": "Request Id"
+          },
+          "article_no": {
+            "type": "integer",
+            "title": "Article No"
+          },
+          "article_no_cn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Article No Cn"
+          },
+          "path": {
+            "type": "string",
+            "title": "Path"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "law_id": {
+            "type": "string",
+            "title": "Law Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "request_id",
+          "article_no",
+          "article_no_cn",
+          "path",
+          "text",
+          "status",
+          "law_id"
+        ],
+        "title": "ArticleResponse",
+        "description": "`GET /law/{law_id}/articles/{article_no}` 的响应（FR-7.2 的落点）。\n\n只给**法条原文**，不掺任何生成内容：FR-4.4/FR-8.2 要求客户端能把「原文」与\n「AI 解释」分开呈现，而一条同时混着两者的接口会让那道视觉分离在数据层就不成立。\nstatus 是效力（来自 law_version，不是条表副本），引用该条前要据此判断是否有效。"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "LawNav": {
+        "properties": {
+          "law_id": {
+            "type": "string",
+            "title": "Law Id"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/components/schemas/NavNode"
+            },
+            "type": "array",
+            "title": "Nodes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "law_id",
+          "nodes"
+        ],
+        "title": "LawNav",
+        "description": "一个 law_id 的整棵树。\n\n按 law_id 分开而不是合成一棵：今天库里只有民法典，但 `article.law_id` 是\n设计里的多法维度（条文端点的路径段就带它），而两法的 path 前缀完全可能重名\n（\"第一编 总则\" 不止民法典有）。合并成一棵树会把两部法**静默**揉在一起 ——\n客户端的编章节视图凭空多出别人家的章节，没有任何红灯。分开还有个实际好处：\n客户端的跳转 URL 需要 law_id，而它不该（也不能）从服务端代码里硬编码。"
+      },
+      "LawyerRecommendResponse": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "title": "Request Id"
+          },
+          "field": {
+            "type": "string",
+            "title": "Field"
+          },
+          "lawyers": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Lawyers"
+          },
+          "fee_range": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fee Range"
+          }
+        },
+        "type": "object",
+        "required": [
+          "request_id",
+          "field",
+          "lawyers",
+          "fee_range"
+        ],
+        "title": "LawyerRecommendResponse",
+        "description": "`/lawyers/recommend` 的响应（设计 §四：接 `lawyers` + `fees`）。\n\n字段与公众问答里的同名区块**同形**（lawyers / fee_range）—— 前端两处可以用\n同一套渲染组件，而形状分叉时（比如这里叫 fee、那里叫 fee_range）不会有红灯。\nfield 一并带上：卡片是按领域匹配出来的，不带的话客户端看不出这批卡片属于哪个领域。"
+      },
+      "LoginRequest": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Username"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Password"
+          }
+        },
+        "type": "object",
+        "required": [
+          "username",
+          "password"
+        ],
+        "title": "LoginRequest",
+        "description": "登录请求（设计 §四）。\n\n两个字段都钉成 str：pydantic v2 对 int→str **不做**隐式转换，JSON 里给个\n数字会变成 400（校验失败），而不是 500。这条不是形式 —— security.verify_password\n对 password 只做 .encode()，收到数字就是 AttributeError → 500（任务 2 交接\n点名的形态）。"
+      },
+      "LoginResponse": {
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "title": "Access Token"
+          },
+          "token_type": {
+            "type": "string",
+            "title": "Token Type",
+            "default": "bearer"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "team_id": {
+            "type": "string",
+            "title": "Team Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "access_token",
+          "role",
+          "team_id"
+        ],
+        "title": "LoginResponse",
+        "description": "登录响应（设计 §四）：{\"access_token\", \"token_type\", \"role\", \"team_id\"}。\n\nteam_id 进响应体是设计定的（前端要按团队展示），它本来就是 token 载荷里的\n内容，多出现在这一层不增加暴露面。"
+      },
+      "NavArticle": {
+        "properties": {
+          "article_no": {
+            "type": "integer",
+            "title": "Article No"
+          },
+          "article_no_cn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Article No Cn"
+          }
+        },
+        "type": "object",
+        "required": [
+          "article_no",
+          "article_no_cn"
+        ],
+        "title": "NavArticle",
+        "description": "导航树的条目落点（FR-7.3 的「定位」）：条号 + 中文条号。\n\n只有两级必要信息：article_no 是跳转参数（打条文端点取原文），article_no_cn\n是给人看的（用户与律师说的都是「第五百八十四条」）。路径不在这一层重复 ——\n它就在父节点上（同一个 path 复制上千遍会让响应体翻倍）。"
+      },
+      "NavNode": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "level": {
+            "type": "integer",
+            "title": "Level"
+          },
+          "path": {
+            "type": "string",
+            "title": "Path"
+          },
+          "articles": {
+            "items": {
+              "$ref": "#/components/schemas/NavArticle"
+            },
+            "type": "array",
+            "title": "Articles"
+          },
+          "children": {
+            "items": {
+              "$ref": "#/components/schemas/NavNode"
+            },
+            "type": "array",
+            "title": "Children"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "level",
+          "path",
+          "articles",
+          "children"
+        ],
+        "title": "NavNode",
+        "description": "导航树的**一级**（编 / 分编 / 章 / 节 —— 层级数不固定，按下标泛化）。\n\n层级数由数据决定而不是三个固定字段（编/章/节）：实测本库的 path 有 2、3、4\n三种深度（1260 行里 297/785/178），写死「编—章—节」会让四层的 178 行\n在折树时无处安放 —— 而那种丢失是静默的（少几个节点，没有任何报错）。\ntitle 是 path 里那一段的原文（\"第一编 总则\"），level 是从 0 开始的下标；\npath 是本级的**跳转落点**：它是该级全部条文的公共前缀，客户端凭它定位\n（逐级浏览），凭 articles 里的 article_no 取具体条文（逐级定位）。"
+      },
+      "NavResponse": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "title": "Request Id"
+          },
+          "laws": {
+            "items": {
+              "$ref": "#/components/schemas/LawNav"
+            },
+            "type": "array",
+            "title": "Laws"
+          }
+        },
+        "type": "object",
+        "required": [
+          "request_id",
+          "laws"
+        ],
+        "title": "NavResponse",
+        "description": "`GET /law/nav` 的响应（形状是本任务自定的，理由见报告「存疑与需裁决项」）。"
+      },
+      "PublicQAAnswer": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "title": "Request Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "answer": {
+            "type": "string",
+            "title": "Answer"
+          },
+          "citations": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Citations"
+          },
+          "sources": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Sources"
+          },
+          "disclaimer": {
+            "type": "string",
+            "title": "Disclaimer"
+          },
+          "failures": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Failures"
+          },
+          "cause": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cause"
+          },
+          "field": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Field"
+          },
+          "lawyers": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Lawyers"
+          },
+          "fee_range": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fee Range"
+          }
+        },
+        "type": "object",
+        "required": [
+          "request_id",
+          "status",
+          "answer",
+          "citations",
+          "sources",
+          "disclaimer",
+          "failures",
+          "cause",
+          "field",
+          "lawyers",
+          "fee_range"
+        ],
+        "title": "PublicQAAnswer",
+        "description": "公众侧问答响应 = 公共部分 + 附加区块展开的四键（设计 §四）。\n\n四键**恒存在**（值可为 null/[]）：它们的有无由契约决定，不由本次回答有没有\n区块决定 —— 让客户端按「键在不在」分支，等于把服务端的一个内部判据\n（Answerer._extras_for 的侧别/状态/问价意图）泄漏成接口的形状。"
+      },
+      "QAAnswer": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "title": "Request Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "answer": {
+            "type": "string",
+            "title": "Answer"
+          },
+          "citations": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Citations"
+          },
+          "sources": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Sources"
+          },
+          "disclaimer": {
+            "type": "string",
+            "title": "Disclaimer"
+          },
+          "failures": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Failures"
+          }
+        },
+        "type": "object",
+        "required": [
+          "request_id",
+          "status",
+          "answer",
+          "citations",
+          "sources",
+          "disclaimer",
+          "failures"
+        ],
+        "title": "QAAnswer",
+        "description": "问答响应的**公共部分**（设计 §四）。public 侧在它之上再加四键。\n\n分成基类与子类，而不是「一个模型 + exclude 掉两个键」：设计 §四 明写律师侧\n响应里**没有** `lawyers` 与 `fee_range` 两个键（不是置空，是根本不出现）——\n「不出现」用两个模型天然成立，用 exclude 则要每个出口记得传对参数，而漏传\n的表现是那两个键悄悄出现，没有任何红灯。任务 5 的律师侧响应用本类即可。"
+      },
+      "QuestionRequest": {
+        "properties": {
+          "question": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Question"
+          }
+        },
+        "type": "object",
+        "required": [
+          "question"
+        ],
+        "title": "QuestionRequest",
+        "description": "问答请求。公众侧与律师侧共用同一个形状（字段名 question）。\n\n两侧共用不是省事：`tools/ask.py` 的位置参数与用户的心智模型都是「一个问题」，\n两侧各起一个字段名（q / question）只会让前端多一套模板。"
+      },
+      "SearchRequest": {
+        "properties": {
+          "question": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Question"
+          },
+          "top_k": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 20.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Top K"
+          }
+        },
+        "type": "object",
+        "required": [
+          "question"
+        ],
+        "title": "SearchRequest",
+        "description": "`POST /search` 的请求（律师侧，只检索不生成）。\n\ntop_k 可选：省略时由**路由层**取 pipeline.RERANK_OUTPUT_TOPK —— 默认值不在这里\n写第二份字面量。两份默认值分家的形态是「接口默认 5、链路默认 3」，而两者都\n「看着对」，只有对比才看得出；`None` 是本模型对「没传」的唯一表示。\n上限卡在 schema 层（超限 → 400），与问句长度上限同一个理由：它是输入校验，\n不是业务规则；放进路由就变成「每条端点自己记得判一次」。"
+      },
+      "SearchResponse": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "title": "Request Id"
+          },
+          "question": {
+            "type": "string",
+            "title": "Question"
+          },
+          "blocks": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Blocks"
+          },
+          "exact_nos": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Exact Nos"
+          }
+        },
+        "type": "object",
+        "required": [
+          "request_id",
+          "question",
+          "blocks",
+          "exact_nos"
+        ],
+        "title": "SearchResponse",
+        "description": "`POST /search` 的响应。**不含生成内容**：这条端点的价值就是便宜、可反复打。\n\n带 question 回来（strip 后的值）：调用方据它对齐「我搜的是哪句话」，尤其是\n批量比对时 —— 响应里没有问句，客户端就只能靠请求顺序猜。\nexact_nos 单独成键而不是塞进 blocks：它是「第 N 条被精确置顶」的判据\n（pipeline 只上报真正取到的条号），客户端要能一眼看出这次走没走精确通路。"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

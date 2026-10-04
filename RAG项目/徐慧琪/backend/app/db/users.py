@@ -41,11 +41,16 @@ _LIST_COLUMNS = ("id", "username", "role", "team_id", "is_active", "created_at")
 
 
 def ensure_table(conn) -> None:
-    """建表（幂等）—— 启动时无条件调用。
+    """建表（幂等）—— 由**建账号的那条路径**无条件调用（运维脚本；测试夹具同）。
 
-    调用点：运维脚本在建账号之前，以及（任务 3 的）HTTP lifespan 启动时。两处都
-    无条件调、失败就让异常往上抛：与 fee_log 同口径，静默吞掉建表失败只会让故障
-    推迟到第一次登录，而那时看到的是「账号不存在」这种指向完全错误的报错。
+    为什么不放进 HTTP lifespan / 装配（终审 m-4 的裁决，2026-10-02）：MySQL 挂住
+    时服务必须照常启动、由 /healthz 报 503（test_main 的既有判据），启动期 DDL
+    会把它变成「起不来」—— 而账号能存在就说明建号路径（manage_users 走的正是
+    这里）已经建过表。失败让异常往上抛：与 fee_log 同口径，静默吞掉建表失败只会
+    让故障推迟到第一次登录，而那时看到的是「账号不存在」这种指向完全错误的报错。
+
+    （本 docstring 曾声称「任务 3 的 HTTP lifespan 启动时」会调用，与实现不符 ——
+    终审 m-4 抓出，已按实际改写；app/ 内确实没有第二个调用点。）
     """
     with conn.cursor() as cur:
         cur.execute(DDL)

@@ -27,13 +27,12 @@ import logging
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
-from starlette.datastructures import MutableHeaders
 from starlette.exceptions import HTTPException
 
 # 路由清单收在 api/ 包的 install_routes 里（本文件已到行数闸门边缘，且「有哪些
 # 路径」该有单一落点）：这里只调用，不逐条 include_router
 from app.api import install_routes
-from app.core import errors, factory, ratelimit, request_id
+from app.core import audit, errors, factory, metrics, ratelimit, request_id, security
 from app.core.security import AuthError
 from app.db.milvus import COLLECTION as LAW_COLLECTION
 from app.generation.profiles import SIDE_PUBLIC
@@ -44,45 +43,6 @@ logger = logging.getLogger(__name__)
 # 远小于它，而整包上传、灌垃圾请求在这层就被挡掉。它不是问句长度上限 ——
 # 那条（超限拒绝而不是截断）是任务 4 的 schema 职责，两层各挡各的
 MAX_BODY_BYTES = 64 * 1024
-
-
-class RequestIdMiddleware:
-    """生成或透传请求 ID：写进 scope["state"]、响应头、以及每条日志记录。
-
-    最外层（create_app 里最后 add_middleware）：体上限拦下的 413、异常处理器出的
-    500，响应都得带 request_id —— 若它在内层，这两类响应会缺头，而那正是最需要
-    拿 id 去捞日志的两类。
-    """
-
-    def __init__(self, app) -> None:
-        self.app = app
-
-    async def __call__(self, scope, receive, send) -> None:
-        if scope["type"] != "http":
-            # lifespan / websocket 没有 HTTP 头可挂，原样放行（不认识的协议
-            # 一律不碰，比在这里判类型白名单安全）
-            await self.app(scope, receive, send)
-            return
-        rid = request_id.bind(scope)
-        token = request_id.set_current(rid)
-
-        async def send_with_header(message) -> None:
-            if message["type"] == "http.response.start":
-                headers = MutableHeaders(scope=message)
-                # 只在**没有**时补头：异常处理器出的错误响应自己已经带了同一个头
-                # （500 那条路径根本不经过本中间件，见 _error_response 的注释），
-                # 无条件 append 会让那些响应出现两个同名头，httpx 读出来是
-                # "abc, abc" —— 与响应体里的 id 不相等，头与体的对齐当场断掉
-                if request_id.HEADER not in headers:
-                    headers.append(request_id.HEADER, rid)
-            await send(message)
-
-        try:
-            await self.app(scope, receive, send_with_header)
-        finally:
-            # 复位必须在 finally：一个请求把 contextvar 留成自己的 id，下一个请求
-            # 的日志就会挂错 id —— 而这种错在日志里看起来完全正常
-            request_id.reset(token)
 
 
 class BodySizeLimitMiddleware:
@@ -227,7 +187,12 @@ def _on_unexpected(request: Request, exc: Exception) -> JSONResponse:
     从 scope 取（不认 contextvar 里的残留值），再放回 contextvar 让记录工厂带上它，
     打完立刻复位。不能用 extra={"request_id": rid}：工厂已设过该属性，logging 会抛
     KeyError（不是覆盖，是当场报错）。
+
+    **500 的指标也在这里记**（任务 8）：本处理器由 ServerErrorMiddleware 调用，它在
+    所有用户中间件外面 —— 计数中间件根本没有机会看见这条响应。计入点收在这一行，
+    而不是「指望最外层中间件兜住」（那是数不到的假接线，core/metrics 的注释同此）。
     """
+    metrics.record_unhandled(request)
     token = request_id.set_current(request_id.scope_request_id(request.scope))
     try:
         logger.error("未处理的异常 %s %s：%r", request.method, request.url.path, exc,
@@ -322,6 +287,11 @@ async def lifespan(app: FastAPI):
     core/factory.release），异常继续往上抛 —— 启动失败必须是响亮的，不能带着空壳
     起服务（那会让每个请求都在业务代码里炸出 500，而根因在启动日志里）。
     """
+    # 缺签名密钥要让服务起不来（任务 2 交接、终审 I-5），且放在装配**之前**：
+    # 缺配置时不该先花几十秒加载模型。MissingSecretError 原样上抛，不伪装成
+    # 401/500（那会把「这台机器配置错了」说成「你没登录」）；密钥仍只由
+    # security.load_secret 读，这里只是把读取提前到启动点
+    security.load_secret()
     services = app.state.services_factory()
     app.state.services = services
     logger.info("重资源装配完成，服务就绪")
@@ -344,17 +314,28 @@ def create_app(*, services_factory=None) -> FastAPI:
     # 装配参数，测试注入的替身也不必假装接受它们
     app.state.services_factory = services_factory or functools.partial(
         factory.build_services, SIDE_PUBLIC, with_extras=True)
+    # 指标注册表每 app 一个（不是模块级单例：单例会让测试与多 app 场景互相污染，
+    # core/metrics.Registry 的注释同此）；中间件与 /metrics 端点从同一处取
+    app.state.metrics = metrics.Registry()
     # 体上限加在前（内层）、请求 ID 加在后（外层）：后加的在外。413 与 500 也要带
     # request_id，把 ID 放内层正好会让最需要 id 的两类响应缺了它
     app.add_middleware(BodySizeLimitMiddleware)
-    # 限流夹在两者之间（任务 6）：在请求 ID 之内（429 要带 id）、在体上限之外（它要
-    # 计所有打到公开端点的尝试，含体超限那些）；判定与阈值全在 core/ratelimit.py
+    # 限流/审计夹在两者之间（任务 6/7）：都在请求 ID 之内（429 与审计写失败的告警
+    # 都要带 id）；限流在体上限之外（要计体超限的尝试），审计在限流之外（429 入账）
     app.add_middleware(ratelimit.RateLimitMiddleware)
-    app.add_middleware(RequestIdMiddleware)
+    app.add_middleware(audit.AuditMiddleware)
+    # 计数（任务 8）在请求 ID 之内、审计与限流**之外**：413/429 这类由更内层中间件
+    # 自己出的响应必须经过它才算得进来（在它们之内就数不到）；500 不经任何用户中间件
+    # —— 那一条的计入点在 _on_unexpected（见那里与 core/metrics 的注释）
+    app.add_middleware(metrics.MetricsMiddleware, registry=app.state.metrics)
+    app.add_middleware(request_id.RequestIdMiddleware)
     _install_handlers(app)
     # healthz 走 add_api_route 而不是 @app.get 装饰器：路径的注册点全部收在这个
     # 函数里（任务 4~7 的 include_router 也排队在此），实测时能一眼看全有哪些路径
     app.add_api_route("/healthz", healthz, methods=["GET"])
+    # /metrics 与 healthz 并列（内网端点，设计 §四）：处理函数在 core/metrics 里，
+    # 本文件只注册；不计入自身指标的口径见那边的 EXCLUDED_PATHS
+    app.add_api_route("/metrics", metrics.endpoint, methods=["GET"])
     # 业务路由在 healthz 之后注册：顺序只影响 OpenAPI 文档里的排列，不影响匹配
     install_routes(app)
     return app

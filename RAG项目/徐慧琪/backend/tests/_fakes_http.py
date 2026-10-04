@@ -92,6 +92,16 @@ class FakeConn:
         if self.fail:
             raise RuntimeError("MySQL server has gone away")
 
+    def commit(self) -> None:
+        """任务 7 起审计中间件会在请求收尾 write+commit 一次。
+
+        没有这个方法时那条路径以 AttributeError 的形态失败 —— 结果虽然也是
+        「留一条 warning 且请求照常」，但每个进 lifespan 的用例都会多一条噪声
+        warning，而真故障信号（审计写不进去）会被这种假信号淹没。给个空实现让
+        替身把「写成功」这条路走完：它记在 statements 里，用例照样看得见。
+        """
+        pass
+
     def fetchone(self):
         return self.row
 

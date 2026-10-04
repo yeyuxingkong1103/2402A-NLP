@@ -27,8 +27,8 @@ from tests._fakes_http import jwt_token, without_request_id, FakeConn, FakeServi
 def _jwt_secret(monkeypatch):
     """签名密钥走环境变量（security.load_secret 的唯一来源）。
 
-    autouse 的理由与 test_api_auth.py 那份相同：漏设的用例会以 MissingSecretError
-    的形态变成 500，而那不是它们要测的东西；密钥值仍是 _fakes_http.JWT_SECRET 一处。
+    autouse 的理由与 test_api_auth.py 那份相同；I-5 起 conftest 也有全局同值
+    夹具（lifespan 启动自检要求它），密钥值仍是 _fakes_http.JWT_SECRET 一处。
     """
     monkeypatch.setenv(security.JWT_SECRET_ENV, JWT_SECRET)
 
@@ -175,17 +175,18 @@ def test_without_assembled_services_a_valid_token_gets_503_not_404():
 
 
 def test_a_missing_signing_secret_is_a_loud_500_not_a_disguised_404(monkeypatch, caplog):
-    """没配签名密钥 → 500，且日志里**响亮**地说出是哪个环境变量。
+    """密钥在运行中消失 → 500，且日志里**响亮**地说出是哪个环境变量。
 
     任务 2 的裁决：MissingSecretError 刻意不继承 AuthError，就是为了这里 —— 伪装
-    成 404 的话，一台配错的机器会像「所有人的密码都错了」一样地跑着。两个方向都
-    断言：响应里没有变量名（那是运维看日志时该知道的），日志里有（否则「为什么
-    全是 500」要人去翻代码）。
+    成 404 的话，机器会像「所有人的密码都错了」一样地跑着。I-5 起缺密钥在**启动**
+    就被拦下（启动用例在 test_api_auth），这条判据因此改成「启动后再删掉」的形态：
+    运行期的配置漂移仍不许伪装成未登录。两个方向都断言：响应里没有变量名（那是
+    运维看日志时该知道的），日志里有（否则「为什么全是 500」要人去翻代码）。
     """
-    monkeypatch.delenv(security.JWT_SECRET_ENV, raising=False)
     app = _probe_app(FakeServices(account_conn=FakeConn(row=(1,))))
     with caplog.at_level(logging.ERROR):
         with TestClient(app, raise_server_exceptions=False) as client:
+            monkeypatch.delenv(security.JWT_SECRET_ENV, raising=False)
             response = client.get("/_probe/whoami", headers=bearer(jwt_token()))
     assert response.status_code == 500
     assert response.json()["error"]["code"] == "internal_error"

@@ -24,6 +24,8 @@ import contextvars
 import logging
 import uuid
 
+from starlette.datastructures import MutableHeaders
+
 # 对外响应头与入站请求头同名同义（X-Request-ID 是事实标准）
 HEADER = "X-Request-ID"
 # scope["state"] 与本模块 contextvar 用同一个键名，避免两处名字漂移
@@ -124,3 +126,47 @@ def install() -> None:
 
     logging.setLogRecordFactory(record_factory)
     logging.basicConfig(format=LOG_FORMAT)
+
+
+class RequestIdMiddleware:
+    """生成或透传请求 ID：写进 scope["state"]、响应头、以及每条日志记录。
+
+    **任务 8 从 main.py 整块搬来**（那边非空行顶在 300 行闸门上）：它读写的是本模块
+    的 `bind` / `set_current` / `reset` / `HEADER`，语义本就该住在这里；搬迁是行为
+    等价的（main 只改 add_middleware 的引用，test_main* 的既有用例原样守着）。
+
+    最外层（create_app 里最后 add_middleware）：体上限拦下的 413、异常处理器出的
+    500，响应都得带 request_id —— 若它在内层，这两类响应会缺头，而那正是最需要
+    拿 id 去捞日志的两类。（500 那条路径由 ServerErrorMiddleware 下发、在本中间件
+    **外面**，头是错误响应自己带的，见 main._error_response 的注释。）
+    """
+
+    def __init__(self, app) -> None:
+        self.app = app
+
+    async def __call__(self, scope, receive, send) -> None:
+        if scope["type"] != "http":
+            # lifespan / websocket 没有 HTTP 头可挂，原样放行（不认识的协议
+            # 一律不碰，比在这里判类型白名单安全）
+            await self.app(scope, receive, send)
+            return
+        rid = bind(scope)
+        token = set_current(rid)
+
+        async def send_with_header(message) -> None:
+            if message["type"] == "http.response.start":
+                headers = MutableHeaders(scope=message)
+                # 只在**没有**时补头：异常处理器出的错误响应自己已经带了同一个头
+                # （500 那条路径根本不经过本中间件，见 main._error_response 的注释），
+                # 无条件 append 会让那些响应出现两个同名头，httpx 读出来是
+                # "abc, abc" —— 与响应体里的 id 不相等，头与体的对齐当场断掉
+                if HEADER not in headers:
+                    headers.append(HEADER, rid)
+            await send(message)
+
+        try:
+            await self.app(scope, receive, send_with_header)
+        finally:
+            # 复位必须在 finally：一个请求把 contextvar 留成自己的 id，下一个请求
+            # 的日志就会挂错 id —— 而这种错在日志里看起来完全正常
+            reset(token)

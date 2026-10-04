@@ -15,7 +15,7 @@ from __future__ import annotations
 
 from fastapi import FastAPI
 
-from app.api import auth, law, lawyer, public
+from app.api import admin, auth, law, lawyer, public
 
 
 def install_routes(app: FastAPI) -> None:
@@ -33,3 +33,6 @@ def install_routes(app: FastAPI) -> None:
     # 是两条独立路径，谁的鉴权在谁的 router 上，不在处理函数里按身份分支
     app.include_router(lawyer.router)
     app.include_router(law.router)
+    # 管理侧一条（任务 7）：/admin/audit/export。它属「律师侧专用路径」那一组
+    # （未认证一律 404），角色门在 router 上（partner），这里只注册
+    app.include_router(admin.router)

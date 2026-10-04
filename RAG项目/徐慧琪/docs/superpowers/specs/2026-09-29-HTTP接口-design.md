@@ -43,9 +43,9 @@
 
 ```
 backend/app/
-  main.py            应用装配：lifespan 装配重资源 → app.state；注册路由；异常处理；请求 ID 中间件
+  main.py            应用装配：lifespan 启动自检（缺 JWT 密钥 fail-fast）→ 装配重资源进 app.state；注册路由；异常处理；请求 ID 中间件
   core/
-    config.py        配置（环境变量：JWT 密钥、阈值、并发上限）；启动自检
+    config.py        配置装载（环境变量：模型路径 / 库连接 / 阈值 / 限流盐）；JWT 密钥不在此处，归 security.load_secret（有意不搬）
     factory.py       共享装配工厂：建 conn / Milvus client / encoder / reranker / Answerer
     security.py      JWT 签发与校验、密码哈希、RBAC 依赖、当前用户上下文
     ratelimit.py     进程内滑动窗口限流 + 公众侧并发上限
@@ -53,10 +53,10 @@ backend/app/
   api/
     schemas.py       请求/响应模型（统一响应带 request_id）
     auth.py          POST /auth/login
-    public.py        公众侧四个端点
+    public.py        公众侧两条（POST /public/qa、GET /lawyers/recommend）；/law/* 两条在 law.py
     lawyer.py        律师侧四个端点
     admin.py         审计导出
-  db/mysql.py        （现有）新增 users / audit_log 两处建表
+  db/mysql.py        （现有）只放连接与执行；users / audit_log 表分别在 db/users.py、db/audit.py —— DDL 与 ensure_table 同处（users 由建号路径调用，audit_log 由 core/audit.py 首次写入前调用）
 ```
 
 **三条定调**：
@@ -242,6 +242,6 @@ CREATE TABLE IF NOT EXISTS audit_log (
 1. **AC-10 只能算部分达成** —— 数据层与向量层的隔离需要案件表与 `case_chunks` 集合才能真实验证，而它们属于未实现的历史案件功能。本轮交付的是**接口层隔离 + 唯一注入点 + 测试钉住**。
 2. **AC-20 的 Nginx/Redis 层不在本轮** —— 用户裁决「应用层自足」。上公网前必须补齐，这条要在交付说明里写明。
 
-**命名一致性**：`get_current_user` / `require_role` / `sign_token` / `verify_token` / `RateLimiter` / `write_audit` / `build_services`（factory）—— 跨模块引用无重名冲突。
+**命名一致性**（2026-10-02 按实测名订正）：`current_user` / `require_roles`（`api/deps.py`）/ `sign_token` / `verify_token`（`core/security.py`）/ `RateLimiter`（`core/ratelimit.py`）/ 审计写入 `core/audit._write` + `db/audit.record` / `build_services`（`core/factory.py`）—— 跨模块引用无重名冲突（这半边成立）。
 
 **占位符扫描**：无 TBD / TODO。历史案件的 501 是**明确的交付形态**，不是「待实现」的含糊占位。

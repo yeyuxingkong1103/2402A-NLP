@@ -3,7 +3,7 @@
 # 离线影子：那条自检要连库/看 GPU，而这条只问「默认路径下装配所需文件在不在」。
 import pytest
 
-from app.core import config
+from app.core import config, errors
 from app.db.milvus import MILVUS_URI
 from app.db.mysql import DEFAULT_CONFIG
 from app.ingest.embed import DEFAULT_MODEL_PATH
@@ -88,3 +88,78 @@ def test_default_paths_are_valid_on_this_machine():
     直到有人真跑 CLI 才炸在加载期。
     """
     config.load(env={}).validate()
+
+
+# ---- 应用层防滥用（任务 6）：限流阈值与加盐值 ----
+
+def test_rate_limit_defaults_are_the_ones_the_design_and_the_report_named():
+    """四个默认值当字面量锚：并发 20 是设计 §六 的数字，其余三个是任务 6 的裁决值。
+
+    写成字面量而不是引用 config.DEFAULT_*：后者在有人改默认值时恒绿，而「不设
+    环境变量时到底限多少」正是运维要能一眼查到的事（报告里给了算账）。
+    """
+    settings = config.load_rate_limit(env={})
+    assert settings.concurrency == 20, "设计 §六：公众侧同时处理数 ≤ 20（AC-14）"
+    assert settings.limit == 30
+    assert settings.window_s == 60.0
+    assert settings.max_keys == 10_000
+
+
+def test_rate_limit_env_overrides_win():
+    settings = config.load_rate_limit(env={
+        config.ENV_RATE_LIMIT_MAX: "5",
+        config.ENV_RATE_LIMIT_WINDOW_S: "2.5",
+        config.ENV_RATE_LIMIT_MAX_KEYS: "7",
+        config.ENV_PUBLIC_CONCURRENCY: "3"})
+    assert (settings.limit, settings.window_s, settings.max_keys,
+            settings.concurrency) == (5, 2.5, 7, 3)
+    assert isinstance(settings.limit, int) and isinstance(settings.window_s, float)
+
+
+@pytest.mark.parametrize("name", ["FL_RATE_LIMIT_MAX", "FL_RATE_LIMIT_WINDOW_S",
+                                  "FL_RATE_LIMIT_MAX_KEYS", "FL_PUBLIC_CONCURRENCY"])
+def test_a_non_numeric_rate_limit_value_is_rejected_at_load_time(name):
+    """填了非数字当场抛，**不退回默认值**：退回的形态是「运维以为限了 5 次，
+    实际是 30 次」，没有任何红灯 —— 阈值与模型路径不同，必须响亮地失败。"""
+    with pytest.raises(config.ConfigError, match=name):
+        config.load_rate_limit(env={name: "not-a-number"})
+
+
+def test_blank_rate_limit_values_are_treated_as_unset():
+    # 与 _text 同口径：.env 里 `FL_RATE_LIMIT_MAX=` 这样的空行不该把阈值清零
+    assert config.load_rate_limit(env={config.ENV_RATE_LIMIT_MAX: "  "}).limit == 30
+
+
+def test_a_missing_or_blank_salt_is_rejected():
+    """**没有默认盐**（设计 §六 的「不存 IP 原文」只有配了盐才成立）。
+
+    固定默认盐等于把 IP 哈希重新变成可反推的（2^32 的枚举量对一台笔记本是几分钟）。
+    """
+    for env in ({}, {config.ENV_RATE_LIMIT_SALT: ""},
+                {config.ENV_RATE_LIMIT_SALT: "   "}):
+        with pytest.raises(config.MissingRateSaltError,
+                           match=config.ENV_RATE_LIMIT_SALT):
+            config.load_rate_salt(env=env)
+
+
+def test_a_short_salt_is_rejected_and_the_message_does_not_echo_the_value():
+    """盐过短也拒（枚举反推的成本随长度指数下降），且报错不回显取值。"""
+    with pytest.raises(config.MissingRateSaltError, match="过短") as exc:
+        config.load_rate_salt(env={config.ENV_RATE_LIMIT_SALT: "short"})
+    assert "short" not in str(exc.value)
+
+
+def test_a_long_enough_salt_is_returned_verbatim():
+    salt = "s" * config.MIN_RATE_SALT_LEN
+    assert config.load_rate_salt(env={config.ENV_RATE_LIMIT_SALT: salt}) == salt
+
+
+def test_the_missing_salt_error_belongs_to_the_config_error_family():
+    """它是 ConfigError 的兄弟而不是 ApiError：配置故障永远映射不到 429/404。
+
+    这条钉的是**类型谱系**（用例直接判 issubclass）：若哪天有人把它改成
+    ApiError 的子类，缺盐就会以某个业务状态码的面貌出现 —— 那正是「配置故障
+    不许伪装成业务拒绝」要防的形态，且改错的当时不会有别的红灯。
+    """
+    assert issubclass(config.MissingRateSaltError, config.ConfigError)
+    assert not issubclass(config.MissingRateSaltError, errors.ApiError)

@@ -61,7 +61,11 @@ def test_the_registered_route_table_is_exactly_this_batchs_interface():
         "/healthz", "/api/v1/auth/login", "/api/v1/public/qa",
         "/api/v1/lawyers/recommend", "/api/v1/qa", "/api/v1/search",
         "/api/v1/cases/search", "/api/v1/law/nav",
-        "/api/v1/law/{law_id}/articles/{article_no}"}
+        "/api/v1/law/{law_id}/articles/{article_no}",
+        # 任务 7 加的这一条：本清单变红正是提醒（有人动了对外形状），不是故障
+        "/api/v1/admin/audit/export",
+        # 任务 8 加的这一条（同上；/metrics 是内网端点，路由表里它仍是「对外形状」）
+        "/metrics"}
 
 
 def test_a_wrong_method_is_indistinguishable_from_an_unknown_path():

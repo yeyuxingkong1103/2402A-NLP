@@ -360,5 +360,10 @@ def test_recommend_does_not_touch_the_database_or_the_answerer():
     app, answerer = _app(_result(), conn=business)
     with TestClient(app) as client:
         assert client.get("/api/v1/lawyers/recommend").status_code == 200
-    assert business.statements == []
+    # 任务 7 起这条连接上还会出现审计中间件写的那一行（含首次建表）—— 那是中间件
+    # 的行为，不是本端点发的查询；判据因此把含 audit_log 的语句豁免掉，**本端点
+    # 自己一条 SQL 都不许发（读不行、写也不行）**。MySQL 挂了本端点照样 200（审计
+    # 写失败只留 warning，见 core/audit.py），「无外部依赖」这条性质仍然成立。
+    others = [sql for sql in business.statements if "AUDIT_LOG" not in sql.upper()]
+    assert others == [], f"recommend 自己发了 SQL：{others}"
     assert answerer.calls == []

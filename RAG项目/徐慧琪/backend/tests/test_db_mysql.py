@@ -1,12 +1,13 @@
 # MySQL 模块的单测。需要 MySQL 在线——离线时整文件跳过，
 # 因为本模块的价值就在"连得上、表建得对"，用 mock 测等于没测。
 import threading
+import time
 
 import pytest
 
 from app.db.mysql import (
-    DEFAULT_CONFIG, SCHEMA_PATH, _split_statements, apply_schema, connect,
-    connect_autocommit, insert_many,
+    DEFAULT_CONFIG, IO_TIMEOUT_S, SCHEMA_PATH, _split_statements, apply_schema,
+    connect, connect_autocommit, insert_many,
 )
 
 # 并发用例用的查询：与 healthz 探针同一句真 SQL（编排层会并发打的就是它）。
@@ -109,14 +110,24 @@ def test_insert_many_empty_rows_is_noop():
         conn.close()
 
 
+# 线程与锁的上界（Task 3 m1 / 终审 m-5）。正常时 8 线程 × 20 次短查询亚秒级完成，
+# 这两个界是「改坏→变红」的保证，不是性能判据 —— 没有它们，删掉放锁的形态是
+# 「挂死到外部超时」，而本项目铁律是改坏必须变红。
+JOIN_TIMEOUT_S = 10
+CLOSE_TIMEOUT_S = 5
+
+
 def _hammer(conn, *, threads: int, per_thread: int) -> list[str]:
     """在**同一个**连接上真并发跑 threads × per_thread 次查询，返回失败信息。
 
     Barrier 让各线程尽量同时冲进去，把竞争窗口放大：并发用例的价值就在「撞上」，
-    串行跑 n 次永远绿。
+    串行跑 n 次永远绿。join 有界 + 断言（m-5）：删掉放锁时这里**变红**，而不是
+    把用例挂死到外部超时；daemon 是同一件事的另一半 —— 不放锁时线程永不结束，
+    非 daemon 会把 pytest 卡在进程退出上，连「红」都看不到。
     """
     failures: list[str] = []
     start = threading.Barrier(threads)
+    deadline = time.monotonic() + JOIN_TIMEOUT_S
 
     def worker() -> None:
         start.wait()
@@ -128,12 +139,30 @@ def _hammer(conn, *, threads: int, per_thread: int) -> list[str]:
             except Exception as exc:
                 failures.append(f"{type(exc).__name__}: {exc}")
 
-    workers = [threading.Thread(target=worker) for _ in range(threads)]
+    workers = [threading.Thread(target=worker, daemon=True) for _ in range(threads)]
     for thread in workers:
         thread.start()
     for thread in workers:
-        thread.join()
+        thread.join(max(0.1, deadline - time.monotonic()))
+    stuck = sum(1 for thread in workers if thread.is_alive())
+    assert stuck == 0, (
+        f"{stuck}/{threads} 个压测线程没有在 {JOIN_TIMEOUT_S}s 内结束："
+        "连接锁没被释放（改坏＝挂死的老形态，见 m-5 的注释）")
     return failures
+
+
+def _close_within(conn, seconds: float = CLOSE_TIMEOUT_S) -> None:
+    """关连接，最多等 seconds —— 连接锁被别的线程攥着时，close 会永久等在锁上。
+
+    删掉放锁的形态下，`conn.close()` 自己也要拿同一把锁（_Connection.close 的
+    `with self._lock`）：无界的 close 会把「断言已变红」重新变成「进程挂死」。
+    超时只打一条警告 —— 连接已经坏了，这一次泄漏正是 mutant 要暴露的东西。
+    """
+    closer = threading.Thread(target=conn.close, daemon=True)
+    closer.start()
+    closer.join(timeout=seconds)
+    if closer.is_alive():
+        print(f"[m-5] 警告：conn.close() 在 {seconds}s 内没有返回（锁被测试线程攥着）")
 
 
 @requires_mysql
@@ -150,7 +179,8 @@ def test_concurrent_queries_on_one_connection_never_corrupt_the_protocol():
         try:
             failures = _hammer(conn, threads=threads, per_thread=per_thread)
         finally:
-            conn.close()
+            # 有界关闭：锁没被释放时（m-5 的 mutant），无界的 close 会把红变回挂死
+            _close_within(conn)
         assert failures == [], f"{threads} 线程 × {per_thread} 次后连接坏了：{failures[:3]}"
 
 
@@ -236,3 +266,23 @@ def test_connect_autocommit_turns_autocommit_on_at_the_server():
     finally:
         account.close()
         business.close()
+
+
+@requires_mysql
+def test_both_connections_bound_their_socket_waits_with_an_explicit_timeout():
+    """两条连接的 socket 都必须带上界（I-1 的修复判据）。
+
+    不设时（pymysql 默认 None）socket 是阻塞模式：MySQL 挂住不响应时一次读/写
+    无限等下去 —— 审计写即使丢了线程池，也会占住一个 worker、把业务查询压在
+    连接锁上。判据取**真 socket 的超时**（`gettimeout()`）而不是同名属性回显：
+    字段回显只能证明「传了」，socket 超时才证明「用上了」。字面量锚 10s ——
+    调大/去掉时得有人再看一眼（恒定绿的写法是拿常量跟自己去比）。
+    """
+    assert IO_TIMEOUT_S == 10, "10s 是终审修复轮的裁决量级"
+    for factory in (connect, connect_autocommit):
+        conn = factory()
+        try:
+            assert conn._conn._sock.gettimeout() == IO_TIMEOUT_S, \
+                f"{factory.__name__} 的 socket 没有有界超时（MySQL 挂住会无限等）"
+        finally:
+            conn.close()

@@ -26,10 +26,8 @@ def _jwt_secret(monkeypatch):
     """签名密钥走环境变量（security.load_secret 的唯一来源）。
 
     autouse：几乎每条用例都要签发或校验 token，漏设的那几条会以
-    MissingSecretError 的形态变成 500 —— 而那不是它们要测的东西。
-    （test_api_deps.py 里有一份同样的 fixture：那不是共享逻辑，是「每条用例都
-    要的环境」；把它搬进 conftest 会让它作用于全部 768 条用例，代价比这两行大。
-    密钥值本身仍是 _fakes_http.JWT_SECRET 一处。）
+    MissingSecretError 的形态失败，而那不是它们要测的东西。I-5 起 conftest
+    也全局设同一把密钥（lifespan 启动自检要求它）；密钥值仍是一处。
     """
     monkeypatch.setenv(security.JWT_SECRET_ENV, JWT_SECRET)
 
@@ -222,3 +220,31 @@ def test_a_failed_login_keeps_the_password_out_of_logs_and_body(caplog):
     assert LEAK not in response.text
     assert LEAK not in caplog.text
     assert "wangsan" in caplog.text
+
+
+# ---- 启动自检：缺密钥起不来（终审 I-5，任务 2 交接的承接）----
+
+
+def test_a_missing_signing_secret_makes_startup_fail(monkeypatch):
+    """缺密钥时应用**起不来** —— 不是「起得来但鉴权全 500」。
+
+    修复前实测：healthz 200 ok、公众侧 200、登录与律师侧全 500，编排层读到的是
+    「healthy」。现在 lifespan 在装配前先 load_secret()：缺配置当场抛
+    MissingSecretError（不伪装成 401/500），且**重资源没被加载** —— 缺配置不该
+    先花几十秒起模型。
+    """
+    monkeypatch.delenv(security.JWT_SECRET_ENV, raising=False)
+    factory_fn, built = fake_factory()
+    app = main.create_app(services_factory=factory_fn)
+    with pytest.raises(security.MissingSecretError, match=security.JWT_SECRET_ENV):
+        with TestClient(app):
+            pass
+    assert built == [], "密钥都没配就把重资源装起来了"
+
+
+def test_a_configured_signing_secret_starts_normally():
+    """反向：密钥在时启动必须正常（只钉「缺密钥必抛」的话，恒抛也全绿）。"""
+    factory_fn, built = fake_factory()
+    with TestClient(main.create_app(services_factory=factory_fn)) as client:
+        assert client.get("/healthz").status_code == 200
+    assert len(built) == 1

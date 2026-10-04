@@ -2,7 +2,7 @@
 
 - 日期：2026-09-28
 - 入口：`python tools/ask.py [-s public] "<问题>"`（工作目录 `D:/xinzg6/fl`，系统 python，无 venv）
-- 环境：四容器已起、`tools/check_env.py` 6/6、律师侧 ollama `qwen2.5:3b`、公众侧 deepseek/deepseek-chat、reranker `D:\Model\reranker`（GPU）
+- 环境：四容器已起、`tools/check_env.py` 6/6（2026-10-01 注：任务 6 起自检为 **7 项**，多 `rate_salt`；此行 6/6 是当时的真实读数，不回改；2026-10-02 注：终审修复轮起自检为 **8 项**（多 `jwt_secret`）；本机未设环境变量时为 **6/8**（缺 `rate_salt`、`jwt_secret`）。原读数与上一条注均为当时真实值，不回改）、律师侧 ollama `qwen2.5:3b`、公众侧 deepseek/deepseek-chat、reranker `D:\Model\reranker`（GPU）
 - 说明：本报告是 ③a 唯一无法自动化的验收动作（见 `tools/ask.py` 模块 docstring）。以下六条输出为**原样抄录**（仅去掉 stderr 的 `Loading weights` 进度条噪声），逐条附**人工结论**。**结论不对/存疑的照实写，不粉饰。**
 
 ## 总览
@@ -179,7 +179,7 @@
 
 - 日期：2026-09-29
 - 入口：`python tools/ask.py -s public [--no-extras] "<问题>"`（工作目录 `D:/xinzg6/fl`，系统 python，无 venv）
-- 环境：同 ③a（Milvus/MySQL 在 WSL 容器、公众侧 `deepseek/deepseek-chat`、`tools/check_env.py` 6/6）；
+- 环境：同 ③a（Milvus/MySQL 在 WSL 容器、公众侧 `deepseek/deepseek-chat`、`tools/check_env.py` 6/6 —— 2026-10-01 注：任务 6 起为 **7 项**（多 `rate_salt`），此行是当时的真实读数，不回改；2026-10-02 注：终审修复轮起自检为 **8 项**（多 `jwt_secret`）；本机未设环境变量时为 **6/8**（缺 `rate_salt`、`jwt_secret`）。原读数与上一条注均为当时真实值，不回改）；
   本期新增 Milvus 集合 `fee_corpus`（26 条收费口径语料）与 MySQL 表 `fee_generation_log`（AC-21 留痕）
 - 说明：以下输出为**原样抄录**（仅去掉 stderr 的 `Loading weights` 进度条噪声），逐条附**人工结论**。
   **结论不对/存疑的照实写，不粉饰。**

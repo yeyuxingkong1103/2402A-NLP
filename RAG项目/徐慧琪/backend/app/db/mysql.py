@@ -35,6 +35,13 @@ import threading
 
 import pymysql
 
+# socket 上一段读/写的等待上限（秒，终审 I-1 修复轮加）。不设时（pymysql 默认
+# None）socket 是阻塞模式：MySQL 挂住不响应时，一次读/写会**无限**等下去 ——
+# 审计写已丢线程池，但线程池里的写会占住一个 worker 不放、业务查询在连接锁上
+# 排队，无界等待迟早抽干 40 个 worker。10s 是「索引命中的短查询」与「批量入库」
+# 之上再留一档的量级（connect_timeout 管建连，这两项管的是一段对话里的收发）。
+IO_TIMEOUT_S = 10
+
 # 开发环境默认值，与 deploy/docker-compose.yml 的 mysql 服务一致。
 # 生产按技术方案附录 B 走 .env，真实值不入仓库。
 DEFAULT_CONFIG = {
@@ -46,6 +53,9 @@ DEFAULT_CONFIG = {
     "charset": "utf8mb4",
     # 连不上时快速失败：单测用它在收集阶段判断要不要跳过，不能拖慢整个测试
     "connect_timeout": 3,
+    # 有界失败（见 IO_TIMEOUT_S）：两条连接（业务/账号）都经本表，故一处生效两处
+    "read_timeout": IO_TIMEOUT_S,
+    "write_timeout": IO_TIMEOUT_S,
 }
 
 # schema.sql 在仓库根下，不在 backend 里——它是部署产物，与容器配置同处 deploy/

@@ -1,8 +1,10 @@
 """③a 的环境自检：把"我以为环境是好的"变成可复核的输出。
 
 存在的理由：③a 依赖六个外部东西（两个容器、两个本地模型、一个本地 LLM、一个外部 API 密钥），
-任何一样没到位，报错都会出现在链路深处且面目模糊——比如缺了 sparse_linear.pt 会让检索
-安静地退化而不是抛错。开工前先跑本脚本，比在 answer.py 里 debug 便宜得多。
+任务 6 起多一项限流加盐值（缺了它公开端点全 500），终审 I-5 起再多一项 JWT 签名密钥
+（缺了它服务**起不来**）—— 任何一样没到位，报错都会出现在链路深处且面目模糊，比如缺了
+sparse_linear.pt 会让检索安静地退化而不是抛错，缺盐则要等第一个公众请求才响亮。
+开工前先跑本脚本，比在 answer.py 里 debug 便宜得多。
 
 用法：cd D:/xinzg6/fl && python tools/check_env.py
 """
@@ -84,6 +86,43 @@ def _check_reranker() -> tuple[bool, str]:
     return True, f"编码器 {loaded.embed_model_path}；精排 {loaded.reranker_model_path}"
 
 
+def _check_rate_salt() -> tuple[bool, str]:
+    """限流加盐值在不在、够不够长（任务 6；缺了它公开端点全 500）。
+
+    与 deepseek_key 同一条纪律：只报「有没有、多长」，**绝不回显取值** —— 盐进
+    日志等于把「不存 IP 原文」这条承诺原地作废。判定**委托** config.load_rate_salt()：
+    自检看的规则与限流中间件读的是同一个函数（缺失与过短都抛 MissingRateSaltError），
+    长度下限不在这里抄第二份，否则两边漂了自检还报 OK。
+    """
+    from app.core.config import (ENV_RATE_LIMIT_SALT, MIN_RATE_SALT_LEN,
+                                 ConfigError, load_rate_salt)
+    try:
+        salt = load_rate_salt()
+    except ConfigError as exc:
+        # 报错文案由 loader 一次说全（缺哪个变量、差多少字符），原样交出去
+        return False, str(exc)
+    return True, (f"环境变量 {ENV_RATE_LIMIT_SALT} 已设置"
+                  f"（{len(salt)} 字符 ≥ {MIN_RATE_SALT_LEN}）")
+
+
+def _check_jwt_secret() -> tuple[bool, str]:
+    """JWT 签名密钥在不在、够不够长（终审 I-5；缺了它服务起不来、登录全废）。
+
+    与 deepseek_key / rate_salt 同一条纪律：只报「有没有、多长」，**绝不回显
+    取值** —— 密钥进日志等于泄露。判定**委托** security.load_secret()：lifespan
+    启动自检与这里读的是同一个函数，长度下限不抄第二份，否则两边漂了自检还报 OK。
+    """
+    from app.core.security import (JWT_SECRET_ENV, MIN_SECRET_LEN,
+                                   MissingSecretError, load_secret)
+    try:
+        secret = load_secret()
+    except MissingSecretError as exc:
+        # 报错文案由 loader 一次说全（缺哪个变量、差多少字符），原样交出去
+        return False, str(exc)
+    return True, (f"环境变量 {JWT_SECRET_ENV} 已设置"
+                  f"（{len(secret)} 字符 ≥ {MIN_SECRET_LEN}）")
+
+
 # (检查项名, 检查函数)。名字会被测试断言，改名等于改契约
 CHECKS = [
     ("cuda", _check_cuda),
@@ -92,6 +131,8 @@ CHECKS = [
     ("ollama", _check_ollama),
     ("deepseek_key", _check_deepseek_key),
     ("reranker", _check_reranker),
+    ("rate_salt", _check_rate_salt),
+    ("jwt_secret", _check_jwt_secret),
 ]
 
 

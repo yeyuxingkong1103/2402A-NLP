@@ -12,10 +12,12 @@
 路径谓词后，「哪些路径受限」是一份可测的清单（test_main_ratelimit 的矩阵用例逐个钉）。
 
 三条判定与它们的边界（都是设计 §六 表的原文，取舍见各自注释与任务 6 报告）：
-  ①限流窗口：只覆盖匿名可读的三条路径（/public/qa、/lawyers/recommend、/law/*）；
-  ②并发上限：只覆盖其中走检索/生成的那两条（/law/* 不计 —— 另一个成本模型）；
-  ③/healthz、/auth/login 与律师侧全部不受限：前者被 429 会与「实例不健康」在监控上
-    不可分；后两者是内网自己人，卡它等于让一个人的长问句把同事挡在门外。
+  ①限流窗口：匿名可读的三条（/public/qa、/lawyers/recommend、/law/*）**加 /auth/login**
+    （终审 I-3：登录匿名可达、每次 ~40ms scrypt、与律师侧共用 40 worker，不限流时既能
+    无上限撞库又能打满线程池）；
+  ②并发上限：只覆盖走检索/生成的那两条（/law/* 不计 —— 另一个成本模型；登录也不占）；
+  ③/healthz 与律师侧不受限：前者被 429 会与「实例不健康」在监控上不可分；后者是
+    内网自己人，卡它等于让一个人的长问句把同事挡在门外。
 """
 from __future__ import annotations
 
@@ -45,6 +47,11 @@ PUBLIC_READ_PREFIXES = ("/api/v1/public/", "/api/v1/lawyers/recommend",
 # 它仍留在限流窗口里，故匿名爬取仍按每 IP 计数。这是任务 6 的裁决点，报告里单列一结。
 CAP_PREFIXES = ("/api/v1/public/", "/api/v1/lawyers/recommend")
 
+# 登录端点（终审 I-3）：它匿名可达、每次 scrypt ~40ms/16MiB（DUMMY_HASH 让查无此人
+# 也照付），且与律师侧共用 AnyIO 的 40 个 worker —— 不限流时脚本可无上限撞库，还能
+# 用它打满线程池把律师侧所有 def 端点饿住（AC-14/AC-20 的缺口）。它是**精确路径**而
+# 不是前缀：/auth/ 下将来若加别的端点，默认不受限比默认受限容易发现（误伤的形态更响）。
+LOGIN_PATH = "/api/v1/auth/login"
 # 全量清扫的最小间隔（秒）：清扫是 O(键数)，而「键数到顶」正是有人在灌键的时刻 ——
 # 每个新键都全扫等于把一条内存通道换成一条 CPU 通道（见 RateLimiter._make_room）
 SWEEP_INTERVAL_S = 1.0
@@ -55,7 +62,7 @@ KEY_HEX_CHARS = 32
 
 def is_limited_path(path: str) -> bool:
     """这条路径要不要过限流窗口（**清单受限**：不认识的一律放行）。"""
-    return path.startswith(PUBLIC_READ_PREFIXES)
+    return path == LOGIN_PATH or path.startswith(PUBLIC_READ_PREFIXES)
 
 
 def is_capped_path(path: str) -> bool:

@@ -50,3 +50,9 @@ PyJWT==2.13.0
 fastapi==0.115.14
 uvicorn==0.34.3
 httpx==0.28.1
+
+# 终审修复轮（2026-10-02）补：core/audit.py 直接 import anyio（to_thread.run_sync
+# 把审计写离事件循环）—— 它本是 fastapi/starlette 的传递依赖，但本仓库对「直接
+# import 的第三方」有单列先例（httpx 同此），故锁精确版本。4.14.2 为本机 pip show
+# 实测值（2026-10-02），与传递进来的版本一致
+anyio==4.14.2

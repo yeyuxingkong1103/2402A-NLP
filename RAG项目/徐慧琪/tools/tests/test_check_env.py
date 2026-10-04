@@ -9,11 +9,13 @@ from check_env import CHECKS, check_all
 
 
 def test_check_names_cover_the_contracts_this_stage_signed():
-    # 每一项都对应一个既定承诺：容器要起、GPU 要能跑精排、密钥要能被读到。
-    # 少一项就意味着某个承诺没人验。reranker 是第六项，最容易在改名时被漏掉——
-    # 少了它，精排模型目录缺失只会让检索安静退化，不会报错。
+    # 每一项都对应一个既定承诺：容器要起、GPU 要能跑精排、密钥与限流盐要能被读到。
+    # 少一项就意味着某个承诺没人验。reranker 是最容易在改名时被漏掉的老项——
+    # 少了它，精排模型目录缺失只会让检索安静退化，不会报错；rate_salt 是任务 6
+    # 新加的一项（缺了它公开端点全 500），同样必须有人在名单上。
     names = [name for name, _, _ in check_all()]
-    for required in ("cuda", "milvus", "mysql", "ollama", "deepseek_key", "reranker"):
+    for required in ("cuda", "milvus", "mysql", "ollama", "deepseek_key", "reranker",
+                     "rate_salt", "jwt_secret"):
         assert required in names, f"自检缺少 {required}"
 
 
@@ -73,6 +75,79 @@ def test_model_check_names_each_missing_file(monkeypatch, tmp_path):
     (rerank / "model.safetensors").unlink()
     ok, detail = check_env._check_reranker()
     assert ok is False and "model.safetensors" in detail, detail
+
+
+def test_rate_salt_check_fails_loudly_when_the_env_var_is_missing(monkeypatch):
+    """缺盐当场报未通过、点名缺的变量；过短也报未通过（任务 6 的部署缺口前移）。
+
+    缺盐的后果是公开端点**全部 500**，与 deepseek_key 同一类「配置没到位」，
+    故同一条纪律：只报存在性与长度，绝不回显取值。过短那半顺带证明判定真的
+    走 config.load_rate_salt 的长度规则，而不是只看「变量非空」。
+    """
+    monkeypatch.delenv("FL_RATE_LIMIT_SALT", raising=False)
+    ok, detail = check_env._check_rate_salt()
+    assert ok is False, "缺盐必须报未通过"
+    assert "FL_RATE_LIMIT_SALT" in detail, f"要点名缺的变量，实际：{detail!r}"
+    monkeypatch.setenv("FL_RATE_LIMIT_SALT", "short")
+    ok, detail = check_env._check_rate_salt()
+    assert ok is False and "过短" in detail, f"过短的盐也必须报，实际：{detail!r}"
+
+
+def test_rate_salt_check_passes_when_set_and_never_echoes_the_value(monkeypatch):
+    """设上就 OK；且说明里不含盐的取值（回显等于把盐写进日志）。"""
+    salt = "check-env-salt-0123456789abcdef"
+    monkeypatch.setenv("FL_RATE_LIMIT_SALT", salt)
+    ok, detail = check_env._check_rate_salt()
+    assert ok is True, detail
+    assert salt not in detail, "自检说明里不许出现盐的取值"
+
+
+def test_jwt_secret_check_fails_loudly_when_the_env_var_is_missing(monkeypatch):
+    """缺密钥当场报未通过、点名缺的变量；过短也报（终审 I-5）。
+
+    缺密钥的后果是**服务起不来**（lifespan 启动自检），部署时要在起服务之前就
+    拦住 —— 与 rate_salt 同一条纪律：只报存在性与长度，绝不回显取值。
+    """
+    monkeypatch.delenv("FL_JWT_SECRET", raising=False)
+    ok, detail = check_env._check_jwt_secret()
+    assert ok is False, "缺签名密钥必须报未通过"
+    assert "FL_JWT_SECRET" in detail, f"要点名缺的变量，实际：{detail!r}"
+    monkeypatch.setenv("FL_JWT_SECRET", "short")
+    ok, detail = check_env._check_jwt_secret()
+    assert ok is False and "过短" in detail, f"过短的密钥也必须报，实际：{detail!r}"
+
+
+def test_jwt_secret_check_passes_when_set_and_never_echoes_the_value(monkeypatch):
+    """设上就 OK；且说明里不含密钥取值（回显等于把密钥写进日志）。"""
+    secret = "check-env-secret-0123456789abcdef-0123456789"
+    monkeypatch.setenv("FL_JWT_SECRET", secret)
+    ok, detail = check_env._check_jwt_secret()
+    assert ok is True, detail
+    assert secret not in detail, "自检说明里不许出现密钥取值"
+
+
+def test_a_missing_jwt_secret_makes_the_cli_exit_nonzero(monkeypatch):
+    """端到端：名单只挂 jwt_secret 一项时，缺密钥 main() 退出码非 0、设上则 0。"""
+    monkeypatch.setattr(check_env, "CHECKS",
+                        [("jwt_secret", check_env._check_jwt_secret)])
+    monkeypatch.delenv("FL_JWT_SECRET", raising=False)
+    assert check_env.main() == 1, "缺密钥时退出码必须非 0（部署自检要当场拦下）"
+    monkeypatch.setenv("FL_JWT_SECRET", "check-env-secret-0123456789abcdef-0123456789")
+    assert check_env.main() == 0, "密钥设上后退出码必须是 0"
+
+
+def test_a_missing_rate_salt_makes_the_cli_exit_nonzero(monkeypatch):
+    """端到端：真 CHECKS 里的 rate_salt 项缺盐时 main() 退出码非 0、设上则 0。
+
+    名单只挂 rate_salt 一项（不跑整个 CHECKS）是为了让这条判据只依赖盐这一件事 ——
+    容器/模型好不好由别的用例与环境的实跑证明。
+    """
+    monkeypatch.setattr(check_env, "CHECKS",
+                        [("rate_salt", check_env._check_rate_salt)])
+    monkeypatch.delenv("FL_RATE_LIMIT_SALT", raising=False)
+    assert check_env.main() == 1, "缺盐时退出码必须非 0（部署自检要当场拦下）"
+    monkeypatch.setenv("FL_RATE_LIMIT_SALT", "check-env-salt-0123456789abcdef")
+    assert check_env.main() == 0, "盐设上后退出码必须是 0"
 
 
 def test_check_all_reports_failure_when_a_check_raises(monkeypatch):
