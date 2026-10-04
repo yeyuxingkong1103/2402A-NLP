@@ -1,0 +1,21 @@
+# 工单编号：人工智能NLP-RAG-实现文档质量评估Skill并集成至智能体工作流工单
+# 文档质量评估 Skill 可调参数（所有阈值配置化，不硬编码）
+
+# PDF 页面类型识别
+scan_page_char_threshold: 100      # 单页字符数低于此值 -> 扫描页
+scanned_ratio_threshold: 0.7       # 扫描页占比超过此值 -> 整个文件标记为扫描型
+
+# 文档长度分布
+length_percentiles: [25, 50, 75, 90, 99]
+length_bins: [0, 1000, 5000, 10000, 50000, 100000, 1000000]   # 字符数区间
+
+# 重复检测
+simhash_hamming_threshold: 3       # SimHash 汉明距离 <= 此值视为高相似
+simhash_bits: 64
+
+# 敏感信息检测
+detect_phone: true
+detect_email: true
+detect_id_card: true
+detect_bankcard: false             # 银行卡误报率高，默认关闭
+context_window: 40                 # 敏感信息上下文窗口（字符）

@@ -1,0 +1,8 @@
+# 工单编号：人工智能NLP-RAG-解决API服务并发瓶颈与资源泄漏工单
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: "rag-api"
+    static_configs:
+      - targets: ["api:8000"]   # 抓取 /metrics 端点
