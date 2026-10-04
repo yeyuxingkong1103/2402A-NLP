@@ -1,0 +1,23 @@
+# 金融问答系统容器编排
+# 工单编号：人工智能NLP-RAG 项目-金融问答系统部署
+services:            # 服务定义区（compose v2 已无需 version 字段）
+  rag-qa:            # 服务名：金融问答 RAG 应用
+    build: .         # 构建上下文为当前目录（使用同目录 Dockerfile 构建镜像）
+    image: rag-qa:1.0        # 构建出的镜像名与标签
+    container_name: rag-qa   # 固定容器名，方便 docker logs/exec 等操作
+    ports:
+      - "8601:8601"          # 宿主机8601 → 容器8601（与 server.py 监听端口一致）
+    environment:
+      - OLLAMA_BASE=http://host.docker.internal:11434   # 宿主机Ollama（容器内访问宿主机服务）
+      - LLM_MODEL=qwen2.5:7b-instruct   # 覆盖镜像内 ENV：LLM 模型名（优先级高于 Dockerfile）
+      - EMBED_MODEL=dengcao/bge-m3:567m # 覆盖镜像内 ENV：Embedding 模型名
+    volumes:
+      - rag-index:/app/index_store       # 关键数据卷持久化：索引不随容器删除丢失
+      - rag-logs:/app/logs               # 日志卷
+    restart: unless-stopped              # 容器异常自动重启（手动 stop 的除外）
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # Linux 宿主机网关兼容（Linux 默认无该 DNS 名，指向宿主机网关）
+
+volumes:             # 命名卷声明（由 Docker 管理，生命周期独立于容器）
+  rag-index:         # 向量索引数据卷
+  rag-logs:          # 应用日志数据卷
