@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>双招股说明书 RAG 问答</title>
+  <style>
+    :root{font-family:"Microsoft YaHei",sans-serif;color:#172033;background:#f3f6fb}
+    *{box-sizing:border-box}body{margin:0}.wrap{max-width:980px;margin:36px auto;padding:0 20px}
+    h1{margin:0 0 8px;font-size:28px}.sub{color:#64748b;margin-bottom:24px}
+    .tabs{display:flex;gap:8px;margin-bottom:16px}.tab{border:0;border-radius:9px;padding:10px 18px;background:#e2e8f0;cursor:pointer}
+    .tab.active{background:#2457d6;color:#fff}.panel{display:none}.panel.active{display:block}
+    .card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 5px 20px #1720330d}
+    textarea{width:100%;min-height:110px;resize:vertical;border:1px solid #cbd5e1;border-radius:10px;padding:14px;font:inherit}
+    button.primary{margin-top:12px;border:0;border-radius:9px;padding:11px 20px;background:#2457d6;color:#fff;cursor:pointer}
+    button:disabled{opacity:.55;cursor:wait}.answer{white-space:pre-wrap;line-height:1.75}.muted{color:#64748b;font-size:14px}
+    .error{color:#b42318;background:#fff1f0;border-radius:8px;padding:10px}.hidden{display:none}
+    details{margin-top:12px;border-top:1px solid #e2e8f0;padding-top:10px}summary{cursor:pointer;color:#2457d6}
+    .quote{margin:10px 0;padding:10px 12px;border-left:3px solid #93c5fd;background:#f8fafc;white-space:pre-wrap}
+    .feedback button{margin:8px 8px 0 0;border:1px solid #cbd5e1;background:#fff;border-radius:8px;padding:7px 12px;cursor:pointer}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.result{border:1px solid #e2e8f0;border-radius:10px;padding:14px;white-space:pre-wrap;line-height:1.6}
+    .compare{margin-top:12px;padding:12px;background:#eef4ff;border-radius:9px}.status{padding:10px 0;color:#64748b}
+    .summary{margin-top:14px;padding:14px;border-radius:10px;background:#eef4ff;line-height:1.7}.summary.pass{background:#ecfdf3;color:#067647}.summary.fail{background:#fff7ed;color:#b54708}
+    .reference{margin-top:12px;padding:10px 12px;background:#f8fafc;border-left:3px solid #94a3b8;line-height:1.6}
+    .badge{display:inline-block;margin-bottom:8px;padding:4px 9px;border-radius:999px;background:#e0e7ff;color:#3730a3;font-size:13px}
+    @media(max-width:700px){.grid{grid-template-columns:1fr}.wrap{margin-top:22px}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <h1>双招股说明书 RAG 问答</h1>
+  <div class="sub">支持兴图新科与力源信息两份招股说明书，自动识别公司并展示原文依据</div>
+  <div class="tabs">
+    <button class="tab active" data-panel="qa">文档问答</button>
+    <button class="tab" data-panel="batch">批量评测</button>
+  </div>
+
+  <section id="qa" class="panel active">
+    <div class="card">
+      <textarea id="question" placeholder="例如：武汉力源信息技术股份有限公司本次发行股数是多少？"></textarea>
+      <button id="ask" class="primary">提交问题</button>
+      <div id="qaStatus" class="status"></div>
+    </div>
+    <div id="answerCard" class="card hidden">
+      <h3>答案</h3>
+      <div id="answer" class="answer"></div>
+      <p id="timing" class="muted"></p>
+      <details><summary>查看 PDF 原文依据</summary><div id="citations"></div></details>
+      <div class="feedback"><button data-helpful="true">👍 有帮助</button><button data-helpful="false">👎 无帮助</button><span id="feedbackState" class="muted"></span></div>
+    </div>
+  </section>
+
+  <section id="batch" class="panel">
+    <div class="card">
+      <p>一次运行两份PDF的14个固定问题，对比 RAG 与纯 LLM 答案。</p>
+      <button id="runBatch" class="primary">一键批量评测</button>
+      <div id="batchStatus" class="status"></div>
+      <div id="batchSummary" class="summary hidden"></div>
+    </div>
+    <div id="batchResults"></div>
+  </section>
+</main>
+<script>
+  const $=id=>document.getElementById(id); let answerId='';
+  document.querySelectorAll('.tab').forEach(btn=>btn.onclick=()=>{
+    document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('active'));
+    btn.classList.add('active'); $(btn.dataset.panel).classList.add('active');
+  });
+  async function post(url,body){
+    const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined});
+    const data=await res.json(); if(!res.ok) throw new Error(data.detail||'请求失败'); return data;
+  }
+  $('ask').onclick=async()=>{
+    const question=$('question').value.trim(); if(!question)return;
+    $('ask').disabled=true;$('qaStatus').textContent='正在检索并生成答案…';$('answerCard').classList.add('hidden');
+    try{
+      const data=await post('/api/ask',{question}); answerId=data.answer_id;
+      $('answer').textContent=data.answer;
+      const source=data.document==='prospectus_2'?'招股说明书2.pdf':data.document==='prospectus_1'?'招股说明书1.pdf':'自动检索两份PDF';
+      $('timing').textContent=`来源：${source} · 检索 ${data.retrieval_ms} ms · DeepSeek ${data.llm_ms} ms · 总计 ${data.total_ms} ms`;
+      $('citations').replaceChildren(...data.citations.map(c=>{const d=document.createElement('div');d.className='quote';const file=c.document==='prospectus_2'?'招股说明书2.pdf':'招股说明书1.pdf';d.textContent=`${c.company} · ${file} · 第 ${c.page} 页${c.title?' · '+c.title:''}\n${c.text}`;return d}));
+      $('answerCard').classList.remove('hidden');$('qaStatus').textContent='';$('feedbackState').textContent='';
+    }catch(e){$('qaStatus').innerHTML=`<span class="error"></span>`;$('qaStatus').firstChild.textContent=e.message}
+    finally{$('ask').disabled=false}
+  };
+  document.querySelectorAll('[data-helpful]').forEach(btn=>btn.onclick=async()=>{
+    if(!answerId)return; await post('/api/feedback',{answer_id:answerId,helpful:btn.dataset.helpful==='true'});$('feedbackState').textContent='已记录';
+  });
+  $('runBatch').onclick=async()=>{
+    $('runBatch').disabled=true;$('batchStatus').textContent='正在运行 14 个问题，请稍候…';$('batchResults').replaceChildren();$('batchSummary').className='summary hidden';
+    try{
+      const data=await post('/api/benchmark');
+      const s=data.summary;const summary=$('batchSummary');summary.className=`summary ${s.target_passed?'pass':'fail'}`;
+      summary.textContent=`共${s.question_count}题 · RAG准确率：${s.rag_accuracy}% · 纯LLM：${s.llm_accuracy}% · PDF1：${s.by_document.prospectus_1}% · PDF2：${s.by_document.prospectus_2}% · 目标：≥${s.target}% · ${s.target_passed?'已达标':'未达标'}`;
+      data.results.forEach(x=>{
+        const card=document.createElement('div');card.className='card';
+        const badge=document.createElement('span');badge.className='badge';badge.textContent=x.document==='prospectus_2'?'招股说明书2 · 力源信息':'招股说明书1 · 兴图新科';card.append(badge);
+        const title=document.createElement('h3');title.textContent=`${x.id}. ${x.question}`;card.append(title);
+        if(x.error){const e=document.createElement('div');e.className='error';e.textContent=x.error;card.append(e)}else{
+          const grid=document.createElement('div');grid.className='grid';
+          const rag=document.createElement('div');rag.className='result';rag.textContent=`RAG 答案（事实命中 ${x.rag_score.score}%）\n${x.rag.answer}\n\n耗时：${x.rag.total_ms} ms`;
+          const llm=document.createElement('div');llm.className='result';llm.textContent=`纯 LLM 答案（事实命中 ${x.llm_score.score}%）\n${x.llm_answer}\n\n耗时：${x.llm_elapsed_ms} ms`;
+          grid.append(rag,llm);card.append(grid);
+          const comp=document.createElement('div');comp.className='compare';comp.textContent=`对比分析：${x.comparison}`;card.append(comp);
+        }
+        const ref=document.createElement('div');ref.className='reference';ref.textContent=`参考答案：${x.reference_answer}`;card.append(ref);$('batchResults').append(card);
+      });$('batchStatus').textContent='评测完成';
+    }catch(e){$('batchStatus').innerHTML='<span class="error"></span>';$('batchStatus').firstChild.textContent=e.message}
+    finally{$('runBatch').disabled=false}
+  };
+</script>
+</body>
+</html>
