@@ -1,0 +1,12 @@
+# 依赖清单（工单01-13 公共）
+# Python >= 3.10
+PyMuPDF>=1.24.0      # PDF 解析（工单01）
+flask>=3.0.0         # Web 问答界面（工单01）
+requests>=2.31.0     # Ollama HTTP 客户端
+numpy>=1.26.0        # 向量检索（工单01）
+jieba>=0.42.1        # 中文分词（工单06 BM25）
+rank-bm25>=0.2.2     # BM25 全文检索（工单06）
+# 工单11 微调（CPU 小规模）：
+# sentence-transformers>=3.0.0
+# 工单12 LightRAG：
+# lightrag-hku>=1.2.0
