@@ -1,0 +1,23 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>金融图谱问答</title>
+<style>body{font:17px 'Microsoft YaHei',sans-serif;background:#f3f6fc;max-width:1000px;margin:35px auto;padding:20px}section{background:white;border-radius:15px;padding:25px;margin:15px 0}textarea{width:95%;height:90px;font-size:17px;padding:12px}button,select{padding:12px;border:0;border-radius:8px;margin:8px;background:#dbeafe}button{background:#2456a6;color:white;cursor:pointer}pre{white-space:pre-wrap;font:16px 'Microsoft YaHei';line-height:1.7}small{color:#64748b}svg{width:100%;height:420px}details{padding:12px;border-bottom:1px solid #ddd}</style>
+<h1>金融图谱问答</h1><p>选择年份和机构取证，保留原文、来源及页码。</p>
+<section><h2>添加PDF</h2><input id="file" type="file" accept=".pdf"><input id="org" placeholder="机构名称"><input id="year" placeholder="年份，如2019"><button onclick="upload()">上传并更新知识库</button><small id="uploadstatus"></small></section>
+<section><textarea id="q">招商银行2019年探索了哪些创新商业模式？</textarea><br>
+<select id="mode"><option value="">原文摘录（快速）</option><option value="deepseek-r1:7b">模型生成（需Ollama）</option></select>
+<button onclick="ask()">提问 / Ask</button><small id="status"></small><pre id="answer"></pre><div id="evidence"></div></section>
+<section><h2>知识图谱</h2><select id="company" onchange="draw()"></select><svg id="graph"></svg><small>年报→金融主题，点击主题查看来源页。关系表示原文提及。</small><div id="proof"></div></section>
+<script>
+let graph; const $=id=>document.getElementById(id);
+async function ask(){ $('status').textContent='正在处理…';$('answer').textContent='';$('evidence').replaceChildren();
+ try{let r=await fetch('/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:$('q').value,model:$('mode').value})});let d=await r.json();
+ if(!r.ok)throw Error(d.detail);$('status').textContent=d.mode+' · '+d.seconds+'秒';$('answer').textContent=d.answer;
+ d.hits.forEach(h=>{let box=document.createElement('details'),title=document.createElement('summary'),body=document.createElement('pre');title.textContent=h.company+' '+h.year+' PDF第'+h.page+'页';body.textContent=h.text;box.append(title,body);$('evidence').append(box);});
+ }catch(e){$('status').textContent=e.message;}}
+async function init(){graph=await(await fetch('/graph')).json();graph.nodes.filter(n=>n.type==='年报').forEach(n=>{let o=document.createElement('option');o.value=n.id;o.textContent=n.id;$('company').append(o)});draw();}
+function draw(){let svg=$('graph');svg.replaceChildren();let name=$('company').value;let edges=graph.edges.filter(e=>e.source===name);let topics=[...new Set(edges.map(e=>e.target))];
+ const elem=(tag,attrs,text)=>{let n=document.createElementNS('http://www.w3.org/2000/svg',tag);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));if(text)n.textContent=text;svg.append(n);return n;};
+ topics.forEach((t,i)=>{let x=480+(i%2)*225,y=25+Math.floor(i/2)*55;elem('line',{x1:235,y1:200,x2:x,y2:y+18,stroke:'#cbd5e1'});elem('rect',{x,y,width:200,height:37,rx:10,fill:'#bbf7d0'});let n=elem('text',{x:x+12,y:y+25,fill:'#173264'},t);n.style.cursor='pointer';n.onclick=()=>{$('proof').textContent=edges.filter(e=>e.target===t).map(e=>e.file+' · PDF第'+e.page+'页').join('；');};});
+ elem('rect',{x:20,y:175,width:260,height:50,rx:12,fill:'#bfdbfe'});elem('text',{x:32,y:206,fill:'#173264'},name);}
+init().catch(e=>{$('proof').textContent='图谱加载失败：'+e.message;});
+async function upload(){let f=$('file').files[0];if(!f)return;$('uploadstatus').textContent='正在解析…';try{let params=new URLSearchParams({company:$('org').value,year:$('year').value,name:f.name});let r=await fetch('/upload?'+params,{method:'POST',body:f});let d=await r.json();if(!r.ok)throw Error(d.detail);$('uploadstatus').textContent='新增'+d.added_pages+'页';$('company').replaceChildren();await init();}catch(e){$('uploadstatus').textContent=e.message;}}
+</script></html>
