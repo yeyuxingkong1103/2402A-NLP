@@ -1,0 +1,22 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# PDF 原文（体积大；项目根目录放置同名文件即可复现）
+*.pdf
+!docs/**/*.pdf
+
+# 大体积产物：可由 python build_index.py 重新生成
+data/parsed/
+data/parsed_mineru/
+data/chunks/
+data/qdrant/
+data/tables/
+data/eval/*.json
+logs/
+
+# 建库前人工抽取的 PDF 纯文本（仅用于答案核对，非交付物）
+_extract/
+
+# 临时文件
+.tmp_*
