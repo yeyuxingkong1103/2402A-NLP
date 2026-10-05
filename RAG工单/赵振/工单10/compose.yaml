@@ -1,0 +1,26 @@
+# 工单编号：人工智能NLP-RAG-金融问答系统部署
+name: zhaozhen-finance
+services:
+  finance:
+    container_name: zhaozhen-finance-10
+    build:
+      context: ..
+      dockerfile: 工单10/Dockerfile
+    image: zhaozhen-finance:workorder10
+    ports:
+      - "8509:8000"
+    volumes:
+      - finance-data:/app/data
+    environment:
+      OLLAMA_URL: http://host.docker.internal:11434
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+volumes:
+  finance-data:
+    external: true
+    name: zhaozhen-finance-data
+networks:
+  default:
+    external: true
+    name: zhaozhen-finance-net
