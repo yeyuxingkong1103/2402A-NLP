@@ -1,0 +1,22 @@
+# 基于 PDF 文档的问答系统优化版 (V2) - Python 依赖
+# 工单编号: 人工智能 NLP-RAG-基于 PDF 文档的问答系统优化
+
+# Web 框架
+Flask>=2.0
+
+# PDF 解析
+pdfplumber>=0.9.0
+
+# 向量检索
+scikit-learn>=1.0
+numpy>=1.20
+
+# LLM 调用
+requests>=2.25
+
+# 中文分词 (V2 查询增强必需)
+jieba>=0.42
+
+# === V2 可选升级依赖 ===
+# sentence-transformers>=2.2.0   # 预训练向量模型 (准确率更高, 需 ~100MB 下载)
+# rank-bm25>=0.2.2                # 第三方 BM25 库 (当前已内置轻量实现, 可选替换)
