@@ -1,0 +1,30 @@
+# RAG 基于 PDF 文档的问答系统（优化版）
+# 运行环境：Python 3.10 / conda 环境 langchain2
+# 所有模型均为本地 Ollama，无需外部 API Key
+
+# LangChain 核心
+langchain>=0.3,<2.0
+langchain-core
+langchain-community
+langchain-text-splitters
+langchain-ollama
+
+# 向量库
+faiss-cpu>=1.8
+
+# PDF 解析
+pymupdf>=1.24
+
+# 混合检索（BM25 词法检索）
+rank-bm25
+jieba
+
+# Web 演示界面
+streamlit>=1.37
+
+# 图表（评估可视化）
+matplotlib
+
+# 其他
+python-dotenv
+pandas
