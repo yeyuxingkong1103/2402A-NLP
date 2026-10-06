@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#05070f" />
+  <title>霓问 NEON-ASK | RAG 赛博朋克控制台</title>
+  <link rel="stylesheet" href="/assets/app.css?v=20260907-1" />
+</head>
+<body>
+  <div class="ambient ambient-grid" aria-hidden="true"></div>
+  <div class="ambient ambient-scan" aria-hidden="true"></div>
+  <div class="ambient ambient-frame" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="topbar-row">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img" aria-label="Neon Ask">
+              <path d="M9 16h12l4 6 4-6h10" />
+              <path d="M9 24h8l4 8 4-12 4 8h10" />
+              <path d="M9 32h30" />
+              <path d="M16 9v6" />
+              <path d="M24 6v8" />
+              <path d="M32 9v6" />
+            </svg>
+          </div>
+          <div class="brand-copy">
+            <div class="eyebrow">RAG PDF / 同源控制台</div>
+            <h1>霓问 NEON-ASK</h1>
+            <p>上传、构建、档案、向量、问答一体化面板</p>
+          </div>
+        </div>
+      </div>
+
+      <nav class="nav" id="topNav" aria-label="主导航">
+        <button class="nav-item is-active" type="button" data-route="upload">上传 UPLINK</button>
+        <button class="nav-item" type="button" data-route="tasks">构建协议</button>
+        <button class="nav-item" type="button" data-route="documents">档案库</button>
+        <button class="nav-item" type="button" data-route="vector-store">数据矩阵</button>
+        <button class="nav-item" type="button" data-route="chat">中枢问答</button>
+      </nav>
+
+      <div class="status-strip" aria-label="系统状态">
+        <span class="status-chip status-online" id="connectionStatus">API READY</span>
+        <span class="stat">TASK <strong id="statTask">0</strong></span>
+        <span class="stat">DOC <strong id="statDoc">0</strong></span>
+        <span class="stat">VEC <strong id="statVec">0</strong></span>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="view is-active" id="route-upload" data-route="upload">
+        <div class="view-head">
+          <div>
+            <p class="eyebrow">UPLINK</p>
+            <h2>传送门 UPLINK</h2>
+            <p class="view-desc">拖入 PDF 文档，系统会自动生成文档与构建任务，但不会替你自动开工。</p>
+          </div>
+        </div>
+
+        <div class="panel-grid upload-grid">
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <h3>接入文件</h3>
+                <p>只接受 PDF，单文件不超过 100MB。</p>
+              </div>
+              <span class="panel-kicker">UPLOAD</span>
+            </div>
+
+            <div class="dropzone" id="dropzone">
+              <input id="uploadFile" type="file" accept="application/pdf" hidden />
+              <div class="dropzone-visual" aria-hidden="true">
+                <svg viewBox="0 0 120 120">
+                  <path d="M30 34h36l18 18v34H30z" />
+                  <path d="M66 34v18h18" />
+                  <path d="M42 68h36M42 80h24" />
+                  <path d="M60 24v28M52 32l8-8 8 8" />
+                </svg>
+              </div>
+              <h3>拖拽 PDF 到这里，或者直接点选</h3>
+              <p>上传后将创建文档记录与任务记录，随后你可以手动启动构建协议。</p>
+              <div class="button-row">
+                <button class="btn btn-primary" id="pickFileBtn" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+                  选择 PDF
+                </button>
+                <button class="btn btn-secondary" id="uploadBtn" type="button" disabled>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v10M8 9l4-4 4 4" /><path d="M6 19h12" /></svg>
+                  上传并创建任务
+                </button>
+              </div>
+              <div class="field-help" id="pickedFileName">尚未选择文件</div>
+            </div>
+
+            <div class="progress-shell">
+              <div class="progress-bar">
+                <div class="progress-fill" id="uploadProgressFill"></div>
+              </div>
+              <div class="progress-text" id="uploadProgressText">等待文件接入</div>
+            </div>
+
+            <div class="result-panel" id="uploadResult">
+              <div class="result-title">接入记录</div>
+              <div class="result-body" id="uploadResultBody">尚未上传任何 PDF。</div>
+              <div class="button-row is-hidden" id="uploadActionBar">
+                <button class="btn btn-primary" id="uploadLaunchBtn" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l10 7-10 7z" /></svg>
+                  启动构建
+                </button>
+                <button class="btn btn-ghost" id="uploadLaterBtn" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v6l4 2" /><path d="M12 21a9 9 0 1 0-9-9" /></svg>
+                  稍后处理
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <aside class="panel">
+            <div class="panel-head">
+              <div>
+                <h3>接入说明</h3>
+                <p>先上传，再启动。这里不会偷偷替你跑任务。</p>
+              </div>
+              <span class="panel-kicker">GUIDE</span>
+            </div>
+
+            <div class="empty-state compact">
+              <div class="empty-art" data-empty="upload"></div>
+              <h3>等待数据接入</h3>
+              <p>上传 PDF 后，系统会先建立文档和任务记录，再由你手动启动构建协议。</p>
+            </div>
+
+            <div class="mini-panel">
+              <div class="mini-panel-head">
+                <h4>最近任务</h4>
+                <span class="panel-kicker">LOCAL</span>
+              </div>
+              <div class="mini-list" id="recentUploadList"></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" id="route-tasks" data-route="tasks">
+        <div class="view-head">
+          <div>
+            <p class="eyebrow">BUILD-PROTOCOL</p>
+            <h2>构建协议</h2>
+            <p class="view-desc">解析、清洗、分块、向量化、入库的实时进度面板。</p>
+          </div>
+        </div>
+
+        <div class="panel-grid tasks-grid">
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <h3>步骤面板</h3>
+                <p>系统会自动跟随当前任务，只展示处理步骤和进度。</p>
+              </div>
+              <span class="panel-kicker">PROCESS</span>
+            </div>
+
+            <div class="progress-shell">
+              <div class="progress-bar">
+                <div class="progress-fill" id="taskProgressFill"></div>
+              </div>
+              <div class="progress-text" id="taskProgressText">请先上传并启动构建。</div>
+            </div>
+
+            <div class="task-steps" id="taskSteps" aria-live="polite"></div>
+
+            <div class="task-alert" id="taskStatusLine">等待任务信号。</div>
+
+            <details class="detail-box">
+              <summary>故障信息</summary>
+              <pre id="taskError">暂无错误。</pre>
+            </details>
+          </article>
+
+          <aside class="panel">
+            <div class="panel-head">
+              <div>
+                <h3>最近任务</h3>
+                <p>本地会话里保存着最近处理过的文档。</p>
+              </div>
+              <button class="icon-btn" id="refreshRecentTasksBtn" type="button" aria-label="刷新最近任务">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66" /><path d="M20 4v6h-6" /></svg>
+              </button>
+            </div>
+            <div class="mini-list" id="recentTaskList"></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" id="route-documents" data-route="documents">
+        <div class="view-head">
+          <div>
+            <p class="eyebrow">ARCHIVE</p>
+            <h2>档案库</h2>
+            <p class="view-desc">查看已上传文档的状态，并快速回到关联任务。</p>
+          </div>
+        </div>
+
+        <article class="panel">
+          <div class="panel-head">
+            <div>
+              <h3>文档列表</h3>
+              <p>文档状态来自后端，任务关联来自本地最近任务记录。</p>
+            </div>
+            <div class="toolbar-inline">
+              <span class="panel-kicker" id="documentCount">0 DOCUMENTS</span>
+              <button class="icon-btn" id="refreshDocumentsBtn" type="button" aria-label="刷新文档">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66" /><path d="M20 4v6h-6" /></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="empty-state" id="documentsEmpty">
+            <div class="empty-art" data-empty="documents"></div>
+            <h3>档案库为空</h3>
+            <p>还没有可展示的文档，先去上传一份 PDF 吧。</p>
+          </div>
+
+          <div class="doc-grid" id="documentGrid"></div>
+        </article>
+      </section>
+
+      <section class="view" id="route-vector-store" data-route="vector-store">
+        <div class="view-head">
+          <div>
+            <p class="eyebrow">VECTOR-MATRIX</p>
+            <h2>数据矩阵</h2>
+            <p class="view-desc">按类别、关键字和来源查看向量库中的分块记录。</p>
+          </div>
+        </div>
+
+        <article class="panel">
+          <div class="panel-head">
+            <div>
+              <h3>分块检索</h3>
+              <p>类别筛选和本地搜索一起工作，方便快速定位证据。</p>
+            </div>
+            <div class="toolbar-inline">
+              <span class="panel-kicker" id="vectorSummary">0 RECORDS</span>
+              <button class="icon-btn" id="refreshVectorsBtn" type="button" aria-label="刷新向量库">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66" /><path d="M20 4v6h-6" /></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="vector-toolbar">
+            <div class="field field-inline grow">
+              <span class="label">搜索</span>
+              <label class="search-box">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z" /><path d="M16.2 16.2 21 21" /></svg>
+                <input id="vectorSearchInput" type="search" placeholder="在 text / 片段中搜索" autocomplete="off" />
+              </label>
+            </div>
+          </div>
+
+          <div class="chip-row" id="vectorCategoryChips" aria-label="类别筛选"></div>
+          <div class="vector-note" id="vectorLimitNote"></div>
+          <div class="vector-list" id="vectorRecordList"></div>
+        </article>
+      </section>
+
+      <section class="view" id="route-chat" data-route="chat">
+        <div class="view-head">
+          <div>
+            <p class="eyebrow">NEXUS-CHAT</p>
+            <h2>中枢问答</h2>
+            <p class="view-desc">对话、引用、证据展开都在这里。回答会等待本地 Ollama 完成。</p>
+          </div>
+        </div>
+
+        <div class="chat-layout">
+          <aside class="panel chat-sidebar">
+            <div class="panel-head">
+              <div>
+                <h3>会话</h3>
+                <p>本地保存，可新建、切换、删除。</p>
+              </div>
+              <button class="btn btn-ghost compact" id="newConversationBtn" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+                新建
+              </button>
+            </div>
+            <div class="conversation-list" id="conversationList"></div>
+          </aside>
+
+          <article class="panel chat-main">
+            <div class="panel-head">
+              <div>
+                <h3>对话流</h3>
+                <p>同步接口最长 120 秒。等待期间会保留终端感加载状态。</p>
+              </div>
+              <div class="button-row">
+                <button class="btn btn-ghost compact" id="copyLastAnswerBtn" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9h10v10H9z" /><path d="M5 5h10v10H5z" /></svg>
+                  复制回答
+                </button>
+                <button class="btn btn-ghost compact" id="clearConversationBtn" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12" /><path d="M9 7V5h6v2" /><path d="M8 7l1 12h6l1-12" /></svg>
+                  清空
+                </button>
+              </div>
+            </div>
+
+            <div class="chat-status" id="chatStatus">等待输入问题。</div>
+            <div class="chat-stream" id="chatStream" aria-live="polite"></div>
+            <div class="citation-panel" id="citationPanel"></div>
+
+            <form class="composer" id="chatForm">
+              <label class="field">
+                <span class="label">问题</span>
+                <textarea id="chatInput" rows="4" placeholder="请输入想问的问题，Ctrl+Enter 发送。"></textarea>
+              </label>
+              <div class="button-row">
+                <button class="btn btn-primary" id="chatSendBtn" type="submit">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l14-7-4 14-3-6-7-1z" /></svg>
+                  发送提问
+                </button>
+              </div>
+            </form>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/assets/app.js?v=20260907-1"></script>
+</body>
+</html>
