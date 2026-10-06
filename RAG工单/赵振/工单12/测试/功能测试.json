@@ -1,0 +1,305 @@
+[
+  {
+    "item": "11 Python syntax",
+    "passed": true,
+    "lines": 170
+  },
+  {
+    "item": "12 Python syntax",
+    "passed": true,
+    "lines": 259
+  },
+  {
+    "item": "GET HTML",
+    "passed": true,
+    "seconds": 0.008,
+    "status": 200
+  },
+  {
+    "item": "persisted graph API",
+    "passed": true,
+    "nodes": 55,
+    "edges": 44
+  },
+  {
+    "item": "RAG POST retrieval",
+    "passed": true,
+    "seconds": 0.168,
+    "chunks": 3,
+    "raw": {
+      "status": "success",
+      "message": "Query processed successfully",
+      "data": {
+        "entities": [],
+        "relationships": [],
+        "chunks": [
+          {
+            "reference_id": "1",
+            "content": "武汉力源信息技术股份有限公司。向客户发货。B、若客户向公司提出希望获得技术支持，如参考设计方案，则公司内部经过对客户需求的评估之后进行研发立项，并通过研发方案推动客户向公司采购产品，进而达成销售。大客户销售的流程图如下：",
+            "file_path": "招股说明书2.pdf#PDF页114",
+            "chunk_id": "chunk-f55986f6532e10ba54211fb43d32c378"
+          },
+          {
+            "reference_id": "2",
+            "content": "武汉力源信息技术股份有限公司。理，负责与渠道经销商共同策划区域市场宣传和开发，负责协调区域市场秩序管理，负责协调公司产品方案的区域市场开发，负责组织对渠道经销商的技术支持、商务支持，完成公司计划的销售任务。电话及网络销售部：负责对大众市场客户提供直接支持和销售，负责收集客户资料并登记入公司客户资料库，负责回复客户技术、商务相关咨询，负责接洽客户需求并进行询价、订单、合同、付款等操作，负责向目标客户进行产品和产品方案推广，完成公司计划的销售任务指标。大客户销售部：负责对锁定客户的全面支持和销售，负责选定区域大客户或行业大客户，负责跟踪客户生产需求和研发信息，负责协调公司与大客户之间的产品方案项目研发，负责对目标客户进行产品推广和产品方案推广，负责客户信用额度管理和应收账管理，完成公司计划的销售任务。本公司的客户均为工业控制应用领域的中小电子工业企业，本公司大客户指的是向本公司采购金额较大的中小电子工业企业，一般为各细分领域的龙头企业。",
+            "file_path": "招股说明书2.pdf#PDF页40",
+            "chunk_id": "chunk-1cdff69148449e1ba867f8321fda69f8"
+          },
+          {
+            "reference_id": "3",
+            "content": "武汉力源信息技术股份有限公司。26个合作零售网点的完整销售体系。本公司以电话/网络销售服务于远程不见面客户，以销售处主动向大客户提供更加贴身的服务，以渠道销售充分利用中国庞大的IC分销商体系将产品渗透至市场各个角落，全面服务于中国这一庞大而复杂的多元化市场。公司建有支持销售过程和销售数据处理的信息系统，用以处理库存、订单、销售等业务环节的海量数据，并计划利用本次公开发行融资的机会，建设以SAP",
+            "file_path": "招股说明书2.pdf#PDF页149",
+            "chunk_id": "chunk-2119bf9cb3534c8b5b82b040307bb9f3"
+          }
+        ],
+        "references": [
+          {
+            "reference_id": "1",
+            "file_path": "招股说明书2.pdf#PDF页114"
+          },
+          {
+            "reference_id": "2",
+            "file_path": "招股说明书2.pdf#PDF页40"
+          },
+          {
+            "reference_id": "3",
+            "file_path": "招股说明书2.pdf#PDF页149"
+          }
+        ]
+      },
+      "metadata": {
+        "query_mode": "naive",
+        "keywords": {
+          "high_level": [],
+          "low_level": []
+        },
+        "processing_info": {
+          "total_chunks_found": 3,
+          "final_chunks_count": 3
+        }
+      }
+    }
+  },
+  {
+    "item": "LightRAG POST retrieval",
+    "passed": true,
+    "seconds": 0.062,
+    "chunks": 3,
+    "raw": {
+      "status": "success",
+      "message": "Query processed successfully",
+      "data": {
+        "entities": [
+          {
+            "entity_name": "武汉销售处",
+            "entity_type": "部门",
+            "description": "武汉销售处：图像人工校验（PDF第39页组织结构连线）：销售部下设电话及网络销售部、渠道销售部、大客户销售部、国际贸易部。大客户销售部下设珠海销售处、深圳销售处、北京销售处、武汉销售处、广州销售处、成都销售处。",
+            "source_id": "chunk-f8999bab29626ea70fb18375c9beeb84",
+            "file_path": "招股说明书2.pdf#PDF页39",
+            "created_at": 1791285141
+          },
+          {
+            "entity_name": "大客户销售部",
+            "entity_type": "部门",
+            "description": "大客户销售部：图像人工校验（PDF第39页组织结构连线）：销售部下设电话及网络销售部、渠道销售部、大客户销售部、国际贸易部。大客户销售部下设珠海销售处、深圳销售处、北京销售处、武汉销售处、广州销售处、成都销售处。",
+            "source_id": "chunk-f8999bab29626ea70fb18375c9beeb84",
+            "file_path": "招股说明书2.pdf#PDF页39",
+            "created_at": 1791285141
+          },
+          {
+            "entity_name": "销售部",
+            "entity_type": "部门",
+            "description": "销售部：图像人工校验（PDF第39页组织结构连线）：销售部下设电话及网络销售部、渠道销售部、大客户销售部、国际贸易部。大客户销售部下设珠海销售处、深圳销售处、北京销售处、武汉销售处、广州销售处、成都销售处。",
+            "source_id": "chunk-f8999bab29626ea70fb18375c9beeb84",
+            "file_path": "招股说明书2.pdf#PDF页39",
+            "created_at": 1791285141
+          },
+          {
+            "entity_name": "成都销售处",
+            "entity_type": "部门",
+            "description": "成都销售处：图像人工校验（PDF第39页组织结构连线）：销售部下设电话及网络销售部、渠道销售部、大客户销售部、国际贸易部。大客户销售部下设珠海销售处、深圳销售处、北京销售处、武汉销售处、广州销售处、成都销售处。",
+            "source_id": "chunk-f8999bab29626ea70fb18375c9beeb84",
+            "file_path": "招股说明书2.pdf#PDF页39",
+            "created_at": 1791285141
+          },
+          {
+            "entity_name": "渠道销售部",
+            "entity_type": "部门",
+            "description": "渠道销售部：图像人工校验（PDF第39页组织结构连线）：销售部下设电话及网络销售部、渠道销售部、大客户销售部、国际贸易部。大客户销售部下设珠海销售处、深圳销售处、北京销售处、武汉销售处、广州销售处、成都销售处。",
+            "source_id": "chunk-f8999bab29626ea70fb18375c9beeb84",
+            "file_path": "招股说明书2.pdf#PDF页39",
+            "created_at": 1791285141
+          },
+          {
+            "entity_name": "国际贸易部",
+            "entity_type": "部门",
+            "description": "国际贸易部：图像人工校验（PDF第39页组织结构连线）：销售部下设电话及网络销售部、渠道销售部、大客户销售部、国际贸易部。大客户销售部下设珠海销售处、深圳销售处、北京销售处、武汉销售处、广州销售处、成都销售处。",
+            "source_id": "chunk-f8999bab29626ea70fb18375c9beeb84",
+            "file_path": "招股说明书2.pdf#PDF页39",
+            "created_at": 1791285141
+          },
+          {
+            "entity_name": "广州销售处",
+            "entity_type": "部门",
+            "description": "广州销售处：图像人工校验（PDF第39页组织结构连线）：销售部下设电话及网络销售部、渠道销售部、大客户销售部、国际贸易部。大客户销售部下设珠海销售处、深圳销售处、北京销售处、武汉销售处、广州销售处、成都销售处。",
+            "source_id": "chunk-f8999bab29626ea70fb18375c9beeb84",
+            "file_path": "招股说明书2.pdf#PDF页39",
+            "created_at": 1791285141
+          },
+          {
+            "entity_name": "珠海销售处",
+            "entity_type": "部门",
+            "description": "珠海销售处：图像人工校验（PDF第39页组织结构连线）：销售部下设电话及网络销售部、渠道销售部、大客户销售部、国际贸易部。大客户销售部下设珠海销售处、深圳销售处、北京销售处、武汉销售处、广州销售处、成都销售处。",
+            "source_id": "chunk-f8999bab29626ea70fb18375c9beeb84",
+            "file_path": "招股说明书2.pdf#PDF页39",
+            "created_at": 1791285141
+          }
+        ],
+        "relationships": [
+          {
+            "src_id": "本次发行股数",
+            "tgt_id": "武汉力源信息技术股份有限公司",
+            "description": "发行股数1,670万股，占发行后总股本的比例为25.04%",
+            "keywords": "发行规模",
+            "weight": 1.0,
+            "source_id": "chunk-da108ca08b09c315bd71cdaebbb739bf",
+            "file_path": "招股说明书2.pdf#PDF页22",
+            "created_at": 1791285141
+          },
+          {
+            "src_id": "大客户销售部",
+            "tgt_id": "销售部",
+            "description": "图像人工校验（PDF第39页组织结构连线）：销售部下设电话及网络销售部、渠道销售部、大客户销售部、国际贸易部。大客户销售部下设珠海销售处、深圳销售处、北京销售处、武汉销售处、广州销售处、成都销售处。",
+            "keywords": "下设",
+            "weight": 1.0,
+            "source_id": "chunk-f8999bab29626ea70fb18375c9beeb84",
+            "file_path": "招股说明书2.pdf#PDF页39",
+            "created_at": 1791285141
+          },
+          {
+            "src_id": "仓储及物流中心",
+            "tgt_id": "武汉力源信息技术股份有限公司",
+            "description": "本次募集资金拟投资以下项目：序号项目名称计划总投资(万元)1仓储及物流中心3,393.402研发中心1,526.383电子商务平台2,492.784扩充产品种类和数量9,000.005其他与主营业务相关的营运资金[◆]",
+            "keywords": "募资投资",
+            "weight": 1.0,
+            "source_id": "chunk-f7ca670d1845a1a6e493628cd5397ec2",
+            "file_path": "招股说明书2.pdf#PDF页22",
+            "created_at": 1791285141
+          },
+          {
+            "src_id": "渠道销售部",
+            "tgt_id": "销售部",
+            "description": "图像人工校验（PDF第39页组织结构连线）：销售部下设电话及网络销售部、渠道销售部、大客户销售部、国际贸易部。大客户销售部下设珠海销售处、深圳销售处、北京销售处、武汉销售处、广州销售处、成都销售处。",
+            "keywords": "下设",
+            "weight": 1.0,
+            "source_id": "chunk-f8999bab29626ea70fb18375c9beeb84",
+            "file_path": "招股说明书2.pdf#PDF页39",
+            "created_at": 1791285141
+          },
+          {
+            "src_id": "武汉力源信息技术股份有限公司",
+            "tgt_id": "研发中心",
+            "description": "本次募集资金拟投资以下项目：序号项目名称计划总投资(万元)1仓储及物流中心3,393.402研发中心1,526.383电子商务平台2,492.784扩充产品种类和数量9,000.005其他与主营业务相关的营运资金[◆]",
+            "keywords": "募资投资",
+            "weight": 1.0,
+            "source_id": "chunk-f7ca670d1845a1a6e493628cd5397ec2",
+            "file_path": "招股说明书2.pdf#PDF页22",
+            "created_at": 1791285141
+          },
+          {
+            "src_id": "国际贸易部",
+            "tgt_id": "销售部",
+            "description": "图像人工校验（PDF第39页组织结构连线）：销售部下设电话及网络销售部、渠道销售部、大客户销售部、国际贸易部。大客户销售部下设珠海销售处、深圳销售处、北京销售处、武汉销售处、广州销售处、成都销售处。",
+            "keywords": "下设",
+            "weight": 1.0,
+            "source_id": "chunk-f8999bab29626ea70fb18375c9beeb84",
+            "file_path": "招股说明书2.pdf#PDF页39",
+            "created_at": 1791285141
+          },
+          {
+            "src_id": "武汉力源信息技术股份有限公司",
+            "tgt_id": "电子商务平台",
+            "description": "本次募集资金拟投资以下项目：序号项目名称计划总投资(万元)1仓储及物流中心3,393.402研发中心1,526.383电子商务平台2,492.784扩充产品种类和数量9,000.005其他与主营业务相关的营运资金[◆]",
+            "keywords": "募资投资",
+            "weight": 1.0,
+            "source_id": "chunk-f7ca670d1845a1a6e493628cd5397ec2",
+            "file_path": "招股说明书2.pdf#PDF页22",
+            "created_at": 1791285141
+          },
+          {
+            "src_id": "大客户销售部",
+            "tgt_id": "成都销售处",
+            "description": "图像人工校验（PDF第39页组织结构连线）：销售部下设电话及网络销售部、渠道销售部、大客户销售部、国际贸易部。大客户销售部下设珠海销售处、深圳销售处、北京销售处、武汉销售处、广州销售处、成都销售处。",
+            "keywords": "下设",
+            "weight": 1.0,
+            "source_id": "chunk-f8999bab29626ea70fb18375c9beeb84",
+            "file_path": "招股说明书2.pdf#PDF页39",
+            "created_at": 1791285141
+          }
+        ],
+        "chunks": [
+          {
+            "reference_id": "1",
+            "content": "武汉力源信息技术股份有限公司。向客户发货。B、若客户向公司提出希望获得技术支持，如参考设计方案，则公司内部经过对客户需求的评估之后进行研发立项，并通过研发方案推动客户向公司采购产品，进而达成销售。大客户销售的流程图如下：",
+            "file_path": "招股说明书2.pdf#PDF页114",
+            "chunk_id": "chunk-f55986f6532e10ba54211fb43d32c378"
+          },
+          {
+            "reference_id": "2",
+            "content": "人工校验原文：图像人工校验（PDF第39页组织结构连线）：销售部下设电话及网络销售部、渠道销售部、大客户销售部、国际贸易部。大客户销售部下设珠海销售处、深圳销售处、北京销售处、武汉销售处、广州销售处、成都销售处。",
+            "file_path": "招股说明书2.pdf#PDF页39",
+            "chunk_id": "chunk-f8999bab29626ea70fb18375c9beeb84"
+          },
+          {
+            "reference_id": "3",
+            "content": "人工校验原文：本次募集资金拟投资以下项目：序号项目名称计划总投资(万元)1仓储及物流中心3,393.402研发中心1,526.383电子商务平台2,492.784扩充产品种类和数量9,000.005其他与主营业务相关的营运资金[◆]",
+            "file_path": "招股说明书2.pdf#PDF页22",
+            "chunk_id": "chunk-f7ca670d1845a1a6e493628cd5397ec2"
+          }
+        ],
+        "references": [
+          {
+            "reference_id": "1",
+            "file_path": "招股说明书2.pdf#PDF页114"
+          },
+          {
+            "reference_id": "2",
+            "file_path": "招股说明书2.pdf#PDF页39"
+          },
+          {
+            "reference_id": "3",
+            "file_path": "招股说明书2.pdf#PDF页22"
+          }
+        ]
+      },
+      "metadata": {
+        "query_mode": "mix",
+        "keywords": {
+          "high_level": [
+            "组织",
+            "销售"
+          ],
+          "low_level": [
+            "武汉力源信息技术股份有限公司组织结构图中",
+            "销售部",
+            "销售部"
+          ]
+        },
+        "processing_info": {
+          "total_entities_found": 12,
+          "total_relations_found": 24,
+          "entities_after_truncation": 8,
+          "relations_after_truncation": 8,
+          "merged_chunks_count": 6,
+          "final_chunks_count": 3
+        }
+      }
+    }
+  },
+  {
+    "item": "invalid short question",
+    "passed": true,
+    "status": 400,
+    "raw": "{\"detail\":\"问题需为3到500个字符。\"}"
+  }
+]
