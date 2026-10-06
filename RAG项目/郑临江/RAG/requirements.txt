@@ -1,0 +1,40 @@
+# ============================================================
+# 依赖说明（仅作记录，勿在本项目内安装/升级，避免改动现有环境）
+#
+# rag2 包内各模块与 RAG_1 共用 conda 环境 rags_（D:\an\envs\rags_），
+# 以下依赖已在该环境中存在，版本仅供参考。
+# ============================================================
+
+pymilvus>=3.0.0          # Milvus 向量数据库客户端（rag2.hybrid_retriever 稠密路）
+jieba>=0.42.1            # 中文分词（rag2.hybrid_retriever BM25 关键词路）
+pymysql>=1.1.0           # MySQL 客户端（rag2.mysql_client）
+pdfplumber>=0.11         # PDF 表格抽取（rag2.pdf_table）
+
+# 可选：rag2.ragas_eval 结果评估（RAGAS 0.4.x，接本地 Ollama + 本地 bge-m3）
+ragas>=0.4               # RAG 评估指标（faithfulness / context_precision ...）
+openai>=1.0              # OpenAI 兼容客户端（连 Ollama / vLLM / DeepSeek 等）
+
+# 可选：使用 embed_model 参数懒加载本地向量化模型时（rag2.pipeline / hybrid_retriever）
+sentence-transformers>=6.0.0
+
+# ------------------------------------------------------------
+# 在线阶段（rag2.server / online_chat / redis_memory / llm_client）
+# 说明：均已存在于 rags_ 环境（D:\an\envs\rags_），版本仅供参考
+# ------------------------------------------------------------
+fastapi>=0.110            # Web 服务 + SSE 流式（rag2.server）
+uvicorn>=0.30             # ASGI 服务器
+redis>=5.0                # Redis 短期记忆客户端（rag2.redis_memory）
+httpx>=0.27               # 服务探测（deploy/start.* 里检查 Ollama）
+python-multipart>=0.0.9   # 表单上传（预留）
+pyyaml>=6.0               # 读取 config.yaml / roles.yaml（rag2.config / roles）
+openai>=1.0               # LLM 客户端（rag2.llm_client，连 Ollama）
+
+# 可选：hybrid_retriever 使用 rerank_model 做交叉编码器重排时
+#   依赖同上 sentence-transformers（CrossEncoder）；权重路径：
+#       D:\modelscope\bge-reranker-v2-m3（BAAI，XLMRobertaForSequenceClassification）
+
+# 说明：rag2.data_type / rag2.mineru_parser / rag2.store 仅依赖标准库
+#       （store 用 sqlite3，零额外依赖，即“离线数据库”的基础）；
+#       mineru_parser 实际解析需 mineru 环境（D:\an\envs\mineru）已安装；
+#       ocr 需 paddleocr（PaddleOCR-VL，已装于 ocr_ 环境 D:\an\envs\ocr_）：
+#           paddleocr==3.7.0  paddlepaddle==3.3.1  paddlex==3.7.2

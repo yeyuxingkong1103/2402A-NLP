@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RAG2 在线问答</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<div id="login-mask" class="mask">
+  <form class="login-card" id="login-form">
+    <h1>RAG2 在线问答</h1>
+    <p class="sub">多用户 · 多角色 · 多轮对话 · Redis 短期记忆</p>
+    <label>用户名
+      <input id="login-user" autocomplete="username" placeholder="输入任意用户名，无需密码" />
+    </label>
+    <button type="submit" id="login-btn">进入</button>
+    <div class="hint">用户名即身份：不同用户名之间会话与记忆完全隔离</div>
+    <div class="error" id="login-error"></div>
+  </form>
+</div>
+
+<div class="layout" id="layout" hidden>
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="logo">◎</span>
+      <div>
+        <div class="title">RAG2</div>
+        <div class="tiny" id="user-line">-</div>
+      </div>
+    </div>
+    <button class="new-session" id="btn-new">＋ 新建会话</button>
+    <div class="section-title">我的会话</div>
+    <div class="session-list" id="session-list"></div>
+    <div class="sidebar-foot">
+      <div class="foot-actions">
+        <button class="ghost" id="btn-logout">退出登录</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="role-picker" id="role-picker"></div>
+    </header>
+    <section class="chat" id="chat"></section>
+    <footer class="composer">
+      <textarea id="input" rows="2" placeholder="输入问题，Enter 发送，Shift+Enter 换行"></textarea>
+      <button id="btn-send">发送</button>
+    </footer>
+  </main>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
