@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <title>Graph RAG 金融问答</title>
+    <style>
+        body { font-family: "Microsoft YaHei", Arial, sans-serif; background: #fdf4ff; margin: 0; padding: 0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; height: 100vh; }
+        h1 { color: #7c3aed; font-size: 20px; border-bottom: 2px solid #7c3aed; padding-bottom: 8px; margin: 0 0 15px 0; }
+        .v8-badge { background: #7c3aed; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-left: 8px; }
+        .panel { background: #fff; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .chat-area { height: calc(100vh - 160px); overflow-y: auto; }
+        .msg { margin-bottom: 10px; }
+        .msg.user { text-align: right; }
+        .msg.user .bubble { background: #7c3aed; color: #fff; padding: 8px 12px; border-radius: 12px 12px 3px 12px; display: inline-block; max-width: 80%; }
+        .msg.assistant .bubble { background: #f3f4f6; padding: 8px 12px; border-radius: 12px 12px 12px 3px; display: inline-block; max-width: 80%; white-space: pre-wrap; font-size: 13px; }
+        .msg .meta { font-size: 10px; color: #999; margin-top: 3px; }
+        textarea { width: 100%; min-height: 50px; padding: 8px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; resize: vertical; box-sizing: border-box; margin-top: 10px; }
+        button { background: #7c3aed; color: #fff; border: 0; padding: 8px 20px; border-radius: 6px; font-size: 13px; cursor: pointer; margin-top: 5px; }
+        button:hover { background: #6d28d9; }
+        .graph-panel .node { display: inline-block; padding: 3px 8px; margin: 3px; border-radius: 12px; font-size: 11px; cursor: pointer; border: 1px solid; }
+        .graph-panel .edge { font-size: 11px; color: #888; padding: 2px 4px; }
+        .graph-panel h3 { font-size: 14px; color: #7c3aed; margin: 10px 0 5px 0; }
+        .graph-panel table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .graph-panel th, .graph-panel td { border: 1px solid #e5e7eb; padding: 4px 6px; text-align: left; }
+        .graph-panel th { background: #faf5ff; }
+        .tag-graph { background: #fae8ff; color: #7c3aed; padding: 1px 5px; border-radius: 3px; font-size: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 左: 聊天 -->
+        <div>
+            <div class="panel">
+                <h1>Graph RAG 金融问答 <span class="v8-badge">V8</span></h1>
+                <div class="chat-area" id="chatArea">
+                    <div style="color:#999;text-align:center;padding:30px;">
+                        🕸️ 知识图谱已就绪, 试试: "武汉力源的控股股东是谁?"
+                    </div>
+                </div>
+                <textarea id="question" placeholder="输入问题..."></textarea>
+                <button onclick="ask()">提问</button>
+            </div>
+        </div>
+
+        <!-- 右: 图谱可视化 -->
+        <div>
+            <div class="panel graph-panel">
+                <h1>🕸️ 知识图谱 <span class="tag-graph">Graph</span></h1>
+                <div id="graphPanel">加载中...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function addMsg(role, text, meta) {
+            const area = document.getElementById('chatArea');
+            const div = document.createElement('div');
+            div.className = 'msg ' + role;
+            div.innerHTML = `<div class="bubble">${text}</div>` + (meta ? `<div class="meta">${meta}</div>` : '');
+            area.appendChild(div);
+            area.scrollTop = area.scrollHeight;
+        }
+
+        async function loadKG() {
+            try {
+                const r = await fetch('/api/kg');
+                const data = await r.json();
+                renderKG(data);
+            } catch(e) { document.getElementById('graphPanel').innerText = '加载失败'; }
+        }
+
+        const NODE_COLORS = {Company:'#3b82f6', Person:'#22c55e', Product:'#f97316', Standard:'#a855f7', Financial:'#ef4444', Industry:'#eab308'};
+
+        function renderKG(data) {
+            const container = document.getElementById('graphPanel');
+            const nc = data.nodes || [];
+            const ec = data.edges || [];
+            let html = `<h3>节点 (${nc.length})</h3>`;
+            const seen = new Set();
+            for (const n of nc) {
+                const nid = n.id;
+                if (seen.has(nid)) continue;
+                seen.add(nid);
+                const color = NODE_COLORS[n.type] || '#666';
+                html += `<span class="node" style="background:${color}20;border-color:${color};color:${color};" onclick="expandNode('${nid}')" title="类型: ${n.type}">${nid}</span>`;
+            }
+            html += `<h3>关系 (${ec.length})</h3><table><thead><tr><th>源</th><th>关系</th><th>目标</th></tr></thead><tbody>`;
+            for (const e of ec.slice(0, 30)) {
+                html += `<tr><td>${e.source}</td><td style="color:#7c3aed;">${e.relation}</td><td>${e.target}</td></tr>`;
+            }
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        async function expandNode(nid) {
+            try {
+                const r = await fetch('/api/kg_query', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({question: nid})});
+                const data = await r.json();
+                renderKG(data.visualization);
+            } catch(e) {}
+        }
+
+        async function ask() {
+            const q = document.getElementById('question').value.trim();
+            if (!q) return;
+            addMsg('user', q, '');
+            document.getElementById('question').value = '';
+            try {
+                const r = await fetch('/api/ask', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({question:q})});
+                const data = await r.json();
+                const meta = `⏱ ${data.response_time}s | 🕸 图谱分=${data.graph_result.graph_score} | 中心: ${data.graph_result.center_nodes?.join(',')}`;
+                addMsg('assistant', data.rag_answer || '(空)', meta);
+                // 更新右侧子图
+                if (data.graph_result.subgraph?.nodes?.length) {
+                    renderKG({
+                        nodes: data.graph_result.subgraph.nodes.map(n => ({id:n, type:'', attributes:{}})),
+                        edges: data.graph_result.subgraph.edges,
+                    });
+                }
+            } catch(e) { addMsg('assistant', '失败: ' + e); }
+        }
+
+        document.getElementById('question').addEventListener('keydown', e => { if (e.ctrlKey && e.key === 'Enter') ask(); });
+        loadKG();
+    </script>
+</body>
+</html>

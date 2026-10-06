@@ -1,0 +1,38 @@
+{
+  "nodes": [
+    {"id": "武汉兴图新科", "type": "Company", "attributes": {"全称": "武汉兴图新科电子股份有限公司", "注册资本": "7360万元", "行业": "电子信息"}},
+    {"id": "武汉力源", "type": "Company", "attributes": {"全称": "武汉力源信息技术股份有限公司", "注册资本": "8000万元", "行业": "电子信息"}},
+    {"id": "军用领域收入", "type": "Financial", "attributes": {"金额": "6464.51/14414.16/18780.67/4627.14万元"}},
+    {"id": "军用收入占比", "type": "Financial", "attributes": {"比例": "82.10%/97.31%/94.84%/94.34%"}},
+    {"id": "AVS标准", "type": "Standard", "attributes": {"类型": "编解码技术标准"}},
+    {"id": "国家科技进步一等奖", "type": "Standard", "attributes": {"类型": "科技奖项"}},
+    {"id": "销售部", "type": "Product", "attributes": {"下属": ["大客户销售部", "渠道销售部", "产品销售部", "电商销售部"]}},
+    {"id": "大客户销售部", "type": "Product", "attributes": {"下属": ["华东销售处", "华南销售处", "华北销售处", "西南销售处"]}},
+    {"id": "汽车电子", "type": "Industry", "attributes": {"增长率": "+35%"}},
+    {"id": "消费电子", "type": "Industry", "attributes": {"增长率": "-5%"}},
+    {"id": "武汉力源科技", "type": "Company", "attributes": {"角色": "控股股东"}},
+    {"id": "武汉力源募集项目", "type": "Product", "attributes": {"项目": ["高精度ADC/DAC芯片", "高速接口芯片", "射频前端芯片", "补充流动资金"]}},
+    {"id": "武汉力源发行", "type": "Financial", "attributes": {"股数": "2000万股", "比例": "25.00%"}}
+  ],
+  "edges": [
+    {"source": "武汉兴图新科", "target": "军用领域收入", "relation": "来自", "weight": 0.9},
+    {"source": "武汉兴图新科", "target": "军用收入占比", "relation": "占主营业务收入", "weight": 0.9},
+    {"source": "武汉兴图新科", "target": "AVS标准", "relation": "参与制定", "weight": 0.8},
+    {"source": "武汉兴图新科", "target": "国家科技进步一等奖", "relation": "参与的工程获", "weight": 0.8},
+    {"source": "武汉力源", "target": "销售部", "relation": "组织结构包含", "weight": 0.9},
+    {"source": "武汉力源", "target": "武汉力源募集项目", "relation": "募集资金投资", "weight": 0.9},
+    {"source": "武汉力源", "target": "武汉力源发行", "relation": "本次发行", "weight": 0.9},
+    {"source": "武汉力源科技", "target": "武汉力源", "relation": "控股股东(35%)", "weight": 1.0},
+    {"source": "销售部", "target": "大客户销售部", "relation": "下属", "weight": 1.0},
+    {"source": "销售部", "target": "渠道销售部", "relation": "下属", "weight": 1.0},
+    {"source": "销售部", "target": "产品销售部", "relation": "下属", "weight": 1.0},
+    {"source": "销售部", "target": "电商销售部", "relation": "下属", "weight": 1.0},
+    {"source": "大客户销售部", "target": "华东销售处", "relation": "下属", "weight": 1.0},
+    {"source": "大客户销售部", "target": "华南销售处", "relation": "下属", "weight": 1.0},
+    {"source": "大客户销售部", "target": "华北销售处", "relation": "下属", "weight": 1.0},
+    {"source": "大客户销售部", "target": "西南销售处", "relation": "下属", "weight": 1.0},
+    {"source": "大客户销售部", "target": "销售部", "relation": "属于", "weight": 0.9},
+    {"source": "汽车电子", "target": "武汉力源", "relation": "业务领域", "weight": 0.7},
+    {"source": "消费电子", "target": "武汉力源", "relation": "业务领域(负增长)", "weight": 0.7}
+  ]
+}

@@ -1,0 +1,21 @@
+# 混合检索任务 - Python 依赖
+# 工单编号: 人工智能 NLP-RAG-混合检索任务
+
+# Web 框架
+Flask>=2.0
+
+# 检索核心
+scikit-learn>=1.0      # TF-IDF / 余弦相似度
+numpy>=1.20            # 向量运算
+
+# PDF 解析
+pdfplumber>=0.9.0
+
+# LLM 调用
+requests>=2.25
+
+# 中文分词
+jieba>=0.42
+
+# === 进阶嵌入模型 (可选) ===
+# sentence-transformers>=2.2.0   # bge / m3e 嵌入模型

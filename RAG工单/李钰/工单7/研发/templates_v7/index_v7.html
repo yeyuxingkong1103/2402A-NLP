@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <title>RAG 功能测试及评估</title>
+    <style>
+        body { font-family: "Microsoft YaHei", Arial, sans-serif; background: #faf5ff; margin: 0; padding: 0; color: #2c3e50; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        h1 { color: #7c3aed; border-bottom: 2px solid #7c3aed; padding-bottom: 10px; font-size: 24px; }
+        .v7-badge { background: #7c3aed; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-left: 8px; }
+        .panel { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 15px; }
+        button { background: #7c3aed; color: #fff; border: 0; padding: 10px 24px; border-radius: 6px; font-size: 14px; cursor: pointer; }
+        button:hover { background: #6d28d9; }
+        button:disabled { background: #aaa; cursor: not-allowed; }
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 10px; }
+        .metric-card { background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 6px; padding: 15px; text-align: center; }
+        .metric-card .value { font-size: 28px; font-weight: bold; color: #7c3aed; }
+        .metric-card .label { font-size: 12px; color: #6b7280; margin-top: 5px; }
+        .metric-card.ok { border-color: #bbf7d0; background: #f0fdf4; }
+        .metric-card.ok .value { color: #15803d; }
+        .metric-card.warn { border-color: #fecaca; background: #fef2f2; }
+        .metric-card.warn .value { color: #dc2626; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
+        th, td { border: 1px solid #e5e7eb; padding: 8px; text-align: left; }
+        th { background: #faf5ff; font-weight: 600; }
+        tr:hover { background: #f9fafb; }
+        .badge { padding: 2px 6px; border-radius: 3px; font-size: 11px; }
+        .badge.ok { background: #bbf7d0; color: #15803d; }
+        .badge.warn { background: #fecaca; color: #dc2626; }
+        .badge.info { background: #dbeafe; color: #1d4ed8; }
+        .problem-card { background: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 12px; margin-top: 10px; font-size: 13px; }
+        .problem-card .reason { color: #dc2626; margin-top: 4px; }
+        .problem-card .suggestion { color: #15803d; margin-top: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>RAG 功能测试及评估 <span class="v7-badge">V7</span></h1>
+        <div style="color:#666;font-size:13px;margin-top:-5px;">
+            工单编号: 人工智能 NLP-RAG-功能测试及评估 · 10 题测试 · 检索+QA+性能评估
+        </div>
+
+        <div class="panel">
+            <button id="runBtn" onclick="runEvaluation()">🚀 运行完整评估</button>
+            <span id="status" style="margin-left:10px;color:#666;font-size:13px;"></span>
+        </div>
+
+        <div class="panel" id="resultPanel" style="display:none;">
+            <h3>📊 汇总指标</h3>
+            <div class="metrics-grid">
+                <div class="metric-card" id="m-p5"><div class="value">-</div><div class="label">Precision@5</div></div>
+                <div class="metric-card" id="m-rec"><div class="value">-</div><div class="label">Recall@5</div></div>
+                <div class="metric-card" id="m-mrr"><div class="value">-</div><div class="label">MRR</div></div>
+                <div class="metric-card" id="m-ndcg"><div class="value">-</div><div class="label">NDCG@5</div></div>
+                <div class="metric-card" id="m-hr"><div class="value">-</div><div class="label">HitRate@5</div></div>
+                <div class="metric-card" id="m-cov"><div class="value">-</div><div class="label">关键词覆盖率</div></div>
+                <div class="metric-card" id="m-hall"><div class="value">-</div><div class="label">幻觉比例</div></div>
+                <div class="metric-card" id="m-time"><div class="value">-</div><div class="label">平均响应(s)</div></div>
+            </div>
+        </div>
+
+        <div class="panel" id="problemPanel" style="display:none;">
+            <h3>⚠️ 问题分析</h3>
+            <div id="problemList"></div>
+        </div>
+
+        <div class="panel" id="detailPanel" style="display:none;">
+            <h3>📋 逐题结果</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th><th>问题</th><th>类型</th><th>P@5</th><th>MRR</th>
+                        <th>覆盖</th><th>幻觉</th><th>时间</th><th>达标</th>
+                    </tr>
+                </thead>
+                <tbody id="detailTable"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        async function runEvaluation() {
+            const btn = document.getElementById('runBtn');
+            const status = document.getElementById('status');
+            btn.disabled = true; btn.innerText = '评估中...';
+            status.innerText = '请稍候, 评估 10 个问题...';
+
+            try {
+                const resp = await fetch('/api/evaluate', {method: 'POST'});
+                const data = await resp.json();
+                updateUI(data);
+            } catch (e) {
+                status.innerText = '评估失败: ' + e;
+            } finally {
+                btn.disabled = false; btn.innerText = '🚀 运行完整评估';
+            }
+        }
+
+        function fmt(v) { return typeof v === 'number' ? v.toFixed(3) : '-'; }
+
+        function updateUI(data) {
+            document.getElementById('resultPanel').style.display = 'block';
+            const r = data.retrieval_metrics || {};
+            const q = data.qa_metrics || {};
+            const p = data.perf_metrics || {};
+
+            // 检索指标
+            setMetric('m-p5', r['precision@k'], 0.7);
+            setMetric('m-rec', r['recall@k'], 0.95);
+            setMetric('m-mrr', r['mrr'], 0.8);
+            setMetric('m-ndcg', r['ndcg@k'], 0.85);
+            setMetric('m-hr', r['hit_rate@k'], 0.95);
+            setMetric('m-cov', q['keyword_coverage'], 0.9);
+            // 幻觉: 越小越好
+            const hall = q['hallucination_ratio'];
+            document.getElementById('m-hall').querySelector('.value').innerText = fmt(hall);
+            document.getElementById('m-hall').className = 'metric-card ' + (hall <= 0.05 ? 'ok' : 'warn');
+            document.getElementById('m-time').querySelector('.value').innerText = fmt(p['avg_time']);
+
+            // 问题分析
+            const panel = document.getElementById('problemPanel');
+            panel.style.display = data.problem_analysis && data.problem_analysis.length ? 'block' : 'none';
+            document.getElementById('problemList').innerHTML = (data.problem_analysis || []).map(pa => `
+                <div class="problem-card">
+                    <b>Q${pa.id}: ${pa.question.slice(0, 50)}...</b>
+                    <div class="reason">❌ 问题: ${pa.issues?.join(', ') || ''}</div>
+                    <div class="reason">原因: ${pa.reason || ''}</div>
+                    <div class="suggestion">💡 建议: ${pa.suggestion || ''}</div>
+                </div>
+            `).join('');
+
+            // 逐题
+            document.getElementById('detailPanel').style.display = 'block';
+            document.getElementById('detailTable').innerHTML = (data.results || []).map(r => {
+                const cov = r.qa.keyword_coverage;
+                const ok = cov >= 0.7 && r.response_time <= 3;
+                return `<tr>
+                    <td>${r.id}</td>
+                    <td>${r.question.slice(0, 30)}...</td>
+                    <td><span class="badge info">${r.type}</span></td>
+                    <td>${fmt(r.retrieval['precision@k'])}</td>
+                    <td>${fmt(r.retrieval['mrr'])}</td>
+                    <td>${fmt(cov)}</td>
+                    <td>${fmt(r.qa.hallucination_ratio)}</td>
+                    <td>${fmt(r.response_time)}s</td>
+                    <td><span class="badge ${ok ? 'ok' : 'warn'}">${ok ? '✅' : '❌'}</span></td>
+                </tr>`;
+            }).join('');
+
+            status.innerText = '✅ 评估完成!';
+        }
+
+        function setMetric(id, val, target) {
+            const card = document.getElementById(id);
+            card.querySelector('.value').innerText = fmt(val);
+            card.className = 'metric-card ' + (val >= target ? 'ok' : 'warn');
+        }
+    </script>
+</body>
+</html>

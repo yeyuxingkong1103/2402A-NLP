@@ -1,0 +1,35 @@
+INFO: [] Loaded graph from C:\Users\ZhuanZ\Desktop\工单\赵振\工单12\研发\data\storage_verified\graph_chunk_entity_relation.graphml with 55 nodes, 44 edges
+INFO:nano-vectordb:Load (55, 512) data
+INFO:nano-vectordb:Init {'embedding_dim': 512, 'metric': 'cosine', 'storage_file': 'C:\\Users\\ZhuanZ\\Desktop\\工单\\赵振\\工单12\\研发\\data\\storage_verified\\vdb_entities.json'} 55 data
+INFO:nano-vectordb:Load (44, 512) data
+INFO:nano-vectordb:Init {'embedding_dim': 512, 'metric': 'cosine', 'storage_file': 'C:\\Users\\ZhuanZ\\Desktop\\工单\\赵振\\工单12\\研发\\data\\storage_verified\\vdb_relationships.json'} 44 data
+INFO:nano-vectordb:Load (2365, 512) data
+INFO:nano-vectordb:Init {'embedding_dim': 512, 'metric': 'cosine', 'storage_file': 'C:\\Users\\ZhuanZ\\Desktop\\工单\\赵振\\工单12\\研发\\data\\storage_verified\\vdb_chunks.json'} 2365 data
+INFO: [] Process 49812 KV load full_docs with 0 records
+INFO: [] Process 49812 KV load text_chunks with 2365 records
+INFO: [] Process 49812 KV load full_entities with 0 records
+INFO: [] Process 49812 KV load full_relations with 0 records
+INFO: [] Process 49812 KV load entity_chunks with 0 records
+INFO: [] Process 49812 KV load relation_chunks with 0 records
+INFO: [] Process 49812 KV load llm_response_cache with 0 records
+INFO: [] Process 49812 doc status load doc_status with 0 records
+INFO:     Started server process [49812]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8512 (Press CTRL+C to quit)
+INFO: Embedding func: 1 new workers initialized (Timeouts: Func: 180s, Worker: 360s, Health Check: 375s)
+INFO: Naive query: 3 chunks (chunk_top_k:3 cosine:0.2)
+INFO: Final context: 3 chunks
+INFO: Query nodes: 武汉力源信息技术股份有限公司组织结构图中, 销售部, 销售部 (top_k:10, cosine:0.2)
+INFO: Local query: 10 entites, 24 relations
+INFO: Query edges: 组织, 销售 (top_k:10, cosine:0.2)
+INFO: Global query: 11 entites, 10 relations
+INFO: Naive query: 3 chunks (chunk_top_k:3 cosine:0.2)
+INFO: Raw search results: 12 entities, 24 relations, 3 vector chunks
+INFO: After truncation: 8 entities, 8 relations
+INFO: Selecting 1 from 1 entity-related chunks by vector similarity
+INFO: Find 2 additional chunks in 2 relations (deduplicated 1)
+INFO: Selecting 2 from 2 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 6 -> 6 (deduplicated 0)
+INFO: Final context: 8 entities, 8 relations, 3 chunks
+INFO: Final chunks S+F/O: C1/1 E8/1 R3/1

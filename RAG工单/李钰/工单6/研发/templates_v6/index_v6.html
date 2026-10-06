@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <title>招股说明书问答系统 V6 | 混合检索</title>
+    <style>
+        body { font-family: "Microsoft YaHei", Arial, sans-serif; background: #ecfdf5; margin: 0; padding: 0; color: #2c3e50; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+        h1 { color: #059669; border-bottom: 2px solid #059669; padding-bottom: 10px; font-size: 24px; }
+        .v6-badge { background: #059669; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-left: 8px; }
+        .panel { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 15px; }
+        textarea { width: 100%; min-height: 60px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; resize: vertical; box-sizing: border-box; }
+        button { background: #059669; color: #fff; border: 0; padding: 10px 24px; border-radius: 6px; font-size: 14px; cursor: pointer; }
+        button:hover { background: #047857; }
+        button:disabled { background: #aaa; cursor: not-allowed; }
+        .strategy-bar { display: flex; gap: 10px; margin-top: 10px; align-items: center; }
+        .strategy-bar label { font-size: 13px; color: #666; }
+        .strategy-bar select, .strategy-bar input { padding: 5px 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px; }
+        .row { display: flex; gap: 20px; margin-top: 15px; }
+        .col { flex: 1; background: #fafbfc; border: 1px solid #eee; border-radius: 6px; padding: 15px; min-height: 150px; }
+        .col h3 { margin: 0 0 8px 0; font-size: 15px; border-left: 3px solid #059669; padding-left: 8px; }
+        .answer-text { white-space: pre-wrap; font-size: 14px; line-height: 1.7; }
+        .result-card { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 10px; margin-top: 6px; font-size: 13px; }
+        .result-card .score { float: right; font-weight: bold; color: #059669; }
+        .result-card .meta { font-size: 11px; color: #888; margin-top: 4px; }
+        .result-card .feedback { display: inline-block; margin-top: 4px; }
+        .result-card .feedback button { background: none; border: 1px solid #ddd; color: #666; padding: 1px 6px; font-size: 11px; margin-right: 4px; cursor: pointer; border-radius: 3px; }
+        .result-card .feedback button:hover { background: #f3f4f6; }
+        .result-card .feedback button.liked { background: #bbf7d0; border-color: #059669; color: #059669; }
+        .result-card .feedback button.disliked { background: #fee2e2; border-color: #dc2626; color: #dc2626; }
+        .meta { font-size: 12px; color: #888; margin-top: 8px; }
+        .tag { padding: 1px 5px; border-radius: 3px; font-size: 10px; }
+        .tag-vector { background: #dbeafe; color: #1d4ed8; }
+        .tag-fulltext { background: #fefce8; color: #ca8a04; }
+        .tag-hybrid { background: #dcfce7; color: #15803d; }
+        .badge { padding: 2px 8px; border-radius: 10px; font-size: 12px; color: #fff; }
+        .badge.ok { background: #2ecc71; }
+        .badge.warn { background: #e74c3c; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>招股说明书问答系统 <span class="v6-badge">V6 混合检索</span></h1>
+        <div style="color:#666;font-size:13px;margin-top:-5px;">
+            工单编号: 人工智能 NLP-RAG-混合检索任务 · 向量 + 全文 + 混合 · 3种重排 · 3种融合
+        </div>
+
+        <div class="panel">
+            <label><b>请输入问题:</b></label>
+            <textarea id="question" placeholder="例如: 武汉兴图新科的注册资本是多少?"></textarea>
+            <button id="askBtn" onclick="ask()">查询</button>
+
+            <div class="strategy-bar">
+                <label>检索策略:</label>
+                <select id="strategy" onchange="updateConfig()">
+                    <option value="hybrid">混合检索 (推荐)</option>
+                    <option value="vector">向量检索</option>
+                    <option value="fulltext">全文检索</option>
+                </select>
+                <label>融合方法:</label>
+                <select id="fusion" onchange="updateConfig()">
+                    <option value="weighted">加权平均</option>
+                    <option value="rrf">RRF (倒数排名)</option>
+                    <option value="vote">投票机制</option>
+                </select>
+                <label>向量权重:</label>
+                <input type="number" id="vWeight" step="0.1" min="0" max="1" value="0.6" onchange="updateConfig()" style="width:60px;">
+                <label>全文权重:</label>
+                <input type="number" id="fWeight" step="0.1" min="0" max="1" value="0.4" onchange="updateConfig()" style="width:60px;">
+                <label>重排器:</label>
+                <select id="reranker" onchange="updateConfig()">
+                    <option value="tfidf">TF-IDF 重排</option>
+                    <option value="llm">LLM 重排 (可选)</option>
+                    <option value="feedback">反馈重排 (点👍后生效)</option>
+                    <option value="none">不重排</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="panel" id="resultPanel" style="display:none;">
+            <div class="row">
+                <div class="col">
+                    <h3>RAG 答案</h3>
+                    <div class="answer-text" id="ragAnswer">-</div>
+                </div>
+                <div class="col">
+                    <h3>纯 LLM 答案</h3>
+                    <div class="answer-text" id="llmAnswer">-</div>
+                </div>
+            </div>
+            <div class="meta" id="meta">-</div>
+            <div id="retrievalResults"></div>
+        </div>
+    </div>
+
+    <script>
+        async function updateConfig() {
+            try {
+                await fetch('/api/config', {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        strategy: document.getElementById('strategy').value,
+                        fusion_method: document.getElementById('fusion').value,
+                        vector_weight: parseFloat(document.getElementById('vWeight').value),
+                        fulltext_weight: parseFloat(document.getElementById('fWeight').value),
+                    })
+                });
+            } catch(e) {}
+        }
+
+        function tagStrategy(s) {
+            if (s === 'vector') return '<span class="tag tag-vector">向量</span>';
+            if (s === 'fulltext') return '<span class="tag tag-fulltext">全文</span>';
+            return '<span class="tag tag-hybrid">混合</span>';
+        }
+
+        async function ask() {
+            const q = document.getElementById('question').value.trim();
+            if (!q) return;
+            const btn = document.getElementById('askBtn');
+            btn.disabled = true; btn.innerText = '查询中...';
+            document.getElementById('resultPanel').style.display = 'block';
+            document.getElementById('ragAnswer').innerText = '加载中...';
+
+            try {
+                const resp = await fetch('/api/ask', {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({question: q, strategy: document.getElementById('strategy').value})
+                });
+                const data = await resp.json();
+                document.getElementById('ragAnswer').innerText = data.rag_answer || '(空)';
+                document.getElementById('llmAnswer').innerText = data.llm_answer || '(空)';
+
+                const flag = data.within_time_limit
+                    ? '<span class="badge ok">≤3s</span>'
+                    : '<span class="badge warn">>3s</span>';
+                document.getElementById('meta').innerHTML =
+                    tagStrategy(data.strategy) +
+                    ` | 融合: ${data.fusion_method} | 嵌入: ${data.embedding_model} | 重排: ${data.reranker} | 响应: ${data.response_time}s ` + flag;
+
+                let html = '';
+                for (const r of (data.retrieval_results || [])) {
+                    const vScore = r.v_score ? ` V=${r.v_score.toFixed(3)}` : '';
+                    const fScore = r.f_score ? ` F=${r.f_score.toFixed(3)}` : '';
+                    const hits = (r.hit_terms || []).map(h => `<span style="color:#059669;">${h}</span>`).join(', ');
+                    html += `<div class="result-card">
+                        <span class="score">${r.score.toFixed(3)}</span>
+                        <div>${r.text}</div>
+                        <div class="meta">${vScore}${fScore} ${r.votes ? '投票='+r.votes : ''} ${hits ? '命中: '+hits : ''}</div>
+                        <div class="feedback">
+                            <button onclick="feedback(${r.id}, true)">👍</button>
+                            <button onclick="feedback(${r.id}, false)">👎</button>
+                        </div>
+                    </div>`;
+                }
+                document.getElementById('retrievalResults').innerHTML = html;
+            } catch (e) {
+                document.getElementById('ragAnswer').innerText = '请求失败: ' + e;
+            } finally {
+                btn.disabled = false; btn.innerText = '查询';
+            }
+        }
+
+        async function feedback(chunkId, positive) {
+            try {
+                await fetch('/api/feedback', {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({chunk_id: String(chunkId), positive})
+                });
+                alert((positive ? '👍' : '👎') + ' 反馈已记录, 下次重排时生效!');
+            } catch(e) { alert('反馈失败'); }
+        }
+
+        document.getElementById('question').addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') ask();
+        });
+
+        // 加载初始配置
+        fetch('/api/config').then(r => r.json()).then(c => {
+            if (c.strategy) document.getElementById('strategy').value = c.strategy;
+            if (c.fusion_method) document.getElementById('fusion').value = c.fusion_method;
+            if (c.vector_weight !== undefined) document.getElementById('vWeight').value = c.vector_weight;
+            if (c.fulltext_weight !== undefined) document.getElementById('fWeight').value = c.fulltext_weight;
+            if (c.reranker) document.getElementById('reranker').value = c.reranker;
+        });
+    </script>
+</body>
+</html>
