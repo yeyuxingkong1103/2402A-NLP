@@ -1,0 +1,13 @@
+2026-10-06 14:54:50.108 | INFO     | src.embedding:<module>:20 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-10-06 14:54:54.565 | INFO     | src.embedding:_load:50 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 12687.49it/s]
+2026-10-06 14:54:57.850 | INFO     | src.embedding:_load:55 - max_seq_length=512
+2026-10-06 14:54:58.244 | INFO     | src.embedding:_load:60 - 嵌入模型就绪: dim=1024
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:  25%|██▌       | 100/393 [00:00<00:00, 917.75it/s]Loading weights:  49%|████▉     | 192/393 [00:00<00:00, 615.24it/s]Loading weights:  81%|████████  | 319/393 [00:00<00:00, 845.34it/s]Loading weights: 100%|██████████| 393/393 [00:00<00:00, 962.49it/s]
+2026-10-06 14:54:59.958 | INFO     | src.reranker:_load:33 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+Q=前五大客户占营业收入的比 encode=143 vec=176 rerank@12=574
+Q=前五大客户占营业收入的比 encode=143 vec=176 rerank@24=1020
+Q=本次募集资金总额是多少万 encode=22 vec=37 rerank@12=489
+Q=本次募集资金总额是多少万 encode=22 vec=37 rerank@24=1069
+Q=公司的主营业务是什么产品 encode=16 vec=26 rerank@12=462
+Q=公司的主营业务是什么产品 encode=16 vec=26 rerank@24=998

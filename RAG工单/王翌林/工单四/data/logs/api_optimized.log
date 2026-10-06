@@ -1,0 +1,20 @@
+INFO:     Started server process [80301]
+INFO:     Waiting for application startup.
+2026-09-29 09:49:55.713 | INFO     | src.api:lifespan:18 - 🚀 RAG API 启动中...
+2026-09-29 09:49:56.336 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-09-29 09:49:56.413 | INFO     | src.embedding:<module>:15 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-09-29 09:49:56.415 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:   8%|▊         | 31/393 [00:00<00:01, 301.13it/s]Loading weights:  16%|█▌        | 62/393 [00:00<00:01, 268.91it/s]Loading weights:  24%|██▍       | 95/393 [00:00<00:01, 291.66it/s]Loading weights:  33%|███▎      | 128/393 [00:00<00:00, 299.45it/s]Loading weights:  43%|████▎     | 168/393 [00:00<00:00, 317.78it/s]Loading weights:  51%|█████     | 200/393 [00:00<00:00, 307.95it/s]Loading weights:  59%|█████▉    | 231/393 [00:00<00:00, 294.08it/s]Loading weights:  67%|██████▋   | 262/393 [00:00<00:00, 291.62it/s]Loading weights:  74%|███████▍  | 292/393 [00:00<00:00, 286.47it/s]Loading weights:  85%|████████▍ | 334/393 [00:01<00:00, 324.82it/s]Loading weights:  94%|█████████▍| 370/393 [00:01<00:00, 334.69it/s]Loading weights: 100%|██████████| 393/393 [00:01<00:00, 320.47it/s]
+2026-09-29 09:50:04.080 | INFO     | src.retriever:__init__:70 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+2026-09-29 09:50:04.107 | WARNING  | src.retriever:_ensure_bm25_index:101 - Milvus 为空，无法构建 BM25
+2026-09-29 09:50:04.118 | INFO     | src.retriever:__init__:88 - ✅ 检索缓存已启用 (diskcache)
+2026-09-29 09:50:04.118 | INFO     | src.api:lifespan:35 - ✅ RAG API 就绪 | mysql=ok (8.0.46-0ubuntu0.22.04.4) | milvus=ok (remote)
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:46644 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46656 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-09-29 09:50:15.656 | INFO     | src.api:lifespan:37 - 🛑 RAG API 关闭
+INFO:     Application shutdown complete.
+INFO:     Finished server process [80301]

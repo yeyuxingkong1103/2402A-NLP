@@ -1,0 +1,52 @@
+........................................................................ [ 36%]
+...........s...............................F............................ [ 72%]
+.......................................................                  [100%]
+=================================== FAILURES ===================================
+_________________ test_integration_chinese_registered_capital __________________
+
+engine = <src.rag_engine_v3.RAGEngineV3 object at 0x7cfeeae5ceb0>
+
+    @pytest.mark.skipif(not _HAS_LLM, reason="无 DEEPSEEK_API_KEY")
+    def test_integration_chinese_registered_capital(engine):
+        """工单三：中文注册资本问题"""
+        query = "武汉兴图新科电子股份有限公司注册资本是多少？"
+        r = bilingual_ask_rag(engine, query, doc_id="招股说明书1")
+        assert r["lang"] == "zh"
+        assert r["answer_lang"] == "zh"
+        assert len(r["answer"]) > 0
+        # 答案应含"万"或"元"（注册资本金额单位）
+>       assert "万" in r["answer"] or "元" in r["answer"], \
+            f"答案应含金额单位，实际: {r['answer'][:200]}"
+E       AssertionError: 答案应含金额单位，实际: 参考资料中未提及武汉兴图新科电子股份有限公司的注册资本金额。
+E       assert ('万' in '参考资料中未提及武汉兴图新科电子股份有限公司的注册资本金额。' or '元' in '参考资料中未提及武汉兴图新科电子股份有限公司的注册资本金额。')
+
+../工单三/tests/test_multilingual_v3.py:87: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+2026-10-06 15:27:22.718 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-10-06 15:27:22.719 | INFO     | src.rag_engine_v3:_load_text_retriever:76 - [rag_engine_v3] TextRetrieverV3 已加载（多文档）
+2026-10-06 15:27:22.719 | INFO     | src.table_parser.table_store:_connect:69 - [table_store] 远程 Milvus: http://localhost:19530 v=2.6.9
+----------------------------- Captured stderr call -----------------------------
+2026-10-06 15:27:22.720 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+2026-10-06 15:27:22.864 | INFO     | src.text_retriever_v3:retrieve:124 - [text_retriever_v3] retrieve: vec=16 kw=16 fused=8 135ms
+2026-10-06 15:27:23.517 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=653ms, tokens=983
+=============================== warnings summary ===============================
+../../my_project/.venv/lib/python3.10/site-packages/paddlex/inference/pipelines/components/retriever/base.py:29
+  /home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/paddlex/inference/pipelines/components/retriever/base.py:29: DeprecationWarning: `langchain-community` is being sunset and is no longer actively maintained. See https://github.com/langchain-ai/langchain-community/issues/674 for details and migration guidance toward standalone integration packages.
+    from langchain_community import vectorstores
+
+../../my_project/.venv/lib/python3.10/site-packages/jieba/_compat.py:18
+  /home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/jieba/_compat.py:18: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+    import pkg_resources
+
+../../my_project/.venv/lib/python3.10/site-packages/starlette/testclient.py:53
+  /home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+tests/test_pdf_parser_optimized.py::test_required_fields
+  /home/dabaie/code/工单/工单四/src/pdf_parser_optimized.py:91: DeprecationWarning: The parameter `use_angle_cls` has been deprecated and will be removed in the future. Please use `use_textline_orientation` instead.
+    self._paddle = PaddleOCR(use_angle_cls=True, lang="ch", show_log=False)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_multilingual_v3.py::test_integration_chinese_registered_capital
+1 failed, 197 passed, 1 skipped, 4 warnings in 105.71s (0:01:45)

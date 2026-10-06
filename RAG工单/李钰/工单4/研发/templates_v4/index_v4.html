@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <title>招股说明书问答系统 V4 | 图像解析</title>
+    <style>
+        body { font-family: "Microsoft YaHei", Arial, sans-serif; background: #fdf4ff; margin: 0; padding: 0; color: #2c3e50; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 30px 20px; }
+        h1 { color: #a855f7; border-bottom: 2px solid #a855f7; padding-bottom: 10px; font-size: 24px; }
+        .v4-badge { background: #a855f7; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-left: 8px; }
+        .panel { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 20px; }
+        textarea { width: 100%; min-height: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; resize: vertical; box-sizing: border-box; }
+        button { background: #a855f7; color: #fff; border: 0; padding: 10px 24px; border-radius: 6px; font-size: 14px; cursor: pointer; margin-top: 10px; }
+        button:hover { background: #9333ea; }
+        button:disabled { background: #aaa; cursor: not-allowed; }
+        .row { display: flex; gap: 20px; }
+        .col { flex: 1; background: #fafbfc; border: 1px solid #eee; border-radius: 6px; padding: 15px; min-height: 180px; }
+        .col h3 { margin: 0 0 10px 0; font-size: 15px; border-left: 3px solid #a855f7; padding-left: 8px; }
+        .answer-text { white-space: pre-wrap; font-size: 14px; line-height: 1.7; }
+        .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 12px; color: #fff; }
+        .badge.ok { background: #2ecc71; }
+        .badge.warn { background: #e74c3c; }
+        .tag { padding: 2px 6px; border-radius: 3px; font-size: 11px; }
+        .tag-img { background: #fae8ff; color: #a855f7; }
+        .tag-table { background: #fefce8; color: #ca8a04; }
+        .tag-text { background: #dcfce7; color: #15803d; }
+        .example-link { color: #a855f7; cursor: pointer; margin-right: 10px; text-decoration: underline; font-size: 13px; }
+        .image-block { background: #fae8ff; border: 1px solid #f0abfc; border-radius: 6px; padding: 12px; margin-top: 8px; font-size: 13px; }
+        .meta { font-size: 12px; color: #888; margin-top: 8px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>招股说明书问答系统 <span class="v4-badge">V4 图像解析</span></h1>
+        <div style="color:#666;font-size:13px;margin-top:-5px;">
+            工单编号: 人工智能 NLP-RAG-图像内容解析及检索优化 · 支持组织结构图/增长图等图像理解
+        </div>
+
+        <div class="panel">
+            <label for="question"><b>请输入问题 (支持中英文, 含图像查询):</b></label>
+            <textarea id="question" placeholder="例如: 武汉力源组织结构图中销售部有几个部门构成? 或: 2008年IC市场增长图中增长率最快的行业?"></textarea>
+            <button id="askBtn" onclick="ask()">提问 (Ctrl+Enter)</button>
+            <div style="margin-top:10px;font-size:13px;color:#888;">
+                示例 (图像类):
+                <span class="example-link" onclick="fillExample(this)">武汉力源组织结构图中销售部有几个部门构成,大客户销售部有几个销售处?</span>
+                <span class="example-link" onclick="fillExample(this)">2008年IC市场应用结构与增长图中增长率最快/负增长的是哪个行业?</span>
+            </div>
+        </div>
+
+        <div class="panel" id="resultPanel" style="display:none;">
+            <div class="row">
+                <div class="col">
+                    <h3>RAG 答案</h3>
+                    <div class="answer-text" id="ragAnswer">-</div>
+                </div>
+                <div class="col">
+                    <h3>纯 LLM 答案 (对比基线)</h3>
+                    <div class="answer-text" id="llmAnswer">-</div>
+                </div>
+            </div>
+            <div class="meta" id="meta">-</div>
+            <div id="imageBlocks"></div>
+        </div>
+    </div>
+
+    <script>
+        function fillExample(el) { document.getElementById('question').value = el.innerText; }
+
+        function sourceTag(source) {
+            if (source === 'image') return '<span class="tag tag-img">📷 图像检索</span>';
+            if (source === 'table') return '<span class="tag tag-table">📊 表格检索</span>';
+            if (source === 'text') return '<span class="tag tag-text">📝 文本检索</span>';
+            return '';
+        }
+
+        async function ask() {
+            const q = document.getElementById('question').value.trim();
+            if (!q) { alert('请输入问题'); return; }
+            const btn = document.getElementById('askBtn');
+            btn.disabled = true; btn.innerText = '查询中...';
+            document.getElementById('resultPanel').style.display = 'block';
+            document.getElementById('ragAnswer').innerText = '加载中...';
+            document.getElementById('llmAnswer').innerText = '加载中...';
+            document.getElementById('imageBlocks').innerHTML = '';
+            document.getElementById('meta').innerText = '';
+
+            try {
+                const resp = await fetch('/api/ask', {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({question: q})
+                });
+                const data = await resp.json();
+                document.getElementById('ragAnswer').innerText = data.rag_answer || '(空)';
+                document.getElementById('llmAnswer').innerText = data.llm_answer || '(空)';
+
+                const flag = data.within_time_limit
+                    ? '<span class="badge ok">≤3s</span>'
+                    : '<span class="badge warn">>3s</span>';
+                document.getElementById('meta').innerHTML =
+                    sourceTag(data.answer_source) +
+                    (data.is_image_query ? ' <span class="tag tag-img">图像类问题</span>' : '') +
+                    ' | 响应: ' + data.response_time + 's ' + flag;
+
+                let imgHtml = '';
+                for (const r of (data.image_results || [])) {
+                    imgHtml += `<div class="image-block">📷 图像: ${r.image_type} (${r.company}) | score=${r.score} | 命中: ${r.hit_keywords.join(',')}</div>`;
+                }
+                document.getElementById('imageBlocks').innerHTML = imgHtml;
+            } catch (e) {
+                document.getElementById('ragAnswer').innerText = '请求失败: ' + e;
+            } finally {
+                btn.disabled = false; btn.innerText = '提问';
+            }
+        }
+
+        document.getElementById('question').addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') ask();
+        });
+    </script>
+</body>
+</html>

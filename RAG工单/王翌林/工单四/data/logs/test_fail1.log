@@ -1,0 +1,63 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________________ test_integration_chinese_registered_capital __________________
+
+engine = <src.rag_engine_v3.RAGEngineV3 object at 0x7bd98f0c2140>
+
+    @pytest.mark.skipif(not _HAS_LLM, reason="无 DEEPSEEK_API_KEY")
+    def test_integration_chinese_registered_capital(engine):
+        """工单三：中文注册资本问题"""
+        query = "武汉兴图新科电子股份有限公司注册资本是多少？"
+        r = bilingual_ask_rag(engine, query, doc_id="招股说明书1")
+        assert r["lang"] == "zh"
+        assert r["answer_lang"] == "zh"
+        assert len(r["answer"]) > 0
+        # 答案应含"万"或"元"（注册资本金额单位）
+>       assert "万" in r["answer"] or "元" in r["answer"], \
+            f"答案应含金额单位，实际: {r['answer'][:200]}"
+E       AssertionError: 答案应含金额单位，实际: 根据提供的参考资料，**未提及**武汉兴图新科电子股份有限公司的注册资本金额。
+E         
+E         参考资料中仅包含以下相关信息：
+E         - 公司全称为“武汉兴图新科电子股份有限公司”，注册地址为湖北省武汉市东湖新技术开发区关山大道1号软件产业三期A3栋8层 [资料1]。
+E         - 本次发行概况中列示了发行股票类型、发行股数、每股面值、拟上市交易所和板块、发行后总股本等，但**没有列示注册资本** [资料3]。
+E         
+E         因此，基于现
+E       assert ('万' in '根据提供的参考资料，**未提及**武汉兴图新科电子股份有限公司的注册资本金额。\n\n参考资料中仅包含以下相关信息：\n- 公司全称为“武汉兴图新科电子股份有限公司”，注册地址为湖北省武汉市东湖新技术开发区关山大道1号软件产业三期A3栋8层 [资料1]。\n- 本次发行概况中列示了发行股票类型、发行股数、每股面值、拟上市交易所和板块、发行后总股本等，但**没有列示注册资本** [资料3]。\n\n因此，基于现有参考资料，无法回答该公司注册资本是多少。' or '元' in '根据提供的参考资料，**未提及**武汉兴图新科电子股份有限公司的注册资本金额。\n\n参考资料中仅包含以下相关信息：\n- 公司全称为“武汉兴图新科电子股份有限公司”，注册地址为湖北省武汉市东湖新技术开发区关山大道1号软件产业三期A3栋8层 [资料1]。\n- 本次发行概况中列示了发行股票类型、发行股数、每股面值、拟上市交易所和板块、发行后总股本等，但**没有列示注册资本** [资料3]。\n\n因此，基于现有参考资料，无法回答该公司注册资本是多少。')
+
+../工单三/tests/test_multilingual_v3.py:87: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+2026-10-06 15:29:02.824 | INFO     | src.embedding:<module>:20 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-10-06 15:29:03.282 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-10-06 15:29:03.283 | INFO     | src.rag_engine_v3:_load_text_retriever:76 - [rag_engine_v3] TextRetrieverV3 已加载（多文档）
+2026-10-06 15:29:03.283 | INFO     | src.table_parser.table_store:_connect:69 - [table_store] 远程 Milvus: http://localhost:19530 v=2.6.9
+----------------------------- Captured stderr call -----------------------------
+2026-10-06 15:29:03.285 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+Building prefix dict from the default dictionary ...
+Loading model from cache /tmp/jieba.cache
+Loading model cost 0.341 seconds.
+Prefix dict has been built successfully.
+2026-10-06 15:29:08.917 | INFO     | src.embedding:_load:50 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+2026-10-06 15:29:08.917 | INFO     | src.embedding:_load:50 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 8612.58it/s]
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 8469.10it/s]
+2026-10-06 15:29:14.810 | INFO     | src.embedding:_load:55 - max_seq_length=512
+2026-10-06 15:29:14.811 | INFO     | src.embedding:_load:55 - max_seq_length=512
+2026-10-06 15:29:15.275 | INFO     | src.embedding:_load:60 - 嵌入模型就绪: dim=1024
+2026-10-06 15:29:15.275 | INFO     | src.embedding:_load:60 - 嵌入模型就绪: dim=1024
+2026-10-06 15:29:15.398 | INFO     | src.text_retriever_v3:retrieve:124 - [text_retriever_v3] retrieve: vec=16 kw=16 fused=8 12148ms
+2026-10-06 15:29:15.726 | INFO     | src.llm_client_v3:get_client:31 - [llm_client_v3] DeepSeek client 就绪: https://api.deepseek.com/v1
+2026-10-06 15:29:16.892 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1165ms, tokens=1091
+------------------------------ Captured log call -------------------------------
+DEBUG    jieba:__init__.py:113 Building prefix dict from the default dictionary ...
+DEBUG    jieba:__init__.py:132 Loading model from cache /tmp/jieba.cache
+DEBUG    jieba:__init__.py:164 Loading model cost 0.341 seconds.
+DEBUG    jieba:__init__.py:166 Prefix dict has been built successfully.
+=============================== warnings summary ===============================
+tests/test_multilingual_v3.py::test_integration_chinese_registered_capital
+  /home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/jieba/_compat.py:18: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+    import pkg_resources
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_multilingual_v3.py::test_integration_chinese_registered_capital
+1 failed, 1 warning in 14.39s

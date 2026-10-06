@@ -1,0 +1,469 @@
+{
+  "timestamp": "2026-09-28T16:58:01.241698",
+  "api": "http://127.0.0.1:8001",
+  "results": [
+    {
+      "id": 260,
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "category": "数值型",
+      "expected_keywords": [
+        "6464",
+        "9790",
+        "13288",
+        "军用"
+      ],
+      "rag": {
+        "answer": "根据[资料2]，报告期内武汉兴图新科电子股份有限公司来自军用领域的收入分别为：\n\n- **2016年度**：6,464.51万元，占营业收入比例 **82.10%**\n- **2017年度**：14,414.16万元，占营业收入比例 **97.31%**\n- **2018年度**：18,780.67万元，占营业收入比例 **94.84%**\n- **2019年1-6月**：4,627.15万元，占营业收入比例 **94.34%**\n\n以上数据来源于[资料2]中“军用领域—小计”的相关列示。",
+        "latency_ms": 4000.5,
+        "refs": 5,
+        "ref_pages": [
+          130,
+          343,
+          378
+        ],
+        "keyword_hit": "1/4",
+        "numbers": 16,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 2419,
+          "completion_tokens": 868,
+          "total_tokens": 3287
+        }
+      },
+      "llm": {
+        "answer": "",
+        "latency_ms": 10386.0,
+        "keyword_hit": "0/0",
+        "numbers": 0,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 53,
+          "completion_tokens": 2048,
+          "total_tokens": 2101
+        }
+      },
+      "rag_score": 5.8,
+      "llm_score": 0.0,
+      "winner": "RAG ✅"
+    },
+    {
+      "id": 95,
+      "question": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+      "category": "事实型",
+      "expected_keywords": [
+        "标准",
+        "参与制定"
+      ],
+      "rag": {
+        "answer": "根据参考资料，武汉兴图新科电子股份有限公司参与制定了**全军第一个视频指挥系统技术标准**，资料中给出的标准名称为：\n\n- **《某视频技术规范1.0》** [资料2][资料3][资料4][资料5]；  \n- 资料1中则表述为：参与制定了全军第一个视频指挥系统技术标准，即**2019年制订的《某视频指挥系统技术规范（1.0版）》** [资料1]。\n\n因此，公司参与制定的技术标准是**全军第一个视频指挥系统技术标准**，资料中也称为**国防用户第一个视频指挥系统技术标准** [资料2]，标准名称在参考资料中主要有《某视频技术规范1.0》和《某视频指挥系统技术规范（1.0版）》两种表述 [资料1]",
+        "latency_ms": 11628.7,
+        "refs": 5,
+        "ref_pages": [
+          160,
+          181,
+          27
+        ],
+        "keyword_hit": "2/2",
+        "numbers": 17,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 2076,
+          "completion_tokens": 575,
+          "total_tokens": 2651
+        }
+      },
+      "llm": {
+        "answer": "武汉兴图新科电子股份有限公司参与制定了国家军用标准 **GJB 8193-2015《视频指挥系统通用要求》**。",
+        "latency_ms": 5168.7,
+        "keyword_hit": "2/2",
+        "numbers": 2,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 49,
+          "completion_tokens": 1046,
+          "total_tokens": 1095
+        }
+      },
+      "rag_score": 7.1,
+      "llm_score": 2.6,
+      "winner": "RAG ✅"
+    },
+    {
+      "id": 33,
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别是多少？",
+      "category": "数值型",
+      "expected_keywords": [
+        "82",
+        "70",
+        "65",
+        "比重",
+        "%"
+      ],
+      "rag": {
+        "answer": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别为：\n\n- 2016年度：82.10%\n- 2017年度：97.31%\n- 2018年度：94.84%\n- 2019年1-6月：94.34%\n\n上述数据在资料中亦有相同表述：报告期内，公司来自军用领域的收入占比分别为82.10%、97.31%、94.84%和94.34% [资料3]；国防领域销售金额占公司主营业务收入的比例分别为82.10%、97.31%、94.84%、94.34% [资料5]。",
+        "latency_ms": 3181.2,
+        "refs": 5,
+        "ref_pages": [
+          130,
+          378,
+          343
+        ],
+        "keyword_hit": "3/5",
+        "numbers": 20,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 2174,
+          "completion_tokens": 410,
+          "total_tokens": 2584
+        }
+      },
+      "llm": {
+        "answer": "",
+        "latency_ms": 9147.2,
+        "keyword_hit": "0/0",
+        "numbers": 0,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 57,
+          "completion_tokens": 2048,
+          "total_tokens": 2105
+        }
+      },
+      "rag_score": 9.0,
+      "llm_score": 0.0,
+      "winner": "RAG ✅"
+    },
+    {
+      "id": 34,
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+      "category": "行业型",
+      "expected_keywords": [
+        "上游",
+        "供应商",
+        "企业"
+      ],
+      "rag": {
+        "answer": "根据招股意向书，电子信息行业的上游主要涉及：\n\n1. **信息系统相关的电子元器件制造企业**——提供元器件等基础设备。[资料1][资料2]\n2. **机箱、机柜等金属壳体制造企业**——属于金属制品业，提供机箱、其他壳体等辅助材料或结构件。[资料1][资料2]\n\n此外，资料提到，上游行业企业供应各类基础设备和辅助材料，但普遍专注于单一类型产品的研发、生产和销售，须经电子信息系统产品提供商或系统集成商综合各类产品用途及特性进行系统设计和实施，最终形成完整的应用系统。[资料2]\n\n因此，电子信息行业上游涉及的企业主要是**电子元器件制造企业**和**机箱、机柜等金属壳体制造企业**。[资料1][",
+        "latency_ms": 7099.5,
+        "refs": 5,
+        "ref_pages": [
+          152,
+          153,
+          209
+        ],
+        "keyword_hit": "2/3",
+        "numbers": 9,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 1884,
+          "completion_tokens": 1233,
+          "total_tokens": 3117
+        }
+      },
+      "llm": {
+        "answer": "",
+        "latency_ms": 11086.7,
+        "keyword_hit": "0/0",
+        "numbers": 0,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 57,
+          "completion_tokens": 2048,
+          "total_tokens": 2105
+        }
+      },
+      "rag_score": 4.699999999999999,
+      "llm_score": 0.0,
+      "winner": "RAG ✅"
+    },
+    {
+      "id": 957,
+      "question": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+      "category": "事实型",
+      "expected_keywords": [
+        "军用",
+        "国防",
+        "重要供应商"
+      ],
+      "rag": {
+        "answer": "武汉兴图新科电子股份有限公司已经在**国防军队视频指挥领域**成为重要供应商，具体属于**军队视频指挥控制领域**的重要供应商，其视频指挥控制类产品是国防指挥信息系统中的“指挥控制”子系统、子模块 [资料1][资料2][资料4]。",
+        "latency_ms": 2395.2,
+        "refs": 5,
+        "ref_pages": [
+          26,
+          155,
+          160
+        ],
+        "keyword_hit": "2/3",
+        "numbers": 3,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 1803,
+          "completion_tokens": 227,
+          "total_tokens": 2030
+        }
+      },
+      "llm": {
+        "answer": "武汉兴图新科电子股份有限公司在**军队（军用）视频指挥控制领域**已成为重要供应商，主要提供视频指挥控制系统及相关音视频产品与服务，服务于国防和军队信息化建设。",
+        "latency_ms": 2650.9,
+        "keyword_hit": "3/3",
+        "numbers": 0,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 50,
+          "completion_tokens": 385,
+          "total_tokens": 435
+        }
+      },
+      "rag_score": 2.9,
+      "llm_score": 3.0,
+      "winner": "LLM"
+    },
+    {
+      "id": 793,
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？",
+      "category": "行业型",
+      "expected_keywords": [
+        "下游",
+        "行业",
+        "应用"
+      ],
+      "rag": {
+        "answer": "根据招股意向书，电子信息行业的下游为各类终端用户，覆盖范围较广，主要包括：\n\n- 军队、政府机关、能源等行业企业 [资料2][资料3]。\n- 具体应用领域主要涉及：国防军队、公安武警、展览展示、能源、交通、金融、广电、气象等 [资料5]。\n- 此外，资料中列示的最终客户包括军队、企事业单位 [资料1]。\n\n综上，电子信息行业的下游主要包括军队/国防军队、政府机关、能源、公安武警、展览展示、交通、金融、广电、气象等行业及企事业单位 [资料1][资料2][资料3][资料5]。",
+        "latency_ms": 7250.4,
+        "refs": 5,
+        "ref_pages": [
+          153,
+          152,
+          152
+        ],
+        "keyword_hit": "3/3",
+        "numbers": 8,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 1624,
+          "completion_tokens": 1333,
+          "total_tokens": 2957
+        }
+      },
+      "llm": {
+        "answer": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括：\n\n**国防、政府、公共安全、能源、交通、金融、教育、医疗等行业。**\n\n具体到兴图新科所处的指挥信息系统细分领域，其下游客户主要集中于**国防军队、政府、公共安全、能源**等应用领域。",
+        "latency_ms": 10168.9,
+        "keyword_hit": "3/3",
+        "numbers": 0,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 57,
+          "completion_tokens": 2026,
+          "total_tokens": 2083
+        }
+      },
+      "rag_score": 5.4,
+      "llm_score": 3.0,
+      "winner": "RAG ✅"
+    },
+    {
+      "id": 795,
+      "question": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+      "category": "事实型",
+      "expected_keywords": [
+        "科技进步",
+        "一等奖",
+        "工程"
+      ],
+      "rag": {
+        "answer": "武汉兴图新科电子股份有限公司参与的是“**某情报、指挥、控制与通信网络一体化工程**”（即相当于美军的 **C4ISR 系统**）荣获国家科技进步一等奖。该工程于 **2014年12月** 由某大型研究所牵头承担，兴图新科是该工程**网络化视频指挥系统的唯一参与者**，但**未能列入获奖名单**。[资料1][资料2][资料3][资料4][资料5]",
+        "latency_ms": 3201.5,
+        "refs": 5,
+        "ref_pages": [
+          96,
+          94,
+          181
+        ],
+        "keyword_hit": "3/3",
+        "numbers": 8,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 1794,
+          "completion_tokens": 357,
+          "total_tokens": 2151
+        }
+      },
+      "llm": {
+        "answer": "",
+        "latency_ms": 12238.0,
+        "keyword_hit": "0/0",
+        "numbers": 0,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 52,
+          "completion_tokens": 2048,
+          "total_tokens": 2100
+        }
+      },
+      "rag_score": 5.4,
+      "llm_score": 0.0,
+      "winner": "RAG ✅"
+    },
+    {
+      "id": 543,
+      "question": "武汉兴图新科电子股份有限公司注册资本是多少？",
+      "category": "数值型",
+      "expected_keywords": [
+        "5520",
+        "5,520",
+        "注册资本",
+        "万元"
+      ],
+      "rag": {
+        "answer": "根据【资料1】，武汉兴图新科电子股份有限公司的注册资本为 **5,520 万元**，实收资本也为 **5,520 万元**。[资料1]",
+        "latency_ms": 1472.9,
+        "refs": 5,
+        "ref_pages": [
+          52,
+          53,
+          68
+        ],
+        "keyword_hit": "3/4",
+        "numbers": 4,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 2163,
+          "completion_tokens": 164,
+          "total_tokens": 2327
+        }
+      },
+      "llm": {
+        "answer": "武汉兴图新科电子股份有限公司（兴图新科，688081）的注册资本为 **人民币7,360万元**，对应总股本 **7,360万股**（每股面值1元）。\n\n如需用于正式尽调或投资决策，建议以国家企业信用信息公示",
+        "latency_ms": 10306.0,
+        "keyword_hit": "2/4",
+        "numbers": 4,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 46,
+          "completion_tokens": 2048,
+          "total_tokens": 2094
+        }
+      },
+      "rag_score": 4.2,
+      "llm_score": 3.2,
+      "winner": "RAG ✅"
+    },
+    {
+      "id": 531,
+      "question": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+      "category": "事实型",
+      "expected_keywords": [
+        "程家明",
+        "法定代表人"
+      ],
+      "rag": {
+        "answer": "武汉兴图新科电子股份有限公司的法定代表人是**程家明**。  \n依据：[资料1] 中明确列示“法定代表人：程家明”；[资料5] 的发行人基本情况中也列示“法定代表人：程家明”。",
+        "latency_ms": 1543.7,
+        "refs": 5,
+        "ref_pages": [
+          52,
+          63,
+          68
+        ],
+        "keyword_hit": "2/2",
+        "numbers": 2,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 2117,
+          "completion_tokens": 245,
+          "total_tokens": 2362
+        }
+      },
+      "llm": {
+        "answer": "武汉兴图新科电子股份有限公司的法定代表人是 **程家明**。  \n（如需最新变更信息，建议以国家企业信用信息公示系统为准。）",
+        "latency_ms": 1963.3,
+        "keyword_hit": "2/2",
+        "numbers": 0,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 46,
+          "completion_tokens": 305,
+          "total_tokens": 351
+        }
+      },
+      "rag_score": 2.6,
+      "llm_score": 2.0,
+      "winner": "RAG ✅"
+    },
+    {
+      "id": 207,
+      "question": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+      "category": "数值型",
+      "expected_keywords": [
+        "流动资金",
+        "募集",
+        "补充"
+      ],
+      "rag": {
+        "answer": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金 **15,000.00 万元** 用于补充流动资金。[资料1][资料3][资料4][资料5]",
+        "latency_ms": 3011.3,
+        "refs": 5,
+        "ref_pages": [
+          490,
+          491,
+          479
+        ],
+        "keyword_hit": "3/3",
+        "numbers": 5,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 2055,
+          "completion_tokens": 209,
+          "total_tokens": 2264
+        }
+      },
+      "llm": {
+        "answer": "",
+        "latency_ms": 9810.2,
+        "keyword_hit": "0/0",
+        "numbers": 0,
+        "hallucination": 0,
+        "token_usage": {
+          "prompt_tokens": 54,
+          "completion_tokens": 2048,
+          "total_tokens": 2102
+        }
+      },
+      "rag_score": 4.5,
+      "llm_score": 0.0,
+      "winner": "RAG ✅"
+    }
+  ],
+  "summary": {
+    "rag_wins": 9,
+    "llm_wins": 1,
+    "ties": 0,
+    "rag_avg_latency_ms": 4478.5,
+    "llm_avg_latency_ms": 8292.6,
+    "rag_keyword_hit": 24,
+    "llm_keyword_hit": 12,
+    "total_keywords": 32,
+    "rag_numbers": 92,
+    "llm_numbers": 6,
+    "rag_hallucination": 0,
+    "llm_hallucination": 0,
+    "by_category": {
+      "数值型": {
+        "rag_w": 4,
+        "llm_w": 0,
+        "count": 4
+      },
+      "事实型": {
+        "rag_w": 3,
+        "llm_w": 1,
+        "count": 4
+      },
+      "行业型": {
+        "rag_w": 2,
+        "llm_w": 0,
+        "count": 2
+      }
+    }
+  }
+}

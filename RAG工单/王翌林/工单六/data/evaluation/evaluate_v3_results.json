@@ -1,0 +1,585 @@
+{
+  "results": [
+    {
+      "id": 1,
+      "question": "武汉力源信息技术股份有限公司本次发行股数是多少，占发行后总股本的比例是多少？",
+      "is_table": true,
+      "pure_llm": {
+        "answer": "武汉力源信息技术股份有限公司本次发行股数为 **1,670 万股**，占发行后总股本的比例为 **25.01%**（发行后总股本为 6,677 万股）。",
+        "latency_ms": 1063.0,
+        "accuracy": 0.6666666666666666,
+        "faithfulness": 0.5,
+        "answer_relevance": 0.6666666666666666,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "v3_rag": {
+        "answer": "武汉力源信息技术股份有限公司本次发行股数为 **1,670万股**，占发行后总股本的比例为 **25.04%**。\n\n该信息在以下资料中均有记载：\n- [表1]（第24页）：发行股数及占发行后总股本比例为“1,670万股，占发行后总股本的比例为25.04%”\n- [表2]（第22页）：发行股数为“1,670万股，占发行后总股本的比例为25.04%”\n- [表3]（第2页）：发行股数为“1,670万股”",
+        "latency_ms": 71016.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.7230769230769231,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "route": "table_only",
+        "text_chunks": 0,
+        "table_chunks": 5,
+        "table_accuracy": 1.0
+      },
+      "v2_rag": {
+        "answer": "武汉力源信息技术股份有限公司本次发行股数为 **1,670 万股**，占发行后总股本的比例为 **25.04%**。\n\n该信息在资料中多处一致记载：\n\n- [资料1]（第24页）：“发行股数及占发行后总股本比例：1,670 万股，占发行后总股本的比例为25.04%”\n- [资料2]（第22页）：“发行股数：1,670 万股，占发行后总股本的比例为25.04%”\n- [资料3]（第2页）：“发行股数：1,670万股”\n- [资料5]（第54页）：“本次拟发行1,670 万股，占发行后总股本的25.04%”\n\n因此，本次发行股数为 **1,670 万股**，占发行后总股本比例为 **25.04%*",
+        "latency_ms": 622435.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.7941176470588235,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 0.0
+      }
+    },
+    {
+      "id": 2,
+      "question": "武汉力源信息技术股份有限公司本次募集资金拟投资哪些项目？",
+      "is_table": true,
+      "pure_llm": {
+        "answer": "根据武汉力源信息技术股份有限公司（股票代码：300184，简称\"力源信息\"）的公开披露信息，其募集资金投资项目会因具体融资批次（如IPO、非公开发行、可转债等）而有所不同。以下是其主要融资批次对应的募投项目情况：\n\n**一、IPO（2011年上市）募集资金投资项目**\n\n力源信息于2011年2月在创业板上市，IPO募集资金主要投向以下项目：\n\n1. **电子商务平台建设项目**——建设面向中小电子制造企业的电子元器件在线交易平台；\n2. **仓储物流中心建设项目**——提升公司仓储和物流配送能力；\n3. **技术支持中心建设项目**——增强对客户的技术服务与方案支持能力；\n4. **补充流动资",
+        "latency_ms": 2132.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.5,
+        "answer_relevance": 1.0,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "v3_rag": {
+        "answer": "根据参考资料，武汉力源信息技术股份有限公司本次募集资金拟投资以下项目：\n\n| 序号 | 项目名称 | 计划总投资（万元） | 项目核准情况 | 项目环保核查情况 |\n|------|----------|------------------|--------------|------------------|\n| 1 | 仓储及物流中心 | 3,393.40 | 武发改核新字[2010]02号 | 武环新审[2010] 2号 |\n| 2 | 研发中心 | 1,526.38 | 武发改核新字[2010]03号 | 武环新审[2010] 1号 |\n| 3 | 电子商务平台 | 2,492.78 |",
+        "latency_ms": 22094.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.6374269005847953,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "route": "hybrid",
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 1.0
+      },
+      "v2_rag": {
+        "answer": "根据参考资料，武汉力源信息技术股份有限公司本次募集资金拟投资以下项目：\n\n| 序号 | 项目名称 | 计划总投资（万元） | 项目核准情况 | 项目环保核查情况 |\n|------|----------|------------------|--------------|------------------|\n| 1 | 仓储及物流中心 | 3,393.40 | 武发改核新字[2010]02号 | 武环新审[2010]2号 |\n| 2 | 研发中心 | 1,526.38 | 武发改核新字[2010]03号 | 武环新审[2010]1号 |\n| 3 | 电子商务平台 | 2,492.78 | 武",
+        "latency_ms": 2920.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.6481481481481481,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 0.0
+      }
+    },
+    {
+      "id": 3,
+      "question": "与武汉力源信息技术股份有限公司存在控制关系的关联方是谁，持股比例和本公司关系是什么？",
+      "is_table": true,
+      "pure_llm": {
+        "answer": "根据武汉力源信息技术股份有限公司（股票代码：300184，简称\"力源信息\"）公开披露的信息，与其存在控制关系的关联方情况如下：\n\n**实际控制人：赵马克（Mark Zhao）**\n\n| 项目 | 内容 |\n|------|------|\n| 关联方 | 赵马克（Mark Zhao） |\n| 与本公司关系 | 实际控制人、董事长 |\n| 持股比例 | 通过直接和间接方式合计控制公司股份，具体比例随定期报告披露有所变动 |\n\n**补充说明：**\n\n1. **控股股东**：力源信息的控股股东为**赵马克**，其通过直接持股以及通过一致行动人（如公司高管团队等）的方式对公司形成控制。\n\n2. **持股",
+        "latency_ms": 1784.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.5,
+        "answer_relevance": 1.0,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "v3_rag": {
+        "answer": "根据参考资料，与武汉力源信息技术股份有限公司存在控制关系的关联方为**赵马克**。\n\n具体信息如下：\n\n- **关联方名称**：赵马克\n- **持股比例**：42.35%\n- **与本公司关系**：公司控股股东\n\n以上信息来源于[表1]（第157页，招股说明书2）。\n\n此外，[表3]（第54页，招股说明书2）也显示，赵马克持股数为2,117.70万股，持股比例为42.35%（发行前），进一步印证了其控股股东地位。",
+        "latency_ms": 1170.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.6458333333333334,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "route": "table_only",
+        "text_chunks": 0,
+        "table_chunks": 5,
+        "table_accuracy": 1.0
+      },
+      "v2_rag": {
+        "answer": "根据参考资料，与武汉力源信息技术股份有限公司存在控制关系的关联方是**赵马克**，其持股比例为**42.35%**，与本公司关系为**公司控股股东** [资料1]。\n\n具体信息如下表所示（页码：第157页）：\n\n| 关联方名称 | 持股比例 | 与本公司关系 |\n|------------|----------|--------------|\n| 赵马克 | 42.35% | 公司控股股东 |\n\n[资料1]",
+        "latency_ms": 2744.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.7123287671232876,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 0.0
+      }
+    },
+    {
+      "id": 4,
+      "question": "与武汉力源信息技术股份有限公司不存在控制关系的关联方企业有哪些？",
+      "is_table": true,
+      "pure_llm": {
+        "answer": "武汉力源信息技术股份有限公司（简称\"力源信息\"，股票代码300184）的关联方信息属于需要依据具体时点和定期报告来确认的内容，我无法凭记忆给出完整准确的名单。以下是获取这类信息的可靠途径：\n\n**1. 查阅定期报告中的\"关联方及关联交易\"章节**\n\n力源信息在深交所创业板上市，其年度报告和半年度报告中会专门披露关联方情况，包括：\n- 控股股东、实际控制人及其控制的其他企业\n- 持股5%以上的股东\n- 董事、监事、高级管理人员及其近亲属控制或任职的企业\n- 过去12个月内曾存在上述关系的企业\n\n这些报告中通常会区分\"存在控制关系的关联方\"和\"不存在控制关系的关联方\"。\n\n**2. 具体查询渠道*",
+        "latency_ms": 2030.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.5,
+        "answer_relevance": 1.0,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "v3_rag": {
+        "answer": "根据参考资料，与武汉力源信息技术股份有限公司不存在控制关系的关联方企业包括：\n\n- 融冰投资：持有公司股份5%以上的股东 [资料1]\n- 武汉博润：持有公司股份5%以上的股东 [资料1]\n- 上海博润：持有公司股份5%以上的股东 [资料1]\n- 听音投资：持有公司股份5%以上的股东 [资料1]\n- 联众聚源：持有公司股份5%以上的股东 [资料1]\n- 力源贸易：同一实际控制人控制的企业 [资料1]\n- 普芯达：实际控制人近亲属控制的公司 [资料1]\n\n以上关联方均列于“2、不存在控制关系的关联方”表格中 [资料1]。",
+        "latency_ms": 2767.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.6746987951807228,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "route": "hybrid",
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 1.0
+      },
+      "v2_rag": {
+        "answer": "根据参考资料，与武汉力源信息技术股份有限公司不存在控制关系的关联方企业包括：\n\n- 融冰投资（持有公司股份5%以上的股东）\n- 武汉博润（持有公司股份5%以上的股东）\n- 上海博润（持有公司股份5%以上的股东）\n- 听音投资（持有公司股份5%以上的股东）\n- 联众聚源（持有公司股份5%以上的股东）\n- 力源贸易（同一实际控制人控制的企业）\n- 普芯达（实际控制人近亲属控制的公司）\n\n以上信息来源于 [资料1] 第157页的“2、不存在控制关系的关联方”表格。",
+        "latency_ms": 2177.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.6511627906976745,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 0.0
+      }
+    },
+    {
+      "id": 260,
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "is_table": true,
+      "pure_llm": {
+        "answer": "武汉兴图新科电子股份有限公司在报告期内（2016年度、2017年度、2018年度及2019年1-6月）来自军用领域的收入分别为：\n\n- **2016年度**：8,900.00万元\n- **2017年度**：12,300.00万元\n- **2018年度**：15,600.00万元\n- **2019年1-6月**：6,800.00万元\n\n**数据来源**：武汉兴图新科电子股份有限公司首次公开发行股票并在科创板上市招股说明书（上会稿）。",
+        "latency_ms": 788.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.5,
+        "answer_relevance": 1.0,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "v3_rag": {
+        "answer": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别为：\n\n- 2016年度：6,464.51万元，占主营业务收入的82.10% [资料4]\n- 2017年度：14,414.16万元，占主营业务收入的97.31% [资料4]\n- 2018年度：18,780.67万元，占主营业务收入的94.84% [资料4]\n\n上述数据引自公司招股说明书（申报稿）中“按客户群体划分的销售情况”表格，单位为万元 [资料4]。",
+        "latency_ms": 2795.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.7717391304347826,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "route": "hybrid",
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 1.0
+      },
+      "v2_rag": {
+        "answer": "根据参考资料，报告期内武汉兴图新科电子股份有限公司来自军用领域的收入如下：\n\n- **2018年度**：18,780.67万元，占主营业务收入的94.84% [资料4]\n- **2017年度**：14,414.16万元，占主营业务收入的97.31% [资料4]\n- **2016年度**：6,464.51万元，占主营业务收入的82.10% [资料4]\n\n上述数据出自招股说明书第129页（1-1-128）的“按客户群体划分的销售情况”表格 [资料4]。此外，资料1也提到，报告期内公司来自军用领域的收入占比分别为82.10%、97.31%和94.84% [资料1]，与上述数据一致。",
+        "latency_ms": 2676.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.660377358490566,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 0.0
+      }
+    },
+    {
+      "id": 95,
+      "question": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+      "is_table": false,
+      "pure_llm": {
+        "answer": "武汉兴图新科电子股份有限公司参与制定了 **《信息技术服务 服务管理 第2部分：实施指南》**（GB/T 28827.2）。该标准属于信息技术服务领域的国家标准。",
+        "latency_ms": 506.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.5,
+        "answer_relevance": 1.0,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "v3_rag": {
+        "answer": "武汉兴图新科电子股份有限公司参与制定了全军第一个视频指挥系统技术标准，即《某视频技术规范1.0》[资料1][资料2][资料3][资料4]。",
+        "latency_ms": 4377.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.8076923076923077,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "route": "hybrid",
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 1.0
+      },
+      "v2_rag": {
+        "answer": "武汉兴图新科电子股份有限公司参与制定了全军第一个视频指挥系统技术标准，即《某视频技术规范1.0》[资料1][资料2][资料3][资料4]。",
+        "latency_ms": 2233.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.8076923076923077,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 1.0
+      }
+    },
+    {
+      "id": 33,
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别是多少？",
+      "is_table": true,
+      "pure_llm": {
+        "answer": "武汉兴图新科电子股份有限公司在报告期内（2016年度、2017年度、2018年度及2019年1-6月），来自军用领域的收入占主营业务收入的比重分别为 **82.10%**、**93.27%**、**94.84%** 和 **94.34%**。",
+        "latency_ms": 600.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.5,
+        "answer_relevance": 1.0,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "v3_rag": {
+        "answer": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别为：\n\n- **2016年度：82.10%**\n- **2017年度：97.31%**\n- **2018年度：94.84%**\n\n以上数据来源于[资料1]和[资料2]，对应页码分别为第217页和第129页。",
+        "latency_ms": 2252.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.8082191780821918,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 0.6666666666666666,
+        "route": "text_only",
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 1.0
+      },
+      "v2_rag": {
+        "answer": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别为：\n\n- **2016年度：82.10%**\n- **2017年度：97.31%**\n- **2018年度：94.84%**\n\n上述数据来源于[资料1]（第217页）和[资料2]（第129页），其中明确记载：“报告期内，公司来自军用领域的收入占比分别为82.10%、97.31%和94.84%”[资料1]；同时[资料2]的“按客户群体划分的销售情况”表格也列示：国防领域2016年、2017年、2018年销售金额分别占公司主营业务收入的82.10%、97.31%、94.84%[资料2]。",
+        "latency_ms": 2571.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.7378640776699029,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 0.6666666666666666,
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 0.0
+      }
+    },
+    {
+      "id": 34,
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+      "is_table": false,
+      "pure_llm": {
+        "answer": "根据武汉兴图新科电子股份有限公司的招股意向书，电子信息行业的上游涉及电子元器件、集成电路、电子材料、被动元件、结构件等企业。",
+        "latency_ms": 498.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.5,
+        "answer_relevance": 1.0,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "v3_rag": {
+        "answer": "根据参考资料，电子信息行业的上游涉及以下企业类型：\n\n电子元器件制造业、金属制品业，以及提供视音频外设、机箱、其他壳体等的企业 [资料1]。\n\n具体而言，上游行业企业供应各类基础设备和辅助材料，但普遍专注于单一类型产品的研发、生产和销售，须经电子信息系统产品提供商或系统集成商综合各类产品用途及特性进行系统设计和实施，最终形成完整的应用系统 [资料1]。",
+        "latency_ms": 2585.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.7450980392156863,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "route": "hybrid",
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 1.0
+      },
+      "v2_rag": {
+        "answer": "根据参考资料，电子信息行业的上游涉及的企业类型包括：电子元器件制造业、金属制品业，以及提供视音频外设、机箱、其他壳体等的企业 [资料1]。",
+        "latency_ms": 2428.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.7735849056603774,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 1.0
+      }
+    },
+    {
+      "id": 957,
+      "question": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+      "is_table": false,
+      "pure_llm": {
+        "answer": "武汉兴图新科电子股份有限公司（简称“兴图新科”）在**国防军工领域**，特别是**军队指挥控制系统和视频指挥领域**，已经成为重要的供应商。\n\n具体来说，兴图新科是一家专注于**音视频综合服务**的高新技术企业，主要面向**军队、国防军工**等行业客户，提供**视频指挥控制、视频会议、视频监控**等产品和解决方案。公司在**军队指挥信息系统**领域具有较强的技术积累和市场地位，是**我军视频指挥领域的重要供应商之一**。\n\n此外，公司也在**应急管理、智慧城市**等民用领域有所拓展，但其核心竞争力和主要市场仍然集中在**国防军工和军队信息化**领域。",
+        "latency_ms": 1181.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.5,
+        "answer_relevance": 1.0,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "v3_rag": {
+        "answer": "武汉兴图新科电子股份有限公司目前已经成为**军队视频指挥领域**（或**国防军队视频指挥领域**）的重要供应商 [资料1][资料2][资料3][资料4]。",
+        "latency_ms": 2687.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.9,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "route": "hybrid",
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 1.0
+      },
+      "v2_rag": {
+        "answer": "武汉兴图新科电子股份有限公司已经成为**国防军队视频指挥领域**的重要供应商。\n\n依据如下：\n- [资料1] 第117页指出：“公司目前已经成为军队视频指挥领域的重要供应商”。\n- [资料3] 第116页指出：“兴图新科目前已经成为国防军队视频指挥领域的重要供应商”。\n- [资料4] 第19页也指出：“兴图新科目前已经成为国防军队视频指挥领域的重要供应商”。\n\n因此，公司成为重要供应商的领域是**国防军队视频指挥领域**。",
+        "latency_ms": 2345.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.803030303030303,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 1.0
+      }
+    },
+    {
+      "id": 793,
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？",
+      "is_table": false,
+      "pure_llm": {
+        "answer": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括**国防、政府、金融、电信、能源、交通、教育、医疗**等行业。",
+        "latency_ms": 505.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.5,
+        "answer_relevance": 1.0,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "v3_rag": {
+        "answer": "根据参考资料，武汉兴图新科电子股份有限公司招股说明书（申报稿）中提及的电子信息行业下游主要包括以下行业：\n\n1. **军队** [资料1]\n2. **企事业单位** [资料1]\n3. **国防** [资料1]\n4. **市政、工程** [资料1]\n5. **公安武警、展览展示、能源、交通、金融、广电、气象等** [资料4]\n\n具体而言：\n\n- [资料1] 的行业上下游示意图中，最终客户列示为“军队”和“企事业单位”。\n- [资料1] 在“行业市场化程度”部分指出，电子信息主要应用于**国防、市政、工程**等领域。\n- [资料4] 在描述产品应用领域时提到，下游行业主要涉及**国防军队、公安武警",
+        "latency_ms": 3204.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.7857142857142857,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "route": "hybrid",
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 1.0
+      },
+      "v2_rag": {
+        "answer": "根据招股说明书，电子信息行业的下游主要包括以下行业：\n\n1. **军队** [资料1]\n2. **企事业单位** [资料1]\n3. **国防** [资料1]\n4. **市政、工程** [资料1]\n5. **公安武警、展览展示、能源、交通、金融、广电、气象等** [资料4]\n\n具体来看：\n\n- 资料1中的行业上下游示意图显示，电子信息行业的下游最终客户包括“军队”和“企事业单位” [资料1]。\n- 资料1在“行业市场化程度”部分指出，电子信息主要应用于“国防、市政、工程等领域” [资料1]。\n- 资料4在介绍淳中科技产品下游行业时提到，主要涉及“国防军队、公安武警、展览展示、能源、交通、金融、广",
+        "latency_ms": 2740.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.7586206896551724,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 1.0
+      }
+    },
+    {
+      "id": 795,
+      "question": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+      "is_table": false,
+      "pure_llm": {
+        "answer": "武汉兴图新科电子股份有限公司参与的是**某指挥信息系统工程**，该工程荣获**国家科技进步一等奖**。\n\n根据兴图新科公开披露的信息（如招股说明书、公司官网及年度报告），公司作为主要参与单位之一，参与了这项指挥信息系统相关的重大工程，并因此获得国家科技进步一等奖。不过，公开资料中对这一工程的具体名称表述较为笼统，通常只以\"某指挥信息系统工程\"指代，未披露更详细的工程代号或全称，这与涉密或敏感性有关。\n\n如果需要更精确的工程名称，建议查阅公司招股说明书原文或联系公司证券事务部门确认。",
+        "latency_ms": 1063.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.5,
+        "answer_relevance": 1.0,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "v3_rag": {
+        "answer": "武汉兴图新科电子股份有限公司参与的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统）荣获了国家科技进步一等奖。在该工程中，公司独立承担了视频指挥分系统的设计、开发、研制、部署工作 [资料1][资料2][资料3][资料4]。",
+        "latency_ms": 2497.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.9213483146067416,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "route": "hybrid",
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 1.0
+      },
+      "v2_rag": {
+        "answer": "武汉兴图新科电子股份有限公司参与的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统）荣获了国家科技进步一等奖。在该工程中，公司独立承担了视频指挥分系统的设计、开发、研制、部署工作 [资料1][资料3][资料4]。",
+        "latency_ms": 4206.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.9204545454545454,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 1.0
+      }
+    },
+    {
+      "id": 543,
+      "question": "武汉兴图新科电子股份有限公司注册资本是多少？",
+      "is_table": false,
+      "pure_llm": {
+        "answer": "武汉兴图新科电子股份有限公司的注册资本为 **7,360万元** 人民币。该公司为科创板上市公司，证券简称“兴图新科”，证券代码 **688081**。",
+        "latency_ms": 543.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.5,
+        "answer_relevance": 1.0,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "v3_rag": {
+        "answer": "武汉兴图新科电子股份有限公司的注册资本为 **5,520 万元**（即 5,520.00 万元）[资料1][资料3]。",
+        "latency_ms": 2593.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.9210526315789473,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "route": "hybrid",
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 1.0
+      },
+      "v2_rag": {
+        "answer": "武汉兴图新科电子股份有限公司的注册资本为 **5,520 万元**（即 5,520.00 万元）[资料1][资料3]。",
+        "latency_ms": 2012.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.9210526315789473,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 1.0
+      }
+    },
+    {
+      "id": 531,
+      "question": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+      "is_table": false,
+      "pure_llm": {
+        "answer": "武汉兴图新科电子股份有限公司的法定代表人是**程家明**。",
+        "latency_ms": 475.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.5,
+        "answer_relevance": 1.0,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "v3_rag": {
+        "answer": "武汉兴图新科电子股份有限公司的法定代表人是**程家明**。[资料1][资料5]",
+        "latency_ms": 2418.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.84375,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "route": "hybrid",
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 1.0
+      },
+      "v2_rag": {
+        "answer": "根据参考资料，武汉兴图新科电子股份有限公司的法定代表人是**程家明**。\n\n该信息在以下资料中均有明确记载：\n- [资料1] 第37页“一、发行人的基本情况”中列明“法定代表人：程家明”；\n- [资料5] 第16页“（一）发行人基本情况”表格中列明“法定代表人：程家明”。",
+        "latency_ms": 2127.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.7083333333333334,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 1.0
+      }
+    },
+    {
+      "id": 207,
+      "question": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+      "is_table": true,
+      "pure_llm": {
+        "answer": "根据武汉兴图新科电子股份有限公司的招股说明书，公司计划使用本次发行募集资金中的 **6,000万元** 用于补充流动资金。",
+        "latency_ms": 335.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.5,
+        "answer_relevance": 1.0,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "v3_rag": {
+        "answer": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金 **15,000 万元** 用于补充流动资金。\n\n依据如下：\n- [资料1] 明确记载：“公司在满足上述募集资金投资项目资金需求的同时，拟使用本次发行募集资金15,000 万元用于补充流动资金。”\n- [资料2] 的募集资金投资项目表格中，“补充流动资金”项目对应的“拟投入募集资金”为 **15,000.00 万元**，单位为万元。\n- [资料3] 的募集资金用途表格中，“补充流动资金”项目对应的“募集资金投资”也为 **15,000.00 万元**，单位为万元。\n\n因此，补充流动资金项目的募集资金投入金额为 **15,000 万元**。",
+        "latency_ms": 3254.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.7272727272727273,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "route": "hybrid",
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 1.0
+      },
+      "v2_rag": {
+        "answer": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金 **15,000 万元** 用于补充流动资金。[资料1][资料2][资料3]\n\n具体信息如下：\n\n- 在募集资金投资项目表中，“补充流动资金”项目总投资为 **15,000.00 万元**，拟投入募集资金为 **15,000.00 万元**。[资料2][资料3]\n- 资料中明确表述：“公司在满足上述募集资金投资项目资金需求的同时，拟使用本次发行募集资金 **15,000 万元** 用于补充流动资金。”[资料1]",
+        "latency_ms": 2388.0,
+        "accuracy": 1.0,
+        "faithfulness": 0.7848101265822784,
+        "answer_relevance": 1.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "text_chunks": 5,
+        "table_chunks": 0,
+        "table_accuracy": 0.0
+      }
+    }
+  ],
+  "summary": {
+    "pure_llm": {
+      "total": 14,
+      "accuracy": 0.9761904761904762,
+      "avg_latency_ms": 964.5,
+      "faithfulness": 0.5,
+      "answer_relevance": 0.9761904761904762,
+      "context_precision": 0.0,
+      "context_recall": 0.0,
+      "table_total": 7,
+      "table_accuracy": 0.9523809523809523
+    },
+    "v2_rag": {
+      "total": 14,
+      "accuracy": 1.0,
+      "avg_latency_ms": 46857.28571428572,
+      "faithfulness": 0.7629698308696906,
+      "answer_relevance": 1.0,
+      "context_precision": 1.0,
+      "context_recall": 0.9761904761904763,
+      "table_total": 7,
+      "table_accuracy": 0.0
+    },
+    "v3_rag": {
+      "total": 14,
+      "accuracy": 1.0,
+      "avg_latency_ms": 8979.214285714286,
+      "faithfulness": 0.779494469055246,
+      "answer_relevance": 1.0,
+      "context_precision": 1.0,
+      "context_recall": 0.9761904761904763,
+      "table_total": 7,
+      "table_accuracy": 1.0
+    }
+  }
+}

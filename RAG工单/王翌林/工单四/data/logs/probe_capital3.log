@@ -1,0 +1,42 @@
+2026-10-06 15:34:17.051 | INFO     | src.embedding:<module>:20 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-10-06 15:34:17.403 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-10-06 15:34:17.403 | INFO     | src.rag_engine_v3:_load_text_retriever:76 - [rag_engine_v3] TextRetrieverV3 已加载（多文档）
+2026-10-06 15:34:17.404 | INFO     | src.table_parser.table_store:_connect:69 - [table_store] 远程 Milvus: http://localhost:19530 v=2.6.9
+2026-10-06 15:34:17.404 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+Building prefix dict from the default dictionary ...
+Loading model from cache /tmp/jieba.cache
+Loading model cost 0.369 seconds.
+Prefix dict has been built successfully.
+2026-10-06 15:34:23.012 | INFO     | src.embedding:_load:50 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+2026-10-06 15:34:23.012 | INFO     | src.embedding:_load:50 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s][ALoading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 6404.24it/s]
+Loading weights: 100%|██████████| 391/391 [00:00<00:00, 6355.15it/s]
+2026-10-06 15:34:37.401 | INFO     | src.embedding:_load:55 - max_seq_length=512
+2026-10-06 15:34:37.448 | INFO     | src.embedding:_load:55 - max_seq_length=512
+2026-10-06 15:34:43.107 | INFO     | src.embedding:_load:60 - 嵌入模型就绪: dim=1024
+2026-10-06 15:34:43.108 | INFO     | src.embedding:_load:60 - 嵌入模型就绪: dim=1024
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:  50%|████▉     | 195/393 [00:00<00:00, 1937.95it/s]Loading weights: 100%|██████████| 393/393 [00:00<00:00, 2115.10it/s]
+2026-10-06 15:34:45.849 | INFO     | src.reranker:_load:46 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+2026-10-06 15:35:00.957 | INFO     | src.text_retriever_v3:retrieve:121 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 43594ms
+2026-10-06 15:35:02.387 | INFO     | src.llm_client_v3:get_client:31 - [llm_client_v3] DeepSeek client 就绪: https://api.deepseek.com/v1
+2026-10-06 15:35:04.179 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1761ms, tokens=1783
+2026-10-06 15:35:05.896 | INFO     | src.text_retriever_v3:retrieve:121 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 1703ms
+2026-10-06 15:35:06.094 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+2026-10-06 15:35:07.425 | INFO     | src.text_retriever_v3:retrieve:121 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 1330ms
+2026-10-06 15:35:08.633 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1054ms, tokens=2421
+p37 ...lectronics Co.,Ltd. 法定代表人：程家明 注册资本：5,520 万元 实收资本：5,520 万元 注册地址：湖北省武汉东湖新技术开发区关山大道1 号软件产业三期A3 栋 8 层 兴图新科有限成立日期：2...
+chunk 长度: 474
+----------------------------------------------------------------------
+p38 ...-1-37 17 日以货币资金和实物资产共同出资设立，成立时注册资本50 万元。 湖北金石财务咨询评估有限公司对设立时出资的实物资产进行了评估并出 具了《资产评估报告书》（鄂金评报字[2004]第B0310 号），经评估...
+chunk 长度: 800
+----------------------------------------------------------------------
+p16 ...,Ltd. 股份公司成立日 期 2011 年1 月26 日 注册资本 5,520.00 万元 法定代表人 程家明 注册地址 湖北省武汉市东湖新技术开发区 关山大道1 号软件产业三期A3 栋 8 层 主要生产经营地 址 湖...
+chunk 长度: 748
+----------------------------------------------------------------------
+=== v3 实答 ===
+武汉兴图新科电子股份有限公司的注册资本为 **5,520 万元**（即 5,520.00 万元）[资料1][资料3]。
+
+具体依据如下：
+- [资料1] 第37页“一、发行人的基本情况”中列明：注册资本为 5,520 万元，实收资本为 5,520 万元。
+- [资料3] 第16页“（一）发行人基本情况”中列明：注册资本为 5,520.00 万元。

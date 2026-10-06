@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <title>招股说明书问答系统 V5 | 多轮对话</title>
+    <style>
+        body { font-family: "Microsoft YaHei", Arial, sans-serif; background: #fef3c7; margin: 0; padding: 0; color: #2c3e50; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; height: 100vh; display: flex; flex-direction: column; }
+        h1 { color: #d97706; border-bottom: 2px solid #d97706; padding-bottom: 10px; font-size: 20px; margin: 0 0 15px 0; }
+        .v5-badge { background: #d97706; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-left: 8px; }
+        .chat-area { flex: 1; overflow-y: auto; background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 15px; }
+        .msg { margin-bottom: 15px; }
+        .msg.user { text-align: right; }
+        .msg.user .bubble { background: #d97706; color: #fff; display: inline-block; padding: 10px 15px; border-radius: 15px 15px 3px 15px; max-width: 80%; }
+        .msg.assistant { text-align: left; }
+        .msg.assistant .bubble { background: #f3f4f6; color: #111; display: inline-block; padding: 10px 15px; border-radius: 15px 15px 15px 3px; max-width: 80%; white-space: pre-wrap; }
+        .msg .meta { font-size: 11px; color: #999; margin-top: 4px; }
+        .enriched { font-size: 11px; color: #d97706; background: #fef3c7; padding: 2px 6px; border-radius: 3px; margin-left: 6px; }
+        .switch-badge { font-size: 11px; color: #dc2626; background: #fee2e2; padding: 2px 6px; border-radius: 3px; }
+        .input-area { background: #fff; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        textarea { width: 100%; min-height: 60px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; resize: vertical; box-sizing: border-box; }
+        .btn-row { display: flex; gap: 10px; margin-top: 10px; }
+        button { padding: 8px 20px; border-radius: 6px; font-size: 13px; cursor: pointer; border: 0; }
+        button.primary { background: #d97706; color: #fff; }
+        button.primary:hover { background: #b45309; }
+        button.secondary { background: #e5e7eb; color: #374151; }
+        button:disabled { background: #aaa; cursor: not-allowed; }
+        .context-bar { font-size: 12px; color: #666; background: #fffbeb; padding: 8px 12px; border-radius: 6px; margin-bottom: 10px; display: flex; justify-content: space-between; }
+        .examples { font-size: 12px; color: #888; margin-top: 8px; }
+        .example-link { color: #d97706; cursor: pointer; text-decoration: underline; margin-right: 8px; }
+        .tag { padding: 1px 5px; border-radius: 3px; font-size: 10px; }
+        .tag-image { background: #fae8ff; color: #a855f7; }
+        .tag-table { background: #fefce8; color: #ca8a04; }
+        .tag-text { background: #dcfce7; color: #15803d; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>招股说明书多轮问答 <span class="v5-badge">V5</span></h1>
+        <div class="context-bar" id="contextBar">加载中...</div>
+        <div class="chat-area" id="chatArea">
+            <div style="text-align:center;color:#999;padding:40px;">
+                👋 开始对话吧! 试试多轮问答: 问完"收入"再问"他的工程",系统会自动理解"他"指代哪家公司
+            </div>
+        </div>
+        <div class="input-area">
+            <textarea id="question" placeholder="输入问题, 支持多轮对话 (如: 他/这个公司/那XX呢?)"></textarea>
+            <div class="btn-row">
+                <button class="primary" onclick="ask()">发送 (Ctrl+Enter)</button>
+                <button class="secondary" onclick="newSession()">🔄 新对话</button>
+            </div>
+            <div class="examples">
+                多轮示例:
+                <span class="example-link" onclick="fill(this)">报告期内,武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少?</span>
+                <span class="example-link" onclick="fill(this)">他参与的哪个工程荣获了国家科技进步一等奖?</span>
+                <span class="example-link" onclick="fill(this)">这个公司的法定代表人是谁?</span>
+                <span class="example-link" onclick="fill(this)">那武汉力源信息技术股份有限公司呢?</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let sessionId = document.cookie.match(/rag_session=([^;]+)/)?.[1] || '';
+
+        function fill(el) { document.getElementById('question').value = el.innerText; }
+
+        function addMsg(role, text, metaHtml) {
+            const area = document.getElementById('chatArea');
+            const div = document.createElement('div');
+            div.className = 'msg ' + role;
+            div.innerHTML = `<div class="bubble">${text}</div>` + (metaHtml ? `<div class="meta">${metaHtml}</div>` : '');
+            area.appendChild(div);
+            area.scrollTop = area.scrollHeight;
+        }
+
+        function updateContext(ctx) {
+            const bar = document.getElementById('contextBar');
+            if (!ctx.current_company) {
+                bar.innerHTML = `轮次: ${ctx.turn_count} | 等待首次问题...`;
+            } else {
+                bar.innerHTML = `🏢 ${ctx.current_company} | 话题: ${ctx.last_topic || '-'} | 轮次: ${ctx.turn_count}`;
+            }
+        }
+
+        async function ask() {
+            const q = document.getElementById('question').value.trim();
+            if (!q) return;
+            const btn = document.querySelector('button.primary');
+            btn.disabled = true; btn.innerText = '发送中...';
+
+            addMsg('user', q, '');
+            document.getElementById('question').value = '';
+
+            try {
+                const resp = await fetch('/api/ask', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({question: q, session_id: sessionId})
+                });
+                const data = await resp.json();
+                sessionId = data.dialogue_info?.session_id || sessionId;
+
+                let meta = `⏱ ${data.response_time}s`;
+                if (data.enriched !== data.question) {
+                    meta += ` <span class="enriched">补全: ${data.enriched.slice(0,40)}${data.enriched.length>40?'...':''}</span>`;
+                }
+                if (data.dialogue_info?.company_switched) {
+                    meta += ` <span class="switch-badge">公司切换!</span>`;
+                }
+                const srcMap = {image: '📷图像', table: '📊表格', text: '📝文本'};
+                if (srcMap[data.answer_source]) {
+                    meta += ` <span class="tag tag-${data.answer_source}">${srcMap[data.answer_source]}</span>`;
+                }
+
+                addMsg('assistant', data.rag_answer || '(空)', meta);
+
+                // 更新上下文
+                updateContext({
+                    current_company: data.dialogue_info?.current_company,
+                    last_topic: data.dialogue_info?.topic,
+                    turn_count: data.dialogue_info?.turn,
+                });
+            } catch (e) {
+                addMsg('assistant', '请求失败: ' + e, '');
+            } finally {
+                btn.disabled = false; btn.innerText = '发送';
+            }
+        }
+
+        async function newSession() {
+            const sid = str(Math.random()).slice(2);
+            await fetch('/api/new_session', {
+                method: 'POST', headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({session_id: sid})
+            });
+            sessionId = sid;
+            document.getElementById('chatArea').innerHTML = '<div style="text-align:center;color:#999;padding:40px;">🆕 新对话已开始</div>';
+            updateContext({current_company: null, last_topic: null, turn_count: 0});
+        }
+
+        document.getElementById('question').addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') ask();
+        });
+
+        // 初始上下文
+        fetch('/api/context?session_id=' + (sessionId || 'default')).then(r => r.json())
+            .then(c => updateContext(c)).catch(() => {});
+    </script>
+</body>
+</html>

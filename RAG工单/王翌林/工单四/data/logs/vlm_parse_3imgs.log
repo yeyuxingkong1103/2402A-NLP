@@ -1,0 +1,84 @@
+/usr/lib/python3.10/runpy.py:126: RuntimeWarning: 'src.image_parser.image_captioner' found in sys.modules after import of package 'src.image_parser', but prior to execution of 'src.image_parser.image_captioner'; this may result in unpredictable behaviour
+  warn(RuntimeWarning(msg))
+2026-10-06 13:50:49.530 | INFO     | __main__:parse_images:194 - [captioner] (1/3) img_008 p39 解析中...
+2026-10-06 13:50:53.957 | INFO     | __main__:_ensure_loaded:54 - [qwen2vl] 加载模型: /home/dabaie/models/Qwen2-VL-2B-Instruct
+Loading weights:   0%|          | 0/729 [00:00<?, ?it/s]Loading weights:   3%|▎         | 21/729 [00:00<00:03, 202.65it/s]Loading weights:   6%|▌         | 42/729 [00:00<00:03, 177.42it/s]Loading weights:   8%|▊         | 60/729 [00:00<00:04, 160.64it/s]Loading weights:  11%|█         | 77/729 [00:00<00:08, 77.38it/s] Loading weights:  14%|█▎        | 100/729 [00:01<00:07, 86.15it/s]Loading weights:  15%|█▌        | 112/729 [00:01<00:09, 65.46it/s]Loading weights:  18%|█▊        | 128/729 [00:01<00:08, 69.96it/s]Loading weights:  20%|█▉        | 145/729 [00:01<00:07, 83.06it/s]Loading weights:  21%|██▏       | 156/729 [00:01<00:06, 85.20it/s]Loading weights:  24%|██▎       | 173/729 [00:01<00:05, 94.18it/s]Loading weights:  26%|██▋       | 192/729 [00:12<01:48,  4.95it/s]Loading weights:  28%|██▊       | 207/729 [00:12<01:16,  6.79it/s]Loading weights: 100%|██████████| 729/729 [00:04<00:00, 178.22it/s]
+2026-10-06 13:50:59.207 | INFO     | __main__:_ensure_loaded:66 - [qwen2vl] 模型就绪
+/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/paddle/utils/cpp_extension/extension_utils.py:712: UserWarning: No ccache found. Please be aware that recompiling all source files may be required. You can download and install ccache from: https://github.com/ccache/ccache/blob/master/doc/INSTALL.md
+  warnings.warn(warning_message)
+[32mCreating model: ('PP-LCNet_x1_0_doc_ori', None, None)[0m
+[32mModel files already exist. Using cached files. To redownload, please delete the directory manually: `/home/dabaie/.paddlex/official_models/PP-LCNet_x1_0_doc_ori`.[0m
+[32mCreating model: ('UVDoc', None, None)[0m
+[32mModel files already exist. Using cached files. To redownload, please delete the directory manually: `/home/dabaie/.paddlex/official_models/UVDoc`.[0m
+[32mCreating model: ('PP-LCNet_x1_0_textline_ori', None, None)[0m
+[32mModel files already exist. Using cached files. To redownload, please delete the directory manually: `/home/dabaie/.paddlex/official_models/PP-LCNet_x1_0_textline_ori`.[0m
+[32mCreating model: ('PP-OCRv6_medium_det', None, None)[0m
+[32mModel files already exist. Using cached files. To redownload, please delete the directory manually: `/home/dabaie/.paddlex/official_models/PP-OCRv6_medium_det`.[0m
+[32mCreating model: ('PP-OCRv6_medium_rec', None, None)[0m
+[32mModel files already exist. Using cached files. To redownload, please delete the directory manually: `/home/dabaie/.paddlex/official_models/PP-OCRv6_medium_rec`.[0m
+2026-10-06 13:51:35.466 | INFO     | src.image_parser.image_ocr:_get_paddle:51 - [image_ocr] PaddleOCR 就绪
+2026-10-06 13:51:50.441 | INFO     | __main__:parse_images:194 - [captioner] (2/3) img_011 p72 解析中...
+2026-10-06 13:52:02.589 | INFO     | __main__:parse_images:194 - [captioner] (3/3) img_012 p72 解析中...
+2026-10-06 13:52:14.259 | INFO     | __main__:parse_images:215 - [captioner] 完成 3 张 (ok=3) -> data/image_descriptions/招股说明书2_images_parsed.json 耗时 84.7s
+
+=== 解析完成 ===
+总计 3 张，成功 3，耗时 84.7s -> data/image_descriptions/招股说明书2_images_parsed.json
+
+[img_008] p39
+  caption: 这张图展示了一个公司的组织结构图。图中包含了多个部门，包括财务部、市场开发部、信息管理系统部、销售部、行政人事部、物流部、研发中心、电话及网络销售部、大客户销售部、国际贸易部、广州销售处、成都销售处、珠海销售处、深圳销售处、北京销售处、武汉
+  ocr: 股东大会
+薪酬与考核
+委员会
+监事会
+提名委员会
+董事会
+董事会秘书
+战略委员会
+证券部
+总经理
+审计委员会
+维教育
+能刘敏
+上海分公司
+内部审计部
+rengo
+
+[img_011] p72
+  caption: 这张图是一个饼状图，展示了不同类型的消费支出在总支出中的占比。图中，计算机的支出占比最高，为42%，其次是网络通信，占比20%。其他类型的支出占比相对较低，如工控、汽车IC卡、IC卡、消费等，分别占比2%、2%、1%和26%。
+  ocr: 其他
+汽车IC卡
+工控
+137
+102 48
+448
+计算机
+2%
+7%
+2%
+1%
+2515
+42%
+网络通信
+1189
+20%
+消费
+1541
+26%
+
+[img_012] p72
+  caption: 图的类型是条形图，主题内容是不同行业增长率，关键信息是：IC卡、工控、计算机、其他、汽车、网络通信、消费等六个行业增长率分别为-2.0%、10.5%、7.9%、6.1%、14.0%、2.6%、5.1%。
+  ocr: 增长率
+-2.0%
+IC卡
+工控
+10.5%
+计算机
+7.9%
+其他
+6.1%
+14.0%
+汽车
+网络通信
+2.6%
+消费
+5.1%
