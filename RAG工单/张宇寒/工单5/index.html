@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>工单五 · 招股说明书多轮问答</title>
+  <style>
+    :root{font-family:"Microsoft YaHei",sans-serif;color:#172033;background:#f3f6fb}
+    *{box-sizing:border-box}body{margin:0}.wrap{max-width:980px;margin:36px auto;padding:0 20px}
+    h1{margin:0 0 8px;font-size:28px}.sub{color:#64748b;margin-bottom:24px}
+    .tabs{display:flex;gap:8px;margin-bottom:16px}.tab{border:0;border-radius:9px;padding:10px 18px;background:#e2e8f0;cursor:pointer}
+    .tab.active{background:#2457d6;color:#fff}.panel{display:none}.panel.active{display:block}
+    .card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 5px 20px #1720330d}
+    textarea{width:100%;min-height:110px;resize:vertical;border:1px solid #cbd5e1;border-radius:10px;padding:14px;font:inherit}
+    button.primary{margin-top:12px;border:0;border-radius:9px;padding:11px 20px;background:#2457d6;color:#fff;cursor:pointer}
+    button:disabled{opacity:.55;cursor:wait}.answer{white-space:pre-wrap;line-height:1.75}.muted{color:#64748b;font-size:14px}
+    .error{color:#b42318;background:#fff1f0;border-radius:8px;padding:10px}.hidden{display:none}
+    details{margin-top:12px;border-top:1px solid #e2e8f0;padding-top:10px}summary{cursor:pointer;color:#2457d6}
+    .quote{margin:10px 0;padding:10px 12px;border-left:3px solid #93c5fd;background:#f8fafc;white-space:pre-wrap}
+    .feedback button{margin:8px 8px 0 0;border:1px solid #cbd5e1;background:#fff;border-radius:8px;padding:7px 12px;cursor:pointer}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.result{border:1px solid #e2e8f0;border-radius:10px;padding:14px;white-space:pre-wrap;line-height:1.6}
+    .compare{margin-top:12px;padding:12px;background:#eef4ff;border-radius:9px}.status{padding:10px 0;color:#64748b}
+    .summary{margin-top:14px;padding:14px;border-radius:10px;background:#eef4ff;line-height:1.7}.summary.pass{background:#ecfdf3;color:#067647}.summary.fail{background:#fff7ed;color:#b54708}
+    .reference{margin-top:12px;padding:10px 12px;background:#f8fafc;border-left:3px solid #94a3b8;line-height:1.6}
+    .badge{display:inline-block;margin-bottom:8px;padding:4px 9px;border-radius:999px;background:#e0e7ff;color:#3730a3;font-size:13px}
+    .source-link{display:inline-block;margin:2px 0 12px;color:#2457d6;text-decoration:none;font-size:14px}.source-link:hover{text-decoration:underline}
+    .chat{min-height:260px;max-height:62vh;overflow-y:auto;background:#f8fafc}
+    .message{max-width:86%;padding:12px 15px;border-radius:12px;margin:10px 0;line-height:1.7;white-space:pre-wrap}
+    .message.user{margin-left:auto;background:#2457d6;color:#fff}
+    .message.bot{background:#fff;border:1px solid #e2e8f0}
+    .message .muted{display:block;margin-top:8px}.message details{white-space:normal}
+    .composer-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .secondary{margin-top:12px;border:1px solid #cbd5e1;border-radius:9px;padding:10px 16px;background:#fff;cursor:pointer}
+    @media(max-width:700px){.grid{grid-template-columns:1fr}.wrap{margin-top:22px}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <h1>工单五 · 招股说明书多轮问答</h1>
+  <div class="sub">连续追问两家公司，支持“他”“这个公司”“那力源信息呢？”等上下文理解，并展示 PDF 依据</div>
+  <div class="tabs">
+    <button class="tab active" data-panel="qa">文档问答</button>
+    <button class="tab" data-panel="batch">批量评测</button>
+  </div>
+
+  <section id="qa" class="panel active">
+    <div id="chat" class="card chat"><p id="chatHint" class="muted">试试先问兴图新科的军用收入，再问“他参与的哪个工程获奖？”</p></div>
+    <div class="card">
+      <textarea id="question" placeholder="输入问题；可以接着问“这个公司的法定代表人是谁？”"></textarea>
+      <div class="composer-actions"><button id="ask" class="primary">发送问题</button><button id="newChat" class="secondary">新对话</button><span class="muted">Ctrl + Enter 发送</span></div>
+      <div id="qaStatus" class="status"></div>
+    </div>
+  </section>
+
+  <section id="batch" class="panel">
+    <div class="card">
+      <p>一次运行两份PDF的17个固定问题，对比 RAG 与纯 LLM 答案。</p>
+      <button id="runBatch" class="primary">一键批量评测</button>
+      <div id="batchStatus" class="status"></div>
+      <div id="batchSummary" class="summary hidden"></div>
+    </div>
+    <div id="batchResults"></div>
+  </section>
+</main>
+<script>
+  const $=id=>document.getElementById(id); let sessionId='';
+  document.querySelectorAll('.tab').forEach(btn=>btn.onclick=()=>{
+    document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('active'));
+    btn.classList.add('active'); $(btn.dataset.panel).classList.add('active');
+  });
+  async function post(url,body){
+    const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined});
+    const data=await res.json(); if(!res.ok) throw new Error(data.detail||'请求失败'); return data;
+  }
+  function addMessage(kind,text){
+    const div=document.createElement('div');div.className=`message ${kind}`;div.textContent=text;
+    $('chat').append(div);$('chat').scrollTop=$('chat').scrollHeight;return div;
+  }
+  function addAnswer(data){
+    const box=addMessage('bot',data.answer);
+    if(data.resolved_question!==data.original_question){const note=document.createElement('span');note.className='muted';note.textContent=`理解为：${data.resolved_question}`;box.append(note)}
+    const source=data.document==='prospectus_2'?'招股说明书2.pdf':data.document==='prospectus_1'?'招股说明书1.pdf':'两份PDF';
+    const timing=document.createElement('span');timing.className='muted';timing.textContent=`来源：${source} · 总计 ${data.total_ms} ms`;box.append(timing);
+    if(data.citations&&data.citations.length){
+      const details=document.createElement('details');const title=document.createElement('summary');title.textContent='查看 PDF 原文依据';details.append(title);
+      data.citations.forEach(c=>{const d=document.createElement('div');d.className='quote';const file=c.document==='prospectus_2'?'招股说明书2.pdf':'招股说明书1.pdf';d.textContent=`${c.company} · ${file} · PDF第 ${c.page} 页${c.title?' · '+c.title:''}\n${c.text}`;const link=document.createElement('a');link.className='source-link';link.href=`/api/pdf/${c.document}#page=${c.page}`;link.target='_blank';link.rel='noopener';link.textContent='打开 PDF 核对 ↗';d.append(document.createElement('br'),link);details.append(d)});box.append(details);
+    }
+    const feedback=document.createElement('div');feedback.className='feedback';
+    for(const [helpful,label] of [[true,'👍 有帮助'],[false,'👎 无帮助']]){const button=document.createElement('button');button.textContent=label;button.onclick=async()=>{try{await post('/api/feedback',{answer_id:data.answer_id,helpful});feedback.querySelector('span').textContent='已记录'}catch(e){feedback.querySelector('span').textContent=e.message}};feedback.append(button)}
+    const state=document.createElement('span');state.className='muted';feedback.append(state);box.append(feedback);$('chat').scrollTop=$('chat').scrollHeight;
+  }
+  $('ask').onclick=async()=>{
+    const question=$('question').value.trim();if(!question)return;
+    $('ask').disabled=true;$('newChat').disabled=true;$('qaStatus').textContent='正在检索并生成答案…';
+    $('chatHint')?.remove();addMessage('user',question);$('question').value='';
+    try{const data=await post('/api/ask',{question,session_id:sessionId||null});sessionId=data.session_id;addAnswer(data);$('qaStatus').textContent=''}
+    catch(e){addMessage('bot',`暂时无法回答：${e.message}`);$('qaStatus').textContent=''}
+    finally{$('ask').disabled=false;$('newChat').disabled=false;$('question').focus()}
+  };
+  $('newChat').onclick=()=>{sessionId='';$('chat').replaceChildren();addMessage('bot','已开始新对话，请先说明要问哪家公司。');$('qaStatus').textContent=''};
+  $('question').onkeydown=e=>{if(e.key==='Enter'&&e.ctrlKey){e.preventDefault();$('ask').click()}};
+  $('runBatch').onclick=async()=>{
+    $('runBatch').disabled=true;$('batchStatus').textContent='正在运行 17 个问题，请稍候…';$('batchResults').replaceChildren();$('batchSummary').className='summary hidden';
+    try{
+      const data=await post('/api/benchmark');
+      const s=data.summary;const summary=$('batchSummary');summary.className=`summary ${s.target_passed?'pass':'fail'}`;
+      summary.textContent=`共${s.question_count}题 · RAG准确率：${s.rag_accuracy}% · 纯LLM：${s.llm_accuracy}% · PDF1：${s.by_document.prospectus_1}% · PDF2：${s.by_document.prospectus_2}% · 目标：≥${s.target}% · ${s.target_passed?'已达标':'未达标'}`;
+      data.results.forEach(x=>{
+        const card=document.createElement('div');card.className='card';
+        const badge=document.createElement('span');badge.className='badge';badge.textContent=x.document==='prospectus_2'?'招股说明书2 · 力源信息':'招股说明书1 · 兴图新科';card.append(badge);
+        const title=document.createElement('h3');title.textContent=`${x.id}. ${x.question}`;card.append(title);
+        if(x.error){const e=document.createElement('div');e.className='error';e.textContent=x.error;card.append(e)}else{
+          const grid=document.createElement('div');grid.className='grid';
+          const rag=document.createElement('div');rag.className='result';rag.textContent=`RAG 答案（事实命中 ${x.rag_score.score}%）\n${x.rag.answer}\n\n耗时：${x.rag.total_ms} ms`;
+          const llm=document.createElement('div');llm.className='result';llm.textContent=`纯 LLM 答案（事实命中 ${x.llm_score.score}%）\n${x.llm_answer}\n\n耗时：${x.llm_elapsed_ms} ms`;
+          grid.append(rag,llm);card.append(grid);
+          const comp=document.createElement('div');comp.className='compare';comp.textContent=`对比分析：${x.comparison}`;card.append(comp);
+        }
+        const ref=document.createElement('div');ref.className='reference';ref.textContent=`参考答案：${x.reference_answer}`;card.append(ref);$('batchResults').append(card);
+      });$('batchStatus').textContent='评测完成';
+    }catch(e){$('batchStatus').innerHTML='<span class="error"></span>';$('batchStatus').firstChild.textContent=e.message}
+    finally{$('runBatch').disabled=false}
+  };
+</script>
+</body>
+</html>
