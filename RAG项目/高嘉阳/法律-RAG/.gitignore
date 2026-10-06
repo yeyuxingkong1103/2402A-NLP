@@ -1,0 +1,47 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+RAG/
+.venv/
+venv/
+env/
+ENV/
+
+# Environment variables and secrets
+.env
+.env.*
+*.key
+*.pem
+*.secret
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs and caches
+*.log
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Generated RAG artifacts
+models/
+model/
+checkpoints/
+embeddings/
+vector_store/
+vectorstore/
+chroma/
+faiss_index/
+*.index
+*.sqlite
+*.sqlite3
+*.db

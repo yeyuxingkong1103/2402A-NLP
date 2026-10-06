@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <title>Graph RAG V9 优化</title>
+    <style>
+        body { font-family: "Microsoft YaHei", Arial, sans-serif; background: #f0fdfa; margin: 0; padding: 0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        h1 { color: #0f766e; border-bottom: 2px solid #0f766e; padding-bottom: 8px; font-size: 22px; }
+        .v9-badge { background: #0f766e; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-left: 8px; }
+        .tabs { display: flex; gap: 0; margin-bottom: 0; }
+        .tab { padding: 10px 20px; cursor: pointer; border: 1px solid #ddd; border-bottom: none; background: #fff; font-size: 13px; }
+        .tab.active { background: #0f766e; color: #fff; border-color: #0f766e; }
+        .panel { background: #fff; border-radius: 0 8px 8px 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        textarea { width: 100%; min-height: 50px; padding: 8px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; resize: vertical; box-sizing: border-box; }
+        button { background: #0f766e; color: #fff; border: 0; padding: 8px 20px; border-radius: 6px; font-size: 13px; cursor: pointer; margin-top: 5px; }
+        button:hover { background: #0d5f56; }
+        .chat-area { height: 300px; overflow-y: auto; border: 1px solid #eee; border-radius: 6px; padding: 10px; margin: 10px 0; }
+        .msg { margin-bottom: 8px; }
+        .msg.user { text-align: right; }
+        .msg.user .bubble { background: #0f766e; color: #fff; padding: 6px 12px; border-radius: 10px 10px 3px 10px; display: inline-block; }
+        .msg.assistant .bubble { background: #f3f4f6; padding: 6px 12px; border-radius: 10px 10px 10px 3px; display: inline-block; max-width: 80%; font-size: 13px; white-space: pre-wrap; }
+        .card { background: #f0fdfa; border: 1px solid #99f6e4; border-radius: 6px; padding: 12px; margin-top: 10px; }
+        .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .metric { text-align: center; padding: 10px; background: #faf5ff; border-radius: 6px; }
+        .metric .val { font-size: 24px; font-weight: bold; color: #0f766e; }
+        .metric .ok { color: #16a34a; }
+        .metric .warn { color: #dc2626; }
+        .metric .lbl { font-size: 11px; color: #666; }
+        .bar { height: 8px; background: #eee; border-radius: 4px; margin-top: 5px; }
+        .bar .fill { height: 100%; border-radius: 4px; }
+        table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px; }
+        th, td { border: 1px solid #e5e7eb; padding: 5px; text-align: left; }
+        th { background: #f0fdfa; }
+        .diff-up { color: #16a34a; }
+        .diff-down { color: #dc2626; }
+        .target-line { font-size: 11px; color: #888; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Graph RAG V9 优化 <span class="v9-badge">V9</span></h1>
+        <div style="color:#666;font-size:12px;margin-top:-5px;">
+            工单编号: 人工智能 NLP-RAG-Graph RAG 优化任务 · RAGAS 评估 · Context P/R
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('chat')">💬 问答</div>
+            <div class="tab" onclick="switchTab('compare')">📊 V8 vs V9 对比</div>
+        </div>
+
+        <!-- 问答 Tab -->
+        <div id="chatTab" class="panel">
+            <div class="chat-area" id="chatArea">
+                <div style="color:#999;text-align:center;padding:30px;">
+                    🚀 V9 已优化: 路径检索 + 实体消歧 + RAGAS 评估
+                </div>
+            </div>
+            <textarea id="question" placeholder="输入问题..."></textarea>
+            <button onclick="ask()">提问</button>
+            <div id="evalPanel" style="display:none; margin-top:15px;"></div>
+        </div>
+
+        <!-- 对比 Tab -->
+        <div id="compareTab" class="panel" style="display:none;">
+            <button onclick="runCompare()">📊 运行 V8 vs V9 对比</button>
+            <div id="compareResult"></div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(name) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`.tab[onclick*="${name}"]`).classList.add('active');
+            document.getElementById('chatTab').style.display = name === 'chat' ? 'block' : 'none';
+            document.getElementById('compareTab').style.display = name === 'compare' ? 'block' : 'none';
+        }
+
+        function addMsg(role, text, meta) {
+            const area = document.getElementById('chatArea');
+            const div = document.createElement('div');
+            div.className = 'msg ' + role;
+            div.innerHTML = `<div class="bubble">${text}</div>` + (meta ? `<div style="font-size:10px;color:#999;margin-top:2px;">${meta}</div>` : '');
+            area.appendChild(div);
+            area.scrollTop = area.scrollHeight;
+        }
+
+        async function ask() {
+            const q = document.getElementById('question').value.trim();
+            if (!q) return;
+            addMsg('user', q, '');
+            document.getElementById('question').value = '';
+            try {
+                const r = await fetch('/api/ask', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({question:q})});
+                const d = await r.json();
+                const paths = d.graph_result.paths?.length || 0;
+                addMsg('assistant', d.rag_answer || '(空)',
+                    `⏱${d.response_time}s | 🕸图谱分=${d.graph_result.graph_score} | 路径=${paths}`);
+                // RAGAS 评估展示
+                const ev = d.evaluation;
+                document.getElementById('evalPanel').style.display = 'block';
+                document.getElementById('evalPanel').innerHTML = `
+                    <div class="metric-grid">
+                        <div class="metric"><div class="val ${ev.context_precision >= 0.8 ? 'ok' : 'warn'}">${ev.context_precision.toFixed(3)}</div><div class="lbl">Context Precision ≥0.8</div><div class="bar"><div class="fill" style="width:${ev.context_precision*100}%;background:#0f766e;"></div></div></div>
+                        <div class="metric"><div class="val ${ev.context_recall >= 0.9 ? 'ok' : 'warn'}">${ev.context_recall.toFixed(3)}</div><div class="lbl">Context Recall ≥0.9</div><div class="bar"><div class="fill" style="width:${ev.context_recall*100}%;background:#0f766e;"></div></div></div>
+                        <div class="metric"><div class="val">${ev.context_f1.toFixed(3)}</div><div class="lbl">Context F1</div></div>
+                        <div class="metric"><div class="val">${ev.hit_keywords?.length}/${ev.total_keywords}</div><div class="lbl">关键词命中</div></div>
+                    </div>
+                `;
+            } catch(e) { addMsg('assistant', '失败: ' + e); }
+        }
+
+        async function runCompare() {
+            document.getElementById('compareResult').innerHTML = '对比中...';
+            try {
+                const r = await fetch('/api/compare', {method:'POST', headers:{'Content-Type':'application/json'}, body:'{}'});
+                const d = await r.json();
+                const v8s = d.v8.summary, v9s = d.v9.summary;
+                const delta_p = (v9s.avg_context_precision - v8s.avg_context_precision).toFixed(3);
+                const delta_r = (v9s.avg_context_recall - v8s.avg_context_recall).toFixed(3);
+                document.getElementById('compareResult').innerHTML = `
+                    <h3 style="margin-top:15px;">V8 vs V9 汇总对比</h3>
+                    <div class="metric-grid">
+                        <div class="metric"><div class="val ${v9s.avg_context_precision >= 0.8 ? 'ok' : 'warn'}">${v9s.avg_context_precision.toFixed(3)}</div><div class="lbl">V9 Precision</div><div class="target-line">V8=${v8s.avg_context_precision.toFixed(3)} <span class="${delta_p>0?'diff-up':'diff-down'}">${delta_p>0?'+':''}${delta_p}</span></div></div>
+                        <div class="metric"><div class="val ${v9s.avg_context_recall >= 0.9 ? 'ok' : 'warn'}">${v9s.avg_context_recall.toFixed(3)}</div><div class="lbl">V9 Recall</div><div class="target-line">V8=${v8s.avg_context_recall.toFixed(3)} <span class="${delta_r>0?'diff-up':'diff-down'}">${delta_r>0?'+':''}${delta_r}</span></div></div>
+                        <div class="metric"><div class="val">${v9s.avg_context_f1.toFixed(3)}</div><div class="lbl">V9 F1</div></div>
+                        <div class="metric"><div class="val">${v9s.avg_faithfulness.toFixed(3)}</div><div class="lbl">V9 Faithfulness</div></div>
+                    </div>
+                    <h3 style="margin-top:15px;">逐题对比</h3>
+                    <table><thead><tr><th>问题</th><th>V8 P</th><th>V9 P</th><th>ΔP</th><th>V8 R</th><th>V9 R</th><th>ΔR</th></tr></thead><tbody>
+                        ${d.v9.results.map((r,i) => {
+                            const v8 = d.v8.results[i];
+                            const dp = (r.context_precision - v8.context_precision).toFixed(3);
+                            const dr = (r.context_recall - v8.context_recall).toFixed(3);
+                            return `<tr><td>${r.question.slice(0,30)}...</td>
+                                <td>${v8.context_precision.toFixed(3)}</td>
+                                <td>${r.context_precision.toFixed(3)}</td>
+                                <td class="${dp>0?'diff-up':'diff-down'}">${dp>0?'+':''}${dp}</td>
+                                <td>${v8.context_recall.toFixed(3)}</td>
+                                <td>${r.context_recall.toFixed(3)}</td>
+                                <td class="${dr>0?'diff-up':'diff-down'}">${dr>0?'+':''}${dr}</td></tr>`;
+                        }).join('')}
+                    </tbody></table>
+                `;
+            } catch(e) { document.getElementById('compareResult').innerHTML = '对比失败: ' + e; }
+        }
+
+        document.getElementById('question').addEventListener('keydown', e => { if (e.ctrlKey && e.key === 'Enter') ask(); });
+    </script>
+</body>
+</html>
