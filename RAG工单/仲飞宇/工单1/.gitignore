@@ -1,0 +1,86 @@
+# 工单编号：人工智能NLP-RAG-基于PDF文档的问答系统
+# 工单01 - 基于PDF文档的问答系统
+
+# ---------- IDE / 编辑器 ----------
+# .idea/workspace.xml 里记录着本机绝对路径（C:/Users/<用户名>/...），
+# 会泄露用户名和目录结构；其余是 PyCharm 专属配置，对他人无用。
+.idea/
+.vscode/
+*.iml
+*.swp
+*~
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+# 本项目的 venv 不在仓库内（在 ~/rag-data/venv），这里只是兜底
+.venv/
+venv/
+env/
+
+# ---------- 测试 / 类型检查缓存 ----------
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ---------- 环境变量与密钥 ----------
+# .env.example 要提交，.env 绝不提交
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+credentials.json
+
+# ---------- 运行时数据 ----------
+# 默认数据目录是 ~/rag-data（仓库外），此处兜底防止误拷进来
+data/
+raw/
+parsed/
+feedback/
+*.log
+logs/
+
+# ---------- 模型权重 / 大文件 ----------
+# 模型走 Ollama 与 hf-mirror，不进仓库
+*.gguf
+*.safetensors
+*.bin
+*.onnx
+*.pt
+*.h5
+*.ckpt
+
+# ---------- 第三方文档 / 归档 ----------
+# 招股说明书、工单 PDF 等属课程材料或第三方文档，体积大且无再分发权。
+# 本项目的真实数据在 ~/rag-data/raw/（仓库外），此处兜底防止误拷进来。
+# 确实需要提交时用： git add -f <文件>
+*.pdf
+*.zip
+*.7z
+*.rar
+*.xlsx
+
+# ---------- 本机截图（未裁剪） ----------
+# ⚠️ 「屏幕截图 *.png」是整屏截图，包含桌面文件夹、浏览器标签等个人信息。
+# 归档请用裁剪后的图，放到 docs/演示截图/ 下并按下述白名单放行。
+屏幕截图*.png
+
+# ---------- 系统文件 ----------
+# Windows 资源管理器生成的本地化元数据，内容是乱码
+desktop.ini
+Thumbs.db
+.DS_Store
+
+# ---------- 明确要提交的演示截图 ----------
+# 「!」用于翻转上面的排除规则。裁剪后的截图放这里会被正常提交。
+!docs/演示截图/**/*.png
+!docs/演示截图/**/*.jpg

@@ -1,0 +1,262 @@
+/* ============ 全局 ============ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+/* 解析：全局重置——内外边距清零、盒模型统一（border-box 让宽高含内边距） */
+:root {
+  /* 解析：CSS 变量（设计令牌）——全站配色统一从这里改 */
+  --bg: #f4f6fb;
+  /* 解析：页面背景（浅灰蓝） */
+  --surface: #ffffff;
+  /* 解析：卡片/面板表面色 */
+  --primary: #5b6ee1;
+  /* 解析：主色（按钮/头像/用户气泡） */
+  --primary-dark: #4653c0;
+  /* 解析：主色悬停态 */
+  --text: #2b3040;
+  /* 解析：正文文字色 */
+  --muted: #8a91a5;
+  /* 解析：次要文字色 */
+  --border: #e4e8f2;
+  /* 解析：边框色 */
+  --bubble-user: #5b6ee1;
+  /* 解析：用户气泡色 */
+  --bubble-ai: #ffffff;
+  /* 解析：AI 气泡色 */
+  --danger: #d9534f;
+  /* 解析：危险色（错误/删除） */
+  --warn-bg: #fff6e5;
+  /* 解析：提醒框背景 */
+  --warn-border: #f0c36d;
+  /* 解析：提醒框边框 */
+}
+body {
+  /* 解析：页面主体 */
+  font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+  /* 解析：字体栈（西文 Segoe UI + 中文微软雅黑） */
+  background: var(--bg);
+  /* 解析：背景色 */
+  color: var(--text);
+  /* 解析：文字色 */
+  height: 100vh;
+  /* 解析：占满视口高度 */
+  overflow: hidden;
+  /* 解析：禁止页面滚动（内部区域各自滚动） */
+}
+.hidden { display: none !important; }
+/* 解析：隐藏工具类（登录/主界面切换用） */
+
+/* ============ 登录视图 ============ */
+.login-view {
+  /* 解析：登录页容器 */
+  height: 100vh; display: flex; align-items: center; justify-content: center;
+  /* 解析：满屏 + 弹性居中 */
+  background: linear-gradient(135deg, #5b6ee1 0%, #8a63d2 100%);
+  /* 解析：对角渐变背景 */
+}
+.login-card {
+  /* 解析：登录卡片 */
+  background: var(--surface); border-radius: 16px; padding: 40px;
+  /* 解析：白底圆角内边距 */
+  width: 360px; box-shadow: 0 20px 60px rgba(0,0,0,.25);
+  /* 解析：宽度与投影 */
+  text-align: center;
+  /* 解析：内容居中 */
+}
+.login-card h1 { font-size: 24px; margin-bottom: 4px; }
+/* 解析：标题字号 */
+.subtitle { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+/* 解析：副标题 */
+.tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+/* 解析：标签组（登录/注册） */
+.tab {
+  /* 解析：标签按钮 */
+  flex: 1; padding: 8px; border: 1px solid var(--border); border-radius: 8px;
+  /* 解析：等宽内边距边框圆角 */
+  background: var(--surface); cursor: pointer; font-size: 14px; color: var(--muted);
+  /* 解析：白底手型灰色字 */
+}
+.tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+/* 解析：选中标签主色填充 */
+.login-card input {
+  /* 解析：输入框 */
+  width: 100%; padding: 12px; margin-bottom: 12px;
+  /* 解析：占满内边距下边距 */
+  border: 1px solid var(--border); border-radius: 8px; font-size: 14px;
+  /* 解析：边框圆角字号 */
+}
+.primary-btn {
+  /* 解析：主按钮 */
+  background: var(--primary); color: #fff; border: none; border-radius: 8px;
+  /* 解析：主色填充白字圆角 */
+  padding: 12px 20px; font-size: 14px; cursor: pointer; width: 100%;
+  /* 解析：内边距字号手型占满 */
+}
+.primary-btn:hover { background: var(--primary-dark); }
+/* 解析：悬停加深 */
+.error-text { color: var(--danger); font-size: 13px; margin-top: 10px; min-height: 18px; }
+/* 解析：错误提示（预留高度防跳动） */
+
+/* ============ 主界面布局 ============ */
+.main-view { display: flex; height: 100vh; }
+/* 解析：主界面弹性横排满屏 */
+.sidebar {
+  /* 解析：左侧边栏 */
+  width: 280px; background: var(--surface); border-right: 1px solid var(--border);
+  /* 解析：固定宽白底右边框 */
+  display: flex; flex-direction: column; padding: 16px; gap: 16px;
+  /* 解析：纵向弹性内边距间距 */
+}
+.sidebar-header { display: flex; justify-content: space-between; align-items: center; }
+/* 解析：边栏头部两端对齐 */
+.sidebar-header h2 { font-size: 18px; }
+/* 解析：标题 */
+.ghost-btn {
+  /* 解析：幽灵按钮（退出） */
+  border: 1px solid var(--border); background: none; border-radius: 6px;
+  /* 解析：边框无底圆角 */
+  padding: 4px 10px; cursor: pointer; font-size: 12px; color: var(--muted);
+  /* 解析：小内边距灰字 */
+}
+
+/* 角色列表 */
+.role-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+/* 解析：角色列表占满剩余空间可滚动 */
+.role-card {
+  /* 解析：角色卡片 */
+  display: flex; align-items: center; gap: 10px; padding: 10px;
+  /* 解析：横排居中间距内边距 */
+  border: 1px solid var(--border); border-radius: 10px; cursor: pointer;
+  /* 解析：边框圆角手型 */
+  transition: all .15s;
+  /* 解析：过渡动画 */
+}
+.role-card:hover { border-color: var(--primary); background: #f7f9ff; }
+/* 解析：悬停高亮 */
+.role-card.active { border-color: var(--primary); background: #eef1ff; }
+/* 解析：选中高亮 */
+.avatar {
+  /* 解析：圆形头像 */
+  width: 40px; height: 40px; border-radius: 50%; background: var(--primary);
+  /* 解析：圆形主色 */
+  color: #fff; display: flex; align-items: center; justify-content: center;
+  /* 解析：白字居中 */
+  font-size: 18px; font-weight: bold; flex-shrink: 0;
+  /* 解析：字号加粗不收缩 */
+}
+.role-card .role-info { overflow: hidden; }
+/* 解析：角色信息容器防溢出 */
+.role-card .role-name { font-size: 14px; font-weight: 600; }
+/* 解析：角色名 */
+.role-card .role-category { font-size: 12px; color: var(--muted); }
+/* 解析：分类 */
+
+/* 知识库面板 */
+.kb-panel { border-top: 1px solid var(--border); padding-top: 12px; }
+/* 解析：知识库面板（上边框分隔） */
+.kb-panel h3 { font-size: 14px; margin-bottom: 8px; }
+/* 解析：标题 */
+.small-btn {
+  /* 解析：小按钮（上传） */
+  background: var(--primary); color: #fff; border: none; border-radius: 6px;
+  /* 解析：主色白字圆角 */
+  padding: 6px 12px; font-size: 12px; cursor: pointer; width: 100%;
+  /* 解析：小内边距占满 */
+}
+.kb-docs { margin-top: 8px; max-height: 160px; overflow-y: auto; }
+/* 解析：文档列表限高滚动 */
+.kb-doc {
+  /* 解析：文档行 */
+  font-size: 12px; padding: 6px 8px; border-radius: 6px; background: #f7f9ff;
+  /* 解析：小字浅底圆角 */
+  margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;
+  /* 解析：两端对齐 */
+}
+.kb-doc .del {
+  /* 解析：删除按钮 */
+  color: var(--danger); cursor: pointer; border: none; background: none; font-size: 12px;
+  /* 解析：红色手型无边框 */
+}
+.kb-doc .summary { color: var(--muted); font-size: 11px; display: block; margin-top: 2px; }
+/* 解析：文档摘要 */
+
+/* 聊天区 */
+.chat-area { flex: 1; display: flex; flex-direction: column; }
+/* 解析：聊天区占满右侧纵向布局 */
+.chat-header {
+  /* 解析：聊天头部 */
+  display: flex; align-items: center; gap: 12px; padding: 14px 24px;
+  /* 解析：横排居中间距内边距 */
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  /* 解析：白底下边框 */
+}
+.chat-header .role-name { font-size: 16px; font-weight: 600; }
+/* 解析：角色名 */
+.chat-header .role-category { font-size: 12px; color: var(--muted); }
+/* 解析：分类 */
+
+.chat-messages {
+  /* 解析：消息区 */
+  flex: 1; overflow-y: auto; padding: 24px;
+  /* 解析：占满可滚动 */
+  display: flex; flex-direction: column; gap: 12px;
+  /* 解析：纵向气泡间距 */
+}
+.welcome-tip { text-align: center; color: var(--muted); margin-top: 40px; font-size: 14px; }
+/* 解析：欢迎提示 */
+
+.msg { display: flex; gap: 10px; max-width: 78%; }
+/* 解析：消息行（最大宽 78%） */
+.msg.user { align-self: flex-end; flex-direction: row-reverse; }
+/* 解析：用户消息靠右（头像在右） */
+.msg .avatar { width: 32px; height: 32px; font-size: 14px; }
+/* 解析：聊天内小头像 */
+.bubble {
+  /* 解析：气泡 */
+  padding: 10px 14px; border-radius: 14px; font-size: 14px; line-height: 1.6;
+  /* 解析：内边距圆角行高 */
+  white-space: pre-wrap; word-break: break-word;
+  /* 解析：保留换行、长词断行 */
+}
+.msg.user .bubble { background: var(--bubble-user); color: #fff; border-bottom-right-radius: 4px; }
+/* 解析：用户气泡主色白字（右下角小圆角拟微信风格） */
+.msg.ai .bubble {
+  /* 解析：AI 气泡 */
+  background: var(--bubble-ai); border: 1px solid var(--border); border-bottom-left-radius: 4px;
+  /* 解析：白底描边（左下角小圆角） */
+}
+.bubble .cursor { display: inline-block; animation: blink 1s infinite; }
+/* 解析：流式输出光标闪烁 */
+@keyframes blink { 50% { opacity: 0; } }
+/* 解析：闪烁关键帧（半周期透明） */
+
+/* 引用来源与校验提醒 */
+.sources-box, .warnings-box {
+  /* 解析：来源框与提醒框公共样式 */
+  margin-top: 6px; font-size: 12px; border-radius: 8px; padding: 8px 10px;
+  /* 解析：上边距小字圆角内边距 */
+}
+.sources-box { background: #f1f5ff; border: 1px solid #c8d6ff; color: #44528c; }
+/* 解析：来源框蓝调 */
+.warnings-box { background: var(--warn-bg); border: 1px solid var(--warn-border); color: #8a6d1f; }
+/* 解析：提醒框黄调 */
+.sources-box summary, .warnings-box summary { cursor: pointer; font-weight: 600; }
+/* 解析：折叠标题可点 */
+.sources-box li { margin-left: 16px; margin-top: 4px; }
+/* 解析：来源列表项 */
+
+/* 输入栏 */
+.chat-input-bar {
+  /* 解析：输入栏 */
+  display: flex; gap: 10px; padding: 14px 24px;
+  /* 解析：横排间距内边距 */
+  background: var(--surface); border-top: 1px solid var(--border);
+  /* 解析：白底上边框 */
+}
+.chat-input-bar textarea {
+  /* 解析：输入框 */
+  flex: 1; resize: none; border: 1px solid var(--border); border-radius: 10px;
+  /* 解析：占满禁拖拽圆角 */
+  padding: 12px; font-size: 14px; font-family: inherit; max-height: 120px;
+  /* 解析：内边距继承字体限高 */
+}
+.chat-input-bar .primary-btn { width: 88px; }
+/* 解析：发送按钮定宽 */

@@ -1,0 +1,57 @@
+{
+  "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化",
+  "name": "online_multiturn",
+  "title": "多轮对话与中英文",
+  "generated_at": "2026-10-04T20:46:25+0800",
+  "ragas": "RAGAS 未运行（依赖不可用，本机断网）",
+  "extra": {
+    "session_id": "t8-multiturn-1791117975"
+  },
+  "rows": [
+    {
+      "turn": 1,
+      "question": "武汉兴图新科电子股份有限公司注册资本是多少？",
+      "text": "注册资本为5,520.00万元。\n引用：[招股说明书1.pdf: 22]",
+      "language": "zh",
+      "is_unknown": false,
+      "first_token_ms": 279.73,
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 22
+        }
+      ],
+      "wall_ms": 2401.73
+    },
+    {
+      "turn": 2,
+      "question": "那法定代表人呢？",
+      "text": "法定代表人为程家明。\n引用：[招股说明书1.pdf: 22]",
+      "language": "zh",
+      "is_unknown": false,
+      "first_token_ms": 1928.56,
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 22
+        }
+      ],
+      "wall_ms": 4153.74
+    },
+    {
+      "turn": 3,
+      "question": "What is the registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+      "text": "The registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd. is 5,520.00 million yuan.\nReferences：[招股说明书1.pdf: Page: 22]",
+      "language": "en",
+      "is_unknown": false,
+      "first_token_ms": 351.77,
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 22
+        }
+      ],
+      "wall_ms": 2812.07
+    }
+  ]
+}

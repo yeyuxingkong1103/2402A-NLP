@@ -1,0 +1,29 @@
+题集：E:\gao6gongdan\工单3\测试\测试数据\eval_retrieval_14.jsonl（14 题，file_scoped=False）
+检索器：2599 块；生成后端：ollama（qwen2.5:3b）
+LLM 预热完成：冷启动 329.78 ms（不计入首字预算）
+  ✅ id=33   首字= 1317.7 ms 总=  2292.6 ms 引用=['[招股说明书1.pdf: 185]']  正确=True（golden 数值命中 8/8=1.00）
+  ✅ id=34   首字=  779.2 ms 总=  1626.6 ms 引用=['[招股说明书1.pdf: 153]']  正确=True（golden 实词覆盖 0.79（19 个））
+[ERROR] {"ts": "2026-10-03T20:42:15.971+08:00", "level": "ERROR", "event": "generation.citation_failed", "func": null, "module": "eval_answers", "run_id": "r20261003-204207", "trace_id": null, "span_id": null, "stage": "core", "pid": 26968, "thread": "MainThread", "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化", "invalid": [], "retry": 1, "reasons": []}
+  ⚠️ id=95   首字=  794.5 ms 总=  2359.3 ms 引用=[] 【不清楚】 正确=False（答案为空或「不清楚」）
+[ERROR] {"ts": "2026-10-03T20:42:23.723+08:00", "level": "ERROR", "event": "generation.citation_failed", "func": null, "module": "eval_answers", "run_id": "r20261003-204207", "trace_id": null, "span_id": null, "stage": "core", "pid": 26968, "thread": "MainThread", "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化", "invalid": [], "retry": 1, "reasons": []}
+  ⚠️ id=207  首字=  699.4 ms 总=  7528.2 ms 引用=[] 【不清楚】 正确=False（答案为空或「不清楚」）
+[ERROR] {"ts": "2026-10-03T20:42:26.921+08:00", "level": "ERROR", "event": "generation.citation_failed", "func": null, "module": "eval_answers", "run_id": "r20261003-204207", "trace_id": null, "span_id": null, "stage": "core", "pid": 26968, "thread": "MainThread", "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化", "invalid": [], "retry": 1, "reasons": []}
+  ⚠️ id=260  首字= 1152.2 ms 总=  3016.1 ms 引用=[] 【不清楚】 正确=False（答案为空或「不清楚」）
+[ERROR] {"ts": "2026-10-03T20:42:29.573+08:00", "level": "ERROR", "event": "generation.citation_failed", "func": null, "module": "eval_answers", "run_id": "r20261003-204207", "trace_id": null, "span_id": null, "stage": "core", "pid": 26968, "thread": "MainThread", "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化", "invalid": [], "retry": 1, "reasons": []}
+  ⚠️ id=531  首字=  866.9 ms 总=  2459.0 ms 引用=[] 【不清楚】 正确=False（答案为空或「不清楚」）
+[ERROR] {"ts": "2026-10-03T20:42:31.795+08:00", "level": "ERROR", "event": "generation.citation_failed", "func": null, "module": "eval_answers", "run_id": "r20261003-204207", "trace_id": null, "span_id": null, "stage": "core", "pid": 26968, "thread": "MainThread", "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化", "invalid": [], "retry": 1, "reasons": []}
+  ⚠️ id=543  首字=  550.5 ms 总=  2026.0 ms 引用=[] 【不清楚】 正确=False（答案为空或「不清楚」）
+[ERROR] {"ts": "2026-10-03T20:42:34.173+08:00", "level": "ERROR", "event": "generation.citation_failed", "func": null, "module": "eval_answers", "run_id": "r20261003-204207", "trace_id": null, "span_id": null, "stage": "core", "pid": 26968, "thread": "MainThread", "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化", "invalid": [], "retry": 1, "reasons": []}
+  ⚠️ id=793  首字=  767.8 ms 总=  2195.8 ms 引用=[] 【不清楚】 正确=False（答案为空或「不清楚」）
+[ERROR] {"ts": "2026-10-03T20:42:36.697+08:00", "level": "ERROR", "event": "generation.citation_failed", "func": null, "module": "eval_answers", "run_id": "r20261003-204207", "trace_id": null, "span_id": null, "stage": "core", "pid": 26968, "thread": "MainThread", "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化", "invalid": [], "retry": 1, "reasons": []}
+  ⚠️ id=795  首字=  725.6 ms 总=  2341.8 ms 引用=[] 【不清楚】 正确=False（答案为空或「不清楚」）
+  ✅ id=957  首字=  715.8 ms 总=  1440.9 ms 引用=['[招股说明书1.pdf: 26]']  正确=True（golden 实词覆盖 0.60（10 个））
+  ✅ id=1    首字= 1193.2 ms 总=  2014.0 ms 引用=['[招股说明书2.pdf: 24]']  正确=True（golden 数值命中 3/3=1.00）
+  ⚠️ id=2    首字=  877.3 ms 总=  1598.0 ms 引用=['[招股说明书2.pdf: 306]']  正确=False（golden 数值命中 0/4=0.00）
+  ✅ id=3    首字=  720.6 ms 总=  1430.8 ms 引用=['[招股说明书2.pdf: 157]']  正确=True（golden 数值命中 2/2=1.00）
+  ✅ id=4    首字=  767.9 ms 总=  1220.5 ms 引用=['[招股说明书2.pdf: 157]']  正确=True（golden 数值命中 1/1=1.00）
+
+==============================================================================
+作答 7/14；准确率 6/14（错题 [95, 207, 260, 531, 543, 793, 795, 2]）；首字 max=1317.65 ms （预算 3000，达标=True）；引用可回溯 7/7；文件归属错误=无
+JSON：E:\gao6gongdan\工单3\优化\评估结果\answer_eval_t6.json
+MD  ：E:\gao6gongdan\工单3\优化\评估结果\answer_eval_t6.md

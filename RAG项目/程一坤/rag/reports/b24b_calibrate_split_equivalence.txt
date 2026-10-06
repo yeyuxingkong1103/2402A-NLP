@@ -1,0 +1,27 @@
+==============================================================================
+[1] AST 逐对象比对（剥 docstring 后逐字相同）
+==============================================================================
+    拆分前顶层对象 4 个：['collect_scores', 'main', 'render_markdown', 'scan_thresholds']
+    拆分后顶层对象 4 个：['collect_scores', 'main', 'render_markdown', 'scan_thresholds']
+    [PASS] collect_scores
+    [PASS] main
+    [PASS] render_markdown
+    [PASS] scan_thresholds
+
+==============================================================================
+[2] 运行时对拍（同一 payload，旧实现 vs 新实现）
+==============================================================================
+    样本文件：latest_refusal_calibration.json（rows=85 条）
+    render_markdown 输出：旧 1871 字符 / 新 1871 字符 → 逐字节相同
+    calibrate_refusal.render_markdown 是否仍指向同一函数：True
+    [PASS] scan_thresholds('top1_vector', 85 行) → 最优阈值=0.6323 平衡准确率=0.9524
+    [PASS] scan_thresholds('top1_rerank', 85 行) → 最优阈值=0.3451 平衡准确率=0.9167
+    [PASS] scan_thresholds('字段名不存在', 85 行) → 分数样本不足，无法扫描阈值
+    [PASS] scan_thresholds('top1_rerank', 15 行) → 分数样本不足，无法扫描阈值
+    [PASS] scan_thresholds('top1_rerank', 0 行) → 分数样本不足，无法扫描阈值
+    calibrate_refusal.collect_scores 是否仍指向同一函数：True
+    （collect_scores 会真调检索，其行为一致性由 calibrate_refusal.py --reuse-scores 之外的链路保证；本次拆分对该函数体逐字搬移，已由 [1] 覆盖）
+
+==============================================================================
+总结论：全部通过
+==============================================================================

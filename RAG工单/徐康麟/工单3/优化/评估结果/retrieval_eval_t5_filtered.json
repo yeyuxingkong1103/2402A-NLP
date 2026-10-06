@@ -1,0 +1,1588 @@
+{
+  "summary": {
+    "total": 14,
+    "hit": 14,
+    "hit_rate": 1.0,
+    "hit_strict_single_evidence": 13,
+    "hit_rate_strict_single_evidence": 0.9286,
+    "strict_miss_but_alt_hit": [
+      207
+    ],
+    "pdf1": {
+      "total": 10,
+      "hit": 10
+    },
+    "pdf2": {
+      "total": 4,
+      "hit": 4
+    },
+    "miss_ids": [],
+    "baseline_failures": {
+      "33": {
+        "hit": true,
+        "evidence_pages": [
+          129
+        ],
+        "retrieved_pages": [
+          5,
+          129,
+          182,
+          185,
+          186
+        ],
+        "matched_chunk_ids": [
+          "招股说明书1_p0129_x294"
+        ]
+      },
+      "95": {
+        "hit": true,
+        "evidence_pages": [
+          160
+        ],
+        "retrieved_pages": [
+          22,
+          155,
+          160,
+          181,
+          494
+        ],
+        "matched_chunk_ids": [
+          "招股说明书1_p0160_x361"
+        ]
+      },
+      "531": {
+        "hit": true,
+        "evidence_pages": [
+          22
+        ],
+        "retrieved_pages": [
+          22,
+          52,
+          68,
+          534
+        ],
+        "matched_chunk_ids": [
+          "招股说明书1_p0022_t10",
+          "招股说明书1_p0022_x60",
+          "招股说明书1_p0052_x136",
+          "招股说明书1_p0068_x169",
+          "招股说明书1_p0534_x1190"
+        ]
+      },
+      "793": {
+        "hit": true,
+        "evidence_pages": [
+          152
+        ],
+        "retrieved_pages": [
+          135,
+          136,
+          151,
+          152,
+          153
+        ],
+        "matched_chunk_ids": [
+          "招股说明书1_p0152_x344"
+        ]
+      },
+      "957": {
+        "hit": true,
+        "evidence_pages": [
+          154,
+          332
+        ],
+        "retrieved_pages": [
+          26,
+          154,
+          155,
+          172,
+          181
+        ],
+        "matched_chunk_ids": [
+          "招股说明书1_p0026_x70",
+          "招股说明书1_p0154_x348"
+        ]
+      }
+    },
+    "page_hit_only": [],
+    "filter_violations": {},
+    "file_filter_mode": true,
+    "top_k": 5,
+    "retriever_health": {
+      "loaded": true,
+      "index_root": "E:\\gao6gongdan\\工单3\\研发\\data\\index",
+      "model_dir": "E:\\gao6gongdan\\工单3\\研发\\data\\index\\bge-m3_1024",
+      "vectors": 2551,
+      "dim": 1024,
+      "bm25_chunks": 2551,
+      "bm25_vocab": 23397,
+      "chunks": 2551,
+      "files": [
+        "招股说明书1.pdf",
+        "招股说明书2.pdf"
+      ],
+      "warmup": {
+        "tokenizer": {
+          "cold_ms": 911.49,
+          "warm_ms": 0.15,
+          "tokens": 9,
+          "backend": "jieba"
+        },
+        "embedding": {
+          "backend": "ollama",
+          "model": "bge-m3:latest",
+          "dim": 1024,
+          "cold_ms": 77.95,
+          "warm_ms": 81.07,
+          "total_ms": 215.62
+        }
+      }
+    },
+    "generated_at": "2026-10-03T20:09:06+0800"
+  },
+  "results": [
+    {
+      "id": 33,
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别是多少？",
+      "subject": "武汉兴图新科电子",
+      "file_name": "招股说明书1.pdf",
+      "evidence_pages": [
+        129
+      ],
+      "baseline_ok": false,
+      "hit": true,
+      "hit_any_evidence": true,
+      "hit_evidence": "报告期内，公司来自军用领域的收入分别为6,464.51 万元、14,414.16 万元、18,780.67 万元和4,6",
+      "matched_chunk_ids": [
+        "招股说明书1_p0129_x294"
+      ],
+      "matched_chunk_ids_any": [
+        "招股说明书1_p0129_x294"
+      ],
+      "evidence_alternatives": [],
+      "retrieved_pages": [
+        5,
+        129,
+        182,
+        185,
+        186
+      ],
+      "page_hit_diagnostic": true,
+      "filter_violations": [],
+      "elapsed_ms": 350.86,
+      "stages": {
+        "embed_ms": 118.14,
+        "vector_ms": 4.94,
+        "bm25_ms": 6.07,
+        "fusion_ms": 0.06,
+        "rerank_ms": 66.46,
+        "table_fallback_ms": 83.29,
+        "total_ms": 349.97
+      },
+      "table_fallback_used": true,
+      "top_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "招股说明书1_p0185_x413",
+          "file_name": "招股说明书1.pdf",
+          "page": 185,
+          "type": "text",
+          "score": 0.268655,
+          "vector_score": 0.7322440147399902,
+          "bm25_score": 30.22449153042662,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 2016年视频预警控制类产品收入主要来自河南省监狱系统、塔里木油田的订 单，2017、2018年度该系列产品收入下滑较大。主要原因是随着军"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "招股说明书1_p0129_x294",
+          "file_name": "招股说明书1.pdf",
+          "page": 129,
+          "type": "text",
+          "score": 0.239085,
+          "vector_score": null,
+          "bm25_score": 38.50845620409774,
+          "boost": 1.0,
+          "content_head": "①行业集中度高的影响 发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的 收入分别为6,464.51 万元、14,414.16 万元、18,780.67 万元和4,"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "招股说明书1_p0186_x415",
+          "file_name": "招股说明书1.pdf",
+          "page": 186,
+          "type": "text",
+          "score": 0.239085,
+          "vector_score": 0.7958179712295532,
+          "bm25_score": null,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 直销情况如下： 单位：万元 项目 2019 年1-6 月 2018 年度 2017 年度 2016 年度 收入 占比 收入 占比 收入 占"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "招股说明书1_p0005_x05",
+          "file_name": "招股说明书1.pdf",
+          "page": 5,
+          "type": "text",
+          "score": 0.234614,
+          "vector_score": 0.771872341632843,
+          "bm25_score": 19.940619757275456,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 经测算，来自其他行业订单和收入不发生变化的情况下 ，发行人直接和间 接来自军方市场的收入每增加或减少1%，发行人营业利润变动的情况如下表："
+        },
+        {
+          "rank": 5,
+          "chunk_id": "招股说明书1_p0182_x406",
+          "file_name": "招股说明书1.pdf",
+          "page": 182,
+          "type": "text",
+          "score": 0.229196,
+          "vector_score": 0.7917287349700928,
+          "bm25_score": null,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 中自产部分业绩贡献情况如下表所示： 单位：万元 项目 2019 年1-6 月 2018 年度 2017 年度 2016 年度 金额 占比 "
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+      "subject": "武汉兴图新科电子",
+      "file_name": "招股说明书1.pdf",
+      "evidence_pages": [
+        152
+      ],
+      "baseline_ok": true,
+      "hit": true,
+      "hit_any_evidence": true,
+      "hit_evidence": "1、行业上下游情况\n电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、机柜等金属壳体制造企业，竞争充分，",
+      "matched_chunk_ids": [
+        "招股说明书1_p0152_x344"
+      ],
+      "matched_chunk_ids_any": [
+        "招股说明书1_p0152_x344"
+      ],
+      "evidence_alternatives": [],
+      "retrieved_pages": [
+        135,
+        139,
+        152,
+        153,
+        456
+      ],
+      "page_hit_diagnostic": true,
+      "filter_violations": [],
+      "elapsed_ms": 272.52,
+      "stages": {
+        "embed_ms": 124.9,
+        "vector_ms": 4.78,
+        "bm25_ms": 5.29,
+        "fusion_ms": 0.08,
+        "rerank_ms": 69.34,
+        "total_ms": 272.13
+      },
+      "table_fallback_used": false,
+      "top_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "招股说明书1_p0153_x345",
+          "file_name": "招股说明书1.pdf",
+          "page": 153,
+          "type": "text",
+          "score": 0.153231,
+          "vector_score": 0.7460170984268188,
+          "bm25_score": 31.11518154160315,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 电子元器件制造业 元器件 金属制品业 电子信息系统产品提供商 系统集成商 视音频外设 其他 机箱 其他壳体 最终客户 军队 企事业单位 上"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "招股说明书1_p0135_x307",
+          "file_name": "招股说明书1.pdf",
+          "page": 135,
+          "type": "text",
+          "score": 0.135489,
+          "vector_score": 0.6685773730278015,
+          "bm25_score": 21.956049661963092,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 综上所述，发行人收入确认呈现明显的季节性主要是受军队采购计划执行进 度的影响，符合行业特征，不会对发行人持续经营能力构成重大不利影响。 二"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "招股说明书1_p0456_x1023",
+          "file_name": "招股说明书1.pdf",
+          "page": 456,
+          "type": "text",
+          "score": 0.129727,
+          "vector_score": 0.6884857416152954,
+          "bm25_score": null,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 1 武汉玉航科技有限公司 1,160.40 58.59% 板卡类等 2 北京德瑞塔时代网络技术有限公司 257.92 13.02% 摄像设"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "招股说明书1_p0139_x317",
+          "file_name": "招股说明书1.pdf",
+          "page": 139,
+          "type": "text",
+          "score": 0.127781,
+          "vector_score": 0.663101077079773,
+          "bm25_score": 19.23342428127073,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 （2）民用领域 序号 实施时间 主管部门 法律法规 主要内容 1 2000 年 《软件企业认定 标准及管理办法 （试行）》 信息产业部、教"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "招股说明书1_p0152_x344",
+          "file_name": "招股说明书1.pdf",
+          "page": 152,
+          "type": "text",
+          "score": 0.125621,
+          "vector_score": null,
+          "bm25_score": 31.341020628169556,
+          "boost": 1.0,
+          "content_head": "（四）行业竞争格局 1、行业上下游情况 电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、 机柜等金属壳体制造企业，竞争充分，采购便利。下游行业为各类终端用户，覆 "
+        }
+      ]
+    },
+    {
+      "id": 95,
+      "question": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+      "subject": "武汉兴图新科电子",
+      "file_name": "招股说明书1.pdf",
+      "evidence_pages": [
+        160
+      ],
+      "baseline_ok": false,
+      "hit": true,
+      "hit_any_evidence": true,
+      "hit_evidence": "公司目前已经成为军队视频指挥领域的重要供应商，参与制定了全军第一个视频指挥系统技术标准（即2019年制订的《某视频指挥系",
+      "matched_chunk_ids": [
+        "招股说明书1_p0160_x361"
+      ],
+      "matched_chunk_ids_any": [
+        "招股说明书1_p0160_x361"
+      ],
+      "evidence_alternatives": [],
+      "retrieved_pages": [
+        22,
+        155,
+        160,
+        181,
+        494
+      ],
+      "page_hit_diagnostic": true,
+      "filter_violations": [],
+      "elapsed_ms": 302.34,
+      "stages": {
+        "embed_ms": 111.96,
+        "vector_ms": 4.61,
+        "bm25_ms": 7.99,
+        "fusion_ms": 0.06,
+        "rerank_ms": 100.26,
+        "total_ms": 301.77
+      },
+      "table_fallback_used": false,
+      "top_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "招股说明书1_p0160_x361",
+          "file_name": "招股说明书1.pdf",
+          "page": 160,
+          "type": "text",
+          "score": 0.167682,
+          "vector_score": 0.693297266960144,
+          "bm25_score": 21.472765415676392,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 公司目前已经成为军队视频指挥领域的重要供应商，参与制定了全军第一个 视频指挥系统技术标准（即2019 年制订的《某视频指挥系统技术规范（1"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "招股说明书1_p0181_x404",
+          "file_name": "招股说明书1.pdf",
+          "page": 181,
+          "type": "text",
+          "score": 0.167682,
+          "vector_score": 0.7003889083862305,
+          "bm25_score": 19.991332603965915,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 公司目前已经成为军队视频指挥控制领域的重要供应商，参与制定了国防用 户第一个视频指挥系统技术标准（即《某视频技术规范1.0》）。2014 "
+        },
+        {
+          "rank": 3,
+          "chunk_id": "招股说明书1_p0155_x349",
+          "file_name": "招股说明书1.pdf",
+          "page": 155,
+          "type": "text",
+          "score": 0.147627,
+          "vector_score": 0.6818366050720215,
+          "bm25_score": 19.673187641473472,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 等产品在技术上已经达到了全军较为先进的水平，并逐步列装到全军各主要领域， 军队市场占有率不断提高，形成了较好的品牌优势。具体表现在以下几个"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "招股说明书1_p0022_t10",
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "type": "table",
+          "score": 0.139897,
+          "vector_score": 0.6555529832839966,
+          "bm25_score": null,
+          "boost": 1.25,
+          "content_head": "[表标题] （一）本次发行的基本情况 [来源] 招股说明书1.pdf 第 22 页 [Markdown] | 中文名称 | 武汉兴图新科电子股份有限公司 | 有限公司成立日期 | "
+        },
+        {
+          "rank": 5,
+          "chunk_id": "招股说明书1_p0494_x1107",
+          "file_name": "招股说明书1.pdf",
+          "page": 494,
+          "type": "text",
+          "score": 0.11539,
+          "vector_score": 0.6612836122512817,
+          "bm25_score": null,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 业用户提供强大的安全应急处置、指挥调度及科学决策应用，进一步参与城市综 合管理、应急指挥体系信息化等建设领域。 （3）进一步夯实产品质量管"
+        }
+      ]
+    },
+    {
+      "id": 207,
+      "question": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+      "subject": "武汉兴图新科电子",
+      "file_name": "招股说明书1.pdf",
+      "evidence_pages": [
+        30,
+        479
+      ],
+      "baseline_ok": true,
+      "hit": false,
+      "hit_any_evidence": true,
+      "hit_evidence": null,
+      "matched_chunk_ids": [],
+      "matched_chunk_ids_any": [
+        "招股说明书1_p0030_x78",
+        "招股说明书1_p0479_x1072"
+      ],
+      "evidence_alternatives": [
+        "补充流动资金 15,000.00"
+      ],
+      "retrieved_pages": [
+        22,
+        30,
+        479,
+        483,
+        491
+      ],
+      "page_hit_diagnostic": true,
+      "filter_violations": [],
+      "elapsed_ms": 293.52,
+      "stages": {
+        "embed_ms": 109.89,
+        "vector_ms": 3.17,
+        "bm25_ms": 5.26,
+        "fusion_ms": 0.04,
+        "rerank_ms": 56.02,
+        "table_fallback_ms": 62.72,
+        "total_ms": 293.05
+      },
+      "table_fallback_used": true,
+      "top_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "招股说明书1_p0479_x1072",
+          "file_name": "招股说明书1.pdf",
+          "page": 479,
+          "type": "text",
+          "score": 0.291657,
+          "vector_score": 0.8055791854858398,
+          "bm25_score": 37.96725184777207,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 第九节 募集资金运用与未来发展规划 一、本次发行募集资金运用计划 （一）募集资金投资方向 经本公司2019 年5 月23 日召开的2019"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "招股说明书1_p0030_x78",
+          "file_name": "招股说明书1.pdf",
+          "page": 30,
+          "type": "text",
+          "score": 0.278627,
+          "vector_score": 0.7950232028961182,
+          "bm25_score": 38.66642994733992,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 八、募集资金用途 本次发行并上市的募集资金扣除发行费用后，将投资于以下项目： 序号 项目名称 项目总投资（万元） 募集资金投资（万元） 1"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "招股说明书1_p0491_x1100",
+          "file_name": "招股说明书1.pdf",
+          "page": 491,
+          "type": "text",
+          "score": 0.257662,
+          "vector_score": 0.7916046380996704,
+          "bm25_score": 38.34741939599397,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 元、18,597.78 万元和13,125.06 万元，占当期营业收入的比例分别为114.48%、 77.16%、93.86%和267.5"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "招股说明书1_p0483_x1084",
+          "file_name": "招股说明书1.pdf",
+          "page": 483,
+          "type": "text",
+          "score": 0.235054,
+          "vector_score": null,
+          "bm25_score": 43.52914864334813,
+          "boost": 1.0,
+          "content_head": "（一）不得变相改变募集资金用途； （二）不得影响募集资金投资计划的正常进行； （三）单次补充流动资金时间不得超过12 个月； （四）已归还前次用于暂时补充流动资金的募集资金（如适用"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "招股说明书1_p0022_t10",
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "type": "table",
+          "score": 0.23456,
+          "vector_score": 0.7163164615631104,
+          "bm25_score": null,
+          "boost": 1.25,
+          "content_head": "[表标题] （一）本次发行的基本情况 [来源] 招股说明书1.pdf 第 22 页 [Markdown] | 中文名称 | 武汉兴图新科电子股份有限公司 | 有限公司成立日期 | "
+        }
+      ]
+    },
+    {
+      "id": 260,
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "subject": "武汉兴图新科电子",
+      "file_name": "招股说明书1.pdf",
+      "evidence_pages": [
+        129
+      ],
+      "baseline_ok": true,
+      "hit": true,
+      "hit_any_evidence": true,
+      "hit_evidence": "发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的收入分别为6,464.51 万元、14,414.16 ",
+      "matched_chunk_ids": [
+        "招股说明书1_p0129_x294"
+      ],
+      "matched_chunk_ids_any": [
+        "招股说明书1_p0129_x294"
+      ],
+      "evidence_alternatives": [],
+      "retrieved_pages": [
+        39,
+        129,
+        130,
+        186,
+        475
+      ],
+      "page_hit_diagnostic": true,
+      "filter_violations": [],
+      "elapsed_ms": 254.62,
+      "stages": {
+        "embed_ms": 114.81,
+        "vector_ms": 5.3,
+        "bm25_ms": 4.32,
+        "fusion_ms": 0.04,
+        "rerank_ms": 63.69,
+        "total_ms": 254.23
+      },
+      "table_fallback_used": false,
+      "top_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "招股说明书1_p0186_x415",
+          "file_name": "招股说明书1.pdf",
+          "page": 186,
+          "type": "text",
+          "score": 0.161841,
+          "vector_score": 0.7705324292182922,
+          "bm25_score": null,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 直销情况如下： 单位：万元 项目 2019 年1-6 月 2018 年度 2017 年度 2016 年度 收入 占比 收入 占比 收入 占"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "招股说明书1_p0129_x294",
+          "file_name": "招股说明书1.pdf",
+          "page": 129,
+          "type": "text",
+          "score": 0.158708,
+          "vector_score": null,
+          "bm25_score": 25.36251509380935,
+          "boost": 1.0,
+          "content_head": "①行业集中度高的影响 发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的 收入分别为6,464.51 万元、14,414.16 万元、18,780.67 万元和4,"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "招股说明书1_p0039_x99",
+          "file_name": "招股说明书1.pdf",
+          "page": 39,
+          "type": "text",
+          "score": 0.154372,
+          "vector_score": null,
+          "bm25_score": 23.393471690367328,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 （七）民用市场拓展风险 报告期内，公司产品主要应用于国防指挥信息系统，以及监狱、油田等少量 民用通信领域。报告期内公司在民用市场实现销售收"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "招股说明书1_p0130_t99",
+          "file_name": "招股说明书1.pdf",
+          "page": 130,
+          "type": "table",
+          "score": 0.153697,
+          "vector_score": 0.7516258955001831,
+          "bm25_score": null,
+          "boost": 1.25,
+          "content_head": "[表标题] 报告期内，兴图新科军品业务的最终用户包括总部机关、各战区及各军种，具体情况如下表所示：单位：万元 [来源] 招股说明书1.pdf 第 130-131 页（表头页 130"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "招股说明书1_p0475_x1063",
+          "file_name": "招股说明书1.pdf",
+          "page": 475,
+          "type": "text",
+          "score": 0.151468,
+          "vector_score": 0.7641458511352539,
+          "bm25_score": null,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 销售商品、提供劳务收到的现金 9,561.58 13,870.75 14,895.17 9,439.40 销售现金比 194.91% 70"
+        }
+      ]
+    },
+    {
+      "id": 531,
+      "question": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+      "subject": "武汉兴图新科电子",
+      "file_name": "招股说明书1.pdf",
+      "evidence_pages": [
+        22
+      ],
+      "baseline_ok": false,
+      "hit": true,
+      "hit_any_evidence": true,
+      "hit_evidence": "法定代表人：程家明",
+      "matched_chunk_ids": [
+        "招股说明书1_p0022_t10",
+        "招股说明书1_p0052_x136",
+        "招股说明书1_p0534_x1190",
+        "招股说明书1_p0068_x169",
+        "招股说明书1_p0022_x60"
+      ],
+      "matched_chunk_ids_any": [
+        "招股说明书1_p0022_t10",
+        "招股说明书1_p0022_x60",
+        "招股说明书1_p0052_x136",
+        "招股说明书1_p0068_x169",
+        "招股说明书1_p0534_x1190"
+      ],
+      "evidence_alternatives": [],
+      "retrieved_pages": [
+        22,
+        52,
+        68,
+        534
+      ],
+      "page_hit_diagnostic": true,
+      "filter_violations": [],
+      "elapsed_ms": 260.53,
+      "stages": {
+        "embed_ms": 128.96,
+        "vector_ms": 5.11,
+        "bm25_ms": 4.29,
+        "fusion_ms": 0.04,
+        "rerank_ms": 61.39,
+        "total_ms": 260.12
+      },
+      "table_fallback_used": false,
+      "top_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "招股说明书1_p0022_t10",
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "type": "table",
+          "score": 0.215323,
+          "vector_score": 0.7722022533416748,
+          "bm25_score": 11.365478963441337,
+          "boost": 1.25,
+          "content_head": "[表标题] （一）本次发行的基本情况 [来源] 招股说明书1.pdf 第 22 页 [Markdown] | 中文名称 | 武汉兴图新科电子股份有限公司 | 有限公司成立日期 | "
+        },
+        {
+          "rank": 2,
+          "chunk_id": "招股说明书1_p0052_x136",
+          "file_name": "招股说明书1.pdf",
+          "page": 52,
+          "type": "text",
+          "score": 0.158938,
+          "vector_score": 0.7456505298614502,
+          "bm25_score": 15.704966684148946,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 第五节 发行人基本情况 一、发行人的基本情况 公司名称：武汉兴图新科电子股份有限公司 英文名称：Wuhan Xingtu Xinke El"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "招股说明书1_p0534_x1190",
+          "file_name": "招股说明书1.pdf",
+          "page": 534,
+          "type": "text",
+          "score": 0.154618,
+          "vector_score": 0.7190967798233032,
+          "bm25_score": 17.104373310045883,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 第十二节 有关声明 一、公司全体董事、监事、高级管理人员声明 误导性陈述或重大遗漏，并对其真实性、准确性、完整性、及时性承担个别和连 带的"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "招股说明书1_p0068_x169",
+          "file_name": "招股说明书1.pdf",
+          "page": 68,
+          "type": "text",
+          "score": 0.149079,
+          "vector_score": 0.7275679111480713,
+          "bm25_score": 14.639508963831176,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 （二）持有发行人 5% 以上股份的其他股东 1、兴图投资 公司名称 武汉兴图投资有限公司 公司类型 有限责任公司 注册地 武汉东湖新技术开"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "招股说明书1_p0022_x60",
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "type": "text",
+          "score": 0.148748,
+          "vector_score": 0.7442848682403564,
+          "bm25_score": 14.090208553875073,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 第二节 概览 本概览仅对招股意向书全文做扼要提示。投资者作出投资决策前，应认真阅 读招股意向书全文。 一、发行人及本次发行的中介机构基本情"
+        }
+      ]
+    },
+    {
+      "id": 543,
+      "question": "武汉兴图新科电子股份有限公司注册资本是多少？",
+      "subject": "武汉兴图新科电子",
+      "file_name": "招股说明书1.pdf",
+      "evidence_pages": [
+        22
+      ],
+      "baseline_ok": true,
+      "hit": true,
+      "hit_any_evidence": true,
+      "hit_evidence": "法定代表人：程家明\n注册资本：5,520 万元",
+      "matched_chunk_ids": [
+        "招股说明书1_p0052_x136"
+      ],
+      "matched_chunk_ids_any": [
+        "招股说明书1_p0052_x136"
+      ],
+      "evidence_alternatives": [],
+      "retrieved_pages": [
+        22,
+        52,
+        54,
+        68,
+        286
+      ],
+      "page_hit_diagnostic": true,
+      "filter_violations": [],
+      "elapsed_ms": 238.97,
+      "stages": {
+        "embed_ms": 102.03,
+        "vector_ms": 3.39,
+        "bm25_ms": 3.73,
+        "fusion_ms": 0.04,
+        "rerank_ms": 64.88,
+        "total_ms": 238.62
+      },
+      "table_fallback_used": false,
+      "top_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "招股说明书1_p0022_t10",
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "type": "table",
+          "score": 0.243038,
+          "vector_score": 0.8039789795875549,
+          "bm25_score": 11.01895903460511,
+          "boost": 1.25,
+          "content_head": "[表标题] （一）本次发行的基本情况 [来源] 招股说明书1.pdf 第 22 页 [Markdown] | 中文名称 | 武汉兴图新科电子股份有限公司 | 有限公司成立日期 | "
+        },
+        {
+          "rank": 2,
+          "chunk_id": "招股说明书1_p0052_x136",
+          "file_name": "招股说明书1.pdf",
+          "page": 52,
+          "type": "text",
+          "score": 0.188463,
+          "vector_score": 0.7402738332748413,
+          "bm25_score": 15.362245929098435,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 第五节 发行人基本情况 一、发行人的基本情况 公司名称：武汉兴图新科电子股份有限公司 英文名称：Wuhan Xingtu Xinke El"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "招股说明书1_p0054_x139",
+          "file_name": "招股说明书1.pdf",
+          "page": 54,
+          "type": "text",
+          "score": 0.173284,
+          "vector_score": 0.7587288022041321,
+          "bm25_score": 11.663286306571399,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 日的净资产进行了审计，并于2011 年1 月12 日出具了《审计报告》（中证天通 [2011]审字1051 号），经审计，兴图新科有限截至"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "招股说明书1_p0068_x169",
+          "file_name": "招股说明书1.pdf",
+          "page": 68,
+          "type": "text",
+          "score": 0.159925,
+          "vector_score": 0.7515381574630737,
+          "bm25_score": 14.243199134252592,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 （二）持有发行人 5% 以上股份的其他股东 1、兴图投资 公司名称 武汉兴图投资有限公司 公司类型 有限责任公司 注册地 武汉东湖新技术开"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "招股说明书1_p0286_x651",
+          "file_name": "招股说明书1.pdf",
+          "page": 286,
+          "type": "text",
+          "score": 0.154916,
+          "vector_score": null,
+          "bm25_score": 14.476037410016854,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 子公司名称 子公司级次 2019.6.30 2018.12.31 2017.12.31 2016.12.31 华创兴图 一级 是 是 是 "
+        }
+      ]
+    },
+    {
+      "id": 793,
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？",
+      "subject": "武汉兴图新科电子",
+      "file_name": "招股说明书1.pdf",
+      "evidence_pages": [
+        152
+      ],
+      "baseline_ok": false,
+      "hit": true,
+      "hit_any_evidence": true,
+      "hit_evidence": "下游行业为各类终端用户，覆盖范围广泛，主要包括军队、政府机关、能源等行业企业。此外，大型的电子信息系统组成较为复杂，从而",
+      "matched_chunk_ids": [
+        "招股说明书1_p0152_x344"
+      ],
+      "matched_chunk_ids_any": [
+        "招股说明书1_p0152_x344"
+      ],
+      "evidence_alternatives": [],
+      "retrieved_pages": [
+        135,
+        136,
+        151,
+        152,
+        153
+      ],
+      "page_hit_diagnostic": true,
+      "filter_violations": [],
+      "elapsed_ms": 261.15,
+      "stages": {
+        "embed_ms": 123.71,
+        "vector_ms": 4.83,
+        "bm25_ms": 9.15,
+        "fusion_ms": 0.04,
+        "rerank_ms": 57.18,
+        "total_ms": 260.61
+      },
+      "table_fallback_used": false,
+      "top_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "招股说明书1_p0135_x307",
+          "file_name": "招股说明书1.pdf",
+          "page": 135,
+          "type": "text",
+          "score": 0.154508,
+          "vector_score": 0.662338376045227,
+          "bm25_score": 26.513204145758543,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 综上所述，发行人收入确认呈现明显的季节性主要是受军队采购计划执行进 度的影响，符合行业特征，不会对发行人持续经营能力构成重大不利影响。 二"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "招股说明书1_p0153_x345",
+          "file_name": "招股说明书1.pdf",
+          "page": 153,
+          "type": "text",
+          "score": 0.153231,
+          "vector_score": 0.7427513003349304,
+          "bm25_score": 31.299142245806408,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 电子元器件制造业 元器件 金属制品业 电子信息系统产品提供商 系统集成商 视音频外设 其他 机箱 其他壳体 最终客户 军队 企事业单位 上"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "招股说明书1_p0152_x344",
+          "file_name": "招股说明书1.pdf",
+          "page": 152,
+          "type": "text",
+          "score": 0.144204,
+          "vector_score": 0.6558957099914551,
+          "bm25_score": 32.192653022912076,
+          "boost": 1.0,
+          "content_head": "（四）行业竞争格局 1、行业上下游情况 电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、 机柜等金属壳体制造企业，竞争充分，采购便利。下游行业为各类终端用户，覆 "
+        },
+        {
+          "rank": 4,
+          "chunk_id": "招股说明书1_p0136_x309",
+          "file_name": "招股说明书1.pdf",
+          "page": 136,
+          "type": "text",
+          "score": 0.125128,
+          "vector_score": 0.6353328227996826,
+          "bm25_score": 25.76011301346895,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 团发展和企业改革工作；研究制定国防科技工业的发展规划、结构布局、总体目 标；组织编制国防科技工业建设、军转民规划和行业发展规划；组织管理国"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "招股说明书1_p0151_x340",
+          "file_name": "招股说明书1.pdf",
+          "page": 151,
+          "type": "text",
+          "score": 0.121435,
+          "vector_score": 0.6537872552871704,
+          "bm25_score": 16.29456461723853,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 3、行业进入壁垒 （1）技术壁垒 电子信息系统综合了计算机、网络、通信、工业设计、智能化控制等技术， 综合性较强，技术门槛较高，下游客户需"
+        }
+      ]
+    },
+    {
+      "id": 795,
+      "question": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+      "subject": "武汉兴图新科电子",
+      "file_name": "招股说明书1.pdf",
+      "evidence_pages": [
+        27,
+        157
+      ],
+      "baseline_ok": true,
+      "hit": true,
+      "hit_any_evidence": true,
+      "hit_evidence": "2014年12月，某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统）荣获国",
+      "matched_chunk_ids": [
+        "招股说明书1_p0181_x404",
+        "招股说明书1_p0155_x349"
+      ],
+      "matched_chunk_ids_any": [
+        "招股说明书1_p0155_x349",
+        "招股说明书1_p0181_x404"
+      ],
+      "evidence_alternatives": [],
+      "retrieved_pages": [
+        94,
+        96,
+        155,
+        157,
+        181
+      ],
+      "page_hit_diagnostic": true,
+      "filter_violations": [],
+      "elapsed_ms": 234.24,
+      "stages": {
+        "embed_ms": 108.0,
+        "vector_ms": 3.26,
+        "bm25_ms": 4.07,
+        "fusion_ms": 0.04,
+        "rerank_ms": 59.06,
+        "total_ms": 233.84
+      },
+      "table_fallback_used": false,
+      "top_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "招股说明书1_p0094_x226",
+          "file_name": "招股说明书1.pdf",
+          "page": 94,
+          "type": "text",
+          "score": 0.168152,
+          "vector_score": 0.7378056049346924,
+          "bm25_score": 40.742855559369566,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 一体化工程”（即相当于美军的C4ISR 系统）荣获国家科技进步一等奖。该工程 参与建设单位包括项目主管部门、总体单位、国有科研机构等，根据"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "招股说明书1_p0181_x404",
+          "file_name": "招股说明书1.pdf",
+          "page": 181,
+          "type": "text",
+          "score": 0.157123,
+          "vector_score": 0.7294407486915588,
+          "bm25_score": 37.40369519053475,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 公司目前已经成为军队视频指挥控制领域的重要供应商，参与制定了国防用 户第一个视频指挥系统技术标准（即《某视频技术规范1.0》）。2014 "
+        },
+        {
+          "rank": 3,
+          "chunk_id": "招股说明书1_p0096_x230",
+          "file_name": "招股说明书1.pdf",
+          "page": 96,
+          "type": "text",
+          "score": 0.147703,
+          "vector_score": 0.727587878704071,
+          "bm25_score": 37.344199589215485,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 美军的C4ISR 系统）荣获国家科技进步一等奖。该工程参与建设单位包括项目 主管部门、总体单位、国有科研机构等，根据总体单位、军方用户出具"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "招股说明书1_p0155_x349",
+          "file_name": "招股说明书1.pdf",
+          "page": 155,
+          "type": "text",
+          "score": 0.139553,
+          "vector_score": 0.7107130289077759,
+          "bm25_score": 37.134655844635205,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 等产品在技术上已经达到了全军较为先进的水平，并逐步列装到全军各主要领域， 军队市场占有率不断提高，形成了较好的品牌优势。具体表现在以下几个"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "招股说明书1_p0157_x356",
+          "file_name": "招股说明书1.pdf",
+          "page": 157,
+          "type": "text",
+          "score": 0.138007,
+          "vector_score": null,
+          "bm25_score": 46.14994158456898,
+          "boost": 1.0,
+          "content_head": "年，是科技部与湖北省人民政府共同设立的国家首批常设技术市场，是直属于湖 北省科技厅的公益二类事业单位。 ②参与项目获得国家级奖项 A.国家科技进步一等奖 2014 年12 月，某大"
+        }
+      ]
+    },
+    {
+      "id": 957,
+      "question": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+      "subject": "武汉兴图新科电子",
+      "file_name": "招股说明书1.pdf",
+      "evidence_pages": [
+        154,
+        332
+      ],
+      "baseline_ok": false,
+      "hit": true,
+      "hit_any_evidence": true,
+      "hit_evidence": "兴图新科目前已经成为国防军队视频指挥领域的重要供应商，提供的视频指挥控制类产品是国防指挥信息系统（相当于美军的C4ISR",
+      "matched_chunk_ids": [
+        "招股说明书1_p0026_x70",
+        "招股说明书1_p0154_x348"
+      ],
+      "matched_chunk_ids_any": [
+        "招股说明书1_p0026_x70",
+        "招股说明书1_p0154_x348"
+      ],
+      "evidence_alternatives": [],
+      "retrieved_pages": [
+        26,
+        154,
+        155,
+        172,
+        181
+      ],
+      "page_hit_diagnostic": true,
+      "filter_violations": [],
+      "elapsed_ms": 234.23,
+      "stages": {
+        "embed_ms": 100.15,
+        "vector_ms": 4.42,
+        "bm25_ms": 4.43,
+        "fusion_ms": 0.04,
+        "rerank_ms": 60.29,
+        "total_ms": 233.76
+      },
+      "table_fallback_used": false,
+      "top_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "招股说明书1_p0026_x70",
+          "file_name": "招股说明书1.pdf",
+          "page": 26,
+          "type": "text",
+          "score": 0.168227,
+          "vector_score": 0.7014062404632568,
+          "bm25_score": 22.033326190371092,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 军队的总体单位对军用产品销售技术支持和售后服务保障提出的响应迅速、高效 率、规范化、系统化的要求。 （三）公司所处行业竞争地位 兴图新科目"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "招股说明书1_p0155_x349",
+          "file_name": "招股说明书1.pdf",
+          "page": 155,
+          "type": "text",
+          "score": 0.156519,
+          "vector_score": 0.6927636861801147,
+          "bm25_score": 19.897593892105494,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 等产品在技术上已经达到了全军较为先进的水平，并逐步列装到全军各主要领域， 军队市场占有率不断提高，形成了较好的品牌优势。具体表现在以下几个"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "招股说明书1_p0181_x404",
+          "file_name": "招股说明书1.pdf",
+          "page": 181,
+          "type": "text",
+          "score": 0.147453,
+          "vector_score": 0.6772477626800537,
+          "bm25_score": 20.21385007075225,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 公司目前已经成为军队视频指挥控制领域的重要供应商，参与制定了国防用 户第一个视频指挥系统技术标准（即《某视频技术规范1.0》）。2014 "
+        },
+        {
+          "rank": 4,
+          "chunk_id": "招股说明书1_p0154_x348",
+          "file_name": "招股说明书1.pdf",
+          "page": 154,
+          "type": "text",
+          "score": 0.134228,
+          "vector_score": 0.6557114720344543,
+          "bm25_score": 21.788895974272066,
+          "boost": 1.0,
+          "content_head": "（五）发行人在行业中的竞争地位 兴图新科目前已经成为国防军队视频指挥领域的重要供应商，提供的视频指 挥控制类产品是国防指挥信息系统（相当于美军的C4ISR系统）中的“指挥控制” 子"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "招股说明书1_p0172_x386",
+          "file_name": "招股说明书1.pdf",
+          "page": 172,
+          "type": "text",
+          "score": 0.12482,
+          "vector_score": 0.6687572002410889,
+          "bm25_score": 17.36467495912451,
+          "boost": 1.0,
+          "content_head": "武汉兴图新科电子股份有限公司 招股意向书 3、市场前景 （1）核心技术应用 军用视频指挥系统需要满足高质量、高实时、复杂网络、大容量的实战、实 训各类应用场景的指挥控制需求。在深入"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "question": "武汉力源信息技术股份有限公司本次发行股数是多少？占发行后总股本的比例是多少？",
+      "subject": "武汉力源信息技术",
+      "file_name": "招股说明书2.pdf",
+      "evidence_pages": [
+        22,
+        24
+      ],
+      "baseline_ok": null,
+      "hit": true,
+      "hit_any_evidence": true,
+      "hit_evidence": "1,670 万股，占发行后总股本的比例为25.04%",
+      "matched_chunk_ids": [
+        "招股说明书2_p0024_x44",
+        "招股说明书2_p0022_x42",
+        "招股说明书2_p0054_x99"
+      ],
+      "matched_chunk_ids_any": [
+        "招股说明书2_p0022_x42",
+        "招股说明书2_p0024_x44",
+        "招股说明书2_p0054_x99"
+      ],
+      "evidence_alternatives": [],
+      "retrieved_pages": [
+        2,
+        4,
+        22,
+        24,
+        54
+      ],
+      "page_hit_diagnostic": true,
+      "filter_violations": [],
+      "elapsed_ms": 331.82,
+      "stages": {
+        "embed_ms": 120.6,
+        "vector_ms": 3.68,
+        "bm25_ms": 3.27,
+        "fusion_ms": 0.04,
+        "rerank_ms": 56.1,
+        "table_fallback_ms": 83.58,
+        "total_ms": 331.09
+      },
+      "table_fallback_used": true,
+      "top_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "招股说明书2_p0024_x44",
+          "file_name": "招股说明书2.pdf",
+          "page": 24,
+          "type": "text",
+          "score": 0.301092,
+          "vector_score": 0.8126847147941589,
+          "bm25_score": 28.126180868951607,
+          "boost": 1.0,
+          "content_head": "武汉力源信息技术股份有限公司 招股意向书 二、本次发行的基本情况 (一)发行基本情况 股票种类 人民币普通股(A 股) 每股面值 人民币1.00 元 发行股数及占发行后总股本比例 "
+        },
+        {
+          "rank": 2,
+          "chunk_id": "招股说明书2_p0002_x01",
+          "file_name": "招股说明书2.pdf",
+          "page": 2,
+          "type": "text",
+          "score": 0.280741,
+          "vector_score": 0.8085205554962158,
+          "bm25_score": 25.353832976191534,
+          "boost": 1.0,
+          "content_head": "武汉力源信息技术股份有限公司 招股意向书 本次发行概况 发行股票类型 人民币普通股(A股) 发行股数 1,670万股 每股面值 人民币1.00元 每股发行价格 [ ◆ ]元 预计发"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "招股说明书2_p0004_x04",
+          "file_name": "招股说明书2.pdf",
+          "page": 4,
+          "type": "text",
+          "score": 0.255706,
+          "vector_score": 0.7808359265327454,
+          "bm25_score": 21.585680067579947,
+          "boost": 1.0,
+          "content_head": "武汉力源信息技术股份有限公司 招股意向书 重大事项提示 一、本次股票发行后拟在创业板市场上市，该市场具有较高的投资风险。创 业板公司具有业绩不稳定、经营风险高、退市风险大等特点，投"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "招股说明书2_p0022_x42",
+          "file_name": "招股说明书2.pdf",
+          "page": 22,
+          "type": "text",
+          "score": 0.247696,
+          "vector_score": 0.7785592079162598,
+          "bm25_score": 21.08879503834816,
+          "boost": 1.0,
+          "content_head": "武汉力源信息技术股份有限公司 招股意向书 项目 2010 年1-6 月 2009 年度 2008 年度 2007 年度 总资产周转率(次) 0.76 1.33 1.39 1.28 "
+        },
+        {
+          "rank": 5,
+          "chunk_id": "招股说明书2_p0054_x99",
+          "file_name": "招股说明书2.pdf",
+          "page": 54,
+          "type": "text",
+          "score": 0.242103,
+          "vector_score": 0.7541065216064453,
+          "bm25_score": 23.51783797763388,
+          "boost": 1.0,
+          "content_head": "武汉力源信息技术股份有限公司 招股意向书 (6)根据上海博润分别与武汉博润、宁波博润签订的协议，“博润”投资品 牌之知识产权归上海博润所有。上海博润与武汉博润、宁波博润合作期满或协"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "question": "武汉力源信息技术股份有限公司本次募集资金拟投资项目有哪些？",
+      "subject": "武汉力源信息技术",
+      "file_name": "招股说明书2.pdf",
+      "evidence_pages": [
+        22,
+        30,
+        306,
+        144
+      ],
+      "baseline_ok": null,
+      "hit": true,
+      "hit_any_evidence": true,
+      "hit_evidence": "仓储及物流中心 3,393.40\n研发中心 1,526.38\n电子商务平台 2,492.78\n扩充产品种类和数量 9,0",
+      "matched_chunk_ids": [
+        "招股说明书2_p0022_x42"
+      ],
+      "matched_chunk_ids_any": [
+        "招股说明书2_p0022_x42"
+      ],
+      "evidence_alternatives": [],
+      "retrieved_pages": [
+        22,
+        144,
+        306,
+        326,
+        329
+      ],
+      "page_hit_diagnostic": true,
+      "filter_violations": [],
+      "elapsed_ms": 229.42,
+      "stages": {
+        "embed_ms": 97.84,
+        "vector_ms": 2.66,
+        "bm25_ms": 2.98,
+        "fusion_ms": 0.04,
+        "rerank_ms": 63.58,
+        "total_ms": 229.02
+      },
+      "table_fallback_used": false,
+      "top_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "招股说明书2_p0306_x658",
+          "file_name": "招股说明书2.pdf",
+          "page": 306,
+          "type": "text",
+          "score": 0.167456,
+          "vector_score": 0.7856009006500244,
+          "bm25_score": 21.14828363154362,
+          "boost": 1.0,
+          "content_head": "武汉力源信息技术股份有限公司 招股意向书 第十一节 募集资金运用 一、本次募集资金运用方案 (一)募集资金数额及专户存储安排 经公司第一届董事会第三次会议及2009 年年度股东大会"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "招股说明书2_p0144_x281",
+          "file_name": "招股说明书2.pdf",
+          "page": 144,
+          "type": "text",
+          "score": 0.146765,
+          "vector_score": 0.7263325452804565,
+          "bm25_score": 20.782573853421148,
+          "boost": 1.0,
+          "content_head": "武汉力源信息技术股份有限公司 招股意向书 本公司拟在该宗地处建设综合大楼，作为本公司新的办公场所。本次募集资 金投资建设的仓储及物流中心、研发中心、及电子商务平台均位于公司拟建的综"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "招股说明书2_p0326_x696",
+          "file_name": "招股说明书2.pdf",
+          "page": 326,
+          "type": "text",
+          "score": 0.145555,
+          "vector_score": 0.7345309853553772,
+          "bm25_score": 17.784997117043154,
+          "boost": 1.0,
+          "content_head": "武汉力源信息技术股份有限公司 招股意向书 4、本项目其他主要建设情况 本项目与本次募集资金投资建设的“仓储及物流中心”及“电子商务平台” 均位于公司拟建的综合大楼内。相关情况参见“"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "招股说明书2_p0022_x42",
+          "file_name": "招股说明书2.pdf",
+          "page": 22,
+          "type": "text",
+          "score": 0.138658,
+          "vector_score": 0.7269256114959717,
+          "bm25_score": 18.78022063906458,
+          "boost": 1.0,
+          "content_head": "武汉力源信息技术股份有限公司 招股意向书 项目 2010 年1-6 月 2009 年度 2008 年度 2007 年度 总资产周转率(次) 0.76 1.33 1.39 1.28 "
+        },
+        {
+          "rank": 5,
+          "chunk_id": "招股说明书2_p0329_x702",
+          "file_name": "招股说明书2.pdf",
+          "page": 329,
+          "type": "text",
+          "score": 0.138054,
+          "vector_score": 0.7039241790771484,
+          "bm25_score": 20.672851441779585,
+          "boost": 1.0,
+          "content_head": "武汉力源信息技术股份有限公司 招股意向书 对于补充与主营业务相关的营运资金，本公司将严格按照中国证监会、深圳 证券交易所有关规定及公司募集资金管理制度进行管理，根据公司业务发展需要"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "question": "武汉力源信息技术股份有限公司存在控制关系的关联方是谁？其持股比例与本公司关系是什么？",
+      "subject": "武汉力源信息技术",
+      "file_name": "招股说明书2.pdf",
+      "evidence_pages": [
+        157,
+        21,
+        158
+      ],
+      "baseline_ok": null,
+      "hit": true,
+      "hit_any_evidence": true,
+      "hit_evidence": "赵马克 42.35% 公司控股股东",
+      "matched_chunk_ids": [
+        "招股说明书2_p0157_x307",
+        "招股说明书2_p0157_t69",
+        "招股说明书2_p0033_x58"
+      ],
+      "matched_chunk_ids_any": [
+        "招股说明书2_p0033_x58",
+        "招股说明书2_p0157_t69",
+        "招股说明书2_p0157_x307"
+      ],
+      "evidence_alternatives": [],
+      "retrieved_pages": [
+        33,
+        157,
+        158
+      ],
+      "page_hit_diagnostic": true,
+      "filter_violations": [],
+      "elapsed_ms": 247.14,
+      "stages": {
+        "embed_ms": 100.88,
+        "vector_ms": 3.94,
+        "bm25_ms": 3.62,
+        "fusion_ms": 0.05,
+        "rerank_ms": 70.0,
+        "total_ms": 246.69
+      },
+      "table_fallback_used": false,
+      "top_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "招股说明书2_p0157_x307",
+          "file_name": "招股说明书2.pdf",
+          "page": 157,
+          "type": "text",
+          "score": 0.192647,
+          "vector_score": 0.7334747314453125,
+          "bm25_score": 33.79903688307572,
+          "boost": 1.0,
+          "content_head": "武汉力源信息技术股份有限公司 招股意向书 3、本人保证将不利用对股份公司的控股关系进行损害或可能损害股份公司 及股份公司其他股东利益的经营活动；本人将不利用对股份公司的了解和知悉的"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "招股说明书2_p0157_t69",
+          "file_name": "招股说明书2.pdf",
+          "page": 157,
+          "type": "table",
+          "score": 0.191588,
+          "vector_score": null,
+          "bm25_score": 29.73760852893428,
+          "boost": 1.25,
+          "content_head": "[表标题] 2、不存在控制关系的关联方 [来源] 招股说明书2.pdf 第 157 页 [Markdown] | 关联方名称 | 持股比例 | 与本公司关系 | | --- | -"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "招股说明书2_p0158_x309",
+          "file_name": "招股说明书2.pdf",
+          "page": 158,
+          "type": "text",
+          "score": 0.178395,
+          "vector_score": 0.7500996589660645,
+          "bm25_score": 24.85424622263874,
+          "boost": 1.0,
+          "content_head": "武汉力源信息技术股份有限公司 招股意向书 3、报告期内曾为关联方但目前已不存在关联关系的公司 企业名称 与本公司关系 佰力电子 原为同一实际控制人控制的企业，2008 年对外转让 "
+        },
+        {
+          "rank": 4,
+          "chunk_id": "招股说明书2_p0157_t70",
+          "file_name": "招股说明书2.pdf",
+          "page": 157,
+          "type": "table",
+          "score": 0.171442,
+          "vector_score": null,
+          "bm25_score": 22.306396579565206,
+          "boost": 1.25,
+          "content_head": "[表标题] 2、不存在控制关系的关联方 [来源] 招股说明书2.pdf 第 157-158 页（表头页 157） [Markdown] | 企业名称 | 与本公司关系 | | --"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "招股说明书2_p0033_x58",
+          "file_name": "招股说明书2.pdf",
+          "page": 33,
+          "type": "text",
+          "score": 0.158565,
+          "vector_score": 0.7515164017677307,
+          "bm25_score": null,
+          "boost": 1.0,
+          "content_head": "武汉力源信息技术股份有限公司 招股意向书 十、实际控制人控制的风险 赵马克直接持有本公司股份2,117.70 万股，占公司总股本的42.35%，为本 公司控股股东、实际控制人。本次"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "question": "武汉力源信息技术股份有限公司不存在控制关系的关联方企业有哪些？",
+      "subject": "武汉力源信息技术",
+      "file_name": "招股说明书2.pdf",
+      "evidence_pages": [
+        157,
+        158
+      ],
+      "baseline_ok": null,
+      "hit": true,
+      "hit_any_evidence": true,
+      "hit_evidence": "融冰投资 武汉博润 上海博润 听音投资 联众聚源 力源贸易 普芯达",
+      "matched_chunk_ids": [
+        "招股说明书2_p0157_t70"
+      ],
+      "matched_chunk_ids_any": [
+        "招股说明书2_p0157_t70"
+      ],
+      "evidence_alternatives": [],
+      "retrieved_pages": [
+        157,
+        158,
+        184
+      ],
+      "page_hit_diagnostic": true,
+      "filter_violations": [],
+      "elapsed_ms": 258.65,
+      "stages": {
+        "embed_ms": 118.45,
+        "vector_ms": 3.14,
+        "bm25_ms": 3.09,
+        "fusion_ms": 0.04,
+        "rerank_ms": 64.4,
+        "total_ms": 257.94
+      },
+      "table_fallback_used": false,
+      "top_chunks": [
+        {
+          "rank": 1,
+          "chunk_id": "招股说明书2_p0157_t70",
+          "file_name": "招股说明书2.pdf",
+          "page": 157,
+          "type": "table",
+          "score": 0.195602,
+          "vector_score": 0.6471675634384155,
+          "bm25_score": 22.938569258141186,
+          "boost": 1.25,
+          "content_head": "[表标题] 2、不存在控制关系的关联方 [来源] 招股说明书2.pdf 第 157-158 页（表头页 157） [Markdown] | 企业名称 | 与本公司关系 | | --"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "招股说明书2_p0157_x307",
+          "file_name": "招股说明书2.pdf",
+          "page": 157,
+          "type": "text",
+          "score": 0.167334,
+          "vector_score": 0.6822860240936279,
+          "bm25_score": 29.138691791345924,
+          "boost": 1.0,
+          "content_head": "武汉力源信息技术股份有限公司 招股意向书 3、本人保证将不利用对股份公司的控股关系进行损害或可能损害股份公司 及股份公司其他股东利益的经营活动；本人将不利用对股份公司的了解和知悉的"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "招股说明书2_p0158_x309",
+          "file_name": "招股说明书2.pdf",
+          "page": 158,
+          "type": "text",
+          "score": 0.164969,
+          "vector_score": 0.7190250158309937,
+          "bm25_score": 20.327358297228084,
+          "boost": 1.0,
+          "content_head": "武汉力源信息技术股份有限公司 招股意向书 3、报告期内曾为关联方但目前已不存在关联关系的公司 企业名称 与本公司关系 佰力电子 原为同一实际控制人控制的企业，2008 年对外转让 "
+        },
+        {
+          "rank": 4,
+          "chunk_id": "招股说明书2_p0157_t69",
+          "file_name": "招股说明书2.pdf",
+          "page": 157,
+          "type": "table",
+          "score": 0.152476,
+          "vector_score": null,
+          "bm25_score": 20.915827556609486,
+          "boost": 1.25,
+          "content_head": "[表标题] 2、不存在控制关系的关联方 [来源] 招股说明书2.pdf 第 157 页 [Markdown] | 关联方名称 | 持股比例 | 与本公司关系 | | --- | -"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "招股说明书2_p0184_x365",
+          "file_name": "招股说明书2.pdf",
+          "page": 184,
+          "type": "text",
+          "score": 0.128555,
+          "vector_score": 0.6999707221984863,
+          "bm25_score": null,
+          "boost": 1.0,
+          "content_head": "武汉力源信息技术股份有限公司 招股意向书 中国会计学会 理事 无关联关系 中国会计学会财务管理专家 委员会 委员 无关联关系 中国会计学会理工科高等会 计学会 副会长 无关联关系 "
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+RAGAS 未运行（依赖不可用，本机断网）
+级别：offline；目标：测试/离线；开始：2026-10-04T17:36:36.7117389+08:00
+============================= test session starts =============================
+platform win32 -- Python 3.11.15, pytest-7.4.4, pluggy-1.6.0
+rootdir: E:\gao6gongdan\工单3
+plugins: anyio-4.13.0, asyncio-0.23.3, cov-4.1.0
+asyncio: mode=Mode.STRICT
+collected 61 items
+
+测试\离线\test_qa_engine.py .....                                        [  8%]
+测试\离线\test_t7_offline_classify.py ........                           [ 21%]
+测试\离线\test_t7_offline_config_logging.py ..........                   [ 37%]
+测试\离线\test_t7_offline_faults.py ....                                 [ 44%]
+测试\离线\test_t7_offline_fixture.py ..........s.                        [ 63%]
+测试\离线\test_t7_offline_index_bm25.py ......                           [ 73%]
+测试\离线\test_t7_offline_parse.py ..........                            [ 90%]
+测试\离线\test_t7_offline_retrieval14.py ..                              [ 93%]
+测试\离线\test_t7_offline_toolkit.py ....                                [100%]
+
+============================== warnings summary ===============================
+测试/离线/test_qa_engine.py::test_fallback_http
+  E:\gao6gongdan\工单1\.venv\Lib\site-packages\jieba\_compat.py:18: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+    import pkg_resources
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+---------------------------------- RAGAS 状态 -----------------------------------
+RAGAS 未运行（依赖不可用，本机断网）
+替代口径：确定性指标（14 题命中/准确率/引用可回溯/首字/拒答率）
+================== 60 passed, 1 skipped, 1 warning in 34.99s ==================
+级别：offline；退出码：0

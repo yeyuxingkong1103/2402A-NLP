@@ -1,0 +1,86 @@
+==============================================================================
+【mineru.py 拆成 4 个文件（api / flow / result / 门面）】
+  旧对象 24 个 / 新对象 39 个
+  ✅ 逐字相同          22 个
+  ◻ 已声明差异        2 个
+  ▶ 新增对象（新拆分产出/注解）15 个：MineruApiMixin, MineruApiMixin.api_key, MineruApiMixin.monotonic, MineruApiMixin.retry_attempts, MineruApiMixin.retry_backoff_seconds, MineruApiMixin.retry_total_budget_seconds, MineruApiMixin.sleep, MineruApiMixin.timeout, MineruFlowMixin, MineruFlowMixin.api_base_url, MineruFlowMixin.max_poll_seconds, MineruFlowMixin.monotonic, MineruFlowMixin.poll_interval_seconds, MineruFlowMixin.sleep, MineruFlowMixin.timeout
+  已声明差异的理由：
+    · MineruClient —— 类头变化：基类由隐式 object → (MineruFlowMixin, MineruApiMixin)，用组合而非复制的方式承载被搬走的 14 个方法；本类自身只留 __init__ / parse / _build_payload / _failed
+    · MineruClient.parse —— 两处调用点随函数外移改名：self._extract_markdown(archive) → extract_markdown(archive)，self._resolve_page_count(...) → resolve_page_count(...)；另加注释（注释不进 AST）
+==============================================================================
+【config.py 拆成 3 个文件（defaults / loader / config）】
+  旧对象 66 个 / 新对象 116 个
+  ✅ 逐字相同          16 个
+  ◻ 已声明差异        50 个
+  ▶ 新增对象（新拆分产出/注解）50 个：DEFAULT_APP_NAME, DEFAULT_EMBEDDING_API_BASE_URL, DEFAULT_EMBEDDING_DIMENSION, DEFAULT_EMBEDDING_MODEL, DEFAULT_EMBEDDING_TIMEOUT_SECONDS, DEFAULT_ENVIRONMENT, DEFAULT_LLM_API_BASE_URL, DEFAULT_LLM_MAX_TOKENS, DEFAULT_LLM_MODEL, DEFAULT_LLM_TEMPERATURE, DEFAULT_LLM_TIMEOUT_SECONDS, DEFAULT_LOG_LEVEL, DEFAULT_LONG_TERM_MEMORY_DEDUP_THRESHOLD, DEFAULT_LONG_TERM_MEMORY_TOP_K, DEFAULT_MILVUS_COLLECTION_NAME, DEFAULT_MILVUS_HOST, DEFAULT_MILVUS_LONG_TERM_COLLECTION_NAME, DEFAULT_MILVUS_PORT, DEFAULT_MINERU_API_BASE_URL, DEFAULT_MINERU_ENABLE_FORMULA, DEFAULT_MINERU_ENABLE_TABLE, DEFAULT_MINERU_IS_OCR, DEFAULT_MINERU_LANGUAGE, DEFAULT_MINERU_MAX_POLL_SECONDS, DEFAULT_MINERU_POLL_INTERVAL_SECONDS, DEFAULT_MYSQL_DATABASE, DEFAULT_MYSQL_HOST, DEFAULT_MYSQL_PORT, DEFAULT_QWEN_VL_API_BASE_URL, DEFAULT_QWEN_VL_MAX_PAGES_PER_REQUEST, DEFAULT_QWEN_VL_MAX_REQUEST_BYTES, DEFAULT_QWEN_VL_MODEL, DEFAULT_QWEN_VL_TIMEOUT_SECONDS, DEFAULT_RECALL_KEYWORD_LIMIT, DEFAULT_RECALL_VECTOR_LIMIT, DEFAULT_REDIS_URL, DEFAULT_REFUSAL_MIN_VECTOR_SCORE, DEFAULT_RERANKER_API_BASE_URL, DEFAULT_RERANKER_MODEL, DEFAULT_RERANKER_TIMEOUT_SECONDS, DEFAULT_RERANK_CANDIDATE_LIMIT, DEFAULT_SESSION_SUMMARY_ENABLED, DEFAULT_SESSION_TTL_SECONDS, DEFAULT_SMTP_PORT, DEFAULT_SMTP_USE_SSL, DEFAULT_SYNONYM_EXPANSION_ENABLED, DEFAULT_SYNONYM_EXPANSION_WEIGHT, DEFAULT_SYNONYM_TABLE_PATH, PRODUCTION_REQUIRED_KEYS, build_settings_from_environment
+  已声明差异的理由：
+    · Settings.REQUIRED_IN_PRODUCTION —— default=(...字面量) → default=defaults.PRODUCTION_REQUIRED_KEYS，值由运行时 dump 脚本证明完全相同
+    · Settings.app_name —— （字段默认值 → 常量引用）
+    · Settings.embedding_api_base_url —— （字段默认值 → 常量引用）
+    · Settings.embedding_dimension —— （字段默认值 → 常量引用）
+    · Settings.embedding_model —— （字段默认值 → 常量引用）
+    · Settings.embedding_timeout_seconds —— （字段默认值 → 常量引用）
+    · Settings.environment —— （字段默认值 → 常量引用）
+    · Settings.from_environment —— 变薄包装：方法体 188 行逐字搬进 config_loader.build_settings_from_environment(cls)，留一句 load_environment_file()（理由：monkeypatch 锚点）
+    · Settings.llm_api_base_url —— （字段默认值 → 常量引用）
+    · Settings.llm_max_tokens —— （字段默认值 → 常量引用）
+    · Settings.llm_model —— （字段默认值 → 常量引用）
+    · Settings.llm_temperature —— （字段默认值 → 常量引用）
+    · Settings.llm_timeout_seconds —— （字段默认值 → 常量引用）
+    · Settings.log_level —— （字段默认值 → 常量引用）
+    · Settings.long_term_memory_dedup_threshold —— （字段默认值 → 常量引用）
+    · Settings.long_term_memory_top_k —— （字段默认值 → 常量引用）
+    · Settings.milvus_collection_name —— （字段默认值 → 常量引用）
+    · Settings.milvus_host —— （字段默认值 → 常量引用）
+    · Settings.milvus_long_term_collection_name —— （字段默认值 → 常量引用）
+    · Settings.milvus_port —— （字段默认值 → 常量引用）
+    · Settings.mineru_api_base_url —— （字段默认值 → 常量引用）
+    · Settings.mineru_enable_formula —— （字段默认值 → 常量引用）
+    · Settings.mineru_enable_table —— （字段默认值 → 常量引用）
+    · Settings.mineru_is_ocr —— （字段默认值 → 常量引用）
+    · Settings.mineru_language —— （字段默认值 → 常量引用）
+    · Settings.mineru_max_poll_seconds —— （字段默认值 → 常量引用）
+    · Settings.mineru_poll_interval_seconds —— （字段默认值 → 常量引用）
+    · Settings.mysql_database —— （字段默认值 → 常量引用）
+    · Settings.mysql_host —— （字段默认值 → 常量引用）
+    · Settings.mysql_port —— （字段默认值 → 常量引用）
+    · Settings.qwen_vl_api_base_url —— （字段默认值 → 常量引用）
+    · Settings.qwen_vl_max_pages_per_request —— （字段默认值 → 常量引用）
+    · Settings.qwen_vl_max_request_bytes —— （字段默认值 → 常量引用）
+    · Settings.qwen_vl_model —— （字段默认值 → 常量引用）
+    · Settings.qwen_vl_timeout_seconds —— （字段默认值 → 常量引用）
+    · Settings.recall_keyword_limit —— （字段默认值 → 常量引用）
+    · Settings.recall_vector_limit —— （字段默认值 → 常量引用）
+    · Settings.redis_url —— （字段默认值 → 常量引用）
+    · Settings.refusal_min_vector_score —— （字段默认值 → 常量引用）
+    · Settings.rerank_candidate_limit —— （字段默认值 → 常量引用）
+    · Settings.reranker_api_base_url —— （字段默认值 → 常量引用）
+    · Settings.reranker_model —— （字段默认值 → 常量引用）
+    · Settings.reranker_timeout_seconds —— （字段默认值 → 常量引用）
+    · Settings.session_summary_enabled —— （字段默认值 → 常量引用）
+    · Settings.session_ttl_seconds —— （字段默认值 → 常量引用）
+    · Settings.smtp_port —— （字段默认值 → 常量引用）
+    · Settings.smtp_use_ssl —— （字段默认值 → 常量引用）
+    · Settings.synonym_expansion_enabled —— （字段默认值 → 常量引用）
+    · Settings.synonym_expansion_weight —— （字段默认值 → 常量引用）
+    · Settings.synonym_table_path —— （字段默认值 → 常量引用）
+==============================================================================
+【qwen_vl.py 只补注释】
+  旧对象 17 个 / 新对象 17 个
+  ✅ 逐字相同          17 个
+  ◻ 已声明差异        0 个
+  ▶ 新增对象（新拆分产出/注解）0 个：（无）
+==============================================================================
+【keyword_search.py 只补注释】
+  旧对象 19 个 / 新对象 19 个
+  ✅ 逐字相同          19 个
+  ◻ 已声明差异        0 个
+  ▶ 新增对象（新拆分产出/注解）0 个：（无）
+==============================================================================
+【vector_search.py 只补注释】
+  旧对象 8 个 / 新对象 8 个
+  ✅ 逐字相同          8 个
+  ◻ 已声明差异        0 个
+  ▶ 新增对象（新拆分产出/注解）0 个：（无）
+==============================================================================
+结论：✅ 全部差异均已声明且逐条给出理由

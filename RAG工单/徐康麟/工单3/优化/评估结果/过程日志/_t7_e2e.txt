@@ -1,0 +1,78 @@
+环境：http://127.0.0.1:11434 / qwen2.5:3b / 索引 E:\gao6gongdan\工单3\研发\data\index
+
+[A] SQLiteManager
+  ✅ 建表含 feedback
+  ✅ chunks 计数 > 0　2599 块
+  ✅ 按文件计数一致　1647 块
+  ✅ fetch_chunk 回查到块　招股说明书1_p0001_x00 → p1
+  ✅ fetch_chunks 批量回查
+  ✅ page_count 可查　实际 548
+  ✅ retrieval_traces 落行
+  ✅ runs 落行
+  ✅ feedback 落行　id=46
+  ✅ 非法 rating 显式报错（不静默）
+
+[B] QAEngine
+  ✅ warmup 真调用分词器　cold_ms=0.25
+  ✅ warmup 真调用嵌入　dim=1024
+  ✅ warmup 真做后端探测　backend=ollama，probe=21.5 ms
+  ✅ files() 来自自动发现（2 份 PDF）　["招股说明书1.pdf", "招股说明书2.pdf"]
+  ✅ health 含检索/生成/存储　chunks=2599
+  ✅ ask 返回非空答案　| 注册资本 | 5,520.00 万元 | 法定代表人 | 程家明 | 引用：[招股说明书1.pdf: 22]
+  ✅ ask 带真实引用（可回溯）　[招股说明书1.pdf: 22]
+  ✅ ask 首字 ≤3000 ms　637.79 ms
+  ✅ ask 已建会话　5 个会话
+  ✅ 会话消息成对（user+assistant）
+  ✅ citation_source 能取到引用页原文　200 字
+  ✅ stream 首字 ≤3000 ms　997.1 ms（迭代 2224 ms）
+  ✅ stream 末块携带完整答案与引用　'| 注册资本 | 5,520.00 万元 | 法定代表人 | 程家明 |\n引用：'
+  ✅ engine.feedback 落库
+  ✅ clear_conversation 生效　删除 4 条消息
+
+[C] serve_fallback（纯标准库界面）
+  ✅ GET / 返回内联 HTML　5646 B，无外部静态依赖
+  ✅ GET /api/health 正常
+  ✅ GET /api/files 返回自动发现列表　["招股说明书1.pdf", "招股说明书2.pdf"]
+  ✅ POST /api/ask 返回答案（§7 契约字段名 text）　武汉兴图新科电子股份有限公司 招股意向书 第五节 发行人基本情况 一、发行人的基本情况 公司名称：武
+  ✅ POST /api/ask 含 chunks（content_digest 摘要）　5 块
+  ✅ HTTP 答案带引用　[招股说明书1.pdf: 52]
+  ✅ HTTP 首字 ≤3000 ms　1084.16 ms
+  ✅ HTTP 返回检索片段与页码（契约字段 chunks）
+  ✅ POST /api/feedback 落库
+  ✅ POST /api/clear 生效　删除 2 条
+  ✅ 空问题返回 400（显式拒绝）　status=400
+[ERROR] {"ts": "2026-10-04T17:45:45.040+08:00", "level": "ERROR", "event": "func.error", "func": "serve_fallback._answer_payload", "module": "serve_fallback", "run_id": "r20261004-174534", "trace_id": null, "span_id": "s00197762", "stage": "core", "pid": 23728, "thread": "Thread-9 (process_request_thread)", "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化", "inputs": {"question": "注册资本是多少？", "file_names": ["不存在的文件.pdf"], "top_k": 5}, "elapsed_ms": 91.83, "error": {"type": "RagError", "message": "[RAG-6001/ui] file_names 含不存在的文件：['不存在的文件.pdf']；语料内文件：['招股说明书1.pdf', '招股说明书2.pdf']", "traceback": "Traceback (most recent call last):\n  File \"E:\\gao6gongdan\\工单3\\研发\\app\\ui\\serve_fallback.py\", line 160, in _answer_payload\n    checked = engine.validate_files(file_names)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\gao6gongdan\\工单3\\研发\\app\\core\\qa_engine.py\", line 188, in validate_files\n    raise RagError(f\"file_names 含不存在的文件：{unknown}；语料内文件：{sorted(known)}\",\napp.core.errors.RagError: [RAG-6001/ui] file_names 含不存在的文件：['不存在的文件.pdf']；语料内文件：['招股说明书1.pdf', '招股说明书2.pdf']\n"}}
+  ✅ 不存在的 file_names 返回 400（§7 契约）　status=400
+
+[F] §7 契约形状与块形态（t14）
+  ✅ health.index.count > 0　count=2599 dim=1024
+  ✅ health.files 是数量(int) 且 ≥2　files=2
+  ✅ health.llm.available 存在
+  ✅ validate_files 对不存在的文件显式报错
+  ✅ validate_files 对合法文件返回原名
+  ✅ is_evidence_hit：dict/对象/纯文本一致为 True
+  ✅ 换行变体也命中（squash 归一化）
+[ERROR] {"ts": "2026-10-04T17:45:45.725+08:00", "level": "ERROR", "event": "func.error", "func": "is_evidence_hit", "module": "retrieval_utils", "run_id": "r20261004-174534", "trace_id": null, "span_id": "s00219539", "stage": "core", "pid": 23728, "thread": "MainThread", "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化", "inputs": {"chunks": 1, "evidence_chars": 28}, "elapsed_ms": 0.14, "error": {"type": "RetrievalError", "message": "[RAG-4000/retrieve] 第 0 个块形状不支持命中判定（shape=dict）；strict=True 时不静默跳过", "traceback": "Traceback (most recent call last):\n  File \"E:\\gao6gongdan\\工单3\\研发\\app\\core\\retrieval_utils.py\", line 182, in is_evidence_hit\n    raise RetrievalError(\napp.core.errors.RetrievalError: [RAG-4000/retrieve] 第 0 个块形状不支持命中判定（shape=dict）；strict=True 时不静默跳过\n"}}
+  ✅ 形状不匹配 strict=True 抛错（非静默）
+  ✅ 形状不匹配默认仍返回 False（已留 WARN）
+  ✅ evaluator_bridge 可用且阈值 0.62　判分=参考答案为答案子串（忽略标点）（判分口径来源：工单1 权威 Evaluator 0.62
+  ✅ answer_payload 含 §7 全部字段　13 个字段齐备
+  ✅ answer_payload.chunks 用 content_digest 摘要　5 块
+
+[D] 界面共用同一套业务逻辑
+  ✅ serve_fallback.py 不直接依赖检索/生成模块　只用 qa_engine
+  ✅ serve_fallback.py 使用 qa_engine
+  ✅ streamlit_app.py 不直接依赖检索/生成模块　只用 qa_engine
+  ✅ streamlit_app.py 使用 qa_engine
+  ✅ streamlit_app 模块顶层 import streamlit
+
+[E] Streamlit 应用（桩模块实测渲染流程）
+  ✅ 渲染调用了 set_page_config/title
+  ✅ 侧栏用 engine.files() 列出 PDF　"PDF 范围（留空 = 全库）"
+  ✅ 进入了 sidebar 上下文
+  ✅ 读取了 chat_input 问题
+  ✅ 渲染了答案/引用展开块　markdown 调用 10 次
+  ✅ 历史写入 session_state　history=2 条
+
+──────────────────────────────────────────────────────────────────────────
+T7 端到端验收：✅60 / 60

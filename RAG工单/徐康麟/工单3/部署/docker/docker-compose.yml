@@ -1,0 +1,138 @@
+# =============================================================================
+# 工单：人工智能NLP-RAG-PDF文档的表格解析及检索优化
+# 文件：部署/docker/docker-compose.yml —— 服务编排（本服务 + 可选 Ollama / vLLM / SGLang）
+#
+# 启动（**工作目录 = 仓库根 工单3**；-f 指定本文件）：
+#   docker compose -f 部署/docker/docker-compose.yml up -d rag-app                 # 只起本服务（连外部 LLM）
+#   docker compose -f 部署/docker/docker-compose.yml --profile local-llm up -d     # 另起 Ollama 容器（需联网拉模型）
+#   docker compose -f 部署/docker/docker-compose.yml --profile gpu up -d           # 另起 vLLM（需 4090/GPU 运行时）
+#   docker compose -f 部署/docker/docker-compose.yml --profile gpu-sglang up -d    # 另起 SGLang
+#   docker compose -f 部署/docker/docker-compose.yml down
+#
+# ⚠️ 诚实声明（不得改写）：本机 Docker 守护进程在本沙箱**不可达**（`docker images` → permission denied: npipe），
+#   且本机断网无法拉取任何镜像，因此本编排**未在本机执行过**。可离线做的校验：YAML 语法（PyYAML 解析通过）。
+#   未被本机验证的项一律在 部署/验证状态.md 里标注为「未验证」。
+#
+# 关键约定
+#   * 本服务容器内**必须** RAG_SERVER__HOST=0.0.0.0，否则端口映射进不来；
+#     config.example.env 里写的是 127.0.0.1（本机直跑用），故此处用 environment 覆盖（优先级高于 env_file）。
+#   * 语料/索引以只读挂载（serving 不需要写）；日志目录可写（结构化 JSON Lines 落盘）。
+#   * 后端选择用 compose 变量替换（RAG_LLM__BACKEND / RAG_LLM__OPENAI_BASE_URL），
+#     默认 auto：容器内先探 Ollama，端点不可达时按设计降级 extractive（不会静默失败）。
+# =============================================================================
+name: rag-pdf-table-qa
+
+services:
+  # ---------------------------------------------------------------------------
+  # 主服务：RAG 问答（FastAPI + 标准库备用界面，二选一由 RAG_APP_MODE 决定）
+  # ---------------------------------------------------------------------------
+  rag-app:
+    build:
+      context: ../..                       # 仓库根 = 工单3（Dockerfile 内 COPY 路径以此为基准）
+      dockerfile: 部署/docker/Dockerfile
+      args:
+        INSTALL_OPTIONAL_EMBEDDING: "0"    # 1 = 额外装 torch/transformers（本地嵌入降级路径，体积大）
+    image: rag-pdf-qa:1.0
+    container_name: rag-app
+    working_dir: /app
+    ports:
+      - "8600:8600"
+    environment:
+      RAG_SERVER__HOST: "0.0.0.0"                      # 容器内必须监听全网卡
+      RAG_SERVER__PORT: "8600"
+      RAG_APP_MODE: "api"                              # api | fallback | streamlit | check
+      PYTHONUNBUFFERED: "1"                            # 与 Dockerfile 一致：stdout 诊断即时可见（与「文件日志并发安全」无关）
+      RAG_LLM__BACKEND: "${RAG_LLM__BACKEND:-auto}"    # auto | ollama | openai | extractive
+      RAG_LLM__OLLAMA_BASE_URL: "${RAG_LLM__OLLAMA_BASE_URL:-http://ollama:11434}"
+      RAG_LLM__OPENAI_BASE_URL: "${RAG_LLM__OPENAI_BASE_URL:-}"
+      RAG_LLM__OPENAI_MODEL: "${RAG_LLM__OPENAI_MODEL:-}"
+      RAG_LLM__OPENAI_API_KEY: "${RAG_LLM__OPENAI_API_KEY:-}"
+      RAG_LLM__PROBE_TIMEOUT_S: "0.5"                  # 硬约束：探测 ≤0.5 s 且不重试
+      RAG_LOG__LEVEL: "${RAG_LOG__LEVEL:-INFO}"
+      RAG_WAIT_FOR_LLM: "${RAG_WAIT_FOR_LLM:-0}"       # 1 = 启动前等待 LLM 端点就绪
+    volumes:
+      - ../../研发/data:/app/研发/data:ro               # 语料 + 索引（只读）
+      # 结构化日志（可写）。T18：并发安全依赖「O_APPEND + 单次 write + 跨进程文件锁」，
+      # 因此该卷必须落在**支持文件锁的本地文件系统**；若挂到 SMB/NFS 共享卷，
+      # 请改为每进程独立目录（RAG_LOG__DIR=部署/日志/run-<id>）以规避锁语义差异。
+      - ../日志:/app/部署/日志
+    restart: unless-stopped
+    healthcheck:                                       # 与 Dockerfile 的 HEALTHCHECK 同口径
+      test: ["CMD", "python", "-c", "import json,urllib.request;d=json.load(urllib.request.urlopen('http://127.0.0.1:8600/api/health',timeout=4));assert d.get('ok') is True;print('ok',d['retriever']['chunks'])"]
+      interval: 30s
+      timeout: 5s
+      start_period: 180s                               # 冷启动含预热（jieba/嵌入/后端探测）
+      retries: 3
+
+  # ---------------------------------------------------------------------------
+  # 可选：Ollama 容器（profile=local-llm，等价于本机的 127.0.0.1:11434）
+  # 注意：模型需要在容器内 `ollama pull bge-m3` / `ollama pull qwen2.5:3b`，需要联网
+  # ---------------------------------------------------------------------------
+  ollama:
+    image: ollama/ollama:latest
+    container_name: rag-ollama
+    profiles: ["local-llm"]
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # 可选：vLLM OpenAI 兼容服务（profile=gpu）—— 需 NVIDIA 容器运行时（--gpus 或 devices 预留）
+  # 启动后把 RAG_LLM__BACKEND=openai、RAG_LLM__OPENAI_BASE_URL=http://vllm:8000/v1 传给 rag-app
+  # ---------------------------------------------------------------------------
+  vllm:
+    image: vllm/vllm-openai:latest
+    container_name: rag-vllm
+    profiles: ["gpu"]
+    command: >
+      --model ${VLLM_MODEL:-Qwen/Qwen2.5-7B-Instruct}
+      --host 0.0.0.0 --port 8000
+      --tensor-parallel-size ${VLLM_TP:-1}
+      --max-model-len ${VLLM_MAX_MODEL_LEN:-8192}
+      --gpu-memory-utilization ${VLLM_GPU_UTIL:-0.90}
+    ports:
+      - "8000:8000"
+    volumes:
+      - hf_cache:/root/.cache/huggingface
+    environment:
+      HUGGING_FACE_HUB_TOKEN: "${HF_TOKEN:-}"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: ["gpu"]
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # 可选：SGLang OpenAI 兼容服务（profile=gpu-sglang）—— 与 vLLM 二选一
+  # 默认端口 30000（SGLang 约定），因此产品侧 base_url 要写 :30000/v1
+  # ---------------------------------------------------------------------------
+  sglang:
+    image: lmsysorg/sglang:latest
+    container_name: rag-sglang
+    profiles: ["gpu-sglang"]
+    command: >
+      python3 -m sglang.launch_server
+      --model-path ${SGLANG_MODEL:-Qwen/Qwen2.5-7B-Instruct}
+      --host 0.0.0.0 --port 30000
+      --tp ${SGLANG_TP:-1}
+    ports:
+      - "30000:30000"
+    volumes:
+      - hf_cache:/root/.cache/huggingface
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: ["gpu"]
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+  hf_cache:

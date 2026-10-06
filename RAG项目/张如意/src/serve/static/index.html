@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>农业知识问答</title>
+<style>
+:root{
+  --ink:#1a1a1a; --muted:#666; --line:#e3e3e3; --bg:#f7f8f7;
+  --green:#2f7d4f; --green-l:#eef6f0;
+  --danger:#c0392b; --danger-l:#fdf1ef; --danger-b:#e8b4ad;
+  --warn:#b7791f; --warn-l:#fdf8ec;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+     font:16px/1.75 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:28px 20px 80px}
+h1{font-size:22px;margin:0 0 4px}
+.sub{color:var(--muted);font-size:13px;margin-bottom:22px}
+
+/* ── 提问区 ── */
+.bar{display:flex;gap:8px;flex-wrap:wrap}
+input[type=text]{flex:1;min-width:220px;padding:13px 15px;font-size:16px;
+  border:1px solid var(--line);border-radius:9px;background:#fff}
+input:focus{outline:none;border-color:var(--green)}
+select{padding:13px 10px;font-size:16px;border:1px solid var(--line);
+  border-radius:9px;background:#fff}
+button{padding:13px 22px;font-size:16px;border:0;border-radius:9px;
+  background:var(--green);color:#fff;cursor:pointer}
+button:disabled{opacity:.5;cursor:default}
+.examples{margin-top:12px;font-size:13px;color:var(--muted)}
+.examples a{color:var(--green);cursor:pointer;margin-right:12px;
+  border-bottom:1px dashed var(--green);text-decoration:none}
+
+/* ── 答案区 ── */
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;
+  padding:22px;margin-top:22px}
+.sec{font-weight:600;font-size:15px;letter-spacing:.5px;margin:16px 0 8px;
+  color:var(--green)}
+.sec:first-child{margin-top:0}
+.line{padding-left:14px}
+.meta{font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line);
+  margin-top:18px;padding-top:12px}
+.tag{display:inline-block;padding:1px 8px;border-radius:20px;font-size:12px;
+  background:var(--green-l);color:var(--green);margin-right:6px}
+
+/* ── 高危提示：红色警示框（视觉强化，不只靠文字）── */
+.alert{display:flex;gap:12px;align-items:flex-start;
+  background:var(--danger-l);border:2px solid var(--danger-b);
+  border-left:6px solid var(--danger);border-radius:10px;
+  padding:16px 18px;margin-bottom:18px}
+.alert .icon{font-size:26px;line-height:1.1;flex:0 0 auto}
+.alert .t{display:block;color:var(--danger);font-size:16px;font-weight:600;margin-bottom:5px}
+.alert b{color:var(--danger)}
+.alert span{font-size:14px;color:#7a2b21}
+
+/* 放宽提示：橙色（比高危轻，但也要看见）*/
+.noplan{background:var(--warn-l);border:1px solid #ecd9ab;
+  border-left:5px solid var(--warn);border-radius:9px;
+  padding:13px 16px;margin-bottom:16px;font-size:14px;color:#7a5510}
+
+.fb{background:#fff;border:1px solid var(--line);border-left:5px solid var(--muted);
+  border-radius:10px;padding:20px 22px;margin-top:22px}
+.fb b{font-size:16px}
+
+/* ── 没找到答案 ── */
+.miss{margin-top:18px;font-size:13.5px}
+.miss a{color:var(--muted);cursor:pointer;border-bottom:1px dashed #bbb}
+.miss form{display:none;margin-top:12px;padding:14px;background:#fafafa;
+  border:1px solid var(--line);border-radius:9px}
+.miss textarea{width:100%;min-height:62px;padding:10px;font:inherit;
+  border:1px solid var(--line);border-radius:7px;resize:vertical}
+.miss .row{margin-top:9px;display:flex;gap:8px;align-items:center}
+.miss button{padding:8px 16px;font-size:14px}
+.miss .ok{color:var(--green);font-size:13px}
+.spin{color:var(--muted);font-size:14px;margin-top:22px}
+</style>
+</head>
+<body>
+<!-- 页面主体容器：标题 + 副标题 + 提问区 + 示例问题 + 答案输出区（最大宽度 820px 居中） -->
+<div class="wrap">
+  <h1>农业知识问答</h1>
+  <div class="sub">答案取自国家标准化指导性技术文件，高危信息照抄原文</div>
+
+  <!-- 提问区：问题输入框 + 作物下拉框（空值=不限作物）+ 提交按钮 -->
+  <div class="bar">
+    <input id="q" type="text" placeholder="例如：黄瓜起腻虫了打什么药" autofocus>
+    <select id="crop">
+      <option value="">不限作物</option>
+      <option>黄瓜</option><option>辣椒</option><option>大蒜</option>
+    </select>
+    <button id="go">问一问</button>
+  </div>
+  <!-- 示例问题：点击链接即把 data-q 填入输入框并自动提问（JS 在下方绑定） -->
+  <div class="examples">
+    试试：
+    <a data-q="黄瓜起腻虫了打什么药">黄瓜起腻虫了打什么药</a>
+    <a data-q="辣椒早疫病打什么药">辣椒早疫病打什么药</a>
+    <a data-q="黄瓜烂根怎么办">黄瓜烂根怎么办</a>
+  </div>
+
+  <!-- 答案输出区：ask() 收到 /api/ask 响应后由 draw() 把结果渲染到这里 -->
+  <div id="out"></div>
+</div>
+
+<!-- 前端交互逻辑：发起问答请求、渲染答案卡片、采集「没找到答案」反馈。
+     结构块用 HTML 注释说明，脚本内部沿用 // 注释 -->
+<script>
+// $：querySelector 简写；out：答案输出区容器
+const $ = s => document.querySelector(s);
+const out = $('#out');
+
+// 示例问题绑定：点击后填入问题并自动提问；「问一问」按钮与输入框回车都触发 ask()
+document.querySelectorAll('.examples a').forEach(a => {
+  a.onclick = () => { $('#q').value = a.dataset.q; ask(); };
+});
+$('#go').onclick = ask;
+$('#q').onkeydown = e => { if (e.key === 'Enter') ask(); };
+
+// esc：HTML 转义 & < >，防止答案文本里的特殊字符破坏页面结构（基础防 XSS）
+function esc(s){ return (s||'').replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+
+// renderAnswer：把生成层返回的纯文本答案渲染成 HTML。
+// 规则：每个「【小节】」行变成绿色小节标题；「⚠️」开头行标红加粗；
+// 普通行放进 .line；【来源】及其后内容跳过（页脚的 meta 区统一渲染，避免重复）。
+function renderAnswer(text){
+  const lines = esc(text).split('\n');
+  let html = '';
+  let skip = false;
+  for (const ln of lines){
+    const m = ln.match(/^\s*【(.+?)】(.*)$/);
+    // 【来源】由页脚统一渲染，这里跳过避免重复
+    if (m && m[1] === '来源'){ skip = true; continue; }
+    if (skip && !m && ln.trim()){ continue; }
+    if (m){ html += `<div class="sec">【${m[1]}】</div>` + (m[2].trim() ? `<div class="line">${m[2]}</div>` : ''); }
+    else if (/^\s*⚠️/.test(ln)){ html += `<div class="line" style="color:#c0392b">${ln.trim()}</div>`; }
+    else if (ln.trim()){ html += `<div class="line">${ln}</div>`; }
+  }
+  return html;
+}
+
+// ask：主提问函数。读取输入框 → POST /api/ask（JSON：query + crop）→ draw() 渲染。
+// 请求期间禁用按钮并显示「检索中…」提示；网络错误显示错误框；结束后恢复按钮。
+async function ask(){
+  const q = $('#q').value.trim();
+  if (!q) return;
+  $('#go').disabled = true;
+  out.innerHTML = '<div class="spin">检索中…（首次提问要等 GPU 预热）</div>';
+  try{
+    const r = await fetch('/api/ask', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ query:q, crop: $('#crop').value || null })
+    });
+    const d = await r.json();
+    draw(d);
+  }catch(e){
+    out.innerHTML = `<div class="fb"><b>出错了</b><div class="line">${esc(e.message)}</div></div>`;
+  }finally{ $('#go').disabled = false; }
+}
+
+// draw：渲染 /api/ask 的返回结果。
+// fallback_* 状态 → 只渲染兜底提示框（不进答案卡）+ 反馈入口；
+// 正常状态 → 答案卡片 = 高危红色警示框（needs_verification 时置顶）+
+//            橙色「暂无用药方案」提示（show_noplan_notice）+ 答案正文 + 来源页脚。
+function draw(d){
+  // 兜底：不进答案卡，直接说明
+  if (d.status.startsWith('fallback')){
+    out.innerHTML = `
+      <div class="fb">
+        <b>${esc(d.answer)}</b>
+        <div class="meta">检索层判定：${esc(d.reason)}</div>
+      </div>` + missBox(d);
+    return;
+  }
+
+  // ★ 高危视觉强化：红色警示框置顶，图标 + 颜色 + 粗边框三重
+  const warn = d.needs_verification ? `
+    <div class="alert">
+      <div class="icon">⚠️</div>
+      <div style="flex:1">
+        <span class="t">⚠ 农药信息，请务必核实</span>
+        <span>以下药剂名称、剂量、安全间隔期照抄自国家标准原文，<b>施药前请以当地最新登记信息与农技站指导为准</b>。</span>
+      </div>
+    </div>` : '';
+
+  const noplan = d.show_noplan_notice ? `
+    <div class="noplan">本知识库暂无该病虫害的<b>具体用药方案</b>，以下为通用农事建议。</div>` : '';
+
+  const srcs = d.sources.length ? `
+    <div class="meta">
+      <span class="tag">来源</span>
+      ${d.sources.map(s => `${esc(s.std_no)}　${esc(s.section)}　PDF 第 ${s.page} 页`).join('　｜　')}
+      <br>检索耗时 ${d.elapsed}s　意图 ${esc(d.intent || '—')}
+    </div>` : '';
+
+  out.innerHTML = `
+    <div class="card">
+      ${warn}${noplan}
+      ${renderAnswer(d.answer)}
+      ${srcs}
+    </div>` + missBox(d);
+}
+
+// 「没找到答案？」——真实问法采集入口
+// missBox：折叠的反馈区。点击「没找到答案？」展开表单；
+// 表单把原始问法（query）与作物一起传给 sendMiss 提交。
+function missBox(d){
+  return `
+    <div class="miss">
+      <a onclick="this.style.display='none';this.nextElementSibling.style.display='block'">
+        没找到答案？告诉我们你本来想问什么 →</a>
+      <form onsubmit="sendMiss(event, ${JSON.stringify(d.query).replace(/"/g,'&quot;')}, ${JSON.stringify(d.crop||'').replace(/"/g,'&quot;')})">
+        <textarea name="raw" placeholder="把你刚才想问的原话写在这里（用你自己的说法，不用改得规范）"></textarea>
+        <div class="row">
+          <button type="submit">提交</button>
+          <span class="ok"></span>
+        </div>
+      </form>
+    </div>`;
+}
+
+// sendMiss：提交反馈表单。POST /api/feedback（原始问法 + 作物 + 系统当时的答案），
+// 服务端落盘为评估集格式；成功后显示累计条数并清空输入框。
+async function sendMiss(ev, query, crop){
+  ev.preventDefault();
+  const form = ev.target, raw = form.raw.value.trim(), ok = form.querySelector('.ok');
+  if (!raw) return;
+  const r = await fetch('/api/feedback', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ query: raw, crop, reason:'没找到答案', answer: query })
+  });
+  const d = await r.json();
+  ok.textContent = `已记录，累计 ${d.total} 条 —— 谢谢，这会用来改进检索`;
+  form.querySelector('textarea').value = '';
+}
+</script>
+</body>
+</html>

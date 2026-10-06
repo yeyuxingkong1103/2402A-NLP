@@ -1,0 +1,29 @@
+============================================================================================================
+【负例】期望 block
+  ✅ N-4      reason=phrases_not_co_occurring     phrases=['招股', '意向书', '发行', '募集', '资金', '中有', '补充', '流动资金'] missing=[] co_occur=False subject_hits=[] missing_years=[]
+  ✅ N-4b     reason=phrases_not_co_occurring     phrases=['募集', '资金', '补充', '流动资金'] missing=[] co_occur=False subject_hits=[] missing_years=[]
+  ✅ N-GEN1   reason=no_corpus_phrase             phrases=['银河系', '文明', '量子', '计算机', '专利申请', '数量'] missing=['银河系', '文明', '量子'] co_occur=False subject_hits=[] missing_years=[]
+  ✅ N-GEN2   reason=no_corpus_phrase             phrases=['贵州', '茅台酒', '股份', '有限公司', '注册资本'] missing=['贵州', '茅台酒'] co_occur=False subject_hits=[] missing_years=[]
+  ✅ N-GEN3   reason=phrases_not_co_occurring     phrases=['2025', '第三季度', '营业', '收入'] missing=[] co_occur=False subject_hits=[] missing_years=[]
+  ✅ N-GEN4   reason=no_corpus_phrase             phrases=['纽约证券交易所', '股票代码'] missing=['纽约证券交易所', '股票代码'] co_occur=False subject_hits=[] missing_years=[]
+
+============================================================================================================
+【正题】期望 pass（误伤必须为 0）
+  ✅ 题 33    reason=ok                           phrases=['军用', '领域', '收入', '主营业务', '比重'] co_occur=True numeric_anchor=True missing=[]
+  ✅ 题 34    reason=ok                           phrases=['招股', '意向书', '电子信息', '行业', '上游', '企业'] co_occur=True numeric_anchor=False missing=[]
+  ✅ 题 95    reason=ok                           phrases=['参与', '制定', '技术标准'] co_occur=True numeric_anchor=True missing=[]
+  ✅ 题 207   reason=ok                           phrases=['发行', '募集', '资金', '补充', '流动资金'] co_occur=True numeric_anchor=True missing=[]
+  ✅ 题 260   reason=ok                           phrases=['军用', '领域', '收入'] co_occur=True numeric_anchor=True missing=[]
+  ✅ 题 531   reason=ok                           phrases=['法定代表'] co_occur=True numeric_anchor=True missing=[]
+  ✅ 题 543   reason=ok                           phrases=['注册资本'] co_occur=True numeric_anchor=True missing=[]
+  ✅ 题 793   reason=ok                           phrases=['招股', '意向书', '电子信息', '行业', '下游', '主要'] co_occur=True numeric_anchor=False missing=[]
+  ✅ 题 795   reason=ok                           phrases=['参与', '工程', '荣获', '国家', '科技进步', '一等奖'] co_occur=True numeric_anchor=True missing=[]
+  ✅ 题 957   reason=ok                           phrases=['领域', '重要', '供应商'] co_occur=True numeric_anchor=True missing=[]
+  ✅ 题 1     reason=ok                           phrases=['发行', '股数', '股本'] co_occur=True numeric_anchor=True missing=[]
+  ✅ 题 2     reason=ok                           phrases=['募集', '资金', '投资'] co_occur=True numeric_anchor=True missing=[]
+  ❌ 误伤 题 3     reason=no_numeric_support           phrases=['存在', '控制关系', '关联方', '持股', '关系'] co_occur=True numeric_anchor=False missing=[]
+  ✅ 题 4     reason=ok                           phrases=['存在', '控制关系', '关联方', '企业'] co_occur=True numeric_anchor=False missing=[]
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────
+负例拦截：6/6（未拦：无）
+正题误伤：1/14（[3]）

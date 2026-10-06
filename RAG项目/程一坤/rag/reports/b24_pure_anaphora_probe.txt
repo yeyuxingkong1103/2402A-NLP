@@ -1,0 +1,131 @@
+C:\Users\92842\anaconda3\envs\rag\Lib\site-packages\jieba\_compat.py:18: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+Building prefix dict from the default dictionary ...
+Loading model from cache C:\Users\92842\AppData\Local\Temp\jieba.cache
+Loading model cost 0.430 seconds.
+Prefix dict has been built successfully.
+================================================================================================
+② 纯指代多轮题草案预演（离线：真实改写器 + 真实检索）
+================================================================================================
+
+------------------------------------------------------------------------------------------------
+multiturn-006   [P1 剥掉指代词后 remainder 为空 → 查询 = 上一轮原文]
+  turn1  公司拖欠我三个月工资，我可以直接辞职吗？
+         golden 劳动合同法 第三十八条  → rank 10
+  turn2  那这个呢？
+         golden 劳动合同法 第四十六条
+         改写 changed=True
+         改写后查询 = '公司拖欠我三个月工资 我可以直接辞职吗 这个'
+  ★ 反向（裸问题+空上文）golden rank = None   （该次检索自身 changed=False）
+  ★ 正向（改写后查询）  golden rank = None   （该次检索自身 changed=False，应为 False）
+
+------------------------------------------------------------------------------------------------
+multiturn-007   [P2 remainder 以「怎么」开头 → 「{topic} {remainder}」]
+  turn1  公司违法把我辞退了。
+         golden 劳动合同法 第八十七条  → rank None
+  turn2  那这个怎么算？
+         golden 劳动合同法 第四十七条
+         改写 changed=True
+         改写后查询 = '公司违法把我辞退了 这个怎么算'
+  ★ 反向（裸问题+空上文）golden rank = 6   （该次检索自身 changed=False）
+  ★ 正向（改写后查询）  golden rank = None   （该次检索自身 changed=False，应为 False）
+
+------------------------------------------------------------------------------------------------
+multiturn-008   [P3 其余情况 → 「{topic} {remainder} 怎么算」]
+  turn1  我在医疗期内，公司通知我解除劳动合同。
+         golden 劳动合同法 第四十二条  → rank 5
+  turn2  那这个算不算？
+         golden 劳动合同法 第四十八条
+         改写 changed=True
+         改写后查询 = '我在医疗期内 公司通知我解除劳动合同 这个算不算'
+  ★ 反向（裸问题+空上文）golden rank = None   （该次检索自身 changed=False）
+  ★ 正向（改写后查询）  golden rank = None   （该次检索自身 changed=False，应为 False）
+
+================================================================================================
+题号              反向 rank     正向 rank     是否达标(正向≤5 且 反向>5)
+multiturn-006   None        None        ❌ 需调题
+multiturn-007   6           None        ❌ 需调题
+multiturn-008   None        None        ❌ 需调题
+达标 0/3
+
+草案 JSONL（供审阅；未写入 data/evaluation/）：
+[
+  {
+    "id": "multiturn-006",
+    "branch": "P1 剥掉指代词后 remainder 为空 → 查询 = 上一轮原文",
+    "turns": [
+      {
+        "question": "公司拖欠我三个月工资，我可以直接辞职吗？",
+        "golden": [
+          {
+            "law": "劳动合同法",
+            "article": "第三十八条"
+          }
+        ],
+        "source_quote": "用人单位有下列情形之一的，劳动者可以解除劳动合同:（一）……（二）未及时足额支付劳动报酬的；"
+      },
+      {
+        "question": "那这个呢？",
+        "golden": [
+          {
+            "law": "劳动合同法",
+            "article": "第四十六条"
+          }
+        ],
+        "source_quote": "有下列情形之一的，用人单位应当向劳动者支付经济补偿:（一）劳动者依照本法第三十八条规定解除劳动合同的；"
+      }
+    ]
+  },
+  {
+    "id": "multiturn-007",
+    "branch": "P2 remainder 以「怎么」开头 → 「{topic} {remainder}」",
+    "turns": [
+      {
+        "question": "公司违法把我辞退了。",
+        "golden": [
+          {
+            "law": "劳动合同法",
+            "article": "第八十七条"
+          }
+        ],
+        "source_quote": "用人单位违反本法规定解除或者终止劳动合同的，应当依照本法第四十七条规定的经济补偿标准的二倍向劳动者支付赔偿金。"
+      },
+      {
+        "question": "那这个怎么算？",
+        "golden": [
+          {
+            "law": "劳动合同法",
+            "article": "第四十七条"
+          }
+        ],
+        "source_quote": "经济补偿按劳动者在本单位工作的年限，每满一年支付一个月工资的标准向劳动者支付。六个月以上不满一年的，按一年计算。"
+      }
+    ]
+  },
+  {
+    "id": "multiturn-008",
+    "branch": "P3 其余情况 → 「{topic} {remainder} 怎么算」",
+    "turns": [
+      {
+        "question": "我在医疗期内，公司通知我解除劳动合同。",
+        "golden": [
+          {
+            "law": "劳动合同法",
+            "article": "第四十二条"
+          }
+        ],
+        "source_quote": "劳动者有下列情形之一的，用人单位不得依照本法第四十条、第四十一条的规定解除劳动合同:……（三）患病或者非因工负伤，在规定的医疗期内的；"
+      },
+      {
+        "question": "那这个算不算？",
+        "golden": [
+          {
+            "law": "劳动合同法",
+            "article": "第四十八条"
+          }
+        ],
+        "source_quote": "用人单位违反本法规定解除或者终止劳动合同，劳动者要求继续履行劳动合同的，用人单位应当继续履行；……用人单位应当依照本法第八十七条规定支付赔偿金。"
+      }
+    ]
+  }
+]

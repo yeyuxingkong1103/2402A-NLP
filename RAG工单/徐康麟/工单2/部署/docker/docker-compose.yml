@@ -1,0 +1,140 @@
+# =============================================================================
+# 工单：人工智能NLP-RAG-基于PDF文档的问答系统优化
+# 阶段：部署 / docker-compose（应用 + vLLM 推理服务）
+# =============================================================================
+# 用法（在**仓库根目录**执行）：
+#     # 1) 准备模型目录（宿主机）：
+#     #    export MODEL_DIR=/data/models/Qwen2.5-7B-Instruct-AWQ
+#     #    2) 起服务：
+#     docker compose -f 部署/docker/docker-compose.yml up -d
+#     # 3) 看日志 / 停止：
+#     docker compose -f 部署/docker/docker-compose.yml logs -f app vllm
+#     docker compose -f 部署/docker/docker-compose.yml down
+#
+# 前置（GPU 直通，二者其一）
+#     A. 现代方式（推荐）：安装 NVIDIA Container Toolkit
+#        https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
+#        本文件用 `deploy.resources.reservations.devices` 声明 GPU（Compose v2 语法）。
+#     B. 旧版方式：在 app 服务上加 `runtime: nvidia`（已在本文件注释，按需启用）。
+#     校验：docker run --rm --gpus all nvidia/cuda:12.4.0-base-ubuntu22.04 nvidia-smi
+#
+# 模型挂载
+#     vLLM 容器把宿主机的 ${MODEL_DIR} 只读挂载到容器内 /models（**:ro 防止误改权重**）；
+#     应用容器不需要权重，只通过 HTTP 访问 vllm:8000。HF 权重缓存用命名卷持久化，
+#     避免每次重建容器都重新下载。
+#
+# 说明
+#   本文件**未在本机执行**（Docker 守护进程不可访问 + 断网无法拉镜像）。
+#   状态：**已交付待云端验证**；`docker compose config` 静态校验亦无法在本机执行。
+# =============================================================================
+name: rag-pdf-qa
+
+services:
+  # ---------------------------------------------------------------- 推理服务
+  vllm:
+    image: vllm/vllm-openai:latest
+    container_name: rag-vllm
+    restart: unless-stopped
+    # 若用旧版 nvidia runtime，取消下一行注释并删掉 deploy.resources 段
+    # runtime: nvidia
+    command:
+      - "--model=/models"
+      - "--served-model-name=qwen2.5-7b-instruct"
+      - "--host=0.0.0.0"
+      - "--port=8000"
+      - "--tensor-parallel-size=${VLLM_TP_SIZE:-1}"
+      - "--gpu-memory-utilization=${VLLM_GPU_UTIL:-0.90}"
+      - "--max-model-len=${VLLM_MAX_MODEL_LEN:-8192}"
+      - "--max-num-seqs=${VLLM_MAX_NUM_SEQS:-64}"
+    environment:
+      HUGGING_FACE_HUB_TOKEN: ${HF_TOKEN:-}
+      HF_HOME: /hf-cache
+    volumes:
+      # 模型权重（只读挂载，防误改）
+      - "${MODEL_DIR:-/data/models/Qwen2.5-7B-Instruct-AWQ}:/models:ro"
+      # HF 下载缓存（可持久化，避免重复下载）
+      - hf-cache:/hf-cache
+    ports:
+      - "${VLLM_PORT:-8000}:8000"
+    # vLLM 需要较大的共享内存，否则大 batch 会报 bus error
+    shm_size: "16gb"
+    ipc: host
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: ${VLLM_GPU_COUNT:-all}   # 或写数量，如 1
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:8000/v1/models >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 10s
+      start_period: 180s    # 加载大模型较慢
+      retries: 20
+    networks: [rag-net]
+
+  # ---------------------------------------------------------------- 应用
+  app:
+    build:
+      # 构建上下文 = 仓库根目录（Dockerfile 内 COPY 的是 研发/测试/优化/部署/设计）
+      context: ../..
+      dockerfile: 部署/docker/Dockerfile
+    image: rag-pdf-qa:2.0.0
+    container_name: rag-app
+    restart: unless-stopped
+    depends_on:
+      vllm:
+        condition: service_healthy
+    environment:
+      # ---- LLM：走同网络的 vLLM ----
+      RAG_LLM__BACKEND: openai
+      RAG_LLM__BASE_URL: http://vllm:8000/v1
+      RAG_LLM__MODEL: qwen2.5-7b-instruct
+      RAG_LLM__API_KEY: ${VLLM_API_KEY:-EMPTY}
+      RAG_LLM__PROBE_TIMEOUT: "0.5"
+      # ---- 嵌入：本工单索引由 bge-m3:latest(1024 维) 建立 ----
+      # 方案 A：容器外/内另起 Ollama（见文件末尾注释的 ollama 服务）
+      RAG_EMBEDDING__BACKEND: ${RAG_EMBEDDING__BACKEND:-ollama}
+      RAG_EMBEDDING__OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://ollama:11434}
+      RAG_EMBEDDING__OLLAMA_MODEL: bge-m3:latest
+      RAG_EMBEDDING__DIMENSION: "1024"
+      # 方案 B：改用本地 sentence-transformers 模型（需另挂 models 目录，512 维需重建索引）
+      # RAG_EMBEDDING__BACKEND: sentence_transformers
+      # RAG_EMBEDDING__LOCAL_MODEL_DIR: /models/bge-small-zh-v1.5
+      # ---- 路径与日志 ----
+      RAG_PATHS__DATA_INDEX: /workspace/研发/data/index
+      RAG_PATHS__DATA_PROCESSED: /workspace/研发/data/processed
+      RAG_PATHS__LOGS: /workspace/部署/日志
+      RAG_APP__LOG_JSON: "true"
+    volumes:
+      # 索引与解析产物（持久化：容器重建后无需重新建索引）
+      - ./研发/data:/workspace/研发/data
+      # 日志（宿主机可直接查看 JSON Lines）
+      - ./部署/日志:/workspace/部署/日志
+      # 评估结果（对比报告输出）
+      - ./优化/评估结果:/workspace/优化/评估结果
+    ports:
+      - "${RAG_PORT:-8600}:8600"
+    networks: [rag-net]
+
+  # ---------------------------------------------------------------- 可选：Ollama（嵌入用，CPU 亦可）
+  # 本工单索引由 bge-m3:latest（1024 维）建立；若云端不想依赖宿主机 Ollama，
+  # 可启用本服务并执行 `docker compose exec ollama ollama pull bge-m3`。
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   container_name: rag-ollama
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ollama-models:/root/.ollama
+  #   ports:
+  #     - "11434:11434"
+  #   networks: [rag-net]
+
+volumes:
+  hf-cache:
+  # ollama-models:
+
+networks:
+  rag-net:
+    driver: bridge

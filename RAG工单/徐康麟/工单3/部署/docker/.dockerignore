@@ -1,0 +1,52 @@
+# =============================================================================
+# 工单：人工智能NLP-RAG-PDF文档的表格解析及检索优化
+# 文件：部署/docker/.dockerignore —— 构建上下文排除清单
+#
+# ⚠️ 生效方式：Docker 只读取「构建上下文根目录」下的 .dockerignore。
+#   本项目构建上下文 = 仓库根（工单3），因此构建前请先复制：
+#     PowerShell:  Copy-Item 部署/docker/.dockerignore .dockerignore
+#     bash:        cp 部署/docker/.dockerignore .dockerignore
+#   构建完成后可删除（保持「五文件夹」目录结构整洁）。
+#   这一步不可避免：把本文件放在 部署/docker/ 下（随镜像定义一起归档）就无法被 Docker 自动发现。
+#
+# 目的：镜像里**只放代码**。语料（19 MB PDF）、索引（vectors.npy 10 MB+）、
+#   日志（app.log 实测已 78 MB）全走 volume 挂载，不进镜像层。
+# =============================================================================
+
+# 语料与解析/索引产物（运行时挂载）
+研发/data/raw/
+研发/data/processed/
+研发/data/index/
+研发/data/eval/
+
+# 运行日志与留痕（运行时挂载 ../日志 → /app/部署/日志）
+部署/日志/
+
+# 测试/优化产物体积大且与运行无关（如需在容器里跑测试再临时放开）
+测试/留痕/
+测试/测试数据/*.txt
+优化/评估结果/
+
+# 版本库 / 工具 / 缓存
+.agent-teams/
+.pytest_cache/
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+.git/
+.gitignore
+
+# 文档（镜像不需要，减小上下文）
+设计/
+部署/docker/README.md
+部署/验证状态.md
+
+# 本机与云端环境文件（可能含密钥）
+.env
+部署/配置/config.local.env
+部署/配置/*.local.env
+
+# PowerShell / Windows 杂项
+*.ps1.bak
+Thumbs.db
+desktop.ini

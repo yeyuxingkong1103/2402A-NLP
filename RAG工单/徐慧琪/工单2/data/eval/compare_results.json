@@ -1,0 +1,701 @@
+{
+ "workorder": "人工智能NLP-RAG-基于PDF文档的问答系统优化",
+ "n_questions": 10,
+ "summary": {
+  "opt": {
+   "n": 10,
+   "fact_hit": 0.9,
+   "judge": 0.7,
+   "wall_s": 0.978,
+   "hit_rate@5": 1.0,
+   "mrr@5": 0.883,
+   "ndcg@5": 0.522,
+   "le3s_ratio": 1.0,
+   "p50_s": 0.82
+  },
+  "base": {
+   "n": 0,
+   "fact_hit": null,
+   "judge": null,
+   "wall_s": null,
+   "hit_rate@5": null
+  },
+  "llm_only": {
+   "n": 10,
+   "fact_hit": 0.05,
+   "judge": 0.35,
+   "wall_s": 0.43,
+   "hit_rate@5": null
+  }
+ },
+ "rows": [
+  {
+   "id": 260,
+   "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+   "key_facts": [
+    "6,464.51",
+    "14,414.16",
+    "18,780.67",
+    "4,627.14"
+   ],
+   "opt": {
+    "answer": "发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的收入分别为 6,464.51 万元、14,414.16 万元、18,780.67 万元和 4,627.14 万元，占主营业务收入比重分别为 82.10%、97.31%、94.84%和 94.34%。",
+    "wall_s": 2.12,
+    "timings": {
+     "analyze_ms": 0.0,
+     "retrieve_ms": 668.1,
+     "rerank_ms": 291.5,
+     "context_ms": 0.0,
+     "gen_ms": 1162.0,
+     "numeric_patch": true,
+     "total_ms": 2122.2
+    },
+    "mode": "rag",
+    "citations": [
+     {
+      "index": 1,
+      "page_idx": 128,
+      "page_display": 129,
+      "heading_path": [
+       "首次公开发行股票并在科创板上市招股意向书",
+       "①行业集中度高的影响"
+      ],
+      "source": "招股说明书1.pdf",
+      "parent_id": "s000318"
+     },
+     {
+      "index": 2,
+      "page_idx": 341,
+      "page_display": 342,
+      "heading_path": [
+       "首次公开发行股票并在科创板上市招股意向书",
+       "4、主营业务收入按行业列示"
+      ],
+      "source": "招股说明书1.pdf",
+      "parent_id": "s000808"
+     },
+     {
+      "index": 3,
+      "page_idx": 377,
+      "page_display": 378,
+      "heading_path": [
+       "首次公开发行股票并在科创板上市招股意向书",
+       "（3）分客户类型的毛利率分析"
+      ],
+      "source": "招股说明书1.pdf",
+      "parent_id": "s000839"
+     },
+     {
+      "index": 4,
+      "page_idx": 35,
+      "page_display": 36,
+      "heading_path": [
+       "首次公开发行股票并在科创板上市招股意向书",
+       "（一）行业及客户集中度较高的风险"
+      ],
+      "source": "招股说明书1.pdf",
+      "parent_id": "s000068"
+     }
+    ],
+    "hit_pages": [
+     128,
+     341,
+     377,
+     35
+    ],
+    "fact_hit": 1.0,
+    "retrieval": {
+     "hit_rate@5": 1.0,
+     "mrr@5": 1.0,
+     "ndcg@5": 0.485,
+     "top_pages": [
+      129,
+      342,
+      378,
+      36
+     ]
+    },
+    "judge": 0.5
+   },
+   "llm_only": {
+    "answer": "我目前没有找到武汉兴图新科电子股份有限公司的具体报告期军用领域收入数据。这个问题需要查阅该公司的招股说明书或最近的公开财报来获取准确信息。",
+    "wall_s": 0.44,
+    "fact_hit": 0.0,
+    "judge": 0.0
+   }
+  },
+  {
+   "id": 95,
+   "question": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+   "key_facts": [
+    "视频指挥系统技术规范",
+    "军事科学院"
+   ],
+   "opt": {
+    "answer": "全军第一个视频指挥系统技术标准（即《某视频技术规范 1.0》）。[3]",
+    "wall_s": 1.05,
+    "timings": {
+     "analyze_ms": 0.0,
+     "retrieve_ms": 133.3,
+     "rerank_ms": 153.0,
+     "context_ms": 0.0,
+     "gen_ms": 764.8,
+     "total_ms": 1051.1
+    },
+    "mode": "rag",
+    "citations": [
+     {
+      "index": 3,
+      "page_idx": 240,
+      "page_display": 241,
+      "heading_path": [
+       "首次公开发行股票并在科创板上市招股意向书",
+       "（七）科研实力和成果"
+      ],
+      "source": "招股说明书1.pdf",
+      "parent_id": "s000546",
+      "citation": "[3]"
+     }
+    ],
+    "hit_pages": [
+     25,
+     158,
+     240,
+     154
+    ],
+    "fact_hit": 0.0,
+    "retrieval": {
+     "hit_rate@5": 1.0,
+     "mrr@5": 0.5,
+     "ndcg@5": 0.296,
+     "top_pages": [
+      26,
+      159,
+      241,
+      155
+     ]
+    },
+    "judge": 0.5
+   },
+   "llm_only": {
+    "answer": "我目前没有找到武汉兴图新科电子股份有限公司参与制定具体技术标准的信息。因此，对于这个问题，我的回答是：不确定。",
+    "wall_s": 0.35,
+    "fact_hit": 0.0,
+    "judge": 0.5
+   }
+  },
+  {
+   "id": 33,
+   "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别是多少？",
+   "key_facts": [
+    "82.10%",
+    "97.31%",
+    "94.84%",
+    "94.34%"
+   ],
+   "opt": {
+    "answer": "发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的收入分别为 6,464.51 万元、14,414.16 万元、18,780.67 万元和 4,627.14 万元，占主营业务收入比重分别为 82.10%、97.31%、94.84%和 94.34%。",
+    "wall_s": 1.2,
+    "timings": {
+     "analyze_ms": 0.0,
+     "retrieve_ms": 76.7,
+     "rerank_ms": 188.0,
+     "context_ms": 0.0,
+     "gen_ms": 934.9,
+     "numeric_patch": true,
+     "total_ms": 1200.1
+    },
+    "mode": "rag",
+    "citations": [
+     {
+      "index": 1,
+      "page_idx": 341,
+      "page_display": 342,
+      "heading_path": [
+       "首次公开发行股票并在科创板上市招股意向书",
+       "4、主营业务收入按行业列示"
+      ],
+      "source": "招股说明书1.pdf",
+      "parent_id": "s000808"
+     },
+     {
+      "index": 2,
+      "page_idx": 128,
+      "page_display": 129,
+      "heading_path": [
+       "首次公开发行股票并在科创板上市招股意向书",
+       "①行业集中度高的影响"
+      ],
+      "source": "招股说明书1.pdf",
+      "parent_id": "s000318"
+     },
+     {
+      "index": 3,
+      "page_idx": 129,
+      "page_display": 130,
+      "heading_path": [
+       "首次公开发行股票并在科创板上市招股意向书",
+       "②客户集中度高的影响"
+      ],
+      "source": "招股说明书1.pdf",
+      "parent_id": "s000319"
+     },
+     {
+      "index": 4,
+      "page_idx": 377,
+      "page_display": 378,
+      "heading_path": [
+       "首次公开发行股票并在科创板上市招股意向书",
+       "（3）分客户类型的毛利率分析"
+      ],
+      "source": "招股说明书1.pdf",
+      "parent_id": "s000839"
+     }
+    ],
+    "hit_pages": [
+     341,
+     128,
+     129,
+     377
+    ],
+    "fact_hit": 1.0,
+    "retrieval": {
+     "hit_rate@5": 1.0,
+     "mrr@5": 1.0,
+     "ndcg@5": 0.553,
+     "top_pages": [
+      342,
+      129,
+      130,
+      378
+     ]
+    },
+    "judge": 1.0
+   },
+   "llm_only": {
+    "answer": "我目前没有找到武汉兴图新科电子股份有限公司报告期内军用领域收入占比的具体数据。这个问题需要查阅公司的招股说明书或最近的公开财报来获取准确信息。",
+    "wall_s": 0.42,
+    "fact_hit": 0.0,
+    "judge": 0.5
+   }
+  },
+  {
+   "id": 34,
+   "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+   "key_facts": [
+    "电子元器件制造",
+    "机箱",
+    "金属壳体"
+   ],
+   "opt": {
+    "answer": "电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、机柜等金属壳体制造企业。[1]",
+    "wall_s": 0.79,
+    "timings": {
+     "analyze_ms": 0.0,
+     "retrieve_ms": 77.8,
+     "rerank_ms": 161.1,
+     "context_ms": 0.0,
+     "gen_ms": 556.1,
+     "total_ms": 795.0
+    },
+    "mode": "rag",
+    "citations": [
+     {
+      "index": 1,
+      "page_idx": 151,
+      "page_display": 152,
+      "heading_path": [
+       "首次公开发行股票并在科创板上市招股意向书",
+       "1、行业上下游情况"
+      ],
+      "source": "招股说明书1.pdf",
+      "parent_id": "s000356",
+      "citation": "[1]"
+     }
+    ],
+    "hit_pages": [
+     151,
+     252
+    ],
+    "fact_hit": 1.0,
+    "retrieval": {
+     "hit_rate@5": 1.0,
+     "mrr@5": 1.0,
+     "ndcg@5": 0.339,
+     "top_pages": [
+      152,
+      253
+     ]
+    },
+    "judge": 1.0
+   },
+   "llm_only": {
+    "answer": "招股意向书并未具体说明电子信息行业的上游涉及哪些企业。因此，对于这个问题，我的回答是：不确定。",
+    "wall_s": 0.28,
+    "fact_hit": 0.0,
+    "judge": 0.5
+   }
+  },
+  {
+   "id": 957,
+   "question": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+   "key_facts": [
+    "军队视频指挥",
+    "重要供应商"
+   ],
+   "opt": {
+    "answer": "国防军队视频指挥领域的重要供应商。[1][2]",
+    "wall_s": 0.72,
+    "timings": {
+     "analyze_ms": 0.0,
+     "retrieve_ms": 77.2,
+     "rerank_ms": 152.5,
+     "context_ms": 0.0,
+     "gen_ms": 491.9,
+     "total_ms": 721.6
+    },
+    "mode": "rag",
+    "citations": [
+     {
+      "index": 1,
+      "page_idx": 153,
+      "page_display": 154,
+      "heading_path": [
+       "首次公开发行股票并在科创板上市招股意向书",
+       "（五）发行人在行业中的竞争地位"
+      ],
+      "source": "招股说明书1.pdf",
+      "parent_id": "s000363",
+      "citation": "[1]"
+     },
+     {
+      "index": 2,
+      "page_idx": 25,
+      "page_display": 26,
+      "heading_path": [
+       "首次公开发行股票并在科创板上市招股意向书",
+       "（三）公司所处行业竞争地位"
+      ],
+      "source": "招股说明书1.pdf",
+      "parent_id": "s000037",
+      "citation": "[2]"
+     }
+    ],
+    "hit_pages": [
+     153,
+     25,
+     240,
+     154
+    ],
+    "fact_hit": 1.0,
+    "retrieval": {
+     "hit_rate@5": 1.0,
+     "mrr@5": 1.0,
+     "ndcg@5": 0.869,
+     "top_pages": [
+      154,
+      26,
+      241,
+      155
+     ]
+    },
+    "judge": 0.5
+   },
+   "llm_only": {
+    "answer": "关于武汉兴图新科电子股份有限公司的具体业务领域及其成为重要供应商的情况，招股说明书并未提供详细信息。因此，对于它在哪个领域成为重要供应商的问题，我的回答是：不确定。",
+    "wall_s": 0.48,
+    "fact_hit": 0.5,
+    "judge": 0.5
+   }
+  },
+  {
+   "id": 793,
+   "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？",
+   "key_facts": [
+    "军队",
+    "政府机关",
+    "能源"
+   ],
+   "opt": {
+    "answer": "军队、政府机关、能源等行业企业。[1]",
+    "wall_s": 0.74,
+    "timings": {
+     "analyze_ms": 0.0,
+     "retrieve_ms": 81.6,
+     "rerank_ms": 293.1,
+     "context_ms": 0.0,
+     "gen_ms": 368.2,
+     "total_ms": 742.9
+    },
+    "mode": "rag",
+    "citations": [
+     {
+      "index": 1,
+      "page_idx": 151,
+      "page_display": 152,
+      "heading_path": [
+       "首次公开发行股票并在科创板上市招股意向书",
+       "1、行业上下游情况"
+      ],
+      "source": "招股说明书1.pdf",
+      "parent_id": "s000356",
+      "citation": "[1]"
+     }
+    ],
+    "hit_pages": [
+     151,
+     134,
+     20
+    ],
+    "fact_hit": 1.0,
+    "retrieval": {
+     "hit_rate@5": 1.0,
+     "mrr@5": 1.0,
+     "ndcg@5": 0.553,
+     "top_pages": [
+      152,
+      135,
+      21
+     ]
+    },
+    "judge": 0.5
+   },
+   "llm_only": {
+    "answer": "根据我目前可获取的信息，武汉兴图新科电子股份有限公司招股意向书并未直接详细列出电子信息行业的下游行业。电子信息行业的下游行业通常包括但不限于通信设备、计算机、消费电子、汽车电子、医疗电子、安防监控、航空航天等多个领域。但具体的下游行业需要查阅招股意向书或直接咨询公司获取最新信息。我目前的回答基于一般情况下的电子信息行业下游行业分类，而非特定公司的具体情况。",
+    "wall_s": 0.94,
+    "fact_hit": 0.0,
+    "judge": 0.5
+   }
+  },
+  {
+   "id": 795,
+   "question": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+   "key_facts": [
+    "某情报、指挥、控制与通信网络一体化工程"
+   ],
+   "opt": {
+    "answer": "2014 年 12 月，某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”荣获国家科技进步一等奖。[1]",
+    "wall_s": 1.13,
+    "timings": {
+     "analyze_ms": 0.0,
+     "retrieve_ms": 126.2,
+     "rerank_ms": 195.1,
+     "context_ms": 0.0,
+     "gen_ms": 808.8,
+     "total_ms": 1130.1
+    },
+    "mode": "rag",
+    "citations": [
+     {
+      "index": 1,
+      "page_idx": 180,
+      "page_display": 181,
+      "heading_path": [
+       "首次公开发行股票并在科创板上市招股意向书",
+       "（2）企业拥有的核心技术在境内与境外发展水平中所处的位置"
+      ],
+      "source": "招股说明书1.pdf",
+      "parent_id": "s000431",
+      "citation": "[1]"
+     }
+    ],
+    "hit_pages": [
+     180,
+     157,
+     94
+    ],
+    "fact_hit": 1.0,
+    "retrieval": {
+     "hit_rate@5": 1.0,
+     "mrr@5": 1.0,
+     "ndcg@5": 0.723,
+     "top_pages": [
+      181,
+      158,
+      95
+     ]
+    },
+    "judge": 0.5
+   },
+   "llm_only": {
+    "answer": "我目前没有找到武汉兴图新科电子股份有限公司参与的工程荣获国家科技进步一等奖的相关信息。因此，对于这个问题，我的答案是：不确定。",
+    "wall_s": 0.4,
+    "fact_hit": 0.0,
+    "judge": 0.0
+   }
+  },
+  {
+   "id": 543,
+   "question": "武汉兴图新科电子股份有限公司注册资本是多少？",
+   "key_facts": [
+    "5,520"
+   ],
+   "opt": {
+    "answer": "5,520万元。[3]",
+    "wall_s": 0.82,
+    "timings": {
+     "analyze_ms": 0.0,
+     "retrieve_ms": 73.7,
+     "rerank_ms": 189.5,
+     "context_ms": 0.0,
+     "gen_ms": 555.2,
+     "total_ms": 818.5
+    },
+    "mode": "rag",
+    "citations": [
+     {
+      "index": 3,
+      "page_idx": 51,
+      "page_display": 52,
+      "heading_path": [
+       "首次公开发行股票并在科创板上市招股意向书",
+       "一、发行人的基本情况"
+      ],
+      "source": "招股说明书1.pdf",
+      "parent_id": "s000109",
+      "citation": "[3]"
+     }
+    ],
+    "hit_pages": [
+     67,
+     63,
+     51,
+     53
+    ],
+    "fact_hit": 1.0,
+    "retrieval": {
+     "hit_rate@5": 1.0,
+     "mrr@5": 0.333,
+     "ndcg@5": 0.17,
+     "top_pages": [
+      68,
+      64,
+      52,
+      54
+     ]
+    },
+    "judge": 1.0
+   },
+   "llm_only": {
+    "answer": "我手头的信息只到公司成立，关于其注册资本的具体数值我不确定，建议查看该公司的最新公告或直接向公司咨询以获取准确信息。",
+    "wall_s": 0.37,
+    "fact_hit": 0.0,
+    "judge": 0.5
+   }
+  },
+  {
+   "id": 531,
+   "question": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+   "key_facts": [
+    "程家明"
+   ],
+   "opt": {
+    "answer": "法定代表人：程家明。[1]",
+    "wall_s": 0.65,
+    "timings": {
+     "analyze_ms": 0.0,
+     "retrieve_ms": 73.4,
+     "rerank_ms": 188.1,
+     "context_ms": 0.0,
+     "gen_ms": 388.4,
+     "total_ms": 649.9
+    },
+    "mode": "rag",
+    "citations": [
+     {
+      "index": 1,
+      "page_idx": 51,
+      "page_display": 52,
+      "heading_path": [
+       "首次公开发行股票并在科创板上市招股意向书",
+       "一、发行人的基本情况"
+      ],
+      "source": "招股说明书1.pdf",
+      "parent_id": "s000109",
+      "citation": "[1]"
+     }
+    ],
+    "hit_pages": [
+     51,
+     21,
+     63
+    ],
+    "fact_hit": 1.0,
+    "retrieval": {
+     "hit_rate@5": 1.0,
+     "mrr@5": 1.0,
+     "ndcg@5": 0.723,
+     "top_pages": [
+      52,
+      22,
+      64
+     ]
+    },
+    "judge": 0.5
+   },
+   "llm_only": {
+    "answer": "我目前没有找到武汉兴图新科电子股份有限公司法定代表人的信息。",
+    "wall_s": 0.2,
+    "fact_hit": 0.0,
+    "judge": 0.0
+   }
+  },
+  {
+   "id": 207,
+   "question": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+   "key_facts": [
+    "15,000"
+   ],
+   "opt": {
+    "answer": "15,000万元。[1]",
+    "wall_s": 0.56,
+    "timings": {
+     "analyze_ms": 0.0,
+     "retrieve_ms": 81.2,
+     "rerank_ms": 200.1,
+     "context_ms": 0.0,
+     "gen_ms": 276.2,
+     "total_ms": 557.6
+    },
+    "mode": "rag",
+    "citations": [
+     {
+      "index": 1,
+      "page_idx": 489,
+      "page_display": 490,
+      "heading_path": [
+       "首次公开发行股票并在科创板上市招股意向书",
+       "1、项目概况"
+      ],
+      "source": "招股说明书1.pdf",
+      "parent_id": "s001015",
+      "citation": "[1]"
+     }
+    ],
+    "hit_pages": [
+     489,
+     22,
+     478
+    ],
+    "fact_hit": 1.0,
+    "retrieval": {
+     "hit_rate@5": 1.0,
+     "mrr@5": 1.0,
+     "ndcg@5": 0.509,
+     "top_pages": [
+      490,
+      23,
+      479
+     ]
+    },
+    "judge": 1.0
+   },
+   "llm_only": {
+    "answer": "不确定。根据公开信息，武汉兴图新科电子股份有限公司的具体募集资金用途并未明确说明是补充流动资金，其募集资金的具体用途需要查阅其招股说明书以获取准确信息。",
+    "wall_s": 0.42,
+    "fact_hit": 0.0,
+    "judge": 0.5
+   }
+  }
+ ]
+}

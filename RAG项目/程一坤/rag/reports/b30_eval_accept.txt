@@ -1,0 +1,42 @@
+run_eval exit = 0
+报告：C:\Users\92842\Desktop\rag\reports\eval_20260922_170221_b30_lawsuffix.md
+
+=== ① 报告头当轮变量（JSON run_config）===
+{
+  "llm_model": "deepseek-flash",
+  "llm_temperature": 0.2,
+  "llm_max_tokens": 4096,
+  "llm_timeout_seconds": 120.0,
+  "recall_vector_limit": 20,
+  "recall_keyword_limit": 20,
+  "rerank_candidate_limit": 20,
+  "refusal_min_vector_score": 0.6304,
+  "eval_set_md5": "cbf12c3f9370ce1c5311d4bb3f204a73",
+  "prompt_files": {
+    "backend/app/chat/prompt_builder.py": "f43ee63672ff2b7e136a968441bac640"
+  }
+}
+
+=== ① 报告头当轮变量（Markdown）===
+# 检索与回答质量评测报告
+
+- 运行时间：2026-09-22 17:02:21 +0800
+- 评测集：`C:\Users\92842\Desktop\rag\data\evaluation\eval_set_v1.jsonl`（20 条）
+- 检索口径：向量召回 20 + 关键词召回 20 → RRF 融合前 20 → 重排；指标基于重排 top10
+- 回答口径：生产默认 top5 上下文 + 真实 LLM
+- 当轮变量（`docs/目录与命名约定.md` 第 10 条；JSON 里同源字段 `run_config`）：
+  - LLM：`deepseek-flash`（temperature 0.2 / max_tokens 4096 / timeout 120.0s）
+  - 提示词：`backend/app/chat/prompt_builder.py` md5 `f43ee63672ff2b7e136a968441bac640`
+  - 召回窗口：向量 20 + 关键词 20 → 融合前 20 → 重排
+  - 拒答阈值：REFUSAL_MIN_VECTOR_SCORE = 0.6304
+  - 评测集 md5：`cbf12c3f9370ce1c5311d4bb3f204a73`
+
+## 一、四个指标
+
+JSON run_config 必备字段缺失: 无 ✅
+Markdown 头必备行缺失: 无 ✅
+
+=== ② 护栏分布 ===
+  护栏计数: {'citation_check_passed': 17, 'guardrails_applied': 20, 'citation_warning_uncited_conclusion': 3}
+  unknown_law 计数 = 0 （要求 0）
+  引用正确率=1.0 越界=0 无引用回答=0 Recall@5=1.0

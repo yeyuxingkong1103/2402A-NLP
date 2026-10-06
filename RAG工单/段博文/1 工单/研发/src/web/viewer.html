@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>项目结构与源码查看器</title>
+<style>
+body { font-family: 'Microsoft YaHei', sans-serif; margin: 20px; background: #f5f5f5; }
+h1 { color: #333; border-bottom: 2px solid #4CAF50; padding-bottom: 10px; }
+h2 { color: #4CAF50; margin-top: 30px; }
+pre { background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 13px; line-height: 1.5; }
+code { background: #1e1e1e; color: #d4d4d4; padding: 2px 5px; border-radius: 3px; }
+.tree { background: #fff; padding: 15px; border-radius: 5px; font-family: monospace; white-space: pre; line-height: 1.6; }
+.file-content { background: #fff; padding: 15px; border-radius: 5px; margin: 10px 0; }
+.tab { display: inline-block; padding: 8px 20px; background: #ddd; cursor: pointer; margin-right: 5px; border-radius: 5px 5px 0 0; }
+.tab.active { background: #4CAF50; color: white; }
+</style>
+</head>
+<body>
+<h1>基于PDF文档的问答系统 - 项目交付物</h1>
+<p>工单编号：人工智能NLP-RAG-基于PDF文档的问答系统</p>
+
+<h2>一、项目目录结构</h2>
+<div class="tree">
+D:\作业\6-专高NLP 作业\成品\
+│   README.md                          # 项目说明文档
+├── data/
+│   └── 招股说明书1.pdf                 # 测试用PDF文档（14MB）
+├── deploy/
+│   ├── install.sh                     # 环境安装脚本（conda+cuda+docker milvus）
+│   ├── start.sh                        # 启动脚本
+│   ├── stop.sh                         # 停止脚本
+│   └── requirements.txt               # Python依赖清单
+├── design/
+│   ├── 01_技术组件.md                   # 10个技术组件说明
+│   ├── 02_技术架构.md                   # 3层架构设计
+│   ├── 03_流程图.md                     # 3个Mermaid流程图
+│   ├── 04_思维导图.md                   # Mermaid思维导图
+│   └── 05_接口文档.md                   # 4个API接口文档
+├── src/
+│   ├── config.py                      # 全局配置中心
+│   ├── main.py                        # FastAPI 应用入口
+│   ├── db_milvus.py                   # Milvus 向量数据层
+│   ├── retriever.py                   # 混合检索（向量+BM25+RRF+重排）
+│   ├── llm_client.py                  # DeepSeek LLM 客户端
+│   ├── pdf_parser.py                  # PDF 解析（PyMuPDF）
+│   ├── text_splitter.py               # 文本切分（RecursiveCharacterTextSplitter）
+│   ├── ingest_pdf.py                  # PDF 入库脚本
+│   ├── logger.py                      # 日志模块
+│   └── web/
+│       ├── index.html                 # 前端页面
+│       ├── app.js                     # 前端交互逻辑
+│       └── style.css                  # 样式文件
+└── tests/
+    ├── test_questions.py              # 10题对比测试脚本
+    ├── test_api.py                    # API测试脚本
+    ├── results.md                     # 测试结果报告
+    ├── results.json                   # 测试结果数据
+    └── screenshots/                   # 运行截图（21张）
+</div>
+
+<h2>二、技术架构</h2>
+<div class="file-content">
+<pre>
+┌─────────────────────────────────────────────────────────┐
+│                    前端层 (Web UI)                        │
+│  index.html + app.js + style.css                        │
+│  - 流式聊天 / 知识库管理 / Markdown渲染                    │
+├─────────────────────────────────────────────────────────┤
+│                    API 层 (FastAPI)                      │
+│  main.py                                                │
+│  /api/upload  /api/ingest  /api/chat  /api/search       │
+├─────────────────────────────────────────────────────────┤
+│                 核心业务层 (RAG Pipeline)                 │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌─────────┐ │
+│  │PDF解析   │→ │文本切分   │→ │向量化     │→ │Milvus入库│ │
+│  │PyMuPDF   │  │Recursive │  │bge-m3    │  │单集合架构 │ │
+│  └──────────┘  └──────────┘  └──────────┘  └─────────┘ │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌─────────┐ │
+│  │向量召回   │  │BM25召回  │  │RRF融合   │  │重排过滤  │ │
+│  │Milvus    │  │jieba+rank│  │Ensemble  │  │CrossEnc │ │
+│  └──────────┘  └──────────┘  └──────────┘  └─────────┘ │
+│  ┌──────────────────────────────────────────────────┐   │
+│  │              LLM 生成层                          │   │
+│  │  DeepSeek API (deepseek-chat, temperature=0.3)  │   │
+│  └──────────────────────────────────────────────────┘   │
+├─────────────────────────────────────────────────────────┤
+│                 数据存储层                                │
+│  Milvus 3.0 (向量库)  |  Redis (对话历史)                │
+│  集合: rag_pdf_qa     |  Key: chat:{user_id}             │
+│  维度: 1024 (bge-m3) |  度量: COSINE                     │
+└─────────────────────────────────────────────────────────┘
+</pre>
+</div>
+
+<h2>三、检索流程</h2>
+<div class="file-content">
+<pre>
+用户提问
+   │
+   ├──→ 向量检索 (Milvus, top_k=10)
+   │         │
+   │         └── bge-m3 向量化 → COSINE 相似度搜索
+   │
+   ├──→ BM25 检索 (内存, top_k=10)
+   │         │
+   │         └── jieba 分词 → rank_bm25 关键词匹配
+   │
+   └──→ RRF 融合 (Reciprocal Rank Fusion)
+             │
+             └──→ CrossEncoder 重排 (bge-reranker-large)
+                       │
+                       └──→ 分数阈值过滤 (score >= 0.3)
+                                 │
+                                 └──→ Top-K 结果 → LLM 上下文
+</pre>
+</div>
+
+<h2>四、10题测试结果汇总</h2>
+<div class="file-content">
+<pre>
+指标              RAG（带检索）    纯LLM（无检索）
+成功率            10/10            10/10
+关键词命中        22/28            18/28
+平均耗时          ~16s             ~0.7s
+
+关键差异：
+- Q8 注册资本:    RAG="5,520万元"✓  LLM="未查询到"✗
+- Q10 募集资金:   RAG="15,000万元"✓ LLM="未查询到"✗
+- Q2 技术标准:    RAG="某视频技术规范1.0"✓  LLM="未查询到"✗
+- Q7 国家奖:      RAG="C4ISR一体化工程"✓  LLM="未查询到"✗
+</pre>
+</div>
+
+<h2>五、关键技术参数</h2>
+<div class="file-content">
+<pre>
+参数名              值              说明
+EMBED_DIM          1024            bge-m3 向量维度
+CHUNK_SIZE         500             文本切分块大小
+CHUNK_OVERLAP      80              切分重叠字数
+TOP_K_RECALL       10              每路召回条数
+TOP_K_RERANK       5               重排后保留条数
+SCORE_THRESHOLD    0.3             分数过滤阈值
+LLM_TEMPERATURE    0.3             生成温度
+LLM_MAX_TOKENS     2048            最大输出token
+MILVUS_METRIC      COSINE          向量度量方式
+MILVUS_INDEX       AUTOINDEX       索引类型
+</pre>
+</div>
+</body>
+</html>

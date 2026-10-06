@@ -1,0 +1,31 @@
+
+== 模型 qwen2.5:3b（温度 0.0，预热 330 ms）
+题          首字ms      总ms   正文   引用  正文首行
+33          111      718    有    有  ### 答案
+34          161      574    有    无  电子元器件制造企业，以及机箱、机柜等金属壳体制造企业。[1: 153 / 类型: 正文]
+95          112      281    空    有  
+207         124      272    空    有  
+260         127      588    有    有  ### zh
+531         550      728    空    有  
+543         539      842    有    有  5,520.00 万元
+793         148      647    有    无  ### 答案
+795         125      648    有    无  招股说明书1.pdf: 94 / 类型: 正文
+957         121      424    有    无  武汉兴图新科电子股份有限公司在军队视频指挥领域已经成为重要供应商。 [文件名: 页码]
+1           141      499    空    有  
+2           138      389    有    无  [文件名: 页码 / 类型]
+3           125      319    有    无  赵马克
+4           116      889    空    有  
+   合规率：正文 9/14，引用 8/14；首字 max 550 ms
+[ERROR] {"ts": "2026-10-03T20:45:51.276+08:00", "level": "ERROR", "event": "llm.empty_output", "func": null, "module": "ab_models", "run_id": "r20261003-204521", "trace_id": null, "span_id": null, "stage": "core", "pid": 4296, "thread": "MainThread", "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化", "backend": "ollama", "elapsed_ms": 16285.84}
+Traceback (most recent call last):
+  File "E:\gao6gongdan\工单3\测试\离线\ab_models.py", line 97, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "E:\gao6gongdan\工单3\测试\离线\ab_models.py", line 71, in main
+    warm = gen.llm.generate_full("预热：只回答「好」。", max_tokens=4, temperature=0.0, logger=log)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\gao6gongdan\工单3\研发\app\core\llm_client.py", line 300, in generate_full
+    for delta in self.generate(prompt, max_tokens=max_tokens, temperature=temperature,
+  File "E:\gao6gongdan\工单3\研发\app\core\llm_client.py", line 277, in generate
+    raise LLMResponseError("LLM 未返回任何文本", detail={"backend": self.backend.name})
+app.core.errors.LLMResponseError: [RAG-5200/generate] LLM 未返回任何文本

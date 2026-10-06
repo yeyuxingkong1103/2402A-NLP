@@ -1,0 +1,4 @@
+[selftest] 服务未就绪：http://127.0.0.1:8199 无响应（ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。）。
+请先启动服务，例如：
+  pwsh -NoProfile -File run_py.ps1 研发/app/ui/serve_fallback.py --host 127.0.0.1 --port 8123
+  （或 部署/脚本/run_app.ps1；端口需与命令行给出的 base_url 一致）

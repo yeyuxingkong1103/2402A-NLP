@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>RAG Assistant</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="app-body">
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>我的角色</h2>
+        <button id="new-char" class="icon-btn">＋</button>
+      </div>
+      <ul id="char-list" class="char-list"></ul>
+      <div class="sidebar-footer">
+        <span id="me-name"></span>
+        <button id="logout" class="link-btn">退出</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div id="no-char" class="empty">请选择或创建一个角色</div>
+
+      <div id="chat-panel" class="chat-panel hidden">
+        <header class="chat-header">
+          <div>
+            <h3 id="char-name"></h3>
+            <p id="char-prompt" class="char-prompt"></p>
+          </div>
+          <button id="new-conv" class="icon-btn">新对话</button>
+        </header>
+
+        <div class="chat-body">
+          <aside class="conv-list">
+            <ul id="conv-list"></ul>
+          </aside>
+          <div class="chat-area">
+            <div id="messages" class="messages"></div>
+            <form id="chat-form" class="chat-input">
+              <input id="chat-input" placeholder="输入消息…" autocomplete="off">
+              <button type="submit">发送</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div id="kb-panel" class="kb-panel">
+        <h4>知识库</h4>
+        <input id="kb-file" type="file" multiple>
+        <button id="kb-upload">上传</button>
+        <ul id="kb-list"></ul>
+      </div>
+    </main>
+  </div>
+
+  <dialog id="char-dialog">
+    <form id="char-form">
+      <h3>创建角色</h3>
+      <label>名称<input id="c-name" required></label>
+      <label>模板
+        <select id="c-template"><option value="">自定义</option></select>
+      </label>
+      <label>系统提示词<textarea id="c-prompt" rows="4"></textarea></label>
+      <label>模型名<input id="c-model" value="gpt-4o-mini"></label>
+      <label>Base URL（可选）<input id="c-baseurl" placeholder="留空使用默认"></label>
+      <div class="dialog-actions">
+        <button type="button" id="c-cancel">取消</button>
+        <button type="submit">创建</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="/app.js"></script>
+</body>
+</html>

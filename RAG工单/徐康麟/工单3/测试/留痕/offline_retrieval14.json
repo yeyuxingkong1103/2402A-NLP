@@ -1,0 +1,776 @@
+{
+  "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化",
+  "name": "offline_retrieval14",
+  "title": "14 题检索 top-5 命中（离线级）",
+  "generated_at": "2026-10-04T20:44:14+0800",
+  "ragas": "RAGAS 未运行（依赖不可用，本机断网）",
+  "extra": {
+    "criterion": "evidence_contains",
+    "top_k": 5,
+    "threshold_hits": 13
+  },
+  "rows": [
+    {
+      "id": 1,
+      "corpus": "pdf2",
+      "question": "武汉力源信息技术股份有限公司本次发行股数是多少？占发行后总股本的比例是多少？",
+      "hit": true,
+      "used_field": "evidence_verbatim",
+      "strict_golden_evidence_hit": true,
+      "matched_chunk_ids": [
+        "招股说明书2_p0024_x44",
+        "招股说明书2_p0022_x42"
+      ],
+      "chunks": [
+        {
+          "chunk_id": "招股说明书2_p0024_x44",
+          "file_name": "招股说明书2.pdf",
+          "page": 24,
+          "type": "text",
+          "score": 0.301092
+        },
+        {
+          "chunk_id": "招股说明书2_p0002_x01",
+          "file_name": "招股说明书2.pdf",
+          "page": 2,
+          "type": "text",
+          "score": 0.279553
+        },
+        {
+          "chunk_id": "招股说明书2_p0004_x04",
+          "file_name": "招股说明书2.pdf",
+          "page": 4,
+          "type": "text",
+          "score": 0.253654
+        },
+        {
+          "chunk_id": "招股说明书2_p0022_x42",
+          "file_name": "招股说明书2.pdf",
+          "page": 22,
+          "type": "text",
+          "score": 0.245706
+        },
+        {
+          "chunk_id": "招股说明书1_p0018_t05",
+          "file_name": "招股说明书1.pdf",
+          "page": 18,
+          "type": "table",
+          "score": 0.234315
+        }
+      ],
+      "evidence_pages": [
+        22,
+        24
+      ],
+      "file_filter_ok": true
+    },
+    {
+      "id": 2,
+      "corpus": "pdf2",
+      "question": "武汉力源信息技术股份有限公司本次募集资金拟投资项目有哪些？",
+      "hit": true,
+      "used_field": "evidence_verbatim",
+      "strict_golden_evidence_hit": true,
+      "matched_chunk_ids": [
+        "招股说明书2_p0022_x42"
+      ],
+      "chunks": [
+        {
+          "chunk_id": "招股说明书2_p0326_x710",
+          "file_name": "招股说明书2.pdf",
+          "page": 326,
+          "type": "text",
+          "score": 0.143744
+        },
+        {
+          "chunk_id": "招股说明书2_p0306_x671",
+          "file_name": "招股说明书2.pdf",
+          "page": 306,
+          "type": "text",
+          "score": 0.167456
+        },
+        {
+          "chunk_id": "招股说明书2_p0144_x288",
+          "file_name": "招股说明书2.pdf",
+          "page": 144,
+          "type": "text",
+          "score": 0.138975
+        },
+        {
+          "chunk_id": "招股说明书2_p0022_x42",
+          "file_name": "招股说明书2.pdf",
+          "page": 22,
+          "type": "text",
+          "score": 0.136945
+        },
+        {
+          "chunk_id": "招股说明书2_p0325_x708",
+          "file_name": "招股说明书2.pdf",
+          "page": 325,
+          "type": "text",
+          "score": 0.131291
+        }
+      ],
+      "evidence_pages": [
+        22,
+        30,
+        306,
+        144
+      ],
+      "file_filter_ok": true
+    },
+    {
+      "id": 3,
+      "corpus": "pdf2",
+      "question": "武汉力源信息技术股份有限公司存在控制关系的关联方是谁？其持股比例与本公司关系是什么？",
+      "hit": true,
+      "used_field": "evidence_verbatim",
+      "strict_golden_evidence_hit": true,
+      "matched_chunk_ids": [
+        "招股说明书2_p0157_x314",
+        "招股说明书2_p0157_t69"
+      ],
+      "chunks": [
+        {
+          "chunk_id": "招股说明书2_p0157_x314",
+          "file_name": "招股说明书2.pdf",
+          "page": 157,
+          "type": "text",
+          "score": 0.192647
+        },
+        {
+          "chunk_id": "招股说明书2_p0157_t69",
+          "file_name": "招股说明书2.pdf",
+          "page": 157,
+          "type": "table",
+          "score": 0.191588
+        },
+        {
+          "chunk_id": "招股说明书2_p0158_x316",
+          "file_name": "招股说明书2.pdf",
+          "page": 158,
+          "type": "text",
+          "score": 0.178395
+        },
+        {
+          "chunk_id": "招股说明书2_p0157_t70",
+          "file_name": "招股说明书2.pdf",
+          "page": 157,
+          "type": "table",
+          "score": 0.171442
+        },
+        {
+          "chunk_id": "招股说明书2_p0033_x59",
+          "file_name": "招股说明书2.pdf",
+          "page": 33,
+          "type": "text",
+          "score": 0.158565
+        }
+      ],
+      "evidence_pages": [
+        157,
+        158,
+        259,
+        21
+      ],
+      "file_filter_ok": true
+    },
+    {
+      "id": 4,
+      "corpus": "pdf2",
+      "question": "武汉力源信息技术股份有限公司不存在控制关系的关联方企业有哪些？",
+      "hit": true,
+      "used_field": "evidence_verbatim",
+      "strict_golden_evidence_hit": true,
+      "matched_chunk_ids": [
+        "招股说明书2_p0157_t70"
+      ],
+      "chunks": [
+        {
+          "chunk_id": "招股说明书2_p0157_t70",
+          "file_name": "招股说明书2.pdf",
+          "page": 157,
+          "type": "table",
+          "score": 0.195602
+        },
+        {
+          "chunk_id": "招股说明书2_p0157_x314",
+          "file_name": "招股说明书2.pdf",
+          "page": 157,
+          "type": "text",
+          "score": 0.167334
+        },
+        {
+          "chunk_id": "招股说明书2_p0158_x316",
+          "file_name": "招股说明书2.pdf",
+          "page": 158,
+          "type": "text",
+          "score": 0.164969
+        },
+        {
+          "chunk_id": "招股说明书2_p0157_t69",
+          "file_name": "招股说明书2.pdf",
+          "page": 157,
+          "type": "table",
+          "score": 0.152476
+        },
+        {
+          "chunk_id": "招股说明书2_p0184_x373",
+          "file_name": "招股说明书2.pdf",
+          "page": 184,
+          "type": "text",
+          "score": 0.128555
+        }
+      ],
+      "evidence_pages": [
+        157,
+        158,
+        259
+      ],
+      "file_filter_ok": true
+    },
+    {
+      "id": 260,
+      "corpus": "pdf1",
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "hit": true,
+      "used_field": "evidence_verbatim",
+      "strict_golden_evidence_hit": true,
+      "matched_chunk_ids": [
+        "招股说明书1_p0129_x306"
+      ],
+      "chunks": [
+        {
+          "chunk_id": "招股说明书1_p0186_x431",
+          "file_name": "招股说明书1.pdf",
+          "page": 186,
+          "type": "text",
+          "score": 0.161841
+        },
+        {
+          "chunk_id": "招股说明书1_p0129_x306",
+          "file_name": "招股说明书1.pdf",
+          "page": 129,
+          "type": "text",
+          "score": 0.158708
+        },
+        {
+          "chunk_id": "招股说明书1_p0039_x102",
+          "file_name": "招股说明书1.pdf",
+          "page": 39,
+          "type": "text",
+          "score": 0.154372
+        },
+        {
+          "chunk_id": "招股说明书1_p0130_t99",
+          "file_name": "招股说明书1.pdf",
+          "page": 130,
+          "type": "table",
+          "score": 0.153697
+        },
+        {
+          "chunk_id": "招股说明书1_p0475_x1095",
+          "file_name": "招股说明书1.pdf",
+          "page": 475,
+          "type": "text",
+          "score": 0.151468
+        }
+      ],
+      "evidence_pages": [
+        129,
+        130,
+        131
+      ],
+      "file_filter_ok": true
+    },
+    {
+      "id": 95,
+      "corpus": "pdf1",
+      "question": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+      "hit": true,
+      "used_field": "evidence_verbatim",
+      "strict_golden_evidence_hit": true,
+      "matched_chunk_ids": [
+        "招股说明书1_p0160_x375",
+        "招股说明书1_p0155_x363"
+      ],
+      "chunks": [
+        {
+          "chunk_id": "招股说明书1_p0160_x375",
+          "file_name": "招股说明书1.pdf",
+          "page": 160,
+          "type": "text",
+          "score": 0.168041
+        },
+        {
+          "chunk_id": "招股说明书1_p0181_x420",
+          "file_name": "招股说明书1.pdf",
+          "page": 181,
+          "type": "text",
+          "score": 0.157031
+        },
+        {
+          "chunk_id": "招股说明书1_p0155_x363",
+          "file_name": "招股说明书1.pdf",
+          "page": 155,
+          "type": "text",
+          "score": 0.147627
+        },
+        {
+          "chunk_id": "招股说明书1_p0022_t10",
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "type": "table",
+          "score": 0.139897
+        },
+        {
+          "chunk_id": "招股说明书1_p0159_x374",
+          "file_name": "招股说明书1.pdf",
+          "page": 159,
+          "type": "text",
+          "score": 0.112517
+        }
+      ],
+      "evidence_pages": [
+        160,
+        27
+      ],
+      "file_filter_ok": true
+    },
+    {
+      "id": 33,
+      "corpus": "pdf1",
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别是多少？",
+      "hit": true,
+      "used_field": "evidence_verbatim",
+      "strict_golden_evidence_hit": true,
+      "matched_chunk_ids": [
+        "招股说明书1_p0185_x429",
+        "招股说明书1_p0129_x306"
+      ],
+      "chunks": [
+        {
+          "chunk_id": "招股说明书1_p0185_x429",
+          "file_name": "招股说明书1.pdf",
+          "page": 185,
+          "type": "text",
+          "score": 0.268655
+        },
+        {
+          "chunk_id": "招股说明书1_p0129_x306",
+          "file_name": "招股说明书1.pdf",
+          "page": 129,
+          "type": "text",
+          "score": 0.239085
+        },
+        {
+          "chunk_id": "招股说明书1_p0186_x431",
+          "file_name": "招股说明书1.pdf",
+          "page": 186,
+          "type": "text",
+          "score": 0.239085
+        },
+        {
+          "chunk_id": "招股说明书1_p0182_x422",
+          "file_name": "招股说明书1.pdf",
+          "page": 182,
+          "type": "text",
+          "score": 0.229196
+        },
+        {
+          "chunk_id": "招股说明书1_p0279_t196",
+          "file_name": "招股说明书1.pdf",
+          "page": 279,
+          "type": "table",
+          "score": 0.227324
+        }
+      ],
+      "evidence_pages": [
+        129,
+        130,
+        131
+      ],
+      "file_filter_ok": true
+    },
+    {
+      "id": 34,
+      "corpus": "pdf1",
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+      "hit": true,
+      "used_field": "evidence_verbatim",
+      "strict_golden_evidence_hit": true,
+      "matched_chunk_ids": [
+        "招股说明书1_p0152_x357"
+      ],
+      "chunks": [
+        {
+          "chunk_id": "招股说明书1_p0135_x319",
+          "file_name": "招股说明书1.pdf",
+          "page": 135,
+          "type": "text",
+          "score": 0.135489
+        },
+        {
+          "chunk_id": "招股说明书1_p0153_x358",
+          "file_name": "招股说明书1.pdf",
+          "page": 153,
+          "type": "text",
+          "score": 0.153231
+        },
+        {
+          "chunk_id": "招股说明书1_p0456_x1055",
+          "file_name": "招股说明书1.pdf",
+          "page": 456,
+          "type": "text",
+          "score": 0.129727
+        },
+        {
+          "chunk_id": "招股说明书1_p0152_x357",
+          "file_name": "招股说明书1.pdf",
+          "page": 152,
+          "type": "text",
+          "score": 0.125621
+        },
+        {
+          "chunk_id": "招股说明书1_p0139_x329",
+          "file_name": "招股说明书1.pdf",
+          "page": 139,
+          "type": "text",
+          "score": 0.127781
+        }
+      ],
+      "evidence_pages": [
+        152,
+        153
+      ],
+      "file_filter_ok": true
+    },
+    {
+      "id": 957,
+      "corpus": "pdf1",
+      "question": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+      "hit": true,
+      "used_field": "evidence_verbatim",
+      "strict_golden_evidence_hit": true,
+      "matched_chunk_ids": [
+        "招股说明书1_p0155_x363",
+        "招股说明书1_p0026_x72",
+        "招股说明书1_p0181_x420",
+        "招股说明书1_p0160_x375",
+        "招股说明书1_p0154_x362"
+      ],
+      "chunks": [
+        {
+          "chunk_id": "招股说明书1_p0155_x363",
+          "file_name": "招股说明书1.pdf",
+          "page": 155,
+          "type": "text",
+          "score": 0.156192
+        },
+        {
+          "chunk_id": "招股说明书1_p0026_x72",
+          "file_name": "招股说明书1.pdf",
+          "page": 26,
+          "type": "text",
+          "score": 0.168227
+        },
+        {
+          "chunk_id": "招股说明书1_p0181_x420",
+          "file_name": "招股说明书1.pdf",
+          "page": 181,
+          "type": "text",
+          "score": 0.14779
+        },
+        {
+          "chunk_id": "招股说明书1_p0160_x375",
+          "file_name": "招股说明书1.pdf",
+          "page": 160,
+          "type": "text",
+          "score": 0.135829
+        },
+        {
+          "chunk_id": "招股说明书1_p0154_x362",
+          "file_name": "招股说明书1.pdf",
+          "page": 154,
+          "type": "text",
+          "score": 0.134019
+        }
+      ],
+      "evidence_pages": [
+        154,
+        332
+      ],
+      "file_filter_ok": true
+    },
+    {
+      "id": 793,
+      "corpus": "pdf1",
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？",
+      "hit": true,
+      "used_field": "evidence_verbatim",
+      "strict_golden_evidence_hit": true,
+      "matched_chunk_ids": [
+        "招股说明书1_p0152_x357"
+      ],
+      "chunks": [
+        {
+          "chunk_id": "招股说明书1_p0135_x319",
+          "file_name": "招股说明书1.pdf",
+          "page": 135,
+          "type": "text",
+          "score": 0.154508
+        },
+        {
+          "chunk_id": "招股说明书1_p0152_x357",
+          "file_name": "招股说明书1.pdf",
+          "page": 152,
+          "type": "text",
+          "score": 0.144204
+        },
+        {
+          "chunk_id": "招股说明书1_p0153_x358",
+          "file_name": "招股说明书1.pdf",
+          "page": 153,
+          "type": "text",
+          "score": 0.153231
+        },
+        {
+          "chunk_id": "招股说明书1_p0136_x321",
+          "file_name": "招股说明书1.pdf",
+          "page": 136,
+          "type": "text",
+          "score": 0.125128
+        },
+        {
+          "chunk_id": "招股说明书1_p0139_x329",
+          "file_name": "招股说明书1.pdf",
+          "page": 139,
+          "type": "text",
+          "score": 0.1212
+        }
+      ],
+      "evidence_pages": [
+        152,
+        153
+      ],
+      "file_filter_ok": true
+    },
+    {
+      "id": 795,
+      "corpus": "pdf1",
+      "question": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+      "hit": true,
+      "used_field": "evidence_verbatim",
+      "strict_golden_evidence_hit": true,
+      "matched_chunk_ids": [
+        "招股说明书1_p0094_x235",
+        "招股说明书1_p0181_x420",
+        "招股说明书1_p0096_x239",
+        "招股说明书1_p0155_x363",
+        "招股说明书1_p0157_x370"
+      ],
+      "chunks": [
+        {
+          "chunk_id": "招股说明书1_p0094_x235",
+          "file_name": "招股说明书1.pdf",
+          "page": 94,
+          "type": "text",
+          "score": 0.168152
+        },
+        {
+          "chunk_id": "招股说明书1_p0181_x420",
+          "file_name": "招股说明书1.pdf",
+          "page": 181,
+          "type": "text",
+          "score": 0.157123
+        },
+        {
+          "chunk_id": "招股说明书1_p0096_x239",
+          "file_name": "招股说明书1.pdf",
+          "page": 96,
+          "type": "text",
+          "score": 0.147703
+        },
+        {
+          "chunk_id": "招股说明书1_p0155_x363",
+          "file_name": "招股说明书1.pdf",
+          "page": 155,
+          "type": "text",
+          "score": 0.139553
+        },
+        {
+          "chunk_id": "招股说明书1_p0157_x370",
+          "file_name": "招股说明书1.pdf",
+          "page": 157,
+          "type": "text",
+          "score": 0.138007
+        }
+      ],
+      "evidence_pages": [
+        27,
+        157
+      ],
+      "file_filter_ok": true
+    },
+    {
+      "id": 543,
+      "corpus": "pdf1",
+      "question": "武汉兴图新科电子股份有限公司注册资本是多少？",
+      "hit": true,
+      "used_field": "evidence_verbatim",
+      "strict_golden_evidence_hit": true,
+      "matched_chunk_ids": [
+        "招股说明书1_p0052_x139"
+      ],
+      "chunks": [
+        {
+          "chunk_id": "招股说明书1_p0022_t10",
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "type": "table",
+          "score": 0.217392
+        },
+        {
+          "chunk_id": "招股说明书1_p0052_x139",
+          "file_name": "招股说明书1.pdf",
+          "page": 52,
+          "type": "text",
+          "score": 0.188175
+        },
+        {
+          "chunk_id": "招股说明书1_p0063_x164",
+          "file_name": "招股说明书1.pdf",
+          "page": 63,
+          "type": "text",
+          "score": 0.174385
+        },
+        {
+          "chunk_id": "招股说明书1_p0054_x142",
+          "file_name": "招股说明书1.pdf",
+          "page": 54,
+          "type": "text",
+          "score": 0.163059
+        },
+        {
+          "chunk_id": "招股说明书1_p0068_x174",
+          "file_name": "招股说明书1.pdf",
+          "page": 68,
+          "type": "text",
+          "score": 0.159551
+        }
+      ],
+      "evidence_pages": [
+        22
+      ],
+      "file_filter_ok": true
+    },
+    {
+      "id": 531,
+      "corpus": "pdf1",
+      "question": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+      "hit": true,
+      "used_field": "evidence_verbatim",
+      "strict_golden_evidence_hit": true,
+      "matched_chunk_ids": [
+        "招股说明书1_p0022_t10",
+        "招股说明书1_p0052_x139",
+        "招股说明书1_p0534_x1223",
+        "招股说明书1_p0022_x61",
+        "招股说明书1_p0068_x174"
+      ],
+      "chunks": [
+        {
+          "chunk_id": "招股说明书1_p0022_t10",
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "type": "table",
+          "score": 0.215018
+        },
+        {
+          "chunk_id": "招股说明书1_p0052_x139",
+          "file_name": "招股说明书1.pdf",
+          "page": 52,
+          "type": "text",
+          "score": 0.158938
+        },
+        {
+          "chunk_id": "招股说明书1_p0534_x1223",
+          "file_name": "招股说明书1.pdf",
+          "page": 534,
+          "type": "text",
+          "score": 0.154341
+        },
+        {
+          "chunk_id": "招股说明书1_p0022_x61",
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "type": "text",
+          "score": 0.148748
+        },
+        {
+          "chunk_id": "招股说明书1_p0068_x174",
+          "file_name": "招股说明书1.pdf",
+          "page": 68,
+          "type": "text",
+          "score": 0.148748
+        }
+      ],
+      "evidence_pages": [
+        22
+      ],
+      "file_filter_ok": true
+    },
+    {
+      "id": 207,
+      "corpus": "pdf1",
+      "question": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+      "hit": false,
+      "used_field": "evidence_verbatim",
+      "strict_golden_evidence_hit": false,
+      "matched_chunk_ids": [],
+      "chunks": [
+        {
+          "chunk_id": "招股说明书1_p0479_x1104",
+          "file_name": "招股说明书1.pdf",
+          "page": 479,
+          "type": "text",
+          "score": 0.291657
+        },
+        {
+          "chunk_id": "招股说明书1_p0030_x81",
+          "file_name": "招股说明书1.pdf",
+          "page": 30,
+          "type": "text",
+          "score": 0.278627
+        },
+        {
+          "chunk_id": "招股说明书1_p0491_x1132",
+          "file_name": "招股说明书1.pdf",
+          "page": 491,
+          "type": "text",
+          "score": 0.257662
+        },
+        {
+          "chunk_id": "招股说明书1_p0483_x1116",
+          "file_name": "招股说明书1.pdf",
+          "page": 483,
+          "type": "text",
+          "score": 0.235054
+        },
+        {
+          "chunk_id": "招股说明书1_p0022_t10",
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "type": "table",
+          "score": 0.233427
+        }
+      ],
+      "evidence_pages": [
+        479,
+        490,
+        30
+      ],
+      "file_filter_ok": true
+    }
+  ]
+}

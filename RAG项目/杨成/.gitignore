@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local environments
+.venv/
+venv/
+yl/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local secrets
+.env
+*.env
+
+# Large local model directories
+models/
+*.safetensors
+*.bin
+
+# Generated temporary smoke-test files
+data/processed/test_*.jsonl
+data/processed/*_first3*.jsonl
+data/runtime/
+
+# Project-local data and generated outputs
+.data/
+data/
+
+# Local tool state
+.claude/
+.specify/
+
+# Crash dumps
+*.stackdump

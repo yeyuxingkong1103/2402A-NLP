@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!--
+  工单编号：人工智能 NLP-RAG-基于 PDF 文档的问答系统优化
+  模块：前端问答界面
+  说明：对话问答 + 引用溯源 + 语音输入(Web Speech API) + RAG/纯LLM 对比 + 反馈
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>招股说明书智能问答（RAG）</title>
+<style>
+  :root{ --bg:#0f1115; --panel:#171a21; --line:#262b36; --fg:#e6e9ef; --muted:#98a1b2;
+         --accent:#4c8dff; --ok:#38d39f; --bad:#ff6b6b; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+  header{padding:14px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  header h1{font-size:16px;margin:0;font-weight:600}
+  .tag{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:10px;padding:2px 8px}
+  .wrap{max-width:960px;margin:0 auto;padding:16px}
+  .row{display:flex;gap:10px}
+  textarea,input{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--fg);
+    border-radius:10px;padding:10px 12px;font:inherit;resize:vertical}
+  button{background:var(--accent);border:0;color:#fff;border-radius:10px;padding:10px 16px;font:inherit;cursor:pointer}
+  button.ghost{background:transparent;border:1px solid var(--line);color:var(--fg)}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  .msg{margin:14px 0;display:flex;gap:10px}
+  .msg .bubble{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;max-width:100%;white-space:pre-wrap}
+  .msg.user .bubble{background:#1e2637;border-color:#2c3550}
+  .avatar{width:28px;height:28px;border-radius:8px;flex:0 0 28px;display:flex;align-items:center;justify-content:center;
+    background:#222838;font-size:14px}
+  .cite{margin-top:10px;font-size:13px;color:var(--muted)}
+  .cite details{margin:6px 0;border-left:2px solid var(--line);padding-left:8px}
+  .cite summary{cursor:pointer;color:var(--accent)}
+  .pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:999px;padding:1px 8px;margin-right:6px;color:var(--muted)}
+  .bar{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
+  .small{font-size:12px;color:var(--muted)}
+  .cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .cmp .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+  .cmp h4{margin:0 0 6px;font-size:13px}
+  .foot{color:var(--muted);font-size:12px;text-align:center;padding:20px}
+</style>
+</head>
+<body>
+<header>
+  <h1>📄 招股说明书智能问答（RAG）</h1>
+  <span class="tag">《招股说明书1.pdf》</span>
+  <span class="tag" id="kbTag">知识库加载中…</span>
+  <span style="flex:1"></span>
+  <label class="small"><input type="checkbox" id="compare" style="width:auto"> 对比纯LLM</label>
+</header>
+
+<div class="wrap">
+  <div id="chat"></div>
+
+  <div class="row" style="margin-top:12px">
+    <textarea id="q" rows="2" placeholder="输入问题，例如：报告期内来自军用领域的收入分别是多少？ Ctrl+Enter 发送"></textarea>
+  </div>
+  <div class="bar">
+    <button id="send">提问</button>
+    <button class="ghost" id="mic">🎤 语音</button>
+    <button class="ghost" id="clear">清空</button>
+    <span class="small" id="status"></span>
+  </div>
+
+  <div class="foot">工单编号：人工智能 NLP-RAG-基于 PDF 文档的问答系统优化</div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const chat = $('#chat');
+
+async function kbOverview(){
+  try{
+    const r = await fetch('/api/kb/overview').then(r=>r.json());
+    const d = r.data || {};
+    $('#kbTag').textContent = `知识库 ${d.chunks||0} 块 · 第${d.page_min||0}-${d.page_max||0}页 · ${d.dim||0}维`;
+  }catch(e){ $('#kbTag').textContent = '知识库未就绪'; }
+}
+kbOverview();
+
+function addMsg(role, html){
+  const el = document.createElement('div');
+  el.className = 'msg ' + role;
+  el.innerHTML = `<div class="avatar">${role==='user'?'🙋':'🤖'}</div><div class="bubble">${html}</div>`;
+  chat.appendChild(el);
+  window.scrollTo(0, document.body.scrollHeight);
+  return el.querySelector('.bubble');
+}
+
+function citeHtml(hits){
+  if(!hits || !hits.length) return '';
+  return '<div class="cite">📌 引用来源：' + hits.map(h=>{
+    const pg = h.page_end && h.page_end!==h.page ? `第${h.page}-${h.page_end}页` : `第${h.page}页`;
+    const sim = h.sim!=null ? h.sim.toFixed(3) : '-';
+    return `<details><summary>${pg} ${h.section?('· '+h.section):''} <span class="small">(相似度 ${sim})</span></summary>${(h.text||'').slice(0,500)}</details>`;
+  }).join('') + '</div>';
+}
+
+async function askRAGStream(q, bubble){
+  const resp = await fetch('/api/ask/stream', {method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({query:q})});
+  const reader = resp.body.getReader(); const dec = new TextDecoder();
+  let buf = '', text = '', meta = null, t0 = performance.now();
+  while(true){
+    const {value, done} = await reader.read(); if(done) break;
+    buf += dec.decode(value, {stream:true});
+    let i;
+    while((i = buf.indexOf('\n\n')) >= 0){
+      const chunk = buf.slice(0, i); buf = buf.slice(i+2);
+      if(!chunk.startsWith('data: ')) continue;
+      const ev = JSON.parse(chunk.slice(6));
+      if(ev.type === 'meta'){ meta = ev; }
+      else if(ev.type === 'delta'){ text += ev.text; bubble.innerHTML = text + '<div class="cite small">生成中…</div>'; window.scrollTo(0,document.body.scrollHeight); }
+    }
+  }
+  const ms = Math.round(performance.now()-t0);
+  let html = text;
+  const pills = [];
+  pills.push(`<span class="pill">${ms} ms</span>`);
+  if(meta && meta.confidence!=null) pills.push(`<span class="pill">置信度 ${Number(meta.confidence).toFixed(3)}</span>`);
+  if(meta && meta.refused) pills.push(`<span class="pill">已拒答</span>`);
+  if(meta && meta.query_understanding) pills.push(`<span class="pill">意图:${meta.query_understanding.intent}</span>`);
+  html += `<div class="bar">${pills.join('')}<button class="ghost" onclick="fb('${q.replace(/'/g,"")}','up')">👍</button><button class="ghost" onclick="fb('${q.replace(/'/g,"")}','down')">👎</button></div>`;
+  html += citeHtml(meta ? meta.hits : []);
+  bubble.innerHTML = html;
+}
+
+window.fb = async (q, v) => {
+  await fetch('/api/feedback', {method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({query:q, vote:v})});
+  $('#status').textContent = '已记录反馈，谢谢！';
+};
+
+async function send(){
+  const q = $('#q').value.trim(); if(!q) return;
+  $('#q').value = ''; addMsg('user', q);
+  const bubble = addMsg('bot', '<span class="small">检索中…</span>');
+  $('#status').textContent = '';
+  try{
+    if($('#compare').checked){
+      // 并排：RAG(流式) + 纯LLM
+      bubble.innerHTML = '<div class="cmp"><div class="card"><h4>🔍 RAG（检索增强）</h4><div id="ragOut" class="small">检索中…</div></div><div class="card"><h4>🧠 纯 LLM（不检索）</h4><div id="llmOut" class="small">生成中…</div></div></div>';
+      askRAGStream(q, $('#ragOut'));
+      fetch('/api/ask/llm', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({query:q})})
+        .then(r=>r.json()).then(r=>{ $('#llmOut').textContent = r.data.answer; });
+    }else{
+      await askRAGStream(q, bubble);
+    }
+  }catch(e){ bubble.innerHTML = '<span style="color:var(--bad)">出错：'+e+'</span>'; }
+}
+
+$('#send').onclick = send;
+$('#clear').onclick = () => chat.innerHTML = '';
+$('#q').addEventListener('keydown', e => { if(e.ctrlKey && e.key==='Enter') send(); });
+
+// 语音输入（Web Speech API；不支持则提示）
+$('#mic').onclick = () => {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ $('#status').textContent='当前浏览器不支持语音识别，请用文字输入'; return; }
+  const rec = new SR(); rec.lang='zh-CN'; rec.interimResults=false;
+  $('#status').textContent='🎙️ 正在听…';
+  rec.onresult = e => { $('#q').value = e.results[0][0].transcript; $('#status').textContent='识别完成'; };
+  rec.onerror = () => { $('#status').textContent='语音识别失败，请重试'; };
+  rec.start();
+};
+</script>
+</body>
+</html>

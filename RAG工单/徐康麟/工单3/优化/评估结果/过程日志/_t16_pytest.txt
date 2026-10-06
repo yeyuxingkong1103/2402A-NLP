@@ -1,0 +1,48 @@
+................................................F...................     [100%]
+================================== FAILURES ===================================
+___________ test_mandatory_negative_n1_partial_answer_must_be_wrong ___________
+
+    def test_mandatory_negative_n1_partial_answer_must_be_wrong() -> None:
+        """N-1：题 33 只答「82.10%」（缺 97.31/94.84/94.34）**必须判错**。
+    
+        ⚠️ 实测（2026-10-04，定稿代码）：无论走工单1 权威 Evaluator 还是本地副本，
+        该输入都被判**对** —— 因为 §2.1 第①步是**双向**子串判定，
+        「8210%」是参考答案（含四个比重）的子串，于是在第①步就放行了，
+        第②步「参考答案中的全部数值都要命中」根本没机会生效。
+    
+         ⚠️ 本用例**预期为红，且不得为了让测试转绿而删改** —— 它记录的是**判分尺子的已知特性**：
+    
+        * 现象：无论走工单1 权威 Evaluator 还是本地副本，``82.10%`` 都被判**对**
+          —— §2.1 第①步是**双向**子串判定，「8210%」是参考答案（含四个比重）的子串，
+          于是第①步就放行，第②步「参考答案中全部数值都要命中」根本没机会生效。
+        * captain 裁定（2026-10-04）：**判分器不修**。它是与工单2 基线**同口径**的尺子，
+          放宽/收紧都会让「优化前后对比」失去意义；尺子偏松对基线与本工单同等作用，不构成不公平。
+        * 兜底责任在**产品侧**：枚举型问题必须给全枚举（题 33 先给全 4 个比重），
+          由 ``assertions.ENUMERATED_QUESTIONS`` 的**要素齐备硬断言**把关
+          （见 ``测试/在线/test_t7_online_qa14.py::test_enumerated_answers_are_complete``），
+          **不得**依赖尺子漏放。
+        """
+        golden = ("报告期内，公司来自军用领域的收入占主营业务收入的比重分别为"
+                  "82.10%、97.31%、94.84%和94.34%。")
+        ok, reason, source = judge_local.judge("82.10%", golden)
+>       assert ok is False, (f"§2.1 负例 N-1 未生效：只答 82.10% 被判为**正确**（依据：{reason}）；"
+                             f"判分口径来源：{source}；根因：第①步双向子串判定先放行，"
+                             f"第②步的「全部数值命中」检查被跳过。"
+                             f"【性质】判分尺子已知特性 —— captain 裁定不修判分器，"
+                             f"产品侧以「枚举完整性自检」兜底")
+E       AssertionError: §2.1 负例 N-1 未生效：只答 82.10% 被判为**正确**（依据：答案为参考答案子串（忽略标点）（判分口径来源：工单1 权威 Evaluator 0.62））；判分口径来源：产品口径 app.core.evaluator_bridge；根因：第①步双向子串判定先放行，第②步的「全部数值命中」检查被跳过。【性质】判分尺子已知特性 —— captain 裁定不修判分器，产品侧以「枚举完整性自检」兜底
+E       assert True is False
+
+测试\离线\test_t7_offline_judge.py:61: AssertionError
+============================== warnings summary ===============================
+测试/离线/test_qa_engine.py::test_fallback_http
+  E:\gao6gongdan\工单1\.venv\Lib\site-packages\jieba\_compat.py:18: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+    import pkg_resources
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+---------------------------------- RAGAS 状态 -----------------------------------
+RAGAS 未运行（依赖不可用，本机断网）
+替代口径：确定性指标（14 题命中/准确率/引用可回溯/首字/拒答率）
+=========================== short test summary info ===========================
+FAILED 测试/离线/test_t7_offline_judge.py::test_mandatory_negative_n1_partial_answer_must_be_wrong
+1 failed, 67 passed, 1 warning in 30.86s

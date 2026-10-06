@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>智能咨询 - 法律客服助手</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/chat.css">
+</head>
+<body class="chat-body">
+  <main class="chat-app-shell">
+    <aside class="chat-sidebar" aria-label="会话与功能导航">
+      <section class="sidebar-brand">
+        <div class="brand-mark">法</div>
+        <div>
+          <strong>法助 RAG</strong>
+          <span>法律客服助手</span>
+        </div>
+      </section>
+
+      <button id="new-chat-button" class="new-chat-button" type="button">＋ 新建咨询</button>
+
+      <nav class="side-actions" aria-label="功能入口">
+        <a class="side-action active" href="./chat.html"><span>💬</span>智能咨询</a>
+        <a class="side-action" href="./knowledge-bases.html"><span>📄</span>知识库上传</a>
+        <a class="side-action" href="./profile.html"><span>🛡️</span>个人中心</a>
+        <a class="side-action" href="../index.html"><span>🏠</span>工作台首页</a>
+      </nav>
+
+      <section class="history-section">
+        <div class="history-header">
+          <span>历史对话</span>
+          <button id="clear-history-button" type="button">清空</button>
+        </div>
+        <div id="conversation-list" class="conversation-list" aria-label="历史对话列表"></div>
+      </section>
+
+      <section class="sidebar-footer">
+        <span class="online-dot"></span>
+        <div>
+          <strong>单端口联调</strong>
+          <small>8010 · guest-user</small>
+        </div>
+      </section>
+    </aside>
+
+    <section class="chat-workspace">
+      <header class="chat-header">
+        <div>
+          <p class="eyebrow">Legal Assistant</p>
+          <h1>智能法律咨询</h1>
+          <p id="disclaimer"></p>
+        </div>
+        <div class="header-tools">
+          <span class="tool-chip">引用校验</span>
+          <span class="tool-chip">知识库增强</span>
+          <span class="tool-chip">本地演示</span>
+        </div>
+      </header>
+
+      <section id="empty-state" class="chat-empty-state">
+        <div class="assistant-orb">⚖️</div>
+        <h2>今天想咨询什么法律问题？</h2>
+        <p>你可以先上传材料，再围绕合同、劳动、婚姻、侵权等问题提问。</p>
+        <div class="prompt-grid">
+          <button type="button" data-prompt="公司拖欠工资，我应该如何维权？">公司拖欠工资，我应该如何维权？</button>
+          <button type="button" data-prompt="合同里违约金约定过高，法院会怎么处理？">合同违约金过高怎么办？</button>
+          <button type="button" data-prompt="房屋租赁提前退租，押金可以退吗？">提前退租押金能退吗？</button>
+          <button type="button" data-prompt="交通事故对方全责，赔偿项目有哪些？">交通事故赔偿有哪些？</button>
+        </div>
+      </section>
+
+      <section id="message-list" class="message-list" aria-live="polite"></section>
+
+      <footer class="composer-shell">
+        <p id="chat-error" class="status-text" role="alert"></p>
+        <form id="chat-form" class="composer">
+          <textarea data-testid="chat-input" id="message-input" placeholder="输入你的问题，Shift + Enter 换行，Enter 发送" required></textarea>
+          <div class="composer-actions">
+            <button id="upload-link-button" class="ghost-button" type="button">上传材料</button>
+            <button class="send-button" data-testid="send-button" type="submit">发送</button>
+          </div>
+        </form>
+        <small>AI 回答仅供参考，具体案件请咨询专业律师。</small>
+      </footer>
+    </section>
+  </main>
+  <script type="module" src="../js/pages/chat.js"></script>
+</body>
+</html>

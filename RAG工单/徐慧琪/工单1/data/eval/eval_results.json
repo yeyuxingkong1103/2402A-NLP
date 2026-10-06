@@ -1,0 +1,355 @@
+{
+ "workorder": "人工智能NLP-RAG-基于PDF文档的问答系统",
+ "n_questions": 10,
+ "objective": {
+  "rows": [
+   {
+    "id": 260,
+    "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+    "rag_key_hit": 1.0,
+    "rag_refusal": false,
+    "rag_chars": 80,
+    "rag_total_s": 4.671,
+    "rag_ttft_s": 2.668,
+    "llm_key_hit": 0.0,
+    "llm_refusal": false,
+    "llm_chars": 3,
+    "llm_total_s": 1.23,
+    "llm_ttft_s": null
+   },
+   {
+    "id": 95,
+    "question": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+    "rag_key_hit": 0.5,
+    "rag_refusal": false,
+    "rag_chars": 61,
+    "rag_total_s": 2.281,
+    "rag_ttft_s": 1.492,
+    "llm_key_hit": 0.0,
+    "llm_refusal": false,
+    "llm_chars": 40,
+    "llm_total_s": 1.139,
+    "llm_ttft_s": null
+   },
+   {
+    "id": 33,
+    "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别是多少？",
+    "rag_key_hit": 1.0,
+    "rag_refusal": false,
+    "rag_chars": 75,
+    "rag_total_s": 2.066,
+    "rag_ttft_s": 1.143,
+    "llm_key_hit": 0.0,
+    "llm_refusal": false,
+    "llm_chars": 3,
+    "llm_total_s": 0.982,
+    "llm_ttft_s": null
+   },
+   {
+    "id": 34,
+    "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+    "rag_key_hit": 0.667,
+    "rag_refusal": false,
+    "rag_chars": 45,
+    "rag_total_s": 2.045,
+    "rag_ttft_s": 1.446,
+    "llm_key_hit": 0.333,
+    "llm_refusal": false,
+    "llm_chars": 9,
+    "llm_total_s": 1.037,
+    "llm_ttft_s": null
+   },
+   {
+    "id": 957,
+    "question": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+    "rag_key_hit": 0.5,
+    "rag_refusal": false,
+    "rag_chars": 34,
+    "rag_total_s": 2.057,
+    "rag_ttft_s": 1.518,
+    "llm_key_hit": 0.5,
+    "llm_refusal": false,
+    "llm_chars": 29,
+    "llm_total_s": 1.428,
+    "llm_ttft_s": null
+   },
+   {
+    "id": 793,
+    "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？",
+    "rag_key_hit": 1.0,
+    "rag_refusal": false,
+    "rag_chars": 46,
+    "rag_total_s": 1.976,
+    "rag_ttft_s": 1.367,
+    "llm_key_hit": 0.0,
+    "llm_refusal": false,
+    "llm_chars": 7,
+    "llm_total_s": 0.988,
+    "llm_ttft_s": null
+   },
+   {
+    "id": 795,
+    "question": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+    "rag_key_hit": 1.0,
+    "rag_refusal": false,
+    "rag_chars": 75,
+    "rag_total_s": 2.556,
+    "rag_ttft_s": 1.673,
+    "llm_key_hit": 0.0,
+    "llm_refusal": false,
+    "llm_chars": 41,
+    "llm_total_s": 1.184,
+    "llm_ttft_s": null
+   },
+   {
+    "id": 543,
+    "question": "武汉兴图新科电子股份有限公司注册资本是多少？",
+    "rag_key_hit": 1.0,
+    "rag_refusal": false,
+    "rag_chars": 23,
+    "rag_total_s": 2.149,
+    "rag_ttft_s": 1.665,
+    "llm_key_hit": 0.0,
+    "llm_refusal": false,
+    "llm_chars": 3,
+    "llm_total_s": 1.002,
+    "llm_ttft_s": null
+   },
+   {
+    "id": 531,
+    "question": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+    "rag_key_hit": 1.0,
+    "rag_refusal": false,
+    "rag_chars": 27,
+    "rag_total_s": 1.659,
+    "rag_ttft_s": 1.169,
+    "llm_key_hit": 0.0,
+    "llm_refusal": false,
+    "llm_chars": 3,
+    "llm_total_s": 0.97,
+    "llm_ttft_s": null
+   },
+   {
+    "id": 207,
+    "question": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+    "rag_key_hit": 1.0,
+    "rag_refusal": false,
+    "rag_chars": 35,
+    "rag_total_s": 1.858,
+    "rag_ttft_s": 1.265,
+    "llm_key_hit": 0.0,
+    "llm_refusal": false,
+    "llm_chars": 3,
+    "llm_total_s": 0.944,
+    "llm_ttft_s": null
+   }
+  ],
+  "summary": {
+   "rag": {
+    "关键事实命中率": 0.867,
+    "拒答率": 0,
+    "平均响应时间_s": 2.332,
+    "响应时间中位数_s": 2.061,
+    "≤3秒占比": 0.9,
+    "平均答案长度": 50.1
+   },
+   "llm": {
+    "关键事实命中率": 0.083,
+    "拒答率": 0,
+    "平均响应时间_s": 1.09,
+    "响应时间中位数_s": 1.019,
+    "≤3秒占比": 1,
+    "平均答案长度": 14.1
+   }
+  }
+ },
+ "ragas": {
+  "summary": {
+   "faithfulness": 0.433,
+   "faithfulness_有效样本": 10,
+   "answer_relevancy": 0.778,
+   "answer_relevancy_有效样本": 10,
+   "context_precision": 0.931,
+   "context_precision_有效样本": 10,
+   "context_recall": 0.94,
+   "context_recall_有效样本": 10
+  },
+  "per_question": [
+   {
+    "id": 260,
+    "faithfulness": 0.0,
+    "answer_relevancy": 0.926,
+    "context_precision": 1.0,
+    "context_recall": 1.0
+   },
+   {
+    "id": 95,
+    "faithfulness": 0.0,
+    "answer_relevancy": 0.726,
+    "context_precision": 1.0,
+    "context_recall": 0.4
+   },
+   {
+    "id": 33,
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.94,
+    "context_precision": 1.0,
+    "context_recall": 1.0
+   },
+   {
+    "id": 34,
+    "faithfulness": 0.5,
+    "answer_relevancy": 0.786,
+    "context_precision": 1.0,
+    "context_recall": 1.0
+   },
+   {
+    "id": 957,
+    "faithfulness": 0.5,
+    "answer_relevancy": 0.856,
+    "context_precision": 1.0,
+    "context_recall": 1.0
+   },
+   {
+    "id": 793,
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.617,
+    "context_precision": 1.0,
+    "context_recall": 1.0
+   },
+   {
+    "id": 795,
+    "faithfulness": 0.333,
+    "answer_relevancy": 0.631,
+    "context_precision": 0.71,
+    "context_recall": 1.0
+   },
+   {
+    "id": 543,
+    "faithfulness": 0.5,
+    "answer_relevancy": 0.656,
+    "context_precision": 0.867,
+    "context_recall": 1.0
+   },
+   {
+    "id": 531,
+    "faithfulness": 0.5,
+    "answer_relevancy": 0.987,
+    "context_precision": 0.733,
+    "context_recall": 1.0
+   },
+   {
+    "id": 207,
+    "faithfulness": 0.0,
+    "answer_relevancy": 0.658,
+    "context_precision": 1.0,
+    "context_recall": 1.0
+   }
+  ]
+ },
+ "judge": {
+  "rag": [
+   {
+    "id": 260,
+    "score": 1.0
+   },
+   {
+    "id": 95,
+    "score": 0.5
+   },
+   {
+    "id": 33,
+    "score": 1.0
+   },
+   {
+    "id": 34,
+    "score": 0.5
+   },
+   {
+    "id": 957,
+    "score": 1.0
+   },
+   {
+    "id": 793,
+    "score": 1.0
+   },
+   {
+    "id": 795,
+    "score": 0.5
+   },
+   {
+    "id": 543,
+    "score": 1.0
+   },
+   {
+    "id": 531,
+    "score": 1.0
+   },
+   {
+    "id": 207,
+    "score": 1.0
+   }
+  ],
+  "llm": [
+   {
+    "id": 260,
+    "score": 0.0
+   },
+   {
+    "id": 95,
+    "score": 0.0
+   },
+   {
+    "id": 33,
+    "score": 0.0
+   },
+   {
+    "id": 34,
+    "score": 0.5
+   },
+   {
+    "id": 957,
+    "score": 0.0
+   },
+   {
+    "id": 793,
+    "score": 0.0
+   },
+   {
+    "id": 795,
+    "score": 0.0
+   },
+   {
+    "id": 543,
+    "score": 0.0
+   },
+   {
+    "id": 531,
+    "score": 0.0
+   },
+   {
+    "id": 207,
+    "score": 0.0
+   }
+  ],
+  "summary": {
+   "rag": {
+    "平均准确性": 0.85,
+    "有效样本": 10,
+    "满分题数": 7
+   },
+   "llm": {
+    "平均准确性": 0.05,
+    "有效样本": 10,
+    "满分题数": 0
+   }
+  }
+ },
+ "config": {
+  "embedding": "D:\\model\\bge-m3",
+  "llm": "qwen2.5:3b",
+  "collection": "zhaogu_shuoming_shu",
+  "points": 1615,
+  "vector_db": "local"
+ }
+}

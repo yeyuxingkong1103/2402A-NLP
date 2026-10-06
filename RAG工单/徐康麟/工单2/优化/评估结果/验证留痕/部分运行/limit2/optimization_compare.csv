@@ -1,0 +1,29 @@
+section,key,question_id,metric,before,after,delta,note
+summary,ALL,,accuracy,0.5,0.5,0.0,确定性 check_answer，阈值 0.62 未放宽
+summary,ALL,,retrieval_hit_rate,1.0,1.0,0.0,最终上下文是否含证据块（基线 8 条上下文 / 优化后 5 条）
+summary,ALL,,evidence_rank1_rate,0.5,0.5,0.0,证据排在第 1 位的题数比例（含 Q95/Q207 替代判据）
+summary,ALL,,evidence_rank1_rate_strict,1.0,1.0,0.0,严格口径：只算有严格证据块的题（排除替代判据题 Q95/Q207），与 T6 §4.2.1 的基线口径同源
+summary,ALL,,vector_top5_hit_rate,0.2,0.0,-0.2,纯向量单路 top-5 命中（嵌入/索引层可比指标）
+summary,ALL,,vector_top20_hit_rate,0.4,0.0,-0.4,纯向量单路 top-20 命中
+summary,ALL,,first_token_avg_ms,11518.33,11.89,-11506.44,流式首块；优化后为预热后稳态
+summary,ALL,,first_token_p95_ms,57312.92,12.04,-57300.88,
+summary,ALL,,first_token_max_ms,57312.92,12.06,-57300.86,验收红线 ≤3000ms
+summary,ALL,,total_avg_ms,14186.86,1127.27,-13059.59,端到端均值
+summary,ALL,,citation_accuracy,1.0,1.0,0.0,"引用页 ∈ [1,548] 且可回查到真实 chunk"
+summary,ALL,,chunk_count,2967,1669,-1298,索引分块总数
+question,Q95,,is_correct,0,0,0,武汉兴图新科电子股份有限公司参与制定了哪个技术标准？
+question,Q95,,retrieval_rank,null,2,,证据在最终上下文中的位次
+question,Q95,,retrieval_hit,1,1,0,最终上下文是否含证据块
+question,Q95,,first_token_ms,5414.05,11.71,-5402.34,
+question,Q95,,total_ms,6427.26,166.65,-6260.61,
+question,Q95,,citation_pages,22,160|181|241|182|155,,
+question,Q95,,answer,[页码: 22] 未知。,参与制定了全军第一个视频指挥系统技术标准 [页码: 160],,完整答案文本
+question,Q95,,judge_reason,未命中：缺少数值 ['1'],未命中：缺少数值 ['1'],,判分理由
+question,Q260,,is_correct,1,1,0,报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？
+question,Q260,,retrieval_rank,1,1,0,证据在最终上下文中的位次
+question,Q260,,retrieval_hit,1,1,0,最终上下文是否含证据块
+question,Q260,,first_token_ms,1654.75,12.06,-1642.69,
+question,Q260,,total_ms,7326.81,2087.89,-5238.92,
+question,Q260,,citation_pages,129,129|130|343|394|4,,
+question,Q260,,answer,"[页码: 129] 6,464.51 万元、14,414.16 万元、18,780.67 万元和4,627.14 万元。","（1）行业和客户集中度高①行业集中度高的影响发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的收入分别为6,464.51 万元、14,414.16 万元、18,780.67 万元和4,627.14 万元，占主营业务收入比重分别为82.10%、97.31%、94.84%和94.34%。 [页码: 129]",,完整答案文本
+question,Q260,,judge_reason,金额全部命中(4个),参考答案为答案子串（忽略标点）,,判分理由

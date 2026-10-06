@@ -1,0 +1,80 @@
+================================================================================================
+【删前证据】user_sessions:pending
+================================================================================================
+  成员数：19   键 TTL：5557
+
+  逐个成员核对 session:<token> 是否存在（token                状态）：
+      -8UO8urNOdFjjopj0HlL   悬空（无 session 键）
+      -QHZmHam-btEL-z_K-y9   悬空（无 session 键）
+      7tuWqPpVhphBDiYDp9Nr   悬空（无 session 键）
+      GTQJ5VNbVAhceykSbXZ0   悬空（无 session 键）
+      HeDizcNM9C4EB4MkNUK7   悬空（无 session 键）
+      IR70pE0w6iGXd_f9sE1P   悬空（无 session 键）
+      UKyOsCZOEg3cq75f3zrE   悬空（无 session 键）
+      X1EphxipcsISJ0PyesiS   悬空（无 session 键）
+      boTbKFYp7PtLL6GSeJ4l   悬空（无 session 键）
+      dVMM0-YvJSFWVS2Og9u4   悬空（无 session 键）
+      ejsfh0ZCHJFrfOH1N-xL   悬空（无 session 键）
+      gyaBCVHaVkz-VwdRSTFA   悬空（无 session 键）
+      pWzK_0qoxEg8NhfMUa9T   悬空（无 session 键）
+      rowayiyh0wbUfjEXxh2b   悬空（无 session 键）
+      ubi-i7eUGSMvqnO1CtdT   悬空（无 session 键）
+      vTkvQWsQSgsuo4oh-Mh1   悬空（无 session 键）
+      wljSXWhQKshHCzAe2DNw   悬空（无 session 键）
+      xT1rpRHrf0PZYW6azrJc   悬空（无 session 键）
+      zyMj_RlrvqajA4lcyxlP   悬空（无 session 键）
+
+  小结：悬空 19 / 有对应会话 0 / 共 19
+
+================================================================================================
+【执行删除】仅 srem 这 19 个悬空成员到 user_sessions:pending（不触碰其他任何键）
+================================================================================================
+  SREM 返回（实际移除数）：19
+
+================================================================================================
+【删后复核】
+================================================================================================
+  user_sessions:pending 是否仍存在：False
+      集合已空 → Redis 自动回收该键（无残留空集合）
+
+  全库 key 总数（DBSIZE）：32
+  SCAN 可见 key 数：32
+  TTL 分布：
+      4h+（15261s）            2 个
+      4h+（15455s）            2 个
+      5h+（19586s）            2 个
+      5h+（19610s）            2 个
+      4h+（15262s）            2 个
+      4h+（15533s）            2 个
+      4h+（17275s）            1 个
+      5h+（19217s）            1 个
+      5h+（19053s）            1 个
+      5h+（19445s）            1 个
+      5h+（19348s）            1 个
+      5h+（19275s）            1 个
+      4h+（17259s）            1 个
+      4h+（17792s）            1 个
+      5h+（18478s）            1 个
+      4h+（17659s）            1 个
+      4h+（17940s）            1 个
+      5h+（19531s）            1 个
+      5h+（18430s）            1 个
+      4h+（17125s）            1 个
+      5h+（18294s）            1 个
+      5h+（19145s）            1 个
+      5h+（18632s）            1 个
+      5h+（19381s）            1 个
+      5h+（19092s）            1 个
+      5h+（18207s）            1 个
+  TTL=-1（永不过期）的键：无
+  按前缀归类：
+      session:*                    28 个
+      user_sessions:*              4 个
+
+================================================================================================
+【其他 user_sessions:* 未被改动复核】
+================================================================================================
+  user_sessions:cef5c9236e4456b1f51586e45f21a36f   成员=23   悬空=0    TTL=19586
+  user_sessions:f8d8b20fd973c6564176e9aeb7412a17   成员=3    悬空=0    TTL=19610
+  user_sessions:probe-admin-0001                   成员=1    悬空=0    TTL=15533
+  user_sessions:probe-user-0001                    成员=1    悬空=0    TTL=15533

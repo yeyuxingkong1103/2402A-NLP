@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAG 角色扮演系统</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="app">
+    <!-- 左侧边栏 -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">🎭 RAG 角色扮演</div>
+        <div class="subtitle">基于检索增强生成的智能对话</div>
+      </div>
+
+      <!-- 角色选择 -->
+      <section class="sidebar-section">
+        <h3 class="section-title">当前角色</h3>
+        <select id="roleSelect" class="select">
+          <option value="">— 不使用角色（通用助手）—</option>
+        </select>
+        <div id="roleInfo" class="role-info hidden"></div>
+      </section>
+
+      <!-- 会话管理 -->
+      <section class="sidebar-section">
+        <h3 class="section-title">会话</h3>
+        <div class="session-box">
+          <span class="session-label">Session ID</span>
+          <span id="sessionId" class="session-id" title="点击复制">—</span>
+        </div>
+        <div class="btn-row">
+          <button id="newSessionBtn" class="btn btn-ghost">🆕 新会话</button>
+          <button id="clearSessionBtn" class="btn btn-ghost">🧹 清空记忆</button>
+        </div>
+      </section>
+
+      <!-- 创建角色 -->
+      <section class="sidebar-section">
+        <h3 class="section-title">
+          创建角色
+          <button id="toggleRoleForm" class="btn btn-mini" type="button">＋</button>
+        </h3>
+        <form id="roleCreateForm" class="role-form hidden">
+          <label class="form-label">角色类型</label>
+          <select id="roleTypeSelect" class="select"></select>
+
+          <label class="form-label">角色 ID（唯一标识）</label>
+          <input id="newRoleId" class="input" type="text" placeholder="如 doc-002" required>
+
+          <label class="form-label">角色名称（可选）</label>
+          <input id="newRoleName" class="input" type="text" placeholder="如 王医生">
+
+          <label class="form-label">自定义提示词（可选）</label>
+          <textarea id="newRolePrompt" class="input textarea" rows="3" placeholder="留空则使用默认模板"></textarea>
+
+          <button type="submit" class="btn btn-primary btn-block">创建角色</button>
+          <div id="roleFormMsg" class="form-msg hidden"></div>
+        </form>
+      </section>
+
+      <div class="sidebar-footer">
+        <span id="healthDot" class="health-dot"></span>
+        <span id="healthText" class="health-text">连接中…</span>
+      </div>
+    </aside>
+
+    <!-- 主聊天区 -->
+    <main class="chat-area">
+      <header class="chat-header">
+        <div class="chat-title">
+          <h1 id="chatTitle">通用助手</h1>
+          <p id="chatSubtitle">你可以向我提问，我会基于知识库检索回答并标注来源</p>
+        </div>
+      </header>
+
+      <div id="messages" class="messages">
+        <div class="welcome">
+          <div class="welcome-icon">💬</div>
+          <h2>欢迎使用 RAG 角色扮演系统</h2>
+          <p>在左侧选择一个角色，然后在下方输入你的问题。</p>
+          <p class="welcome-hint">回答会基于知识库（Milvus 检索）生成，并附带参考来源。</p>
+        </div>
+      </div>
+
+      <div class="input-area">
+        <div class="input-wrap">
+          <textarea id="messageInput" class="message-input" rows="1" placeholder="输入你的问题…（Enter 发送，Shift+Enter 换行）"></textarea>
+          <button id="sendBtn" class="btn btn-send" title="发送">➤</button>
+        </div>
+        <div class="input-hint">答案由大模型生成，仅供参考；医疗/法律等专业问题请咨询专业人士。</div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

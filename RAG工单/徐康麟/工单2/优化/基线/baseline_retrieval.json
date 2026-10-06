@@ -1,0 +1,4009 @@
+{
+  "meta": {
+    "工单": "人工智能NLP-RAG-基于PDF文档的问答系统优化",
+    "阶段": "优化 / 基线采集（T6 前置校准）",
+    "generated_at": "2026-10-02T21:11:27",
+    "corpus": "E:\\gao6gongdan\\工单1\\data\\processed\\chunks.jsonl",
+    "chunk_count": 2967,
+    "index": "E:\\gao6gongdan\\工单1\\data\\index\\vectors.npy",
+    "index_shape": [
+      2967,
+      512
+    ],
+    "embedder": "bge-small-zh-v1.5（本地目录，512 维，L2 归一化，查询未加检索指令前缀）",
+    "embedder_verified_by": "对拍 chunk0/100/1500/2500/2966：cos(重编码, vectors.npy 对应行) = 1.0000",
+    "query_encoding": "raw question，与工单1 Retriever.retrieve -> embedder.encode_one 一致",
+    "hit_definition_loose": "归一化后 evidence 前 80 字是某个 chunk 的子串",
+    "hit_definition_strict": "归一化后整段 evidence 是**同一个** chunk 的子串",
+    "hit_definition_sentence": "evidence 按 [。；\\n] 切分（去空白后长度>=8），每个小句都能在某个 chunk 中被完整找到",
+    "normalization_A_ws": "删除所有空白字符（含全角空格）",
+    "normalization_B_punct": "再删除工单1 evaluator.PUNCT_TO_STRIP 的中英文标点（判分同款）",
+    "判据声明": "命中 = golden evidence 原文落在 chunk 内容中；**不得**用「引用页 == evidence_pages」判定",
+    "文件口径": "★ 索引级候选：本文件只回答「证据原文是否存在于 2967 块的语料/向量索引中、纯向量检索把它排到第几名」。**不含**流水线最终返回的上下文；流水线口径见 `baseline_repro_retrieval.json`（最终上下文 = 8 条 chunk）。两者不可混用。",
+    "向量检索配置（基线）": "vector_top_k=10, bm25_top_k=10, fusion_top_k=20, rerank_top_n=8, vector_weight=0.6, bm25_weight=0.4（见工单1 app/core/config.py）",
+    "reproduce_cmd": "pwsh -NoProfile -File run_py.ps1 优化/脚本/calibrate_baseline_retrieval.py",
+    "elapsed_s": 19.06
+  },
+  "summary": {
+    "A_ws": {
+      "loose_prefix80": {
+        "any_hit": {
+          "hit_count": 8,
+          "hit_rate": 0.8,
+          "total": 10,
+          "question_ids": [
+            33,
+            34,
+            95,
+            260,
+            531,
+            543,
+            793,
+            795
+          ]
+        },
+        "top1": {
+          "hit_count": 1,
+          "hit_rate": 0.1,
+          "total": 10,
+          "question_ids": [
+            531
+          ]
+        },
+        "top3": {
+          "hit_count": 2,
+          "hit_rate": 0.2,
+          "total": 10,
+          "question_ids": [
+            531,
+            543
+          ]
+        },
+        "top5": {
+          "hit_count": 2,
+          "hit_rate": 0.2,
+          "total": 10,
+          "question_ids": [
+            531,
+            543
+          ]
+        },
+        "top10": {
+          "hit_count": 2,
+          "hit_rate": 0.2,
+          "total": 10,
+          "question_ids": [
+            531,
+            543
+          ]
+        },
+        "top20": {
+          "hit_count": 4,
+          "hit_rate": 0.4,
+          "total": 10,
+          "question_ids": [
+            531,
+            543,
+            793,
+            795
+          ]
+        }
+      },
+      "strict_full_evidence": {
+        "any_hit": {
+          "hit_count": 6,
+          "hit_rate": 0.6,
+          "total": 10,
+          "question_ids": [
+            33,
+            34,
+            260,
+            531,
+            543,
+            793
+          ]
+        },
+        "top1": {
+          "hit_count": 1,
+          "hit_rate": 0.1,
+          "total": 10,
+          "question_ids": [
+            531
+          ]
+        },
+        "top3": {
+          "hit_count": 2,
+          "hit_rate": 0.2,
+          "total": 10,
+          "question_ids": [
+            531,
+            543
+          ]
+        },
+        "top5": {
+          "hit_count": 2,
+          "hit_rate": 0.2,
+          "total": 10,
+          "question_ids": [
+            531,
+            543
+          ]
+        },
+        "top10": {
+          "hit_count": 2,
+          "hit_rate": 0.2,
+          "total": 10,
+          "question_ids": [
+            531,
+            543
+          ]
+        },
+        "top20": {
+          "hit_count": 3,
+          "hit_rate": 0.3,
+          "total": 10,
+          "question_ids": [
+            531,
+            543,
+            793
+          ]
+        }
+      },
+      "sentence_level_all_located": {
+        "hit_count": 8,
+        "hit_rate": 0.8,
+        "total": 10,
+        "question_ids": [
+          33,
+          34,
+          260,
+          531,
+          543,
+          793,
+          795,
+          957
+        ]
+      },
+      "有效命中_排除无区分度与泛匹配": {
+        "loose_prefix80": {
+          "any_hit": {
+            "hit_count": 6,
+            "hit_rate": 0.75,
+            "total": 8,
+            "question_ids": [
+              33,
+              34,
+              95,
+              260,
+              793,
+              795
+            ]
+          },
+          "top1": {
+            "hit_count": 0,
+            "hit_rate": 0.0,
+            "total": 8,
+            "question_ids": []
+          },
+          "top3": {
+            "hit_count": 0,
+            "hit_rate": 0.0,
+            "total": 8,
+            "question_ids": []
+          },
+          "top5": {
+            "hit_count": 0,
+            "hit_rate": 0.0,
+            "total": 8,
+            "question_ids": []
+          },
+          "top10": {
+            "hit_count": 0,
+            "hit_rate": 0.0,
+            "total": 8,
+            "question_ids": []
+          },
+          "top20": {
+            "hit_count": 2,
+            "hit_rate": 0.25,
+            "total": 8,
+            "question_ids": [
+              793,
+              795
+            ]
+          }
+        },
+        "strict_full_evidence": {
+          "any_hit": {
+            "hit_count": 4,
+            "hit_rate": 0.5,
+            "total": 8,
+            "question_ids": [
+              33,
+              34,
+              260,
+              793
+            ]
+          },
+          "top1": {
+            "hit_count": 0,
+            "hit_rate": 0.0,
+            "total": 8,
+            "question_ids": []
+          },
+          "top3": {
+            "hit_count": 0,
+            "hit_rate": 0.0,
+            "total": 8,
+            "question_ids": []
+          },
+          "top5": {
+            "hit_count": 0,
+            "hit_rate": 0.0,
+            "total": 8,
+            "question_ids": []
+          },
+          "top10": {
+            "hit_count": 0,
+            "hit_rate": 0.0,
+            "total": 8,
+            "question_ids": []
+          },
+          "top20": {
+            "hit_count": 1,
+            "hit_rate": 0.125,
+            "total": 8,
+            "question_ids": [
+              793
+            ]
+          }
+        },
+        "sentence_level_all_located": {
+          "hit_count": 6,
+          "hit_rate": 0.75,
+          "total": 8,
+          "question_ids": [
+            33,
+            34,
+            260,
+            793,
+            795,
+            957
+          ]
+        }
+      },
+      "有效命中_排除题目与原因": {
+        "531": "evidence 仅 8 字样板行，命中 7 个 chunk，无区分度",
+        "543": "evidence 含换行「法定代表人：程家明 / 注册资本：5,520 万元」，而 chunk c000265 中两行被 PDF 解析器无分隔并接，属样板行跨字段泛匹配"
+      }
+    },
+    "B_punct": {
+      "loose_prefix80": {
+        "any_hit": {
+          "hit_count": 9,
+          "hit_rate": 0.9,
+          "total": 10,
+          "question_ids": [
+            33,
+            34,
+            95,
+            260,
+            531,
+            543,
+            793,
+            795,
+            957
+          ]
+        },
+        "top1": {
+          "hit_count": 1,
+          "hit_rate": 0.1,
+          "total": 10,
+          "question_ids": [
+            531
+          ]
+        },
+        "top3": {
+          "hit_count": 2,
+          "hit_rate": 0.2,
+          "total": 10,
+          "question_ids": [
+            531,
+            543
+          ]
+        },
+        "top5": {
+          "hit_count": 2,
+          "hit_rate": 0.2,
+          "total": 10,
+          "question_ids": [
+            531,
+            543
+          ]
+        },
+        "top10": {
+          "hit_count": 2,
+          "hit_rate": 0.2,
+          "total": 10,
+          "question_ids": [
+            531,
+            543
+          ]
+        },
+        "top20": {
+          "hit_count": 4,
+          "hit_rate": 0.4,
+          "total": 10,
+          "question_ids": [
+            531,
+            543,
+            793,
+            795
+          ]
+        }
+      },
+      "strict_full_evidence": {
+        "any_hit": {
+          "hit_count": 8,
+          "hit_rate": 0.8,
+          "total": 10,
+          "question_ids": [
+            33,
+            34,
+            260,
+            531,
+            543,
+            793,
+            795,
+            957
+          ]
+        },
+        "top1": {
+          "hit_count": 1,
+          "hit_rate": 0.1,
+          "total": 10,
+          "question_ids": [
+            531
+          ]
+        },
+        "top3": {
+          "hit_count": 2,
+          "hit_rate": 0.2,
+          "total": 10,
+          "question_ids": [
+            531,
+            543
+          ]
+        },
+        "top5": {
+          "hit_count": 2,
+          "hit_rate": 0.2,
+          "total": 10,
+          "question_ids": [
+            531,
+            543
+          ]
+        },
+        "top10": {
+          "hit_count": 2,
+          "hit_rate": 0.2,
+          "total": 10,
+          "question_ids": [
+            531,
+            543
+          ]
+        },
+        "top20": {
+          "hit_count": 4,
+          "hit_rate": 0.4,
+          "total": 10,
+          "question_ids": [
+            531,
+            543,
+            793,
+            795
+          ]
+        }
+      },
+      "sentence_level_all_located": {
+        "hit_count": 8,
+        "hit_rate": 0.8,
+        "total": 10,
+        "question_ids": [
+          33,
+          34,
+          260,
+          531,
+          543,
+          793,
+          795,
+          957
+        ]
+      },
+      "有效命中_排除无区分度与泛匹配": {
+        "loose_prefix80": {
+          "any_hit": {
+            "hit_count": 7,
+            "hit_rate": 0.875,
+            "total": 8,
+            "question_ids": [
+              33,
+              34,
+              95,
+              260,
+              793,
+              795,
+              957
+            ]
+          },
+          "top1": {
+            "hit_count": 0,
+            "hit_rate": 0.0,
+            "total": 8,
+            "question_ids": []
+          },
+          "top3": {
+            "hit_count": 0,
+            "hit_rate": 0.0,
+            "total": 8,
+            "question_ids": []
+          },
+          "top5": {
+            "hit_count": 0,
+            "hit_rate": 0.0,
+            "total": 8,
+            "question_ids": []
+          },
+          "top10": {
+            "hit_count": 0,
+            "hit_rate": 0.0,
+            "total": 8,
+            "question_ids": []
+          },
+          "top20": {
+            "hit_count": 2,
+            "hit_rate": 0.25,
+            "total": 8,
+            "question_ids": [
+              793,
+              795
+            ]
+          }
+        },
+        "strict_full_evidence": {
+          "any_hit": {
+            "hit_count": 6,
+            "hit_rate": 0.75,
+            "total": 8,
+            "question_ids": [
+              33,
+              34,
+              260,
+              793,
+              795,
+              957
+            ]
+          },
+          "top1": {
+            "hit_count": 0,
+            "hit_rate": 0.0,
+            "total": 8,
+            "question_ids": []
+          },
+          "top3": {
+            "hit_count": 0,
+            "hit_rate": 0.0,
+            "total": 8,
+            "question_ids": []
+          },
+          "top5": {
+            "hit_count": 0,
+            "hit_rate": 0.0,
+            "total": 8,
+            "question_ids": []
+          },
+          "top10": {
+            "hit_count": 0,
+            "hit_rate": 0.0,
+            "total": 8,
+            "question_ids": []
+          },
+          "top20": {
+            "hit_count": 2,
+            "hit_rate": 0.25,
+            "total": 8,
+            "question_ids": [
+              793,
+              795
+            ]
+          }
+        },
+        "sentence_level_all_located": {
+          "hit_count": 6,
+          "hit_rate": 0.75,
+          "total": 8,
+          "question_ids": [
+            33,
+            34,
+            260,
+            793,
+            795,
+            957
+          ]
+        }
+      },
+      "有效命中_排除题目与原因": {
+        "531": "evidence 仅 8 字样板行，命中 7 个 chunk，无区分度",
+        "543": "evidence 含换行「法定代表人：程家明 / 注册资本：5,520 万元」，而 chunk c000265 中两行被 PDF 解析器无分隔并接，属样板行跨字段泛匹配"
+      }
+    }
+  },
+  "检索命中率_任务口径": {
+    "口径定义": "把 golden `evidence` 的前 80 字（归一化后）作为串，判定其是否完整落在某个 chunk 内；命中排名 = 含该串的 chunk 中**向量排名最靠前**者的位次。",
+    "归一化A_仅去空白": {
+      "判定": "删除所有空白字符后做子串匹配（最严格字面）",
+      "top5": {
+        "hit_count": 2,
+        "hit_rate": 0.2,
+        "total": 10,
+        "question_ids": [
+          531,
+          543
+        ]
+      },
+      "top20": {
+        "hit_count": 4,
+        "hit_rate": 0.4,
+        "total": 10,
+        "question_ids": [
+          531,
+          543,
+          793,
+          795
+        ]
+      },
+      "逐题": [
+        {
+          "question_id": 33,
+          "top5_hit": false,
+          "top20_hit": false,
+          "best_rank": 22,
+          "hit_chunk_ids": [
+            "c000619"
+          ],
+          "hit_pages": [
+            129
+          ]
+        },
+        {
+          "question_id": 34,
+          "top5_hit": false,
+          "top20_hit": false,
+          "best_rank": 37,
+          "hit_chunk_ids": [
+            "c000712"
+          ],
+          "hit_pages": [
+            152
+          ]
+        },
+        {
+          "question_id": 95,
+          "top5_hit": false,
+          "top20_hit": false,
+          "best_rank": 71,
+          "hit_chunk_ids": [
+            "c000740"
+          ],
+          "hit_pages": [
+            160
+          ]
+        },
+        {
+          "question_id": 207,
+          "top5_hit": false,
+          "top20_hit": false,
+          "best_rank": null,
+          "hit_chunk_ids": [],
+          "hit_pages": []
+        },
+        {
+          "question_id": 260,
+          "top5_hit": false,
+          "top20_hit": false,
+          "best_rank": 32,
+          "hit_chunk_ids": [
+            "c000619"
+          ],
+          "hit_pages": [
+            129
+          ]
+        },
+        {
+          "question_id": 531,
+          "top5_hit": true,
+          "top20_hit": true,
+          "best_rank": 1,
+          "hit_chunk_ids": [
+            "c000265"
+          ],
+          "hit_pages": [
+            52
+          ]
+        },
+        {
+          "question_id": 543,
+          "top5_hit": true,
+          "top20_hit": true,
+          "best_rank": 2,
+          "hit_chunk_ids": [
+            "c000265"
+          ],
+          "hit_pages": [
+            52
+          ]
+        },
+        {
+          "question_id": 793,
+          "top5_hit": false,
+          "top20_hit": true,
+          "best_rank": 15,
+          "hit_chunk_ids": [
+            "c000712"
+          ],
+          "hit_pages": [
+            152
+          ]
+        },
+        {
+          "question_id": 795,
+          "top5_hit": false,
+          "top20_hit": true,
+          "best_rank": 12,
+          "hit_chunk_ids": [
+            "c001250",
+            "c000821",
+            "c000829"
+          ],
+          "hit_pages": [
+            241,
+            181,
+            182,
+            155,
+            27
+          ]
+        },
+        {
+          "question_id": 957,
+          "top5_hit": false,
+          "top20_hit": false,
+          "best_rank": null,
+          "hit_chunk_ids": [],
+          "hit_pages": []
+        }
+      ]
+    },
+    "归一化B_去空白与标点": {
+      "判定": "再删除工单1 evaluator.PUNCT_TO_STRIP 的中英文标点（判分同款）",
+      "top5": {
+        "hit_count": 2,
+        "hit_rate": 0.2,
+        "total": 10,
+        "question_ids": [
+          531,
+          543
+        ]
+      },
+      "top20": {
+        "hit_count": 4,
+        "hit_rate": 0.4,
+        "total": 10,
+        "question_ids": [
+          531,
+          543,
+          793,
+          795
+        ]
+      },
+      "逐题": [
+        {
+          "question_id": 33,
+          "top5_hit": false,
+          "top20_hit": false,
+          "best_rank": 22,
+          "hit_chunk_ids": [
+            "c000619"
+          ],
+          "hit_pages": [
+            129
+          ]
+        },
+        {
+          "question_id": 34,
+          "top5_hit": false,
+          "top20_hit": false,
+          "best_rank": 37,
+          "hit_chunk_ids": [
+            "c000712"
+          ],
+          "hit_pages": [
+            152
+          ]
+        },
+        {
+          "question_id": 95,
+          "top5_hit": false,
+          "top20_hit": false,
+          "best_rank": 71,
+          "hit_chunk_ids": [
+            "c000740"
+          ],
+          "hit_pages": [
+            160
+          ]
+        },
+        {
+          "question_id": 207,
+          "top5_hit": false,
+          "top20_hit": false,
+          "best_rank": null,
+          "hit_chunk_ids": [],
+          "hit_pages": []
+        },
+        {
+          "question_id": 260,
+          "top5_hit": false,
+          "top20_hit": false,
+          "best_rank": 32,
+          "hit_chunk_ids": [
+            "c000619"
+          ],
+          "hit_pages": [
+            129
+          ]
+        },
+        {
+          "question_id": 531,
+          "top5_hit": true,
+          "top20_hit": true,
+          "best_rank": 1,
+          "hit_chunk_ids": [
+            "c000265",
+            "c000354",
+            "c001307"
+          ],
+          "hit_pages": [
+            52,
+            68,
+            253,
+            63,
+            22
+          ]
+        },
+        {
+          "question_id": 543,
+          "top5_hit": true,
+          "top20_hit": true,
+          "best_rank": 2,
+          "hit_chunk_ids": [
+            "c000265"
+          ],
+          "hit_pages": [
+            52
+          ]
+        },
+        {
+          "question_id": 793,
+          "top5_hit": false,
+          "top20_hit": true,
+          "best_rank": 15,
+          "hit_chunk_ids": [
+            "c000712"
+          ],
+          "hit_pages": [
+            152
+          ]
+        },
+        {
+          "question_id": 795,
+          "top5_hit": false,
+          "top20_hit": true,
+          "best_rank": 12,
+          "hit_chunk_ids": [
+            "c001250",
+            "c000821",
+            "c000829"
+          ],
+          "hit_pages": [
+            241,
+            181,
+            182,
+            155,
+            27
+          ]
+        },
+        {
+          "question_id": 957,
+          "top5_hit": false,
+          "top20_hit": false,
+          "best_rank": 23,
+          "hit_chunk_ids": [
+            "c000137",
+            "c000721"
+          ],
+          "hit_pages": [
+            26,
+            154
+          ]
+        }
+      ]
+    },
+    "与 环境事实.md §4.1 初版的差异（如实记录）": {
+      "原述": "向量检索 top-5 命中率仅 1/10；Q543「未进 top20」",
+      "本次实测": "top-5 = 2/10、top-20 = 4/10；Q543 的严格命中块 `c000265`(p52) 位于**第 2 名**",
+      "差异原因": "原述遗漏了 Q543 的严格命中块（`c000265` 正文含「法定代表人：程家明注册资本：5,520 万元」连续串，Q531 与 Q543 共用该块）。现已由 captain 在 §4.1.2 更正，且与 tester 的独立复算一致。"
+    },
+    "敏感性附注": "若只保留「有区分度」的题（剔除 Q531 的 8 字样板行、Q543 的样板行泛匹配），则为 top-1 0/8、top-5 0/8、top-10 0/8、top-20 2/8（793、795）——仅作附注，非主口径。"
+  },
+  "traps": {
+    "Q531_无区分度": {
+      "说明": "evidence 仅 8 字样板行；命中块过多则无区分度，不得用于论证检索改进",
+      "evidence": "法定代表人：程家明",
+      "命中块(B_punct)": [
+        [
+          "c000109",
+          22
+        ],
+        [
+          "c000265",
+          52
+        ],
+        [
+          "c000328",
+          63
+        ],
+        [
+          "c000334",
+          64
+        ],
+        [
+          "c000354",
+          68
+        ],
+        [
+          "c001307",
+          253
+        ],
+        [
+          "c001314",
+          254
+        ]
+      ]
+    },
+    "Q207_合成引用文本": {
+      "说明": "evidence 字段含括注「（第479页…表同载明…）」，属合成文本，非 PDF 原文；需改用替代判据",
+      "命中块(B_punct)全段": [],
+      "替代判据_含补充流动资金且含15000的块": [
+        [
+          "c000151",
+          30
+        ],
+        [
+          "c000152",
+          30
+        ],
+        [
+          "c002666",
+          479
+        ],
+        [
+          "c002667",
+          479
+        ],
+        [
+          "c002668",
+          479
+        ],
+        [
+          "c002669",
+          479
+        ],
+        [
+          "c002715",
+          490
+        ]
+      ],
+      "替代判据说明": "金额 15,000.00 万元（归一去标点后含 15000）+ 来源页 ∈ {479,490}"
+    },
+    "Q95_省略号": {
+      "说明": "evidence 以「……」结尾，属省略号，两种归一化下整段均不可能完整命中",
+      "evidence_tail": "北京大学共同制定……",
+      "前缀块(B_punct)": [
+        [
+          "c000141",
+          27
+        ],
+        [
+          "c000531",
+          95
+        ],
+        [
+          "c000723",
+          155
+        ],
+        [
+          "c000740",
+          160
+        ],
+        [
+          "c000829",
+          182
+        ],
+        [
+          "c001250",
+          241
+        ]
+      ]
+    }
+  },
+  "per_question": [
+    {
+      "question_id": 33,
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别是多少？",
+      "category": "收入占比",
+      "evidence_pages_in_golden": [
+        129
+      ],
+      "evidence_len_chars": 109,
+      "evidence_text": "报告期内，公司来自军用领域的收入分别为6,464.51 万元、14,414.16 万元、18,780.67 万元和4,627.14 万元，占主营业务收入比重分别为82.10%、97.31%、94.84%和94.34%。",
+      "variants": {
+        "A_ws": {
+          "evidence_len_normalized": 105,
+          "loose_prefix80": {
+            "hit": true,
+            "chunk_ids": [
+              "c000619"
+            ],
+            "pages": [
+              129
+            ],
+            "best_rank": 22,
+            "best_cosine": 0.6686,
+            "count": 1,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "strict_full_evidence": {
+            "hit": true,
+            "chunk_ids": [
+              "c000619"
+            ],
+            "pages": [
+              129
+            ],
+            "best_rank": 22,
+            "best_cosine": 0.6686,
+            "count": 1,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "sentence_level": {
+            "sentence_count": 1,
+            "located_count": 1,
+            "all_located": true,
+            "best_ranks": [
+              22
+            ],
+            "pages": [
+              [
+                129
+              ]
+            ]
+          }
+        },
+        "B_punct": {
+          "evidence_len_normalized": 86,
+          "loose_prefix80": {
+            "hit": true,
+            "chunk_ids": [
+              "c000619"
+            ],
+            "pages": [
+              129
+            ],
+            "best_rank": 22,
+            "best_cosine": 0.6686,
+            "count": 1,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "strict_full_evidence": {
+            "hit": true,
+            "chunk_ids": [
+              "c000619"
+            ],
+            "pages": [
+              129
+            ],
+            "best_rank": 22,
+            "best_cosine": 0.6686,
+            "count": 1,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "sentence_level": {
+            "sentence_count": 1,
+            "located_count": 1,
+            "all_located": true,
+            "best_ranks": [
+              22
+            ],
+            "pages": [
+              [
+                129
+              ]
+            ]
+          }
+        }
+      },
+      "max_evidence_run_chars": 86,
+      "evidence_fully_covered_by_one_chunk_ratio": 1.0,
+      "retrieval_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "c000624",
+          "page": 131,
+          "cosine": 0.758,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "100.00% 兴图新科军品销售用户覆盖总部机关、多数军种和战区单位，其中，军种销售收入占比较高，报告期各期占主营业务收"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c002167",
+          "page": 394,
+          "cosine": 0.7368,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "13.91% 兴图新科2016-2018 年累计研发投入占营业收入比重为13.91%，高于武汉市本地可比上市公司平均水平"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c002069",
+          "page": 378,
+          "cosine": 0.7091,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "75.69% 报告期内，公司来自直接军方的销售收入分别为3,433.34 万元、6,277.49 万元、5,611.52"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c002160",
+          "page": 393,
+          "cosine": 0.7054,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "13.91% 可比上市公司2016-2018年度研发费用占营业收入比重平均水平略高于兴图新科同期研发费用占比。其主要原因"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c000848",
+          "page": 186,
+          "cosine": 0.7025,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "100.00% 报告期内，公司直接军方销售占比不断下降，间接军方销售占比不断提升， 主要原因是：一是军方信息化建设步伐加"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c002092",
+          "page": 382,
+          "cosine": 0.6992,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "由上表可知，兴图新科的可比公司主要为面向国防和市政领域的电子系统产品提供商，由于应用领域与侧重方面不尽相同，使得各财务比"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c000044",
+          "page": 10,
+          "cosine": 0.6922,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2019 年1-9 月，公司实现营业收入6,823.86 万元，较上年同期增长37.89%， 收入规模的增长主要受下半年"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c000341",
+          "page": 65,
+          "cosine": 0.6904,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "390.72 净资产 -1,970.35 -1,855.11 净利润 -115.24 -481.47 注：财务数据已经天"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "c000274",
+          "page": 54,
+          "cosine": 0.6904,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2011 年1 月13 日，兴图新科有限全体股东签署了《武汉兴图新科电子股份 有限公司发起人协议》，同意将公司整体变更设"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "c000625",
+          "page": 131,
+          "cosine": 0.6874,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "53.23%、77.12%。从细分角度看，报告期内各完整年度总部机关、单个军种、 单个战区销售收入占比均不超过主营业务收"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "c001371",
+          "page": 264,
+          "cosine": 0.6832,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "37.34 万元、90.92 万元、47.40 万元，占兴图新科当年原材料采购比例分别为4.40%、"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "c000621",
+          "page": 130,
+          "cosine": 0.6822,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "80.83%和89.72%。国防领域的客户集中属于行业特征，国防信息化产品的总体 采购金额取决于军队的建设计划和执行情况"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "c000265",
+          "page": 52,
+          "cosine": 0.6813,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "一、发行人的基本情况 公司名称：武汉兴图新科电子股份有限公司英文名称：Wuhan Xingtu Xinke Electr"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "c000114",
+          "page": 22,
+          "cosine": 0.6805,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "[表格 p22_t1] 第 22 页 | 中文名称 | 武汉兴图新科电子股份有限公司 | 有限公司成立日 期 | 200"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "c001372",
+          "page": 264,
+          "cosine": 0.6788,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "1.06%、2.70%、3.39%，各年份占比均较低，对原材料采购金额影响较小，对兴 图新科盈利能力不存在重大影响。"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "c001243",
+          "page": 239,
+          "cosine": 0.6773,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "11.80 万元、13.08 万元，略低于行业水平但差距不断缩小，而且，具体来看，除 烽火通信外，兴图新科研发人员薪酬水"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "c002184",
+          "page": 397,
+          "cosine": 0.6754,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "11.80 万元、13.08 万元，略低于行业水平但差距不断缩小，而且，具体来看，除 烽火通信外，兴图新科研发人员薪酬水"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "c001238",
+          "page": 238,
+          "cosine": 0.674,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "23.30 万元，高于同期兴图新科研发人员平均薪酬。 主要原因是： ①公司仍处于快速发展阶段，公司已经集中大量资源投入研"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "c001503",
+          "page": 283,
+          "cosine": 0.6735,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2019 年1-9 月，公司实现营业收入6,823.86 万元，较上年同期增长37.89%， 收入规模的增长主要受下半年"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "c002181",
+          "page": 397,
+          "cosine": 0.6734,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "程家明先生将自己股份转让给相关人员的议案》，公司实际控制人程家明将其持有的兴图投资公司134.15 万元股份转让给30 "
+        }
+      ]
+    },
+    {
+      "question_id": 34,
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+      "category": "上下游",
+      "evidence_pages_in_golden": [
+        152
+      ],
+      "evidence_len_chars": 104,
+      "evidence_text": "1、行业上下游情况\n电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、机柜等金属壳体制造企业，竞争充分，采购便利。下游行业为各类终端用户，覆盖范围广泛，主要包括军队、政府机关、能源等行业企业。",
+      "variants": {
+        "A_ws": {
+          "evidence_len_normalized": 103,
+          "loose_prefix80": {
+            "hit": true,
+            "chunk_ids": [
+              "c000712"
+            ],
+            "pages": [
+              152
+            ],
+            "best_rank": 37,
+            "best_cosine": 0.6522,
+            "count": 1,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "strict_full_evidence": {
+            "hit": true,
+            "chunk_ids": [
+              "c000712"
+            ],
+            "pages": [
+              152
+            ],
+            "best_rank": 37,
+            "best_cosine": 0.6522,
+            "count": 1,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "sentence_level": {
+            "sentence_count": 3,
+            "located_count": 3,
+            "all_located": true,
+            "best_ranks": [
+              37,
+              37,
+              37
+            ],
+            "pages": [
+              [
+                152
+              ],
+              [
+                152
+              ],
+              [
+                152
+              ]
+            ]
+          }
+        },
+        "B_punct": {
+          "evidence_len_normalized": 92,
+          "loose_prefix80": {
+            "hit": true,
+            "chunk_ids": [
+              "c000712"
+            ],
+            "pages": [
+              152
+            ],
+            "best_rank": 37,
+            "best_cosine": 0.6522,
+            "count": 1,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "strict_full_evidence": {
+            "hit": true,
+            "chunk_ids": [
+              "c000712"
+            ],
+            "pages": [
+              152
+            ],
+            "best_rank": 37,
+            "best_cosine": 0.6522,
+            "count": 1,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "sentence_level": {
+            "sentence_count": 3,
+            "located_count": 3,
+            "all_located": true,
+            "best_ranks": [
+              37,
+              37,
+              37
+            ],
+            "pages": [
+              [
+                152
+              ],
+              [
+                152
+              ],
+              [
+                152
+              ]
+            ]
+          }
+        }
+      },
+      "max_evidence_run_chars": 92,
+      "evidence_fully_covered_by_one_chunk_ratio": 1.0,
+      "retrieval_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "c000088",
+          "page": 18,
+          "cosine": 0.7762,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "一、基本用语 发行人、兴图新科、 本公司、公司武汉兴图新科电子股份有限公司本招股意向书、招股意向书武汉兴图新科电子股份有"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c000293",
+          "page": 57,
+          "cosine": 0.7677,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2018 年4 月16 日，华汇创投与杜成城签订了《关于武汉兴图新科电子股份"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c002958",
+          "page": 541,
+          "cosine": 0.7601,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "声明本人已认真阅读武汉兴图新科电子股份有限公司招股意向书的全部内容，确认招股意向书不存在虚假记载、误导性陈述或重大遗漏，"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c000265",
+          "page": 52,
+          "cosine": 0.7588,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "一、发行人的基本情况 公司名称：武汉兴图新科电子股份有限公司英文名称：Wuhan Xingtu Xinke Electr"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c002941",
+          "page": 532,
+          "cosine": 0.7535,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2021.5.24 武汉兴图新科电子股份有限公司招商银行武汉分行 1,000.00"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c000107",
+          "page": 22,
+          "cosine": 0.7464,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（一）发行人基本情况 中文名称武汉兴图新科电子股份有限公司有限公司成立日"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c000092",
+          "page": 18,
+          "cosine": 0.7351,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "[表格 p18_t1] 第 18 页 | 发行人、兴图新科、 本公司、公司 | 指 | 武汉兴图新科电子股份有限公司 |"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c000114",
+          "page": 22,
+          "cosine": 0.7312,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "[表格 p22_t1] 第 22 页 | 中文名称 | 武汉兴图新科电子股份有限公司 | 有限公司成立日 期 | 200"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "c000001",
+          "page": 1,
+          "cosine": 0.7306,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "武汉兴图新科电子股份有限公司 Wuhan Xingtu Xinke Electronics Co.,Ltd. （湖北省武"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "c002962",
+          "page": 545,
+          "cosine": 0.7279,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "七、验资机构声明 本所及签字注册会计师已阅读《武汉兴图新科电子股份有限公司首次公开发行股票并在科创板上市招股意向书》（以"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "c002966",
+          "page": 547,
+          "cosine": 0.7277,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "1、发行人：武汉兴图新科电子股份有限公司 办公地址：湖北省武汉市东湖新技术开发区关山大道1 号软件产业三期A3 栋8 层"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "c002963",
+          "page": 546,
+          "cosine": 0.713,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "八、验资复核机构声明 本所及签字注册会计师已阅读《武汉兴图新科电子股份有限公司首次公开发行股票并在科创板上市招股意向书》"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "c000267",
+          "page": 52,
+          "cosine": 0.7127,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "1、兴图新科有限的设立 公司前身为武汉兴图新科电子有限公司，由程家明和陈爱民于2004 年6 月"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "c002960",
+          "page": 543,
+          "cosine": 0.7117,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "五、会计师事务所声明 本所及签字注册会计师已阅读《武汉兴图新科电子股份有限公司首次公开发行股票并在科创板上市招股意向书》"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "c000314",
+          "page": 61,
+          "cosine": 0.71,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "六、发行人分公司、控股子公司和参股公司情况 截至本招股意向书签署日，发行人拥有4 家全资子公司，其中兴图天建拥有"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "c000321",
+          "page": 62,
+          "cosine": 0.7054,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（3）兴图天建武汉分公司 兴图天建武汉分公司基本情况如下： 公司名称湖北兴图天建科技有限公司武汉分公司公司类型有限责任公"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "c000292",
+          "page": 57,
+          "cosine": 0.6968,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2018 年4 月16 日，华汇创投与杜成城签订了《武汉兴图新科电子股份有限 公司股份转让协议》，约定将所持有的150 "
+        },
+        {
+          "rank": 18,
+          "chunk_id": "c000093",
+          "page": 19,
+          "cosine": 0.6967,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "烽火通信烽火通信科技股份有限公司，上市公司中国证监会、证监中国证券监督管理委员会科创板上海证券交易所科创板股东（大）会武"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "c002598",
+          "page": 469,
+          "cosine": 0.6955,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "武汉兴图投资有限公司（以下简称兴图投资公司）自成立以来，发生的股权转让情况如下： 时间出让方受让方转让出资额 （万元） "
+        },
+        {
+          "rank": 20,
+          "chunk_id": "c000310",
+          "page": 60,
+          "cosine": 0.6924,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（一）股权结构图 截至本招股意向书签署之日，兴图新科股权结构如下： 程家明兴图新科兴图天建武汉启目华创兴图北京启目"
+        }
+      ]
+    },
+    {
+      "question_id": 95,
+      "question": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+      "category": "技术标准",
+      "evidence_pages_in_golden": [
+        160
+      ],
+      "evidence_len_chars": 112,
+      "evidence_text": "公司目前已经成为军队视频指挥领域的重要供应商，参与制定了全军第一个视频指挥系统技术标准（即2019年制订的《某视频指挥系统技术规范（1.0版）》）。该技术标准由军事科学院牵头，联合数据通信科学技术研究所、北京大学共同制定……",
+      "variants": {
+        "A_ws": {
+          "evidence_len_normalized": 112,
+          "loose_prefix80": {
+            "hit": true,
+            "chunk_ids": [
+              "c000740"
+            ],
+            "pages": [
+              160
+            ],
+            "best_rank": 71,
+            "best_cosine": 0.6079,
+            "count": 1,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "strict_full_evidence": {
+            "hit": false,
+            "chunk_ids": [],
+            "pages": [],
+            "best_rank": null,
+            "count": 0,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "sentence_level": {
+            "sentence_count": 2,
+            "located_count": 1,
+            "all_located": false,
+            "best_ranks": [
+              71,
+              null
+            ],
+            "pages": [
+              [
+                160
+              ],
+              []
+            ]
+          }
+        },
+        "B_punct": {
+          "evidence_len_normalized": 101,
+          "loose_prefix80": {
+            "hit": true,
+            "chunk_ids": [
+              "c000740"
+            ],
+            "pages": [
+              160
+            ],
+            "best_rank": 71,
+            "best_cosine": 0.6079,
+            "count": 1,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "strict_full_evidence": {
+            "hit": false,
+            "chunk_ids": [],
+            "pages": [],
+            "best_rank": null,
+            "count": 0,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "sentence_level": {
+            "sentence_count": 2,
+            "located_count": 1,
+            "all_located": false,
+            "best_ranks": [
+              71,
+              null
+            ],
+            "pages": [
+              [
+                160
+              ],
+              []
+            ]
+          }
+        }
+      },
+      "max_evidence_run_chars": 99,
+      "evidence_fully_covered_by_one_chunk_ratio": 0.98,
+      "retrieval_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "c000114",
+          "page": 22,
+          "cosine": 0.739,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "[表格 p22_t1] 第 22 页 | 中文名称 | 武汉兴图新科电子股份有限公司 | 有限公司成立日 期 | 200"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c000107",
+          "page": 22,
+          "cosine": 0.7264,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（一）发行人基本情况 中文名称武汉兴图新科电子股份有限公司有限公司成立日"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c000265",
+          "page": 52,
+          "cosine": 0.7179,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "一、发行人的基本情况 公司名称：武汉兴图新科电子股份有限公司英文名称：Wuhan Xingtu Xinke Electr"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c000267",
+          "page": 52,
+          "cosine": 0.7128,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "1、兴图新科有限的设立 公司前身为武汉兴图新科电子有限公司，由程家明和陈爱民于2004 年6 月"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c000293",
+          "page": 57,
+          "cosine": 0.6913,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2018 年4 月16 日，华汇创投与杜成城签订了《关于武汉兴图新科电子股份"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c000730",
+          "page": 157,
+          "cosine": 0.6836,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2019 年8 月15 日，湖北技术交易所组织专家组对兴图新科的科研成果进行 评定，并出具的《科技成果评价报告》（鄂技交"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c002966",
+          "page": 547,
+          "cosine": 0.6804,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "1、发行人：武汉兴图新科电子股份有限公司 办公地址：湖北省武汉市东湖新技术开发区关山大道1 号软件产业三期A3 栋8 层"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c000269",
+          "page": 53,
+          "cosine": 0.6772,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2004 年6 月17 日，兴图新科有限取得武汉市工商行政管理局核发的注册号 为4201002178049《企业法人营业"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "c000819",
+          "page": 180,
+          "cosine": 0.6694,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2019 年8 月15 日，湖北技术交易所组织专家组对兴图新科的科研成果进行 评定，并出具的《科技成果评价报告》（鄂技交"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "c000001",
+          "page": 1,
+          "cosine": 0.668,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "武汉兴图新科电子股份有限公司 Wuhan Xingtu Xinke Electronics Co.,Ltd. （湖北省武"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "c000088",
+          "page": 18,
+          "cosine": 0.6647,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "一、基本用语 发行人、兴图新科、 本公司、公司武汉兴图新科电子股份有限公司本招股意向书、招股意向书武汉兴图新科电子股份有"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "c000641",
+          "page": 135,
+          "cosine": 0.6622,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "1、公司所处行业的界定 按照国家统计局2017 年修订的《国民经济行业分类与代码》 （GB/T4754-2017），兴图"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "c002888",
+          "page": 526,
+          "cosine": 0.6616,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "发行人验资机构承诺：“因本所为武汉兴图新科电子股份有限公司首次公开发行股票并在科创板上市制作、出具的文件有虚假记载、误导"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "c002092",
+          "page": 382,
+          "cosine": 0.6605,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "由上表可知，兴图新科的可比公司主要为面向国防和市政领域的电子系统产品提供商，由于应用领域与侧重方面不尽相同，使得各财务比"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "c000828",
+          "page": 182,
+          "cosine": 0.6575,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2、根据《上海证券交易所科创板企业上市推荐指引》第三条的规定，兴图 新科属于优先推荐的企业"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "c000326",
+          "page": 62,
+          "cosine": 0.6559,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "[表格 p62_t3] 第 62 页 |  | 公司名称 |  | 湖北兴图天建科技有限公司武汉分公司 |  | | -"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "c002167",
+          "page": 394,
+          "cosine": 0.6539,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "13.91% 兴图新科2016-2018 年累计研发投入占营业收入比重为13.91%，高于武汉市本地可比上市公司平均水平"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "c000274",
+          "page": 54,
+          "cosine": 0.6524,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2011 年1 月13 日，兴图新科有限全体股东签署了《武汉兴图新科电子股份 有限公司发起人协议》，同意将公司整体变更设"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "c002958",
+          "page": 541,
+          "cosine": 0.6516,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "声明本人已认真阅读武汉兴图新科电子股份有限公司招股意向书的全部内容，确认招股意向书不存在虚假记载、误导性陈述或重大遗漏，"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "c000738",
+          "page": 159,
+          "cosine": 0.6495,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "根据总体单位、军方用户出具的证明文件，民营企业兴图新科是该工程网络化视频指挥系统的唯一参与者，但未能列入获奖名单。 b."
+        }
+      ]
+    },
+    {
+      "question_id": 207,
+      "question": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+      "category": "募资用途",
+      "evidence_pages_in_golden": [
+        30,
+        479
+      ],
+      "evidence_len_chars": 145,
+      "evidence_text": "八、募集资金用途：本次发行并上市的募集资金扣除发行费用后，将投资于以下项目：序号1 基于云联邦架构的军用视频指挥平台升级及产业化项目；序号2 研发中心建设项目；序号3 补充流动资金 15,000.00万元。（第479页“本次发行募集资金运用计划”表同载明补充流动资金15,000.00万元）",
+      "variants": {
+        "A_ws": {
+          "evidence_len_normalized": 141,
+          "loose_prefix80": {
+            "hit": false,
+            "chunk_ids": [],
+            "pages": [],
+            "best_rank": null,
+            "count": 0,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "strict_full_evidence": {
+            "hit": false,
+            "chunk_ids": [],
+            "pages": [],
+            "best_rank": null,
+            "count": 0,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "sentence_level": {
+            "sentence_count": 4,
+            "located_count": 0,
+            "all_located": false,
+            "best_ranks": [
+              null,
+              null,
+              null,
+              null
+            ],
+            "pages": [
+              [],
+              [],
+              [],
+              []
+            ]
+          }
+        },
+        "B_punct": {
+          "evidence_len_normalized": 126,
+          "loose_prefix80": {
+            "hit": false,
+            "chunk_ids": [],
+            "pages": [],
+            "best_rank": null,
+            "count": 0,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "strict_full_evidence": {
+            "hit": false,
+            "chunk_ids": [],
+            "pages": [],
+            "best_rank": null,
+            "count": 0,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "sentence_level": {
+            "sentence_count": 4,
+            "located_count": 0,
+            "all_located": false,
+            "best_ranks": [
+              null,
+              null,
+              null,
+              null
+            ],
+            "pages": [
+              [],
+              [],
+              [],
+              []
+            ]
+          }
+        }
+      },
+      "max_evidence_run_chars": 36,
+      "evidence_fully_covered_by_one_chunk_ratio": 0.286,
+      "retrieval_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "c002715",
+          "page": 490,
+          "cosine": 0.7552,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "1、项目概况 为满足公司业务发展和新产品研发等对营运资金的需求，增强公司抗风险能力，公司在满足上述募集资金投资项目资金需"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c002673",
+          "page": 481,
+          "cosine": 0.7311,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "公司于2019 年第三次临时股东大会审议通过了《武汉兴图新科电子股份有限公司募集资金使用管理办法》，对于募集资金使用管理"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c000274",
+          "page": 54,
+          "cosine": 0.7094,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2011 年1 月13 日，兴图新科有限全体股东签署了《武汉兴图新科电子股份 有限公司发起人协议》，同意将公司整体变更设"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c000297",
+          "page": 58,
+          "cosine": 0.7044,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "1、现金补偿金额：（11.48 元/股-6 亿元/兴图新科增资后总股本）*150 万股 *50%；"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c000265",
+          "page": 52,
+          "cosine": 0.6881,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "一、发行人的基本情况 公司名称：武汉兴图新科电子股份有限公司英文名称：Wuhan Xingtu Xinke Electr"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c000107",
+          "page": 22,
+          "cosine": 0.6869,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（一）发行人基本情况 中文名称武汉兴图新科电子股份有限公司有限公司成立日"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c002720",
+          "page": 491,
+          "cosine": 0.685,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "3、补充流动资金的管理运营安排 公司将用于补充流动资金的募集资金存放于董事会决定的募集资金专户集中管理，其存放、使用、变"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c002598",
+          "page": 469,
+          "cosine": 0.6804,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "武汉兴图投资有限公司（以下简称兴图投资公司）自成立以来，发生的股权转让情况如下： 时间出让方受让方转让出资额 （万元） "
+        },
+        {
+          "rank": 9,
+          "chunk_id": "c002596",
+          "page": 468,
+          "cosine": 0.6756,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2019 年6 月末，资本公积较上年末增加21.65 万元，由向员工实施股权激励 所致，以下为公司股权激励具体实施情况："
+        },
+        {
+          "rank": 10,
+          "chunk_id": "c002566",
+          "page": 461,
+          "cosine": 0.6734,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "0.00 结清往来款注：金额为“+”表示兴图投资资金流入，金额为“-”表示兴图投资资金流出。 2015年3月10日，程家"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "c002941",
+          "page": 532,
+          "cosine": 0.6698,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2021.5.24 武汉兴图新科电子股份有限公司招商银行武汉分行 1,000.00"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "c002878",
+          "page": 522,
+          "cosine": 0.666,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（六）利润分配政策的承诺 发行人承诺将严格遵守上市后适用的《武汉兴图新科电子股份有限公司章程》、发行人第三届董事会第十四"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "c002558",
+          "page": 460,
+          "cosine": 0.664,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "万元；在银行借款到账后，兴图新科分别于2016 年12 月9 日、2016 年12 月12 日利用银行借款800.00 "
+        },
+        {
+          "rank": 14,
+          "chunk_id": "c002548",
+          "page": 458,
+          "cosine": 0.6636,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2016 年9 月和11 月，兴图投资分三次将合计1,030.00 万元资金拆借给公司 用于流动资金支付，其中2016 "
+        },
+        {
+          "rank": 15,
+          "chunk_id": "c002684",
+          "page": 484,
+          "cosine": 0.6621,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "得直接或间接用于新股配售、申购，或用于投资股票及其衍生品种、可转换公司债券等。 补充流动资金到期之前，上市公司应将该部分"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "c002551",
+          "page": 459,
+          "cosine": 0.6621,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "万元，2016 年11 月16 日拆出1,000.00 万元。 兴图投资向公司拆出的资金中，2016 年9 月拆借的30"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "c002556",
+          "page": 459,
+          "cosine": 0.6609,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2016 年12 月9 日，兴图新科向汉口银行股份有限公司借入短期借款1,000.00"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "c002940",
+          "page": 532,
+          "cosine": 0.6608,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2020.2.17 武汉兴图新科电子股份有限公司汉口银行科技金融服务中心 1,468.96"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "c002559",
+          "page": 460,
+          "cosine": 0.6606,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "150.00 万元和675.00 万元；2017 年2 月8 日公司利用日常运营资金向兴图投资 归还拆入资金5.00 万"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "c000151",
+          "page": 30,
+          "cosine": 0.6587,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "八、募集资金用途 本次发行并上市的募集资金扣除发行费用后，将投资于以下项目： 序号项目名称项目总投资（万元） 募集资金投"
+        }
+      ]
+    },
+    {
+      "question_id": 260,
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "category": "收入金额",
+      "evidence_pages_in_golden": [
+        129
+      ],
+      "evidence_len_chars": 128,
+      "evidence_text": "发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的收入分别为6,464.51 万元、14,414.16 万元、18,780.67 万元和4,627.14 万元，占主营业务收入比重分别为82.10%、97.31%、94.84%和94.34%。",
+      "variants": {
+        "A_ws": {
+          "evidence_len_normalized": 124,
+          "loose_prefix80": {
+            "hit": true,
+            "chunk_ids": [
+              "c000619"
+            ],
+            "pages": [
+              129
+            ],
+            "best_rank": 32,
+            "best_cosine": 0.6506,
+            "count": 1,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "strict_full_evidence": {
+            "hit": true,
+            "chunk_ids": [
+              "c000619"
+            ],
+            "pages": [
+              129
+            ],
+            "best_rank": 32,
+            "best_cosine": 0.6506,
+            "count": 1,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "sentence_level": {
+            "sentence_count": 1,
+            "located_count": 1,
+            "all_located": true,
+            "best_ranks": [
+              32
+            ],
+            "pages": [
+              [
+                129
+              ]
+            ]
+          }
+        },
+        "B_punct": {
+          "evidence_len_normalized": 104,
+          "loose_prefix80": {
+            "hit": true,
+            "chunk_ids": [
+              "c000619"
+            ],
+            "pages": [
+              129
+            ],
+            "best_rank": 32,
+            "best_cosine": 0.6506,
+            "count": 1,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "strict_full_evidence": {
+            "hit": true,
+            "chunk_ids": [
+              "c000619"
+            ],
+            "pages": [
+              129
+            ],
+            "best_rank": 32,
+            "best_cosine": 0.6506,
+            "count": 1,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "sentence_level": {
+            "sentence_count": 1,
+            "located_count": 1,
+            "all_located": true,
+            "best_ranks": [
+              32
+            ],
+            "pages": [
+              [
+                129
+              ]
+            ]
+          }
+        }
+      },
+      "max_evidence_run_chars": 104,
+      "evidence_fully_covered_by_one_chunk_ratio": 1.0,
+      "retrieval_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "c000624",
+          "page": 131,
+          "cosine": 0.7404,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "100.00% 兴图新科军品销售用户覆盖总部机关、多数军种和战区单位，其中，军种销售收入占比较高，报告期各期占主营业务收"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c002167",
+          "page": 394,
+          "cosine": 0.7344,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "13.91% 兴图新科2016-2018 年累计研发投入占营业收入比重为13.91%，高于武汉市本地可比上市公司平均水平"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c002069",
+          "page": 378,
+          "cosine": 0.7162,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "75.69% 报告期内，公司来自直接军方的销售收入分别为3,433.34 万元、6,277.49 万元、5,611.52"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c000265",
+          "page": 52,
+          "cosine": 0.7038,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "一、发行人的基本情况 公司名称：武汉兴图新科电子股份有限公司英文名称：Wuhan Xingtu Xinke Electr"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c000341",
+          "page": 65,
+          "cosine": 0.702,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "390.72 净资产 -1,970.35 -1,855.11 净利润 -115.24 -481.47 注：财务数据已经天"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c001238",
+          "page": 238,
+          "cosine": 0.7017,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "23.30 万元，高于同期兴图新科研发人员平均薪酬。 主要原因是： ①公司仍处于快速发展阶段，公司已经集中大量资源投入研"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c002184",
+          "page": 397,
+          "cosine": 0.6987,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "11.80 万元、13.08 万元，略低于行业水平但差距不断缩小，而且，具体来看，除 烽火通信外，兴图新科研发人员薪酬水"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c000114",
+          "page": 22,
+          "cosine": 0.6969,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "[表格 p22_t1] 第 22 页 | 中文名称 | 武汉兴图新科电子股份有限公司 | 有限公司成立日 期 | 200"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "c000107",
+          "page": 22,
+          "cosine": 0.6958,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（一）发行人基本情况 中文名称武汉兴图新科电子股份有限公司有限公司成立日"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "c001243",
+          "page": 239,
+          "cosine": 0.6929,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "11.80 万元、13.08 万元，略低于行业水平但差距不断缩小，而且，具体来看，除 烽火通信外，兴图新科研发人员薪酬水"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "c000848",
+          "page": 186,
+          "cosine": 0.692,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "100.00% 报告期内，公司直接军方销售占比不断下降，间接军方销售占比不断提升， 主要原因是：一是军方信息化建设步伐加"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "c000274",
+          "page": 54,
+          "cosine": 0.6894,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2011 年1 月13 日，兴图新科有限全体股东签署了《武汉兴图新科电子股份 有限公司发起人协议》，同意将公司整体变更设"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "c002181",
+          "page": 397,
+          "cosine": 0.6788,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "程家明先生将自己股份转让给相关人员的议案》，公司实际控制人程家明将其持有的兴图投资公司134.15 万元股份转让给30 "
+        },
+        {
+          "rank": 14,
+          "chunk_id": "c000293",
+          "page": 57,
+          "cosine": 0.6786,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2018 年4 月16 日，华汇创投与杜成城签订了《关于武汉兴图新科电子股份"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "c001371",
+          "page": 264,
+          "cosine": 0.6753,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "37.34 万元、90.92 万元、47.40 万元，占兴图新科当年原材料采购比例分别为4.40%、"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "c002941",
+          "page": 532,
+          "cosine": 0.6737,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2021.5.24 武汉兴图新科电子股份有限公司招商银行武汉分行 1,000.00"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "c002171",
+          "page": 395,
+          "cosine": 0.6705,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "21.01%和26.41%，总体高于兴图新科研发费用率水平。研发费用率水平受到公 司研发人员薪酬支出影响较大，人员薪酬水"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "c002178",
+          "page": 396,
+          "cosine": 0.6704,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "内持续增长，在武汉地区具有较强竞争力。 ①略低于同行业平均薪酬的原因报告期内，公司研发人员平均薪酬略低于同行业上市公司水"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "c000621",
+          "page": 130,
+          "cosine": 0.6686,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "80.83%和89.72%。国防领域的客户集中属于行业特征，国防信息化产品的总体 采购金额取决于军队的建设计划和执行情况"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "c000044",
+          "page": 10,
+          "cosine": 0.6681,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2019 年1-9 月，公司实现营业收入6,823.86 万元，较上年同期增长37.89%， 收入规模的增长主要受下半年"
+        }
+      ]
+    },
+    {
+      "question_id": 531,
+      "question": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+      "category": "法定代表人",
+      "evidence_pages_in_golden": [
+        22
+      ],
+      "evidence_len_chars": 9,
+      "evidence_text": "法定代表人：程家明",
+      "variants": {
+        "A_ws": {
+          "evidence_len_normalized": 9,
+          "loose_prefix80": {
+            "hit": true,
+            "chunk_ids": [
+              "c000265"
+            ],
+            "pages": [
+              52
+            ],
+            "best_rank": 1,
+            "best_cosine": 0.7916,
+            "count": 1,
+            "top1": true,
+            "top3": true,
+            "top5": true,
+            "top10": true,
+            "top20": true
+          },
+          "strict_full_evidence": {
+            "hit": true,
+            "chunk_ids": [
+              "c000265"
+            ],
+            "pages": [
+              52
+            ],
+            "best_rank": 1,
+            "best_cosine": 0.7916,
+            "count": 1,
+            "top1": true,
+            "top3": true,
+            "top5": true,
+            "top10": true,
+            "top20": true
+          },
+          "sentence_level": {
+            "sentence_count": 1,
+            "located_count": 1,
+            "all_located": true,
+            "best_ranks": [
+              1
+            ],
+            "pages": [
+              [
+                52
+              ]
+            ]
+          }
+        },
+        "B_punct": {
+          "evidence_len_normalized": 8,
+          "loose_prefix80": {
+            "hit": true,
+            "chunk_ids": [
+              "c000265",
+              "c000354",
+              "c001307",
+              "c000328",
+              "c000109",
+              "c000334",
+              "c001314"
+            ],
+            "pages": [
+              52,
+              68,
+              253,
+              63,
+              22,
+              64,
+              254
+            ],
+            "best_rank": 1,
+            "best_cosine": 0.7916,
+            "count": 7,
+            "top1": true,
+            "top3": true,
+            "top5": true,
+            "top10": true,
+            "top20": true
+          },
+          "strict_full_evidence": {
+            "hit": true,
+            "chunk_ids": [
+              "c000265",
+              "c000354",
+              "c001307",
+              "c000328",
+              "c000109",
+              "c000334",
+              "c001314"
+            ],
+            "pages": [
+              52,
+              68,
+              253,
+              63,
+              22,
+              64,
+              254
+            ],
+            "best_rank": 1,
+            "best_cosine": 0.7916,
+            "count": 7,
+            "top1": true,
+            "top3": true,
+            "top5": true,
+            "top10": true,
+            "top20": true
+          },
+          "sentence_level": {
+            "sentence_count": 1,
+            "located_count": 1,
+            "all_located": true,
+            "best_ranks": [
+              1
+            ],
+            "pages": [
+              [
+                22,
+                52,
+                63,
+                64,
+                68,
+                253,
+                254
+              ]
+            ]
+          }
+        }
+      },
+      "max_evidence_run_chars": 8,
+      "evidence_fully_covered_by_one_chunk_ratio": 1.0,
+      "retrieval_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "c000265",
+          "page": 52,
+          "cosine": 0.7916,
+          "loose_hit_B": true,
+          "strict_hit_B": true,
+          "preview": "一、发行人的基本情况 公司名称：武汉兴图新科电子股份有限公司英文名称：Wuhan Xingtu Xinke Electr"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c000107",
+          "page": 22,
+          "cosine": 0.7895,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（一）发行人基本情况 中文名称武汉兴图新科电子股份有限公司有限公司成立日"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c000114",
+          "page": 22,
+          "cosine": 0.7768,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "[表格 p22_t1] 第 22 页 | 中文名称 | 武汉兴图新科电子股份有限公司 | 有限公司成立日 期 | 200"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c000267",
+          "page": 52,
+          "cosine": 0.7373,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "1、兴图新科有限的设立 公司前身为武汉兴图新科电子有限公司，由程家明和陈爱民于2004 年6 月"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c000269",
+          "page": 53,
+          "cosine": 0.7309,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2004 年6 月17 日，兴图新科有限取得武汉市工商行政管理局核发的注册号 为4201002178049《企业法人营业"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c000274",
+          "page": 54,
+          "cosine": 0.7086,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2011 年1 月13 日，兴图新科有限全体股东签署了《武汉兴图新科电子股份 有限公司发起人协议》，同意将公司整体变更设"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c000293",
+          "page": 57,
+          "cosine": 0.7069,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2018 年4 月16 日，华汇创投与杜成城签订了《关于武汉兴图新科电子股份"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c002958",
+          "page": 541,
+          "cosine": 0.7054,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "声明本人已认真阅读武汉兴图新科电子股份有限公司招股意向书的全部内容，确认招股意向书不存在虚假记载、误导性陈述或重大遗漏，"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "c002598",
+          "page": 469,
+          "cosine": 0.7012,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "武汉兴图投资有限公司（以下简称兴图投资公司）自成立以来，发生的股权转让情况如下： 时间出让方受让方转让出资额 （万元） "
+        },
+        {
+          "rank": 10,
+          "chunk_id": "c002966",
+          "page": 547,
+          "cosine": 0.7007,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "1、发行人：武汉兴图新科电子股份有限公司 办公地址：湖北省武汉市东湖新技术开发区关山大道1 号软件产业三期A3 栋8 层"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "c000356",
+          "page": 68,
+          "cosine": 0.6997,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "[表格 p68_t1] 第 68 页 | 公司名称 | 武汉兴图投资有限公司 | | --- | --- | | 公司类"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "c002941",
+          "page": 532,
+          "cosine": 0.6941,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2021.5.24 武汉兴图新科电子股份有限公司招商银行武汉分行 1,000.00"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "c000088",
+          "page": 18,
+          "cosine": 0.6858,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "一、基本用语 发行人、兴图新科、 本公司、公司武汉兴图新科电子股份有限公司本招股意向书、招股意向书武汉兴图新科电子股份有"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "c002956",
+          "page": 539,
+          "cosine": 0.6843,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "二、发行人控股股东、实际控制人声明 本人承诺本招股意向书不存在虚假记载、误导性陈述或重大遗漏，并对其真实性、准确性、完整"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "c001292",
+          "page": 250,
+          "cosine": 0.6805,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（一）资产完整 公司系由武汉兴图新科电子有限公司整体变更设立，依法承继了兴图新科有限的所有资产、负债与权益。公司具备与生"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "c000092",
+          "page": 18,
+          "cosine": 0.678,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "[表格 p18_t1] 第 18 页 | 发行人、兴图新科、 本公司、公司 | 指 | 武汉兴图新科电子股份有限公司 |"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "c000321",
+          "page": 62,
+          "cosine": 0.6766,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（3）兴图天建武汉分公司 兴图天建武汉分公司基本情况如下： 公司名称湖北兴图天建科技有限公司武汉分公司公司类型有限责任公"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "c000353",
+          "page": 67,
+          "cosine": 0.6752,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（一）控股股东、实际控制人 截至本招股意向书签署日，程家明直接持有公司2,886.29 万股，占比52.29%， 通过兴"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "c000001",
+          "page": 1,
+          "cosine": 0.671,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "武汉兴图新科电子股份有限公司 Wuhan Xingtu Xinke Electronics Co.,Ltd. （湖北省武"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "c000738",
+          "page": 159,
+          "cosine": 0.6686,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "根据总体单位、军方用户出具的证明文件，民营企业兴图新科是该工程网络化视频指挥系统的唯一参与者，但未能列入获奖名单。 b."
+        }
+      ]
+    },
+    {
+      "question_id": 543,
+      "question": "武汉兴图新科电子股份有限公司注册资本是多少？",
+      "category": "注册资本",
+      "evidence_pages_in_golden": [
+        22
+      ],
+      "evidence_len_chars": 23,
+      "evidence_text": "法定代表人：程家明\n注册资本：5,520 万元",
+      "variants": {
+        "A_ws": {
+          "evidence_len_normalized": 21,
+          "loose_prefix80": {
+            "hit": true,
+            "chunk_ids": [
+              "c000265"
+            ],
+            "pages": [
+              52
+            ],
+            "best_rank": 2,
+            "best_cosine": 0.8055,
+            "count": 1,
+            "top1": false,
+            "top3": true,
+            "top5": true,
+            "top10": true,
+            "top20": true
+          },
+          "strict_full_evidence": {
+            "hit": true,
+            "chunk_ids": [
+              "c000265"
+            ],
+            "pages": [
+              52
+            ],
+            "best_rank": 2,
+            "best_cosine": 0.8055,
+            "count": 1,
+            "top1": false,
+            "top3": true,
+            "top5": true,
+            "top10": true,
+            "top20": true
+          },
+          "sentence_level": {
+            "sentence_count": 2,
+            "located_count": 2,
+            "all_located": true,
+            "best_ranks": [
+              2,
+              2
+            ],
+            "pages": [
+              [
+                52
+              ],
+              [
+                52
+              ]
+            ]
+          }
+        },
+        "B_punct": {
+          "evidence_len_normalized": 18,
+          "loose_prefix80": {
+            "hit": true,
+            "chunk_ids": [
+              "c000265"
+            ],
+            "pages": [
+              52
+            ],
+            "best_rank": 2,
+            "best_cosine": 0.8055,
+            "count": 1,
+            "top1": false,
+            "top3": true,
+            "top5": true,
+            "top10": true,
+            "top20": true
+          },
+          "strict_full_evidence": {
+            "hit": true,
+            "chunk_ids": [
+              "c000265"
+            ],
+            "pages": [
+              52
+            ],
+            "best_rank": 2,
+            "best_cosine": 0.8055,
+            "count": 1,
+            "top1": false,
+            "top3": true,
+            "top5": true,
+            "top10": true,
+            "top20": true
+          },
+          "sentence_level": {
+            "sentence_count": 2,
+            "located_count": 2,
+            "all_located": true,
+            "best_ranks": [
+              2,
+              2
+            ],
+            "pages": [
+              [
+                22,
+                52,
+                63,
+                64,
+                68,
+                253,
+                254
+              ],
+              [
+                52
+              ]
+            ]
+          }
+        }
+      },
+      "max_evidence_run_chars": 18,
+      "evidence_fully_covered_by_one_chunk_ratio": 1.0,
+      "retrieval_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "c000274",
+          "page": 54,
+          "cosine": 0.8276,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2011 年1 月13 日，兴图新科有限全体股东签署了《武汉兴图新科电子股份 有限公司发起人协议》，同意将公司整体变更设"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c000265",
+          "page": 52,
+          "cosine": 0.8055,
+          "loose_hit_B": true,
+          "strict_hit_B": true,
+          "preview": "一、发行人的基本情况 公司名称：武汉兴图新科电子股份有限公司英文名称：Wuhan Xingtu Xinke Electr"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c000269",
+          "page": 53,
+          "cosine": 0.7999,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2004 年6 月17 日，兴图新科有限取得武汉市工商行政管理局核发的注册号 为4201002178049《企业法人营业"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c000114",
+          "page": 22,
+          "cosine": 0.7972,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "[表格 p22_t1] 第 22 页 | 中文名称 | 武汉兴图新科电子股份有限公司 | 有限公司成立日 期 | 200"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c000107",
+          "page": 22,
+          "cosine": 0.778,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（一）发行人基本情况 中文名称武汉兴图新科电子股份有限公司有限公司成立日"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c002598",
+          "page": 469,
+          "cosine": 0.7648,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "武汉兴图投资有限公司（以下简称兴图投资公司）自成立以来，发生的股权转让情况如下： 时间出让方受让方转让出资额 （万元） "
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c002941",
+          "page": 532,
+          "cosine": 0.7549,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2021.5.24 武汉兴图新科电子股份有限公司招商银行武汉分行 1,000.00"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c000276",
+          "page": 54,
+          "cosine": 0.7357,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2011 年1 月19 日，北京中证天通会计师事务所有限公司出具了《验资报告》 （中证天通[2011]验字第1053 号"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "c002940",
+          "page": 532,
+          "cosine": 0.7323,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2020.2.17 武汉兴图新科电子股份有限公司汉口银行科技金融服务中心 1,468.96"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "c000001",
+          "page": 1,
+          "cosine": 0.7316,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "武汉兴图新科电子股份有限公司 Wuhan Xingtu Xinke Electronics Co.,Ltd. （湖北省武"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "c002966",
+          "page": 547,
+          "cosine": 0.7286,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "1、发行人：武汉兴图新科电子股份有限公司 办公地址：湖北省武汉市东湖新技术开发区关山大道1 号软件产业三期A3 栋8 层"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "c000356",
+          "page": 68,
+          "cosine": 0.7268,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "[表格 p68_t1] 第 68 页 | 公司名称 | 武汉兴图投资有限公司 | | --- | --- | | 公司类"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "c000354",
+          "page": 68,
+          "cosine": 0.7268,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "1、兴图投资 公司名称武汉兴图投资有限公司公司类型有限责任公司注册地武汉东湖新技术开发区关山大道1号软件产业三期A3栋8"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "c000293",
+          "page": 57,
+          "cosine": 0.7236,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2018 年4 月16 日，华汇创投与杜成城签订了《关于武汉兴图新科电子股份"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "c001292",
+          "page": 250,
+          "cosine": 0.7216,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（一）资产完整 公司系由武汉兴图新科电子有限公司整体变更设立，依法承继了兴图新科有限的所有资产、负债与权益。公司具备与生"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "c000092",
+          "page": 18,
+          "cosine": 0.7174,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "[表格 p18_t1] 第 18 页 | 发行人、兴图新科、 本公司、公司 | 指 | 武汉兴图新科电子股份有限公司 |"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "c000273",
+          "page": 54,
+          "cosine": 0.7162,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "日的净资产进行了审计，并于2011 年1 月12 日出具了《审计报告》（中证天通 [2011]审字1051 号），经审计"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "c002962",
+          "page": 545,
+          "cosine": 0.7149,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "七、验资机构声明 本所及签字注册会计师已阅读《武汉兴图新科电子股份有限公司首次公开发行股票并在科创板上市招股意向书》（以"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "c002596",
+          "page": 468,
+          "cosine": 0.7138,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2019 年6 月末，资本公积较上年末增加21.65 万元，由向员工实施股权激励 所致，以下为公司股权激励具体实施情况："
+        },
+        {
+          "rank": 20,
+          "chunk_id": "c000088",
+          "page": 18,
+          "cosine": 0.7137,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "一、基本用语 发行人、兴图新科、 本公司、公司武汉兴图新科电子股份有限公司本招股意向书、招股意向书武汉兴图新科电子股份有"
+        }
+      ]
+    },
+    {
+      "question_id": 793,
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？",
+      "category": "上下游",
+      "evidence_pages_in_golden": [
+        152
+      ],
+      "evidence_len_chars": 82,
+      "evidence_text": "下游行业为各类终端用户，覆盖范围广泛，主要包括军队、政府机关、能源等行业企业。此外，大型的电子信息系统组成较为复杂，从而需要集成商作为总体集成单位统一协调部署实施。",
+      "variants": {
+        "A_ws": {
+          "evidence_len_normalized": 82,
+          "loose_prefix80": {
+            "hit": true,
+            "chunk_ids": [
+              "c000712"
+            ],
+            "pages": [
+              152
+            ],
+            "best_rank": 15,
+            "best_cosine": 0.6898,
+            "count": 1,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": true
+          },
+          "strict_full_evidence": {
+            "hit": true,
+            "chunk_ids": [
+              "c000712"
+            ],
+            "pages": [
+              152
+            ],
+            "best_rank": 15,
+            "best_cosine": 0.6898,
+            "count": 1,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": true
+          },
+          "sentence_level": {
+            "sentence_count": 2,
+            "located_count": 2,
+            "all_located": true,
+            "best_ranks": [
+              15,
+              15
+            ],
+            "pages": [
+              [
+                152
+              ],
+              [
+                152
+              ]
+            ]
+          }
+        },
+        "B_punct": {
+          "evidence_len_normalized": 74,
+          "loose_prefix80": {
+            "hit": true,
+            "chunk_ids": [
+              "c000712"
+            ],
+            "pages": [
+              152
+            ],
+            "best_rank": 15,
+            "best_cosine": 0.6898,
+            "count": 1,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": true
+          },
+          "strict_full_evidence": {
+            "hit": true,
+            "chunk_ids": [
+              "c000712"
+            ],
+            "pages": [
+              152
+            ],
+            "best_rank": 15,
+            "best_cosine": 0.6898,
+            "count": 1,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": true
+          },
+          "sentence_level": {
+            "sentence_count": 2,
+            "located_count": 2,
+            "all_located": true,
+            "best_ranks": [
+              15,
+              15
+            ],
+            "pages": [
+              [
+                152
+              ],
+              [
+                152
+              ]
+            ]
+          }
+        }
+      },
+      "max_evidence_run_chars": 74,
+      "evidence_fully_covered_by_one_chunk_ratio": 1.0,
+      "retrieval_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "c000088",
+          "page": 18,
+          "cosine": 0.7669,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "一、基本用语 发行人、兴图新科、 本公司、公司武汉兴图新科电子股份有限公司本招股意向书、招股意向书武汉兴图新科电子股份有"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c000265",
+          "page": 52,
+          "cosine": 0.751,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "一、发行人的基本情况 公司名称：武汉兴图新科电子股份有限公司英文名称：Wuhan Xingtu Xinke Electr"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c002941",
+          "page": 532,
+          "cosine": 0.7422,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2021.5.24 武汉兴图新科电子股份有限公司招商银行武汉分行 1,000.00"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c002958",
+          "page": 541,
+          "cosine": 0.7379,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "声明本人已认真阅读武汉兴图新科电子股份有限公司招股意向书的全部内容，确认招股意向书不存在虚假记载、误导性陈述或重大遗漏，"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c000293",
+          "page": 57,
+          "cosine": 0.7371,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2018 年4 月16 日，华汇创投与杜成城签订了《关于武汉兴图新科电子股份"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c000114",
+          "page": 22,
+          "cosine": 0.7331,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "[表格 p22_t1] 第 22 页 | 中文名称 | 武汉兴图新科电子股份有限公司 | 有限公司成立日 期 | 200"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c000092",
+          "page": 18,
+          "cosine": 0.7273,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "[表格 p18_t1] 第 18 页 | 发行人、兴图新科、 本公司、公司 | 指 | 武汉兴图新科电子股份有限公司 |"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c000107",
+          "page": 22,
+          "cosine": 0.7201,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（一）发行人基本情况 中文名称武汉兴图新科电子股份有限公司有限公司成立日"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "c000001",
+          "page": 1,
+          "cosine": 0.7201,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "武汉兴图新科电子股份有限公司 Wuhan Xingtu Xinke Electronics Co.,Ltd. （湖北省武"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "c002966",
+          "page": 547,
+          "cosine": 0.7182,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "1、发行人：武汉兴图新科电子股份有限公司 办公地址：湖北省武汉市东湖新技术开发区关山大道1 号软件产业三期A3 栋8 层"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "c000321",
+          "page": 62,
+          "cosine": 0.7065,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（3）兴图天建武汉分公司 兴图天建武汉分公司基本情况如下： 公司名称湖北兴图天建科技有限公司武汉分公司公司类型有限责任公"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "c000641",
+          "page": 135,
+          "cosine": 0.7002,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "1、公司所处行业的界定 按照国家统计局2017 年修订的《国民经济行业分类与代码》 （GB/T4754-2017），兴图"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "c000267",
+          "page": 52,
+          "cosine": 0.6987,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "1、兴图新科有限的设立 公司前身为武汉兴图新科电子有限公司，由程家明和陈爱民于2004 年6 月"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "c002962",
+          "page": 545,
+          "cosine": 0.6983,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "七、验资机构声明 本所及签字注册会计师已阅读《武汉兴图新科电子股份有限公司首次公开发行股票并在科创板上市招股意向书》（以"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "c000712",
+          "page": 152,
+          "cosine": 0.6898,
+          "loose_hit_B": true,
+          "strict_hit_B": true,
+          "preview": "1、行业上下游情况 电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、 机柜等金属壳体制造企业，竞争充分"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "c000310",
+          "page": 60,
+          "cosine": 0.687,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（一）股权结构图 截至本招股意向书签署之日，兴图新科股权结构如下： 程家明兴图新科兴图天建武汉启目华创兴图北京启目"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "c002963",
+          "page": 546,
+          "cosine": 0.6866,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "八、验资复核机构声明 本所及签字注册会计师已阅读《武汉兴图新科电子股份有限公司首次公开发行股票并在科创板上市招股意向书》"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "c002960",
+          "page": 543,
+          "cosine": 0.6835,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "五、会计师事务所声明 本所及签字注册会计师已阅读《武汉兴图新科电子股份有限公司首次公开发行股票并在科创板上市招股意向书》"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "c000314",
+          "page": 61,
+          "cosine": 0.6824,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "六、发行人分公司、控股子公司和参股公司情况 截至本招股意向书签署日，发行人拥有4 家全资子公司，其中兴图天建拥有"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "c000093",
+          "page": 19,
+          "cosine": 0.6819,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "烽火通信烽火通信科技股份有限公司，上市公司中国证监会、证监中国证券监督管理委员会科创板上海证券交易所科创板股东（大）会武"
+        }
+      ]
+    },
+    {
+      "question_id": 795,
+      "question": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+      "category": "荣誉奖项",
+      "evidence_pages_in_golden": [
+        27,
+        157
+      ],
+      "evidence_len_chars": 152,
+      "evidence_text": "2014年12月，某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统）荣获国家科技进步一等奖。该工程参与建设单位包括项目主管部门、总体单位、国有科研机构等，根据总体单位、军方用户出具的证明文件和承研合同，民营企业兴图新科是该工程网络化视频指挥系统的唯一参与者。",
+      "variants": {
+        "A_ws": {
+          "evidence_len_normalized": 152,
+          "loose_prefix80": {
+            "hit": true,
+            "chunk_ids": [
+              "c001250",
+              "c000821",
+              "c000829",
+              "c000723",
+              "c000141"
+            ],
+            "pages": [
+              241,
+              181,
+              182,
+              155,
+              27
+            ],
+            "best_rank": 12,
+            "best_cosine": 0.6622,
+            "count": 5,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": true
+          },
+          "strict_full_evidence": {
+            "hit": false,
+            "chunk_ids": [],
+            "pages": [],
+            "best_rank": null,
+            "count": 0,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "sentence_level": {
+            "sentence_count": 2,
+            "located_count": 2,
+            "all_located": true,
+            "best_ranks": [
+              11,
+              3
+            ],
+            "pages": [
+              [
+                27,
+                155,
+                157,
+                181,
+                182,
+                241
+              ],
+              [
+                27,
+                94,
+                96,
+                155,
+                181,
+                182,
+                241
+              ]
+            ]
+          }
+        },
+        "B_punct": {
+          "evidence_len_normalized": 138,
+          "loose_prefix80": {
+            "hit": true,
+            "chunk_ids": [
+              "c001250",
+              "c000821",
+              "c000829",
+              "c000723",
+              "c000141"
+            ],
+            "pages": [
+              241,
+              181,
+              182,
+              155,
+              27
+            ],
+            "best_rank": 12,
+            "best_cosine": 0.6622,
+            "count": 5,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": true
+          },
+          "strict_full_evidence": {
+            "hit": true,
+            "chunk_ids": [
+              "c001250",
+              "c000821",
+              "c000829",
+              "c000723",
+              "c000141"
+            ],
+            "pages": [
+              241,
+              181,
+              182,
+              155,
+              27
+            ],
+            "best_rank": 12,
+            "best_cosine": 0.6622,
+            "count": 5,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": true
+          },
+          "sentence_level": {
+            "sentence_count": 2,
+            "located_count": 2,
+            "all_located": true,
+            "best_ranks": [
+              11,
+              3
+            ],
+            "pages": [
+              [
+                27,
+                155,
+                157,
+                181,
+                182,
+                241
+              ],
+              [
+                27,
+                94,
+                96,
+                155,
+                181,
+                182,
+                241
+              ]
+            ]
+          }
+        }
+      },
+      "max_evidence_run_chars": 138,
+      "evidence_fully_covered_by_one_chunk_ratio": 1.0,
+      "retrieval_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "c000267",
+          "page": 52,
+          "cosine": 0.7374,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "1、兴图新科有限的设立 公司前身为武汉兴图新科电子有限公司，由程家明和陈爱民于2004 年6 月"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c000737",
+          "page": 158,
+          "cosine": 0.7311,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2014 年12 月，“某情报、指挥、控制与通信网络一体化工程”荣获国家科技进 步一等奖。该工程参与建设单位包括项目主管"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c000533",
+          "page": 96,
+          "cosine": 0.7044,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "美军的C4ISR 系统）荣获国家科技进步一等奖。该工程参与建设单位包括项目主管部门、总体单位、国有科研机构等，根据总体单"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c000114",
+          "page": 22,
+          "cosine": 0.6973,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "[表格 p22_t1] 第 22 页 | 中文名称 | 武汉兴图新科电子股份有限公司 | 有限公司成立日 期 | 200"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c000730",
+          "page": 157,
+          "cosine": 0.6929,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2019 年8 月15 日，湖北技术交易所组织专家组对兴图新科的科研成果进行 评定，并出具的《科技成果评价报告》（鄂技交"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c000527",
+          "page": 94,
+          "cosine": 0.689,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "一体化工程”（即相当于美军的C4ISR 系统）荣获国家科技进步一等奖。该工程参与建设单位包括项目主管部门、总体单位、国有"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c000265",
+          "page": 52,
+          "cosine": 0.6869,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "一、发行人的基本情况 公司名称：武汉兴图新科电子股份有限公司英文名称：Wuhan Xingtu Xinke Electr"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c000738",
+          "page": 159,
+          "cosine": 0.6704,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "根据总体单位、军方用户出具的证明文件，民营企业兴图新科是该工程网络化视频指挥系统的唯一参与者，但未能列入获奖名单。 b."
+        },
+        {
+          "rank": 9,
+          "chunk_id": "c000107",
+          "page": 22,
+          "cosine": 0.6657,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（一）发行人基本情况 中文名称武汉兴图新科电子股份有限公司有限公司成立日"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "c000819",
+          "page": 180,
+          "cosine": 0.6641,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2019 年8 月15 日，湖北技术交易所组织专家组对兴图新科的科研成果进行 评定，并出具的《科技成果评价报告》（鄂技交"
+        },
+        {
+          "rank": 11,
+          "chunk_id": "c000731",
+          "page": 157,
+          "cosine": 0.6624,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2014 年12 月，某大型研究所牵头承担的“某情报、指挥、控制与通信网络 一体化工程”（即相当于美军的C4ISR 系统"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "c001250",
+          "page": 241,
+          "cosine": 0.6622,
+          "loose_hit_B": true,
+          "strict_hit_B": true,
+          "preview": "（七）科研实力和成果 公司目前已经成为军队视频指挥领域的重要供应商，参与制定了全军第一个视频指挥系统技术标准（即《某视频"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "c000732",
+          "page": 158,
+          "cosine": 0.6603,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "参与建设单位包括项目主管部门、总体单位、国有科研机构等，根据总体单位、 军方用户出具的证明文件和承研合同，民营企业兴图新"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "c000408",
+          "page": 76,
+          "cosine": 0.6547,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "1、陈升亮 陈升亮，男，1979 年12 月出生，中国国籍，无境外永久居留权，毕业于华中科技大学计算机科学与技术专业，本"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "c000821",
+          "page": 181,
+          "cosine": 0.6543,
+          "loose_hit_B": true,
+          "strict_hit_B": true,
+          "preview": "公司目前已经成为军队视频指挥控制领域的重要供应商，参与制定了国防用户第一个视频指挥系统技术标准（即《某视频技术规范1.0"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "c001105",
+          "page": 218,
+          "cosine": 0.6517,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "4、软件著作权 截至2019年6月30日，兴图新科及其子公司共拥有56项计算机软件著作权。 其中，兴图新科42项，武汉启"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "c002167",
+          "page": 394,
+          "cosine": 0.6453,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "13.91% 兴图新科2016-2018 年累计研发投入占营业收入比重为13.91%，高于武汉市本地可比上市公司平均水平"
+        },
+        {
+          "rank": 18,
+          "chunk_id": "c000293",
+          "page": 57,
+          "cosine": 0.6443,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2018 年4 月16 日，华汇创投与杜成城签订了《关于武汉兴图新科电子股份"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "c000414",
+          "page": 77,
+          "cosine": 0.6408,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "图新科电子有限公司，历任测试工程师、质量部副经理；2011 年1 月至2012 年"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "c000829",
+          "page": 182,
+          "cosine": 0.6389,
+          "loose_hit_B": true,
+          "strict_hit_B": true,
+          "preview": "（1）符合国家战略、突破关键核心技术、市场认可度高的科技创新企业 报告期内，公司主营业务收入的90%以上直接或间接面向我"
+        }
+      ]
+    },
+    {
+      "question_id": 957,
+      "question": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+      "category": "行业地位",
+      "evidence_pages_in_golden": [
+        154,
+        332
+      ],
+      "evidence_len_chars": 79,
+      "evidence_text": "兴图新科目前已经成为国防军队视频指挥领域的重要供应商，提供的视频指挥控制类产品是国防指挥信息系统（相当于美军的C4ISR系统）中的“指挥控制”子系统、子模块。",
+      "variants": {
+        "A_ws": {
+          "evidence_len_normalized": 79,
+          "loose_prefix80": {
+            "hit": false,
+            "chunk_ids": [],
+            "pages": [],
+            "best_rank": null,
+            "count": 0,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "strict_full_evidence": {
+            "hit": false,
+            "chunk_ids": [],
+            "pages": [],
+            "best_rank": null,
+            "count": 0,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "sentence_level": {
+            "sentence_count": 1,
+            "located_count": 1,
+            "all_located": true,
+            "best_ranks": [
+              23
+            ],
+            "pages": [
+              [
+                26,
+                154
+              ]
+            ]
+          }
+        },
+        "B_punct": {
+          "evidence_len_normalized": 72,
+          "loose_prefix80": {
+            "hit": true,
+            "chunk_ids": [
+              "c000137",
+              "c000721"
+            ],
+            "pages": [
+              26,
+              154
+            ],
+            "best_rank": 23,
+            "best_cosine": 0.6401,
+            "count": 2,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "strict_full_evidence": {
+            "hit": true,
+            "chunk_ids": [
+              "c000137",
+              "c000721"
+            ],
+            "pages": [
+              26,
+              154
+            ],
+            "best_rank": 23,
+            "best_cosine": 0.6401,
+            "count": 2,
+            "top1": false,
+            "top3": false,
+            "top5": false,
+            "top10": false,
+            "top20": false
+          },
+          "sentence_level": {
+            "sentence_count": 1,
+            "located_count": 1,
+            "all_located": true,
+            "best_ranks": [
+              23
+            ],
+            "pages": [
+              [
+                26,
+                154
+              ]
+            ]
+          }
+        }
+      },
+      "max_evidence_run_chars": 72,
+      "evidence_fully_covered_by_one_chunk_ratio": 1.0,
+      "retrieval_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "c000114",
+          "page": 22,
+          "cosine": 0.7615,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "[表格 p22_t1] 第 22 页 | 中文名称 | 武汉兴图新科电子股份有限公司 | 有限公司成立日 期 | 200"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c000267",
+          "page": 52,
+          "cosine": 0.7446,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "1、兴图新科有限的设立 公司前身为武汉兴图新科电子有限公司，由程家明和陈爱民于2004 年6 月"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c000107",
+          "page": 22,
+          "cosine": 0.7406,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（一）发行人基本情况 中文名称武汉兴图新科电子股份有限公司有限公司成立日"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c000265",
+          "page": 52,
+          "cosine": 0.7348,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "一、发行人的基本情况 公司名称：武汉兴图新科电子股份有限公司英文名称：Wuhan Xingtu Xinke Electr"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c000293",
+          "page": 57,
+          "cosine": 0.7284,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2018 年4 月16 日，华汇创投与杜成城签订了《关于武汉兴图新科电子股份"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c002941",
+          "page": 532,
+          "cosine": 0.6906,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2021.5.24 武汉兴图新科电子股份有限公司招商银行武汉分行 1,000.00"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c000274",
+          "page": 54,
+          "cosine": 0.6881,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2011 年1 月13 日，兴图新科有限全体股东签署了《武汉兴图新科电子股份 有限公司发起人协议》，同意将公司整体变更设"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c002092",
+          "page": 382,
+          "cosine": 0.6873,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "由上表可知，兴图新科的可比公司主要为面向国防和市政领域的电子系统产品提供商，由于应用领域与侧重方面不尽相同，使得各财务比"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "c002966",
+          "page": 547,
+          "cosine": 0.679,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "1、发行人：武汉兴图新科电子股份有限公司 办公地址：湖北省武汉市东湖新技术开发区关山大道1 号软件产业三期A3 栋8 层"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "c002598",
+          "page": 469,
+          "cosine": 0.6776,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "武汉兴图投资有限公司（以下简称兴图投资公司）自成立以来，发生的股权转让情况如下： 时间出让方受让方转让出资额 （万元） "
+        },
+        {
+          "rank": 11,
+          "chunk_id": "c000321",
+          "page": 62,
+          "cosine": 0.6728,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（3）兴图天建武汉分公司 兴图天建武汉分公司基本情况如下： 公司名称湖北兴图天建科技有限公司武汉分公司公司类型有限责任公"
+        },
+        {
+          "rank": 12,
+          "chunk_id": "c000001",
+          "page": 1,
+          "cosine": 0.6721,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "武汉兴图新科电子股份有限公司 Wuhan Xingtu Xinke Electronics Co.,Ltd. （湖北省武"
+        },
+        {
+          "rank": 13,
+          "chunk_id": "c001292",
+          "page": 250,
+          "cosine": 0.672,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "（一）资产完整 公司系由武汉兴图新科电子有限公司整体变更设立，依法承继了兴图新科有限的所有资产、负债与权益。公司具备与生"
+        },
+        {
+          "rank": 14,
+          "chunk_id": "c000269",
+          "page": 53,
+          "cosine": 0.667,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2004 年6 月17 日，兴图新科有限取得武汉市工商行政管理局核发的注册号 为4201002178049《企业法人营业"
+        },
+        {
+          "rank": 15,
+          "chunk_id": "c000326",
+          "page": 62,
+          "cosine": 0.6572,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "[表格 p62_t3] 第 62 页 |  | 公司名称 |  | 湖北兴图天建科技有限公司武汉分公司 |  | | -"
+        },
+        {
+          "rank": 16,
+          "chunk_id": "c002940",
+          "page": 532,
+          "cosine": 0.6572,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2020.2.17 武汉兴图新科电子股份有限公司汉口银行科技金融服务中心 1,468.96"
+        },
+        {
+          "rank": 17,
+          "chunk_id": "c000292",
+          "page": 57,
+          "cosine": 0.6522,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "2018 年4 月16 日，华汇创投与杜成城签订了《武汉兴图新科电子股份有限 公司股份转让协议》，约定将所持有的150 "
+        },
+        {
+          "rank": 18,
+          "chunk_id": "c002947",
+          "page": 533,
+          "cosine": 0.6517,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "新科电子股份有限公司科技金融服务中心图新科电子股份有限公司著字第052034 号/063255 号）"
+        },
+        {
+          "rank": 19,
+          "chunk_id": "c000356",
+          "page": 68,
+          "cosine": 0.6477,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "[表格 p68_t1] 第 68 页 | 公司名称 | 武汉兴图投资有限公司 | | --- | --- | | 公司类"
+        },
+        {
+          "rank": 20,
+          "chunk_id": "c002954",
+          "page": 533,
+          "cosine": 0.6431,
+          "loose_hit_B": false,
+          "strict_hit_B": false,
+          "preview": "[表格 p533_t1] 第 533 页 | 新科电子 股份有限 公司 | 科技金融 服务中心 | 图新科 电子股 份有"
+        }
+      ]
+    }
+  ]
+}

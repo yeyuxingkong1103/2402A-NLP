@@ -1,0 +1,36 @@
+# 轻量核心依赖（离线链路 / HTTP 服务 / 单元与接口测试只需这些）
+# 安装： .venv\Scripts\python.exe -m pip install -r requirements.txt
+#       Ubuntu VM: ~/legal-rag/.venv/bin/python -m pip install -r requirements.txt
+pydantic>=2.9
+pypdf>=5.0
+pytest>=8.0
+
+# --- HTTP 服务与接口测试（纯 Python 轻量包，服务与 TestClient 的硬依赖）---
+fastapi>=0.115
+uvicorn>=0.30
+httpx>=0.27
+# 文件上传（PDF 随时上传入库）必需：FastAPI 的 UploadFile/Form 解析依赖它
+python-multipart>=0.0.9
+
+# --- 向量库：Milvus 客户端（真实后端，连 VM 上的 Milvus gRPC 19530）---
+pymilvus>=2.4
+
+# --- 记忆与嵌入缓存：Redis 客户端（短期记忆 legal_rag: 前缀隔离 + bge-m3 嵌入缓存）---
+redis>=5.0
+
+# --- 系统层指标：进程/主机采集的**主路径**（2026-09-29 提为主依赖）---
+# 背景：`legal_rag/system_metrics.py` 原先自己手写三套平台实现（Linux /proc、
+# Windows win32/FILETIME），并把 psutil 当作"缺字段时的兜底"。实测两个问题：
+#   ① 口径不一致：`cpu_seconds` 受 Windows 100ms 时间片限制（与 psutil 差 83%）、
+#      `swap.total_bytes` 在 Windows 上是 PageFile 口径（与 psutil 差 33%）；
+#   ② 三套实现要同时维护，且平台分支在非目标平台上根本不可达。
+# 现改为 **psutil 优先、不可用时才回落纯标准库**（回落路径保留，因此本依赖是
+# "主路径"而非"硬性必需"；但装上它才能拿到完整且口径统一的读数）。
+# 纯 Python 轮子、体积小（约 1 MB）、跨平台。
+psutil>=5.9
+
+# --- GPU 指标：nvidia-ml-py（官方 NVML 绑定）---
+# 与 `nvidia-smi` 子进程解析并行存在：NVML 更直接（无进程开销、字段更全），
+# 但需要能加载 libnvidia-ml；加载不了时自动回落 nvidia-smi。两者都不可用 ⇒
+# `collect_gpu` 报 `available=False` 并给出可读原因（这是既有的降级契约）。
+nvidia-ml-py>=12.0

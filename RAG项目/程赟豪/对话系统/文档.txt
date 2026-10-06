@@ -1,0 +1,46 @@
+RAG: 1.离线部分：文档解析（PDF，OCR，pdfplumber，多模态大模型，MinerU，PDFPlumber（表格），minerU，Paddle-OCR-VL）文档分块 向量化模型 向量数据库  2.在线部分： 问题向量化 检索（混合检索，多路召回），重排序（精排），提示词模板，调用大模型，后处理（正则表达式替换），返回给用户 3.RAG 优化 4.RAG 评测 RAGAS 5. LangChain，LLamaIndex，RagFlow，LightRAG，LinearRAG，Dify
+
+RAG：角色扮演系统（大模型，RAG）： character.ai
+需求分析：产出物：需求规格说明书，功能，业务（业务流程，流程图，业务规则），思维导图
+人物角色：自己定义：提示词模板，知识库（milvus）
+项目：基于RAG的角色扮演系统
+提示词模板
+角色扮演系统（大模型，RAG）：客服，社交，NPC（Non Player Character） 医生 心理医生 律师 股票（证券投资） 金融理财师 科学家 教师 英语学习
+数据集：国家卫健委 高血压治疗指南  github haggingface modelscope 律师：法律条文（311件） 司法解释 判例（中国裁判文书网） 股票（东方财富网）
+向量化模型：BGE-m3 PDF去水印 
+重排序模型：BGE-rerank
+milvus：linux 混合检索 BM25
+多轮对话 大模型是没有记忆 Redis（短期记忆）  长期记忆（milvus）
+多用户，多角色
+知识库动态更新
+MySQL 
+用户信息
+角色信息
+Redis：保存最近聊天记录：短期记忆。 O  Redis5种常用数据类型 O（1）常数时间复杂度  Key Value（键值对） MongoDB
+String List Set Dict zSet
+缓冲
+大模型：本地部署（vLLM SGLang xInernce），在线API（豆包，硅基流动，DeepSeek，千问，Claude,ChatGPT,Gemini）
+需求：扮演一个特点的角色，实现一个聊天机器人,提示词模版。 朋友：人物性格（NPC Non Player Character，虚拟玩家）。  社交领域：虚拟朋友（Character.ai）， 具体领域专家：医生，中医，心理医生，律师，金融理财师
+
+RAG评测：RAGAS
+postman/apipost：测试
+性能测试/压力测试：Jmeter，QPS  负载均衡（http-proxy，ngX）
+RAG优化：混合检索，重排序，多路召回（从不同的数据源查询数据）：Milvus，MySQL，Neo4J，MongoDB，Redis，互联网，ClickHouse。分块优化。提示词优化。Embedding-Model（BGE-m3，微调）优化，数据优化（数据清洗）。生成结果优化（后处理，校验）。向量库优化。 Query 改写，扩写。 余弦相似度得分的过滤，大模型优化。 知识库数据增强：提高召回率，摘要，父子块，改写，扩写，知识库优化：去重，删除低质量的文档
+硬件优化，缓冲，代码逻辑优化，流式输出
+接口文档（http json url request response）
+设计文档（技术架构，功能设计）、功能代码及测试成果
+技术组件：大模型，MySQL，Redis，Milvus，BEG-m3，BGE-rerank，RAGAS
+RAG：LangChain（6大功能） LlamaIndex, Dify, LightRAG, LinerRAG，RagFlow，
+PDF: PyMuPDF(fitz), 图片文字识别 PaddleOCR，多模态大模型。 PDFPlumber（表格），minerU，Paddle-OCR-VL
+RAG：分块：固定长度，句子，段落，标题，语义
+日志：用python logging
+Milvus：collection：ID（主键：唯一性，自增ID），向量，向量对应的原文（混合检索BM25），创建时间，修改时间，文档来源，摘要
+开发环境 测试环境 生产环境
+
+单元测试：pyunit。 PostMan/APIpost。写python代码测试
+集成测试
+压力测试 Jmeter
+部署：部署方案：在Ubutun，算力云，腾讯云，阿里云上成功部署，部署脚本
+部署文档：readme.md
+部署脚本（安装脚本）（shell）：0.检查服务器配置（ubutun）centos  1.安装环境（anaconda（创建环境） python 依赖（requirements.txt））redis mysql milvus    上传你的代码（打包成zip或tar包）(git 拉取) 解压
+启动脚本：

@@ -1,0 +1,254 @@
+{
+  "_comment": [
+    "工单编号：人工智能NLP-RAG-Query 理解优化任务",
+    "工单05 - Query 理解优化（多轮对话 + 指代消解/省略补全）",
+    "",
+    "这是**多轮**评测集：每个 script 是一段按顺序进行的会话，逐轮真实走",
+    "改写 → 检索 → 生成，并把每轮结果与 gold 比对。",
+    "",
+    "题面：'WO05-main' 的五轮**逐字取自工单05 原文**，未做任何改写。",
+    "",
+    "gold_rewritten：人工核定的『独立问题』，即这一轮**应该**被改写成的样子。",
+    "  主口径 rewrite_exact 就是拿它做字符串等值比较（归一化空白与尾部问号），",
+    "  完全客观、不依赖 LLM 打分 —— 验收时可直接复核。",
+    "  · t1/t3（main）的 gold 与既有单轮题库 id=260/531 的题面完全一致，",
+    "    因此『多轮无回归』是可证明的（同一查询串 → 同一检索路径）。",
+    "",
+    "expect_method：规则层应当给出的改写方式。n=最完整问题、coref=代词消解、switch=话题切换。",
+    "  规则解析率 rule_resolve_rate 与 LLM 兜底调用数 rewrite_llm_calls 一起，",
+    "  量化『规则优先』这条决策（WO05-main 的剧本应为 0 次兜底调用）。",
+    "",
+    "rule_keywords / rule_type：沿用单轮题库**同一套**规则化命中判法（evaluator.rule_hit），",
+    "  含数值容差。这样『准确率 ≥90%』的分母口径前后一致。",
+    "",
+    "⚠️ Q5 与单轮题库 id=5 **不是同一题**：id=5 问『销售部有几个部门/大客户销售部有几个销售处』",
+    "（判据 ['4个部门','6个销售处']）；Q5 问『哪个销售部的销售处最多/有哪些销售处』，",
+    "答案里没有『4个部门』这个字面 —— 复用 id=5 的关键词会把它误判成未命中。故此处单独写。",
+    "",
+    "evidence_page：人工核实的命中页。格式按文档走（书1 印 1-1-N，书2 印裸数字）。"
+  ],
+  "scripts": [
+    {
+      "id": "WO05-main",
+      "title": "工单05 原文 5 轮剧本（验收剧本）",
+      "session": "wo05-main",
+      "turns": [
+        {
+          "turn": 1,
+          "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+          "expect_method": "none",
+          "gold_doc_key": "xingtu",
+          "gold_rewritten": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+          "rule_type": "all",
+          "rule_keywords": ["6,464.51", "14,414.16", "18,780.67", "4,627.14"],
+          "evidence_page": "1-1-128",
+          "ref_eval_id": 260,
+          "reference_answer": "报告期内，公司来自军用领域的收入分别为6,464.51万元、14,414.16万元、18,780.67万元和4,627.14万元（对应2016年度、2017年度、2018年度、2019年1-6月）。"
+        },
+        {
+          "turn": 2,
+          "question": "他参与的哪个工程荣获了国家科技进步一等奖？",
+          "expect_method": "rule-coref",
+          "gold_doc_key": "xingtu",
+          "gold_rewritten": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+          "rule_type": "all",
+          "rule_keywords": ["某情报", "一体化工程"],
+          "evidence_page": "1-1-26",
+          "ref_eval_id": 795,
+          "reference_answer": "「某情报、指挥、控制与通信网络一体化工程」（即相当于美军的C4ISR系统）。原句用「某」脱敏，必须原样照抄。",
+          "_note": "「他」指上一轮的公司。gold 与单轮题库 id=795 的题面**逐字相同**，故检索路径逐字节等价。"
+        },
+        {
+          "turn": 3,
+          "question": "这个公司的法定代表人是谁？",
+          "expect_method": "rule-coref",
+          "gold_doc_key": "xingtu",
+          "gold_rewritten": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+          "rule_type": "any",
+          "rule_keywords": ["程家明"],
+          "evidence_page": "1-1-21",
+          "ref_eval_id": 531,
+          "reference_answer": "程家明。",
+          "_note": "「这个公司」指上一轮的公司。gold 与单轮题库 id=531 的题面**逐字相同**。"
+        },
+        {
+          "turn": 4,
+          "question": "那武汉力源信息技术股份有限公司呢？",
+          "expect_method": "rule-switch",
+          "gold_doc_key": "liyuan",
+          "gold_rewritten": "武汉力源信息技术股份有限公司法定代表人是谁？",
+          "gold_carried_intent": "法定代表人是谁？",
+          "rule_type": "any",
+          "rule_keywords": ["赵马克"],
+          "evidence_page": "22 23",
+          "ref_eval_id": null,
+          "reference_answer": "赵马克。（招股说明书2 第 14/22/24 页均印「法定代表人：赵马克」）",
+          "_note": "话题切换 + 省略问点：本轮点名了力源，但没说要问什么 → 继承上一轮的问点「法定代表人是谁？」。"
+        },
+        {
+          "turn": 5,
+          "question": "武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有哪些销售处？",
+          "expect_method": "none",
+          "gold_doc_key": "liyuan",
+          "gold_rewritten": "武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有哪些销售处？",
+          "rule_type": "all",
+          "rule_keywords": ["大客户销售部", "珠海", "深圳", "北京", "武汉", "广州", "成都"],
+          "evidence_page": "38",
+          "ref_eval_id": null,
+          "reference_answer": "大客户销售部；下辖珠海、深圳、北京、武汉、广州、成都 6 个销售处。（答案在书2 第 38 页的组织结构图里，靠工单04 的入库期多模态转写进入知识库）",
+          "_note": "完整问题（含实体且自带问点）→ 必须原样不动。keyword 用 all：只报出 6 个处名却没说是「大客户销售部」，等于没回答『哪个最多』。"
+        }
+      ]
+    },
+    {
+      "id": "WO05-coref-var",
+      "title": "代词变体（扩充）：该公司 / 它",
+      "session": "wo05-coref-var",
+      "turns": [
+        {
+          "turn": 1,
+          "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+          "expect_method": "none",
+          "gold_doc_key": "xingtu",
+          "gold_rewritten": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+          "rule_type": "all",
+          "rule_keywords": ["6,464.51", "4,627.14"],
+          "evidence_page": "1-1-128",
+          "judge_answer": false,
+          "ref_eval_id": 260
+        },
+        {
+          "turn": 2,
+          "question": "该公司注册资本是多少？",
+          "expect_method": "rule-coref",
+          "gold_doc_key": "xingtu",
+          "gold_rewritten": "武汉兴图新科电子股份有限公司注册资本是多少？",
+          "rule_type": "any",
+          "rule_keywords": ["5,520", "5520"],
+          "evidence_page": "1-1-21",
+          "ref_eval_id": 543,
+          "reference_answer": "注册资本5,520.00万元。",
+          "_note": "「该公司」是另一种代词说法；改写要连它后面的「的」一起吃掉，才能与 id=543 题面逐字一致。"
+        },
+        {
+          "turn": 3,
+          "question": "它的法定代表人是谁？",
+          "expect_method": "rule-coref",
+          "gold_doc_key": "xingtu",
+          "gold_rewritten": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+          "rule_type": "any",
+          "rule_keywords": ["程家明"],
+          "evidence_page": "1-1-21",
+          "ref_eval_id": 531,
+          "reference_answer": "程家明。",
+          "_note": "「它」单字代词。注意不能把「其它」误伤成代词（见 tests/test_multi_turn.py）。"
+        }
+      ]
+    },
+    {
+      "id": "WO05-switch-en",
+      "title": "英文话题切换（扩充）：多语言验收④",
+      "session": "wo05-en",
+      "turns": [
+        {
+          "turn": 1,
+          "question": "Who is the legal representative of Wuhan Xingtu Xinke Electronics Co.,Ltd.?",
+          "expect_method": "none",
+          "gold_doc_key": "xingtu",
+          "gold_rewritten": "Who is the legal representative of Wuhan Xingtu Xinke Electronics Co.,Ltd.?",
+          "rule_type": "any",
+          "rule_keywords": ["程家明", "Cheng Jiaming", "Jiaming"],
+          "evidence_page": "1-1-21",
+          "reference_answer": "程家明（Cheng Jiaming）。",
+          "_note": "英文提问模型会用拼音写人名（实测 Cheng Jiaming），所以判据同时收中文名与拼音。"
+        },
+        {
+          "turn": 2,
+          "question": "What about Wuhan P&S Information Technology Co.,Ltd.?",
+          "expect_method": "rule-switch",
+          "gold_doc_key": "liyuan",
+          "gold_rewritten": "Who is the legal representative of Wuhan P&S Information Technology Co.,Ltd.?",
+          "gold_carried_intent": "Who is the legal representative of ?",
+          "rule_type": "any",
+          "rule_keywords": ["赵马克", "Zhao Mark", "Mark Zhao", "Zhao"],
+          "evidence_page": "22 23",
+          "reference_answer": "赵马克（Zhao Mark）。",
+          "_note": "用槽位模板才能把英文问句补全成语法完整的形式（abstract_query 会削成 'Who is the legal representative of?' 悬空）。答案用中文名，语言无关，判据稳。"
+        }
+      ]
+    },
+    {
+      "id": "WO05-isolation",
+      "title": "会话隔离（扩充）：两个会话互不串上下文",
+      "session": "wo05-iso-a",
+      "turns": [
+        {
+          "turn": 1,
+          "session": "wo05-iso-a",
+          "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+          "expect_method": "none",
+          "gold_doc_key": "xingtu",
+          "gold_rewritten": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+          "rule_type": "any",
+          "rule_keywords": ["6,464.51"],
+          "judge_answer": false
+        },
+        {
+          "turn": 2,
+          "session": "wo05-iso-b",
+          "question": "武汉力源信息技术股份有限公司本次发行股数是多少，占发行后总股本的比例是多少？",
+          "expect_method": "none",
+          "gold_doc_key": "liyuan",
+          "gold_rewritten": "武汉力源信息技术股份有限公司本次发行股数是多少，占发行后总股本的比例是多少？",
+          "rule_type": "all",
+          "rule_keywords": ["1,670", "25.04%"],
+          "evidence_page": "21 23",
+          "ref_eval_id": 1,
+          "judge_answer": false
+        },
+        {
+          "turn": 3,
+          "session": "wo05-iso-a",
+          "question": "他的法定代表人是谁？",
+          "expect_method": "rule-coref",
+          "gold_doc_key": "xingtu",
+          "gold_rewritten": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+          "rule_type": "any",
+          "rule_keywords": ["程家明"],
+          "evidence_page": "1-1-21",
+          "reference_answer": "程家明。",
+          "_note": "关键：A 会话在中间被 B 会话插入了一轮之后，焦点仍必须是兴图。若实现用了全局单例焦点，这里会答成力源的赵马克 —— 当场暴露串上下文。"
+        }
+      ]
+    },
+    {
+      "id": "WO05-ttl",
+      "title": "TTL 过期（扩充）：会话过期后退化为单轮",
+      "session": "wo05-ttl",
+      "ttl_seconds": 1,
+      "llm": false,
+      "turns": [
+        {
+          "turn": 1,
+          "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+          "expect_method": "none",
+          "gold_doc_key": "xingtu",
+          "gold_rewritten": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+          "rule_type": "any",
+          "rule_keywords": ["6,464.51"],
+          "judge_answer": false
+        },
+        {
+          "turn": 2,
+          "question": "他的法定代表人是谁？",
+          "expect_method": "none",
+          "expect_session_expired": true,
+          "judge_answer": false,
+          "gold_doc_key": "",
+          "gold_rewritten": "他的法定代表人是谁？",
+          "_note": "t1 之后等 1.3 秒（ttl=1s）→ 会话过期、焦点丢失 → 规则无法消解代词。此轮**不判答案**（判答案没有意义：上下文已经没了），只断言两件事：会话确实被判定为过期、且没有悄悄编造。"
+        }
+      ]
+    }
+  ]
+}

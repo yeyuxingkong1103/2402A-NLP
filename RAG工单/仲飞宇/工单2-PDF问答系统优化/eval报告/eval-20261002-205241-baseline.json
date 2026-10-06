@@ -1,0 +1,441 @@
+{
+  "summary": {
+    "n": 10,
+    "profile": "baseline",
+    "warmup": true,
+    "rule_hit_rate": 0.6,
+    "rag_rule_hits": 6,
+    "no_rag_rule_hits": 0,
+    "avg_page_precision": 0.1667,
+    "avg_page_recall": 0.3,
+    "avg_context_keyword_coverage": 0.6667,
+    "avg_context_chars": 1103,
+    "n_merged_total": 0,
+    "n_added_neighbors_total": 0,
+    "avg_context_relevance": 0.83,
+    "avg_faithfulness": 1.0,
+    "avg_answer_relevance": 0.83,
+    "avg_context_recall": 0.65,
+    "avg_answer_correctness": 0.6,
+    "ttft_p50_ms": 1039,
+    "ttft_p95_ms": 1812,
+    "ttft_under_3s": 10,
+    "ttft_under_3s_rate": 1.0,
+    "ttft_max_ms": 1812,
+    "total_p50_ms": 1288,
+    "total_p95_ms": 1887,
+    "generated_at": "2026-10-02 20:51:19"
+  },
+  "items": [
+    {
+      "id": 260,
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "category": "散文-多值数值",
+      "reference_answer": "报告期内，公司来自军用领域的收入分别为6,464.51万元、14,414.16万元、18,780.67万元和4,627.14万元（对应2016年度、2017年度、2018年度、2019年1-6月）。",
+      "evidence_page": "1-1-128",
+      "rag_answer": "资料中未提及相关信息（见 1-1-129 页）",
+      "no_rag_answer": "",
+      "citations": [
+        "1-1-133",
+        "1-1-129",
+        "1-1-393"
+      ],
+      "rule_hit": false,
+      "rule_detail": "命中 0/4：[]；缺失：['6,464.51', '14,414.16', '18,780.67', '4,627.14']",
+      "no_rag_rule_hit": null,
+      "context_relevance": 0.0,
+      "faithfulness": 1.0,
+      "answer_relevance": 0.0,
+      "context_recall": 0.0,
+      "answer_correctness": 0.0,
+      "ttft_ms": 830,
+      "total_ms": 1355,
+      "error": "",
+      "profile": "baseline",
+      "retrieved_pages": [
+        "1-1-129",
+        "1-1-133",
+        "1-1-393"
+      ],
+      "evidence_pages": [
+        "1-1-128"
+      ],
+      "page_precision": 0.0,
+      "page_recall": 0.0,
+      "context_keyword_coverage": 0.0,
+      "context_chars": 1181,
+      "n_merged": 0,
+      "n_added_neighbors": 0
+    },
+    {
+      "id": 33,
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别是多少？",
+      "category": "散文-多值数值",
+      "reference_answer": "占主营业务收入比重分别为82.10%、97.31%、94.84%和94.34%（对应2016年度、2017年度、2018年度、2019年1-6月）。",
+      "evidence_page": "1-1-128",
+      "rag_answer": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别为52.66%、68.58%、80.83%和89.72%（见 1-1-129 页）。",
+      "no_rag_answer": "",
+      "citations": [
+        "1-1-184",
+        "1-1-133",
+        "1-1-129"
+      ],
+      "rule_hit": false,
+      "rule_detail": "命中 0/4：[]；缺失：['82.10%', '97.31%', '94.84%', '94.34%']",
+      "no_rag_rule_hit": null,
+      "context_relevance": 1.0,
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "context_recall": 0.5,
+      "answer_correctness": 0.0,
+      "ttft_ms": 1812,
+      "total_ms": 1887,
+      "error": "",
+      "profile": "baseline",
+      "retrieved_pages": [
+        "1-1-129",
+        "1-1-133",
+        "1-1-184"
+      ],
+      "evidence_pages": [
+        "1-1-128"
+      ],
+      "page_precision": 0.0,
+      "page_recall": 0.0,
+      "context_keyword_coverage": 0.0,
+      "context_chars": 1145,
+      "n_merged": 0,
+      "n_added_neighbors": 0
+    },
+    {
+      "id": 531,
+      "question": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+      "category": "表格-人名",
+      "reference_answer": "程家明。",
+      "evidence_page": "1-1-21（发行人基本情况表）；1-1-51 亦载明",
+      "rag_answer": "武汉兴图新科电子股份有限公司的法定代表人是程家明「（见 1-1-21 页）」。",
+      "no_rag_answer": "",
+      "citations": [
+        "1-1-21",
+        "1-1-538",
+        "1-1-532"
+      ],
+      "rule_hit": true,
+      "rule_detail": "命中 1/1：['程家明']",
+      "no_rag_rule_hit": null,
+      "context_relevance": 1.0,
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "context_recall": 1.0,
+      "answer_correctness": 1.0,
+      "ttft_ms": 1016,
+      "total_ms": 1070,
+      "error": "",
+      "profile": "baseline",
+      "retrieved_pages": [
+        "1-1-21",
+        "1-1-532",
+        "1-1-538"
+      ],
+      "evidence_pages": [
+        "1-1-21",
+        "1-1-51"
+      ],
+      "page_precision": 0.3333,
+      "page_recall": 0.5,
+      "context_keyword_coverage": 1.0,
+      "context_chars": 1039,
+      "n_merged": 0,
+      "n_added_neighbors": 0
+    },
+    {
+      "id": 543,
+      "question": "武汉兴图新科电子股份有限公司注册资本是多少？",
+      "category": "表格-金额",
+      "reference_answer": "注册资本5,520.00万元（1-1-51 页写作「5,520万元」，同一数值）。",
+      "evidence_page": "1-1-21（发行人基本情况表）；1-1-51 亦载明",
+      "rag_answer": "武汉兴图新科电子股份有限公司注册资本为5,520.00万元（见 1-1-21 页）。",
+      "no_rag_answer": "",
+      "citations": [
+        "1-1-21",
+        "1-1-62",
+        "1-1-51"
+      ],
+      "rule_hit": true,
+      "rule_detail": "命中 2/3：['5,520.00', '5520']；缺失：['5,520万']",
+      "no_rag_rule_hit": null,
+      "context_relevance": 1.0,
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "context_recall": 1.0,
+      "answer_correctness": 1.0,
+      "ttft_ms": 1039,
+      "total_ms": 1090,
+      "error": "",
+      "profile": "baseline",
+      "retrieved_pages": [
+        "1-1-21",
+        "1-1-51",
+        "1-1-62"
+      ],
+      "evidence_pages": [
+        "1-1-21",
+        "1-1-51"
+      ],
+      "page_precision": 0.6667,
+      "page_recall": 1.0,
+      "context_keyword_coverage": 0.6667,
+      "context_chars": 1078,
+      "n_merged": 0,
+      "n_added_neighbors": 0
+    },
+    {
+      "id": 207,
+      "question": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+      "category": "表格-金额",
+      "reference_answer": "15,000.00万元。募集资金投资项目共三项：基于云联邦架构的军用视频指挥平台升级及产业化项目20,658.33万元、研发中心建设项目4,926.50万元、补充流动资金15,000.00万元，合计40,584.83万元。",
+      "evidence_page": "1-1-29（募集资金投资项目表）；1-1-478 亦载明",
+      "rag_answer": "资料中未提及相关信息（见 1-1-479 页）",
+      "no_rag_answer": "",
+      "citations": [
+        "1-1-479",
+        "1-1-21",
+        "1-1-249"
+      ],
+      "rule_hit": false,
+      "rule_detail": "命中 0/3：[]；缺失：['15,000.00', '15,000万', '15000']",
+      "no_rag_rule_hit": null,
+      "context_relevance": 0.5,
+      "faithfulness": 1.0,
+      "answer_relevance": 0.5,
+      "context_recall": 0.0,
+      "answer_correctness": 0.0,
+      "ttft_ms": 829,
+      "total_ms": 901,
+      "error": "",
+      "profile": "baseline",
+      "retrieved_pages": [
+        "1-1-21",
+        "1-1-249",
+        "1-1-479"
+      ],
+      "evidence_pages": [
+        "1-1-29",
+        "1-1-478"
+      ],
+      "page_precision": 0.0,
+      "page_recall": 0.0,
+      "context_keyword_coverage": 0.0,
+      "context_chars": 1076,
+      "n_merged": 0,
+      "n_added_neighbors": 0
+    },
+    {
+      "id": 95,
+      "question": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+      "category": "散文-实体",
+      "reference_answer": "参与制定了全军第一个视频指挥系统技术标准，即《某视频技术规范1.0》。",
+      "evidence_page": "1-1-25；1-1-26、1-1-94 亦载明",
+      "rag_answer": "武汉兴图新科电子股份有限公司参与制定了《某视频技术规范1.0》（见 1-1-21 页）和《某视频指挥系统技术规范（1.0版）》（见 1-1-158 页）。",
+      "no_rag_answer": "",
+      "citations": [
+        "1-1-21",
+        "1-1-179",
+        "1-1-158"
+      ],
+      "rule_hit": true,
+      "rule_detail": "命中 2/3：['某视频技术规范', '1.0']；缺失：['视频指挥系统技术标准']",
+      "no_rag_rule_hit": null,
+      "context_relevance": 1.0,
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "context_recall": 0.8,
+      "answer_correctness": 0.8,
+      "ttft_ms": 1667,
+      "total_ms": 1727,
+      "error": "",
+      "profile": "baseline",
+      "retrieved_pages": [
+        "1-1-158",
+        "1-1-179",
+        "1-1-21"
+      ],
+      "evidence_pages": [
+        "1-1-25",
+        "1-1-26",
+        "1-1-94"
+      ],
+      "page_precision": 0.0,
+      "page_recall": 0.0,
+      "context_keyword_coverage": 1.0,
+      "context_chars": 1116,
+      "n_merged": 0,
+      "n_added_neighbors": 0
+    },
+    {
+      "id": 795,
+      "question": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+      "category": "散文-实体",
+      "reference_answer": "「某情报、指挥、控制与通信网络一体化工程」（即相当于美军的C4ISR系统）。该工程由某大型研究所牵头承担，兴图新科是该工程网络化视频指挥系统的唯一参与者，但未列入获奖名单。",
+      "evidence_page": "1-1-26；1-1-93、1-1-95 亦载明",
+      "rag_answer": "“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统）荣获了国家科技进步一等奖。（见 1-1-153 页）",
+      "no_rag_answer": "",
+      "citations": [
+        "1-1-92",
+        "1-1-181",
+        "1-1-153"
+      ],
+      "rule_hit": true,
+      "rule_detail": "命中 3/3：['某情报', '一体化工程', 'C4ISR']",
+      "no_rag_rule_hit": null,
+      "context_relevance": 1.0,
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "context_recall": 0.8,
+      "answer_correctness": 0.8,
+      "ttft_ms": 1327,
+      "total_ms": 1393,
+      "error": "",
+      "profile": "baseline",
+      "retrieved_pages": [
+        "1-1-153",
+        "1-1-181",
+        "1-1-92"
+      ],
+      "evidence_pages": [
+        "1-1-26",
+        "1-1-93",
+        "1-1-95"
+      ],
+      "page_precision": 0.0,
+      "page_recall": 0.0,
+      "context_keyword_coverage": 1.0,
+      "context_chars": 1152,
+      "n_merged": 0,
+      "n_added_neighbors": 0
+    },
+    {
+      "id": 957,
+      "question": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+      "category": "散文-实体（措辞有变体）",
+      "reference_answer": "在军队视频指挥领域已经成为重要供应商。原文存在两种措辞：1-1-25 页作「国防军队视频指挥领域」，1-1-26 与 1-1-94 页作「军队视频指挥领域」，两者皆可。",
+      "evidence_page": "1-1-25；1-1-26、1-1-94 亦载明",
+      "rag_answer": "武汉兴图新科电子股份有限公司在国防军队视频指挥领域已经成为重要供应商。（见 1-1-24 页）",
+      "no_rag_answer": "",
+      "citations": [
+        "1-1-24",
+        "1-1-21",
+        "1-1-181"
+      ],
+      "rule_hit": true,
+      "rule_detail": "命中 3/3：['视频指挥领域', '军队视频指挥', '国防军队视频指挥']",
+      "no_rag_rule_hit": null,
+      "context_relevance": 1.0,
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "context_recall": 1.0,
+      "answer_correctness": 1.0,
+      "ttft_ms": 992,
+      "total_ms": 1048,
+      "error": "",
+      "profile": "baseline",
+      "retrieved_pages": [
+        "1-1-181",
+        "1-1-21",
+        "1-1-24"
+      ],
+      "evidence_pages": [
+        "1-1-25",
+        "1-1-26",
+        "1-1-94"
+      ],
+      "page_precision": 0.0,
+      "page_recall": 0.0,
+      "context_keyword_coverage": 1.0,
+      "context_chars": 1080,
+      "n_merged": 0,
+      "n_added_neighbors": 0
+    },
+    {
+      "id": 34,
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+      "category": "散文-枚举",
+      "reference_answer": "上游涉及信息系统相关的电子元器件制造企业，以及机箱、机柜等金属壳体制造企业；竞争充分、采购便利。",
+      "evidence_page": "1-1-151（行业上下游情况）；1-1-152 图示",
+      "rag_answer": "电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、机柜等金属制造企业。（见 1-1-151 页）",
+      "no_rag_answer": "",
+      "citations": [
+        "1-1-21",
+        "1-1-151",
+        "1-1-538"
+      ],
+      "rule_hit": true,
+      "rule_detail": "命中 2/3：['电子元器件', '机箱']；缺失：['金属壳体']",
+      "no_rag_rule_hit": null,
+      "context_relevance": 1.0,
+      "faithfulness": 1.0,
+      "answer_relevance": 1.0,
+      "context_recall": 0.8,
+      "answer_correctness": 0.8,
+      "ttft_ms": 1217,
+      "total_ms": 1288,
+      "error": "",
+      "profile": "baseline",
+      "retrieved_pages": [
+        "1-1-151",
+        "1-1-21",
+        "1-1-538"
+      ],
+      "evidence_pages": [
+        "1-1-151",
+        "1-1-152"
+      ],
+      "page_precision": 0.3333,
+      "page_recall": 0.5,
+      "context_keyword_coverage": 1.0,
+      "context_chars": 1060,
+      "n_merged": 0,
+      "n_added_neighbors": 0
+    },
+    {
+      "id": 793,
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？",
+      "category": "散文-枚举",
+      "reference_answer": "下游为各类终端用户，覆盖范围广泛，主要包括军队、政府机关、能源等行业企业。",
+      "evidence_page": "1-1-151（行业上下游情况）",
+      "rag_answer": "电子信息行业的下游主要包括国防指挥信息系统相关行业，如指挥控制、预警探测、情报侦察、通信、武器控制和其他作战信息保障等领域。（见 1-1-181 页）",
+      "no_rag_answer": "",
+      "citations": [
+        "1-1-151",
+        "1-1-181",
+        "1-1-62"
+      ],
+      "rule_hit": false,
+      "rule_detail": "命中 0/3：[]；缺失：['军队', '政府', '能源']",
+      "no_rag_rule_hit": null,
+      "context_relevance": 0.8,
+      "faithfulness": 1.0,
+      "answer_relevance": 0.8,
+      "context_recall": 0.6,
+      "answer_correctness": 0.6,
+      "ttft_ms": 1333,
+      "total_ms": 1407,
+      "error": "",
+      "profile": "baseline",
+      "retrieved_pages": [
+        "1-1-151",
+        "1-1-181",
+        "1-1-62"
+      ],
+      "evidence_pages": [
+        "1-1-151"
+      ],
+      "page_precision": 0.3333,
+      "page_recall": 1.0,
+      "context_keyword_coverage": 1.0,
+      "context_chars": 1103,
+      "n_merged": 0,
+      "n_added_neighbors": 0
+    }
+  ]
+}

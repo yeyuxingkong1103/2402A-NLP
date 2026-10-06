@@ -1,0 +1,88 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: rag
+      POSTGRES_USER: rag
+      POSTGRES_PASSWORD: rag
+    volumes: [postgres_data:/var/lib/postgresql/data]
+    healthcheck: {test: ["CMD-SHELL", "pg_isready -U rag -d rag"], interval: 5s, timeout: 5s, retries: 20}
+    networks: [rag]
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    volumes: [redis_data:/data]
+    healthcheck: {test: ["CMD", "redis-cli", "ping"], interval: 5s, timeout: 3s, retries: 20}
+    networks: [rag]
+  etcd:
+    image: quay.io/coreos/etcd:v3.5.18
+    environment: {ETCD_AUTO_COMPACTION_MODE: revision, ETCD_AUTO_COMPACTION_RETENTION: "1000", ETCD_QUOTA_BACKEND_BYTES: "4294967296", ETCD_SNAPSHOT_COUNT: "50000"}
+    command: etcd -advertise-client-urls=http://etcd:2379 -listen-client-urls=http://0.0.0.0:2379 --data-dir=/etcd
+    volumes: [etcd_data:/etcd]
+    networks: [rag]
+  minio:
+    image: minio/minio:RELEASE.2024-12-18T13-15-44Z
+    environment: {MINIO_ROOT_USER: minioadmin, MINIO_ROOT_PASSWORD: minioadmin}
+    command: minio server /minio_data --console-address ":9001"
+    volumes: [minio_data:/minio_data]
+    networks: [rag]
+  milvus:
+    image: milvusdb/milvus:v2.5.4
+    command: ["milvus", "run", "standalone"]
+    environment: {ETCD_ENDPOINTS: etcd:2379, MINIO_ADDRESS: minio:9000}
+    volumes: [milvus_data:/var/lib/milvus]
+    depends_on: [etcd, minio]
+    networks: [rag]
+  api:
+    build: ./backend
+    env_file: [.env]
+    environment:
+      DATABASE_URL: postgresql+psycopg://rag:rag@postgres:5432/rag
+      REDIS_URL: redis://redis:6379/0
+      MILVUS_URI: http://milvus:19530
+      UPLOAD_DIR: /data/uploads
+      PARSED_DIR: /data/parsed
+      PAGES_DIR: /data/pages
+      EMBEDDING_MODEL_PATH: /models/bge-m3
+      RERANKER_MODEL_PATH: /models/bge-reranker-large
+    volumes:
+      - ./data:/data
+      - ./招股说明书1-无水印.pdf:/data/default/招股说明书1-无水印.pdf:ro
+      - ${MODEL_ROOT:-D:/桌面/项目/legal-rag/model}/bge-m3:/models/bge-m3:ro
+      - ${MODEL_ROOT:-D:/桌面/项目/legal-rag/model}/bge-reranker-large:/models/bge-reranker-large:ro
+    ports: ["127.0.0.1:8001:8000"]
+    depends_on:
+      postgres: {condition: service_healthy}
+      redis: {condition: service_healthy}
+      milvus: {condition: service_started}
+    networks: [rag]
+  worker:
+    build: ./backend
+    command: celery -A app.tasks.celery_app worker --loglevel=INFO --pool=solo --concurrency=1
+    env_file: [.env]
+    environment:
+      DATABASE_URL: postgresql+psycopg://rag:rag@postgres:5432/rag
+      REDIS_URL: redis://redis:6379/0
+      MILVUS_URI: http://milvus:19530
+      UPLOAD_DIR: /data/uploads
+      PARSED_DIR: /data/parsed
+      PAGES_DIR: /data/pages
+      EMBEDDING_MODEL_PATH: /models/bge-m3
+      RERANKER_MODEL_PATH: /models/bge-reranker-large
+    volumes:
+      - ./data:/data
+      - ./招股说明书1-无水印.pdf:/data/default/招股说明书1-无水印.pdf:ro
+      - ${MODEL_ROOT:-D:/桌面/项目/legal-rag/model}/bge-m3:/models/bge-m3:ro
+      - ${MODEL_ROOT:-D:/桌面/项目/legal-rag/model}/bge-reranker-large:/models/bge-reranker-large:ro
+    depends_on:
+      postgres: {condition: service_healthy}
+      redis: {condition: service_healthy}
+      milvus: {condition: service_started}
+    networks: [rag]
+  frontend:
+    build: ./frontend
+    ports: ["127.0.0.1:5173:80"]
+    depends_on: [api]
+    networks: [rag]
+networks: {rag: {driver: bridge}}
+volumes: {postgres_data: {}, redis_data: {}, etcd_data: {}, minio_data: {}, milvus_data: {}}

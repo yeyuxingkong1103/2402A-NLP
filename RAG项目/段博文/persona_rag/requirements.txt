@@ -1,0 +1,47 @@
+# PersonaRAG · 多角色智能顾问系统 - 依赖清单
+# 用法：pip install -r requirements.txt
+
+# --- LangChain 生态（1.x 版本） ---
+langchain>=1.0
+langchain-core>=1.0
+langchain-classic>=1.0
+langchain-community>=1.0
+langchain-milvus>=0.4
+langchain-huggingface>=1.0
+langchain-openai>=1.0
+langchain-text-splitters>=1.0
+
+# --- 向量数据库 ---
+pymilvus>=3.0
+redis>=5.0
+mysql-connector-python>=8.0
+sqlalchemy>=2.0
+
+# --- 文档解析 ---
+python-docx>=1.0          # .docx 解析
+PyMuPDF>=1.24             # .pdf 解析（fitz）
+pdfplumber>=0.10          # .pdf 表格提取
+openpyxl>=3.1             # .xlsx 解析（Excel 电子表格）
+python-pptx>=1.0          # .pptx 解析（PowerPoint）
+PaddleOCR>=3.0            # OCR 识别（扫描件/图片文字）；代码按 3.x API 写的
+paddlepaddle>=3.0         # PaddleOCR 的运行时（缺了只装 OCR 包会 ImportError）
+pywin32>=306              # Windows COM（.wps/.doc 解析，仅 Windows 需要）
+python-multipart>=0.0.7  # FastAPI 文件上传
+
+# --- 中文处理 ---
+jieba>=0.42               # 中文分词（BM25 用）
+rank-bm25>=0.2            # BM25 检索
+
+# --- 模型 ---
+sentence-transformers>=3.0  # CrossEncoder 重排模型加载
+
+# --- Web 框架 ---
+fastapi>=0.110
+uvicorn>=0.29
+pydantic>=2.0
+
+# --- RAG 评测 ---
+ragas>=0.1
+
+# --- 工具 ---
+python-dotenv>=1.0        # .env 文件加载

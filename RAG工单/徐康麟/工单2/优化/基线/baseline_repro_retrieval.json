@@ -1,0 +1,1326 @@
+{
+  "meta": {
+    "工单": "人工智能NLP-RAG-基于PDF文档的问答系统优化",
+    "用途": "用基线原始代码+原始索引精确复现评估运行的检索上下文（chunk 级）",
+    "文件口径": "★ 流水线最终上下文：本文件的 context_chunk_ids 就是基线 `Retriever.retrieve_multi` 返回、并**原样送入生成器**的那 8 条 chunk（= 工单1 config.retrieval.rerank_top_n = 8）。它不是纯向量检索结果，也不是候选池；索引级口径见 `baseline_retrieval.json`。两者不可混用。",
+    "context_size": "每题恒为 8 条 chunk（与真实日志 Generator.generate 的 retrieved_count=8 一致）",
+    "baseline_code": "E:\\gao6gongdan\\工单2\\优化\\基线\\repro\\app",
+    "index": "E:\\gao6gongdan\\工单2\\优化\\基线\\repro\\data\\index",
+    "variants_source": "E:\\gao6gongdan\\工单1\\logs\\rag_trace.jsonl 窗口 ('2026-10-02T19:37', '2026-10-02T19:42') 内每题最后一次 retrieve_multi 的入参",
+    "hit_definition": "严格口径：整段 evidence（归一化 B：去空白+中英文标点）落在同一 chunk 内",
+    "保真度校验": "复现的上下文页码与真实日志逐题一致 10/10（见 基线说明.md §4.1）",
+    "reproduce_cmd": "pwsh -NoProfile -File run_py.ps1 -B 优化/脚本/reproduce_baseline_retrieval.py"
+  },
+  "summary": {
+    "证据 chunk 进入最终上下文": {
+      "count": 8,
+      "question_ids": [
+        33,
+        34,
+        260,
+        531,
+        543,
+        793,
+        795,
+        957
+      ]
+    },
+    "证据页进入最终上下文": {
+      "count": 8,
+      "question_ids": [
+        33,
+        34,
+        260,
+        531,
+        543,
+        793,
+        795,
+        957
+      ]
+    },
+    "总题数": 10
+  },
+  "per_question": [
+    {
+      "question_id": 33,
+      "variants": [
+        [
+          "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别是多少？",
+          "clean"
+        ],
+        [
+          "报告期内，来自军用领域的收入占主营业务收入的比重分别是多少",
+          "clean"
+        ],
+        [
+          "占比 比重 主营业务收入 报告期 2016 2019 年 1-6 月 军用领域 军队",
+          "keyword"
+        ]
+      ],
+      "ts": "2026-10-02T19:38:53.445+08:00",
+      "context_chunk_ids": [
+        "c000619",
+        "c000624",
+        "c002070",
+        "c002069",
+        "c001824",
+        "c001211",
+        "c002167",
+        "c002160"
+      ],
+      "context_pages": [
+        129,
+        131,
+        235,
+        344,
+        378,
+        393,
+        394
+      ],
+      "context_size": 8,
+      "evidence_chunk_ids": [
+        "c000619"
+      ],
+      "evidence_pages": [
+        129
+      ],
+      "evidence_chunk_in_context": true,
+      "evidence_chunk_ids_in_context": [
+        "c000619"
+      ],
+      "evidence_page_in_context": true,
+      "top1": [
+        "c000619",
+        129
+      ],
+      "scores": [
+        {
+          "rank": 1,
+          "chunk_id": "c000619",
+          "page": 129,
+          "score": 1.0,
+          "vector_score": 0.7391,
+          "bm25_score": 1.0,
+          "source": "hybrid"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c000624",
+          "page": 131,
+          "score": 0.9563,
+          "vector_score": 0.758,
+          "bm25_score": 0.7173,
+          "source": "hybrid"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c002070",
+          "page": 378,
+          "score": 0.8805,
+          "vector_score": 0.7272,
+          "bm25_score": 0.7658,
+          "source": "hybrid"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c002069",
+          "page": 378,
+          "score": 0.6078,
+          "vector_score": 0.7091,
+          "bm25_score": 0.7041,
+          "source": "hybrid"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c001824",
+          "page": 344,
+          "score": 0.4279,
+          "vector_score": 0.0,
+          "bm25_score": 0.8297,
+          "source": "bm25"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c001211",
+          "page": 235,
+          "score": 0.4169,
+          "vector_score": 0.0,
+          "bm25_score": 0.8083,
+          "source": "bm25"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c002167",
+          "page": 394,
+          "score": 0.38,
+          "vector_score": 0.7368,
+          "bm25_score": 0.0,
+          "source": "vector"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c002160",
+          "page": 393,
+          "score": 0.3638,
+          "vector_score": 0.7054,
+          "bm25_score": 0.0,
+          "source": "vector"
+        }
+      ]
+    },
+    {
+      "question_id": 34,
+      "variants": [
+        [
+          "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+          "clean"
+        ],
+        [
+          "根据招股意向书，电子信息行业的上游涉及哪些企业",
+          "clean"
+        ],
+        [
+          "上游 下游",
+          "keyword"
+        ]
+      ],
+      "ts": "2026-10-02T19:38:55.888+08:00",
+      "context_chunk_ids": [
+        "c000088",
+        "c000712",
+        "c002958",
+        "c002962",
+        "c000107",
+        "c000092",
+        "c000713",
+        "c000114"
+      ],
+      "context_pages": [
+        18,
+        22,
+        152,
+        153,
+        541,
+        545
+      ],
+      "context_size": 8,
+      "evidence_chunk_ids": [
+        "c000712"
+      ],
+      "evidence_pages": [
+        152
+      ],
+      "evidence_chunk_in_context": true,
+      "evidence_chunk_ids_in_context": [
+        "c000712"
+      ],
+      "evidence_page_in_context": true,
+      "top1": [
+        "c000088",
+        18
+      ],
+      "scores": [
+        {
+          "rank": 1,
+          "chunk_id": "c000088",
+          "page": 18,
+          "score": 1.0,
+          "vector_score": 0.7762,
+          "bm25_score": 1.0,
+          "source": "hybrid"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c000712",
+          "page": 152,
+          "score": 0.954,
+          "vector_score": 0.7581,
+          "bm25_score": 1.0,
+          "source": "hybrid"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c002958",
+          "page": 541,
+          "score": 0.9471,
+          "vector_score": 0.7601,
+          "bm25_score": 0.9097,
+          "source": "hybrid"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c002962",
+          "page": 545,
+          "score": 0.8919,
+          "vector_score": 0.7279,
+          "bm25_score": 0.8385,
+          "source": "hybrid"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c000107",
+          "page": 22,
+          "score": 0.8294,
+          "vector_score": 0.7464,
+          "bm25_score": 0.6754,
+          "source": "hybrid"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c000092",
+          "page": 18,
+          "score": 0.7894,
+          "vector_score": 0.7351,
+          "bm25_score": 0.6958,
+          "source": "hybrid"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c000713",
+          "page": 153,
+          "score": 0.7021,
+          "vector_score": 0.6739,
+          "bm25_score": 0.562,
+          "source": "hybrid"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c000114",
+          "page": 22,
+          "score": 0.6335,
+          "vector_score": 0.7312,
+          "bm25_score": 0.0,
+          "source": "vector"
+        }
+      ]
+    },
+    {
+      "question_id": 95,
+      "variants": [
+        [
+          "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+          "clean"
+        ],
+        [
+          "参与制定了哪个技术标准",
+          "clean"
+        ],
+        [
+          "技术标准 技术规范",
+          "keyword"
+        ]
+      ],
+      "ts": "2026-10-02T19:38:47.015+08:00",
+      "context_chunk_ids": [
+        "c000107",
+        "c000267",
+        "c000740",
+        "c000114",
+        "c000006",
+        "c000180",
+        "c001250",
+        "c000821"
+      ],
+      "context_pages": [
+        4,
+        22,
+        35,
+        52,
+        160,
+        181,
+        241
+      ],
+      "context_size": 8,
+      "evidence_chunk_ids": [],
+      "evidence_pages": [],
+      "evidence_chunk_in_context": false,
+      "evidence_chunk_ids_in_context": [],
+      "evidence_page_in_context": false,
+      "top1": [
+        "c000107",
+        22
+      ],
+      "scores": [
+        {
+          "rank": 1,
+          "chunk_id": "c000107",
+          "page": 22,
+          "score": 1.0,
+          "vector_score": 0.7264,
+          "bm25_score": 0.9447,
+          "source": "hybrid"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c000267",
+          "page": 52,
+          "score": 0.904,
+          "vector_score": 0.7128,
+          "bm25_score": 0.7698,
+          "source": "hybrid"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c000740",
+          "page": 160,
+          "score": 0.8868,
+          "vector_score": 0.6604,
+          "bm25_score": 1.0,
+          "source": "hybrid"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c000114",
+          "page": 22,
+          "score": 0.6812,
+          "vector_score": 0.739,
+          "bm25_score": 0.0,
+          "source": "vector"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c000006",
+          "page": 4,
+          "score": 0.5916,
+          "vector_score": 0.6112,
+          "bm25_score": 0.4114,
+          "source": "hybrid"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c000180",
+          "page": 35,
+          "score": 0.5911,
+          "vector_score": 0.6087,
+          "bm25_score": 0.4139,
+          "source": "hybrid"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c001250",
+          "page": 241,
+          "score": 0.579,
+          "vector_score": 0.6026,
+          "bm25_score": 0.6353,
+          "source": "hybrid"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c000821",
+          "page": 181,
+          "score": 0.5775,
+          "vector_score": 0.5999,
+          "bm25_score": 0.6353,
+          "source": "hybrid"
+        }
+      ]
+    },
+    {
+      "question_id": 207,
+      "variants": [
+        [
+          "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+          "clean"
+        ],
+        [
+          "计划使用本次发行募集资金的多少用于补充流动资金",
+          "clean"
+        ],
+        [
+          "募集资金 补充流动资金 本次发行",
+          "keyword"
+        ]
+      ],
+      "ts": "2026-10-02T19:40:22.407+08:00",
+      "context_chunk_ids": [
+        "c002715",
+        "c002720",
+        "c002686",
+        "c000151",
+        "c002684",
+        "c002721",
+        "c002667",
+        "c002673"
+      ],
+      "context_pages": [
+        30,
+        479,
+        481,
+        484,
+        490,
+        491
+      ],
+      "context_size": 8,
+      "evidence_chunk_ids": [],
+      "evidence_pages": [],
+      "evidence_chunk_in_context": false,
+      "evidence_chunk_ids_in_context": [],
+      "evidence_page_in_context": false,
+      "top1": [
+        "c002715",
+        490
+      ],
+      "scores": [
+        {
+          "rank": 1,
+          "chunk_id": "c002715",
+          "page": 490,
+          "score": 1.0,
+          "vector_score": 0.7905,
+          "bm25_score": 1.0,
+          "source": "hybrid"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c002720",
+          "page": 491,
+          "score": 0.9709,
+          "vector_score": 0.7618,
+          "bm25_score": 0.9796,
+          "source": "hybrid"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c002686",
+          "page": 484,
+          "score": 0.8913,
+          "vector_score": 0.7056,
+          "bm25_score": 0.9081,
+          "source": "hybrid"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c000151",
+          "page": 30,
+          "score": 0.8827,
+          "vector_score": 0.7337,
+          "bm25_score": 0.847,
+          "source": "hybrid"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c002684",
+          "page": 484,
+          "score": 0.8581,
+          "vector_score": 0.7037,
+          "bm25_score": 0.8375,
+          "source": "hybrid"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c002721",
+          "page": 491,
+          "score": 0.8123,
+          "vector_score": 0.7017,
+          "bm25_score": 0.7395,
+          "source": "hybrid"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c002667",
+          "page": 479,
+          "score": 0.8077,
+          "vector_score": 0.7013,
+          "bm25_score": 0.73,
+          "source": "hybrid"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c002673",
+          "page": 481,
+          "score": 0.5176,
+          "vector_score": 0.7311,
+          "bm25_score": 0.8385,
+          "source": "hybrid"
+        }
+      ]
+    },
+    {
+      "question_id": 260,
+      "variants": [
+        [
+          "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+          "clean"
+        ],
+        [
+          "报告期内，来自军用领域的收入分别是多少",
+          "clean"
+        ],
+        [
+          "收入 军用领域 报告期 2016 2019 年 1-6 月 军队",
+          "keyword"
+        ]
+      ],
+      "ts": "2026-10-02T19:38:39.693+08:00",
+      "context_chunk_ids": [
+        "c000619",
+        "c000107",
+        "c000620",
+        "c000624",
+        "c002167",
+        "c002069",
+        "c000341",
+        "c000114"
+      ],
+      "context_pages": [
+        22,
+        65,
+        129,
+        130,
+        131,
+        378,
+        394
+      ],
+      "context_size": 8,
+      "evidence_chunk_ids": [
+        "c000619"
+      ],
+      "evidence_pages": [
+        129
+      ],
+      "evidence_chunk_in_context": true,
+      "evidence_chunk_ids_in_context": [
+        "c000619"
+      ],
+      "evidence_page_in_context": true,
+      "top1": [
+        "c000619",
+        129
+      ],
+      "scores": [
+        {
+          "rank": 1,
+          "chunk_id": "c000619",
+          "page": 129,
+          "score": 1.0,
+          "vector_score": 0.746,
+          "bm25_score": 1.0,
+          "source": "hybrid"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c000107",
+          "page": 22,
+          "score": 0.9074,
+          "vector_score": 0.6958,
+          "bm25_score": 0.9447,
+          "source": "hybrid"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c000620",
+          "page": 130,
+          "score": 0.8043,
+          "vector_score": 0.6746,
+          "bm25_score": 0.8994,
+          "source": "hybrid"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c000624",
+          "page": 131,
+          "score": 0.7602,
+          "vector_score": 0.7404,
+          "bm25_score": 0.0,
+          "source": "vector"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c002167",
+          "page": 394,
+          "score": 0.7541,
+          "vector_score": 0.7344,
+          "bm25_score": 0.0,
+          "source": "vector"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c002069",
+          "page": 378,
+          "score": 0.7354,
+          "vector_score": 0.7162,
+          "bm25_score": 0.0,
+          "source": "vector"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c000341",
+          "page": 65,
+          "score": 0.7208,
+          "vector_score": 0.702,
+          "bm25_score": 0.0,
+          "source": "vector"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c000114",
+          "page": 22,
+          "score": 0.5963,
+          "vector_score": 0.6969,
+          "bm25_score": 0.0,
+          "source": "vector"
+        }
+      ]
+    },
+    {
+      "question_id": 531,
+      "variants": [
+        [
+          "武汉兴图新科电子股份有限公司法定代表人是谁？",
+          "clean"
+        ],
+        [
+          "法定代表人是谁",
+          "clean"
+        ],
+        [
+          "法定代表人",
+          "keyword"
+        ]
+      ],
+      "ts": "2026-10-02T19:40:16.442+08:00",
+      "context_chunk_ids": [
+        "c000265",
+        "c000114",
+        "c000109",
+        "c000107",
+        "c000160",
+        "c000385",
+        "c000334",
+        "c000174"
+      ],
+      "context_pages": [
+        22,
+        32,
+        33,
+        52,
+        64,
+        72
+      ],
+      "context_size": 8,
+      "evidence_chunk_ids": [
+        "c000109",
+        "c000265",
+        "c000328",
+        "c000334",
+        "c000354",
+        "c001307",
+        "c001314"
+      ],
+      "evidence_pages": [
+        22,
+        52,
+        63,
+        64,
+        68,
+        253,
+        254
+      ],
+      "evidence_chunk_in_context": true,
+      "evidence_chunk_ids_in_context": [
+        "c000109",
+        "c000265",
+        "c000334"
+      ],
+      "evidence_page_in_context": true,
+      "top1": [
+        "c000265",
+        52
+      ],
+      "scores": [
+        {
+          "rank": 1,
+          "chunk_id": "c000265",
+          "page": 52,
+          "score": 1.0,
+          "vector_score": 0.7916,
+          "bm25_score": 1.0,
+          "source": "hybrid"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c000114",
+          "page": 22,
+          "score": 0.6659,
+          "vector_score": 0.7768,
+          "bm25_score": 0.0,
+          "source": "vector"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c000109",
+          "page": 22,
+          "score": 0.5846,
+          "vector_score": 0.5927,
+          "bm25_score": 0.7744,
+          "source": "hybrid"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c000107",
+          "page": 22,
+          "score": 0.536,
+          "vector_score": 0.7895,
+          "bm25_score": 0.9263,
+          "source": "hybrid"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c000160",
+          "page": 32,
+          "score": 0.5352,
+          "vector_score": 0.5756,
+          "bm25_score": 0.6592,
+          "source": "hybrid"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c000385",
+          "page": 72,
+          "score": 0.3515,
+          "vector_score": 0.0,
+          "bm25_score": 1.0,
+          "source": "bm25"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c000334",
+          "page": 64,
+          "score": 0.2988,
+          "vector_score": 0.5667,
+          "bm25_score": 0.0,
+          "source": "vector"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c000174",
+          "page": 33,
+          "score": 0.2945,
+          "vector_score": 0.0,
+          "bm25_score": 0.6703,
+          "source": "bm25"
+        }
+      ]
+    },
+    {
+      "question_id": 543,
+      "variants": [
+        [
+          "武汉兴图新科电子股份有限公司注册资本是多少？",
+          "clean"
+        ],
+        [
+          "注册资本是多少",
+          "clean"
+        ],
+        [
+          "注册资本",
+          "keyword"
+        ]
+      ],
+      "ts": "2026-10-02T19:40:12.665+08:00",
+      "context_chunk_ids": [
+        "c000265",
+        "c000109",
+        "c001526",
+        "c000114",
+        "c001531",
+        "c000287",
+        "c000276",
+        "c000354"
+      ],
+      "context_pages": [
+        22,
+        52,
+        54,
+        56,
+        68,
+        286
+      ],
+      "context_size": 8,
+      "evidence_chunk_ids": [
+        "c000265"
+      ],
+      "evidence_pages": [
+        52
+      ],
+      "evidence_chunk_in_context": true,
+      "evidence_chunk_ids_in_context": [
+        "c000265"
+      ],
+      "evidence_page_in_context": true,
+      "top1": [
+        "c000265",
+        52
+      ],
+      "scores": [
+        {
+          "rank": 1,
+          "chunk_id": "c000265",
+          "page": 52,
+          "score": 1.0,
+          "vector_score": 0.8055,
+          "bm25_score": 0.8965,
+          "source": "hybrid"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c000109",
+          "page": 22,
+          "score": 0.7633,
+          "vector_score": 0.723,
+          "bm25_score": 0.9418,
+          "source": "hybrid"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c001526",
+          "page": 286,
+          "score": 0.729,
+          "vector_score": 0.6236,
+          "bm25_score": 1.0,
+          "source": "hybrid"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c000114",
+          "page": 22,
+          "score": 0.7102,
+          "vector_score": 0.7972,
+          "bm25_score": 0.0,
+          "source": "vector"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c001531",
+          "page": 286,
+          "score": 0.7033,
+          "vector_score": 0.6299,
+          "bm25_score": 0.8952,
+          "source": "hybrid"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c000287",
+          "page": 56,
+          "score": 0.6916,
+          "vector_score": 0.6465,
+          "bm25_score": 0.8661,
+          "source": "hybrid"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c000276",
+          "page": 54,
+          "score": 0.6605,
+          "vector_score": 0.63,
+          "bm25_score": 0.8084,
+          "source": "hybrid"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c000354",
+          "page": 68,
+          "score": 0.6511,
+          "vector_score": 0.6223,
+          "bm25_score": 0.7952,
+          "source": "hybrid"
+        }
+      ]
+    },
+    {
+      "question_id": 793,
+      "variants": [
+        [
+          "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？",
+          "clean"
+        ],
+        [
+          "根据招股意向书，电子信息行业的下游主要包括哪些行业",
+          "clean"
+        ],
+        [
+          "上游 下游",
+          "keyword"
+        ]
+      ],
+      "ts": "2026-10-02T19:40:01.221+08:00",
+      "context_chunk_ids": [
+        "c000712",
+        "c000088",
+        "c002958",
+        "c002941",
+        "c000107",
+        "c000114",
+        "c000715",
+        "c000713"
+      ],
+      "context_pages": [
+        18,
+        22,
+        152,
+        153,
+        532,
+        541
+      ],
+      "context_size": 8,
+      "evidence_chunk_ids": [
+        "c000712"
+      ],
+      "evidence_pages": [
+        152
+      ],
+      "evidence_chunk_in_context": true,
+      "evidence_chunk_ids_in_context": [
+        "c000712"
+      ],
+      "evidence_page_in_context": true,
+      "top1": [
+        "c000712",
+        152
+      ],
+      "scores": [
+        {
+          "rank": 1,
+          "chunk_id": "c000712",
+          "page": 152,
+          "score": 1.0,
+          "vector_score": 0.7882,
+          "bm25_score": 1.0,
+          "source": "hybrid"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c000088",
+          "page": 18,
+          "score": 0.9466,
+          "vector_score": 0.7669,
+          "bm25_score": 1.0,
+          "source": "hybrid"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c002958",
+          "page": 541,
+          "score": 0.8877,
+          "vector_score": 0.7379,
+          "bm25_score": 0.9097,
+          "source": "hybrid"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c002941",
+          "page": 532,
+          "score": 0.7795,
+          "vector_score": 0.7422,
+          "bm25_score": 0.6573,
+          "source": "hybrid"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c000107",
+          "page": 22,
+          "score": 0.7728,
+          "vector_score": 0.7201,
+          "bm25_score": 0.6754,
+          "source": "hybrid"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c000114",
+          "page": 22,
+          "score": 0.6051,
+          "vector_score": 0.7331,
+          "bm25_score": 0.0,
+          "source": "vector"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c000715",
+          "page": 153,
+          "score": 0.5486,
+          "vector_score": 0.7019,
+          "bm25_score": 0.6234,
+          "source": "hybrid"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c000713",
+          "page": 153,
+          "score": 0.5114,
+          "vector_score": 0.4638,
+          "bm25_score": 1.0,
+          "source": "hybrid"
+        }
+      ]
+    },
+    {
+      "question_id": 795,
+      "variants": [
+        [
+          "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+          "clean"
+        ],
+        [
+          "参与的哪个工程荣获了国家科技进步一等奖",
+          "clean"
+        ],
+        [
+          "科技进步奖 一等奖",
+          "keyword"
+        ]
+      ],
+      "ts": "2026-10-02T19:40:04.421+08:00",
+      "context_chunk_ids": [
+        "c000737",
+        "c000533",
+        "c000731",
+        "c001250",
+        "c000821",
+        "c000829",
+        "c000723",
+        "c000107"
+      ],
+      "context_pages": [
+        22,
+        96,
+        155,
+        157,
+        158,
+        181,
+        182,
+        241
+      ],
+      "context_size": 8,
+      "evidence_chunk_ids": [
+        "c000141",
+        "c000723",
+        "c000821",
+        "c000829",
+        "c001250"
+      ],
+      "evidence_pages": [
+        27,
+        155,
+        181,
+        182,
+        241
+      ],
+      "evidence_chunk_in_context": true,
+      "evidence_chunk_ids_in_context": [
+        "c000723",
+        "c000821",
+        "c000829",
+        "c001250"
+      ],
+      "evidence_page_in_context": true,
+      "top1": [
+        "c000737",
+        158
+      ],
+      "scores": [
+        {
+          "rank": 1,
+          "chunk_id": "c000737",
+          "page": 158,
+          "score": 1.0,
+          "vector_score": 0.7985,
+          "bm25_score": 0.9018,
+          "source": "hybrid"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c000533",
+          "page": 96,
+          "score": 0.998,
+          "vector_score": 0.7302,
+          "bm25_score": 1.0,
+          "source": "hybrid"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c000731",
+          "page": 157,
+          "score": 0.9952,
+          "vector_score": 0.7312,
+          "bm25_score": 0.9926,
+          "source": "hybrid"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c001250",
+          "page": 241,
+          "score": 0.8356,
+          "vector_score": 0.6767,
+          "bm25_score": 0.7394,
+          "source": "hybrid"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c000821",
+          "page": 181,
+          "score": 0.818,
+          "vector_score": 0.652,
+          "bm25_score": 0.7394,
+          "source": "hybrid"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c000829",
+          "page": 182,
+          "score": 0.6863,
+          "vector_score": 0.6156,
+          "bm25_score": 0.5175,
+          "source": "hybrid"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c000723",
+          "page": 155,
+          "score": 0.681,
+          "vector_score": 0.6125,
+          "bm25_score": 0.5109,
+          "source": "hybrid"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c000107",
+          "page": 22,
+          "score": 0.6617,
+          "vector_score": 0.6657,
+          "bm25_score": 0.597,
+          "source": "hybrid"
+        }
+      ]
+    },
+    {
+      "question_id": 957,
+      "variants": [
+        [
+          "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+          "clean"
+        ],
+        [
+          "在哪个领域已经成为重要供应商",
+          "clean"
+        ],
+        [
+          "供应商 客户",
+          "keyword"
+        ]
+      ],
+      "ts": "2026-10-02T19:39:56.503+08:00",
+      "context_chunk_ids": [
+        "c000107",
+        "c002941",
+        "c000274",
+        "c000985",
+        "c002092",
+        "c000114",
+        "c000911",
+        "c000721"
+      ],
+      "context_pages": [
+        22,
+        54,
+        154,
+        194,
+        210,
+        382,
+        532
+      ],
+      "context_size": 8,
+      "evidence_chunk_ids": [
+        "c000137",
+        "c000721"
+      ],
+      "evidence_pages": [
+        26,
+        154
+      ],
+      "evidence_chunk_in_context": true,
+      "evidence_chunk_ids_in_context": [
+        "c000721"
+      ],
+      "evidence_page_in_context": true,
+      "top1": [
+        "c000107",
+        22
+      ],
+      "scores": [
+        {
+          "rank": 1,
+          "chunk_id": "c000107",
+          "page": 22,
+          "score": 1.0,
+          "vector_score": 0.7406,
+          "bm25_score": 0.9447,
+          "source": "hybrid"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "c002941",
+          "page": 532,
+          "score": 0.9512,
+          "vector_score": 0.6906,
+          "bm25_score": 0.9194,
+          "source": "hybrid"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "c000274",
+          "page": 54,
+          "score": 0.8905,
+          "vector_score": 0.6881,
+          "bm25_score": 0.7983,
+          "source": "hybrid"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "c000985",
+          "page": 210,
+          "score": 0.7876,
+          "vector_score": 0.6519,
+          "bm25_score": 1.0,
+          "source": "hybrid"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "c002092",
+          "page": 382,
+          "score": 0.7022,
+          "vector_score": 0.6873,
+          "bm25_score": 0.0,
+          "source": "vector"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "c000114",
+          "page": 22,
+          "score": 0.6946,
+          "vector_score": 0.7615,
+          "bm25_score": 0.0,
+          "source": "vector"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "c000911",
+          "page": 194,
+          "score": 0.6648,
+          "vector_score": 0.6209,
+          "bm25_score": 1.0,
+          "source": "hybrid"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "c000721",
+          "page": 154,
+          "score": 0.6561,
+          "vector_score": 0.0,
+          "bm25_score": 0.9633,
+          "source": "bm25"
+        }
+      ]
+    }
+  ]
+}

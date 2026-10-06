@@ -1,0 +1,897 @@
+{
+  "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化",
+  "name": "online_qa14",
+  "title": "14 题端到端问答结果",
+  "generated_at": "2026-10-04T20:53:24+0800",
+  "ragas": "RAGAS 未运行（依赖不可用，本机断网）",
+  "extra": {
+    "judge": "§2.1 五步口径（产品 bridge → 工单1 权威 Evaluator（只读）→ 本地副本）",
+    "judge_input": "答案正文（citation.answer_body）；另存含引用行的判定结果作对照",
+    "budget_ms": 3000,
+    "correct_body": 13,
+    "correct_full_text": 10
+  },
+  "rows": [
+    {
+      "id": 1,
+      "corpus": "pdf2",
+      "question": "武汉力源信息技术股份有限公司本次发行股数是多少？占发行后总股本的比例是多少？",
+      "answer_text": "1,670万股，占发行后总股本的比例为25.04%\n引用：[招股说明书2.pdf: 24]",
+      "answer_body": "1,670万股，占发行后总股本的比例为25.04%",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "first_token_ms": 104.0,
+      "total_ms": 1332.79,
+      "wall_ms": 1816.75,
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "language": "zh",
+      "correct": true,
+      "judge_reason": "答案为参考答案子串（忽略标点）（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "judge_source": "产品口径 app.core.evaluator_bridge",
+      "correct_full_text": true,
+      "judge_reason_full_text": "金额全部命中(1个)（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "golden_answer": "发行 1,670 万股，占发行后总股本的比例为 25.04%。",
+      "citations": [
+        {
+          "file_name": "招股说明书2.pdf",
+          "page": 24,
+          "chunk_id": "招股说明书2_p0024_x44",
+          "quote": "武汉力源信息技术股份有限公司 招股意向书 二、本次发行的基本情况 (一)发行基本情况 股票种类 人民币普通股(A 股) ",
+          "ok": true,
+          "detail": "chunk 招股说明书2_p0024_x44 的 99% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "subject_gate": {
+        "ok": true,
+        "expected": "any",
+        "allowed": [],
+        "found": [],
+        "leaked": [],
+        "reason": "not_applicable",
+        "counted": false
+      },
+      "elements": [
+        {
+          "name": "答案含必需要素「1,670」（题 1）",
+          "ok": true,
+          "detail": "答案摘要='1,670万股，占发行后总股本的比例为25.04%\\n引用：[招股说明书2.pdf: 24]'"
+        },
+        {
+          "name": "答案含必需要素「25.04」（题 1）",
+          "ok": true,
+          "detail": "答案摘要='1,670万股，占发行后总股本的比例为25.04%\\n引用：[招股说明书2.pdf: 24]'"
+        }
+      ],
+      "elements_ok": true
+    },
+    {
+      "id": 2,
+      "corpus": "pdf2",
+      "question": "武汉力源信息技术股份有限公司本次募集资金拟投资项目有哪些？",
+      "answer_text": "本次募集资金拟投资项目包括：仓储及物流中心（3,393.40 万元）、研发中心（1,526.38 万元）、电子商务平台（2,492.78 万元）、扩充产品种类和数量（9,000.00 万元）、其他与主营业务相关的营运资金（未披露）\n引用：[招股说明书2.pdf: 22]",
+      "answer_body": "本次募集资金拟投资项目包括：仓储及物流中心（3,393.40 万元）、研发中心（1,526.38 万元）、电子商务平台（2,492.78 万元）、扩充产品种类和数量（9,000.00 万元）、其他与主营业务相关的营运资金（未披露）",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "first_token_ms": 294.29,
+      "total_ms": 5720.32,
+      "wall_ms": 6188.47,
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "language": "zh",
+      "correct": true,
+      "judge_reason": "金额全部命中(4个)（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "judge_source": "产品口径 app.core.evaluator_bridge",
+      "correct_full_text": true,
+      "judge_reason_full_text": "金额全部命中(4个)（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "golden_answer": "5 项：仓储及物流中心 3,393.40 万元、研发中心 1,526.38 万元、电子商务平台 2,492.78 万元、扩充产品种类和数量 9,000.00 万元、其他与主营业务相关的营运资金（原文为 [ ◆ ] → 未披露）。",
+      "citations": [
+        {
+          "file_name": "招股说明书2.pdf",
+          "page": 22,
+          "chunk_id": "招股说明书2_p0022_t07",
+          "quote": "[表标题] 五、募集资金用途\n[来源] 招股说明书2.pdf 第 22 页\n[Markdown]\n| 序号 | 项目名称",
+          "ok": true,
+          "detail": "chunk 招股说明书2_p0022_t07 的 88% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "subject_gate": {
+        "ok": true,
+        "expected": "any",
+        "allowed": [],
+        "found": [],
+        "leaked": [],
+        "reason": "not_applicable",
+        "counted": false
+      },
+      "elements": [
+        {
+          "name": "答案含必需要素「3,393.40」（题 2）",
+          "ok": true,
+          "detail": "答案摘要='本次募集资金拟投资项目包括：仓储及物流中心（3,393.40 万元）、研发中心（1,526.38 万元）、电子商务平台（'"
+        },
+        {
+          "name": "答案含必需要素「1,526.38」（题 2）",
+          "ok": true,
+          "detail": "答案摘要='本次募集资金拟投资项目包括：仓储及物流中心（3,393.40 万元）、研发中心（1,526.38 万元）、电子商务平台（'"
+        },
+        {
+          "name": "答案含必需要素「2,492.78」（题 2）",
+          "ok": true,
+          "detail": "答案摘要='本次募集资金拟投资项目包括：仓储及物流中心（3,393.40 万元）、研发中心（1,526.38 万元）、电子商务平台（'"
+        },
+        {
+          "name": "答案含必需要素「9,000.00」（题 2）",
+          "ok": true,
+          "detail": "答案摘要='本次募集资金拟投资项目包括：仓储及物流中心（3,393.40 万元）、研发中心（1,526.38 万元）、电子商务平台（'"
+        },
+        {
+          "name": "答案含必需要素「其他与主营业务相关的营运资金」（题 2）",
+          "ok": true,
+          "detail": "答案摘要='本次募集资金拟投资项目包括：仓储及物流中心（3,393.40 万元）、研发中心（1,526.38 万元）、电子商务平台（'"
+        },
+        {
+          "name": "答案未混入「0.00万元」（题 2）",
+          "ok": true,
+          "detail": "答案摘要='本次募集资金拟投资项目包括：仓储及物流中心（3,393.40 万元）、研发中心（1,526.38 万元）、电子商务平台（2,492.78 万元）、扩充产品种类和'"
+        }
+      ],
+      "elements_ok": true
+    },
+    {
+      "id": 3,
+      "corpus": "pdf2",
+      "question": "武汉力源信息技术股份有限公司存在控制关系的关联方是谁？其持股比例与本公司关系是什么？",
+      "answer_text": "**答案：** 赵马克，持股比例42.35%，公司控股股东\n**引用：**\n引用：[招股说明书2.pdf: 157]",
+      "answer_body": "**答案：** 赵马克，持股比例42.35%，公司控股股东\n**引用：**",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "first_token_ms": 505.63,
+      "total_ms": 1822.95,
+      "wall_ms": 2238.38,
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "language": "zh",
+      "correct": true,
+      "judge_reason": "比例全部命中（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "judge_source": "产品口径 app.core.evaluator_bridge",
+      "correct_full_text": true,
+      "judge_reason_full_text": "比例全部命中（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "golden_answer": "赵马克（Mark Zhao），持股 42.35%，为公司控股股东（及实际控制人）。",
+      "citations": [
+        {
+          "file_name": "招股说明书2.pdf",
+          "page": 157,
+          "chunk_id": "招股说明书2_p0157_x314",
+          "quote": "武汉力源信息技术股份有限公司 招股意向书 3、本人保证将不利用对股份公司的控股关系进行损害或可能损害股份公司 及股份公司",
+          "ok": true,
+          "detail": "chunk 招股说明书2_p0157_x314 的 99% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "subject_gate": {
+        "ok": true,
+        "expected": "person",
+        "allowed": [
+          "赵马克"
+        ],
+        "found": [
+          "赵马克"
+        ],
+        "leaked": [],
+        "reason": "ok",
+        "counted": true
+      },
+      "elements": [
+        {
+          "name": "答案含必需要素「赵马克」（题 3）",
+          "ok": true,
+          "detail": "答案摘要='**答案：** 赵马克，持股比例42.35%，公司控股股东\\n**引用：**\\n引用：[招股说明书2.pdf: 157]'"
+        },
+        {
+          "name": "答案含必需要素「42.35」（题 3）",
+          "ok": true,
+          "detail": "答案摘要='**答案：** 赵马克，持股比例42.35%，公司控股股东\\n**引用：**\\n引用：[招股说明书2.pdf: 157]'"
+        },
+        {
+          "name": "答案未混入「融冰投资」（题 3）",
+          "ok": true,
+          "detail": "答案摘要='**答案：** 赵马克，持股比例42.35%，公司控股股东\\n**引用：**\\n引用：[招股说明书2.pdf: 157]'"
+        },
+        {
+          "name": "答案未混入「武汉博润」（题 3）",
+          "ok": true,
+          "detail": "答案摘要='**答案：** 赵马克，持股比例42.35%，公司控股股东\\n**引用：**\\n引用：[招股说明书2.pdf: 157]'"
+        },
+        {
+          "name": "答案未混入「上海博润」（题 3）",
+          "ok": true,
+          "detail": "答案摘要='**答案：** 赵马克，持股比例42.35%，公司控股股东\\n**引用：**\\n引用：[招股说明书2.pdf: 157]'"
+        },
+        {
+          "name": "答案未混入「听音投资」（题 3）",
+          "ok": true,
+          "detail": "答案摘要='**答案：** 赵马克，持股比例42.35%，公司控股股东\\n**引用：**\\n引用：[招股说明书2.pdf: 157]'"
+        },
+        {
+          "name": "答案未混入「联众聚源」（题 3）",
+          "ok": true,
+          "detail": "答案摘要='**答案：** 赵马克，持股比例42.35%，公司控股股东\\n**引用：**\\n引用：[招股说明书2.pdf: 157]'"
+        },
+        {
+          "name": "答案未混入「力源贸易」（题 3）",
+          "ok": true,
+          "detail": "答案摘要='**答案：** 赵马克，持股比例42.35%，公司控股股东\\n**引用：**\\n引用：[招股说明书2.pdf: 157]'"
+        },
+        {
+          "name": "答案未混入「普芯达」（题 3）",
+          "ok": true,
+          "detail": "答案摘要='**答案：** 赵马克，持股比例42.35%，公司控股股东\\n**引用：**\\n引用：[招股说明书2.pdf: 157]'"
+        }
+      ],
+      "elements_ok": true
+    },
+    {
+      "id": 4,
+      "corpus": "pdf2",
+      "question": "武汉力源信息技术股份有限公司不存在控制关系的关联方企业有哪些？",
+      "answer_text": "企业名称包括：融冰投资、武汉博润、上海博润、听音投资、联众聚源、力源贸易、普芯达、佰力电子、盈硅电子\n引用：[招股说明书2.pdf: 157]",
+      "answer_body": "企业名称包括：融冰投资、武汉博润、上海博润、听音投资、联众聚源、力源贸易、普芯达、佰力电子、盈硅电子",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "first_token_ms": 497.63,
+      "total_ms": 4553.8,
+      "wall_ms": 4969.9,
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "language": "zh",
+      "correct": false,
+      "judge_reason": "未命中：缺少数值 ['5', '7']（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "judge_source": "产品口径 app.core.evaluator_bridge",
+      "correct_full_text": false,
+      "judge_reason_full_text": "未命中：缺少数值 ['5', '7']（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "golden_answer": "7 家企业：融冰投资、武汉博润、上海博润、听音投资、联众聚源（均持有公司股份 5% 以上）、力源贸易（同一实际控制人控制的企业）、普芯达（实际控制人近亲属控制的公司）。",
+      "citations": [
+        {
+          "file_name": "招股说明书2.pdf",
+          "page": 157,
+          "chunk_id": "招股说明书2_p0157_t70",
+          "quote": "[表标题] 2、不存在控制关系的关联方\n[来源] 招股说明书2.pdf 第 157-158 页（表头页 157）\n[Ma",
+          "ok": true,
+          "detail": "chunk 招股说明书2_p0157_t70 的 76% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "subject_gate": {
+        "ok": true,
+        "expected": "organization",
+        "allowed": [
+          "融冰投资",
+          "武汉博润",
+          "上海博润",
+          "听音投资",
+          "联众聚源",
+          "力源贸易",
+          "普芯达",
+          "佰力电子",
+          "盈硅电子"
+        ],
+        "found": [
+          "融冰投资",
+          "武汉博润",
+          "上海博润",
+          "听音投资",
+          "联众聚源",
+          "力源贸易",
+          "普芯达",
+          "佰力电子",
+          "盈硅电子"
+        ],
+        "leaked": [],
+        "reason": "ok",
+        "counted": true
+      },
+      "elements": [
+        {
+          "name": "答案含必需要素「融冰投资」（题 4）",
+          "ok": true,
+          "detail": "答案摘要='企业名称包括：融冰投资、武汉博润、上海博润、听音投资、联众聚源、力源贸易、普芯达、佰力电子、盈硅电子\\n引用：[招股说明书'"
+        },
+        {
+          "name": "答案含必需要素「武汉博润」（题 4）",
+          "ok": true,
+          "detail": "答案摘要='企业名称包括：融冰投资、武汉博润、上海博润、听音投资、联众聚源、力源贸易、普芯达、佰力电子、盈硅电子\\n引用：[招股说明书'"
+        },
+        {
+          "name": "答案含必需要素「上海博润」（题 4）",
+          "ok": true,
+          "detail": "答案摘要='企业名称包括：融冰投资、武汉博润、上海博润、听音投资、联众聚源、力源贸易、普芯达、佰力电子、盈硅电子\\n引用：[招股说明书'"
+        },
+        {
+          "name": "答案含必需要素「听音投资」（题 4）",
+          "ok": true,
+          "detail": "答案摘要='企业名称包括：融冰投资、武汉博润、上海博润、听音投资、联众聚源、力源贸易、普芯达、佰力电子、盈硅电子\\n引用：[招股说明书'"
+        },
+        {
+          "name": "答案含必需要素「联众聚源」（题 4）",
+          "ok": true,
+          "detail": "答案摘要='企业名称包括：融冰投资、武汉博润、上海博润、听音投资、联众聚源、力源贸易、普芯达、佰力电子、盈硅电子\\n引用：[招股说明书'"
+        },
+        {
+          "name": "答案含必需要素「力源贸易」（题 4）",
+          "ok": true,
+          "detail": "答案摘要='企业名称包括：融冰投资、武汉博润、上海博润、听音投资、联众聚源、力源贸易、普芯达、佰力电子、盈硅电子\\n引用：[招股说明书'"
+        },
+        {
+          "name": "答案含必需要素「普芯达」（题 4）",
+          "ok": true,
+          "detail": "答案摘要='企业名称包括：融冰投资、武汉博润、上海博润、听音投资、联众聚源、力源贸易、普芯达、佰力电子、盈硅电子\\n引用：[招股说明书'"
+        },
+        {
+          "name": "答案未混入「赵马克」（题 4）",
+          "ok": true,
+          "detail": "答案摘要='企业名称包括：融冰投资、武汉博润、上海博润、听音投资、联众聚源、力源贸易、普芯达、佰力电子、盈硅电子\\n引用：[招股说明书2.pdf: 157]'"
+        }
+      ],
+      "elements_ok": true
+    },
+    {
+      "id": 260,
+      "corpus": "pdf1",
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "answer_text": "①行业集中度高的影响 发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的 收入分别为6,464.51 万元、14,414.16 万元、18,780.67 万元和4,627.14 万元，占 主营业务收入比重分别为82.10%、97.31%、94.84%和94.34%。\n引用：[招股说明书1.pdf: 129]",
+      "answer_body": "①行业集中度高的影响 发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的 收入分别为6,464.51 万元、14,414.16 万元、18,780.67 万元和4,627.14 万元，占 主营业务收入比重分别为82.10%、97.31%、94.84%和94.34%。",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "first_token_ms": 2909.64,
+      "total_ms": 5505.49,
+      "wall_ms": 5909.94,
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "language": "zh",
+      "correct": true,
+      "judge_reason": "参考答案为答案子串（忽略标点）（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "judge_source": "产品口径 app.core.evaluator_bridge",
+      "correct_full_text": true,
+      "judge_reason_full_text": "参考答案为答案子串（忽略标点）（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "golden_answer": "报告期内，公司来自军用领域的收入分别为6,464.51万元、14,414.16万元、18,780.67万元和4,627.14万元。",
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 129,
+          "chunk_id": "招股说明书1_p0129_x306",
+          "quote": "①行业集中度高的影响 发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的 收入分别为6,464.51 万",
+          "ok": true,
+          "detail": "chunk 招股说明书1_p0129_x306 的 100% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "subject_gate": {
+        "ok": true,
+        "expected": "any",
+        "allowed": [],
+        "found": [],
+        "leaked": [],
+        "reason": "not_applicable",
+        "counted": false
+      },
+      "elements": [
+        {
+          "name": "答案含必需要素「6,464.51」（题 260）",
+          "ok": true,
+          "detail": "答案摘要='①行业集中度高的影响 发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的 收入分别为6,464.51 万'"
+        },
+        {
+          "name": "答案含必需要素「14,414.16」（题 260）",
+          "ok": true,
+          "detail": "答案摘要='①行业集中度高的影响 发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的 收入分别为6,464.51 万'"
+        },
+        {
+          "name": "答案含必需要素「18,780.67」（题 260）",
+          "ok": true,
+          "detail": "答案摘要='①行业集中度高的影响 发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的 收入分别为6,464.51 万'"
+        },
+        {
+          "name": "答案含必需要素「4,627.14」（题 260）",
+          "ok": true,
+          "detail": "答案摘要='①行业集中度高的影响 发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的 收入分别为6,464.51 万'"
+        }
+      ],
+      "elements_ok": true
+    },
+    {
+      "id": 95,
+      "corpus": "pdf1",
+      "question": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+      "answer_text": "《某视频指挥系统技术规范（1.0版）》\n引用：[招股说明书1.pdf: 160]",
+      "answer_body": "《某视频指挥系统技术规范（1.0版）》",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "first_token_ms": 106.93,
+      "total_ms": 1200.76,
+      "wall_ms": 1599.59,
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "language": "zh",
+      "correct": true,
+      "judge_reason": "答案为参考答案子串（忽略标点）（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "judge_source": "产品口径 app.core.evaluator_bridge",
+      "correct_full_text": false,
+      "judge_reason_full_text": "未命中：文本与数值均不匹配（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "golden_answer": "公司参与制定了全军第一个视频指挥系统技术标准，即《某视频指挥系统技术规范（1.0版）》（招股书中亦简称《某视频技术规范1.0》）。该标准由军事科学院牵头，联合数据通信科学技术研究所、北京大学共同制定，兴图新科是参与制定者与试验验证者。",
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 160,
+          "chunk_id": "招股说明书1_p0160_x375",
+          "quote": "武汉兴图新科电子股份有限公司 招股意向书 公司目前已经成为军队视频指挥领域的重要供应商，参与制定了全军第一个 视频指挥系",
+          "ok": true,
+          "detail": "chunk 招股说明书1_p0160_x375 的 99% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "subject_gate": {
+        "ok": true,
+        "expected": "any",
+        "allowed": [],
+        "found": [],
+        "leaked": [],
+        "reason": "not_applicable",
+        "counted": false
+      },
+      "elements": [
+        {
+          "name": "答案含必需要素「视频指挥系统技术标准」（题 95）",
+          "ok": false,
+          "detail": "答案摘要='《某视频指挥系统技术规范（1.0版）》\\n引用：[招股说明书1.pdf: 160]'"
+        }
+      ],
+      "elements_ok": false
+    },
+    {
+      "id": 33,
+      "corpus": "pdf1",
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别是多少？",
+      "answer_text": "①行业集中度高的影响 发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的 收入分别为6,464.51 万元、14,414.16 万元、18,780.67 万元和4,627.14 万元，占 主营业务收入比重分别为82.10%、97.31%、94.84%和94.34%。\n引用：[招股说明书1.pdf: 129]",
+      "answer_body": "①行业集中度高的影响 发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的 收入分别为6,464.51 万元、14,414.16 万元、18,780.67 万元和4,627.14 万元，占 主营业务收入比重分别为82.10%、97.31%、94.84%和94.34%。",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "first_token_ms": 192.27,
+      "total_ms": 2771.13,
+      "wall_ms": 3271.74,
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "language": "zh",
+      "correct": true,
+      "judge_reason": "比例全部命中（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "judge_source": "产品口径 app.core.evaluator_bridge",
+      "correct_full_text": true,
+      "judge_reason_full_text": "比例全部命中（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "golden_answer": "报告期内，公司来自军用领域的收入占主营业务收入的比重分别为82.10%、97.31%、94.84%和94.34%。",
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 129,
+          "chunk_id": "招股说明书1_p0129_x306",
+          "quote": "①行业集中度高的影响 发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的 收入分别为6,464.51 万",
+          "ok": true,
+          "detail": "chunk 招股说明书1_p0129_x306 的 100% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "subject_gate": {
+        "ok": true,
+        "expected": "any",
+        "allowed": [],
+        "found": [],
+        "leaked": [],
+        "reason": "not_applicable",
+        "counted": false
+      },
+      "elements": [
+        {
+          "name": "答案含必需要素「82.10%」（题 33）",
+          "ok": true,
+          "detail": "答案摘要='①行业集中度高的影响 发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的 收入分别为6,464.51 万'"
+        },
+        {
+          "name": "答案含必需要素「97.31%」（题 33）",
+          "ok": true,
+          "detail": "答案摘要='①行业集中度高的影响 发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的 收入分别为6,464.51 万'"
+        },
+        {
+          "name": "答案含必需要素「94.84%」（题 33）",
+          "ok": true,
+          "detail": "答案摘要='①行业集中度高的影响 发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的 收入分别为6,464.51 万'"
+        },
+        {
+          "name": "答案含必需要素「94.34%」（题 33）",
+          "ok": true,
+          "detail": "答案摘要='①行业集中度高的影响 发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的 收入分别为6,464.51 万'"
+        }
+      ],
+      "elements_ok": true
+    },
+    {
+      "id": 34,
+      "corpus": "pdf1",
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+      "answer_text": "电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、机柜等金属壳体制造企业，竞争充分，采购便利。\n引用：[招股说明书1.pdf: 152]",
+      "answer_body": "电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、机柜等金属壳体制造企业，竞争充分，采购便利。",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "first_token_ms": 498.59,
+      "total_ms": 1753.31,
+      "wall_ms": 2239.08,
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "language": "zh",
+      "correct": true,
+      "judge_reason": "参考答案为答案子串（忽略标点）（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "judge_source": "产品口径 app.core.evaluator_bridge",
+      "correct_full_text": true,
+      "judge_reason_full_text": "参考答案为答案子串（忽略标点）（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "golden_answer": "电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、机柜等金属壳体制造企业，竞争充分、采购便利。",
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 152,
+          "chunk_id": "招股说明书1_p0152_x357",
+          "quote": "（四）行业竞争格局 1、行业上下游情况 电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、 机柜等金属壳",
+          "ok": true,
+          "detail": "chunk 招股说明书1_p0152_x357 的 100% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "subject_gate": {
+        "ok": true,
+        "expected": "organization",
+        "allowed": [],
+        "found": [],
+        "leaked": [],
+        "reason": "no_evidence_table",
+        "counted": false
+      },
+      "elements": [
+        {
+          "name": "答案含必需要素「电子元器件制造企业」（题 34）",
+          "ok": true,
+          "detail": "答案摘要='电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、机柜等金属壳体制造企业，竞争充分，采购便利。\\n引用：['"
+        },
+        {
+          "name": "答案含必需要素「金属壳体制造企业」（题 34）",
+          "ok": true,
+          "detail": "答案摘要='电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、机柜等金属壳体制造企业，竞争充分，采购便利。\\n引用：['"
+        },
+        {
+          "name": "答案未混入「不清楚」（题 34）",
+          "ok": true,
+          "detail": "答案摘要='电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、机柜等金属壳体制造企业，竞争充分，采购便利。\\n引用：[招股说明书1.pdf: 152]'"
+        }
+      ],
+      "elements_ok": true
+    },
+    {
+      "id": 957,
+      "corpus": "pdf1",
+      "question": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+      "answer_text": "公司目前已经成为军队视频指挥控制领域的重要供应商。\n引用：[招股说明书1.pdf: 181]",
+      "answer_body": "公司目前已经成为军队视频指挥控制领域的重要供应商。",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "first_token_ms": 154.13,
+      "total_ms": 1479.41,
+      "wall_ms": 1871.54,
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "language": "zh",
+      "correct": true,
+      "judge_reason": "字符二元组相似度 0.96 ≥ 0.62（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "judge_source": "产品口径 app.core.evaluator_bridge",
+      "correct_full_text": false,
+      "judge_reason_full_text": "未命中：文本与数值均不匹配（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "golden_answer": "公司目前已经成为军队视频指挥（视频指挥控制）领域的重要供应商。",
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 181,
+          "chunk_id": "招股说明书1_p0181_x420",
+          "quote": "武汉兴图新科电子股份有限公司 招股意向书 公司目前已经成为军队视频指挥控制领域的重要供应商，参与制定了国防用 户第一个视",
+          "ok": true,
+          "detail": "chunk 招股说明书1_p0181_x420 的 99% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "subject_gate": {
+        "ok": true,
+        "expected": "any",
+        "allowed": [],
+        "found": [],
+        "leaked": [],
+        "reason": "not_applicable",
+        "counted": false
+      },
+      "elements": [
+        {
+          "name": "答案含必需要素「视频指挥」（题 957）",
+          "ok": true,
+          "detail": "答案摘要='公司目前已经成为军队视频指挥控制领域的重要供应商。\\n引用：[招股说明书1.pdf: 181]'"
+        },
+        {
+          "name": "答案未混入「不清楚」（题 957）",
+          "ok": true,
+          "detail": "答案摘要='公司目前已经成为军队视频指挥控制领域的重要供应商。\\n引用：[招股说明书1.pdf: 181]'"
+        }
+      ],
+      "elements_ok": true
+    },
+    {
+      "id": 793,
+      "corpus": "pdf1",
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？",
+      "answer_text": "下游行业为各类终端用户，覆盖范围广泛，主要包括军队、政府机关、能源等行业企业。\n引用：[招股说明书1.pdf: 152]",
+      "answer_body": "下游行业为各类终端用户，覆盖范围广泛，主要包括军队、政府机关、能源等行业企业。",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "first_token_ms": 451.3,
+      "total_ms": 1505.86,
+      "wall_ms": 1897.65,
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "language": "zh",
+      "correct": true,
+      "judge_reason": "字符二元组相似度 0.77 ≥ 0.62（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "judge_source": "产品口径 app.core.evaluator_bridge",
+      "correct_full_text": false,
+      "judge_reason_full_text": "未命中：文本与数值均不匹配（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "golden_answer": "电子信息行业的下游为各类终端用户，覆盖范围广泛，主要包括军队、政府机关、能源等行业企业。",
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 152,
+          "chunk_id": "招股说明书1_p0152_x357",
+          "quote": "（四）行业竞争格局 1、行业上下游情况 电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、 机柜等金属壳",
+          "ok": true,
+          "detail": "chunk 招股说明书1_p0152_x357 的 100% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "subject_gate": {
+        "ok": true,
+        "expected": "any",
+        "allowed": [],
+        "found": [],
+        "leaked": [],
+        "reason": "not_applicable",
+        "counted": false
+      },
+      "elements": [
+        {
+          "name": "答案含必需要素「军队」（题 793）",
+          "ok": true,
+          "detail": "答案摘要='下游行业为各类终端用户，覆盖范围广泛，主要包括军队、政府机关、能源等行业企业。\\n引用：[招股说明书1.pdf: 152]'"
+        },
+        {
+          "name": "答案含必需要素「政府机关」（题 793）",
+          "ok": true,
+          "detail": "答案摘要='下游行业为各类终端用户，覆盖范围广泛，主要包括军队、政府机关、能源等行业企业。\\n引用：[招股说明书1.pdf: 152]'"
+        },
+        {
+          "name": "答案含必需要素「能源」（题 793）",
+          "ok": true,
+          "detail": "答案摘要='下游行业为各类终端用户，覆盖范围广泛，主要包括军队、政府机关、能源等行业企业。\\n引用：[招股说明书1.pdf: 152]'"
+        },
+        {
+          "name": "答案未混入「不清楚」（题 793）",
+          "ok": true,
+          "detail": "答案摘要='下游行业为各类终端用户，覆盖范围广泛，主要包括军队、政府机关、能源等行业企业。\\n引用：[招股说明书1.pdf: 152]'"
+        }
+      ],
+      "elements_ok": true
+    },
+    {
+      "id": 795,
+      "corpus": "pdf1",
+      "question": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+      "answer_text": "2014 年12 月， 某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当 于美军的C4ISR 系统）荣获国家科技进步一等奖。\n引用：[招股说明书1.pdf: 181]",
+      "answer_body": "2014 年12 月， 某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当 于美军的C4ISR 系统）荣获国家科技进步一等奖。",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "first_token_ms": 149.59,
+      "total_ms": 1799.54,
+      "wall_ms": 2170.19,
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "language": "zh",
+      "correct": true,
+      "judge_reason": "答案为参考答案子串（忽略标点）（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "judge_source": "产品口径 app.core.evaluator_bridge",
+      "correct_full_text": true,
+      "judge_reason_full_text": "关键实体命中（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "golden_answer": "2014年12月，某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统）荣获国家科技进步一等奖；根据总体单位、军方用户出具的证明文件和承研合同，民营企业兴图新科是该工程网络化视频指挥系统的唯一参与者。",
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 181,
+          "chunk_id": "招股说明书1_p0181_x420",
+          "quote": "武汉兴图新科电子股份有限公司 招股意向书 公司目前已经成为军队视频指挥控制领域的重要供应商，参与制定了国防用 户第一个视",
+          "ok": true,
+          "detail": "chunk 招股说明书1_p0181_x420 的 99% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "subject_gate": {
+        "ok": true,
+        "expected": "any",
+        "allowed": [],
+        "found": [],
+        "leaked": [],
+        "reason": "not_applicable",
+        "counted": false
+      },
+      "elements": [
+        {
+          "name": "答案含必需要素「2014」（题 795）",
+          "ok": true,
+          "detail": "答案摘要='2014 年12 月， 某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当 于美军的C4ISR 系'"
+        },
+        {
+          "name": "答案含必需要素「国家科技进步一等奖」（题 795）",
+          "ok": true,
+          "detail": "答案摘要='2014 年12 月， 某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当 于美军的C4ISR 系'"
+        },
+        {
+          "name": "答案未混入「不清楚」（题 795）",
+          "ok": true,
+          "detail": "答案摘要='2014 年12 月， 某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当 于美军的C4ISR 系统）荣获国家科技进步一等奖。\\n引用：[招'"
+        }
+      ],
+      "elements_ok": true
+    },
+    {
+      "id": 543,
+      "corpus": "pdf1",
+      "question": "武汉兴图新科电子股份有限公司注册资本是多少？",
+      "answer_text": "注册资本为5,520.00 万元。\n引用：[招股说明书1.pdf: 22]",
+      "answer_body": "注册资本为5,520.00 万元。",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "first_token_ms": 404.74,
+      "total_ms": 1359.65,
+      "wall_ms": 1749.05,
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "language": "zh",
+      "correct": true,
+      "judge_reason": "金额全部命中(1个)（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "judge_source": "产品口径 app.core.evaluator_bridge",
+      "correct_full_text": true,
+      "judge_reason_full_text": "金额全部命中(1个)（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "golden_answer": "注册资本为5,520万元。",
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "chunk_id": "招股说明书1_p0022_t10",
+          "quote": "[表标题] （一）本次发行的基本情况\n[来源] 招股说明书1.pdf 第 22 页\n[Markdown]\n| 中文名称 ",
+          "ok": true,
+          "detail": "chunk 招股说明书1_p0022_t10 的 97% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "subject_gate": {
+        "ok": true,
+        "expected": "any",
+        "allowed": [],
+        "found": [],
+        "leaked": [],
+        "reason": "not_applicable",
+        "counted": false
+      },
+      "elements": [
+        {
+          "name": "答案含必需要素「5,520」（题 543）",
+          "ok": true,
+          "detail": "答案摘要='注册资本为5,520.00 万元。\\n引用：[招股说明书1.pdf: 22]'"
+        }
+      ],
+      "elements_ok": true
+    },
+    {
+      "id": 531,
+      "corpus": "pdf1",
+      "question": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+      "answer_text": "法定代表人是程家明。\n引用：[招股说明书1.pdf: 52]",
+      "answer_body": "法定代表人是程家明。",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "first_token_ms": 151.4,
+      "total_ms": 1039.58,
+      "wall_ms": 1416.19,
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "language": "zh",
+      "correct": true,
+      "judge_reason": "参考答案为答案子串（忽略标点）（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "judge_source": "产品口径 app.core.evaluator_bridge",
+      "correct_full_text": true,
+      "judge_reason_full_text": "参考答案为答案子串（忽略标点）（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "golden_answer": "法定代表人是程家明。",
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 52,
+          "chunk_id": "招股说明书1_p0052_x139",
+          "quote": "武汉兴图新科电子股份有限公司 招股意向书 第五节 发行人基本情况 一、发行人的基本情况 公司名称：武汉兴图新科电子股份有",
+          "ok": true,
+          "detail": "chunk 招股说明书1_p0052_x139 的 99% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "subject_gate": {
+        "ok": true,
+        "expected": "person",
+        "allowed": [],
+        "found": [],
+        "leaked": [],
+        "reason": "no_evidence_table",
+        "counted": false
+      },
+      "elements": [
+        {
+          "name": "答案含必需要素「程家明」（题 531）",
+          "ok": true,
+          "detail": "答案摘要='法定代表人是程家明。\\n引用：[招股说明书1.pdf: 52]'"
+        }
+      ],
+      "elements_ok": true
+    },
+    {
+      "id": 207,
+      "corpus": "pdf1",
+      "question": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+      "answer_text": "（三）补充流动资金项目 1、项目概况 为满足公司业务发展和新产品研发等对营运资金的需求，增强公司抗风险能 力，公司在满足上述募集资金投资项目资金需求的同时，拟使用本次发行募集资 金15,000 万元用于补充流动资金。\n引用：[招股说明书1.pdf: 490]",
+      "answer_body": "（三）补充流动资金项目 1、项目概况 为满足公司业务发展和新产品研发等对营运资金的需求，增强公司抗风险能 力，公司在满足上述募集资金投资项目资金需求的同时，拟使用本次发行募集资 金15,000 万元用于补充流动资金。",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "first_token_ms": 169.46,
+      "total_ms": 1290.09,
+      "wall_ms": 1755.29,
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "language": "zh",
+      "correct": true,
+      "judge_reason": "金额全部命中(1个)（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "judge_source": "产品口径 app.core.evaluator_bridge",
+      "correct_full_text": true,
+      "judge_reason_full_text": "金额全部命中(1个)（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "golden_answer": "公司计划使用本次发行募集资金15,000.00万元用于补充流动资金。",
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 490,
+          "chunk_id": "招股说明书1_p0490_x1131",
+          "quote": "（三）补充流动资金项目 1、项目概况 为满足公司业务发展和新产品研发等对营运资金的需求，增强公司抗风险能 力，公司在满足",
+          "ok": true,
+          "detail": "chunk 招股说明书1_p0490_x1131 的 100% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "subject_gate": {
+        "ok": true,
+        "expected": "any",
+        "allowed": [],
+        "found": [],
+        "leaked": [],
+        "reason": "not_applicable",
+        "counted": false
+      },
+      "elements": [
+        {
+          "name": "答案含必需要素「15,000」（题 207）",
+          "ok": true,
+          "detail": "答案摘要='（三）补充流动资金项目 1、项目概况 为满足公司业务发展和新产品研发等对营运资金的需求，增强公司抗风险能 力，公司在满足'"
+        },
+        {
+          "name": "答案未混入「300 万美元」（题 207）",
+          "ok": true,
+          "detail": "答案摘要='（三）补充流动资金项目 1、项目概况 为满足公司业务发展和新产品研发等对营运资金的需求，增强公司抗风险能 力，公司在满足上述募集资金投资项目资金需求的同时，拟使'"
+        },
+        {
+          "name": "答案未混入「汉口银行」（题 207）",
+          "ok": true,
+          "detail": "答案摘要='（三）补充流动资金项目 1、项目概况 为满足公司业务发展和新产品研发等对营运资金的需求，增强公司抗风险能 力，公司在满足上述募集资金投资项目资金需求的同时，拟使'"
+        }
+      ],
+      "elements_ok": true
+    }
+  ]
+}

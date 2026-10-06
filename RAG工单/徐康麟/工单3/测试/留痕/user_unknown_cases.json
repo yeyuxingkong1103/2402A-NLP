@@ -1,0 +1,275 @@
+{
+  "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化",
+  "name": "user_unknown_cases",
+  "title": "不可答负例执行结果",
+  "generated_at": "2026-10-04T21:58:28+0800",
+  "ragas": "RAGAS 未运行（依赖不可用，本机断网）",
+  "extra": {},
+  "rows": [
+    {
+      "case": "N-4",
+      "question": "根据武汉力源信息技术股份有限公司招股意向书，本次发行募集资金中有多少用于补充流动资金？",
+      "text": "不清楚",
+      "is_unknown": true,
+      "unknown_reason": "numeric_missing",
+      "citations": [],
+      "checks": [
+        {
+          "name": "无依据回「不清楚」（N-4）",
+          "ok": true,
+          "detail": "is_unknown=True text='不清楚'"
+        },
+        {
+          "name": "拒答正文规范（N-4）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        },
+        {
+          "name": "拒答不带任何引用（N-4）",
+          "ok": true,
+          "detail": "引用 []"
+        },
+        {
+          "name": "unknown_reason 在枚举内（N-4）",
+          "ok": true,
+          "detail": "reason='numeric_missing'"
+        },
+        {
+          "name": "未编造「15,000」（N-4）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        },
+        {
+          "name": "未编造「15000」（N-4）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        },
+        {
+          "name": "未编造「1.5亿」（N-4）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        },
+        {
+          "name": "未编造「亿元」（N-4）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        }
+      ]
+    },
+    {
+      "case": "N-4b",
+      "question": "武汉力源信息技术股份有限公司本次募集资金中计划用于补充流动资金的金额是多少万元？",
+      "text": "不清楚",
+      "is_unknown": true,
+      "unknown_reason": "numeric_missing",
+      "citations": [],
+      "checks": [
+        {
+          "name": "无依据回「不清楚」（N-4b）",
+          "ok": true,
+          "detail": "is_unknown=True text='不清楚'"
+        },
+        {
+          "name": "拒答正文规范（N-4b）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        },
+        {
+          "name": "拒答不带任何引用（N-4b）",
+          "ok": true,
+          "detail": "引用 []"
+        },
+        {
+          "name": "unknown_reason 在枚举内（N-4b）",
+          "ok": true,
+          "detail": "reason='numeric_missing'"
+        },
+        {
+          "name": "未编造「15,000」（N-4b）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        },
+        {
+          "name": "未编造「15000」（N-4b）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        }
+      ]
+    },
+    {
+      "case": "N-GEN1",
+      "question": "银河系外文明的量子计算机专利申请数量是多少？",
+      "text": "不清楚",
+      "is_unknown": true,
+      "unknown_reason": "low_coverage",
+      "citations": [],
+      "checks": [
+        {
+          "name": "无依据回「不清楚」（N-GEN1）",
+          "ok": true,
+          "detail": "is_unknown=True text='不清楚'"
+        },
+        {
+          "name": "拒答正文规范（N-GEN1）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        },
+        {
+          "name": "拒答不带任何引用（N-GEN1）",
+          "ok": true,
+          "detail": "引用 []"
+        },
+        {
+          "name": "unknown_reason 在枚举内（N-GEN1）",
+          "ok": true,
+          "detail": "reason='low_coverage'"
+        },
+        {
+          "name": "未编造「专利」（N-GEN1）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        },
+        {
+          "name": "未编造「件」（N-GEN1）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        },
+        {
+          "name": "未编造「项」（N-GEN1）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        }
+      ]
+    },
+    {
+      "case": "N-GEN2",
+      "question": "贵州茅台酒股份有限公司的注册资本是多少？",
+      "text": "不清楚",
+      "is_unknown": true,
+      "unknown_reason": "low_coverage",
+      "citations": [],
+      "checks": [
+        {
+          "name": "无依据回「不清楚」（N-GEN2）",
+          "ok": true,
+          "detail": "is_unknown=True text='不清楚'"
+        },
+        {
+          "name": "拒答正文规范（N-GEN2）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        },
+        {
+          "name": "拒答不带任何引用（N-GEN2）",
+          "ok": true,
+          "detail": "引用 []"
+        },
+        {
+          "name": "unknown_reason 在枚举内（N-GEN2）",
+          "ok": true,
+          "detail": "reason='low_coverage'"
+        },
+        {
+          "name": "未编造「万元」（N-GEN2）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        },
+        {
+          "name": "未编造「亿元」（N-GEN2）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        },
+        {
+          "name": "未编造「亿」（N-GEN2）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        }
+      ]
+    },
+    {
+      "case": "N-GEN3",
+      "question": "武汉兴图新科电子股份有限公司2025年第三季度的营业收入是多少？",
+      "text": "不清楚",
+      "is_unknown": true,
+      "unknown_reason": "numeric_missing",
+      "citations": [],
+      "checks": [
+        {
+          "name": "无依据回「不清楚」（N-GEN3）",
+          "ok": true,
+          "detail": "is_unknown=True text='不清楚'"
+        },
+        {
+          "name": "拒答正文规范（N-GEN3）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        },
+        {
+          "name": "拒答不带任何引用（N-GEN3）",
+          "ok": true,
+          "detail": "引用 []"
+        },
+        {
+          "name": "unknown_reason 在枚举内（N-GEN3）",
+          "ok": true,
+          "detail": "reason='numeric_missing'"
+        },
+        {
+          "name": "未编造「2025」（N-GEN3）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        },
+        {
+          "name": "未编造「亿元」（N-GEN3）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        }
+      ]
+    },
+    {
+      "case": "N-GEN4",
+      "question": "武汉力源信息技术股份有限公司在纽约证券交易所的股票代码是什么？",
+      "text": "不清楚",
+      "is_unknown": true,
+      "unknown_reason": "low_coverage",
+      "citations": [],
+      "checks": [
+        {
+          "name": "无依据回「不清楚」（N-GEN4）",
+          "ok": true,
+          "detail": "is_unknown=True text='不清楚'"
+        },
+        {
+          "name": "拒答正文规范（N-GEN4）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        },
+        {
+          "name": "拒答不带任何引用（N-GEN4）",
+          "ok": true,
+          "detail": "引用 []"
+        },
+        {
+          "name": "unknown_reason 在枚举内（N-GEN4）",
+          "ok": true,
+          "detail": "reason='low_coverage'"
+        },
+        {
+          "name": "未编造「NYSE」（N-GEN4）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        },
+        {
+          "name": "未编造「纽交所」（N-GEN4）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        },
+        {
+          "name": "未编造「代码」（N-GEN4）",
+          "ok": true,
+          "detail": "text='不清楚'"
+        }
+      ]
+    }
+  ]
+}

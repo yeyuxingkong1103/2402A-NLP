@@ -1,0 +1,51 @@
+[
+  {
+    "id": "hypertension_diagnosis",
+    "question": "高血压怎么诊断",
+    "reference_answer": "诊室血压是基层诊断高血压的主要依据。诊室收缩压大于等于140mmHg和/或舒张压大于等于90mmHg，并且非同日3次测量均达到诊断界值，可以诊断高血压。",
+    "relevant_chunk_indexes": [19, 21],
+    "note": "诊断标准和辅助诊断资料块。"
+  },
+  {
+    "id": "elderly_bp_target",
+    "question": "80岁老人血压降到多少",
+    "reference_answer": "80岁及以上高血压患者建议血压降至150/90mmHg以下。",
+    "relevant_chunk_indexes": [15, 26],
+    "note": "老年患者降压目标。"
+  },
+  {
+    "id": "lifestyle",
+    "question": "高血压患者生活方式怎么改善",
+    "reference_answer": "高血压患者应长期坚持生活方式干预，包括限盐、减重、运动、戒烟、戒酒、保持心理平衡等。",
+    "relevant_chunk_indexes": [16, 26, 27, 29],
+    "note": "生活方式干预。"
+  },
+  {
+    "id": "medicine",
+    "question": "高血压常用降压药有哪些",
+    "reference_answer": "基层常用降压药需要结合血压水平、合并症和耐受情况选择，可采用C、A、D、B等药物类别及联合方案，优先选择长效药物。",
+    "relevant_chunk_indexes": [35, 36, 37, 38, 43],
+    "note": "基层常用降压药和联合用药。"
+  },
+  {
+    "id": "referral",
+    "question": "什么时候需要转诊",
+    "reference_answer": "血压显著升高且处理后无法控制，出现心脑肾等靶器官损害表现，妊娠或哺乳期女性、年轻发病、疑似继发性高血压、治疗后仍未达标等情况需要转诊。",
+    "relevant_chunk_indexes": [65, 66, 67, 68],
+    "note": "初诊、随访和急救车转诊建议。"
+  },
+  {
+    "id": "emergency",
+    "question": "血压超过180/110怎么办",
+    "reference_answer": "血压超过180/110mmHg时，需要结合是否有心、脑、肾急性并发症处理。无明显症状可口服短效降压药并观察，症状明显或伴靶器官损害时应立即转诊。",
+    "relevant_chunk_indexes": [51, 52, 53, 67],
+    "note": "高血压急症和紧急处理。"
+  },
+  {
+    "id": "out_of_domain",
+    "question": "劳动合同怎么解除",
+    "reference_answer": "该问题不属于当前高血压知识库范围，系统应说明资料不足或不返回医学知识库来源。",
+    "relevant_chunk_indexes": [],
+    "note": "越界问题，用来评估低相关过滤。"
+  }
+]

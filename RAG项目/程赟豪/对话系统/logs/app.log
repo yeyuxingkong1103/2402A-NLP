@@ -1,0 +1,1582 @@
+2026-09-16 09:52:31,400 - rag_roleplay - INFO - 找到 1 个文件，开始构建索引...
+2026-09-16 09:52:31,402 - rag_roleplay - INFO - 加载向量化模型: BAAI/bge-m3
+2026-09-16 09:56:09,710 - rag_roleplay - INFO - 找到 1 个文件，开始构建索引...
+2026-09-16 09:56:09,711 - rag_roleplay - INFO - 加载向量化模型: BAAI/bge-m3
+2026-09-16 10:08:56,099 - rag_roleplay - INFO - 找到 1 个文件，开始构建索引...
+2026-09-16 10:08:56,100 - rag_roleplay - INFO - 加载向量化模型: BAAI/bge-m3
+2026-09-16 10:59:38,850 - rag_roleplay - INFO - 启动服务: http://0.0.0.0:8000
+2026-09-16 10:59:52,652 - rag_roleplay - INFO - 启动服务: http://0.0.0.0:8000
+2026-09-16 11:06:12,714 - rag_roleplay - INFO - API大模型初始化: deepseek-chat @ https://api.deepseek.com/v1
+2026-09-16 11:17:00,722 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 11:17:00,859 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 11:17:03,417 - rag_roleplay - INFO - 创建集合成功: roleplay_knowledge
+2026-09-16 11:17:06,789 - rag_roleplay - INFO - 插入 2 条数据
+2026-09-16 11:18:04,545 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 11:18:04,597 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 11:18:05,326 - rag_roleplay - INFO - 删除已存在的集合: roleplay_knowledge
+2026-09-16 11:18:06,642 - rag_roleplay - INFO - 创建集合成功: roleplay_knowledge
+2026-09-16 11:18:10,320 - rag_roleplay - INFO - 插入 2 条数据
+2026-09-16 11:20:13,561 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 11:20:13,637 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 11:20:14,393 - rag_roleplay - INFO - 删除已存在的集合: roleplay_knowledge
+2026-09-16 11:20:15,612 - rag_roleplay - INFO - 创建集合成功: roleplay_knowledge
+2026-09-16 11:20:18,997 - rag_roleplay - INFO - 插入 2 条数据
+2026-09-16 11:20:22,785 - rag_roleplay - INFO - 加载集合: roleplay_knowledge
+2026-09-16 11:30:32,859 - rag_roleplay - INFO - API大模型初始化: deepseek-chat @ https://api.deepseek.com/v1
+2026-09-16 12:25:48,825 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 12:27:53,225 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 12:28:04,499 - rag_roleplay - INFO - 模型加载完成，维度: 1024
+2026-09-16 12:28:48,616 - rag_roleplay - INFO - 找到 1 个文件，开始构建索引...
+2026-09-16 12:28:48,617 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 12:28:58,532 - rag_roleplay - INFO - 模型加载完成，维度: 1024
+2026-09-16 12:28:58,533 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 12:28:58,707 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 12:29:00,627 - rag_roleplay - INFO - 创建集合成功: roleplay_knowledge
+2026-09-16 12:29:00,628 - rag_roleplay - INFO - 处理: test.txt
+2026-09-16 12:29:00,630 - rag_roleplay - INFO - 成功加载文本文件: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\test.txt
+2026-09-16 12:29:00,631 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 12:29:05,047 - rag_roleplay - INFO - 插入 1 条数据
+2026-09-16 12:29:05,049 - rag_roleplay - INFO -   ✓ test.txt: 1 个块
+2026-09-16 12:29:07,245 - rag_roleplay - INFO - 加载集合: roleplay_knowledge
+2026-09-16 12:29:07,250 - rag_roleplay - INFO - 索引构建完成，共插入 1 个块，当前集合总数: 1
+2026-09-16 12:29:51,612 - rag_roleplay - INFO - 启动服务: http://0.0.0.0:8000
+2026-09-16 12:31:38,108 - rag_roleplay - INFO - 收到聊天请求: session=e2e-test-001, message=你是什么助手？...
+2026-09-16 12:31:38,109 - rag_roleplay - INFO - 连接Redis: localhost:6379
+2026-09-16 12:31:38,173 - rag_roleplay - INFO - Redis连接成功
+2026-09-16 12:31:38,181 - rag_roleplay - INFO - 检索: 你是什么助手？...
+2026-09-16 12:31:38,182 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 12:31:49,472 - rag_roleplay - INFO - 模型加载完成，维度: 1024
+2026-09-16 12:31:50,652 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 12:31:50,738 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 12:31:50,757 - rag_roleplay - INFO - 加载集合: roleplay_knowledge
+2026-09-16 12:31:50,877 - rag_roleplay - INFO - 检索到 1 条结果
+2026-09-16 12:31:50,920 - rag_roleplay - INFO - API大模型初始化: deepseek-chat @ https://api.deepseek.com/v1
+2026-09-16 12:31:50,922 - rag_roleplay - ERROR - 聊天处理失败: 'function' object has no attribute 'completions'
+2026-09-16 12:32:32,485 - rag_roleplay - INFO - 收到聊天请求: session=e2e-test-001, message=你是什么助手？...
+2026-09-16 12:32:32,490 - rag_roleplay - INFO - 检索: 你是什么助手？...
+2026-09-16 12:32:32,720 - rag_roleplay - INFO - 检索到 1 条结果
+2026-09-16 12:32:32,720 - rag_roleplay - ERROR - 聊天处理失败: 'function' object has no attribute 'completions'
+2026-09-16 12:32:48,629 - rag_roleplay - INFO - 收到聊天请求: session=e2e-test-001, message=你是什么助手？...
+2026-09-16 12:32:48,637 - rag_roleplay - INFO - 检索: 你是什么助手？...
+2026-09-16 12:32:48,852 - rag_roleplay - INFO - 检索到 1 条结果
+2026-09-16 12:32:48,853 - rag_roleplay - ERROR - 聊天处理失败: 'function' object has no attribute 'completions'
+2026-09-16 12:33:49,158 - rag_roleplay - INFO - 启动服务: http://0.0.0.0:8000
+2026-09-16 12:34:37,238 - rag_roleplay - INFO - 收到聊天请求: session=e2e-test-001, message=你是什么助手？...
+2026-09-16 12:34:37,240 - rag_roleplay - INFO - 连接Redis: localhost:6379
+2026-09-16 12:34:37,266 - rag_roleplay - INFO - Redis连接成功
+2026-09-16 12:34:37,269 - rag_roleplay - INFO - 检索: 你是什么助手？...
+2026-09-16 12:34:37,270 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 12:34:48,284 - rag_roleplay - INFO - 模型加载完成，维度: 1024
+2026-09-16 12:34:49,401 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 12:34:49,491 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 12:34:49,513 - rag_roleplay - INFO - 加载集合: roleplay_knowledge
+2026-09-16 12:34:49,534 - rag_roleplay - INFO - 检索到 1 条结果
+2026-09-16 12:34:49,559 - rag_roleplay - INFO - API大模型初始化: deepseek-chat @ https://api.deepseek.com/v1
+2026-09-16 12:35:00,887 - rag_roleplay - INFO - 收到聊天请求: session=e2e-test-001, message=我刚才问了你什么？...
+2026-09-16 12:35:00,892 - rag_roleplay - INFO - 检索: user: 你是什么助手？ assistant: 根据参考资料，我是医疗助手。（来源：test.tx...
+2026-09-16 12:35:01,135 - rag_roleplay - INFO - 检索到 1 条结果
+2026-09-16 12:35:02,289 - rag_roleplay - INFO - 创建角色: doc-001 (王医生)
+2026-09-16 12:37:29,242 - rag_roleplay - INFO - 启动服务: http://0.0.0.0:8000
+2026-09-16 12:38:04,483 - rag_roleplay - INFO - 收到聊天请求: session=smoke-001, message=你是什么助手？...
+2026-09-16 12:38:04,485 - rag_roleplay - INFO - 连接Redis: localhost:6379
+2026-09-16 12:38:04,515 - rag_roleplay - INFO - Redis连接成功
+2026-09-16 12:38:04,518 - rag_roleplay - INFO - 检索: 你是什么助手？...
+2026-09-16 12:38:04,518 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 12:38:12,764 - rag_roleplay - INFO - 模型加载完成，维度: 1024
+2026-09-16 12:38:13,608 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 12:38:13,697 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 12:38:13,718 - rag_roleplay - INFO - 加载集合: roleplay_knowledge
+2026-09-16 12:38:13,737 - rag_roleplay - INFO - 检索到 1 条结果
+2026-09-16 12:38:13,764 - rag_roleplay - INFO - API大模型初始化: deepseek-chat @ https://api.deepseek.com/v1
+2026-09-16 12:40:57,715 - rag_roleplay - INFO - 启动服务: http://0.0.0.0:8000
+2026-09-16 12:41:43,424 - rag_roleplay - INFO - 收到聊天请求: session=cpu-test-001, message=你是什么助手？...
+2026-09-16 12:41:43,425 - rag_roleplay - INFO - 连接Redis: localhost:6379
+2026-09-16 12:41:43,448 - rag_roleplay - INFO - Redis连接成功
+2026-09-16 12:41:43,451 - rag_roleplay - INFO - 检索: 你是什么助手？...
+2026-09-16 12:41:43,452 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 12:41:47,624 - rag_roleplay - INFO - 模型加载完成，维度: 1024
+2026-09-16 12:41:48,080 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 12:41:48,120 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 12:41:48,142 - rag_roleplay - INFO - 加载集合: roleplay_knowledge
+2026-09-16 12:41:48,157 - rag_roleplay - INFO - 检索到 1 条结果
+2026-09-16 12:41:48,179 - rag_roleplay - INFO - API大模型初始化: deepseek-chat @ https://api.deepseek.com/v1
+2026-09-16 12:48:34,279 - rag_roleplay - INFO - 启动服务: http://0.0.0.0:8000
+2026-09-16 14:04:39,495 - rag_roleplay - INFO - 启动服务: http://0.0.0.0:8000
+2026-09-16 14:10:22,449 - rag_roleplay - INFO - 收到聊天请求: session=string, message=string...
+2026-09-16 14:10:22,451 - rag_roleplay - INFO - 连接Redis: localhost:6379
+2026-09-16 14:10:22,504 - rag_roleplay - INFO - Redis连接成功
+2026-09-16 14:10:22,510 - rag_roleplay - INFO - 检索: string...
+2026-09-16 14:10:22,512 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 14:10:26,497 - rag_roleplay - INFO - 模型加载完成，维度: 1024
+2026-09-16 14:10:27,313 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 14:10:27,447 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 14:10:27,487 - rag_roleplay - INFO - 加载集合: roleplay_knowledge
+2026-09-16 14:10:27,590 - rag_roleplay - INFO - 检索到 0 条结果
+2026-09-16 14:10:27,633 - rag_roleplay - INFO - API大模型初始化: deepseek-chat @ https://api.deepseek.com/v1
+2026-09-16 14:16:35,114 - rag_roleplay - INFO - 启动服务: http://0.0.0.0:8000
+2026-09-16 14:18:06,694 - rag_roleplay - INFO - 收到聊天请求: session=frontend-test-001, message=你是什么助手？...
+2026-09-16 14:18:06,696 - rag_roleplay - INFO - 连接Redis: localhost:6379
+2026-09-16 14:18:06,747 - rag_roleplay - INFO - Redis连接成功
+2026-09-16 14:18:06,751 - rag_roleplay - INFO - 检索: 你是什么助手？...
+2026-09-16 14:18:06,752 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 14:18:11,002 - rag_roleplay - INFO - 模型加载完成，维度: 1024
+2026-09-16 14:18:11,486 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 14:18:11,522 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 14:18:11,556 - rag_roleplay - INFO - 加载集合: roleplay_knowledge
+2026-09-16 14:18:11,605 - rag_roleplay - INFO - 检索到 1 条结果
+2026-09-16 14:18:11,638 - rag_roleplay - INFO - API大模型初始化: deepseek-chat @ https://api.deepseek.com/v1
+2026-09-16 14:23:14,077 - rag_roleplay - INFO - 启动服务: http://0.0.0.0:8000
+2026-09-16 14:24:34,944 - rag_roleplay - INFO - 清除会话 sess-mu3pt54m-7oti74 的历史
+2026-09-16 14:25:13,340 - rag_roleplay - INFO - 创建角色: 002 (王医生)
+2026-09-16 14:25:26,856 - rag_roleplay - INFO - 收到聊天请求: session=sess-mu3pu5dj-5hr49b, message=你好...
+2026-09-16 14:25:26,859 - rag_roleplay - INFO - 检索: 你好...
+2026-09-16 14:25:27,138 - rag_roleplay - INFO - 检索到 1 条结果
+2026-09-16 14:25:49,930 - rag_roleplay - INFO - 清除会话 sess-mu3pu5dj-5hr49b 的历史
+2026-09-16 14:26:48,643 - rag_roleplay - INFO - 清除会话 sess-mu3pwuvm-egddro 的历史
+2026-09-16 14:27:04,615 - rag_roleplay - INFO - 收到聊天请求: session=sess-mu3px4fj-qgqfky, message=你好...
+2026-09-16 14:27:04,629 - rag_roleplay - INFO - 检索: 你好...
+2026-09-16 14:27:04,872 - rag_roleplay - INFO - 检索到 1 条结果
+2026-09-16 14:29:24,589 - rag_roleplay - INFO - 收到聊天请求: session=sess-mu3px4fj-qgqfky, message=同仁堂创始于什么时间...
+2026-09-16 14:29:24,593 - rag_roleplay - INFO - 检索: user: 你好 assistant: 你好！根据参考资料，我是一个医疗助手，可以根据上下文对问题进...
+2026-09-16 14:29:25,235 - rag_roleplay - INFO - 检索到 1 条结果
+2026-09-16 14:32:11,588 - rag_roleplay - INFO - 清除会话 sess-mu3px4fj-qgqfky 的历史
+2026-09-16 14:32:29,915 - rag_roleplay - INFO - 清除会话 sess-mu3q4avj-ow4sgq 的历史
+2026-09-16 14:32:32,229 - rag_roleplay - INFO - 清除会话 sess-mu3q4cj2-cu54ms 的历史
+2026-09-16 14:38:33,830 - rag_roleplay - INFO - 成功加载文本文件: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\test.txt
+2026-09-16 14:38:33,831 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:33,831 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 14:38:39,039 - rag_roleplay - INFO - 模型加载完成，维度: 1024
+2026-09-16 14:38:39,693 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 14:38:39,744 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 14:38:39,748 - rag_roleplay - INFO - 集合已存在: roleplay_knowledge
+2026-09-16 14:38:43,725 - rag_roleplay - INFO - 插入 1 条数据
+2026-09-16 14:38:43,727 - rag_roleplay - INFO - 入库完成: test.txt → 1 个分块
+2026-09-16 14:38:43,728 - rag_roleplay - INFO -   ✓ test.txt: 1 个分块
+2026-09-16 14:38:43,771 - rag_roleplay - WARNING - 提取图片失败: 'Page' object has no attribute 'get_image_data'
+2026-09-16 14:38:43,897 - rag_roleplay - ERROR - 加载PDF失败: page 50 not in document
+2026-09-16 14:38:43,898 - rag_roleplay - ERROR - 处理 三相油浸式立体卷铁芯电力变压器技术参数和要求.pdf 失败: page 50 not in document
+2026-09-16 14:38:44,991 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\中金公司2025年中期报告.pdf, 共 254 页
+2026-09-16 14:38:44,992 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:44,993 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:44,994 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:44,994 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:44,995 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:44,996 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:44,997 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:44,998 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:44,999 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,000 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,001 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,001 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,002 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,002 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,003 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:38:45,003 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,004 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,005 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,006 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,006 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,007 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,007 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,008 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,009 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,009 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,010 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,010 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,011 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,011 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,012 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,014 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,014 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,015 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,016 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,017 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,018 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,019 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,019 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,020 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,020 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,020 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,021 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,021 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,023 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,023 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:38:45,023 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,025 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,025 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,026 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,026 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:38:45,027 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,027 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,028 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,028 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,029 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,029 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,030 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,030 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,031 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,032 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,033 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,034 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,035 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,035 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,035 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,037 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,038 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,038 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,039 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,040 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:38:45,041 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,042 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,044 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,044 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,045 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,046 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,047 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,048 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,049 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,050 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,051 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,051 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,052 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,052 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,053 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,053 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,054 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,055 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,055 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,056 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,056 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,057 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,058 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,058 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,059 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,060 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,060 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,061 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,062 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,064 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,064 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,065 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,066 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,066 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,067 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,068 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,068 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,069 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,070 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,071 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,071 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,072 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,072 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,073 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,074 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,074 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,075 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,076 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,076 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,078 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,079 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,081 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,082 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,083 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,084 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,084 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,085 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,086 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:38:45,087 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,087 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,088 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,089 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,090 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,090 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,091 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,092 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,093 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,094 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,095 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,095 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,096 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,097 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,097 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,098 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,098 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,099 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,100 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,100 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,101 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,102 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:38:45,102 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,103 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,104 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,104 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,104 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,105 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,105 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,106 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,106 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,107 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,108 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,108 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,109 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,110 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,111 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,111 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,112 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,112 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,113 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,113 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,113 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,114 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,114 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:38:45,115 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,115 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,116 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,116 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,117 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,117 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,117 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,117 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,119 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,119 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,120 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,121 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,122 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,122 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:38:45,123 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,123 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,124 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,124 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,125 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,125 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:38:45,126 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,127 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,127 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,128 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,128 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,128 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,130 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,130 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,131 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,132 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,132 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,132 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,133 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,133 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,133 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,134 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,134 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,135 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,135 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,135 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,136 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,136 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,137 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,137 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,138 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,138 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,139 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,139 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,140 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,141 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,141 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:38:45,142 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,142 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,143 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:38:45,143 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,144 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,144 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:38:45,145 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,145 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,145 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,146 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,146 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:38:45,147 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:38:45,147 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,148 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,148 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,149 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,149 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,150 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,150 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,150 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,152 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,152 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,152 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,152 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,153 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,153 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,154 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,155 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:38:45,156 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:46:44,610 - rag_roleplay - INFO - 插入 408 条数据
+2026-09-16 14:46:44,618 - rag_roleplay - INFO - 入库完成: 中金公司2025年中期报告.pdf → 408 个分块
+2026-09-16 14:46:44,620 - rag_roleplay - INFO -   ✓ 中金公司2025年中期报告.pdf: 408 个分块
+2026-09-16 14:46:44,644 - rag_roleplay - WARNING - 提取图片失败: 'Page' object has no attribute 'get_image_data'
+2026-09-16 14:46:44,751 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\变压器专用设备检测方法.pdf, 共 15 页
+2026-09-16 14:46:44,753 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:46:44,755 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:46:44,757 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:46:44,759 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:46:44,761 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:46:44,763 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:46:44,764 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:46:44,765 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:46:44,766 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:46:44,767 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:46:44,768 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:46:44,769 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:47:14,291 - rag_roleplay - INFO - 插入 24 条数据
+2026-09-16 14:47:14,293 - rag_roleplay - INFO - 入库完成: 变压器专用设备检测方法.pdf → 24 个分块
+2026-09-16 14:47:14,294 - rag_roleplay - INFO -   ✓ 变压器专用设备检测方法.pdf: 24 个分块
+2026-09-16 14:47:14,338 - rag_roleplay - ERROR - 加载PDF失败: page 313 not in document
+2026-09-16 14:47:14,339 - rag_roleplay - ERROR - 处理 同仁堂研报.pdf 失败: page 313 not in document
+2026-09-16 14:47:14,356 - rag_roleplay - ERROR - 加载PDF失败: page 18 not in document
+2026-09-16 14:47:14,357 - rag_roleplay - ERROR - 处理 国电电力.pdf 失败: page 18 not in document
+2026-09-16 14:47:14,374 - rag_roleplay - WARNING - 提取图片失败: 'Page' object has no attribute 'get_image_data'
+2026-09-16 14:47:14,413 - rag_roleplay - ERROR - 加载PDF失败: page 36 not in document
+2026-09-16 14:47:14,414 - rag_roleplay - ERROR - 处理 工业六氟化硫.pdf 失败: page 36 not in document
+2026-09-16 14:47:14,433 - rag_roleplay - ERROR - 加载PDF失败: page 15 not in document
+2026-09-16 14:47:14,433 - rag_roleplay - ERROR - 处理 润本股份.pdf 失败: page 15 not in document
+2026-09-16 14:47:14,448 - rag_roleplay - WARNING - 提取图片失败: 'Page' object has no attribute 'get_image_data'
+2026-09-16 14:47:14,494 - rag_roleplay - ERROR - 加载PDF失败: page 42 not in document
+2026-09-16 14:47:14,494 - rag_roleplay - ERROR - 处理 特高压变压器分接开关技术要求与试验方法.pdf 失败: page 42 not in document
+2026-09-16 14:47:14,514 - rag_roleplay - WARNING - 提取图片失败: 'Page' object has no attribute 'get_image_data'
+2026-09-16 14:47:14,545 - rag_roleplay - ERROR - 加载PDF失败: page 32 not in document
+2026-09-16 14:47:14,546 - rag_roleplay - ERROR - 处理 绝缘油中溶解气体组分含量的气相色谱测定法.pdf 失败: page 32 not in document
+2026-09-16 14:47:14,595 - rag_roleplay - WARNING - 提取图片失败: 'Page' object has no attribute 'get_image_data'
+2026-09-16 14:47:14,596 - rag_roleplay - ERROR - 加载PDF失败: page 35 not in document
+2026-09-16 14:47:14,596 - rag_roleplay - ERROR - 处理 芯片发展.pdf 失败: page 35 not in document
+2026-09-16 14:47:14,677 - rag_roleplay - ERROR - 加载PDF失败: page 38 not in document
+2026-09-16 14:47:14,678 - rag_roleplay - ERROR - 处理 运行中变压器油质量.pdf 失败: page 38 not in document
+2026-09-16 14:47:14,679 - rag_roleplay - INFO - 索引构建完成：处理 3 个文件，共 433 个分块，失败 9 个
+2026-09-16 14:47:14,679 - rag_roleplay - ERROR -   ✗ 三相油浸式立体卷铁芯电力变压器技术参数和要求.pdf: page 50 not in document
+2026-09-16 14:47:14,680 - rag_roleplay - ERROR -   ✗ 同仁堂研报.pdf: page 313 not in document
+2026-09-16 14:47:14,681 - rag_roleplay - ERROR -   ✗ 国电电力.pdf: page 18 not in document
+2026-09-16 14:47:14,682 - rag_roleplay - ERROR -   ✗ 工业六氟化硫.pdf: page 36 not in document
+2026-09-16 14:47:14,682 - rag_roleplay - ERROR -   ✗ 润本股份.pdf: page 15 not in document
+2026-09-16 14:47:14,683 - rag_roleplay - ERROR -   ✗ 特高压变压器分接开关技术要求与试验方法.pdf: page 42 not in document
+2026-09-16 14:47:14,683 - rag_roleplay - ERROR -   ✗ 绝缘油中溶解气体组分含量的气相色谱测定法.pdf: page 32 not in document
+2026-09-16 14:47:14,684 - rag_roleplay - ERROR -   ✗ 芯片发展.pdf: page 35 not in document
+2026-09-16 14:47:14,684 - rag_roleplay - ERROR -   ✗ 运行中变压器油质量.pdf: page 38 not in document
+2026-09-16 14:52:22,907 - rag_roleplay - INFO - 成功加载PDF: data/raw/润本股份.pdf, 共 3 页
+2026-09-16 14:53:08,544 - rag_roleplay - INFO - 成功加载文本文件: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\test.txt
+2026-09-16 14:53:08,545 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:53:08,546 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 14:53:12,701 - rag_roleplay - INFO - 模型加载完成，维度: 1024
+2026-09-16 14:53:13,195 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 14:53:13,238 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 14:53:13,242 - rag_roleplay - INFO - 集合已存在: roleplay_knowledge
+2026-09-16 14:53:13,272 - rag_roleplay - INFO - 加载集合: roleplay_knowledge
+2026-09-16 14:53:16,043 - rag_roleplay - INFO - 删除来源分块: test.txt
+2026-09-16 14:53:26,275 - rag_roleplay - INFO - 插入 1 条数据
+2026-09-16 14:53:26,276 - rag_roleplay - INFO - 入库完成: test.txt → 1 个分块
+2026-09-16 14:53:26,277 - rag_roleplay - INFO -   ✓ test.txt: 1 个分块
+2026-09-16 14:53:26,835 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\三相油浸式立体卷铁芯电力变压器技术参数和要求.pdf, 共 39 页
+2026-09-16 14:53:26,836 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:53:26,838 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:53:26,839 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:53:26,839 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 14:53:26,840 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:53:26,841 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:53:26,841 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 14:53:26,842 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:53:26,843 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:53:26,844 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:53:26,844 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:53:26,845 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:53:26,846 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:53:26,846 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:53:26,847 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:53:26,848 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:53:26,848 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:53:26,850 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:53:26,851 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:53:26,852 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:53:26,853 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:53:26,854 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:53:26,855 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:53:26,855 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:53:26,856 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:53:26,857 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:53:26,857 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:53:26,858 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:53:26,859 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:53:26,859 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:53:26,860 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:53:26,861 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:53:26,861 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:53:26,862 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:55:46,784 - rag_roleplay - INFO - 删除来源分块: 三相油浸式立体卷铁芯电力变压器技术参数和要求.pdf
+2026-09-16 14:56:00,463 - rag_roleplay - INFO - 插入 76 条数据
+2026-09-16 14:56:00,465 - rag_roleplay - INFO - 入库完成: 三相油浸式立体卷铁芯电力变压器技术参数和要求.pdf → 76 个分块
+2026-09-16 14:56:00,466 - rag_roleplay - INFO -   ✓ 三相油浸式立体卷铁芯电力变压器技术参数和要求.pdf: 76 个分块
+2026-09-16 14:56:01,343 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\中金公司2025年中期报告.pdf, 共 254 页
+2026-09-16 14:56:01,344 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,344 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,345 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,346 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,347 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,349 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,350 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,351 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,352 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,353 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,354 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,355 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,356 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,357 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,359 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:56:01,360 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,362 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,363 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,364 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,365 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,366 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,367 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,368 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,369 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,371 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,372 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,373 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,374 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,375 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,376 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,377 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,378 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,379 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,380 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,381 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,382 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,383 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,384 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,385 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,386 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,387 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,388 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,388 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,389 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,390 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:56:01,390 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,391 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,392 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,392 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,393 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:56:01,394 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,394 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,395 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,395 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,396 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,396 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,397 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,397 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,397 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,398 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,398 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,399 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,399 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,400 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,400 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,401 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,401 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,402 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,402 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,403 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:56:01,403 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,404 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,404 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,405 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,405 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,406 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,406 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,406 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,407 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,407 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,408 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,409 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,409 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,410 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,411 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,411 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,412 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,412 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,412 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,412 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,413 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,414 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,414 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,414 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,415 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,415 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,416 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,416 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,417 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,417 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,418 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,418 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,419 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,419 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,420 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,421 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,421 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,422 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,422 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,423 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,423 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,423 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,425 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,425 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,426 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,427 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,427 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,427 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,428 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,428 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,428 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,430 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,430 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,431 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,431 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,431 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,433 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,433 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:56:01,434 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,434 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,434 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,435 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,435 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,436 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,436 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,437 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,437 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,438 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,438 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,439 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,440 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,440 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,441 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,441 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,442 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,442 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,443 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,443 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,443 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,444 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:56:01,444 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,444 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,446 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,446 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,447 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,447 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,448 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,448 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,449 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,449 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,449 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,449 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,450 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,450 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,451 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,451 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,452 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,452 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,453 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,453 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,453 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,454 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,454 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:56:01,455 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,456 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,456 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,457 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,457 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,457 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,458 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,459 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,459 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,459 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,460 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,460 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,460 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,461 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:56:01,461 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,461 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,461 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,463 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,463 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,464 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:56:01,464 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,465 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,466 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,468 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,469 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,470 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,470 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,471 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,472 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,473 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,474 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,475 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,476 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,476 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,477 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,478 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,478 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,479 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,479 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,480 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,480 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,481 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,481 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,482 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,482 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,484 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,484 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,484 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,486 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,487 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,487 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:56:01,488 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,488 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,488 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:56:01,490 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,492 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,493 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:56:01,494 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,495 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,496 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,497 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,498 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 14:56:01,498 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 14:56:01,499 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,500 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,500 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,501 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,502 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,503 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,504 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,505 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,506 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,507 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,508 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,509 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,510 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,510 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,511 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,512 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 14:56:01,513 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:04:27,184 - rag_roleplay - INFO - 删除来源分块: 中金公司2025年中期报告.pdf
+2026-09-16 15:04:37,788 - rag_roleplay - INFO - 插入 408 条数据
+2026-09-16 15:04:37,794 - rag_roleplay - INFO - 入库完成: 中金公司2025年中期报告.pdf → 408 个分块
+2026-09-16 15:04:37,794 - rag_roleplay - INFO -   ✓ 中金公司2025年中期报告.pdf: 408 个分块
+2026-09-16 15:04:37,876 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\变压器专用设备检测方法.pdf, 共 15 页
+2026-09-16 15:04:37,877 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:04:37,878 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:04:37,878 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:04:37,879 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:04:37,880 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:04:37,881 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:04:37,882 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:04:37,883 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:04:37,883 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:04:37,884 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:04:37,885 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:04:37,885 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:05:07,356 - rag_roleplay - INFO - 删除来源分块: 变压器专用设备检测方法.pdf
+2026-09-16 15:05:16,594 - rag_roleplay - INFO - 插入 24 条数据
+2026-09-16 15:05:16,595 - rag_roleplay - INFO - 入库完成: 变压器专用设备检测方法.pdf → 24 个分块
+2026-09-16 15:05:16,596 - rag_roleplay - INFO -   ✓ 变压器专用设备检测方法.pdf: 24 个分块
+2026-09-16 15:05:17,808 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\同仁堂研报.pdf, 共 28 页
+2026-09-16 15:05:17,809 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 15:05:17,810 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:05:17,810 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:05:17,811 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:05:17,812 - rag_roleplay - INFO - 语义分块: 产生 7 个块
+2026-09-16 15:05:17,813 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:05:17,813 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:05:17,814 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 15:05:17,815 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:05:17,816 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:05:17,816 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 15:05:17,816 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:05:17,817 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 15:05:17,818 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:05:17,818 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 15:05:17,819 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:05:17,820 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:05:17,820 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:05:17,821 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:05:17,822 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:05:17,823 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:05:17,825 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:05:17,826 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:05:17,827 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:05:17,827 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:05:17,828 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 15:05:17,828 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:05:17,829 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:07:21,470 - rag_roleplay - INFO - 删除来源分块: 同仁堂研报.pdf
+2026-09-16 15:07:34,977 - rag_roleplay - INFO - 插入 76 条数据
+2026-09-16 15:07:34,980 - rag_roleplay - INFO - 入库完成: 同仁堂研报.pdf → 76 个分块
+2026-09-16 15:07:34,981 - rag_roleplay - INFO -   ✓ 同仁堂研报.pdf: 76 个分块
+2026-09-16 15:07:35,034 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\国电电力.pdf, 共 7 页
+2026-09-16 15:07:35,036 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 15:07:35,037 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:07:35,037 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:07:35,038 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:07:35,039 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:07:35,040 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 15:07:35,040 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:08:55,436 - rag_roleplay - INFO - 删除来源分块: 国电电力.pdf
+2026-09-16 15:09:07,700 - rag_roleplay - INFO - 插入 18 条数据
+2026-09-16 15:09:07,701 - rag_roleplay - INFO - 入库完成: 国电电力.pdf → 18 个分块
+2026-09-16 15:09:07,702 - rag_roleplay - INFO -   ✓ 国电电力.pdf: 18 个分块
+2026-09-16 15:09:08,130 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\工业六氟化硫.pdf, 共 23 页
+2026-09-16 15:09:08,130 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:09:08,131 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 15:09:08,132 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:09:08,132 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:09:08,133 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:09:08,134 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:09:08,135 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:09:08,135 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:09:08,136 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:09:08,136 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:09:08,138 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:09:08,138 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:09:08,138 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:09:08,140 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:09:08,141 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:09:08,141 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:09:08,142 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:09:08,142 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:09:08,143 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:09:08,144 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:09:08,144 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:09:37,426 - rag_roleplay - INFO - 删除来源分块: 工业六氟化硫.pdf
+2026-09-16 15:09:49,182 - rag_roleplay - INFO - 插入 39 条数据
+2026-09-16 15:09:49,183 - rag_roleplay - INFO - 入库完成: 工业六氟化硫.pdf → 39 个分块
+2026-09-16 15:09:49,184 - rag_roleplay - INFO -   ✓ 工业六氟化硫.pdf: 39 个分块
+2026-09-16 15:09:49,213 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\润本股份.pdf, 共 3 页
+2026-09-16 15:09:49,214 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 15:09:49,216 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:09:49,217 - rag_roleplay - INFO - 语义分块: 产生 5 个块
+2026-09-16 15:10:21,780 - rag_roleplay - INFO - 删除来源分块: 润本股份.pdf
+2026-09-16 15:10:34,023 - rag_roleplay - INFO - 插入 10 条数据
+2026-09-16 15:10:34,024 - rag_roleplay - INFO - 入库完成: 润本股份.pdf → 10 个分块
+2026-09-16 15:10:34,025 - rag_roleplay - INFO -   ✓ 润本股份.pdf: 10 个分块
+2026-09-16 15:10:35,194 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\特高压变压器分接开关技术要求与试验方法.pdf, 共 39 页
+2026-09-16 15:10:35,195 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:10:35,196 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:10:35,196 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:10:35,197 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,197 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,198 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,199 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:10:35,200 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,200 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,201 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:10:35,201 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:10:35,202 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:10:35,203 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,203 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:10:35,204 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:10:35,205 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:10:35,205 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,206 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,207 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:10:35,208 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,208 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,209 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,209 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,210 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:10:35,210 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,211 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,211 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,212 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,212 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,213 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:10:35,213 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:10:35,214 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:10:35,214 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,215 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,216 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:10:35,216 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:11:42,719 - rag_roleplay - INFO - 删除来源分块: 特高压变压器分接开关技术要求与试验方法.pdf
+2026-09-16 15:11:56,210 - rag_roleplay - INFO - 插入 75 条数据
+2026-09-16 15:11:56,212 - rag_roleplay - INFO - 入库完成: 特高压变压器分接开关技术要求与试验方法.pdf → 75 个分块
+2026-09-16 15:11:56,212 - rag_roleplay - INFO -   ✓ 特高压变压器分接开关技术要求与试验方法.pdf: 75 个分块
+2026-09-16 15:11:56,549 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\绝缘油中溶解气体组分含量的气相色谱测定法.pdf, 共 31 页
+2026-09-16 15:11:56,550 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:11:56,550 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:11:56,551 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:11:56,551 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:11:56,551 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:11:56,552 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:11:56,552 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:11:56,552 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:11:56,553 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:11:56,553 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:11:56,553 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:11:56,554 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:11:56,554 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:11:56,554 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:11:56,554 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:11:56,555 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:11:56,555 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:11:56,555 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:11:56,556 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:11:56,556 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:11:56,556 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:11:56,556 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 15:11:56,557 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:11:56,557 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 15:11:56,557 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:11:56,558 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 15:16:35,401 - rag_roleplay - INFO - 启动服务: http://0.0.0.0:8000
+2026-09-16 15:18:02,570 - rag_roleplay - INFO - 收到聊天请求: session=sess-mu3q4dgd-tq6mwu, message=同仁堂公司前身始创于多少年...
+2026-09-16 15:18:02,571 - rag_roleplay - INFO - 连接Redis: localhost:6379
+2026-09-16 15:18:02,629 - rag_roleplay - INFO - Redis连接成功
+2026-09-16 15:18:02,637 - rag_roleplay - INFO - 检索: 同仁堂公司前身始创于多少年...
+2026-09-16 15:18:02,639 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 15:18:06,458 - rag_roleplay - INFO - 模型加载完成，维度: 1024
+2026-09-16 15:18:07,073 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 15:18:07,142 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 15:18:07,166 - rag_roleplay - INFO - 加载集合: roleplay_knowledge
+2026-09-16 15:18:07,198 - rag_roleplay - INFO - 检索到 5 条结果
+2026-09-16 15:18:07,220 - rag_roleplay - INFO - API大模型初始化: deepseek-chat @ https://api.deepseek.com/v1
+2026-09-16 15:33:30,995 - rag_roleplay - INFO - 启动服务: http://0.0.0.0:8000
+2026-09-16 15:34:21,647 - rag_roleplay - INFO - 连接Redis: localhost:6379
+2026-09-16 15:34:21,674 - rag_roleplay - INFO - Redis连接成功
+2026-09-16 15:34:21,680 - rag_roleplay - INFO - 清除会话 sess-mu3sbutc-fc7v7e 的历史
+2026-09-16 16:00:23,074 - rag_roleplay - INFO - BM25 索引构建完成：2 篇文档
+2026-09-16 16:04:24,552 - rag_roleplay - INFO - BM25 索引构建完成：3 篇文档
+2026-09-16 16:04:24,561 - rag_roleplay - INFO - BM25 索引构建完成：3 篇文档
+2026-09-16 16:04:24,575 - rag_roleplay - INFO - 固定长度分块: 产生 1 个块
+2026-09-16 16:04:24,581 - rag_roleplay - INFO - 句子分块: 产生 1 个块
+2026-09-16 16:04:25,702 - rag_roleplay - INFO - 段落分块: 产生 3 个块
+2026-09-16 16:04:25,710 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:04:25,732 - rag_roleplay - WARNING - 未知的分块方式: unknown_method, 使用 semantic
+2026-09-16 16:06:10,927 - rag_roleplay - INFO - BM25 索引构建完成：3 篇文档
+2026-09-16 16:06:10,935 - rag_roleplay - INFO - BM25 索引构建完成：3 篇文档
+2026-09-16 16:06:10,959 - rag_roleplay - INFO - 固定长度分块: 产生 2 个块
+2026-09-16 16:06:10,967 - rag_roleplay - INFO - 句子分块: 产生 3 个块
+2026-09-16 16:06:10,978 - rag_roleplay - INFO - 段落分块: 产生 3 个块
+2026-09-16 16:06:10,990 - rag_roleplay - INFO - 语义分块: 产生 16 个块
+2026-09-16 16:06:10,999 - rag_roleplay - WARNING - 未知的分块方式: unknown_method, 使用 semantic
+2026-09-16 16:12:52,685 - rag_roleplay - INFO - 检索: 同仁堂2023年营业收入是多少...
+2026-09-16 16:12:52,687 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 16:13:00,025 - rag_roleplay - INFO - 模型加载完成，维度: 1024
+2026-09-16 16:13:01,251 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 16:13:01,316 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 16:13:01,350 - rag_roleplay - INFO - 加载集合: roleplay_knowledge
+2026-09-16 16:13:02,018 - rag_roleplay - INFO - BM25 索引构建完成：727 篇文档
+2026-09-16 16:13:02,072 - rag_roleplay - INFO - 检索到 3 条结果
+2026-09-16 16:14:15,769 - rag_roleplay - INFO - 收到聊天请求: session=verify_run_1, message=同仁堂2023年营业收入是多少？...
+2026-09-16 16:14:15,815 - rag_roleplay - INFO - API大模型初始化: deepseek-chat @ https://api.deepseek.com/v1
+2026-09-16 16:14:15,821 - rag_roleplay - INFO - 检索: 同仁堂2023年营业收入是多少？...
+2026-09-16 16:14:15,822 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 16:14:21,933 - rag_roleplay - INFO - 模型加载完成，维度: 1024
+2026-09-16 16:14:22,612 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 16:14:22,670 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 16:14:22,705 - rag_roleplay - INFO - 加载集合: roleplay_knowledge
+2026-09-16 16:14:23,163 - rag_roleplay - INFO - BM25 索引构建完成：727 篇文档
+2026-09-16 16:14:23,205 - rag_roleplay - INFO - 检索到 5 条结果
+2026-09-16 16:14:25,419 - rag_roleplay - INFO - 连接Redis: localhost:6379
+2026-09-16 16:14:25,453 - rag_roleplay - INFO - Redis连接成功
+2026-09-16 16:15:20,533 - rag_roleplay - INFO - BM25 索引构建完成：3 篇文档
+2026-09-16 16:15:20,542 - rag_roleplay - INFO - BM25 索引构建完成：3 篇文档
+2026-09-16 16:15:20,557 - rag_roleplay - INFO - 固定长度分块: 产生 2 个块
+2026-09-16 16:15:20,566 - rag_roleplay - INFO - 句子分块: 产生 3 个块
+2026-09-16 16:15:20,572 - rag_roleplay - INFO - 段落分块: 产生 3 个块
+2026-09-16 16:15:20,581 - rag_roleplay - INFO - 语义分块: 产生 16 个块
+2026-09-16 16:15:20,592 - rag_roleplay - WARNING - 未知的分块方式: unknown_method, 使用 semantic
+2026-09-16 16:16:31,362 - rag_roleplay - INFO - API大模型初始化: deepseek-chat @ https://api.deepseek.com/v1
+2026-09-16 16:16:31,366 - rag_roleplay - INFO - 检索: 同仁堂的主要业务是什么？...
+2026-09-16 16:16:31,367 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 16:16:37,942 - rag_roleplay - INFO - 模型加载完成，维度: 1024
+2026-09-16 16:16:38,732 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 16:16:38,794 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 16:16:38,821 - rag_roleplay - INFO - 加载集合: roleplay_knowledge
+2026-09-16 16:16:39,320 - rag_roleplay - INFO - BM25 索引构建完成：727 篇文档
+2026-09-16 16:16:39,359 - rag_roleplay - INFO - 检索到 4 条结果
+2026-09-16 16:16:42,145 - rag_roleplay - INFO - 连接Redis: localhost:6379
+2026-09-16 16:16:42,172 - rag_roleplay - INFO - Redis连接成功
+2026-09-16 16:20:06,646 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 16:20:06,715 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 16:20:08,775 - rag_roleplay - INFO - 删除已存在的集合: roleplay_knowledge
+2026-09-16 16:20:09,693 - rag_roleplay - INFO - 创建集合成功: roleplay_knowledge
+2026-09-16 16:20:09,696 - rag_roleplay - INFO - 成功加载文本文件: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\test.txt
+2026-09-16 16:20:09,699 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:20:09,700 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 16:20:16,702 - rag_roleplay - INFO - 模型加载完成，维度: 1024
+2026-09-16 16:20:18,971 - rag_roleplay - INFO - 加载集合: roleplay_knowledge
+2026-09-16 16:20:19,999 - rag_roleplay - INFO - 删除来源分块: test.txt
+2026-09-16 16:20:32,211 - rag_roleplay - INFO - 插入 1 条数据
+2026-09-16 16:20:32,213 - rag_roleplay - INFO - 入库完成: test.txt → 1 个分块
+2026-09-16 16:20:32,215 - rag_roleplay - INFO -   ✓ test.txt: 1 个分块
+2026-09-16 16:20:33,014 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\三相油浸式立体卷铁芯电力变压器技术参数和要求.pdf, 共 39 页
+2026-09-16 16:20:33,016 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:20:33,020 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:20:33,021 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:20:33,023 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 16:20:33,024 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:20:33,027 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:20:33,029 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 16:20:33,030 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:20:33,032 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:20:33,033 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:20:33,035 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:20:33,036 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:20:33,038 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:20:33,039 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:20:33,041 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:20:33,044 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:20:33,045 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:20:33,046 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:20:33,048 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:20:33,050 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:20:33,051 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:20:33,053 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:20:33,055 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:20:33,056 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:20:33,058 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:20:33,059 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:20:33,061 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:20:33,062 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:20:33,063 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:20:33,065 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:20:33,066 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:20:33,067 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:20:33,068 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:20:33,069 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:21,086 - rag_roleplay - INFO - 删除来源分块: 三相油浸式立体卷铁芯电力变压器技术参数和要求.pdf
+2026-09-16 16:24:33,573 - rag_roleplay - INFO - 插入 76 条数据
+2026-09-16 16:24:33,575 - rag_roleplay - INFO - 入库完成: 三相油浸式立体卷铁芯电力变压器技术参数和要求.pdf → 76 个分块
+2026-09-16 16:24:33,577 - rag_roleplay - INFO -   ✓ 三相油浸式立体卷铁芯电力变压器技术参数和要求.pdf: 76 个分块
+2026-09-16 16:24:34,876 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\中金公司2025年中期报告.pdf, 共 254 页
+2026-09-16 16:24:34,878 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,878 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,879 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,880 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,882 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,883 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,884 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,885 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,886 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,887 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,889 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,889 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,890 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,891 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,893 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,894 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,895 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,896 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,897 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,898 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,899 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,899 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,902 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,903 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,904 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,905 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,906 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,907 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,908 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,909 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,910 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,911 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,913 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,914 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,915 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,917 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,919 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,920 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,921 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,923 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,924 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,925 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,926 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,926 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,928 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,928 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,929 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,930 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,931 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,933 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,933 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,935 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,936 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,937 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,938 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,939 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,939 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,942 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,942 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,943 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,944 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,945 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,946 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,947 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:24:34,948 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:24:34,951 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,951 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,952 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,953 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,954 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,955 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,956 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,958 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,959 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,960 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,961 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,962 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,963 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,964 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,966 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,967 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,968 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,970 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,970 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,971 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,972 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,973 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,974 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,976 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,976 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,977 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,978 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,979 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,981 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,982 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,983 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,984 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,984 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,984 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,986 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,993 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,994 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,994 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,995 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,996 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:34,998 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,998 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:34,999 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,000 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,001 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,001 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,003 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,003 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,004 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,005 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,006 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,008 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,009 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,010 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,011 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,011 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,012 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,013 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,014 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,015 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,016 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,016 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,018 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:24:35,019 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,020 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,021 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,022 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,023 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,024 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,025 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,026 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,026 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,027 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,028 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,029 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,029 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,031 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,032 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,033 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,034 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,035 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,036 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,036 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,037 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,038 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:24:35,039 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,040 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,041 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,041 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,042 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,043 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,044 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,045 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,046 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,048 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,049 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,049 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,051 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,052 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,053 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,054 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,056 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,056 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,057 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,058 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,059 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,059 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,061 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:24:35,062 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,064 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,065 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,066 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,067 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,067 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,068 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,069 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,069 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,071 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,072 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,073 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,074 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,074 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:24:35,075 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,076 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,077 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,080 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,081 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,083 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:24:35,085 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,086 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,089 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,091 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,093 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,095 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,097 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,098 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,100 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,103 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,104 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,106 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,108 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,108 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,111 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,112 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,114 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,116 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,118 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,119 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,120 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,122 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,123 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,124 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,125 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,127 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,129 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,130 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,131 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,132 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,133 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,134 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,135 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,136 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:24:35,137 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,138 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,140 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:24:35,142 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,143 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,144 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,144 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,145 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,147 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:24:35,147 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,149 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,150 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,152 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,153 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,154 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,155 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,157 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:24:35,158 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,160 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,161 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,162 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,163 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,164 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,165 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,166 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:24:35,167 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:35:03,490 - rag_roleplay - INFO - 启动服务: http://0.0.0.0:8000
+2026-09-16 16:38:49,163 - rag_roleplay - INFO - 删除来源分块: 中金公司2025年中期报告.pdf
+2026-09-16 16:39:00,523 - rag_roleplay - INFO - 插入 411 条数据
+2026-09-16 16:39:00,534 - rag_roleplay - INFO - 入库完成: 中金公司2025年中期报告.pdf → 411 个分块
+2026-09-16 16:39:00,545 - rag_roleplay - INFO -   ✓ 中金公司2025年中期报告.pdf: 411 个分块
+2026-09-16 16:39:00,879 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\变压器专用设备检测方法.pdf, 共 15 页
+2026-09-16 16:39:00,882 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:39:00,884 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:39:00,885 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:39:00,887 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:39:00,888 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:39:00,889 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:39:00,890 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:39:00,891 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:39:00,893 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:39:00,893 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:39:00,895 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:39:00,897 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:39:46,057 - rag_roleplay - INFO - 删除来源分块: 变压器专用设备检测方法.pdf
+2026-09-16 16:39:58,288 - rag_roleplay - INFO - 插入 24 条数据
+2026-09-16 16:39:58,290 - rag_roleplay - INFO - 入库完成: 变压器专用设备检测方法.pdf → 24 个分块
+2026-09-16 16:39:58,291 - rag_roleplay - INFO -   ✓ 变压器专用设备检测方法.pdf: 24 个分块
+2026-09-16 16:39:59,752 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\同仁堂研报.pdf, 共 28 页
+2026-09-16 16:39:59,755 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 16:39:59,756 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:39:59,758 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:39:59,759 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:39:59,761 - rag_roleplay - INFO - 语义分块: 产生 7 个块
+2026-09-16 16:39:59,763 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:39:59,764 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:39:59,765 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 16:39:59,767 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:39:59,768 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:39:59,770 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:39:59,771 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:39:59,773 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:39:59,774 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:39:59,775 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 16:39:59,776 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:39:59,778 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:39:59,779 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:39:59,780 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:39:59,781 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:39:59,782 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:39:59,784 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:39:59,785 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:39:59,786 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:39:59,787 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:39:59,789 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:39:59,790 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:39:59,792 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:43:26,742 - rag_roleplay - INFO - 删除来源分块: 同仁堂研报.pdf
+2026-09-16 16:43:40,253 - rag_roleplay - INFO - 插入 72 条数据
+2026-09-16 16:43:40,257 - rag_roleplay - INFO - 入库完成: 同仁堂研报.pdf → 72 个分块
+2026-09-16 16:43:40,259 - rag_roleplay - INFO -   ✓ 同仁堂研报.pdf: 72 个分块
+2026-09-16 16:43:40,371 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\国电电力.pdf, 共 7 页
+2026-09-16 16:43:40,373 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 16:43:40,374 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:43:40,376 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:43:40,377 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:43:40,379 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:43:40,380 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 16:43:40,381 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:45:44,501 - rag_roleplay - INFO - 删除来源分块: 国电电力.pdf
+2026-09-16 16:45:56,706 - rag_roleplay - INFO - 插入 17 条数据
+2026-09-16 16:45:56,710 - rag_roleplay - INFO - 入库完成: 国电电力.pdf → 17 个分块
+2026-09-16 16:45:56,712 - rag_roleplay - INFO -   ✓ 国电电力.pdf: 17 个分块
+2026-09-16 16:45:57,249 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\工业六氟化硫.pdf, 共 23 页
+2026-09-16 16:45:57,251 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:45:57,252 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 16:45:57,254 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:45:57,255 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:45:57,256 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:45:57,257 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:45:57,259 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:45:57,260 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:45:57,261 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:45:57,262 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:45:57,263 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:45:57,264 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:45:57,266 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:45:57,267 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:45:57,268 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:45:57,269 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:45:57,271 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:45:57,272 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:45:57,274 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:45:57,275 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:45:57,276 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:47:11,610 - rag_roleplay - INFO - 删除来源分块: 工业六氟化硫.pdf
+2026-09-16 16:47:25,130 - rag_roleplay - INFO - 插入 39 条数据
+2026-09-16 16:47:25,131 - rag_roleplay - INFO - 入库完成: 工业六氟化硫.pdf → 39 个分块
+2026-09-16 16:47:25,132 - rag_roleplay - INFO -   ✓ 工业六氟化硫.pdf: 39 个分块
+2026-09-16 16:47:25,189 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\润本股份.pdf, 共 3 页
+2026-09-16 16:47:25,191 - rag_roleplay - INFO - 语义分块: 产生 4 个块
+2026-09-16 16:47:25,192 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:47:25,194 - rag_roleplay - INFO - 语义分块: 产生 5 个块
+2026-09-16 16:48:24,709 - rag_roleplay - INFO - 删除来源分块: 润本股份.pdf
+2026-09-16 16:48:38,058 - rag_roleplay - INFO - 插入 10 条数据
+2026-09-16 16:48:38,060 - rag_roleplay - INFO - 入库完成: 润本股份.pdf → 10 个分块
+2026-09-16 16:48:38,060 - rag_roleplay - INFO -   ✓ 润本股份.pdf: 10 个分块
+2026-09-16 16:48:39,788 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\特高压变压器分接开关技术要求与试验方法.pdf, 共 39 页
+2026-09-16 16:48:39,791 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:48:39,793 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:48:39,796 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:48:39,798 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,800 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,802 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,804 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:48:39,806 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,809 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,812 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:48:39,813 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:48:39,815 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:48:39,818 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,820 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:48:39,822 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:48:39,824 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:48:39,827 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,829 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,830 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:48:39,832 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,834 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,837 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,838 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,840 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:48:39,842 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,844 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,845 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,848 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,849 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,851 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:48:39,853 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:48:39,854 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:48:39,855 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,857 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,859 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:48:39,860 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:50:52,547 - rag_roleplay - INFO - 删除来源分块: 特高压变压器分接开关技术要求与试验方法.pdf
+2026-09-16 16:51:03,053 - rag_roleplay - INFO - 插入 75 条数据
+2026-09-16 16:51:03,055 - rag_roleplay - INFO - 入库完成: 特高压变压器分接开关技术要求与试验方法.pdf → 75 个分块
+2026-09-16 16:51:03,056 - rag_roleplay - INFO -   ✓ 特高压变压器分接开关技术要求与试验方法.pdf: 75 个分块
+2026-09-16 16:51:03,989 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\绝缘油中溶解气体组分含量的气相色谱测定法.pdf, 共 31 页
+2026-09-16 16:51:03,990 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:51:03,991 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:51:03,992 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:51:03,994 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:51:03,995 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:51:03,997 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:51:03,998 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:51:03,999 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:51:04,000 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:51:04,001 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:51:04,002 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:51:04,003 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:51:04,005 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:51:04,006 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:51:04,006 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:51:04,008 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:51:04,010 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:51:04,011 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:51:04,011 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:51:04,012 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:51:04,013 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:51:04,013 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:51:04,014 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:51:04,015 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:51:04,015 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:51:04,016 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:52:26,067 - rag_roleplay - INFO - 删除来源分块: 绝缘油中溶解气体组分含量的气相色谱测定法.pdf
+2026-09-16 16:52:39,626 - rag_roleplay - INFO - 插入 48 条数据
+2026-09-16 16:52:39,628 - rag_roleplay - INFO - 入库完成: 绝缘油中溶解气体组分含量的气相色谱测定法.pdf → 48 个分块
+2026-09-16 16:52:39,629 - rag_roleplay - INFO -   ✓ 绝缘油中溶解气体组分含量的气相色谱测定法.pdf: 48 个分块
+2026-09-16 16:52:40,232 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\芯片发展.pdf, 共 27 页
+2026-09-16 16:52:40,232 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:52:40,234 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:52:40,235 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:52:40,237 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:52:40,239 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:52:40,240 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:52:40,241 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:52:40,242 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:52:40,244 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:52:40,247 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:52:40,248 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:52:40,250 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:52:40,251 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:52:40,252 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:52:40,254 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:52:40,256 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:52:40,257 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:52:40,258 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:52:40,259 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:52:40,260 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:52:40,262 - rag_roleplay - INFO - 语义分块: 产生 3 个块
+2026-09-16 16:52:40,263 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:52:40,264 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:52:40,265 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:52:40,267 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:52:40,267 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:53:50,417 - rag_roleplay - INFO - 删除来源分块: 芯片发展.pdf
+2026-09-16 16:54:03,948 - rag_roleplay - INFO - 插入 48 条数据
+2026-09-16 16:54:03,950 - rag_roleplay - INFO - 入库完成: 芯片发展.pdf → 48 个分块
+2026-09-16 16:54:03,951 - rag_roleplay - INFO -   ✓ 芯片发展.pdf: 48 个分块
+2026-09-16 16:54:04,280 - rag_roleplay - INFO - 成功加载PDF: C:\Users\cyh\Desktop\111\rag_roleplay\data\raw\运行中变压器油质量.pdf, 共 6 页
+2026-09-16 16:54:04,281 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:54:04,283 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:54:04,284 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:54:04,285 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:54:04,287 - rag_roleplay - INFO - 语义分块: 产生 2 个块
+2026-09-16 16:54:04,288 - rag_roleplay - INFO - 语义分块: 产生 1 个块
+2026-09-16 16:54:34,805 - rag_roleplay - INFO - 删除来源分块: 运行中变压器油质量.pdf
+2026-09-16 16:54:47,260 - rag_roleplay - INFO - 插入 10 条数据
+2026-09-16 16:54:47,262 - rag_roleplay - INFO - 入库完成: 运行中变压器油质量.pdf → 10 个分块
+2026-09-16 16:54:47,263 - rag_roleplay - INFO -   ✓ 运行中变压器油质量.pdf: 10 个分块
+2026-09-16 16:54:47,269 - rag_roleplay - INFO - 索引构建完成：处理 12 个文件，共 831 个分块，失败 0 个
+2026-09-16 16:56:48,806 - rag_roleplay - INFO - 检索: 同仁堂2023年营业收入是多少...
+2026-09-16 16:56:48,808 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 16:56:56,308 - rag_roleplay - INFO - 模型加载完成，维度: 1024
+2026-09-16 16:56:56,982 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 16:56:57,070 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 16:56:57,106 - rag_roleplay - INFO - 加载集合: roleplay_knowledge
+2026-09-16 16:56:57,608 - rag_roleplay - INFO - BM25 索引构建完成：831 篇文档
+2026-09-16 16:56:57,659 - rag_roleplay - INFO - 检索到 3 条结果
+2026-09-16 16:57:59,457 - rag_roleplay - INFO - 收到聊天请求: session=verify_rebuilt_1, message=同仁堂2023年营业收入是多少？...
+2026-09-16 16:57:59,485 - rag_roleplay - INFO - API大模型初始化: deepseek-chat @ https://api.deepseek.com/v1
+2026-09-16 16:57:59,487 - rag_roleplay - INFO - 检索: 同仁堂2023年营业收入是多少？...
+2026-09-16 16:57:59,488 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 16:58:05,836 - rag_roleplay - INFO - 模型加载完成，维度: 1024
+2026-09-16 16:58:06,535 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 16:58:06,589 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 16:58:06,613 - rag_roleplay - INFO - 加载集合: roleplay_knowledge
+2026-09-16 16:58:07,250 - rag_roleplay - INFO - BM25 索引构建完成：831 篇文档
+2026-09-16 16:58:07,302 - rag_roleplay - INFO - 检索到 5 条结果
+2026-09-16 16:58:10,749 - rag_roleplay - INFO - 连接Redis: localhost:6379
+2026-09-16 16:58:10,791 - rag_roleplay - INFO - Redis连接成功
+2026-09-16 17:00:31,098 - rag_roleplay - INFO - 启动服务: http://0.0.0.0:8000
+2026-09-16 17:01:54,583 - rag_roleplay - INFO - 收到聊天请求: session=sess-mu3sbutc-fc7v7e, message=海爾集團收購汽車之家规模是多少...
+2026-09-16 17:01:54,583 - rag_roleplay - INFO - 连接Redis: localhost:6379
+2026-09-16 17:01:54,631 - rag_roleplay - INFO - Redis连接成功
+2026-09-16 17:01:54,681 - rag_roleplay - INFO - API大模型初始化: deepseek-chat @ https://api.deepseek.com/v1
+2026-09-16 17:01:54,684 - rag_roleplay - INFO - 检索: 海爾集團收購汽車之家规模是多少...
+2026-09-16 17:01:54,687 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 17:01:58,682 - rag_roleplay - INFO - 模型加载完成，维度: 1024
+2026-09-16 17:01:59,383 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 17:01:59,464 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 17:01:59,500 - rag_roleplay - INFO - 加载集合: roleplay_knowledge
+2026-09-16 17:01:59,812 - rag_roleplay - INFO - BM25 索引构建完成：831 篇文档
+2026-09-16 17:01:59,835 - rag_roleplay - INFO - 检索到 3 条结果
+2026-09-16 17:03:19,264 - rag_roleplay - INFO - 启动服务: http://0.0.0.0:8000
+2026-09-16 17:04:16,018 - rag_roleplay - INFO - 收到聊天请求: session=sess-mu3sbutc-fc7v7e, message=宠物的日常护理是什么的基础...
+2026-09-16 17:04:16,019 - rag_roleplay - INFO - 连接Redis: localhost:6379
+2026-09-16 17:04:16,069 - rag_roleplay - INFO - Redis连接成功
+2026-09-16 17:04:16,132 - rag_roleplay - INFO - API大模型初始化: deepseek-chat @ https://api.deepseek.com/v1
+2026-09-16 17:04:19,984 - rag_roleplay - INFO - Query 改写: 宠物的日常护理是什么的基础 -> 宠物的日常护理是什么的基础？
+2026-09-16 17:04:19,987 - rag_roleplay - INFO - 检索: 宠物的日常护理是什么的基础？...
+2026-09-16 17:04:19,989 - rag_roleplay - INFO - 加载向量化模型: C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3
+2026-09-16 17:04:23,910 - rag_roleplay - INFO - 模型加载完成，维度: 1024
+2026-09-16 17:04:24,804 - rag_roleplay - INFO - 连接Milvus: localhost:19530
+2026-09-16 17:04:24,889 - rag_roleplay - INFO - Milvus连接成功
+2026-09-16 17:04:24,907 - rag_roleplay - INFO - 加载集合: roleplay_knowledge
+2026-09-16 17:04:25,162 - rag_roleplay - INFO - BM25 索引构建完成：831 篇文档
+2026-09-16 17:04:25,183 - rag_roleplay - INFO - 检索到 2 条结果
+2026-09-16 17:06:02,462 - rag_roleplay - INFO - 收到聊天请求: session=sess-mu3sbutc-fc7v7e, message=噪声的检测工具是什么...
+2026-09-16 17:06:03,648 - rag_roleplay - INFO - Query 改写: 噪声的检测工具是什么 -> 噪声的检测工具有哪些？
+2026-09-16 17:06:03,649 - rag_roleplay - INFO - 检索: 噪声的检测工具有哪些？...
+2026-09-16 17:06:03,899 - rag_roleplay - INFO - 检索到 3 条结果
+2026-09-17 14:37:10,635 - rag_roleplay - INFO - 启动服务: http://0.0.0.0:8000
+2026-09-17 14:38:25,704 - rag_roleplay - INFO - 收到聊天请求: session=sess-mu3sbutc-fc7v7e, message=你好介绍一下自己...
+2026-09-17 14:38:25,706 - rag_roleplay - INFO - 连接Redis: localhost:6379
+2026-09-17 14:39:14,006 - rag_roleplay - ERROR - Redis连接失败: Error 10061 connecting to localhost:6379. 由于目标计算机积极拒绝，无法连接。.
+2026-09-17 14:39:14,007 - rag_roleplay - ERROR - 聊天处理失败: Error 10061 connecting to localhost:6379. 由于目标计算机积极拒绝，无法连接。.

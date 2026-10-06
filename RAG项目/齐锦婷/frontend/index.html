@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>法律 RAG 智能问答系统</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <section class="login-page" id="loginPage">
+    <div class="login-card">
+      <div class="login-brand">
+        <span class="brand-mark">法</span>
+        <div>
+          <h1>法律 RAG</h1>
+          <p>登录后进入智能法律问答界面</p>
+        </div>
+      </div>
+
+      <div class="login-form">
+        <label for="usernameInput">账号</label>
+        <input id="usernameInput" autocomplete="username" placeholder="请输入账号" />
+        <label for="passwordInput">密码</label>
+        <input id="passwordInput" autocomplete="current-password" type="password" placeholder="请输入密码" />
+        <button id="loginBtn">登录</button>
+        <button id="registerBtn" class="secondary">注册新账号</button>
+        <p id="userInfo" class="muted">未登录</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="chat-page hidden" id="chatPage">
+    <aside class="history-panel">
+      <div class="panel-header">
+        <div>
+          <h1>历史记录</h1>
+          <p class="muted" id="loginStatus">未登录</p>
+        </div>
+        <button id="logoutBtn" class="ghost">退出</button>
+      </div>
+
+      <div class="side-section">
+        <h2>知识库</h2>
+        <select id="kbSelect"></select>
+        <details>
+          <summary>新建知识库</summary>
+          <input id="kbNameInput" placeholder="知识库名称" />
+          <textarea id="kbDescInput" placeholder="知识库说明"></textarea>
+          <button id="createKbBtn">创建知识库</button>
+        </details>
+      </div>
+
+      <div class="side-section grow-section">
+        <button id="newSessionBtn" class="new-session-btn">＋ 新建会话</button>
+        <div class="section-title-row">
+          <h2>历史记录</h2>
+          <button id="refreshSessionsBtn" class="ghost">刷新</button>
+        </div>
+        <div id="sessionList" class="list session-list"></div>
+      </div>
+    </aside>
+
+    <main class="qa-panel">
+      <header class="qa-header">
+        <div>
+          <h1>法律问答</h1>
+          <p class="muted">基于已解析法律文档进行检索增强回答</p>
+          <p class="retrieval-status muted" id="retrievalStatus">等待提问</p>
+        </div>
+        <div class="task-status">
+          <button id="refreshTasksBtn" class="ghost">刷新任务</button>
+          <div id="taskList" class="task-list"></div>
+        </div>
+      </header>
+
+      <div class="chat-workspace">
+        <section class="conversation-area">
+          <div id="chatMessages" class="chat-messages"></div>
+        </section>
+        <aside class="reference-panel">
+          <h2>引用依据</h2>
+          <div id="referenceList" class="list"></div>
+        </aside>
+      </div>
+
+      <footer class="composer">
+        <div class="follow-up-row" id="followUpRow">
+          <button class="follow-up-btn" data-question="需要准备哪些证据？">需要准备哪些证据？ →</button>
+          <button class="follow-up-btn" data-question="可以通过哪些法律途径解决？">可以通过哪些法律途径解决？ →</button>
+          <button class="follow-up-btn" data-question="如果对方不配合怎么办？">如果对方不配合怎么办？ →</button>
+        </div>
+        <div class="upload-bar">
+          <input id="fileInput" type="file" accept=".pdf" />
+          <button id="uploadBtn" class="secondary">上传并解析</button>
+          <span class="muted">支持 PDF 上传到当前知识库</span>
+        </div>
+        <div class="ask-row">
+          <textarea id="questionInput" placeholder="请输入法律问题，例如：劳动合同可以约定试用期多久？"></textarea>
+          <button id="askBtn">发送</button>
+        </div>
+      </footer>
+    </main>
+  </section>
+
+  <script src="./app.js"></script>
+</body>
+</html>

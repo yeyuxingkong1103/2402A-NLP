@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "checks": [
+    "布尔查询 AND/OR/NOT",
+    "短语匹配",
+    "中文与英文检索、模糊匹配",
+    "title/body/summary字段过滤",
+    "向量/全文/混合检索及权重融合",
+    "LLM重排(mock)",
+    "TF-IDF重排",
+    "用户反馈自适应重排"
+  ],
+  "strategy_results": [
+    {
+      "strategy": "向量检索",
+      "top_page": 1,
+      "score": 1.0,
+      "vector_candidates": 1,
+      "fulltext_candidates": 1,
+      "seconds": 0.000647
+    },
+    {
+      "strategy": "全文检索",
+      "top_page": 1,
+      "score": 1.0,
+      "vector_candidates": 1,
+      "fulltext_candidates": 1,
+      "seconds": 0.000359
+    },
+    {
+      "strategy": "混合检索",
+      "top_page": 1,
+      "score": 1.0,
+      "vector_candidates": 1,
+      "fulltext_candidates": 1,
+      "seconds": 0.000327
+    }
+  ],
+  "rerankers": [
+    "TF-IDF",
+    "LLM重排(mock)",
+    "用户反馈"
+  ],
+  "note": "算法测试使用小型固定语料和模拟嵌入/LLM；端到端全PDF准确率与真实LLM重排未在本次复测。"
+}

@@ -1,0 +1,259 @@
+{
+  "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化",
+  "generated_at": "2026-10-04T21:29:11+0800",
+  "source_report": "E:\\gao6gongdan\\工单3\\优化\\评估结果\\accuracy_report.json",
+  "method": "反事实裁剪：用已落盘 top-k ∪ 支持块，按 chunks.type 去掉表格块后重算 is_evidence_hit",
+  "total": 14,
+  "hit_full": 14,
+  "hit_text_only": 13,
+  "hit_table_only": 4,
+  "table_gain_questions": 1,
+  "table_dependent_ids": [
+    4
+  ],
+  "top_chunk_type_distribution": {
+    "text": 59,
+    "table": 11
+  },
+  "per_question": [
+    {
+      "id": 1,
+      "context_chunks": 7,
+      "text_chunks": 5,
+      "table_chunks": 2,
+      "hit_full": true,
+      "hit_text_only": true,
+      "hit_table_only": false,
+      "table_dependent": false,
+      "top_chunk_types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "table"
+      ]
+    },
+    {
+      "id": 2,
+      "context_chunks": 7,
+      "text_chunks": 6,
+      "table_chunks": 1,
+      "hit_full": true,
+      "hit_text_only": true,
+      "hit_table_only": true,
+      "table_dependent": false,
+      "top_chunk_types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ]
+    },
+    {
+      "id": 3,
+      "context_chunks": 7,
+      "text_chunks": 4,
+      "table_chunks": 3,
+      "hit_full": true,
+      "hit_text_only": true,
+      "hit_table_only": true,
+      "table_dependent": false,
+      "top_chunk_types": [
+        "text",
+        "table",
+        "text",
+        "table",
+        "text"
+      ]
+    },
+    {
+      "id": 4,
+      "context_chunks": 7,
+      "text_chunks": 4,
+      "table_chunks": 3,
+      "hit_full": true,
+      "hit_text_only": false,
+      "hit_table_only": true,
+      "table_dependent": true,
+      "top_chunk_types": [
+        "table",
+        "text",
+        "text",
+        "table",
+        "text"
+      ]
+    },
+    {
+      "id": 33,
+      "context_chunks": 7,
+      "text_chunks": 5,
+      "table_chunks": 2,
+      "hit_full": true,
+      "hit_text_only": true,
+      "hit_table_only": false,
+      "table_dependent": false,
+      "top_chunk_types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "table"
+      ]
+    },
+    {
+      "id": 34,
+      "context_chunks": 5,
+      "text_chunks": 5,
+      "table_chunks": 0,
+      "hit_full": true,
+      "hit_text_only": true,
+      "hit_table_only": false,
+      "table_dependent": false,
+      "top_chunk_types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ]
+    },
+    {
+      "id": 95,
+      "context_chunks": 5,
+      "text_chunks": 4,
+      "table_chunks": 1,
+      "hit_full": true,
+      "hit_text_only": true,
+      "hit_table_only": false,
+      "table_dependent": false,
+      "top_chunk_types": [
+        "text",
+        "text",
+        "text",
+        "table",
+        "text"
+      ]
+    },
+    {
+      "id": 207,
+      "context_chunks": 7,
+      "text_chunks": 5,
+      "table_chunks": 2,
+      "hit_full": true,
+      "hit_text_only": true,
+      "hit_table_only": false,
+      "table_dependent": false,
+      "top_chunk_types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "table"
+      ]
+    },
+    {
+      "id": 260,
+      "context_chunks": 7,
+      "text_chunks": 5,
+      "table_chunks": 2,
+      "hit_full": true,
+      "hit_text_only": true,
+      "hit_table_only": false,
+      "table_dependent": false,
+      "top_chunk_types": [
+        "text",
+        "text",
+        "text",
+        "table",
+        "text"
+      ]
+    },
+    {
+      "id": 531,
+      "context_chunks": 5,
+      "text_chunks": 4,
+      "table_chunks": 1,
+      "hit_full": true,
+      "hit_text_only": true,
+      "hit_table_only": true,
+      "table_dependent": false,
+      "top_chunk_types": [
+        "table",
+        "text",
+        "text",
+        "text",
+        "text"
+      ]
+    },
+    {
+      "id": 543,
+      "context_chunks": 7,
+      "text_chunks": 5,
+      "table_chunks": 2,
+      "hit_full": true,
+      "hit_text_only": true,
+      "hit_table_only": false,
+      "table_dependent": false,
+      "top_chunk_types": [
+        "table",
+        "text",
+        "text",
+        "text",
+        "text"
+      ]
+    },
+    {
+      "id": 793,
+      "context_chunks": 5,
+      "text_chunks": 5,
+      "table_chunks": 0,
+      "hit_full": true,
+      "hit_text_only": true,
+      "hit_table_only": false,
+      "table_dependent": false,
+      "top_chunk_types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ]
+    },
+    {
+      "id": 795,
+      "context_chunks": 5,
+      "text_chunks": 5,
+      "table_chunks": 0,
+      "hit_full": true,
+      "hit_text_only": true,
+      "hit_table_only": false,
+      "table_dependent": false,
+      "top_chunk_types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ]
+    },
+    {
+      "id": 957,
+      "context_chunks": 5,
+      "text_chunks": 5,
+      "table_chunks": 0,
+      "hit_full": true,
+      "hit_text_only": true,
+      "hit_table_only": false,
+      "table_dependent": false,
+      "top_chunk_types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ]
+    }
+  ],
+  "note": "『仅文本块』口径 = 从返回块里删掉所有表格块后仍能命中证据原文；差值即表格块不可替代的题数。反事实裁剪不改索引、不改检索参数，因此不引入新的实验偏差；但它度量的是「表格块在**已返回上下文**中的贡献」，不是「重建无表格索引后的召回率」，后者需重建索引（≈185 s + 嵌入），本工单未做，如实标注。"
+}

@@ -1,0 +1,451 @@
+{
+  "meta": {
+    "工单": "人工智能NLP-RAG-基于PDF文档的问答系统优化",
+    "阶段": "优化 / 基线采集（T6 产出①）",
+    "文件用途": "固化**优化前**基线结果，供 T7/T9 对比；本文件数值全部来自工单1 真实产物 + 本机复算。",
+    "采集时间": "2026-10-02T21:12:03",
+    "来源文件": [
+      {
+        "path": "E:\\gao6gongdan\\工单1\\优化\\评估结果\\eval_results\\eval_records.json",
+        "sha1": "7fcff46363573537f591d2543f280ab67c0fdc85",
+        "用途": "逐题真值（唯一来源）"
+      },
+      {
+        "path": "E:\\gao6gongdan\\工单1\\优化\\评估结果\\eval_results\\ragas_report.md",
+        "sha1": "0283dc9e72e6426a49e2ffc3c79c78db004d30ac",
+        "用途": "环境信息与人工可读报告"
+      },
+      {
+        "path": "E:\\gao6gongdan\\工单1\\data\\eval\\golden_qa.jsonl",
+        "sha1": "6ecf47c930f75681765daf23bcfdf59094da65ce",
+        "用途": "问题与参考答案"
+      }
+    ],
+    "判分口径": {
+      "实现": "工单1 app/core/evaluator.py::Evaluator.check_answer（确定性规则，不依赖 LLM 裁判）",
+      "FUZZY_THRESHOLD": 0.62,
+      "阈值是否改动": false,
+      "判定顺序": [
+        "1. 去标点后参考答案是答案子串（或反之）",
+        "2. 参考答案的全部金额都出现在答案中（按元折算等价）",
+        "3. 关键实体（引号内名称）有交集",
+        "4. 参考答案的全部百分比都出现在答案中",
+        "5. 字符二元组 Jaccard ≥ 阈值且不缺任何数字"
+      ],
+      "复核方式": "本机用上述同一函数对 10 条原始回答重算，与记录值逐题比对"
+    },
+    "运行环境（摘自 ragas_report.md §0，工单1 记录）": {
+      "文档": "招股说明书1.pdf",
+      "RAG 组模式": "LLM 生成",
+      "嵌入模型": "sentence-transformers",
+      "向量库后端": "numpy",
+      "分块数": "2967",
+      "LLM 服务": "http://127.0.0.1:8000/v1",
+      "LLM 模型": "Qwen2.5-7B-Instruct-AWQ",
+      "生成时间": "2026-10-02 19:41:02",
+      "指标": "RAG 系统",
+      "题目数": "10",
+      "答案准确率": "0.5",
+      "“不清楚”回复正确率": "1.0",
+      "引用正确率": "1.0",
+      "首字响应时间 平均(ms)": "11518.33",
+      "首字响应时间 P95(ms)": "57312.92",
+      "首字响应时间 最大(ms)": "57312.92",
+      "端到端 平均(ms)": "14186.86",
+      "题号": "问题",
+      "33": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别",
+      "34": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+      "95": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+      "207": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+      "260": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "531": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+      "543": "武汉兴图新科电子股份有限公司注册资本是多少？",
+      "793": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？",
+      "795": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+      "957": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？"
+    },
+    "复现命令": "pwsh -NoProfile -File run_py.ps1 -B 优化/脚本/collect_baseline_results.py",
+    "配套产物": {
+      "检索指标": "优化/基线/baseline_retrieval.json",
+      "流水线上下文": "优化/基线/baseline_repro_retrieval.json",
+      "回答路径审计": "优化/基线/baseline_answer_paths_generator.json",
+      "说明文档": "优化/基线/基线说明.md"
+    }
+  },
+  "summary": {
+    "accuracy": 0.5,
+    "accuracy_count": "5/10",
+    "correct_question_ids": [
+      34,
+      207,
+      260,
+      543,
+      795
+    ],
+    "wrong_question_ids": [
+      33,
+      95,
+      531,
+      793,
+      957
+    ],
+    "unknown_accuracy": 1.0,
+    "citation_accuracy": 1.0,
+    "citation_total": 10,
+    "citation_valid": 10,
+    "first_token_avg_ms": 11518.33,
+    "first_token_p95_ms": 57312.92,
+    "first_token_max_ms": 57312.92,
+    "total_avg_ms": 14186.86,
+    "count": 10,
+    "rag_en": {
+      "mode": "rag_en",
+      "count": 5,
+      "accuracy": 1.0,
+      "unknown_accuracy": 1.0,
+      "citation_accuracy": 1.0,
+      "citation_total": 25,
+      "citation_valid": 25,
+      "first_token_avg_ms": 6.2,
+      "first_token_max_ms": 25.18,
+      "first_token_p95_ms": 25.18,
+      "total_avg_ms": 129.9
+    }
+  },
+  "verification": {
+    "recomputed_accuracy": 0.5,
+    "recorded_accuracy": 0.5,
+    "accuracy_matches": true,
+    "per_question_judgements_all_reproduced": true,
+    "inconsistent_question_ids": [],
+    "report_md_cross_check": "ragas_report.md §3 逐题表与 eval_records.json 的 ✅/❌ 完全一致（已人工核对 10/10）",
+    "ragas": "未运行（ragas 依赖不可用且本机断网）；eval_records 中 faithfulness/answer_relevancy/context_precision/context_recall 全为 null，ragas_report.md §2 亦显式标注「未运行」"
+  },
+  "per_question_rag": [
+    {
+      "question_id": 260,
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "golden": "报告期内，公司来自军用领域的收入分别为6,464.51万元、14,414.16万元、18,780.67万元和4,627.14万元。",
+      "baseline_answer": "[页码: 129] 6,464.51 万元、14,414.16 万元、18,780.67 万元和4,627.14 万元。",
+      "is_correct": true,
+      "citation_pages": [
+        129
+      ],
+      "citation_valid": true,
+      "first_token_ms": 1654.75,
+      "total_ms": 7326.81,
+      "is_unknown": false,
+      "unknown_reason": "",
+      "mode": "rag",
+      "recomputed_is_correct": true,
+      "recomputed_reason": "金额全部命中(4个)",
+      "judgement_consistent": true,
+      "evidence_pages_in_golden": [
+        129
+      ]
+    },
+    {
+      "question_id": 95,
+      "question": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+      "golden": "公司参与制定了全军第一个视频指挥系统技术标准，即《某视频指挥系统技术规范（1.0版）》（招股书中亦简称《某视频技术规范1.0》）。该标准由军事科学院牵头，联合数据通信科学技术研究所、北京大学共同制定，兴图新科是参与制定者与试验验证者。",
+      "baseline_answer": "[页码: 22] 未知。",
+      "is_correct": false,
+      "citation_pages": [
+        22
+      ],
+      "citation_valid": true,
+      "first_token_ms": 5414.05,
+      "total_ms": 6427.26,
+      "is_unknown": false,
+      "unknown_reason": "",
+      "mode": "rag",
+      "recomputed_is_correct": false,
+      "recomputed_reason": "未命中：缺少数值 ['1']",
+      "judgement_consistent": true,
+      "evidence_pages_in_golden": [
+        160
+      ]
+    },
+    {
+      "question_id": 33,
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别是多少？",
+      "golden": "报告期内，公司来自军用领域的收入占主营业务收入的比重分别为82.10%、97.31%、94.84%和94.34%。",
+      "baseline_answer": "[页码: 129] 82.10%",
+      "is_correct": false,
+      "citation_pages": [
+        129
+      ],
+      "citation_valid": true,
+      "first_token_ms": 899.53,
+      "total_ms": 2443.07,
+      "is_unknown": false,
+      "unknown_reason": "",
+      "mode": "rag",
+      "recomputed_is_correct": false,
+      "recomputed_reason": "未命中：缺少数值 ['94.34', '94.84', '97.31']",
+      "judgement_consistent": true,
+      "evidence_pages_in_golden": [
+        129
+      ]
+    },
+    {
+      "question_id": 34,
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+      "golden": "电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、机柜等金属壳体制造企业，竞争充分、采购便利。",
+      "baseline_answer": "- [页码: 152] 电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、机柜等金属壳体制造企业。",
+      "is_correct": true,
+      "citation_pages": [
+        152
+      ],
+      "citation_valid": true,
+      "first_token_ms": 57312.92,
+      "total_ms": 60555.11,
+      "is_unknown": false,
+      "unknown_reason": "",
+      "mode": "rag",
+      "recomputed_is_correct": true,
+      "recomputed_reason": "字符二元组相似度 0.72 ≥ 0.62",
+      "judgement_consistent": true,
+      "evidence_pages_in_golden": [
+        152
+      ]
+    },
+    {
+      "question_id": 957,
+      "question": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+      "golden": "公司目前已经成为军队视频指挥（视频指挥控制）领域的重要供应商。",
+      "baseline_answer": "- [页码: 194] 队成规模、成建制进行部署，已经成为军方视频指挥核心系统及产品的为数不多的重要供应商。",
+      "is_correct": false,
+      "citation_pages": [
+        194
+      ],
+      "citation_valid": true,
+      "first_token_ms": 1150.17,
+      "total_ms": 4749.32,
+      "is_unknown": false,
+      "unknown_reason": "",
+      "mode": "rag",
+      "recomputed_is_correct": false,
+      "recomputed_reason": "未命中：文本与数值均不匹配",
+      "judgement_consistent": true,
+      "evidence_pages_in_golden": [
+        154,
+        332
+      ]
+    },
+    {
+      "question_id": 793,
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？",
+      "golden": "电子信息行业的下游为各类终端用户，覆盖范围广泛，主要包括军队、政府机关、能源等行业企业。",
+      "baseline_answer": "- 下游行业包括军队、政府机关、能源等行业企业 [页码: 152]。",
+      "is_correct": false,
+      "citation_pages": [
+        152
+      ],
+      "citation_valid": true,
+      "first_token_ms": 1127.83,
+      "total_ms": 3217.22,
+      "is_unknown": false,
+      "unknown_reason": "",
+      "mode": "rag",
+      "recomputed_is_correct": false,
+      "recomputed_reason": "未命中：文本与数值均不匹配",
+      "judgement_consistent": true,
+      "evidence_pages_in_golden": [
+        152
+      ]
+    },
+    {
+      "question_id": 795,
+      "question": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+      "golden": "2014年12月，某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统）荣获国家科技进步一等奖；根据总体单位、军方用户出具的证明文件和承研合同，民营企业兴图新科是该工程网络化视频指挥系统的唯一参与者。",
+      "baseline_answer": "- [页码: 158] 2014 年12月，“某情报、指挥、控制与通信网络一体化工程”荣获国家科技进步一等奖。",
+      "is_correct": true,
+      "citation_pages": [
+        158
+      ],
+      "citation_valid": true,
+      "first_token_ms": 4737.5,
+      "total_ms": 8242.82,
+      "is_unknown": false,
+      "unknown_reason": "",
+      "mode": "rag",
+      "recomputed_is_correct": true,
+      "recomputed_reason": "关键实体命中",
+      "judgement_consistent": true,
+      "evidence_pages_in_golden": [
+        27,
+        157
+      ]
+    },
+    {
+      "question_id": 543,
+      "question": "武汉兴图新科电子股份有限公司注册资本是多少？",
+      "golden": "注册资本为5,520万元。",
+      "baseline_answer": "[页码: 52] 武汉兴图新科电子股份有限公司注册资本：5,520 万元。",
+      "is_correct": true,
+      "citation_pages": [
+        52
+      ],
+      "citation_valid": true,
+      "first_token_ms": 1269.74,
+      "total_ms": 3772.78,
+      "is_unknown": false,
+      "unknown_reason": "",
+      "mode": "rag",
+      "recomputed_is_correct": true,
+      "recomputed_reason": "金额全部命中(1个)",
+      "judgement_consistent": true,
+      "evidence_pages_in_golden": [
+        22
+      ]
+    },
+    {
+      "question_id": 531,
+      "question": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+      "golden": "法定代表人是程家明。",
+      "baseline_answer": "[页码: 52] 法定代表人：程家明",
+      "is_correct": false,
+      "citation_pages": [
+        52
+      ],
+      "citation_valid": true,
+      "first_token_ms": 4391.15,
+      "total_ms": 5963.46,
+      "is_unknown": false,
+      "unknown_reason": "",
+      "mode": "rag",
+      "recomputed_is_correct": false,
+      "recomputed_reason": "未命中：文本与数值均不匹配",
+      "judgement_consistent": true,
+      "evidence_pages_in_golden": [
+        22
+      ]
+    },
+    {
+      "question_id": 207,
+      "question": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+      "golden": "公司计划使用本次发行募集资金15,000.00万元用于补充流动资金。",
+      "baseline_answer": "[页码: 490] 15,000 万元",
+      "is_correct": true,
+      "citation_pages": [
+        490
+      ],
+      "citation_valid": true,
+      "first_token_ms": 37225.65,
+      "total_ms": 39170.73,
+      "is_unknown": false,
+      "unknown_reason": "",
+      "mode": "rag",
+      "recomputed_is_correct": true,
+      "recomputed_reason": "金额全部命中(1个)",
+      "judgement_consistent": true,
+      "evidence_pages_in_golden": [
+        30,
+        479
+      ]
+    }
+  ],
+  "per_question_rag_en": [
+    {
+      "question_id": 543,
+      "question": "What is the registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+      "golden": "RMB 55.20 million",
+      "baseline_answer": "The registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd. is RMB 55.20 million (5,520.00 ten-thousand yuan).",
+      "is_correct": true,
+      "citation_pages": [
+        52,
+        22,
+        81,
+        533,
+        87
+      ],
+      "citation_valid": true,
+      "first_token_ms": 25.18,
+      "total_ms": 129.86,
+      "is_unknown": false,
+      "unknown_reason": "",
+      "mode": "rag_en"
+    },
+    {
+      "question_id": 531,
+      "question": "Who is the legal representative of the company?",
+      "golden": "Cheng Jiaming",
+      "baseline_answer": "The legal representative is Cheng Jiaming.",
+      "is_correct": true,
+      "citation_pages": [
+        52,
+        22,
+        68,
+        32,
+        532
+      ],
+      "citation_valid": true,
+      "first_token_ms": 1.39,
+      "total_ms": 104.67,
+      "is_unknown": false,
+      "unknown_reason": "",
+      "mode": "rag_en"
+    },
+    {
+      "question_id": 95,
+      "question": "Which technical standard did the company participate in formulating?",
+      "golden": "military video command system technical standard",
+      "baseline_answer": "The company participated in formulating the first military video command system technical standard (2019), i.e. 《某视频指挥系统技术规范（1.0 版）》. The standard was led by the Academy of Military Sciences, together with the Institute of Data Communication Science and Technology and Peking University.",
+      "is_correct": true,
+      "citation_pages": [
+        160,
+        35,
+        4,
+        488,
+        492
+      ],
+      "citation_valid": true,
+      "first_token_ms": 1.47,
+      "total_ms": 140.14,
+      "is_unknown": false,
+      "unknown_reason": "",
+      "mode": "rag_en"
+    },
+    {
+      "question_id": 33,
+      "question": "What percentage of main business revenue came from the military sector during the reporting period?",
+      "golden": "82.10%",
+      "baseline_answer": "During the reporting period (2016, 2017, 2018 and January-June 2019), the company's revenue from the military sector accounted for 82.10%, 97.31%, 94.84% and 94.34% of its main business revenue respectively.",
+      "is_correct": true,
+      "citation_pages": [
+        129,
+        378,
+        344,
+        131,
+        170
+      ],
+      "citation_valid": true,
+      "first_token_ms": 1.48,
+      "total_ms": 145.41,
+      "is_unknown": false,
+      "unknown_reason": "",
+      "mode": "rag_en"
+    },
+    {
+      "question_id": 207,
+      "question": "How much of the raised funds will be used to supplement working capital?",
+      "golden": "RMB 150.00 million",
+      "baseline_answer": "The company plans to use RMB 150.00 million (15,000.00 ten-thousand yuan) of the raised funds to supplement working capital.",
+      "is_correct": true,
+      "citation_pages": [
+        491,
+        490,
+        484,
+        30,
+        479
+      ],
+      "citation_valid": true,
+      "first_token_ms": 1.48,
+      "total_ms": 129.41,
+      "is_unknown": false,
+      "unknown_reason": "",
+      "mode": "rag_en"
+    }
+  ]
+}

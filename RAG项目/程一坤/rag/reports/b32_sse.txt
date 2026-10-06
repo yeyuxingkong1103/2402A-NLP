@@ -1,0 +1,44 @@
+[配置] MYSQL=127.0.0.1:3306/legal_rag  LLM_MODEL=deepseek-flash
+[探针] user_id=e2e_b31_model_probe  session_key=e2e_b31_session_88114138
+[基线] 跑前：历史 model IS NULL 行数（排除探针会话）= 8；全表 model 非 NULL 行数 = 0
+[基线] model 列定义：model varchar(128)
+[令牌] 已签发（长度 43）
+[服务] 就绪：http://127.0.0.1:8124  server=uvicorn
+✅ 服务启动
+     uvicorn 监听 http://127.0.0.1:8124（日志 b31_server.log）
+✅ SSE 返回 200 且事件序列完整
+     status=200 事件={'message_start': 1, 'token': 517, 'citation': 5, 'message_end': 1}
+✅ 回答非空且有引用编号
+     回答长度=873  首句=**经济补偿的基本公式：**
+
+[落库] SELECT id, role, model, CHAR_LENGTH(content), created_at FROM chat_messages WHERE session_id=25 ORDER BY id DESC;
+   id=46  role=assistant  model='deepseek-flash'  len=873  created_at=2026-09-22 11:51:15
+   id=45  role=user  model=None  len=7  created_at=2026-09-22 11:51:15
+✅ assistant 消息 model 等于当轮配置模型名
+     落库 model='deepseek-flash'  当轮配置='deepseek-flash'
+✅ assistant 消息 model 非 NULL
+     model='deepseek-flash'
+✅ user 消息仍为 NULL（只改 assistant 侧取值）
+     model=None
+✅ 本轮恰好落库 2 条消息
+     实际 2 条
+✅ 历史 model IS NULL 行未被回填（排除探针会话统计）
+     跑前 8 → 跑后 8
+✅ 全表非 NULL 行只多出本轮的 assistant 那一行
+     跑前 0 → 跑后 1
+[清理] 探针历史残留：消息 2 行、会话 1 行
+[清理] 探针 Redis 令牌 1 个
+✅ 探针数据已清干净（会话/消息残留均为 0）
+     残留会话 0 行、消息 0 行
+
+=== 汇总：10/10 通过 ===
+  ✅ 服务启动
+  ✅ SSE 返回 200 且事件序列完整
+  ✅ 回答非空且有引用编号
+  ✅ assistant 消息 model 等于当轮配置模型名
+  ✅ assistant 消息 model 非 NULL
+  ✅ user 消息仍为 NULL（只改 assistant 侧取值）
+  ✅ 本轮恰好落库 2 条消息
+  ✅ 历史 model IS NULL 行未被回填（排除探针会话统计）
+  ✅ 全表非 NULL 行只多出本轮的 assistant 那一行
+  ✅ 探针数据已清干净（会话/消息残留均为 0）

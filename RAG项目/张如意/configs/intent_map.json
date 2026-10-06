@@ -1,0 +1,458 @@
+[
+ {
+  "pattern": "隔几天能摘",
+  "intent": "pre_harvest_interval",
+  "canonical_field": "安全间隔期",
+  "note": "采收前停药天数"
+ },
+ {
+  "pattern": "多少天能吃",
+  "intent": "pre_harvest_interval",
+  "canonical_field": "安全间隔期",
+  "note": ""
+ },
+ {
+  "pattern": "几天能摘",
+  "intent": "pre_harvest_interval",
+  "canonical_field": "安全间隔期",
+  "note": ""
+ },
+ {
+  "pattern": "几天能吃",
+  "intent": "pre_harvest_interval",
+  "canonical_field": "安全间隔期",
+  "note": ""
+ },
+ {
+  "pattern": "几天能采",
+  "intent": "pre_harvest_interval",
+  "canonical_field": "安全间隔期",
+  "note": ""
+ },
+ {
+  "pattern": "多久能摘",
+  "intent": "pre_harvest_interval",
+  "canonical_field": "安全间隔期",
+  "note": ""
+ },
+ {
+  "pattern": "多久能吃",
+  "intent": "pre_harvest_interval",
+  "canonical_field": "安全间隔期",
+  "note": ""
+ },
+ {
+  "pattern": "几天后能收",
+  "intent": "pre_harvest_interval",
+  "canonical_field": "安全间隔期",
+  "note": ""
+ },
+ {
+  "pattern": "打几次",
+  "intent": "max_uses_per_season",
+  "canonical_field": "每茬最多使用次数",
+  "note": "同一茬口最多施药次数"
+ },
+ {
+  "pattern": "喷几遍",
+  "intent": "max_uses_per_season",
+  "canonical_field": "每茬最多使用次数",
+  "note": ""
+ },
+ {
+  "pattern": "能打几次",
+  "intent": "max_uses_per_season",
+  "canonical_field": "每茬最多使用次数",
+  "note": ""
+ },
+ {
+  "pattern": "最多打几次",
+  "intent": "max_uses_per_season",
+  "canonical_field": "每茬最多使用次数",
+  "note": ""
+ },
+ {
+  "pattern": "喷几次",
+  "intent": "max_uses_per_season",
+  "canonical_field": "每茬最多使用次数",
+  "note": ""
+ },
+ {
+  "pattern": "打药",
+  "intent": "chemical_control",
+  "canonical_field": "化学防治",
+  "note": "要的是防治方案，不是「化学防治」这个词"
+ },
+ {
+  "pattern": "喷药",
+  "intent": "chemical_control",
+  "canonical_field": "化学防治",
+  "note": ""
+ },
+ {
+  "pattern": "上药",
+  "intent": "chemical_control",
+  "canonical_field": "化学防治",
+  "note": ""
+ },
+ {
+  "pattern": "打什么药",
+  "intent": "chemical_control",
+  "canonical_field": "化学防治",
+  "note": "同上"
+ },
+ {
+  "pattern": "用什么药",
+  "intent": "chemical_control",
+  "canonical_field": "化学防治",
+  "note": "冒烟测试补：实测「大蒜杂草用什么药」漏识别"
+ },
+ {
+  "pattern": "用啥药",
+  "intent": "chemical_control",
+  "canonical_field": "化学防治",
+  "note": ""
+ },
+ {
+  "pattern": "打啥药",
+  "intent": "chemical_control",
+  "canonical_field": "化学防治",
+  "note": ""
+ },
+ {
+  "pattern": "打什么农药",
+  "intent": "chemical_control",
+  "canonical_field": "化学防治",
+  "note": ""
+ },
+ {
+  "pattern": "用什么农药",
+  "intent": "chemical_control",
+  "canonical_field": "化学防治",
+  "note": ""
+ },
+ {
+  "pattern": "怎么用药",
+  "intent": "chemical_control",
+  "canonical_field": "化学防治",
+  "note": ""
+ },
+ {
+  "pattern": "用什么药剂",
+  "intent": "chemical_control",
+  "canonical_field": "化学防治",
+  "note": ""
+ },
+ {
+  "pattern": "打多少",
+  "intent": "dose",
+  "canonical_field": "剂量",
+  "note": "要的是 chemicals[].dose 数值"
+ },
+ {
+  "pattern": "用多少",
+  "intent": "dose",
+  "canonical_field": "剂量",
+  "note": "同上"
+ },
+ {
+  "pattern": "什么时候施肥",
+  "intent": "fertilizer",
+  "canonical_field": "施肥",
+  "note": "正文 5.1.3 基肥 / 5.5.4 追肥"
+ },
+ {
+  "pattern": "施什么肥",
+  "intent": "fertilizer",
+  "canonical_field": "施肥",
+  "note": ""
+ },
+ {
+  "pattern": "怎么施肥",
+  "intent": "fertilizer",
+  "canonical_field": "施肥",
+  "note": ""
+ },
+ {
+  "pattern": "追肥",
+  "intent": "fertilizer",
+  "canonical_field": "施肥",
+  "note": ""
+ },
+ {
+  "pattern": "施多少肥",
+  "intent": "fertilizer",
+  "canonical_field": "施肥",
+  "note": ""
+ },
+ {
+  "pattern": "什么时候浇水",
+  "intent": "irrigation",
+  "canonical_field": "浇水",
+  "note": "正文 5.5.2 浇水、排涝"
+ },
+ {
+  "pattern": "几天浇一次水",
+  "intent": "irrigation",
+  "canonical_field": "浇水",
+  "note": ""
+ },
+ {
+  "pattern": "怎么浇水",
+  "intent": "irrigation",
+  "canonical_field": "浇水",
+  "note": ""
+ },
+ {
+  "pattern": "选什么品种",
+  "intent": "variety",
+  "canonical_field": "品种选择",
+  "note": "正文 5.4 品种选择"
+ },
+ {
+  "pattern": "什么品种好",
+  "intent": "variety",
+  "canonical_field": "品种选择",
+  "note": ""
+ },
+ {
+  "pattern": "什么时候种",
+  "intent": "planting",
+  "canonical_field": "播种",
+  "note": "正文 5.2/5.3 播种"
+ },
+ {
+  "pattern": "怎么播种",
+  "intent": "planting",
+  "canonical_field": "播种",
+  "note": ""
+ },
+ {
+  "pattern": "什么时候播种",
+  "intent": "planting",
+  "canonical_field": "播种",
+  "note": ""
+ },
+ {
+  "pattern": "什么时候收",
+  "intent": "harvest",
+  "canonical_field": "采收",
+  "note": "正文 5.6 采收"
+ },
+ {
+  "pattern": "什么时候采收",
+  "intent": "harvest",
+  "canonical_field": "采收",
+  "note": ""
+ },
+ {
+  "pattern": "怎么收",
+  "intent": "harvest",
+  "canonical_field": "采收",
+  "note": ""
+ },
+ {
+  "pattern": "防治原则",
+  "intent": "control_principle",
+  "canonical_field": "6.x 防治原则/农业/生物/物理防治",
+  "note": "问原则不该答用药方案"
+ },
+ {
+  "pattern": "怎么防",
+  "intent": "control_principle",
+  "canonical_field": "6.x 防治原则/农业/生物/物理防治",
+  "note": ""
+ },
+ {
+  "pattern": "怎么防虫",
+  "intent": "control_principle",
+  "canonical_field": "6.x 防治原则/农业/生物/物理防治",
+  "note": ""
+ },
+ {
+  "pattern": "怎么防病",
+  "intent": "control_principle",
+  "canonical_field": "6.x 防治原则/农业/生物/物理防治",
+  "note": ""
+ },
+ {
+  "pattern": "防虫治病",
+  "intent": "control_principle",
+  "canonical_field": "6.x 防治原则/农业/生物/物理防治",
+  "note": ""
+ },
+ {
+  "pattern": "防病治虫",
+  "intent": "control_principle",
+  "canonical_field": "6.x 防治原则/农业/生物/物理防治",
+  "note": ""
+ },
+ {
+  "pattern": "按啥顺序来防",
+  "intent": "control_principle",
+  "canonical_field": "6.x 防治原则/农业/生物/物理防治",
+  "note": ""
+ },
+ {
+  "pattern": "预防为主",
+  "intent": "control_principle",
+  "canonical_field": "6.x 防治原则/农业/生物/物理防治",
+  "note": ""
+ },
+ {
+  "pattern": "综合防治",
+  "intent": "control_principle",
+  "canonical_field": "6.x 防治原则/农业/生物/物理防治",
+  "note": ""
+ },
+ {
+  "pattern": "优先用",
+  "intent": "control_principle",
+  "canonical_field": "6.x 防治原则/农业/生物/物理防治",
+  "note": ""
+ },
+ {
+  "pattern": "主要防治对象",
+  "intent": "symptom",
+  "canonical_field": "6.2 主要防治对象",
+  "note": ""
+ },
+ {
+  "pattern": "主要病虫害",
+  "intent": "symptom",
+  "canonical_field": "6.2 主要防治对象",
+  "note": ""
+ },
+ {
+  "pattern": "防哪些病虫害",
+  "intent": "symptom",
+  "canonical_field": "6.2 主要防治对象",
+  "note": ""
+ },
+ {
+  "pattern": "有哪些病虫害",
+  "intent": "symptom",
+  "canonical_field": "6.2 主要防治对象",
+  "note": ""
+ },
+ {
+  "pattern": "有什么病虫害",
+  "intent": "symptom",
+  "canonical_field": "6.2 主要防治对象",
+  "note": ""
+ },
+ {
+  "pattern": "有哪些杂草",
+  "intent": "symptom",
+  "canonical_field": "6.2 主要防治对象",
+  "note": ""
+ },
+ {
+  "pattern": "有什么补贴",
+  "intent": "policy",
+  "canonical_field": "政策补贴",
+  "note": "本批语料无政策条款，命中即兜底"
+ },
+ {
+  "pattern": "有没有补贴",
+  "intent": "policy",
+  "canonical_field": "政策补贴",
+  "note": ""
+ },
+ {
+  "pattern": "政策",
+  "intent": "policy",
+  "canonical_field": "政策补贴",
+  "note": ""
+ },
+ {
+  "pattern": "哪些规矩",
+  "intent": "chemical_rules",
+  "canonical_field": "正文 化学防治小节（施药规范）",
+  "note": "「打药得按哪些规矩」问规范不是问药"
+ },
+ {
+  "pattern": "有啥规矩",
+  "intent": "chemical_rules",
+  "canonical_field": "正文 化学防治小节（施药规范）",
+  "note": ""
+ },
+ {
+  "pattern": "什么规矩",
+  "intent": "chemical_rules",
+  "canonical_field": "正文 化学防治小节（施药规范）",
+  "note": ""
+ },
+ {
+  "pattern": "按哪些要求",
+  "intent": "chemical_rules",
+  "canonical_field": "正文 化学防治小节（施药规范）",
+  "note": ""
+ },
+ {
+  "pattern": "施药要求",
+  "intent": "chemical_rules",
+  "canonical_field": "正文 化学防治小节（施药规范）",
+  "note": ""
+ },
+ {
+  "pattern": "施药规范",
+  "intent": "chemical_rules",
+  "canonical_field": "正文 化学防治小节（施药规范）",
+  "note": ""
+ },
+ {
+  "pattern": "闷",
+  "intent": "physical_control",
+  "canonical_field": "正文 物理防治小节",
+  "note": "如 6.5.5 高温闷棚"
+ },
+ {
+  "pattern": "烫",
+  "intent": "physical_control",
+  "canonical_field": "正文 物理防治小节",
+  "note": "如 6.5.6 温汤浸种"
+ },
+ {
+  "pattern": "浸种",
+  "intent": "physical_control",
+  "canonical_field": "正文 物理防治小节",
+  "note": ""
+ },
+ {
+  "pattern": "温汤",
+  "intent": "physical_control",
+  "canonical_field": "正文 物理防治小节",
+  "note": ""
+ },
+ {
+  "pattern": "银灰膜",
+  "intent": "physical_control",
+  "canonical_field": "正文 物理防治小节",
+  "note": "2026-09-27 补：银灰膜驱蚜问法曾无意图路由，被方案卡挤掉（auto 3 条）"
+ },
+ {
+  "pattern": "防虫网",
+  "intent": "physical_control",
+  "canonical_field": "正文 物理防治小节",
+  "note": "2026-09-27 补，同上"
+ },
+ {
+  "pattern": "粘虫板",
+  "intent": "physical_control",
+  "canonical_field": "正文 物理防治小节",
+  "note": "2026-09-27 补，同上"
+ },
+ {
+  "pattern": "杀虫灯",
+  "intent": "physical_control",
+  "canonical_field": "正文 物理防治小节",
+  "note": "2026-09-27 补，同上"
+ },
+ {
+  "pattern": "色板",
+  "intent": "physical_control",
+  "canonical_field": "正文 物理防治小节",
+  "note": "2026-09-27 补，同上"
+ }
+]

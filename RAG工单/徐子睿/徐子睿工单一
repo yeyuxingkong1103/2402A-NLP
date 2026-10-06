@@ -1,0 +1,138 @@
+# 招股说明书智能问答系统（RAG）
+
+> **工单编号：人工智能 NLP-RAG-基于 PDF 文档的问答系统**
+> 输入语料：《招股说明书1.pdf》——武汉兴图新科电子股份有限公司 科创板招股意向书（548 页）
+
+一个本地可跑的 **PDF 文档问答**系统：上传 PDF → MinerU 解析 → 分块 → BGE-M3 向量化 → 混合检索（向量 + BM25 → 加权 RRF）→ qwen2:7b 生成带页码引用的答案，无依据则拒答；并提供 **RAG vs 纯 LLM** 对照与 10 题检索评估。
+
+---
+
+## 1. 技术栈
+
+| 环节 | 方案 |
+|---|---|
+| PDF 解析 | **MinerU 3.4**（pipeline 后端，GPU）+ PyMuPDF 兜底 |
+| 分块 | 标题感知滑窗（600 字 / overlap 120），带页码+章节元数据 |
+| 嵌入 | **bge-m3**（Ollama，1024 维，多语） |
+| 向量检索 | numpy 余弦（内存常驻） |
+| 关键词检索 | jieba 分词 + 自实现 BM25 |
+| 融合 | 加权 RRF（λ=2.5, k=60） |
+| 生成 | **qwen2:7b**（Ollama） |
+| 服务 | FastAPI + uvicorn（REST + SSE 流式） |
+| 前端 | 单文件 `static/index.html`（文字 + 语音输入 + 对比模式 + 反馈） |
+
+## 2. 目录结构
+
+```
+招股书RAG问答系统/
+├─ app/
+│  ├─ config.py      # 路径/模型/参数
+│  ├─ parse.py       # MinerU 解析（+PyMuPDF 兜底）
+│  ├─ clean.py       # 清洗/规范化
+│  ├─ chunk.py       # 标题感知分块
+│  ├─ llm.py         # Ollama 客户端（嵌入+生成，含流式）
+│  ├─ bm25.py        # jieba + BM25
+│  ├─ kb.py          # 向量库 + BM25 索引（构建/加载/检索）
+│  ├─ prompts.py     # 提示词模板
+│  ├─ engine.py      # 问答引擎（Query理解+混合检索+生成+拒答）
+│  ├─ build_kb.py    # 一键构建知识库
+│  └─ server.py      # FastAPI 服务
+├─ static/index.html # 前端
+├─ evaluation/
+│  ├─ eval_questions.json   # 10 题 + 金标准答案（含页码）
+│  ├─ run_eval.py           # 检索指标（Hit@k / MRR）
+│  └─ smoke_test.py         # 小样本冒烟
+├─ data/             # pdfs / mineru 输出 / 解析块 / 索引
+├─ docs/             # 技术文档 / 用户手册
+└─ 设计方案.md
+```
+
+## 3. 快速开始
+
+### 3.1 前置
+- 本机 **Ollama** 已就绪，且已拉取模型：
+  ```bash
+  ollama list          # 需有 bge-m3、qwen2:7b
+  ollama pull bge-m3
+  ollama pull qwen2:7b
+  ```
+- PDF 解析用 **MinerU**（`pip install -U mineru`）。
+  - ⚠️ 本机 torch 为 **CPU 版**（`torch.cuda.is_available() == False`），MinerU 全量 548 页约需 8 小时；
+    如需 GPU 加速，请在带 CUDA 的机器/实例上跑解析，或装 CUDA 版 torch。
+  - 解析产物缓存在 `data/mineru*/`，二次构建秒级复用。
+  - **PyMuPDF 兜底通道**：当 `data/mineru` 下没有 MinerU 输出时，`parse.py` 自动改用 PyMuPDF（含内置表格识别）
+    抽取，保证系统随时可用。
+
+### 3.2 构建知识库（解析 → 向量化 → 索引）
+```bash
+# 方式一：先调用 MinerU 解析再构建（慢，但表格结构最好）
+python app/build_kb.py --parse
+
+# 方式二：用已有 MinerU 输出 / PyMuPDF 兜底直接构建（快）
+python app/build_kb.py
+```
+
+### 3.3 启动服务
+```bash
+python -m uvicorn app.server:app --host 0.0.0.0 --port 8100
+# 或
+python app/server.py
+```
+浏览器打开 <http://localhost:8100>
+
+### 3.4 检索评估
+```bash
+python evaluation/run_eval.py     # Hit@k / MRR
+python evaluation/calibrate.py    # 拒答阈值标定
+python evaluation/run_qa_report.py# RAG vs 纯 LLM 对照报告
+```
+
+### 3.5 实测结果（10 题）
+| 指标 | 数值 |
+|---|---|
+| Hit@1 | 60% |
+| Hit@3 | 80% |
+| **Hit@5** | **100%** |
+| MRR | 0.733 |
+| 拒答阈值 | 0.58（库内最低 0.644 / 库外最高 0.509，可分） |
+| RAG 平均响应 | ≈1.5 s（流式首字更快） |
+
+详见 `evaluation/评估报告.md` 与 `evaluation/report_rag_vs_llm.md`。
+
+## 4. 接口一览
+
+| 方法 | 路径 | 说明 |
+|---|---|---|
+| GET | `/api/health` | 模型与索引状态 |
+| GET | `/api/kb/overview` | 知识库概览（块数/维度/页码范围） |
+| GET | `/api/kb/chunks` | 分块浏览 |
+| POST | `/api/search` | 仅检索（返回 top-k 片段） |
+| POST | `/api/ask` | RAG 问答（同步） |
+| POST | `/api/ask/stream` | RAG 问答（SSE 流式） |
+| POST | `/api/ask/llm` | 纯 LLM 对照 |
+| POST | `/api/feedback` | 👍/👎 反馈 |
+| POST | `/api/upload` | 上传新 PDF |
+
+## 5. 关键参数（`app/config.py`）
+
+| 参数 | 默认 | 说明 |
+|---|---|---|
+| `CHUNK_SIZE / CHUNK_OVERLAP` | 600 / 120 | 分块长度与重叠 |
+| `RECALL_K` | 20 | 每路召回条数 |
+| `RRF_LAMBDA` | 2.5 | 向量路权重 |
+| `TOP_K` | 5 | 送入生成的片段数 |
+| `REFUSE_SCORE` | 0.35 | 置信度（最高余弦）低于此则拒答 |
+| `EMBED_MODEL / GEN_MODEL` | bge-m3 / qwen2:7b | 可换 |
+
+## 6. 演示要点（对应工单交付物）
+
+1. **功能演示**：上传 PDF → 构建 → 提问 → 带页码引用作答 → 语音输入 → 反馈。
+2. **10 题检索**：`evaluation/run_eval.py` 输出 Hit@k / MRR 与命中页码。
+3. **RAG vs 纯 LLM**：前端勾选“对比纯LLM”，同屏两路作答。
+4. **评估体系**：检索指标 + 生成忠实度（见 `docs/技术文档.md`）。
+
+## 7. 已知注意事项
+
+- MinerU 首次解析慢（GPU 约 5-7 s/页）；解析结果缓存在 `data/mineru/`，二次构建无需重跑。
+- 本机 8090/8100 端口若被占用，改 `config.PORT`。
+- `jieba` 会打印 `pkg_resources` 弃用告警，无害；如需静默：`set PYTHONWARNINGS=ignore`。

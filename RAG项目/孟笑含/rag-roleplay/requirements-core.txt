@@ -1,0 +1,12 @@
+# 核心服务依赖（对话/用户/角色/知识库管理接口，不含 RAG 模型推理）
+fastapi>=0.115
+uvicorn[standard]>=0.30
+sqlalchemy>=2.0
+pymysql>=1.1
+cryptography>=42.0
+redis>=5.0
+openai>=1.40
+pydantic>=2.7
+pydantic-settings>=2.2
+python-dotenv>=1.0
+python-multipart>=0.0.9

@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>薄荷智聊</title>
+  <style>
+    :root {
+      --bg:            #FAF7F2;   /* 页面背景 浅奶油 */
+      --panel:         #FFFFFF;   /* 卡片/气泡底 */
+      --panel-alt:     #F5F1EB;   /* 次级卡片/hover */
+      --border:        #E8DDD4;   /* 分隔/描边 */
+      --fg:            #4A3F35;   /* 正文 深咖 */
+      --muted:         #8A7E72;   /* 次要文字 灰咖 */
+      --mint:          #A8E6CF;   /* 主色 薄荷绿 */
+      --mint-deep:     #6BBFAB;   /* hover/边框 深薄荷 */
+      --coffee:        #8B6F5C;   /* 咖色 点缀 */
+      --coffee-light:  #A67B5B;   /* 标签 浅咖 */
+      --assistant:     #E8DDD4;   /* 角色气泡 咖色浅调 */
+      --danger:        #C26A5A;
+      --shadow: 0 2px 12px rgba(139,111,92,.08);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; font-family: system-ui,-apple-system,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+      background: var(--bg); color: var(--fg); overflow: hidden;
+    }
+    button { font-family: inherit; cursor: pointer; }
+    input, textarea {
+      width: 100%; background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+      color: var(--fg); padding: 10px 14px; font-size: 14px; font-family: inherit; resize: none;
+    }
+    input:focus, textarea:focus { outline: none; border-color: var(--mint-deep); }
+    textarea { min-height: 72px; }
+
+    /* ---------- 波点装饰（纯 CSS radial-gradient） ---------- */
+    .dots-bg {
+      background-image:
+        radial-gradient(circle, rgba(168,230,207,.05) 3.5px, transparent 4px),
+        radial-gradient(circle, rgba(166,123,91,.035) 2.5px, transparent 3px);
+      background-size: 28px 28px, 40px 40px;
+      background-position: 0 0, 14px 20px;
+    }
+    .dots-side {
+      background-image: radial-gradient(circle, rgba(166,123,91,.06) 3px, transparent 3.5px);
+      background-size: 26px 26px;
+    }
+    .dots-empty {
+      background-image:
+        radial-gradient(circle, rgba(168,230,207,.09) 3.5px, transparent 4px),
+        radial-gradient(circle, rgba(166,123,91,.07) 2.5px, transparent 3px);
+      background-size: 30px 30px, 42px 42px;
+      background-position: 0 0, 15px 21px;
+    }
+
+    /* ---------- 通用按钮 ---------- */
+    .btn { background: var(--mint); color: var(--fg); border: 0; border-radius: 12px; padding: 9px 16px; font-size: 14px; font-weight: 600; transition: background .15s, transform .1s; }
+    .btn:active { transform: scale(0.94); }
+    .btn:hover { background: var(--mint-deep); color: #fff; }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .btn.coffee { background: var(--coffee); color: #fff; }
+    .btn.coffee:hover { background: var(--coffee-light); }
+    .btn.ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+    .btn.ghost:hover { background: var(--panel-alt); color: var(--fg); }
+    .btn.small { padding: 5px 10px; font-size: 12px; border-radius: 10px; }
+    .btn.danger { background: transparent; color: var(--danger); border: 1px solid var(--border); }
+    .btn.danger:hover { background: #fbeae6; }
+
+    /* ---------- 遮罩与模态 ---------- */
+    .overlay { position: fixed; inset: 0; background: rgba(74,63,53,.35); display: none; align-items: center; justify-content: center; z-index: 40; padding: 20px; }
+    .overlay.show { display: flex; }
+    .card {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 26px;
+      width: 440px; max-width: 100%; max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;
+      box-shadow: var(--shadow);
+    }
+    .card h2 { margin: 0 0 2px; font-size: 18px; }
+    .card .hint { color: var(--muted); font-size: 12px; margin: -6px 0 4px; }
+    .card .row { display: flex; gap: 8px; justify-content: flex-end; }
+
+    /* ---------- 三栏布局 ---------- */
+    #app { display: flex; height: 100vh; }
+    .sidebar {
+      width: 264px; min-width: 264px; background: var(--panel); border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; padding: 16px; gap: 12px; height: 100vh;
+    }
+    .sidebar .brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 17px; }
+    .sidebar .brand .leaf { color: var(--mint-deep); font-size: 20px; }
+    .sidebar .seg { display: flex; background: var(--panel-alt); border-radius: 10px; padding: 3px; }
+    .sidebar .seg button { flex: 1; padding: 7px; background: none; border: 0; border-radius: 8px; color: var(--muted); font-size: 13px; font-weight: 600; transition: all .12s; }
+    .sidebar .seg button.active { background: var(--panel); color: var(--coffee); box-shadow: 0 1px 3px rgba(139,111,92,.15); }
+    #session-list, #fav-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
+    .sess {
+      display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 12px; cursor: pointer;
+      font-size: 14px; transition: background .12s; border: 1px solid transparent;
+    }
+    .sess:hover { background: var(--panel-alt); }
+    .sess.active { background: var(--mint); border-color: var(--mint-deep); }
+    .sess .sess-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .sess .sess-del { visibility: hidden; color: var(--muted); border: 0; background: none; font-size: 14px; padding: 2px 4px; border-radius: 6px; }
+    .sess:hover .sess-del { visibility: visible; }
+    .sess .sess-del:hover { color: var(--danger); }
+    .fav-item { display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; border-radius: 12px; cursor: pointer; border: 1px solid var(--border); background: var(--panel); transition: background .12s; }
+    .fav-item:hover { background: var(--panel-alt); }
+    .fav-item .fav-char { font-size: 12px; color: var(--coffee-light); font-weight: 600; }
+    .fav-item .fav-text { font-size: 13px; color: var(--fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .fav-item .fav-date { font-size: 11px; color: var(--muted); }
+    .sidebar .foot { display: flex; align-items: center; gap: 8px; padding-top: 10px; border-top: 1px solid var(--border); font-size: 13px; }
+    .sidebar .foot .who { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); }
+
+    .main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    .main header {
+      padding: 12px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; background: var(--panel);
+    }
+    .main header .chat-title { font-weight: 600; }
+    .main header .chat-sub { color: var(--muted); font-size: 12px; }
+    .main header .spacer { flex: 1; }
+
+    /* 角色切换下拉 */
+    .char-switch { position: relative; }
+    .char-switch .cs-btn { display: flex; align-items: center; gap: 6px; background: var(--panel-alt); border: 1px solid var(--border); border-radius: 12px; padding: 6px 12px; font-size: 14px; color: var(--fg); font-weight: 600; }
+    .char-switch .cs-btn:hover { border-color: var(--mint-deep); }
+    .char-switch .cs-avatar { width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #A8E6CF, #6BBFAB); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; box-shadow: 0 1px 3px rgba(107,191,171,.35); }
+    .char-switch .cs-btn:hover .cs-avatar { animation: avatar-bounce .35s ease; }
+    .char-menu .cs-avatar { width: 26px; height: 26px; border-radius: 50%; background: linear-gradient(135deg, #A8E6CF, #6BBFAB); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; }
+    .char-menu .cm-item:hover .cs-avatar { animation: avatar-bounce .35s ease; }
+    .char-menu {
+      position: absolute; top: calc(100% + 6px); left: 0; min-width: 240px; max-height: 360px; overflow-y: auto;
+      background: var(--panel); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow);
+      display: none; flex-direction: column; padding: 6px; z-index: 20;
+    }
+    .char-menu.show { display: flex; }
+    .char-menu .cm-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 10px; cursor: pointer; font-size: 14px; }
+    .char-menu .cm-item:hover { background: var(--panel-alt); }
+    .char-menu .cm-item .cm-name { flex: 1; }
+    .char-menu .cm-item .cm-actions { display: flex; gap: 4px; }
+    .char-menu .cm-add { padding: 8px 10px; color: var(--coffee); font-weight: 600; }
+
+    #chat-area { flex: 1; position: relative; display: flex; flex-direction: column; min-height: 0; }
+    #msgs { flex: 1; min-height: 0; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 14px; }
+    .msg { max-width: 72%; padding: 12px 16px; border-radius: 16px; line-height: 1.65; white-space: pre-wrap; word-break: break-word; font-size: 15px; position: relative; animation: pop-in .18s ease; }
+    .msg.user { align-self: flex-end; background: var(--mint); border-bottom-right-radius: 6px; }
+    .msg.assistant { align-self: flex-start; background: var(--assistant); border-bottom-left-radius: 6px; }
+    .msg.sys { align-self: center; color: var(--muted); font-size: 12px; background: none; padding: 2px; }
+    .msg.highlight { box-shadow: 0 0 0 2px var(--mint-deep); }
+
+    /* 收藏按钮（气泡右上角） */
+    .fav-btn { position: absolute; top: -8px; right: -8px; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--border); background: var(--panel); color: var(--coffee-light); font-size: 14px; line-height: 1; display: none; align-items: center; justify-content: center; box-shadow: 0 1px 4px rgba(139,111,92,.2); transition: color .12s, border-color .12s; }
+    .msg.assistant:hover .fav-btn { display: flex; }
+    .fav-btn.on { display: flex; color: var(--coffee); border-color: var(--coffee-light); }
+    .fav-btn.pop { animation: star-pop .35s ease; }
+
+    .main footer { padding: 14px 20px; border-top: 1px solid var(--border); display: flex; gap: 10px; background: var(--panel); align-items: flex-end; }
+    #input { flex: 1; }
+
+    /* ---------- 引导页 ---------- */
+    #guide { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center; padding: 40px; border-radius: 20px; overflow: hidden; }
+    .guide-title { font-size: 28px; font-weight: 700; color: var(--coffee); }
+    .guide-sub { color: var(--muted); font-size: 14px; }
+    .guide-chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; max-width: 480px; margin-top: 8px; }
+    .guide-chip { background: var(--panel); border: 1px solid var(--border); border-radius: 999px; padding: 8px 16px; font-size: 13px; color: var(--coffee); transition: all .12s; }
+    .guide-chip:hover { border-color: var(--mint-deep); background: var(--mint); }
+
+    /* 引导页装饰（云朵 / 星星 / 叶子，低调） */
+    .deco { position: absolute; opacity: .2; pointer-events: none; }
+    .deco-cloud { width: 74px; height: 30px; }
+    .deco-cloud.tl { top: 14%; left: 12%; }
+    .deco-cloud.br { bottom: 18%; right: 14%; transform: scale(.7); }
+    .deco-star { width: 22px; height: 22px; }
+    .deco-star.t { top: 12%; right: 20%; }
+    .deco-star.b { bottom: 14%; left: 22%; transform: scale(.8); }
+    .deco-leaf { width: 20px; height: 20px; }
+    .deco-leaf.l { bottom: 30%; left: 14%; transform: rotate(-20deg); }
+    .deco-leaf.r { top: 30%; right: 12%; transform: rotate(140deg); }
+
+    /* ---------- 插画：薄荷小芽盆栽（SVG 手绘感） ---------- */
+    .sprout-illus { display: flex; justify-content: center; }
+    .sprout-illus svg { display: block; }
+    .sprout-lg svg { width: 120px; height: 120px; }
+    .sprout-sm svg { width: 64px; height: 64px; }
+
+    /* ---------- 加载：小圆点跳动 ---------- */
+    .typing-dots { display: inline-flex; align-items: center; gap: 4px; padding: 2px 0; }
+    .typing-dots span { width: 7px; height: 7px; border-radius: 50%; background: var(--mint-deep); animation: dot-bounce 1s infinite ease-in-out; }
+    .typing-dots span:nth-child(2) { animation-delay: .15s; }
+    .typing-dots span:nth-child(3) { animation-delay: .3s; }
+
+    /* ---------- 参考资料面板（右栏，常驻） ---------- */
+    .panel {
+      width: 320px; min-width: 320px; background: var(--panel); border-left: 1px solid var(--border);
+      display: flex; flex-direction: column; height: 100vh;
+    }
+    .ref-head { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; color: var(--coffee); }
+    .ref-body { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+    .ref-group { display: flex; flex-direction: column; gap: 6px; }
+    .ref-group .ref-group-title { font-weight: 600; color: var(--coffee); font-size: 13px; display: flex; align-items: center; gap: 6px; }
+    .ref-group .ref-group-title .cnt { font-size: 11px; color: var(--muted); font-weight: 400; }
+    .ref-item { background: var(--panel-alt); border: 1px solid var(--border); border-radius: 12px; padding: 9px 11px; }
+    .ref-item .ref-label { font-weight: 600; color: var(--coffee-light); font-size: 12px; margin-bottom: 3px; }
+    .ref-item .ref-text { color: var(--muted); font-size: 12px; line-height: 1.55; max-height: 72px; overflow: hidden; }
+    .ref-item .ref-score { margin-top: 5px; font-size: 11px; color: var(--coffee); font-weight: 600; }
+    .ref-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: var(--muted); font-size: 13px; text-align: center; border-radius: 16px; padding: 30px; }
+
+    /* ---------- 文档弹窗 ---------- */
+    .doc-row { display: flex; align-items: center; gap: 8px; font-size: 12px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 10px; background: var(--panel-alt); }
+    .doc-row .doc-info { flex: 1; min-width: 0; }
+    .doc-row .doc-name { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .doc-row .doc-status { color: var(--muted); font-size: 11px; }
+
+    /* ---------- 汉堡 / 响应式 ---------- */
+    .hamburger { display: none; background: none; border: 0; font-size: 20px; color: var(--coffee); padding: 4px; }
+    @media (max-width: 960px) {
+      .panel { position: fixed; right: 0; top: 0; z-index: 30; box-shadow: var(--shadow); display: none; }
+      .panel.show { display: flex; }
+    }
+    @media (max-width: 720px) {
+      .sidebar { position: fixed; left: 0; top: 0; z-index: 30; box-shadow: var(--shadow); display: none; }
+      .sidebar.show { display: flex; }
+      .hamburger { display: inline-block; }
+      .msg { max-width: 86%; }
+    }
+
+    /* ---------- 微动效 keyframes ---------- */
+    @keyframes pop-in {
+      from { opacity: 0; transform: scale(.92); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes avatar-bounce {
+      0%   { transform: translateY(0); }
+      40%  { transform: translateY(-3px); }
+      70%  { transform: translateY(1px); }
+      100% { transform: translateY(0); }
+    }
+    @keyframes star-pop {
+      0%   { transform: scale(1); }
+      40%  { transform: scale(1.4); }
+      100% { transform: scale(1); }
+    }
+    @keyframes dot-bounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: .45; }
+      30%           { transform: translateY(-5px); opacity: 1; }
+    }
+
+    /* 尊重系统「减弱动态效果」偏好：关闭弹跳/弹出/跳动，保留静态样式 */
+    @media (prefers-reduced-motion: reduce) {
+      .msg, .char-switch .cs-btn:hover .cs-avatar, .char-menu .cm-item:hover .cs-avatar,
+      .fav-btn.pop, .typing-dots span { animation: none; }
+      .btn { transition: background .15s; }
+    }
+  </style>
+</head>
+<body class="dots-bg">
+  <!-- 登录 -->
+  <div id="login" class="overlay show"><div class="card">
+    <h2>登录 / 注册</h2>
+    <p class="hint">输入用户名密码，账号不存在会自动注册</p>
+    <input id="username" placeholder="用户名" />
+    <input id="password" type="password" placeholder="密码" />
+    <button class="btn" id="btn-login">进入</button>
+  </div></div>
+
+  <!-- 角色卡表单（新建/编辑） -->
+  <div id="char-form" class="overlay"><div class="card">
+    <h2 id="char-form-title">新建角色卡</h2>
+    <input id="char-name" placeholder="角色名，如「小白」" />
+    <input id="char-avatar" placeholder="头像 URL（可选）" />
+    <textarea id="char-persona" placeholder="人设，如「温柔的图书馆管理员」"></textarea>
+    <textarea id="char-worldview" placeholder="世界观背景（可选）"></textarea>
+    <textarea id="char-relationship" placeholder="与用户的关系（可选）"></textarea>
+    <textarea id="char-hidden" placeholder="隐藏设定（可选，仅自己可见）"></textarea>
+    <textarea id="char-greeting" placeholder="开场白（可选）"></textarea>
+    <textarea id="char-sample" placeholder="说话风格示例（可选）"></textarea>
+    <input id="char-tags" placeholder="标签，逗号分隔（可选）" />
+    <div class="row">
+      <button class="btn ghost" id="btn-char-cancel">取消</button>
+      <button class="btn" id="btn-char-save">保存</button>
+    </div>
+  </div></div>
+
+  <!-- 文档管理 -->
+  <div id="doc-form" class="overlay"><div class="card">
+    <h2>文档管理</h2>
+    <p class="hint">上传 txt / docx / pdf，解析入库后可作为答案的参考依据</p>
+    <div style="display:flex;gap:8px">
+      <input id="doc-file" type="file" accept=".txt,.docx,.pdf" />
+      <button class="btn" id="btn-upload">上传</button>
+    </div>
+    <div id="doc-list" style="display:flex;flex-direction:column;gap:6px"></div>
+    <div class="row"><button class="btn ghost" id="btn-doc-close">关闭</button></div>
+  </div></div>
+
+  <div id="app">
+    <!-- 左栏：会话 / 收藏 -->
+    <aside class="sidebar dots-side" id="sidebar">
+      <div class="brand"><span class="leaf">🌿</span> 薄荷智聊</div>
+      <button class="btn" id="btn-new">＋ 新建会话</button>
+      <div class="seg">
+        <button id="seg-sessions" class="active">会话</button>
+        <button id="seg-favs">收藏</button>
+      </div>
+      <div id="session-list"></div>
+      <div id="fav-list" style="display:none"></div>
+      <div class="foot">
+        <span class="who" id="whoami"></span>
+        <button class="btn ghost small" id="btn-logout">退出</button>
+      </div>
+    </aside>
+
+    <!-- 中栏：问答 -->
+    <div class="main">
+      <header>
+        <button class="hamburger" id="btn-menu-left">☰</button>
+        <div class="char-switch" id="char-switch">
+          <button class="cs-btn" id="char-switch-btn"><span class="cs-avatar" id="cs-avatar">?</span><span id="cs-name">选择角色</span><span>▾</span></button>
+          <div class="char-menu" id="char-menu"></div>
+        </div>
+        <span class="chat-title" id="chat-title">未选择角色</span>
+        <span class="chat-sub" id="chat-sub"></span>
+        <span class="spacer"></span>
+        <button class="btn ghost small" id="btn-docs">📄 文档</button>
+        <button class="btn ghost small" id="btn-panel">📚 参考资料</button>
+      </header>
+      <div id="chat-area">
+        <div id="guide" class="dots-empty">
+          <svg class="deco deco-cloud tl" viewBox="0 0 74 30" fill="#A8E6CF" aria-hidden="true"><path d="M20 26a8 8 0 0 1 0-16 10 10 0 0 1 19-1 9 9 0 0 1 14 8 7 7 0 0 1-1 13H20z"/></svg>
+          <svg class="deco deco-cloud br" viewBox="0 0 74 30" fill="#A67B5B" aria-hidden="true"><path d="M20 26a8 8 0 0 1 0-16 10 10 0 0 1 19-1 9 9 0 0 1 14 8 7 7 0 0 1-1 13H20z"/></svg>
+          <svg class="deco deco-star t" viewBox="0 0 24 24" fill="#A67B5B" aria-hidden="true"><path d="M12 1.5l2.6 6.4 6.9.5-5.3 4.4 1.7 6.7L12 15.9l-5.9 3.6 1.7-6.7L2.5 8.4l6.9-.5z"/></svg>
+          <svg class="deco deco-star b" viewBox="0 0 24 24" fill="#A8E6CF" aria-hidden="true"><path d="M12 1.5l2.6 6.4 6.9.5-5.3 4.4 1.7 6.7L12 15.9l-5.9 3.6 1.7-6.7L2.5 8.4l6.9-.5z"/></svg>
+          <svg class="deco deco-leaf l" viewBox="0 0 24 24" fill="#6BBFAB" aria-hidden="true"><path d="M3 21C3 10 11 3 21 3c0 10-7 18-18 18zM4 18c7-2 12-7 14-14-7 2-12 7-14 14z"/></svg>
+          <svg class="deco deco-leaf r" viewBox="0 0 24 24" fill="#A67B5B" aria-hidden="true"><path d="M3 21C3 10 11 3 21 3c0 10-7 18-18 18zM4 18c7-2 12-7 14-14-7 2-12 7-14 14z"/></svg>
+          <div class="sprout-illus sprout-lg">
+            <svg viewBox="0 0 120 120" fill="none" aria-hidden="true">
+              <ellipse cx="60" cy="104" rx="30" ry="5" fill="#8B6F5C" opacity=".15"/>
+              <path d="M60 96V52" stroke="#6BBFAB" stroke-width="3" stroke-linecap="round"/>
+              <path d="M60 64C44 60 40 44 44 34c20 2 24 18 16 30z" fill="#A8E6CF"/>
+              <path d="M60 74c16-4 20-20 16-30-20 2-24 18-16 30z" fill="#6BBFAB"/>
+              <path d="M42 96h36" stroke="#A67B5B" stroke-width="3" stroke-linecap="round"/>
+              <path d="M46 96l6 10h16l6-10" fill="#A67B5B"/>
+              <path d="M50 88l-4-8M70 88l4-8" stroke="#8B6F5C" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="guide-title">和新朋友聊聊吧 ✨</div>
+          <div class="guide-sub">选择一个角色，开始一段薄荷色的对话</div>
+          <div class="guide-chips" id="guide-chips"></div>
+        </div>
+        <div id="msgs"></div>
+      </div>
+      <footer>
+        <textarea id="input" placeholder="输入消息…（Enter 发送，Shift+Enter 换行）"></textarea>
+        <button class="btn" id="btn-send">发送</button>
+      </footer>
+    </div>
+
+    <!-- 右栏：参考资料（常驻） -->
+    <aside class="panel" id="panel">
+      <div class="ref-head">📚 参考资料</div>
+      <div class="ref-body" id="ref-body"></div>
+    </aside>
+  </div>
+
+  <script>
+    const BASE = localStorage.getItem('base') || 'http://localhost:8000';
+    let token = localStorage.getItem('token') || '';
+    let me = null;
+    let sessionId = null;
+    let currentCharacter = null;
+    let sessions = [];
+    let characters = [];
+    let favorites = [];          // 收藏列表
+    let favIdByMsg = {};         // message_id -> favorite_id
+    let pendingSources = [];
+    let editingCharId = null;
+    let refSources = [];         // 当前参考资料面板展示的 sources
+
+    const $ = id => document.getElementById(id);
+    const api = async (path, opts = {}) => {
+      const headers = { 'Content-Type': 'application/json', ...(opts.headers || {}) };
+      if (token) headers['Authorization'] = 'Bearer ' + token;
+      const r = await fetch(BASE + path, { ...opts, headers });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok || (j.code && j.code !== 0)) throw new Error(j.message || j.detail || ('HTTP ' + r.status));
+      return j.data;
+    };
+
+    /* ---------- 消息渲染 ---------- */
+    function el(tag, cls, text) {
+      const d = document.createElement(tag);
+      if (cls) d.className = cls;
+      if (text !== undefined) d.textContent = text;
+      return d;
+    }
+    function addMsg(role, text) {
+      const d = el('div', 'msg ' + role, text);
+      $('msgs').appendChild(d);
+      $('msgs').scrollTop = $('msgs').scrollHeight;
+      return d;
+    }
+    function addSys(text) { return addMsg('sys', text); }
+
+    const SOURCE_TYPES = { document: '文档', setting: '角色设定', memory: '长期记忆' };
+    const SETTING_LABELS = { persona: '人设', worldview: '世界观', relationship: '关系', hidden_setting: '隐藏设定', sample_dialogue: '说话风格' };
+    const MEMORY_LABELS = { fact: '事实', event: '事件', preference: '偏好' };
+    function srcLabel(s) {
+      if (s.type === 'setting') return SETTING_LABELS[s.label] || s.label || '设定';
+      if (s.type === 'memory') return MEMORY_LABELS[s.label] || s.label || '记忆';
+      return s.label || '文档';
+    }
+    function srcScore(s) {
+      if (s.score === null || s.score === undefined) return '—';
+      return '相关度 ' + Math.round(s.score * 100) + '%';
+    }
+
+    /* 收藏按钮 */
+    function attachFavButton(bubble, messageId, isFavorite) {
+      if (!messageId) return;
+      const btn = el('button', 'fav-btn' + (isFavorite ? ' on' : ''));
+      btn.textContent = isFavorite ? '★' : '☆';
+      btn.title = isFavorite ? '取消收藏' : '收藏';
+      btn.onclick = async (e) => {
+        e.stopPropagation();
+        btn.classList.remove('pop'); void btn.offsetWidth; btn.classList.add('pop');
+        try {
+          if (isFavorite) {
+            const fid = favIdByMsg[messageId];
+            if (fid) await api('/api/v1/favorites/' + fid, { method: 'DELETE' });
+            isFavorite = false; btn.classList.remove('on'); btn.textContent = '☆'; btn.title = '收藏';
+            delete favIdByMsg[messageId];
+          } else {
+            const d = await api('/api/v1/favorites', { method: 'POST', body: JSON.stringify({ message_id: messageId }) });
+            favIdByMsg[messageId] = d.id;
+            isFavorite = true; btn.classList.add('on'); btn.textContent = '★'; btn.title = '取消收藏';
+          }
+          loadFavorites();
+        } catch (err) { alert('收藏操作失败：' + err.message); }
+      };
+      bubble.appendChild(btn);
+    }
+
+    /* 参考资料面板 */
+    function updateRefPanel(sources) {
+      refSources = sources || [];
+      const body = $('ref-body');
+      body.textContent = '';
+      if (!refSources.length) {
+        const empty = el('div', 'ref-empty dots-empty');
+        const ill = el('div', 'sprout-illus sprout-sm');
+        ill.innerHTML = '<svg viewBox="0 0 120 120" fill="none" aria-hidden="true"><ellipse cx="60" cy="104" rx="30" ry="5" fill="#8B6F5C" opacity=".15"/><path d="M60 96V52" stroke="#6BBFAB" stroke-width="3" stroke-linecap="round"/><path d="M60 64C44 60 40 44 44 34c20 2 24 18 16 30z" fill="#A8E6CF"/><path d="M60 74c16-4 20-20 16-30-20 2-24 18-16 30z" fill="#6BBFAB"/><path d="M42 96h36" stroke="#A67B5B" stroke-width="3" stroke-linecap="round"/><path d="M46 96l6 10h16l6-10" fill="#A67B5B"/></svg>';
+        const t = el('div', '', '聊起来后，这里会展示答案的参考依据');
+        const s = el('div', '', '（文档 / 角色设定 / 长期记忆）');
+        empty.appendChild(ill); empty.appendChild(t); empty.appendChild(s);
+        body.appendChild(empty);
+        return;
+      }
+      const groups = {}; const order = [];
+      for (const s of refSources) {
+        if (!groups[s.type]) { groups[s.type] = []; order.push(s.type); }
+        groups[s.type].push(s);
+      }
+      for (const t of order) {
+        const g = el('div', 'ref-group');
+        const gt = el('div', 'ref-group-title', SOURCE_TYPES[t] || t);
+        const cnt = el('span', 'cnt', '(' + groups[t].length + ')');
+        gt.appendChild(cnt);
+        g.appendChild(gt);
+        for (const s of groups[t]) {
+          const item = el('div', 'ref-item');
+          item.appendChild(el('div', 'ref-label', srcLabel(s)));
+          item.appendChild(el('div', 'ref-text', s.text || ''));
+          item.appendChild(el('div', 'ref-score', srcScore(s)));
+          g.appendChild(item);
+        }
+        body.appendChild(g);
+      }
+    }
+
+    /* ---------- 会话列表 ---------- */
+    async function loadSessions() {
+      sessions = await api('/api/v1/sessions');
+      const list = $('session-list');
+      list.textContent = '';
+      if (!sessions.length) { list.textContent = '（暂无会话，点「新建会话」开始）'; return; }
+      for (const s of sessions) {
+        const row = el('div', 'sess' + (s.id === sessionId ? ' active' : ''));
+        const t = el('span', 'sess-title', s.title || ('会话 #' + s.id));
+        const del = el('button', 'sess-del', '✕');
+        del.title = '删除会话';
+        del.onclick = async (e) => {
+          e.stopPropagation();
+          if (!confirm('删除该会话？')) return;
+          await api('/api/v1/sessions/' + s.id, { method: 'DELETE' });
+          if (sessionId === s.id) { sessionId = null; $('msgs').textContent = ''; showGuide(); }
+          loadSessions();
+        };
+        row.onclick = () => selectSession(s.id);
+        row.appendChild(t); row.appendChild(del);
+        list.appendChild(row);
+      }
+    }
+
+    async function selectSession(id, scrollToMsgId) {
+      sessionId = id;
+      currentCharacter = null;
+      $('msgs').textContent = '';
+      hideGuide();
+      const s = sessions.find(x => x.id === id);
+      $('chat-title').textContent = s ? (s.title || ('会话 #' + id)) : '会话';
+      $('chat-sub').textContent = '会话 #' + id;
+      document.querySelectorAll('.sess').forEach(el => el.classList.remove('active'));
+      const rows = $('session-list').children;
+      for (let i = 0; i < rows.length; i++) {
+        if (sessions[i] && sessions[i].id === id) rows[i].classList.add('active');
+      }
+      const msgs = await api('/api/v1/sessions/' + id + '/messages');
+      let lastAssistant = null;
+      for (const m of msgs) {
+        if (m.role === 'user') { addMsg('user', m.content); continue; }
+        const b = addMsg('assistant', m.content);
+        b.dataset.messageId = m.id;
+        attachFavButton(b, m.id, m.is_favorite);
+        lastAssistant = b;
+      }
+      if (lastAssistant) {
+        const lastMsg = msgs.filter(m => m.role === 'assistant').pop();
+        updateRefPanel(lastMsg ? lastMsg.sources : []);
+      } else {
+        updateRefPanel([]);
+      }
+      if (scrollToMsgId) {
+        const target = document.querySelector(`[data-message-id="${scrollToMsgId}"]`);
+        if (target) { target.classList.add('highlight'); target.scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(() => target.classList.remove('highlight'), 1600); }
+      }
+    }
+
+    /* ---------- 收藏列表 ---------- */
+    async function loadFavorites() {
+      favorites = await api('/api/v1/favorites');
+      favIdByMsg = {};
+      for (const f of favorites) favIdByMsg[f.message_id] = f.id;
+      const list = $('fav-list');
+      list.textContent = '';
+      if (!favorites.length) { list.textContent = '（还没有收藏，点气泡上的 ☆ 收藏回答）'; return; }
+      for (const f of favorites) {
+        const item = el('div', 'fav-item');
+        item.appendChild(el('div', 'fav-char', '★ ' + f.character_name));
+        item.appendChild(el('div', 'fav-text', f.content));
+        item.appendChild(el('div', 'fav-date', (f.created_at || '').slice(0, 10)));
+        item.onclick = () => { switchSide('sessions'); selectSession(f.session_id, f.message_id); };
+        list.appendChild(item);
+      }
+    }
+
+    /* ---------- 角色卡 ---------- */
+    async function loadCharacters() {
+      characters = await api('/api/v1/characters');
+      renderCharMenu();
+    }
+
+    function renderCharMenu() {
+      const menu = $('char-menu');
+      menu.textContent = '';
+      if (characters.length) {
+        for (const c of characters) {
+          const item = el('div', 'cm-item');
+          const av = el('span', 'cs-avatar', (c.name || '?')[0]);
+          const nm = el('span', 'cm-name', c.name + (c.is_preset ? '（预设）' : ''));
+          item.appendChild(av); item.appendChild(nm);
+          if (!c.is_preset) {
+            const acts = el('span', 'cm-actions');
+            const edit = el('button', 'btn ghost small', '改');
+            edit.onclick = (e) => { e.stopPropagation(); closeCharMenu(); openCharForm(c); };
+            const del = el('button', 'btn danger small', '删');
+            del.onclick = async (e) => {
+              e.stopPropagation();
+              if (!confirm('删除角色「' + c.name + '」及其所有会话？')) return;
+              await api('/api/v1/characters/' + c.id, { method: 'DELETE' });
+              loadCharacters(); loadSessions();
+            };
+            acts.appendChild(edit); acts.appendChild(del);
+            item.appendChild(acts);
+          }
+          item.onclick = () => { closeCharMenu(); startChat(c.id); };
+          menu.appendChild(item);
+        }
+      }
+      const add = el('div', 'cm-item cm-add', '＋ 新建角色');
+      add.onclick = () => { closeCharMenu(); openCharForm(null); };
+      menu.appendChild(add);
+    }
+    function openCharMenu() { $('char-menu').classList.add('show'); }
+    function closeCharMenu() { $('char-menu').classList.remove('show'); }
+    function updateCharSwitch() {
+      const name = currentCharacter ? currentCharacter.name : '选择角色';
+      $('cs-name').textContent = name;
+      $('cs-avatar').textContent = currentCharacter ? (currentCharacter.name || '?')[0] : '?';
+    }
+
+    async function startChat(characterId) {
+      const s = await api('/api/v1/sessions', { method: 'POST', body: JSON.stringify({ character_id: characterId }) });
+      const c = characters.find(x => x.id === characterId);
+      currentCharacter = c || null;
+      updateCharSwitch();
+      if (currentCharacter) $('chat-title').textContent = currentCharacter.name;
+      await loadSessions();
+      await selectSession(s.id);
+    }
+
+    function openCharForm(c) {
+      editingCharId = c ? c.id : null;
+      $('char-form-title').textContent = c ? '编辑角色卡' : '新建角色卡';
+      $('char-name').value = c ? c.name : '';
+      $('char-avatar').value = c ? (c.avatar || '') : '';
+      $('char-persona').value = c ? (c.persona || '') : '';
+      $('char-worldview').value = c ? (c.worldview || '') : '';
+      $('char-relationship').value = c ? (c.relationship || '') : '';
+      $('char-hidden').value = c ? (c.hidden_setting || '') : '';
+      $('char-greeting').value = c ? (c.greeting || '') : '';
+      $('char-sample').value = c ? (c.sample_dialogue || '') : '';
+      $('char-tags').value = c ? (c.tags || '') : '';
+      $('char-form').classList.add('show');
+    }
+    async function saveChar() {
+      const body = {
+        name: $('char-name').value || '未命名',
+        avatar: $('char-avatar').value,
+        persona: $('char-persona').value,
+        worldview: $('char-worldview').value,
+        relationship: $('char-relationship').value,
+        hidden_setting: $('char-hidden').value,
+        greeting: $('char-greeting').value,
+        sample_dialogue: $('char-sample').value,
+        tags: $('char-tags').value,
+      };
+      if (editingCharId) await api('/api/v1/characters/' + editingCharId, { method: 'PUT', body: JSON.stringify(body) });
+      else await api('/api/v1/characters', { method: 'POST', body: JSON.stringify(body) });
+      $('char-form').classList.remove('show');
+      loadCharacters();
+    }
+
+    /* ---------- 引导页 ---------- */
+    function showGuide() { $('guide').style.display = 'flex'; }
+    function hideGuide() { $('guide').style.display = 'none'; }
+    function renderGuideChips() {
+      const chips = $('guide-chips');
+      chips.textContent = '';
+      const samples = currentCharacter && currentCharacter.sample_dialogue
+        ? currentCharacter.sample_dialogue.split(/\n|。|！|？/).map(s => s.trim()).filter(s => s.length > 2 && s.length < 30).slice(0, 3)
+        : [];
+      const questions = samples.length ? samples : ['和我聊聊你的日常吧', '你还记得我们之前聊过什么吗', '给我讲个故事吧'];
+      for (const q of questions) {
+        const chip = el('button', 'guide-chip', q);
+        chip.onclick = () => {
+          if (!sessionId) { openCharMenu(); return; }
+          $('input').value = q; send();
+        };
+        chips.appendChild(chip);
+      }
+    }
+
+    /* ---------- 文档 ---------- */
+    async function refreshDocs() {
+      const list = $('doc-list');
+      list.textContent = '';
+      let docs;
+      try { docs = await api('/api/v1/documents'); } catch (e) { list.textContent = '加载失败：' + e.message; return; }
+      if (!docs.length) { list.textContent = '（暂无文档）'; return; }
+      for (const d of docs) {
+        const row = el('div', 'doc-row');
+        const info = el('div', 'doc-info');
+        info.appendChild(el('div', 'doc-name', d.filename));
+        info.appendChild(el('div', 'doc-status', d.status + ' · ' + d.chunk_count + '块' + (d.error ? ' · ' + d.error : '')));
+        const dl = el('button', 'btn ghost small', '下载');
+        dl.onclick = async () => {
+          try {
+            const r = await fetch(BASE + '/api/v1/documents/' + d.id + '/download', { headers: { 'Authorization': 'Bearer ' + token } });
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            const blob = await r.blob();
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob); a.download = d.filename; a.click();
+            URL.revokeObjectURL(a.href);
+          } catch (e) { alert('下载失败：' + e.message); }
+        };
+        const del = el('button', 'btn danger small', '删除');
+        del.onclick = async () => {
+          try { await api('/api/v1/documents/' + d.id, { method: 'DELETE' }); refreshDocs(); }
+          catch (e) { alert('删除失败：' + e.message); }
+        };
+        row.appendChild(info); row.appendChild(dl); row.appendChild(del);
+        list.appendChild(row);
+      }
+    }
+
+    /* ---------- 流式对话 ---------- */
+    async function send() {
+      const content = $('input').value.trim();
+      if (!content || !sessionId) return;
+      $('input').value = '';
+      hideGuide();
+      addMsg('user', content);
+      const bubble = addMsg('assistant', '');
+      const dots = el('span', 'typing-dots');
+      dots.innerHTML = '<span></span><span></span><span></span>';
+      bubble.appendChild(dots);
+      pendingSources = [];
+      $('btn-send').disabled = true;
+
+      try {
+        const resp = await fetch(BASE + '/api/v1/chat/stream', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+          body: JSON.stringify({ session_id: sessionId, content }),
+        });
+        if (!resp.ok) { const j = await resp.json().catch(() => ({})); throw new Error(j.detail || j.message || ('HTTP ' + resp.status)); }
+        const reader = resp.body.getReader();
+        const decoder = new TextDecoder();
+        let buf = '';
+        let messageId = null;
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buf += decoder.decode(value, { stream: true });
+          let idx;
+          while ((idx = buf.indexOf('\n\n')) >= 0) {
+            const raw = buf.slice(0, idx); buf = buf.slice(idx + 2);
+            let evt = 'message', data = '';
+            for (const line of raw.split('\n')) {
+              if (line.startsWith('event:')) evt = line.slice(6).trim();
+              else if (line.startsWith('data:')) data = line.slice(5).trim();
+            }
+            if (!data) continue;
+            const payload = JSON.parse(data);
+            if (evt === 'delta') { if (dots.parentNode) dots.remove(); bubble.textContent += payload.token; }
+            else if (evt === 'sources') { pendingSources = payload.sources || []; updateRefPanel(pendingSources); }
+            else if (evt === 'done') { messageId = payload.message_id; }
+            else if (evt === 'error') { if (dots.parentNode) dots.remove(); bubble.className = 'msg sys'; bubble.textContent = '⚠ ' + payload.message; pendingSources = []; updateRefPanel([]); }
+          }
+          $('msgs').scrollTop = $('msgs').scrollHeight;
+        }
+      } catch (e) {
+        if (dots.parentNode) dots.remove();
+        bubble.className = 'msg sys';
+        bubble.textContent = '⚠ ' + e.message;
+        pendingSources = [];
+        updateRefPanel([]);
+      } finally {
+        if (dots.parentNode) dots.remove();
+        if (bubble.className === 'msg assistant') {
+          bubble.dataset.messageId = messageId || '';
+          attachFavButton(bubble, messageId, false);
+        }
+        $('btn-send').disabled = false;
+      }
+    }
+
+    /* ---------- 侧栏分段 ---------- */
+    function switchSide(name) {
+      $('seg-sessions').classList.toggle('active', name === 'sessions');
+      $('seg-favs').classList.toggle('active', name === 'favs');
+      $('session-list').style.display = name === 'sessions' ? 'flex' : 'none';
+      $('fav-list').style.display = name === 'favs' ? 'flex' : 'none';
+      if (name === 'favs') loadFavorites();
+    }
+
+    /* ---------- 登录 / 启动 ---------- */
+    function showLogin() { $('login').classList.add('show'); }
+    async function login() {
+      const creds = JSON.stringify({ username: $('username').value, password: $('password').value });
+      try {
+        token = (await api('/api/v1/auth/login', { method: 'POST', body: creds })).token;
+      } catch (_) {
+        await api('/api/v1/auth/register', { method: 'POST', body: creds });
+        token = (await api('/api/v1/auth/login', { method: 'POST', body: creds })).token;
+      }
+      localStorage.setItem('token', token);
+      $('login').classList.remove('show');
+      await bootstrap();
+    }
+
+    async function bootstrap() {
+      me = await api('/api/v1/users/me');
+      $('whoami').textContent = '@' + me.username;
+      await loadCharacters();
+      await loadSessions();
+      renderGuideChips();
+      if (sessions.length) {
+        await selectSession(sessions[0].id);
+      } else {
+        $('msgs').textContent = '';
+        $('chat-title').textContent = '未选择角色';
+        $('chat-sub').textContent = '';
+        showGuide();
+        updateRefPanel([]);
+      }
+    }
+
+    /* ---------- 事件绑定 ---------- */
+    $('btn-login').onclick = login;
+    $('password').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+    $('btn-send').onclick = send;
+    $('input').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } });
+    $('btn-logout').onclick = () => { localStorage.removeItem('token'); location.reload(); };
+
+    $('seg-sessions').onclick = () => switchSide('sessions');
+    $('seg-favs').onclick = () => switchSide('favs');
+    $('btn-new').onclick = () => {
+      if (currentCharacter) startChat(currentCharacter.id);
+      else { openCharMenu(); switchSide('sessions'); }
+    };
+
+    $('btn-char-save').onclick = saveChar;
+    $('btn-char-cancel').onclick = () => $('char-form').classList.remove('show');
+
+    $('char-switch-btn').onclick = () => $('char-menu').classList.toggle('show');
+    document.addEventListener('click', (e) => {
+      if (!$('char-switch').contains(e.target)) closeCharMenu();
+    });
+
+    $('btn-docs').onclick = () => { $('doc-form').classList.add('show'); refreshDocs(); };
+    $('btn-doc-close').onclick = () => $('doc-form').classList.remove('show');
+    $('btn-panel').onclick = () => { $('panel').classList.toggle('show'); };
+    $('btn-menu-left').onclick = () => { $('sidebar').classList.toggle('show'); };
+
+    $('btn-upload').onclick = async () => {
+      const f = $('doc-file').files[0];
+      if (!f) return alert('请先选择文件');
+      const fd = new FormData();
+      fd.append('file', f);
+      const headers = { 'Authorization': 'Bearer ' + token };
+      try {
+        const r = await fetch(BASE + '/api/v1/documents/upload', { method: 'POST', headers, body: fd });
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok || (j.code && j.code !== 0)) throw new Error(j.message || j.detail || ('HTTP ' + r.status));
+        $('doc-file').value = '';
+        refreshDocs();
+        setTimeout(refreshDocs, 3000);
+      } catch (e) { alert('上传失败：' + e.message); }
+    };
+
+    // 初始化
+    if (token) {
+      (async () => {
+        try { await bootstrap(); }
+        catch (_) { localStorage.removeItem('token'); showLogin(); }
+      })();
+    } else showLogin();
+  </script>
+</body>
+</html>

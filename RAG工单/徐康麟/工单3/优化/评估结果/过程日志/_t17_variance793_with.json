@@ -1,0 +1,88 @@
+{
+  "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化",
+  "arm": "with",
+  "n": 6,
+  "judge_pass": 0,
+  "judge_fail": 6,
+  "warmup_generation": {
+    "ok": true,
+    "backend": "ollama",
+    "first_token_ms": 231.41,
+    "total_ms": 232.81,
+    "chars": 1
+  },
+  "rows": [
+    {
+      "arm": "with",
+      "iter": 1,
+      "answer_body": "电子信息行业的下游主要包括军队、政府机关、能源等行业企业。",
+      "judge_ok": false,
+      "judge_reason": "未命中：文本与数值均不匹配（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "first_token_ms": 208.48,
+      "citations": [
+        "[招股说明书1.pdf: 152]"
+      ],
+      "wall_ms": 3156.47
+    },
+    {
+      "arm": "with",
+      "iter": 2,
+      "answer_body": "电子信息行业的下游主要包括军队、政府机关、能源等行业企业。",
+      "judge_ok": false,
+      "judge_reason": "未命中：文本与数值均不匹配（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "first_token_ms": 56.57,
+      "citations": [
+        "[招股说明书1.pdf: 152]"
+      ],
+      "wall_ms": 1327.27
+    },
+    {
+      "arm": "with",
+      "iter": 3,
+      "answer_body": "电子信息行业的下游主要包括军队、政府机关、能源等行业企业。",
+      "judge_ok": false,
+      "judge_reason": "未命中：文本与数值均不匹配（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "first_token_ms": 44.31,
+      "citations": [
+        "[招股说明书1.pdf: 152]"
+      ],
+      "wall_ms": 1174.69
+    },
+    {
+      "arm": "with",
+      "iter": 4,
+      "answer_body": "电子信息行业的下游主要包括军队、政府机关、能源等行业企业。",
+      "judge_ok": false,
+      "judge_reason": "未命中：文本与数值均不匹配（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "first_token_ms": 39.61,
+      "citations": [
+        "[招股说明书1.pdf: 152]"
+      ],
+      "wall_ms": 1157.91
+    },
+    {
+      "arm": "with",
+      "iter": 5,
+      "answer_body": "电子信息行业的下游主要包括军队、政府机关、能源等行业企业。",
+      "judge_ok": false,
+      "judge_reason": "未命中：文本与数值均不匹配（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "first_token_ms": 56.49,
+      "citations": [
+        "[招股说明书1.pdf: 152]"
+      ],
+      "wall_ms": 1212.68
+    },
+    {
+      "arm": "with",
+      "iter": 6,
+      "answer_body": "电子信息行业的下游主要包括军队、政府机关、能源等行业企业。",
+      "judge_ok": false,
+      "judge_reason": "未命中：文本与数值均不匹配（判分口径来源：工单1 权威 Evaluator 0.62）",
+      "first_token_ms": 55.8,
+      "citations": [
+        "[招股说明书1.pdf: 152]"
+      ],
+      "wall_ms": 1143.0
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化",
+  "name": "online_question_207_recall",
+  "title": "题 207 召回取证（top-5 vs 生成支持块）",
+  "generated_at": "2026-10-04T20:46:15+0800",
+  "ragas": "RAGAS 未运行（依赖不可用，本机断网）",
+  "extra": {},
+  "rows": [
+    {
+      "aspect": "top5",
+      "hit": false,
+      "used_field": "evidence_verbatim",
+      "matched": [],
+      "detail": "判据=evidence_contains(threshold=0.9)　字段=evidence_verbatim　匹配块=无　证据片段='拟使用本次发行募集资\\n金15,000 万元用于补充流动资金'"
+    },
+    {
+      "aspect": "support_chunks",
+      "count": 2,
+      "hit": true,
+      "used_field": "evidence_verbatim",
+      "matched": [
+        "招股说明书1_p0490_x1131"
+      ],
+      "top1": "招股说明书1_p0479_t401",
+      "detail": "判据=evidence_contains(threshold=0.9)　字段=evidence_verbatim　匹配块=['招股说明书1_p0490_x1131']　证据片段='拟使用本次发行募集资\\n金15,000 万元用于补充流动资金'"
+    },
+    {
+      "aspect": "note",
+      "text": "冻结门槛为聚合 ≥13/14；207 的 15,000 块以生成支持块形式提供（不进 top-5 排名）。top5_hit 字段即本轮真实情况，供 captain/T11 判定是否需要进一步优化。"
+    }
+  ]
+}

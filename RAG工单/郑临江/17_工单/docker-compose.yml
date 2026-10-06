@@ -1,0 +1,43 @@
+# 工单编号：人工智能NLP-RAG-解决API服务并发瓶颈与资源泄漏工单
+# 完整 RAGFlow 服务部署（API Server + Task Executor + 向量库 + Redis）+ 监控
+version: "3.8"
+
+services:
+  api:
+    build: .
+    command: python api_server.py
+    ports:
+      - "8000:8000"
+    deploy:
+      resources:
+        limits:
+          memory: ${CONTAINER_MEMORY:-8g}
+          cpus: "${CONTAINER_CPUS:-4.0}"
+    depends_on:
+      - redis
+      - prometheus
+
+  task_executor:
+    build: .
+    command: python task_executor.py
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus

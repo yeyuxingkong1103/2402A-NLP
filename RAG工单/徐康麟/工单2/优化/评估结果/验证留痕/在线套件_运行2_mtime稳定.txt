@@ -1,0 +1,48 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.15, pytest-7.4.4, pluggy-1.6.0
+rootdir: E:\gao6gongdan\工单2\测试
+configfile: pytest.ini
+plugins: anyio-4.13.0, asyncio-0.23.3, cov-4.1.0
+asyncio: mode=Mode.STRICT
+collected 32 items
+
+测试\在线\test_api_v2.py .......                                         [ 21%]
+测试\在线\test_concurrency_v2.py ...                                     [ 31%]
+测试\在线\test_fault_tolerance.py ...................                    [ 90%]
+测试\在线\test_multiturn_v2.py F..                                       [100%]
+
+================================== FAILURES ===================================
+________________ test_three_turn_conversation_with_coreference ________________
+
+server = <conftest.ServerHandle object at 0x000001D15D9E2590>
+db_path = WindowsPath('E:/gao6gongdan/工单2/研发/data/index/rag.sqlite3')
+
+    def test_three_turn_conversation_with_coreference(server, db_path):
+        """3 轮对话（含指代追问）：改写生效、不串题、历史与轨迹正确落库。"""
+        status, body = post_json(server.base_url, "/api/conversations", {})
+        assert status == 200 and body.get("ok"), body
+        cid = body["conversation_id"]
+    
+        turns = []
+        for question in (TURN_1, TURN_2, TURN_3):
+            status, body = ask_once(server.base_url, question, conversation_id=cid)
+            assert status == 200 and body.get("ok"), f"{question!r} 请求失败: {body}"
+            answer = body["answer"]
+            assert (answer.get("answer") or "").strip(), f"{question!r} 答案为空"
+>           assert not answer.get("is_unknown"), f"{question!r} 被误拒答「{answer.get('answer')}」"
+E           AssertionError: '它的注册地址在哪里？' 被误拒答「不清楚」
+E           assert not True
+E            +  where True = <built-in method get of dict object at 0x000001D104583780>('is_unknown')
+E            +    where <built-in method get of dict object at 0x000001D104583780> = {'answer': '不清楚', 'citations': [], 'first_token_ms': 202.72, 'is_unknown': True, ...}.get
+
+测试\在线\test_multiturn_v2.py:58: AssertionError
+---------------------------- Captured stdout call -----------------------------
+
+[多轮] Q: 武汉兴图新科电子股份有限公司法定代表人是谁？
+       A: '法定代表人是程家明 [页码: 52]'  引用页=[52, 22, 22, 68, 63]
+
+[多轮] Q: 那它的注册资本呢？
+       A: '注册资本是5,520 万元 [页码: 52]'  引用页=[52, 22, 56, 68, 56]
+=========================== short test summary info ===========================
+FAILED 测试\在线\test_multiturn_v2.py::test_three_turn_conversation_with_coreference
+=================== 1 failed, 31 passed in 85.53s (0:01:25) ===================

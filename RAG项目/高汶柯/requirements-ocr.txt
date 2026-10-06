@@ -1,0 +1,15 @@
+# 可选重型依赖：扫描件 OCR / 复杂版面解析 / 多模态 PDF
+# 需先安装对应底层引擎（paddlepaddle、CUDA 等），按需安装：
+#   pip install -r requirements-ocr.txt
+
+# PaddleOCR（图片 / 扫描件文字识别）
+paddleocr
+paddlepaddle
+
+# MinerU（PDF 重排版 / 公式 / 表格，重依赖）
+# magic-pdf
+
+# PaddleOCR-VL（视觉语言模型版文档解析）
+# 参考官方文档安装
+
+# PyMuPDF 已在 requirements.txt（文本层 + 图片抽取）

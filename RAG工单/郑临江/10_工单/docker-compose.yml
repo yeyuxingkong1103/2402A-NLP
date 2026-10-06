@@ -1,0 +1,23 @@
+# 工单编号：人工智能NLP-RAG-金融问答系统部署
+services:
+  finance-qa:
+    build: .
+    image: finance-qa:latest
+    container_name: finance-qa
+    ports:
+      - "8000:8000"
+    environment:
+      - DATA_DIR=/data
+      - PORT=8000
+      # - OPENAI_API_KEY=your-key
+      # - LLM_BASE_URL=https://api.openai.com/v1
+    volumes:
+      # 数据持久化：宿主机附件目录 -> 容器 /data（只读，防止误删）
+      - "D:/软件/QQ/data/RAG 工单/附件:/data:ro"
+    restart: unless-stopped
+    networks:
+      - qa-net
+
+networks:
+  qa-net:
+    driver: bridge

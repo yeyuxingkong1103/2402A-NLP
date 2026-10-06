@@ -1,0 +1,35 @@
+{
+  "tag": "baseline",
+  "samples": 50,
+  "elapsed_sec": 823.6,
+  "judge_model": "deepseek-flash",
+  "overall": {
+    "faithfulness": 0.3431,
+    "answer_relevancy": 0.651,
+    "context_precision": 0.5329,
+    "context_recall": 0.5333
+  },
+  "per_role": {
+    "financial_advisor": {
+      "samples": 15,
+      "faithfulness": 0.4149,
+      "answer_relevancy": 0.6863,
+      "context_precision": 0.4485,
+      "context_recall": 0.2889
+    },
+    "lawyer": {
+      "samples": 20,
+      "faithfulness": 0.4046,
+      "answer_relevancy": 0.8128,
+      "context_precision": 0.6709,
+      "context_recall": 0.8917
+    },
+    "psychologist": {
+      "samples": 15,
+      "faithfulness": 0.1893,
+      "answer_relevancy": 0.3999,
+      "context_precision": 0.4333,
+      "context_recall": 0.3
+    }
+  }
+}

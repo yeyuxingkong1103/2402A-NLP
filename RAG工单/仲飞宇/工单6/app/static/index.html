@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<!-- 工单编号：人工智能NLP-RAG-基于PDF文档的问答系统
+     工单编号：人工智能NLP-RAG-基于PDF文档的问答系统优化
+     工单编号：人工智能NLP-RAG-Query 理解优化任务
+     工单01 - 基于PDF文档的问答系统
+     工单02 - 基于PDF文档的问答系统的优化
+     工单05 - Query 理解优化（多轮对话） -->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>工单01 · 基于PDF文档的问答系统</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header>
+  <span class="status-dot" id="dot"></span>
+  <div>
+    <h1>基于PDF文档的问答系统</h1>
+    <div class="sub">武汉兴图新科电子股份有限公司 · 招股意向书（548页）</div>
+  </div>
+  <div class="spacer"></div>
+  <div class="tabs">
+    <div class="tab active" data-page="qa">问答</div>
+    <!-- 工单05：多轮对话单独一页 —— 既有单轮问答页一行不改（它承载工单01-04 的演示） -->
+    <div class="tab" data-page="chat">多轮对话</div>
+    <div class="tab" data-page="eval">评估</div>
+    <div class="tab" data-page="kb">知识库</div>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= 问答页 ================= -->
+<section class="page active" id="page-qa">
+
+  <div id="boot-warning"></div>
+
+  <div class="card">
+    <div class="row">
+      <textarea id="q" rows="2" placeholder="输入问题，例如：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？"></textarea>
+    </div>
+    <div class="row wrap" style="margin-top:10px">
+      <button id="ask">提问</button>
+      <button id="rec" class="ghost" title="语音输入">🎤 录音</button>
+      <button id="compare" class="ghost" title="同一问题分别用 RAG 与纯 LLM 回答并对比">对比纯LLM</button>
+      <!-- 工单02：检索剖面切换。同一问题在三个剖面下的答案/引用/耗时可以直接对比，
+           这就是「优化前后检索精确度变化」在前端的可见形态。 -->
+      <select id="profile" title="检索剖面（工单02：优化前后对比用）">
+        <option value="delivered">剖面：工单01 交付版</option>
+        <option value="optimized" selected>剖面：工单02 优化版</option>
+        <option value="baseline">剖面：朴素基线（优化前）</option>
+      </select>
+      <select id="topk" title="检索片段数">
+        <option value="3" selected>top-3</option>
+        <option value="5">top-5</option>
+        <option value="8">top-8</option>
+      </select>
+      <!-- 工单06：检索模式。三种模式切换 = 工单要的"配置及应用" -->
+      <select id="rmode" title="检索模式（工单06）">
+        <option value="">模式：跟随剖面</option>
+        <option value="vector">向量检索（召回+重排）</option>
+        <option value="fulltext">全文检索（倒排索引）</option>
+        <option value="hybrid">混合检索</option>
+      </select>
+      <select id="rfusion" title="混合检索的融合算法">
+        <option value="rrf" selected>融合：RRF（投票）</option>
+        <option value="weighted">融合：加权平均</option>
+        <option value="milvus">融合：Milvus 原生 Ranker</option>
+      </select>
+      <label class="hint">关键词权重
+        <input type="range" id="rweight" min="0" max="1" step="0.1" value="0.5"
+               style="width:90px;vertical-align:middle">
+        <b id="rweight-v">0.5</b>
+      </label>
+      <select id="rrerank" title="重排器（工单06：至少 3 种）">
+        <option value="">重排：跟随剖面</option>
+        <option value="lexical">词法覆盖率</option>
+        <option value="tfidf">TF-IDF</option>
+        <option value="llm">LLM 重排</option>
+        <option value="feedback">用户反馈自适应</option>
+        <option value="none">不重排</option>
+      </select>
+      <label class="hint"><input type="checkbox" id="en" style="width:auto"> 英文提问示例</label>
+      <div class="spacer" style="flex:1"></div>
+      <span class="hint">响应口径：<kbd>TTFT</kbd> 首字延迟</span>
+    </div>
+  </div>
+
+  <div class="card" id="answer-card" style="display:none">
+    <div class="row" style="justify-content:space-between">
+      <p class="panel-title" style="margin:0">回答</p>
+      <span class="hint" id="mode-tag"></span>
+    </div>
+    <div class="answer" id="answer"></div>
+    <div class="citations" id="citations"></div>
+    <div class="meta" id="meta"></div>
+    <div class="feedback" id="feedback" style="display:none">
+      <button data-r="up">👍 有帮助</button>
+      <button data-r="down">👎 不准确</button>
+      <span class="hint" id="fb-msg" style="align-self:center"></span>
+    </div>
+  </div>
+
+  <div class="card" id="compare-card" style="display:none">
+    <p class="panel-title">RAG vs 纯 LLM 对比（工单01 功能验收 2）</p>
+    <div class="grid2">
+      <div>
+        <p class="panel-title">纯 LLM（无检索）</p>
+        <div class="answer" id="norag-answer"></div>
+        <div class="meta" id="norag-meta"></div>
+      </div>
+      <div>
+        <p class="panel-title">RAG（检索增强）</p>
+        <div class="answer" id="rag-answer"></div>
+        <div class="meta" id="rag-meta"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="evidence-card" style="display:none">
+    <p class="panel-title">检索证据</p>
+    <div id="evidence"></div>
+  </div>
+</section>
+
+<!-- ================= 多轮对话页（工单05） ================= -->
+<section class="page" id="page-chat">
+  <div class="card">
+    <div class="row wrap">
+      <span class="hint">会话 ID</span>
+      <code id="sess-id">（未开始）</code>
+      <button class="ghost" id="new-session">新会话</button>
+      <button class="ghost" id="sess-status">会话状态</button>
+      <div class="spacer" style="flex:1"></div>
+      <span class="hint">
+        改写方式：<b>none</b> 完整问题 ｜ <b>rule-coref</b> 代词消解 ｜
+        <b>rule-switch</b> 话题切换 ｜ <b>llm</b> 模型兜底 ｜ <b>llm-failed</b> 兜底失败
+      </span>
+    </div>
+    <div class="meta" id="sess-info">每轮都会显示「原句 → 改写后的独立问题」，改写是检索的依据。</div>
+    <div id="chat-log" class="chat-log"></div>
+    <div class="row" style="margin-top:10px">
+      <textarea id="cq" rows="2"
+        placeholder="第 1 轮先问完整的：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？"></textarea>
+      <button id="csend">发送</button>
+    </div>
+    <div class="row wrap" style="margin-top:8px">
+      <button class="ghost" id="cq-clear">清空对话（保留会话）</button>
+      <div class="spacer" style="flex:1"></div>
+      <span class="hint">Ctrl/⌘ + Enter 发送</span>
+    </div>
+    <div class="meta" id="chat-msg"></div>
+  </div>
+
+  <div class="card">
+    <p class="panel-title">工单05 验收剧本（点一条即填入输入框，按顺序问）</p>
+    <div class="script-row" id="script-buttons"></div>
+    <div class="meta" style="margin-top:8px">
+      后四轮依次演示：<b>代词消解</b>（他 / 这个公司）→ <b>话题切换 + 省略问点继承</b>（那力源呢）→ 图题。
+      第 2、3 轮的改写结果与单轮题库 id=795 / id=531 的题面<b>逐字相同</b>，所以「多轮不回归」是可证明的。
+    </div>
+  </div>
+</section>
+
+<!-- ================= 评估页 ================= -->
+<section class="page" id="page-eval">
+  <div class="card">
+    <div class="row wrap">
+      <button id="run-eval">运行 10 题评估</button>
+      <label class="hint"><input type="checkbox" id="opt-judge" checked style="width:auto"> 含 LLM judge</label>
+      <label class="hint"><input type="checkbox" id="opt-norag" checked style="width:auto"> 含纯 LLM 对照</label>
+      <!-- 工单02：按剖面跑评估，逐个切过去跑就是"优化前后对比" -->
+      <select id="eval-profile" title="按哪个检索剖面评估（工单02）">
+        <option value="delivered">剖面：工单01 交付版</option>
+        <option value="optimized" selected>剖面：工单02 优化版</option>
+        <option value="baseline">剖面：朴素基线（优化前）</option>
+      </select>
+      <div class="spacer" style="flex:1"></div>
+      <button class="ghost" id="load-report">载入最近报告</button>
+    </div>
+    <div class="progress" id="eval-progress"><i></i></div>
+    <div class="meta" id="eval-msg">尚未运行</div>
+  </div>
+
+  <div class="card" id="eval-summary-card" style="display:none">
+    <p class="panel-title">总览</p>
+    <div class="kpis" id="eval-kpis"></div>
+    <div class="meta" style="margin-top:12px">
+      规则化数值命中是最可信的一轨：直接匹配答案里的数字原文，不依赖 LLM 打分。
+    </div>
+  </div>
+
+  <div class="card" id="eval-table-card" style="display:none">
+    <p class="panel-title">逐题明细</p>
+    <div style="overflow-x:auto">
+      <table id="eval-table">
+        <thead><tr>
+          <th>ID</th><th>问题</th><th>规则命中</th>
+          <th>纯LLM命中</th>
+          <!-- 工单03：这题被限定在哪份文档上检索。空 = 不过滤（没点名 / 跨文档） -->
+          <th>路由</th>
+          <!-- 工单02 检索侧指标：CKC 高而规则命中低 ⇒ 是生成侧没答出来，不是检索漏了 -->
+          <th>CKC</th><th>页精确</th><th>页召回</th><th>上下文字数</th><th>合并/邻块</th>
+          <th>上下文相关</th><th>忠实度</th>
+          <th>答案相关</th><th>上下文召回</th><th>答案正确</th>
+          <th>TTFT</th><th>总耗时</th><th>引用</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" id="eval-detail-card" style="display:none">
+    <p class="panel-title">答案对照（逐题展开）</p>
+    <div id="eval-detail"></div>
+  </div>
+</section>
+
+<!-- ================= 知识库页 ================= -->
+<section class="page" id="page-kb">
+  <div class="card">
+    <p class="panel-title">入库</p>
+    <div class="row wrap">
+      <button id="do-ingest">解析并入库 招股说明书1.pdf</button>
+      <label class="hint"><input type="checkbox" id="opt-rebuild" style="width:auto"> 重建（先删 collection）</label>
+      <div class="spacer" style="flex:1"></div>
+      <span class="hint" id="ingest-msg">未开始</span>
+    </div>
+    <div class="progress" id="ingest-progress"><i></i></div>
+  </div>
+
+  <div class="card">
+    <p class="panel-title">Collections</p>
+    <table id="kb-table">
+      <thead><tr><th>名称</th><th>行数</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <div class="row" style="margin-top:10px">
+      <button class="ghost" id="reload-kb">刷新</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="panel-title">按页抽查（验收 PDF 解析质量）</p>
+    <div class="row wrap">
+      <input type="text" id="page-no" placeholder="PDF 索引，如 21 / 22 / 30 / 128 / 152" style="max-width:260px">
+      <button class="ghost" id="load-page">查看该页片段</button>
+      <span class="hint">索引 21=法定代表人/注册资本；29=募集资金表；128=军用收入金句</span>
+    </div>
+    <div id="page-out" style="margin-top:12px"></div>
+  </div>
+</section>
+
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

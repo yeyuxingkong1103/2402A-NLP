@@ -1,0 +1,160 @@
+{
+  "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化",
+  "name": "online_english",
+  "title": "英文问答覆盖（7 条，含允许的降级留痕）",
+  "generated_at": "2026-10-04T20:45:56+0800",
+  "ragas": "RAGAS 未运行（依赖不可用，本机断网）",
+  "extra": {
+    "达标(language=en)": 7,
+    "允许的降级": 0,
+    "拒答数": 1
+  },
+  "rows": [
+    {
+      "tag": "EN1",
+      "question": "What is the registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+      "language": "en",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "answer_text": "The registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd. is 5,520.00 万元.\nReferences：[招股说明书1.pdf: Page: 22]",
+      "first_token_ms": 233.69,
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "chunk_id": "招股说明书1_p0022_t10",
+          "ok": true,
+          "detail": "chunk 招股说明书1_p0022_t10 的 97% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "citation_ok": true,
+      "degrade_events": [],
+      "english_body": true,
+      "allowed_degrade": false
+    },
+    {
+      "tag": "EN2",
+      "question": "Who is the legal representative of Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+      "language": "en",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "answer_text": "The legal representative of Wuhan Xingtu Xinke Electronics Co., Ltd. is程家明.\nReferences：[招股说明书1.pdf: Page: 22]",
+      "first_token_ms": 152.94,
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "chunk_id": "招股说明书1_p0022_t10",
+          "ok": true,
+          "detail": "chunk 招股说明书1_p0022_t10 的 97% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "citation_ok": true,
+      "degrade_events": [],
+      "english_body": true,
+      "allowed_degrade": false
+    },
+    {
+      "tag": "EN3",
+      "question": "What were the company's revenues from the military domain during the reporting period?",
+      "language": "en",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "answer_text": "| 3 | 同步调用 | 吞吐量 | 350000msg/s |\nReferences：[招股说明书1.pdf: Page: 170]",
+      "first_token_ms": 1953.86,
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 170,
+          "chunk_id": "招股说明书1_p0170_t113",
+          "ok": true,
+          "detail": "chunk 招股说明书1_p0170_t113 的 98% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "citation_ok": true,
+      "degrade_events": [],
+      "english_body": true,
+      "allowed_degrade": false
+    },
+    {
+      "tag": "EN4",
+      "question": "According to the prospectus, what are the upstream industries of the electronic information industry?",
+      "language": "en",
+      "is_unknown": true,
+      "unknown_reason": "low_coverage",
+      "answer_text": "不清楚",
+      "first_token_ms": 0.0,
+      "citations": [],
+      "citation_ok": false,
+      "degrade_events": [],
+      "english_body": true,
+      "allowed_degrade": false
+    },
+    {
+      "tag": "EN5",
+      "question": "In which domain has Wuhan Xingtu Xinke Electronics Co., Ltd. become an important supplier?",
+      "language": "en",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "answer_text": "| 英文名称 | Wuhan Xingtu Xinke Electronics Co.,Ltd. | 股份公司成立日期 | 2011 年1 月26 日 |\nReferences：[招股说明书1.pdf: Page: 22]",
+      "first_token_ms": 522.17,
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "chunk_id": "招股说明书1_p0022_t10",
+          "ok": true,
+          "detail": "chunk 招股说明书1_p0022_t10 的 97% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "citation_ok": true,
+      "degrade_events": [],
+      "english_body": true,
+      "allowed_degrade": false
+    },
+    {
+      "tag": "EN6",
+      "question": "What is the number of shares issued by Wuhan P&S Information Technology Co., Ltd.?",
+      "language": "en",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "answer_text": "| 发行股数 | 1,840 万股 | 占发行后总股本比例 | 不低于25.00% |\nReferences：[招股说明书1.pdf: Page: 22]",
+      "first_token_ms": 2071.7,
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "chunk_id": "招股说明书1_p0022_t12",
+          "ok": true,
+          "detail": "chunk 招股说明书1_p0022_t12 的 93% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "citation_ok": true,
+      "degrade_events": [],
+      "english_body": true,
+      "allowed_degrade": false
+    },
+    {
+      "tag": "EN7",
+      "question": "Which related-party enterprises are not controlled by Wuhan P&S Information Technology Co., Ltd.?",
+      "language": "en",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "answer_text": "| 力源贸易 | 同一实际控制人控制的企业 |\nReferences：[招股说明书2.pdf: Page: 157]",
+      "first_token_ms": 1286.49,
+      "citations": [
+        {
+          "file_name": "招股说明书2.pdf",
+          "page": 157,
+          "chunk_id": "招股说明书2_p0157_t70",
+          "ok": true,
+          "detail": "chunk 招股说明书2_p0157_t70 的 76% 内容落在该页（阈值 50%）"
+        }
+      ],
+      "citation_ok": true,
+      "degrade_events": [],
+      "english_body": true,
+      "allowed_degrade": false
+    }
+  ]
+}

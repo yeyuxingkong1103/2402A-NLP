@@ -1,0 +1,342 @@
+{
+  "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化",
+  "ragas": "RAGAS 未运行（依赖不可用，本机断网）",
+  "note": "t11 复核：英文问题集并集（engineer 组逐字取 _t22_after7.py；tester 组取本仓用例）",
+  "rows": [
+    {
+      "source": "engineer",
+      "tag": "EN1",
+      "question": "What is the registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+      "file_names": null,
+      "language": "en",
+      "english_ratio": 0.6293,
+      "is_unknown": false,
+      "unknown_reason": null,
+      "answer_body": "The registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd. is 5,520.00 万元.\nReferences：[招股说明书1.pdf: Page: 22]",
+      "first_token_ms": 281.13,
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "chunk_id": "招股说明书1_p0022_t10",
+          "ok": true
+        }
+      ],
+      "citation_ok": true,
+      "degrade_events": []
+    },
+    {
+      "source": "engineer",
+      "tag": "EN2",
+      "question": "Who is the legal representative of Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+      "file_names": null,
+      "language": "en",
+      "english_ratio": 0.6881,
+      "is_unknown": false,
+      "unknown_reason": null,
+      "answer_body": "The legal representative of Wuhan Xingtu Xinke Electronics Co., Ltd. is程家明.\nReferences：[招股说明书1.pdf: Page: 22]",
+      "first_token_ms": 343.09,
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "chunk_id": "招股说明书1_p0022_t10",
+          "ok": true
+        }
+      ],
+      "citation_ok": true,
+      "degrade_events": []
+    },
+    {
+      "source": "engineer",
+      "tag": "EN3",
+      "question": "In which field has Wuhan Xingtu Xinke Electronics Co., Ltd. become an important supplier?",
+      "file_names": null,
+      "language": "en",
+      "english_ratio": 0.4414,
+      "is_unknown": false,
+      "unknown_reason": null,
+      "answer_body": "| 英文名称 | Wuhan Xingtu Xinke Electronics Co.,Ltd. | 股份公司成立日期 | 2011 年1 月26 日 |\nReferences：[招股说明书1.pdf: Page: 22]",
+      "first_token_ms": 594.65,
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "chunk_id": "招股说明书1_p0022_t10",
+          "ok": true
+        }
+      ],
+      "citation_ok": true,
+      "degrade_events": []
+    },
+    {
+      "source": "engineer",
+      "tag": "EN4",
+      "question": "What is the registered capital of Wuhan Liyuan Information Technology Co., Ltd.?",
+      "file_names": [
+        "招股说明书2.pdf"
+      ],
+      "language": "en",
+      "english_ratio": 0.6667,
+      "is_unknown": false,
+      "unknown_reason": null,
+      "answer_body": "The registered capital of Wuhan Liyuan Information Technology Co., Ltd. is 5,000万元.\nReferences：[招股说明书2.pdf: Page: 15]",
+      "first_token_ms": 1236.19,
+      "citations": [
+        {
+          "file_name": "招股说明书2.pdf",
+          "page": 15,
+          "chunk_id": "招股说明书2_p0015_x26",
+          "ok": true
+        }
+      ],
+      "citation_ok": true,
+      "degrade_events": []
+    },
+    {
+      "source": "engineer",
+      "tag": "EN5",
+      "question": "How many shares will Wuhan Liyuan Information Technology Co., Ltd. issue?",
+      "file_names": [
+        "招股说明书2.pdf"
+      ],
+      "language": "en",
+      "english_ratio": 0.3333,
+      "is_unknown": false,
+      "unknown_reason": null,
+      "answer_body": "| 发行股数 | 1,670万股 |\nReferences：[招股说明书2.pdf: Page: 2]",
+      "first_token_ms": 444.27,
+      "citations": [
+        {
+          "file_name": "招股说明书2.pdf",
+          "page": 2,
+          "chunk_id": "招股说明书2_p0002_x01",
+          "ok": true
+        }
+      ],
+      "citation_ok": true,
+      "degrade_events": []
+    },
+    {
+      "source": "engineer",
+      "tag": "EN6",
+      "question": "What is the registered address of Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+      "file_names": null,
+      "language": "en",
+      "english_ratio": 0.5441,
+      "is_unknown": false,
+      "unknown_reason": null,
+      "answer_body": "The registered address of Wuhan Xingtu Xinke Electronics Co., Ltd. is 湖北省武汉市东湖新技术开发区关山大道1号软件产业三期A3栋8层.\nReferences：[招股说明书1.pdf: Page: 22]",
+      "first_token_ms": 389.46,
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "chunk_id": "招股说明书1_p0022_t10",
+          "ok": true
+        }
+      ],
+      "citation_ok": true,
+      "degrade_events": []
+    },
+    {
+      "source": "engineer",
+      "tag": "EN7",
+      "question": "What is the main business of Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+      "file_names": null,
+      "language": "en",
+      "english_ratio": 0.5397,
+      "is_unknown": false,
+      "unknown_reason": null,
+      "answer_body": "The main business is 销售视频指挥. (verbatim source: 「主营业务：销售视频指挥」)\nReferences：[招股说明书1.pdf: Page: 65]",
+      "first_token_ms": 520.89,
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 65,
+          "chunk_id": "招股说明书1_p0065_t51",
+          "ok": true
+        }
+      ],
+      "citation_ok": true,
+      "degrade_events": []
+    },
+    {
+      "source": "engineer",
+      "tag": "N-Tesla",
+      "question": "What is the registered capital of Tesla, Inc.?",
+      "file_names": null,
+      "language": "en",
+      "english_ratio": 0.0,
+      "is_unknown": true,
+      "unknown_reason": "issuer_mismatch",
+      "answer_body": "不清楚",
+      "first_token_ms": 0.0,
+      "citations": [],
+      "citation_ok": false,
+      "degrade_events": []
+    },
+    {
+      "source": "engineer",
+      "tag": "N-2099",
+      "question": "What are the plans of Wuhan Xingtu Xinke Electronics Co., Ltd. for the 2099 lunar base project?",
+      "file_names": null,
+      "language": "en",
+      "english_ratio": 0.0,
+      "is_unknown": true,
+      "unknown_reason": "low_coverage",
+      "answer_body": "不清楚",
+      "first_token_ms": 0.0,
+      "citations": [],
+      "citation_ok": false,
+      "degrade_events": []
+    },
+    {
+      "source": "tester",
+      "tag": "T-EN1",
+      "question": "What is the registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+      "file_names": null,
+      "language": "en",
+      "english_ratio": 0.6293,
+      "is_unknown": false,
+      "unknown_reason": null,
+      "answer_body": "The registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd. is 5,520.00 万元.\nReferences：[招股说明书1.pdf: Page: 22]",
+      "first_token_ms": 632.99,
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "chunk_id": "招股说明书1_p0022_t10",
+          "ok": true
+        }
+      ],
+      "citation_ok": true,
+      "degrade_events": []
+    },
+    {
+      "source": "tester",
+      "tag": "T-EN2",
+      "question": "Who is the legal representative of Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+      "file_names": null,
+      "language": "en",
+      "english_ratio": 0.6881,
+      "is_unknown": false,
+      "unknown_reason": null,
+      "answer_body": "The legal representative of Wuhan Xingtu Xinke Electronics Co., Ltd. is程家明.\nReferences：[招股说明书1.pdf: Page: 22]",
+      "first_token_ms": 295.66,
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "chunk_id": "招股说明书1_p0022_t10",
+          "ok": true
+        }
+      ],
+      "citation_ok": true,
+      "degrade_events": []
+    },
+    {
+      "source": "tester",
+      "tag": "T-EN3",
+      "question": "What were the company's revenues from the military domain during the reporting period?",
+      "file_names": null,
+      "language": "en",
+      "english_ratio": 0.3134,
+      "is_unknown": false,
+      "unknown_reason": null,
+      "answer_body": "| 3 | 同步调用 | 吞吐量 | 350000msg/s |\nReferences：[招股说明书1.pdf: Page: 170]",
+      "first_token_ms": 422.69,
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 170,
+          "chunk_id": "招股说明书1_p0170_t113",
+          "ok": true
+        }
+      ],
+      "citation_ok": true,
+      "degrade_events": []
+    },
+    {
+      "source": "tester",
+      "tag": "T-EN4",
+      "question": "According to the prospectus, what are the upstream industries of the electronic information industry?",
+      "file_names": null,
+      "language": "en",
+      "english_ratio": 0.0,
+      "is_unknown": true,
+      "unknown_reason": "low_coverage",
+      "answer_body": "不清楚",
+      "first_token_ms": 0.0,
+      "citations": [],
+      "citation_ok": false,
+      "degrade_events": []
+    },
+    {
+      "source": "tester",
+      "tag": "T-EN5",
+      "question": "In which domain has Wuhan Xingtu Xinke Electronics Co., Ltd. become an important supplier?",
+      "file_names": null,
+      "language": "en",
+      "english_ratio": 0.4414,
+      "is_unknown": false,
+      "unknown_reason": null,
+      "answer_body": "| 英文名称 | Wuhan Xingtu Xinke Electronics Co.,Ltd. | 股份公司成立日期 | 2011 年1 月26 日 |\nReferences：[招股说明书1.pdf: Page: 22]",
+      "first_token_ms": 548.43,
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "chunk_id": "招股说明书1_p0022_t10",
+          "ok": true
+        }
+      ],
+      "citation_ok": true,
+      "degrade_events": []
+    },
+    {
+      "source": "tester",
+      "tag": "T-EN6",
+      "question": "What is the number of shares issued by Wuhan P&S Information Technology Co., Ltd.?",
+      "file_names": null,
+      "language": "en",
+      "english_ratio": 0.2208,
+      "is_unknown": false,
+      "unknown_reason": null,
+      "answer_body": "| 发行股数 | 1,840 万股 | 占发行后总股本比例 | 不低于25.00% |\nReferences：[招股说明书1.pdf: Page: 22]",
+      "first_token_ms": 407.3,
+      "citations": [
+        {
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "chunk_id": "招股说明书1_p0022_t12",
+          "ok": true
+        }
+      ],
+      "citation_ok": true,
+      "degrade_events": []
+    },
+    {
+      "source": "tester",
+      "tag": "T-EN7",
+      "question": "Which related-party enterprises are not controlled by Wuhan P&S Information Technology Co., Ltd.?",
+      "file_names": null,
+      "language": "en",
+      "english_ratio": 0.2931,
+      "is_unknown": false,
+      "unknown_reason": null,
+      "answer_body": "| 力源贸易 | 同一实际控制人控制的企业 |\nReferences：[招股说明书2.pdf: Page: 157]",
+      "first_token_ms": 384.06,
+      "citations": [
+        {
+          "file_name": "招股说明书2.pdf",
+          "page": 157,
+          "chunk_id": "招股说明书2_p0157_t70",
+          "ok": true
+        }
+      ],
+      "citation_ok": true,
+      "degrade_events": []
+    }
+  ]
+}

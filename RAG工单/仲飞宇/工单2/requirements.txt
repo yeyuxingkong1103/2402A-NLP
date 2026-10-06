@@ -1,0 +1,44 @@
+# ===== Web 框架 =====
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9
+
+# ===== 配置 / 数据模型 =====
+python-dotenv>=1.0
+pydantic>=2.6
+
+# ===== LLM / Embedding（OpenAI 兼容客户端，默认连 Ollama）=====
+openai>=1.30
+
+# ===== 向量库（Milvus Lite，免服务；生产可换 Milvus 服务器）=====
+pymilvus>=2.4.0,<3.0
+milvus-lite>=2.4.0
+
+# ===== 文档解析 =====
+pymupdf>=1.24
+pdfplumber>=0.11
+
+# ===== OCR（扫描件 / 图片兜底，RapidOCR ONNX 后端）=====
+# 注意：onnxruntime / opencv-python 需要预编译轮子，**新版本 Python 上不一定有对应 wheel**。
+# 这里显式写出来是为了把这两个传递依赖的版本钉住（rapidocr 自己也会带，但钉住才可控）。
+# README 建议 3.10~3.14；本机 3.14.4 + onnxruntime 1.30.0 / opencv-python 5.0.0.93 实测可装。
+# 装不上就退回 OCR_ENABLED=false。
+rapidocr-onnxruntime>=1.2
+onnxruntime>=1.19
+opencv-python>=4.10
+pillow>=10.0
+
+# ===== BM25 / 中文分词 =====
+rank-bm25>=0.2.2
+jieba>=0.42
+
+# ===== 关系库（SQLite 默认，可切 MySQL）=====
+sqlalchemy>=2.0
+pymysql>=1.1  # SQL_URL 切 MySQL 时用（mysql+pymysql://...），SQLite 时用不到
+
+# ===== 短期记忆（可选 Redis 后端）=====
+redis>=5.0
+
+# ===== 测试 =====
+pytest>=8.0
+httpx>=0.27

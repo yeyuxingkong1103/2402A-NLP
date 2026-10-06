@@ -1,0 +1,568 @@
+{
+  "source": "招股说明书2.pdf",
+  "modes": {
+    "向量检索": {
+      "questions": 6,
+      "answer_accuracy_by_keywords": 1.0,
+      "evidence_recall_by_keywords": 1.0,
+      "max_seconds": 0.556
+    },
+    "全文检索": {
+      "questions": 6,
+      "answer_accuracy_by_keywords": 1.0,
+      "evidence_recall_by_keywords": 1.0,
+      "max_seconds": 0.5308
+    },
+    "混合检索": {
+      "questions": 6,
+      "answer_accuracy_by_keywords": 1.0,
+      "evidence_recall_by_keywords": 1.0,
+      "max_seconds": 0.4811
+    }
+  },
+  "results": [
+    {
+      "strategy": "向量检索",
+      "id": 1,
+      "question": "武汉力源信息技术股份有限公司本次发行股数是多少，占发行后总股本的比例是多少？",
+      "answer": "本次发行1,670万股，占发行后总股本的25.04%。[来源：招股说明书2.pdf，PDF第22页]",
+      "pages": [
+        24,
+        22,
+        2,
+        23,
+        6,
+        143,
+        7,
+        249,
+        8,
+        284,
+        246
+      ],
+      "answer_keyword_coverage": 1.0,
+      "evidence_keyword_recall": 1.0,
+      "seconds": 0.556,
+      "search": {
+        "strategy": "向量检索",
+        "fusion": "加权平均",
+        "reranker": "TF-IDF",
+        "vector_candidates": 2153,
+        "fulltext_candidates": 929,
+        "warning": ""
+      }
+    },
+    {
+      "strategy": "向量检索",
+      "id": 2,
+      "question": "武汉力源信息技术股份有限公司本次募集资金拟投资哪些项目？",
+      "answer": "募集资金拟投资项目包括：仓储及物流中心、研发中心、电子商务平台、扩充产品种类和数量、其他与主营业务相关的营运资金。[来源：招股说明书2.pdf，PDF第22页]",
+      "pages": [
+        22,
+        306,
+        329,
+        324,
+        327,
+        326,
+        301,
+        322,
+        325,
+        300,
+        9
+      ],
+      "answer_keyword_coverage": 1.0,
+      "evidence_keyword_recall": 1.0,
+      "seconds": 0.2403,
+      "search": {
+        "strategy": "向量检索",
+        "fusion": "加权平均",
+        "reranker": "TF-IDF",
+        "vector_candidates": 2153,
+        "fulltext_candidates": 1190,
+        "warning": ""
+      }
+    },
+    {
+      "strategy": "向量检索",
+      "id": 3,
+      "question": "与武汉力源信息技术股份有限公司存在控制关系的关联方是谁，持股比例和本公司关系是什么？",
+      "answer": "赵马克持股比例为42.35%，与本公司关系为公司控股股东。[来源：招股说明书2.pdf，PDF第157页]",
+      "pages": [
+        157,
+        158,
+        170,
+        198,
+        193,
+        189,
+        229,
+        191,
+        186,
+        188,
+        8
+      ],
+      "answer_keyword_coverage": 1.0,
+      "evidence_keyword_recall": 1.0,
+      "seconds": 0.4049,
+      "search": {
+        "strategy": "向量检索",
+        "fusion": "加权平均",
+        "reranker": "TF-IDF",
+        "vector_candidates": 2153,
+        "fulltext_candidates": 935,
+        "warning": ""
+      }
+    },
+    {
+      "strategy": "向量检索",
+      "id": 4,
+      "question": "与武汉力源信息技术股份有限公司不存在控制关系的关联方企业有哪些？",
+      "answer": "不存在控制关系的关联方企业包括：融冰投资、武汉博润、上海博润、听音投资、联众聚源、力源贸易、普芯达。[来源：招股说明书2.pdf，PDF第157页]",
+      "pages": [
+        157,
+        158,
+        170,
+        198,
+        135,
+        202,
+        186,
+        30,
+        188,
+        189,
+        8
+      ],
+      "answer_keyword_coverage": 1.0,
+      "evidence_keyword_recall": 1.0,
+      "seconds": 0.2793,
+      "search": {
+        "strategy": "向量检索",
+        "fusion": "加权平均",
+        "reranker": "TF-IDF",
+        "vector_candidates": 2153,
+        "fulltext_candidates": 753,
+        "warning": ""
+      }
+    },
+    {
+      "strategy": "向量检索",
+      "id": 5,
+      "question": "武汉力源信息技术股份有限公司组织结构图中，销售部有几个部门构成，其中大客户销售部有几个销售处构成？",
+      "answer": "销售部由4个部门构成：电话及网络销售部、渠道销售部、大客户销售部、国际贸易部；大客户销售部下设6个销售处：珠海、深圳、北京、武汉、广州、成都。[来源：招股说明书2.pdf，PDF第39页]",
+      "pages": [
+        39,
+        114,
+        117,
+        113,
+        40,
+        239,
+        309,
+        108,
+        102,
+        112,
+        87,
+        135
+      ],
+      "answer_keyword_coverage": 1.0,
+      "evidence_keyword_recall": 1.0,
+      "seconds": 0.3169,
+      "search": {
+        "strategy": "向量检索",
+        "fusion": "加权平均",
+        "reranker": "TF-IDF",
+        "vector_candidates": 2153,
+        "fulltext_candidates": 752,
+        "warning": ""
+      }
+    },
+    {
+      "strategy": "向量检索",
+      "id": 6,
+      "question": "武汉力源信息技术股份有限公司招股意向书中，从2008年中国IC市场应用结构与增长图中可以看出，增长率最快的是哪个行业？负增长的是哪个行业？",
+      "answer": "增长率最快的是汽车（14.0%）；负增长的是IC卡（-2.0%）。[来源：招股说明书2.pdf，PDF第72页]",
+      "pages": [
+        72,
+        83,
+        310,
+        282,
+        281,
+        290,
+        84,
+        279,
+        286,
+        260,
+        278,
+        287
+      ],
+      "answer_keyword_coverage": 1.0,
+      "evidence_keyword_recall": 1.0,
+      "seconds": 0.5013,
+      "search": {
+        "strategy": "向量检索",
+        "fusion": "加权平均",
+        "reranker": "TF-IDF",
+        "vector_candidates": 2153,
+        "fulltext_candidates": 1156,
+        "warning": ""
+      }
+    },
+    {
+      "strategy": "全文检索",
+      "id": 1,
+      "question": "武汉力源信息技术股份有限公司本次发行股数是多少，占发行后总股本的比例是多少？",
+      "answer": "本次发行1,670万股，占发行后总股本的25.04%。[来源：招股说明书2.pdf，PDF第22页]",
+      "pages": [
+        24,
+        22,
+        2,
+        306,
+        4,
+        33,
+        55,
+        32,
+        46
+      ],
+      "answer_keyword_coverage": 1.0,
+      "evidence_keyword_recall": 1.0,
+      "seconds": 0.244,
+      "search": {
+        "strategy": "全文检索",
+        "fusion": "加权平均",
+        "reranker": "TF-IDF",
+        "vector_candidates": 2153,
+        "fulltext_candidates": 935,
+        "warning": ""
+      }
+    },
+    {
+      "strategy": "全文检索",
+      "id": 2,
+      "question": "武汉力源信息技术股份有限公司本次募集资金拟投资哪些项目？",
+      "answer": "募集资金拟投资项目包括：仓储及物流中心、研发中心、电子商务平台、扩充产品种类和数量、其他与主营业务相关的营运资金。[来源：招股说明书2.pdf，PDF第22页]",
+      "pages": [
+        306,
+        31,
+        329,
+        22,
+        330,
+        144,
+        326,
+        307,
+        302,
+        264,
+        9
+      ],
+      "answer_keyword_coverage": 1.0,
+      "evidence_keyword_recall": 1.0,
+      "seconds": 0.2467,
+      "search": {
+        "strategy": "全文检索",
+        "fusion": "加权平均",
+        "reranker": "TF-IDF",
+        "vector_candidates": 2153,
+        "fulltext_candidates": 1190,
+        "warning": ""
+      }
+    },
+    {
+      "strategy": "全文检索",
+      "id": 3,
+      "question": "与武汉力源信息技术股份有限公司存在控制关系的关联方是谁，持股比例和本公司关系是什么？",
+      "answer": "赵马克持股比例为42.35%，与本公司关系为公司控股股东。[来源：招股说明书2.pdf，PDF第157页]",
+      "pages": [
+        157,
+        158,
+        165,
+        170,
+        32,
+        171,
+        59,
+        11,
+        148,
+        16,
+        65
+      ],
+      "answer_keyword_coverage": 1.0,
+      "evidence_keyword_recall": 1.0,
+      "seconds": 0.3758,
+      "search": {
+        "strategy": "全文检索",
+        "fusion": "加权平均",
+        "reranker": "TF-IDF",
+        "vector_candidates": 2153,
+        "fulltext_candidates": 935,
+        "warning": ""
+      }
+    },
+    {
+      "strategy": "全文检索",
+      "id": 4,
+      "question": "与武汉力源信息技术股份有限公司不存在控制关系的关联方企业有哪些？",
+      "answer": "不存在控制关系的关联方企业包括：融冰投资、武汉博润、上海博润、听音投资、联众聚源、力源贸易、普芯达。[来源：招股说明书2.pdf，PDF第157页]",
+      "pages": [
+        157,
+        158,
+        165,
+        170,
+        183,
+        59,
+        37,
+        156,
+        342,
+        185,
+        124
+      ],
+      "answer_keyword_coverage": 1.0,
+      "evidence_keyword_recall": 1.0,
+      "seconds": 0.2457,
+      "search": {
+        "strategy": "全文检索",
+        "fusion": "加权平均",
+        "reranker": "TF-IDF",
+        "vector_candidates": 2153,
+        "fulltext_candidates": 753,
+        "warning": ""
+      }
+    },
+    {
+      "strategy": "全文检索",
+      "id": 5,
+      "question": "武汉力源信息技术股份有限公司组织结构图中，销售部有几个部门构成，其中大客户销售部有几个销售处构成？",
+      "answer": "销售部由4个部门构成：电话及网络销售部、渠道销售部、大客户销售部、国际贸易部；大客户销售部下设6个销售处：珠海、深圳、北京、武汉、广州、成都。[来源：招股说明书2.pdf，PDF第39页]",
+      "pages": [
+        39,
+        113,
+        117,
+        239,
+        40,
+        240,
+        106,
+        238,
+        118,
+        136,
+        149,
+        77
+      ],
+      "answer_keyword_coverage": 1.0,
+      "evidence_keyword_recall": 1.0,
+      "seconds": 0.3275,
+      "search": {
+        "strategy": "全文检索",
+        "fusion": "加权平均",
+        "reranker": "TF-IDF",
+        "vector_candidates": 2153,
+        "fulltext_candidates": 752,
+        "warning": ""
+      }
+    },
+    {
+      "strategy": "全文检索",
+      "id": 6,
+      "question": "武汉力源信息技术股份有限公司招股意向书中，从2008年中国IC市场应用结构与增长图中可以看出，增长率最快的是哪个行业？负增长的是哪个行业？",
+      "answer": "增长率最快的是汽车（14.0%）；负增长的是IC卡（-2.0%）。[来源：招股说明书2.pdf，PDF第72页]",
+      "pages": [
+        72,
+        310,
+        83,
+        71,
+        65,
+        89,
+        148,
+        320,
+        133,
+        74,
+        95,
+        290
+      ],
+      "answer_keyword_coverage": 1.0,
+      "evidence_keyword_recall": 1.0,
+      "seconds": 0.5308,
+      "search": {
+        "strategy": "全文检索",
+        "fusion": "加权平均",
+        "reranker": "TF-IDF",
+        "vector_candidates": 2153,
+        "fulltext_candidates": 1156,
+        "warning": ""
+      }
+    },
+    {
+      "strategy": "混合检索",
+      "id": 1,
+      "question": "武汉力源信息技术股份有限公司本次发行股数是多少，占发行后总股本的比例是多少？",
+      "answer": "本次发行1,670万股，占发行后总股本的25.04%。[来源：招股说明书2.pdf，PDF第22页]",
+      "pages": [
+        24,
+        22,
+        2,
+        4,
+        306,
+        55,
+        305,
+        34,
+        249
+      ],
+      "answer_keyword_coverage": 1.0,
+      "evidence_keyword_recall": 1.0,
+      "seconds": 0.2351,
+      "search": {
+        "strategy": "混合检索",
+        "fusion": "加权平均",
+        "reranker": "TF-IDF",
+        "vector_candidates": 2153,
+        "fulltext_candidates": 929,
+        "warning": ""
+      }
+    },
+    {
+      "strategy": "混合检索",
+      "id": 2,
+      "question": "武汉力源信息技术股份有限公司本次募集资金拟投资哪些项目？",
+      "answer": "募集资金拟投资项目包括：仓储及物流中心、研发中心、电子商务平台、扩充产品种类和数量、其他与主营业务相关的营运资金。[来源：招股说明书2.pdf，PDF第22页]",
+      "pages": [
+        22,
+        306,
+        329,
+        31,
+        330,
+        326,
+        307,
+        144,
+        327,
+        264,
+        9
+      ],
+      "answer_keyword_coverage": 1.0,
+      "evidence_keyword_recall": 1.0,
+      "seconds": 0.2298,
+      "search": {
+        "strategy": "混合检索",
+        "fusion": "加权平均",
+        "reranker": "TF-IDF",
+        "vector_candidates": 2153,
+        "fulltext_candidates": 1190,
+        "warning": ""
+      }
+    },
+    {
+      "strategy": "混合检索",
+      "id": 3,
+      "question": "与武汉力源信息技术股份有限公司存在控制关系的关联方是谁，持股比例和本公司关系是什么？",
+      "answer": "赵马克持股比例为42.35%，与本公司关系为公司控股股东。[来源：招股说明书2.pdf，PDF第157页]",
+      "pages": [
+        157,
+        158,
+        165,
+        170,
+        171,
+        37,
+        156,
+        27,
+        161,
+        16,
+        191
+      ],
+      "answer_keyword_coverage": 1.0,
+      "evidence_keyword_recall": 1.0,
+      "seconds": 0.3967,
+      "search": {
+        "strategy": "混合检索",
+        "fusion": "加权平均",
+        "reranker": "TF-IDF",
+        "vector_candidates": 2153,
+        "fulltext_candidates": 935,
+        "warning": ""
+      }
+    },
+    {
+      "strategy": "混合检索",
+      "id": 4,
+      "question": "与武汉力源信息技术股份有限公司不存在控制关系的关联方企业有哪些？",
+      "answer": "不存在控制关系的关联方企业包括：融冰投资、武汉博润、上海博润、听音投资、联众聚源、力源贸易、普芯达。[来源：招股说明书2.pdf，PDF第157页]",
+      "pages": [
+        157,
+        158,
+        170,
+        165,
+        171,
+        198,
+        37,
+        342,
+        156,
+        124,
+        202
+      ],
+      "answer_keyword_coverage": 1.0,
+      "evidence_keyword_recall": 1.0,
+      "seconds": 0.2578,
+      "search": {
+        "strategy": "混合检索",
+        "fusion": "加权平均",
+        "reranker": "TF-IDF",
+        "vector_candidates": 2153,
+        "fulltext_candidates": 753,
+        "warning": ""
+      }
+    },
+    {
+      "strategy": "混合检索",
+      "id": 5,
+      "question": "武汉力源信息技术股份有限公司组织结构图中，销售部有几个部门构成，其中大客户销售部有几个销售处构成？",
+      "answer": "销售部由4个部门构成：电话及网络销售部、渠道销售部、大客户销售部、国际贸易部；大客户销售部下设6个销售处：珠海、深圳、北京、武汉、广州、成都。[来源：招股说明书2.pdf，PDF第39页]",
+      "pages": [
+        39,
+        113,
+        117,
+        114,
+        40,
+        239,
+        309,
+        106,
+        238,
+        103,
+        118,
+        102
+      ],
+      "answer_keyword_coverage": 1.0,
+      "evidence_keyword_recall": 1.0,
+      "seconds": 0.3007,
+      "search": {
+        "strategy": "混合检索",
+        "fusion": "加权平均",
+        "reranker": "TF-IDF",
+        "vector_candidates": 2153,
+        "fulltext_candidates": 752,
+        "warning": ""
+      }
+    },
+    {
+      "strategy": "混合检索",
+      "id": 6,
+      "question": "武汉力源信息技术股份有限公司招股意向书中，从2008年中国IC市场应用结构与增长图中可以看出，增长率最快的是哪个行业？负增长的是哪个行业？",
+      "answer": "增长率最快的是汽车（14.0%）；负增长的是IC卡（-2.0%）。[来源：招股说明书2.pdf，PDF第72页]",
+      "pages": [
+        72,
+        310,
+        83,
+        71,
+        282,
+        65,
+        318,
+        148,
+        320,
+        74,
+        95,
+        290
+      ],
+      "answer_keyword_coverage": 1.0,
+      "evidence_keyword_recall": 1.0,
+      "seconds": 0.4811,
+      "search": {
+        "strategy": "混合检索",
+        "fusion": "加权平均",
+        "reranker": "TF-IDF",
+        "vector_candidates": 2153,
+        "fulltext_candidates": 1156,
+        "warning": ""
+      }
+    }
+  ],
+  "note": "关键词覆盖和召回仅为固定六题自动评测，不等同于人工语义准确率。"
+}

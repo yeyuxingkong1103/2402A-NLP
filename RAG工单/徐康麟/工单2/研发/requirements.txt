@@ -1,0 +1,42 @@
+# =============================================================================
+# 工单2 依赖清单：人工智能NLP-RAG-基于PDF文档的问答系统优化
+# 说明：
+#   1) 本机（离线）**已就绪**的依赖：pymupdf、jieba、numpy、pydantic、requests、
+#      httpx、torch(CPU)、transformers、sentence-transformers、faiss、pytest。
+#   2) 标注「云端可选」的依赖在本机**不可用且无法安装**（断网），系统已提供等价实现，
+#      详见 环境事实.md 2.2：
+#        - 日志   ：loguru 不可用 → app/core/logging_conf.py 自实现 JSON Lines logger（API 兼容）
+#        - 稀疏检索：rank_bm25 不可用 → app/core/bm25_index.py 自实现 PureBM25（k1=1.5,b=0.75）
+#        - 向量库 ：chromadb 不可用 → numpy 精确检索（2967~3000 条规模足够）
+#        - 前端   ：streamlit 不可用 → 本机走 app/ui/serve_fallback.py（标准库 http.server）；
+#                   streamlit_app.py 保持真正的 Streamlit 写法，云端直接 `streamlit run`
+#        - 表格   ：pdfplumber 不可用 → PyMuPDF page.find_tables()（等价实现，代码内已声明）
+#        - 评估   ：ragas 不可用 → 确定性判分（工单1 check_answer，未放宽）+ 检索/引用/首字指标
+#   3) 本清单不声称已在本机安装任何「云端可选」依赖。
+# =============================================================================
+
+# ---- 核心（本机已具备） ----
+pymupdf>=1.24.0            # PyMuPDF：文本 + find_tables() 表格提取
+jieba>=0.42.1              # 中文分词（BM25）
+numpy>=1.26.0              # 向量检索 / 归一化
+pydantic>=2.5.0            # 数据契约
+requests>=2.31.0           # HTTP（Ollama / OpenAI 兼容后端）
+httpx>=0.26.0              # 备用 HTTP 客户端
+fastapi>=0.109.0           # 预留 API 服务化（本机未启用）
+uvicorn>=0.27.0            # 预留 ASGI 服务器
+
+# ---- 降级/可选（本机不可用，代码已提供等价路径） ----
+sentence-transformers>=2.3.1   # 降级嵌入 bge-small-zh-v1.5（512 维），需本地模型目录
+torch>=2.0.0                   # sentence-transformers 依赖（本机为 CPU 版，无 CUDA）
+faiss-cpu>=1.7.4               # 可选：大规模向量检索（本机用 numpy）
+streamlit>=1.30.0              # 前端（云端安装后：streamlit run app/ui/streamlit_app.py）
+loguru>=0.7.0                  # 可选：安装后日志控制台走 loguru（文件结构不变）
+rank-bm25>=0.2.2               # 可选：安装后 BM25 走 rank_bm25（接口不变）
+openai>=1.10.0                 # 可选：OpenAI 兼容后端（vLLM/SGLang）客户端
+chromadb>=0.4.0                # 可选：大规模向量库（本机用 numpy）
+pandas>=2.0.0                  # 可选：报表导出
+matplotlib>=3.8.0              # 可选：图表
+ragas>=0.1.0                   # 可选：RAGAS 指标（本机未运行，报告中显式标注）
+
+# ---- 测试 ----
+pytest>=7.4.4

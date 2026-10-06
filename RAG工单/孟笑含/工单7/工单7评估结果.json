@@ -1,0 +1,125 @@
+{
+  "summary": {
+    "total_questions": 10,
+    "avg_accuracy": 0.85,
+    "avg_recall": 0.94,
+    "avg_response_time": 0.236,
+    "hit_rate": "100%"
+  },
+  "details": [
+    {
+      "id": 1,
+      "question": "平安银行在2019年的董事长致辞中，提到其盈利增长的关键因素有哪些？",
+      "accuracy": 0.95,
+      "recall": 1.0,
+      "response_time": 0.343,
+      "analysis": "完整命中董事长致辞关键因素",
+      "retrieved_docs": [
+        "2019年_中国平安_601318_年度报告.pdf",
+        "2019年_平安银行_000001_年度报告.pdf"
+      ]
+    },
+    {
+      "id": 2,
+      "question": "招商银行在其2019年年报中提到的创新商业模式有哪些？",
+      "accuracy": 0.75,
+      "recall": 0.9,
+      "response_time": 0.24,
+      "analysis": "命中金融科技投入，未完全覆盖创新商业模式",
+      "retrieved_docs": [
+        "2019年_招商银行_600036_年度报告.pdf"
+      ]
+    },
+    {
+      "id": 3,
+      "question": "平安银行的风险管理体系如何体现其应对宏观经济周期波动的能力？",
+      "accuracy": 0.95,
+      "recall": 1.0,
+      "response_time": 0.252,
+      "analysis": "完整命中风险管理体系章节",
+      "retrieved_docs": [
+        "2019年_平安银行_000001_年度报告.pdf"
+      ]
+    },
+    {
+      "id": 4,
+      "question": "分析这些银行和保险公司在面对经济周期波动时的共同策略与差异化策略。",
+      "accuracy": 0.6,
+      "recall": 0.7,
+      "response_time": 0.265,
+      "analysis": "多文档对比分析，只命中部分（跨文档问题）",
+      "retrieved_docs": [
+        "2019年_中国平安_601318_年度报告.pdf",
+        "2019年_平安银行_000001_年度报告.pdf",
+        "2021年_中国太平_601601_年度报告.pdf"
+      ]
+    },
+    {
+      "id": 5,
+      "question": "平安银行2019年营业收入是多少？",
+      "accuracy": 0.95,
+      "recall": 1.0,
+      "response_time": 0.206,
+      "analysis": "精确命中1,379亿元",
+      "retrieved_docs": [
+        "2019年_中国平安_601318_年度报告.pdf",
+        "2019年_平安银行_000001_年度报告.pdf"
+      ]
+    },
+    {
+      "id": 6,
+      "question": "中国平安2019年归属于母公司股东的净利润是多少？",
+      "accuracy": 0.95,
+      "recall": 1.0,
+      "response_time": 0.257,
+      "analysis": "精确命中1,494亿元",
+      "retrieved_docs": [
+        "2019年_中国平安_601318_年度报告.pdf"
+      ]
+    },
+    {
+      "id": 7,
+      "question": "招商银行2019年不良贷款率是多少？",
+      "accuracy": 0.9,
+      "recall": 1.0,
+      "response_time": 0.18,
+      "analysis": "表格命中不良率数据",
+      "retrieved_docs": [
+        "2019年_招商银行_600036_年度报告.pdf"
+      ]
+    },
+    {
+      "id": 8,
+      "question": "中信证券2020年营业收入是多少？",
+      "accuracy": 0.9,
+      "recall": 1.0,
+      "response_time": 0.201,
+      "analysis": "命中营业收入143亿元",
+      "retrieved_docs": [
+        "2020年_中信证券_600030_年度报告.pdf"
+      ]
+    },
+    {
+      "id": 9,
+      "question": "中国人寿2020年保费收入是多少？",
+      "accuracy": 0.7,
+      "recall": 0.8,
+      "response_time": 0.213,
+      "analysis": "命中致辞，未给具体保费数字",
+      "retrieved_docs": [
+        "2020年_中国人寿_601628_年度报告.pdf"
+      ]
+    },
+    {
+      "id": 10,
+      "question": "国泰君安2021年营业收入是多少？",
+      "accuracy": 0.85,
+      "recall": 1.0,
+      "response_time": 0.203,
+      "analysis": "命中营业收入，数字略不完整",
+      "retrieved_docs": [
+        "2021年_国泰君安_601211_年度报告.pdf"
+      ]
+    }
+  ]
+}

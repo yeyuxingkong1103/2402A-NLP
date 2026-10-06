@@ -1,0 +1,29 @@
+{
+  "target": {
+    "context_precision": 0.8,
+    "context_recall": 0.9
+  },
+  "results": [
+    {
+      "query": "主营业务是什么",
+      "baseline_context_recall": 1.0,
+      "optimized_context_recall": 1.0,
+      "context_precision": 1.0
+    },
+    {
+      "query": "募集资金用途",
+      "baseline_context_recall": 1.0,
+      "optimized_context_recall": 1.0,
+      "context_precision": 1.0
+    },
+    {
+      "query": "公司风险",
+      "baseline_context_recall": 1.0,
+      "optimized_context_recall": 1.0,
+      "context_precision": 0.667
+    }
+  ],
+  "passed": false,
+  "evaluator": "deterministic lexical evaluator",
+  "note": "这是无外部 LLM 的确定性评估框架；如配置 RAGAS，可用其同名指标复核。"
+}

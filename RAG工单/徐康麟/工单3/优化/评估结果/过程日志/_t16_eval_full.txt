@@ -1,0 +1,14 @@
+==============================================================================
+模式 offline / run=t16 / 后端 ollama（qwen2.5:3b）
+准确率 14/14 = 100.0%（错题 无）
+作答 14/14；误拒答 无
+召回命中 14/14（严格 golden evidence 口径 13/14，差集 [207]）
+引用可回溯 14/14 = 100.0%
+首字 max=655.06 ms（预算 3000，达标=True）/ avg=207.09 / p95=655.06；>1000ms 题=无
+不清楚正确率 1.0（6/6）；judge=工单1 Evaluator.check_answer（只读子进程；见 优化/脚本/ref_judge_runner.py）
+产物 E:\gao6gongdan\工单3\优化\评估结果\qa_results.t16.csv（17077 B）
+产物 E:\gao6gongdan\工单3\优化\评估结果\accuracy_report.t16.json（62655 B）
+产物 E:\gao6gongdan\工单3\优化\评估结果\accuracy_report.t16.md（17625 B）
+产物 E:\gao6gongdan\工单3\优化\评估结果\ragas_report.t16.md（3385 B）
+清单 E:\gao6gongdan\工单3\优化\评估结果\eval_manifest.t16.json
+⚠️ RAGAS 未运行（依赖不可用，本机断网）

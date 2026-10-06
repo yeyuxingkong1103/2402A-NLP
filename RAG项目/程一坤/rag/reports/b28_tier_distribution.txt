@@ -1,0 +1,36 @@
+== 1) 三轮护栏档位分布（每轮 20 题）==
+
+  [before] 2026-09-22 16:15:49 +0800
+      citation_check_passed                2 题
+      citation_warning_no_citation         14 题
+      citation_warning_unknown_law         2 题
+      citation_check_failed                2 题
+
+  [after1] 2026-09-22 16:18:36 +0800
+      citation_check_passed                3 题
+      citation_warning_no_citation         16 题
+      citation_warning_uncited_conclusion  1 题
+
+  [after2] 2026-09-22 16:22:20 +0800
+      citation_check_passed                5 题
+      citation_warning_no_citation         13 题
+      citation_warning_uncited_conclusion  1 题
+      citation_check_failed                1 题
+
+== 2) after 轮触发 uncited_conclusion 的题，与 before 轮同题对照 ==
+
+  题干 id=direct-016 （来源轮次 after1）
+    问题：我给公司造成损失，公司能从我工资里扣钱赔偿吗？每月最多扣多少？
+    after 档位：citation_warning_uncited_conclusion
+    after 回答长度：854 字；含警示行：是
+    before 档位：citation_check_passed
+    before 是否整段替换：否
+    before 回答长度：821 字
+
+  题干 id=cross-018 （来源轮次 after2）
+    问题：我被公司辞退了，最后一个月工资什么时候必须结清？解除合同后公司还要给我办什么手续？
+    after 档位：citation_warning_uncited_conclusion
+    after 回答长度：779 字；含警示行：是
+    before 档位：citation_warning_no_citation
+    before 是否整段替换：否
+    before 回答长度：880 字

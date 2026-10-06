@@ -1,0 +1,19 @@
+:root { color: #1f2937; background: #f3f6fa; font-family: Inter, "Microsoft YaHei", sans-serif; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+.app-shell { min-height: 100vh; }
+.topbar { background: #0b2748; display: flex; align-items: center; justify-content: space-between; padding: 0 28px; }
+.brand { color: white; font-size: 20px; font-weight: 700; letter-spacing: 1px; }
+.sidebar { background: white; padding: 22px 16px; overflow-y: auto; }
+.content { padding: 24px; }
+.chat-card, .citation-card { min-height: 620px; border-radius: 12px; }
+.answer-area { min-height: 300px; padding: 16px 8px; }
+.answer-text { background: #f6f9fc; border-left: 4px solid #1677ff; border-radius: 6px; padding: 18px; white-space: pre-wrap; font-size: 16px; line-height: 1.85; }
+.composer { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; }
+.doc-item, .selected-doc { padding: 10px; cursor: pointer; border-radius: 8px; }
+.selected-doc { background: #e6f4ff; }
+.question-link { display: block; height: auto; padding: 7px 0; text-align: left; white-space: normal; }
+.citation-card { max-height: 760px; overflow: auto; }
+.citation-text { margin: 10px 0 4px; font-size: 13px; line-height: 1.7; white-space: pre-wrap; }
+.notice { margin-top: 16px; }
+@media (max-width: 900px) { .sidebar { width: 100% !important; max-width: none; } .content { padding: 12px; } .topbar { padding: 0 14px; } .brand { font-size: 16px; } }

@@ -1,0 +1,225 @@
+/* 极简样式：系统字体、单一主色、居中布局 */
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --text: #1f2937;
+  --text-muted: #6b7280;
+  --bg: #f9fafb;
+  --border: #e5e7eb;
+  --user-bubble: #2563eb;
+  --assistant-bubble: #f3f4f6;
+  --radius: 8px;
+}
+
+* { box-sizing: border-box; }
+
+/* 保证 hidden 属性始终生效，避免元素自身的 display 规则（如 .chat-wrap 的 flex）把它覆盖 */
+[hidden] { display: none !important; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Microsoft YaHei", Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ---------- 全局提示条 ---------- */
+.toast {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background: #dc2626;
+  color: #fff;
+  border-radius: var(--radius);
+  font-size: 14px;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.toast.success { background: #16a34a; }
+
+/* ---------- 登录/注册卡片 ---------- */
+.auth-card {
+  max-width: 380px;
+  margin: 80px auto;
+  padding: 32px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+.title {
+  margin: 0 0 4px;
+  font-size: 22px;
+  font-weight: 600;
+}
+.subtitle {
+  margin: 0 0 24px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.field span {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.field input, .field select {
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+  background: #fff;
+  color: var(--text);
+}
+.field input:focus, .field select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+.link {
+  display: block;
+  margin-top: 18px;
+  text-align: center;
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 14px;
+}
+.link:hover { text-decoration: underline; }
+
+/* ---------- 按钮 ---------- */
+.btn {
+  padding: 9px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-primary:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { background: #f3f4f6; color: var(--text); }
+
+/* ---------- 聊天视图 ---------- */
+.chat-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+}
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  background: #fff;
+}
+.domain-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.domain-picker label {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+#domain-select {
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+  background: #fff;
+}
+.header-actions { display: flex; gap: 8px; }
+
+/* 消息区 */
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.msg {
+  max-width: 75%;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.6;
+}
+.msg.user {
+  align-self: flex-end;
+  background: var(--user-bubble);
+  color: #fff;
+  border-bottom-right-radius: 2px;
+}
+.msg.assistant {
+  align-self: flex-start;
+  background: var(--assistant-bubble);
+  color: var(--text);
+  border-bottom-left-radius: 2px;
+}
+.msg.assistant.streaming::after {
+  content: "▋";
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 1s steps(2) infinite;
+  color: var(--text-muted);
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* 输入栏 */
+.chat-input {
+  display: flex;
+  gap: 10px;
+  padding: 14px 20px;
+  border-top: 1px solid var(--border);
+  background: #fff;
+}
+#question-input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+  resize: none;
+  max-height: 140px;
+  font-family: inherit;
+  line-height: 1.5;
+}
+#question-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}

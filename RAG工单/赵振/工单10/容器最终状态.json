@@ -1,0 +1,97 @@
+{
+  "CheckedAt": "2026-10-05T17:00:05.1907040+08:00",
+  "State": {
+    "Status": "running",
+    "Running": true,
+    "Paused": false,
+    "Restarting": false,
+    "OOMKilled": false,
+    "Dead": false,
+    "Pid": 5796,
+    "ExitCode": 0,
+    "Error": "",
+    "StartedAt": "2026-10-05T08:54:48.651784084Z",
+    "FinishedAt": "0001-01-01T00:00:00Z",
+    "Health": {
+      "Status": "healthy",
+      "FailingStreak": 0,
+      "Log": [
+        {
+          "Start": "2026-10-05T08:58:57.324853279Z",
+          "End": "2026-10-05T08:58:57.431502611Z",
+          "ExitCode": 0,
+          "Output": ""
+        },
+        {
+          "Start": "2026-10-05T08:59:12.433121467Z",
+          "End": "2026-10-05T08:59:12.58179244Z",
+          "ExitCode": 0,
+          "Output": ""
+        },
+        {
+          "Start": "2026-10-05T08:59:29.677198011Z",
+          "End": "2026-10-05T08:59:29.77818969Z",
+          "ExitCode": 0,
+          "Output": ""
+        },
+        {
+          "Start": "2026-10-05T08:59:44.780270116Z",
+          "End": "2026-10-05T08:59:44.890249782Z",
+          "ExitCode": 0,
+          "Output": ""
+        },
+        {
+          "Start": "2026-10-05T09:00:00.854489583Z",
+          "End": "2026-10-05T09:00:01.120748876Z",
+          "ExitCode": 0,
+          "Output": ""
+        }
+      ]
+    }
+  },
+  "Mounts": [
+    {
+      "Type": "volume",
+      "Name": "zhaozhen-finance-data",
+      "Source": "/var/lib/docker/volumes/zhaozhen-finance-data/_data",
+      "Destination": "/app/data",
+      "Driver": "local",
+      "Mode": "rw",
+      "RW": true,
+      "Propagation": ""
+    }
+  ],
+  "Network": {
+    "zhaozhen-finance-net": {
+      "IPAMConfig": null,
+      "Links": null,
+      "Aliases": [
+        "zhaozhen-finance-10",
+        "finance"
+      ],
+      "DriverOpts": null,
+      "GwPriority": 0,
+      "NetworkID": "d9462b4c6d6fa59af41c7d88bfde1c05b919658537447e4d6748e80e5de232e8",
+      "EndpointID": "ac56b6da912076d1a0b268d1be645050419e42d0052d60e737f11d6abdb28930",
+      "Gateway": "172.18.0.1",
+      "IPAddress": "172.18.0.2",
+      "MacAddress": "ee:54:d3:5d:b4:82",
+      "IPPrefixLen": 16,
+      "IPv6Gateway": "",
+      "GlobalIPv6Address": "",
+      "GlobalIPv6PrefixLen": 0,
+      "DNSNames": [
+        "zhaozhen-finance-10",
+        "finance",
+        "5e801f772f84"
+      ]
+    }
+  },
+  "Image": "sha256:a4f515e4fcb25892f61cefde908d580edf09411b14638ee90c9f8d447951a1a9",
+  "Logs": "INFO:     127.0.0.1:54452 - \"GET /health HTTP/1.1\" 200 OK\r\nINFO:     127.0.0.1:35490 - \"GET /health HTTP/1.1\" 200 OK\r\nINFO:     127.0.0.1:42268 - \"GET /health HTTP/1.1\" 200 OK\r\nINFO:     127.0.0.1:45480 - \"GET /health HTTP/1.1\" 200 OK\r\nINFO:     127.0.0.1:53450 - \"GET /health HTTP/1.1\" 200 OK\r\nINFO:     127.0.0.1:43546 - \"GET /health HTTP/1.1\" 200 OK\r\nINFO:     127.0.0.1:36306 - \"GET /health HTTP/1.1\" 200 OK\r\nINFO:     127.0.0.1:55478 - \"GET /health HTTP/1.1\" 200 OK\r\nINFO:     127.0.0.1:55382 - \"GET /health HTTP/1.1\" 200 OK\r\nINFO:     127.0.0.1:36732 - \"GET /health HTTP/1.1\" 200 OK\r\nINFO:     127.0.0.1:45112 - \"GET /health HTTP/1.1\" 200 OK\r\nINFO:     127.0.0.1:52764 - \"GET /health HTTP/1.1\" 200 OK\r\nINFO:     127.0.0.1:55430 - \"GET /health HTTP/1.1\" 200 OK\r\nINFO:     127.0.0.1:52692 - \"GET /health HTTP/1.1\" 200 OK\r\nINFO:     127.0.0.1:34016 - \"GET /health HTTP/1.1\" 200 OK\r\nINFO:     127.0.0.1:33602 - \"GET /health HTTP/1.1\" 200 OK\r\nINFO:     127.0.0.1:49940 - \"GET /health HTTP/1.1\" 200 OK\r\nINFO:     127.0.0.1:39274 - \"GET /health HTTP/1.1\" 200 OK\r\nINFO:     127.0.0.1:55026 - \"GET /health HTTP/1.1\" 200 OK\r\nINFO:     Started server process [1]\r\nINFO:     Waiting for application startup.\r\nINFO:     Application startup complete.\r\nINFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)\r\n",
+  "Resources": "{\"BlockIO\":\"57.3kB / 1.5MB\",\"CPUPerc\":\"0.16%\",\"Container\":\"zhaozhen-finance-10\",\"ID\":\"5e801f772f84\",\"MemPerc\":\"6.60%\",\"MemUsage\":\"258.6MiB / 3.825GiB\",\"Name\":\"zhaozhen-finance-10\",\"NetIO\":\"914B / 126B\",\"PIDs\":\"2\"}",
+  "Health": {
+    "status": "ok",
+    "pages": 2812
+  }
+}

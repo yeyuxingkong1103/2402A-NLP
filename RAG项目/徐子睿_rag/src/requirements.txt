@@ -1,0 +1,44 @@
+# ============================================================
+# RAG Roleplay System —— Python 依赖清单
+# 安装：python -m pip install -r requirements.txt
+#
+# 说明：本文件覆盖两条主线（backend/ 与 src/）以及可选工具的全部依赖。
+# 若只想跑通最简形态，其实不需要装 FlagEmbedding（模型推理）——
+# 配合 .env 里的 EMBEDDING_BACKEND=hash 与 LLM_BACKEND=mock 即可跳过模型。
+# ============================================================
+
+# Web/API
+fastapi==0.133.1          # Web 框架，两条主线都用它（backend/server.py 与 src/api/main.py）
+uvicorn==0.41.0           # ASGI 服务器，实际跑 FastAPI 应用的进程
+python-multipart==0.0.32  # 解析 multipart/form-data，文件上传接口（/api/upload、/kb/upload）必需
+                          # 注意：import 名是 multipart，pip 包名是 python-multipart，两者不一致
+pydantic>=2.0             # 数据校验与序列化，所有请求/响应模型的基础
+pydantic-settings>=2.0    # 从 .env 与环境变量读配置（configs/settings.py 用它）
+requests==2.33.0          # 调 Ollama 的 HTTP 接口（向量化、生成、精排都走它）
+PyJWT>=2.8                # 签发与校验 JWT（src/api/deps.py 的登录鉴权）
+
+# Data stores
+sqlalchemy>=2.0           # ORM，映射关系库表结构（src/models/database.py）
+pymysql>=1.1              # MySQL 驱动。只用 SQLite 降级形态时其实用不到，但装上无副作用
+pymilvus==2.5.6           # Milvus 客户端，向量库读写。版本需与 Milvus 服务端（2.5.6）匹配
+redis>=5.0                # 短期记忆与检索缓存。不装也能跑（自动降级为进程内字典）
+
+# Parsing / NLP
+pymupdf>=1.24             # 即 fitz，PDF 文本层提取（src/offline/parsers.py 的主力解析器）
+pdfplumber>=0.11          # PDF 表格提取（比 pymupdf 强），解析时优先用它拿表格
+jieba==0.42.1             # 中文分词，BM25 关键词检索的基础（backend/retrieval.py）
+pypdf==5.1.0              # 轻量 PDF 解析，MinerU 不可用时的兜底方案
+
+# Models / eval / tests
+FlagEmbedding>=1.2.10     # BGE-M3 向量化与 BGE Reranker 精排。仅 EMBEDDING_BACKEND=flag 时需要，是个重依赖
+pytest>=8.0               # 测试框架（tests/unit、tests/integration 用）
+ragas>=0.2                # 可选：生成质量评测（faithfulness / answer_relevancy 等）
+locust>=2.30              # 可选：压测工具（scripts/load_test.py）
+
+# 可选：MinerU / PaddleOCR 按需安装
+# 两者都是重型依赖且体积大，默认注释掉。
+# 需要解析复杂版面 PDF（表格/公式/扫描件）时再单独安装：
+#   MinerU    配合 RAG_PARSER=mineru（backend 主线）或 RAG_OCR_PARSER=mineru（src 主线）
+#   PaddleOCR 配合 RAG_OCR_PARSER=paddleocr，用于纯扫描件
+# mineru
+# paddleocr

@@ -1,0 +1,224 @@
+{
+  "info": {
+    "_postman_id": "bc200add-149b-4c91-8113-6e6a0624e8c6",
+    "name": "RAG多角色扮演系统",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "基于 RAG 的多角色扮演系统接口集合"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://127.0.0.1:8000" },
+    { "key": "user_id", "value": "u1" },
+    { "key": "role_id", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "{{base_url}}/health", "host": ["{{base_url}}"], "path": ["health"] }
+      }
+    },
+    {
+      "name": "roles",
+      "item": [
+        {
+          "name": "list",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{base_url}}/roles", "host": ["{{base_url}}"], "path": ["roles"] }
+          }
+        },
+        {
+          "name": "get",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/roles/{{role_id}}",
+              "host": ["{{base_url}}"], "path": ["roles", "{{role_id}}"]
+            }
+          }
+        },
+        {
+          "name": "create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role_name\": \"测试角色\",\n  \"domain\": \"general\",\n  \"description\": \"示例\",\n  \"opening\": \"你好\",\n  \"system_prompt\": \"你是一个测试角色。\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{base_url}}/roles", "host": ["{{base_url}}"], "path": ["roles"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "chat",
+      "item": [
+        {
+          "name": "chat",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"{{user_id}}\",\n  \"role_id\": 1,\n  \"message\": \"猎捕国家重点保护野生动物怎么处罚？\",\n  \"use_rag\": true\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{base_url}}/chat", "host": ["{{base_url}}"], "path": ["chat"] }
+          }
+        },
+        {
+          "name": "chat_stream",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"{{user_id}}\",\n  \"role_id\": 1,\n  \"message\": \"你好\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{base_url}}/chat_stream", "host": ["{{base_url}}"], "path": ["chat_stream"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "knowledge",
+      "item": [
+        {
+          "name": "docs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{base_url}}/kb/docs", "host": ["{{base_url}}"], "path": ["kb", "docs"] }
+          }
+        },
+        {
+          "name": "upload_pdf",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "file", "type": "file", "src": [] },
+                { "key": "domain", "value": "law", "type": "text" },
+                { "key": "parser", "value": "auto", "type": "text" }
+              ]
+            },
+            "url": { "raw": "{{base_url}}/upload_pdf", "host": ["{{base_url}}"], "path": ["upload_pdf"] }
+          }
+        },
+        {
+          "name": "ingest_dir",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "domain", "value": "law", "type": "text" },
+                { "key": "parser", "value": "auto", "type": "text" }
+              ]
+            },
+            "url": { "raw": "{{base_url}}/kb/ingest_dir", "host": ["{{base_url}}"], "path": ["kb", "ingest_dir"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "memory",
+      "item": [
+        {
+          "name": "clear",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/clear?user_id={{user_id}}&role_id=1",
+              "host": ["{{base_url}}"], "path": ["clear"],
+              "query": [
+                { "key": "user_id", "value": "{{user_id}}" },
+                { "key": "role_id", "value": "1" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "session",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/memory/{{user_id}}/1",
+              "host": ["{{base_url}}"], "path": ["memory", "{{user_id}}", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "ops",
+      "item": [
+        {
+          "name": "redis_stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{base_url}}/ops/redis/stats", "host": ["{{base_url}}"], "path": ["ops", "redis", "stats"] }
+          }
+        },
+        {
+          "name": "redis_keys",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/ops/redis/keys?pattern=*",
+              "host": ["{{base_url}}"], "path": ["ops", "redis", "keys"],
+              "query": [{ "key": "pattern", "value": "*" }]
+            }
+          }
+        },
+        {
+          "name": "milvus_stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{base_url}}/ops/milvus/stats", "host": ["{{base_url}}"], "path": ["ops", "milvus", "stats"] }
+          }
+        },
+        {
+          "name": "milvus_entities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/ops/milvus/entities?limit=10",
+              "host": ["{{base_url}}"], "path": ["ops", "milvus", "entities"],
+              "query": [{ "key": "limit", "value": "10" }]
+            }
+          }
+        },
+        {
+          "name": "milvus_search",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"猎捕野生动物怎么处罚？\",\n  \"domain\": \"law\",\n  \"top_k\": 5\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{base_url}}/ops/milvus/search", "host": ["{{base_url}}"], "path": ["ops", "milvus", "search"] }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>基层高血压 RAG 专家系统</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      --bg: #eef3f5;
+      --surface: #ffffff;
+      --surface-soft: #f4f8f9;
+      --text: #18313d;
+      --muted: #72838b;
+      --line: #d9e4e7;
+      --accent: #0c7c84;
+      --accent-strong: #075d68;
+      --accent-soft: #dff4f1;
+      --user-bubble: #0c7c84;
+      --assistant-bubble: #f1f7f7;
+      --shadow: 0 18px 50px rgba(24, 49, 61, 0.10);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    button, textarea { font: inherit; }
+    button { cursor: pointer; }
+    button:disabled { cursor: wait; opacity: 0.65; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 278px minmax(0, 1fr);
+      width: min(1440px, 100%);
+      min-height: 100vh;
+      margin: 0 auto;
+    }
+
+    aside {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      padding: 34px 24px;
+      border-right: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .brand-mark {
+      display: grid;
+      flex: 0 0 38px;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      color: #fff;
+      background: var(--accent);
+      font-size: 23px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .brand p {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .new-chat,
+    .secondary-button {
+      width: 100%;
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: #fff;
+      background: var(--accent);
+      font-weight: 700;
+      text-align: left;
+      box-shadow: 0 8px 18px rgba(12, 124, 132, 0.22);
+    }
+
+    .sidebar-label {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    .session-list {
+      display: grid;
+      gap: 6px;
+      margin-top: 0;
+    }
+
+    .session-item {
+      width: 100%;
+      overflow: hidden;
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 12px;
+      color: var(--text);
+      background: transparent;
+      font-weight: 500;
+      text-align: left;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .session-item.active,
+    .session-item:hover {
+      color: var(--accent-strong);
+      background: var(--accent-soft);
+    }
+
+    .system-card {
+      margin-top: auto;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface-soft);
+    }
+
+    .system-card p {
+      margin: 0 0 9px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .system-status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2bb673;
+      box-shadow: 0 0 0 4px rgba(43, 182, 115, 0.16);
+    }
+
+    main {
+      min-width: 0;
+      padding: clamp(22px, 4vw, 54px);
+    }
+
+    .content-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .content-header h2 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 34px);
+      letter-spacing: -.03em;
+    }
+
+    .content-header p {
+      max-width: 540px;
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .mode-pill {
+      flex: 0 0 auto;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--accent-strong);
+      background: var(--surface);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .panel {
+      margin-bottom: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .chat-panel {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      min-height: 470px;
+      overflow: hidden;
+    }
+
+    .chat-title-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .chat-title-bar h3 {
+      margin: 0;
+      overflow: hidden;
+      font-size: 14px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .chat-title-bar span {
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .chat-body {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      min-height: 0;
+    }
+
+    .notice {
+      margin: 18px 22px 0;
+      padding: 12px 14px;
+      border-radius: 12px;
+      color: #23506b;
+      background: #eef7ff;
+      line-height: 1.6;
+    }
+
+    .notice.fallback {
+      color: #8a5300;
+      background: #fff7e6;
+    }
+
+    .messages {
+      display: grid;
+      align-content: start;
+      justify-items: start;
+      align-items: start;
+      gap: 16px;
+      min-height: 320px;
+      padding: 28px clamp(18px, 4vw, 48px);
+      background: linear-gradient(180deg, var(--surface), var(--surface-soft));
+    }
+
+    .message {
+      display: inline-block;
+      width: fit-content;
+      max-width: min(86%, 680px);
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 4px 16px 16px 16px;
+      color: var(--text);
+      background: var(--assistant-bubble);
+      line-height: 1.7;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .message.user {
+      justify-self: end;
+      max-width: min(78%, 560px);
+      border: 0;
+      border-radius: 16px 4px 16px 16px;
+      color: #fff;
+      background: var(--user-bubble);
+    }
+
+    .composer-panel {
+      padding: 18px 22px;
+    }
+
+    .question-composer {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: end;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 54px;
+      height: 54px;
+      resize: none;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      outline: 0;
+      color: var(--text);
+      background: var(--surface-soft);
+      font: inherit;
+      line-height: 1.5;
+    }
+
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(12, 124, 132, 0.14);
+    }
+
+    .question-composer button {
+      justify-self: end;
+      border: 0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: #fff;
+      background: var(--accent);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .composer-note {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .sources-panel {
+      padding: 22px;
+    }
+
+    .sources-panel h2 {
+      margin: 0 0 14px;
+      font-size: 17px;
+    }
+
+    .source-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .source {
+      min-width: 0;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      border-left: 1px solid var(--line);
+      background: var(--surface-soft);
+      line-height: 1.7;
+    }
+
+    .source-index {
+      display: inline-grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      margin-bottom: 10px;
+      border-radius: 7px;
+      color: var(--accent-strong);
+      background: var(--accent-soft);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .source-content {
+      display: block;
+      color: var(--text);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .muted { color: var(--muted); font-size: 13px; }
+    .error { color: #b42318; font-size: 13px; }
+
+    @media (max-width: 850px) {
+      .layout { grid-template-columns: 1fr; }
+      aside { gap: 18px; border-right: 0; border-bottom: 1px solid var(--line); padding: 20px; }
+      .system-card { display: none; }
+      main { padding: 24px 16px; }
+      .content-header { flex-direction: column; }
+      .source-list { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 540px) {
+      .question-composer { grid-template-columns: 1fr; }
+      .question-composer button { width: 100%; }
+      .message { max-width: 92%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside>
+      <div class="brand">
+        <div class="brand-mark">+</div>
+        <div>
+          <h1>基层高血压<br />RAG 专家系统</h1>
+          <p>基层医疗知识助手</p>
+        </div>
+      </div>
+
+      <button id="new-session-button" class="new-chat secondary-button" type="button">＋ 新建会话</button>
+      <div class="muted" id="session-status"></div>
+
+      <section>
+        <p class="sidebar-label">最近会话</p>
+        <div id="session-list" class="session-list"></div>
+      </section>
+
+      <div class="system-card">
+        <p>知识库状态</p>
+        <div class="system-status"><i class="status-dot"></i> Milvus 已连接</div>
+      </div>
+    </aside>
+
+    <main>
+      <header class="content-header">
+        <div>
+          <p class="eyebrow">Knowledge-grounded assistant</p>
+          <h2>你好，今天想了解什么？</h2>
+          <p>基于本地指南和专业资料回答，回答会保留检索来源，方便核对依据。</p>
+        </div>
+        <div class="mode-pill">本地知识库 · RAG</div>
+      </header>
+
+      <section class="panel chat-panel">
+        <header class="chat-title-bar">
+          <h3 id="chat-title">当前会话</h3>
+          <span>短期对话记忆已启用</span>
+        </header>
+        <div class="chat-body">
+          <div id="answer-notice" class="notice" hidden></div>
+          <div id="messages" class="messages">
+            <div class="muted">请选择历史会话，或直接输入问题开始新会话。</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel composer-panel">
+        <form id="chat-form">
+          <div class="question-composer">
+            <textarea id="question" required aria-label="问题输入" placeholder="输入你的问题……">氨氯地平的禁忌证是什么？</textarea>
+            <button id="submit-button" type="submit">发送问题</button>
+          </div>
+          <div class="actions">
+            <span id="status" class="muted" role="status"></span>
+          </div>
+          <p class="composer-note">回答仅供学习和辅助参考，不能替代医生面对面诊疗。</p>
+        </form>
+      </section>
+
+      <section class="panel sources-panel">
+        <h2>检索依据</h2>
+        <div id="sources" class="source-list">
+          <div class="muted">基于知识库回答时显示 Top-5 来源；大模型兜底时不会显示数据库来源。</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const form = document.querySelector('#chat-form');
+    const question = document.querySelector('#question');
+    const submitButton = document.querySelector('#submit-button');
+    const statusBox = document.querySelector('#status');
+    const sourcesBox = document.querySelector('#sources');
+    const sessionStatus = document.querySelector('#session-status');
+    const sessionList = document.querySelector('#session-list');
+    const newSessionButton = document.querySelector('#new-session-button');
+    const messagesBox = document.querySelector('#messages');
+    const answerNotice = document.querySelector('#answer-notice');
+    const chatTitle = document.querySelector('#chat-title');
+    const userId = localStorage.getItem('rag-user-id') || crypto.randomUUID();
+    let sessionId = localStorage.getItem('rag-session-id') || crypto.randomUUID();
+    localStorage.setItem('rag-user-id', userId);
+    localStorage.setItem('rag-session-id', sessionId);
+
+    function updateSessionStatus() {
+      sessionStatus.textContent = `当前会话：${sessionId.slice(0, 8)}...`;
+    }
+
+    function appendMessage(role, content) {
+      if (messagesBox.querySelector('.muted')) messagesBox.replaceChildren();
+      const item = document.createElement('div');
+      item.className = `message ${role}`;
+      item.textContent = content;
+      messagesBox.appendChild(item);
+    }
+
+    function renderMessages(messages) {
+      messagesBox.replaceChildren();
+      if (!messages.length) {
+        const empty = document.createElement('div');
+        empty.className = 'muted';
+        empty.textContent = '这个会话还没有消息。';
+        messagesBox.appendChild(empty);
+        return;
+      }
+      messages.forEach((message) => appendMessage(message.role, message.content));
+    }
+
+    function resetResult() {
+      answerNotice.hidden = true;
+      sourcesBox.replaceChildren();
+    }
+
+    function renderSources(sources) {
+      sourcesBox.replaceChildren();
+      if (!sources.length) {
+        const empty = document.createElement('div');
+        empty.className = 'muted';
+        empty.textContent = '本次回答没有数据库来源。';
+        sourcesBox.appendChild(empty);
+        return;
+      }
+      sources.forEach((source, index) => {
+        const card = document.createElement('article');
+        card.className = 'source';
+        const indexLabel = document.createElement('span');
+        indexLabel.className = 'source-index';
+        indexLabel.textContent = String(index + 1).padStart(2, '0');
+        const content = document.createElement('span');
+        content.className = 'source-content';
+        content.textContent = `${source.section_path || '未标注章节'}｜类型：${source.chunk_type || '未标注'}｜Rerank：${Number(source.rerank_score || 0).toFixed(4)}`;
+        card.append(indexLabel, content);
+        sourcesBox.appendChild(card);
+      });
+    }
+
+    function renderNotice(data) {
+      answerNotice.hidden = false;
+      answerNotice.className = data.answer_mode === 'llm_fallback' ? 'notice fallback' : 'notice';
+      answerNotice.textContent = data.notice || (data.answer_mode === 'llm_fallback' ? '本回答由大模型兜底生成，不是基于数据库。' : '本回答基于本地知识库检索结果生成。');
+    }
+
+    async function loadSessions() {
+      const response = await fetch(`/sessions?user_id=${encodeURIComponent(userId)}`);
+      if (!response.ok) throw new Error('会话列表加载失败');
+      const sessions = await response.json();
+      sessionList.replaceChildren();
+      if (!sessions.length) {
+        const empty = document.createElement('div');
+        empty.className = 'muted';
+        empty.textContent = '暂无历史会话。';
+        sessionList.appendChild(empty);
+        return;
+      }
+      sessions.forEach((session) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = `session-item ${session.session_id === sessionId ? 'active' : ''}`;
+        button.textContent = session.title || '未命名会话';
+        button.addEventListener('click', () => selectSession(session.session_id, session.title));
+        sessionList.appendChild(button);
+      });
+    }
+
+    async function selectSession(nextSessionId, title) {
+      sessionId = nextSessionId;
+      localStorage.setItem('rag-session-id', sessionId);
+      chatTitle.textContent = title || '当前会话';
+      updateSessionStatus();
+      resetResult();
+      const response = await fetch(`/sessions/${encodeURIComponent(sessionId)}/messages?user_id=${encodeURIComponent(userId)}`);
+      if (!response.ok) throw new Error('会话消息加载失败');
+      renderMessages(await response.json());
+      await loadSessions();
+    }
+
+    function resetSession() {
+      sessionId = crypto.randomUUID();
+      localStorage.setItem('rag-session-id', sessionId);
+      chatTitle.textContent = '新会话';
+      updateSessionStatus();
+      resetResult();
+      sourcesBox.innerHTML = '<div class="muted">基于知识库回答时显示 Top-5 来源；大模型兜底时不会显示数据库来源。</div>';
+      messagesBox.innerHTML = '<div class="muted">已新建会话，请输入问题。</div>';
+      loadSessions().catch((error) => { statusBox.textContent = error.message; });
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const value = question.value.trim();
+      if (!value) return;
+
+      submitButton.disabled = true;
+      statusBox.className = 'muted';
+      statusBox.textContent = '正在检索和生成答案，请稍候...';
+      resetResult();
+      appendMessage('user', value);
+      question.value = '';
+
+      try {
+        const response = await fetch('/chat', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({question: value, session_id: sessionId, user_id: userId}),
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.detail || '请求失败');
+        if (data.session_id) {
+          sessionId = data.session_id;
+          localStorage.setItem('rag-session-id', sessionId);
+        }
+        statusBox.textContent = `完成 · 耗时 ${data.latency_ms} ms`;
+        renderNotice(data);
+        appendMessage('assistant', data.answer || '未返回回答。');
+        renderSources(data.sources || []);
+        await loadSessions();
+      } catch (error) {
+        statusBox.className = 'error';
+        statusBox.textContent = `错误：${error.message}`;
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
+
+    newSessionButton.addEventListener('click', resetSession);
+    updateSessionStatus();
+    loadSessions().catch((error) => { statusBox.textContent = error.message; });
+  </script>
+</body>
+</html>
