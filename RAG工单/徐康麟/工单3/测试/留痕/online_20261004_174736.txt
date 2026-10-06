@@ -1,0 +1,136 @@
+RAGAS 未运行（依赖不可用，本机断网）
+级别：online；目标：测试/在线；开始：2026-10-04T17:47:36.9673192+08:00
+============================= test session starts =============================
+platform win32 -- Python 3.11.15, pytest-7.4.4, pluggy-1.6.0
+rootdir: E:\gao6gongdan\工单3
+plugins: anyio-4.13.0, asyncio-0.23.3, cov-4.1.0
+asyncio: mode=Mode.STRICT
+collected 35 items
+
+测试\在线\test_t7_online_faults.py ..                                    [  5%]
+测试\在线\test_t7_online_http.py .......                                 [ 25%]
+测试\在线\test_t7_online_hybrid14.py .....                               [ 40%]
+测试\在线\test_t7_online_multiturn.py .F.....                            [ 60%]
+测试\在线\test_t7_online_qa14.py .F.FF....F                              [ 88%]
+测试\在线\test_t7_online_warmup.py ....                                  [100%]
+
+================================== FAILURES ===================================
+______________________ test_follow_up_resolves_reference ______________________
+
+dialogue = {'session_id': 't8-multiturn-1791107279', 'turns': [{'citations': [{'file_name': '招股说明书1.pdf', 'page': 22}], 'first_to...ns': [{'file_name': '招股说明书1.pdf', 'page': 22}], 'first_token_ms': 1134.1, 'is_unknown': False, 'language': 'en', ...}]}
+
+    def test_follow_up_resolves_reference(dialogue: dict[str, Any]) -> None:
+        """轮 2 追问「那法定代表人呢？」必须消解指代 → 答程家明。"""
+        turn2 = dialogue["turns"][1]
+>       assert "程家明" in turn2["text"], f"指代消解失败，轮 2 答：{turn2['text'][:80]!r}"
+E       AssertionError: 指代消解失败，轮 2 答：'2017 年至今任汕 头市万顺贸易有限公司，法定代表人、执行董事、经理，任安徽美信铝业有限公司法定代表人、执行董事、总经理；\n引用：[招股说明书1.pdf: 7'
+E       assert '程家明' in '2017 年至今任汕 头市万顺贸易有限公司，法定代表人、执行董事、经理，任安徽美信铝业有限公司法定代表人、执行董事、总经理；\n引用：[招股说明书1.pdf: 72]'
+
+测试\在线\test_t7_online_multiturn.py:63: AssertionError
+_____________________________ test_accuracy_gate ______________________________
+
+qa_results = [{'answer_body': '1,670万股，占发行后总股本的比例为25.04%', 'answer_text': '1,670万股，占发行后总股本的比例为25.04%\n引用：[招股说明书2.pdf: 24]', 'backen...75', 'detail': 'chunk 招股说明书1_p0160_x375 的 99% 内容落在该页（阈值 50%）', 'file_name': '招股说明书1.pdf', 'ok': True, ...}], ...}, ...]
+
+    def test_accuracy_gate(qa_results: list[dict[str, Any]]) -> None:
+        """验收 3：语义正确 ≥ 13/14 且准确率 ≥ 0.90。"""
+        correct = sum(1 for row in qa_results if row["correct"])
+        wrong = [(row["id"], row["judge_reason"]) for row in qa_results if not row["correct"]]
+        checks = assertions.accuracy_gate(correct, len(qa_results))
+>       assert all(check.ok for check in checks), (
+            f"准确率未达标：{correct}/{len(qa_results)}；判错题 {wrong}；"
+            f"逐题见 测试/留痕/online_qa14.json")
+E       AssertionError: 准确率未达标：12/14；判错题 [(957, '未命中：文本与数值均不匹配（判分口径来源：工单1 权威 Evaluator 0.62）'), (531, '未命中：文本与数值均不匹配（判分口径来源：工单1 权威 Evaluator 0.62）')]；逐题见 测试/留痕/online_qa14.json
+E       assert False
+E        +  where False = all(<generator object test_accuracy_gate.<locals>.<genexpr> at 0x00000201371452F0>)
+
+测试\在线\test_t7_online_qa14.py:124: AssertionError
+_____________ test_question4_subject_gate_counted_and_not_refused _____________
+
+qa_results = [{'answer_body': '1,670万股，占发行后总股本的比例为25.04%', 'answer_text': '1,670万股，占发行后总股本的比例为25.04%\n引用：[招股说明书2.pdf: 24]', 'backen...75', 'detail': 'chunk 招股说明书1_p0160_x375 的 99% 内容落在该页（阈值 50%）', 'file_name': '招股说明书1.pdf', 'ok': True, ...}], ...}, ...]
+
+    def test_question4_subject_gate_counted_and_not_refused(qa_results: list[dict[str, Any]]) -> None:
+        """题 4 闸门必须真正生效且不误拒答：ok=True、expected=organization、counted=True、allowed ⊇ 7 家。"""
+        row = next(r for r in qa_results if r["id"] == 4)
+        gate = row.get("subject_gate")
+>       assert gate is not None, "题 4 未返回 subject_gate 字段（闸门结果无法审计）"
+E       AssertionError: 题 4 未返回 subject_gate 字段（闸门结果无法审计）
+E       assert None is not None
+
+测试\在线\test_t7_online_qa14.py:145: AssertionError
+_____________ test_question3_subject_gate_counted_and_not_refused _____________
+
+qa_results = [{'answer_body': '1,670万股，占发行后总股本的比例为25.04%', 'answer_text': '1,670万股，占发行后总股本的比例为25.04%\n引用：[招股说明书2.pdf: 24]', 'backen...75', 'detail': 'chunk 招股说明书1_p0160_x375 的 99% 内容落在该页（阈值 50%）', 'file_name': '招股说明书1.pdf', 'ok': True, ...}], ...}, ...]
+
+    def test_question3_subject_gate_counted_and_not_refused(qa_results: list[dict[str, Any]]) -> None:
+        """题 3 闸门必须真正生效且不误拒答：ok=True、expected=person、counted=True、allowed ∋ 赵马克。"""
+        row = next(r for r in qa_results if r["id"] == 3)
+        gate = row.get("subject_gate")
+>       assert gate is not None, "题 3 未返回 subject_gate 字段（闸门结果无法审计）"
+E       AssertionError: 题 3 未返回 subject_gate 字段（闸门结果无法审计）
+E       assert None is not None
+
+测试\在线\test_t7_online_qa14.py:156: AssertionError
+____________________ test_element_completeness_is_recorded ____________________
+
+qa_results = [{'answer_body': '1,670万股，占发行后总股本的比例为25.04%', 'answer_text': '1,670万股，占发行后总股本的比例为25.04%\n引用：[招股说明书2.pdf: 24]', 'backen...75', 'detail': 'chunk 招股说明书1_p0160_x375 的 99% 内容落在该页（阈值 50%）', 'file_name': '招股说明书1.pdf', 'ok': True, ...}], ...}, ...]
+
+    def test_element_completeness_is_recorded(qa_results: list[dict[str, Any]]) -> None:
+        """要素齐备只作诊断（不参与准确率门槛），但必须写入留痕且 207/1/2 要素不得缺失。"""
+        weak = [(row["id"], [e["name"] for e in row["elements"] if not e["ok"]])
+                for row in qa_results if not row["elements_ok"]]
+        if weak:
+            print("要素诊断（非门槛，供 T9/T11 参考）：", weak)
+        for question_id in (207, 543, 531):
+            row = next(r for r in qa_results if r["id"] == question_id)
+>           assert row["correct"], f"题 {question_id} 判错（准确率门槛已在别处断言）"
+E           AssertionError: 题 531 判错（准确率门槛已在别处断言）
+E           assert False
+
+测试\在线\test_t7_online_qa14.py:214: AssertionError
+---------------------------- Captured stdout call -----------------------------
+要素诊断（非门槛，供 T9/T11 参考）： [(95, ['答案含必需要素「视频指挥系统技术标准」（题 95）'])]
+============================== warnings summary ===============================
+测试/在线/test_t7_online_faults.py::test_model_exception_is_not_silent
+  E:\gao6gongdan\工单1\.venv\Lib\site-packages\jieba\_compat.py:18: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+    import pkg_resources
+
+测试/在线/test_t7_online_http.py::test_health
+  E:\gao6gongdan\工单3\研发\app\main.py:54: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+测试/在线/test_t7_online_http.py::test_health
+测试/在线/test_t7_online_http.py::test_health
+  E:\Anaconda\envs\fastapi_faq\Lib\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+测试/在线/test_t7_online_http.py::test_health
+  E:\gao6gongdan\工单3\研发\app\main.py:71: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("shutdown")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+---------------------------------- RAGAS 状态 -----------------------------------
+RAGAS 未运行（依赖不可用，本机断网）
+替代口径：确定性指标（14 题命中/准确率/引用可回溯/首字/拒答率）
+=========================== short test summary info ===========================
+FAILED 测试/在线/test_t7_online_multiturn.py::test_follow_up_resolves_reference
+FAILED 测试/在线/test_t7_online_qa14.py::test_accuracy_gate - AssertionError:...
+FAILED 测试/在线/test_t7_online_qa14.py::test_question4_subject_gate_counted_and_not_refused
+FAILED 测试/在线/test_t7_online_qa14.py::test_question3_subject_gate_counted_and_not_refused
+FAILED 测试/在线/test_t7_online_qa14.py::test_element_completeness_is_recorded
+============ 5 failed, 30 passed, 5 warnings in 102.13s (0:01:42) =============
+级别：online；退出码：1

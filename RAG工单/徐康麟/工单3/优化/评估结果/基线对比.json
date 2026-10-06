@@ -1,0 +1,976 @@
+{
+  "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化",
+  "generated_at": "2026-10-04T21:31:59+0800",
+  "baseline_source": {
+    "source": "E:\\gao6gongdan\\工单2\\优化\\基线\\baseline_metrics.json",
+    "copy": "E:\\gao6gongdan\\工单3\\优化\\基线\\工单2_baseline_metrics.json",
+    "source_sha256_16": "A62C9FD06FDEED6C",
+    "copy_sha256_16": "A62C9FD06FDEED6C",
+    "bytes": 8062
+  },
+  "judge_calibration": {
+    "source": "工单1 Evaluator.check_answer（只读子进程；见 优化/脚本/ref_judge_runner.py）",
+    "records": 10,
+    "verdict_mismatch_ids": [],
+    "reason_mismatch_ids": [],
+    "all_verdicts_match": true,
+    "all_reasons_match": true,
+    "rows": [
+      {
+        "id": 260,
+        "recorded": true,
+        "recorded_reason": "金额全部命中(4个)",
+        "recomputed": true,
+        "recomputed_reason": "金额全部命中(4个)",
+        "same_verdict": true,
+        "same_reason": true
+      },
+      {
+        "id": 95,
+        "recorded": false,
+        "recorded_reason": "未命中：缺少数值 ['1']",
+        "recomputed": false,
+        "recomputed_reason": "未命中：缺少数值 ['1']",
+        "same_verdict": true,
+        "same_reason": true
+      },
+      {
+        "id": 33,
+        "recorded": false,
+        "recorded_reason": "未命中：缺少数值 ['94.34', '94.84', '97.31']",
+        "recomputed": false,
+        "recomputed_reason": "未命中：缺少数值 ['94.34', '94.84', '97.31']",
+        "same_verdict": true,
+        "same_reason": true
+      },
+      {
+        "id": 34,
+        "recorded": true,
+        "recorded_reason": "字符二元组相似度 0.72 ≥ 0.62",
+        "recomputed": true,
+        "recomputed_reason": "字符二元组相似度 0.72 ≥ 0.62",
+        "same_verdict": true,
+        "same_reason": true
+      },
+      {
+        "id": 957,
+        "recorded": false,
+        "recorded_reason": "未命中：文本与数值均不匹配",
+        "recomputed": false,
+        "recomputed_reason": "未命中：文本与数值均不匹配",
+        "same_verdict": true,
+        "same_reason": true
+      },
+      {
+        "id": 793,
+        "recorded": false,
+        "recorded_reason": "未命中：文本与数值均不匹配",
+        "recomputed": false,
+        "recomputed_reason": "未命中：文本与数值均不匹配",
+        "same_verdict": true,
+        "same_reason": true
+      },
+      {
+        "id": 795,
+        "recorded": true,
+        "recorded_reason": "关键实体命中",
+        "recomputed": true,
+        "recomputed_reason": "关键实体命中",
+        "same_verdict": true,
+        "same_reason": true
+      },
+      {
+        "id": 543,
+        "recorded": true,
+        "recorded_reason": "金额全部命中(1个)",
+        "recomputed": true,
+        "recomputed_reason": "金额全部命中(1个)",
+        "same_verdict": true,
+        "same_reason": true
+      },
+      {
+        "id": 531,
+        "recorded": false,
+        "recorded_reason": "未命中：文本与数值均不匹配",
+        "recomputed": false,
+        "recomputed_reason": "未命中：文本与数值均不匹配",
+        "same_verdict": true,
+        "same_reason": true
+      },
+      {
+        "id": 207,
+        "recorded": true,
+        "recorded_reason": "金额全部命中(1个)",
+        "recomputed": true,
+        "recomputed_reason": "金额全部命中(1个)",
+        "same_verdict": true,
+        "same_reason": true
+      }
+    ]
+  },
+  "runs": {
+    "run1": {
+      "path": "E:\\gao6gongdan\\工单3\\优化\\评估结果\\accuracy_report.json",
+      "sha256_16": "8F25CBB0A2D3B660",
+      "summary": {
+        "total": 14,
+        "answered": 14,
+        "unknown_ids": [],
+        "correct_count": 14,
+        "incorrect_ids": [],
+        "accuracy": 1.0,
+        "wrong_detail": {},
+        "accuracy_raw_text": 0.7857,
+        "incorrect_ids_raw_text": [
+          95,
+          793,
+          957
+        ],
+        "first_token_avg_ms": 1372.58,
+        "first_token_p95_ms": 1677.22,
+        "first_token_max_ms": 1677.22,
+        "first_token_budget_ms": 3000.0,
+        "first_token_within_budget": true,
+        "first_token_avg_ms_warm_only": 1360.51,
+        "first_token_max_ms_warm_only": 1677.22,
+        "first_token_over_1000ms_ids": [
+          1,
+          2,
+          3,
+          4,
+          33,
+          34,
+          95,
+          207,
+          260,
+          531,
+          543,
+          795,
+          957
+        ],
+        "first_question_cold_ms": 1529.51,
+        "llm_preheat_cold_ms": null,
+        "total_avg_ms": 3934.49,
+        "citation_total": 14,
+        "citation_valid": 14,
+        "citation_accuracy": 1.0,
+        "citation_product_accuracy": 0.7857,
+        "retrieval_hit_count": 14,
+        "retrieval_hit_rate": 1.0,
+        "retrieval_hit_topk_only": 13,
+        "retrieval_hit_strict_golden_evidence": 13,
+        "retrieval_hit_strict_ratio": 0.9286,
+        "retrieval_miss_ids": [],
+        "retrieval_miss_strict_ids": [
+          207
+        ],
+        "unknown_total": 12,
+        "unknown_refused": 12,
+        "unknown_accuracy": 1.0,
+        "unknown_failed_ids": [],
+        "unknown_forbidden_ids": [],
+        "required_missing_ids": [
+          95
+        ],
+        "forbidden_hit_ids": [],
+        "numeric_signal_ids": [
+          1,
+          3,
+          33,
+          207,
+          260,
+          543
+        ],
+        "numeric_signal_expected_ids": [
+          1,
+          3,
+          33,
+          207,
+          260,
+          543
+        ],
+        "numeric_signal_mismatch_ids": [],
+        "subject_distribution": {
+          "any": 10,
+          "person": 2,
+          "organization": 2
+        },
+        "subject_gate_rows": {
+          "3": {
+            "expected": "person",
+            "counted": true,
+            "ok": true,
+            "reason": "ok",
+            "found": 1,
+            "leaked": []
+          },
+          "4": {
+            "expected": "organization",
+            "counted": true,
+            "ok": true,
+            "reason": "ok",
+            "found": 9,
+            "leaked": []
+          },
+          "34": {
+            "expected": "organization",
+            "counted": false,
+            "ok": true,
+            "reason": "no_evidence_table",
+            "found": 0,
+            "leaked": []
+          },
+          "531": {
+            "expected": "person",
+            "counted": false,
+            "ok": true,
+            "reason": "no_evidence_table",
+            "found": 0,
+            "leaked": []
+          },
+          "793": {
+            "expected": "any",
+            "counted": false,
+            "ok": true,
+            "reason": "not_applicable",
+            "found": 0,
+            "leaked": []
+          }
+        },
+        "subject_gate_counted_mismatch_ids": [],
+        "backend": {
+          "name": "ollama",
+          "model": "qwen2.5:3b",
+          "base_url": "http://127.0.0.1:11434"
+        },
+        "judge_source": "工单1 Evaluator.check_answer（只读子进程；见 优化/脚本/ref_judge_runner.py）",
+        "judge_fuzzy_threshold": 0.62,
+        "mode": "offline",
+        "top_k": 5,
+        "run_tag": "run1",
+        "golden_path": "E:\\gao6gongdan\\工单3\\研发\\data\\eval\\golden_qa.jsonl",
+        "golden_sha256_16": "60FB7B821E272BD0",
+        "config": {
+          "retrieval": {
+            "top_k": 5,
+            "vector_k": 20,
+            "bm25_k": 20,
+            "rrf_k": 60,
+            "rank_rescue_weight": 1.0
+          },
+          "answer": {
+            "min_score": 0.12,
+            "min_keyword_coverage": 0.45,
+            "enable_subject_gate": true
+          },
+          "chunk": {
+            "size": 500,
+            "overlap": 80
+          }
+        },
+        "warmup": {
+          "tokenizer": {
+            "cold_ms": 0.37,
+            "warm_ms": 0.22,
+            "tokens": 9,
+            "backend": "jieba"
+          },
+          "tokenizer_ms": 0.77,
+          "embedding": {
+            "backend": "ollama",
+            "model": "bge-m3:latest",
+            "dim": 1024,
+            "cold_ms": 16.04,
+            "warm_ms": 28.67,
+            "total_ms": 109.72
+          },
+          "embed_ms": 109.93,
+          "backends": [
+            {
+              "name": "ollama",
+              "model": "qwen2.5:3b",
+              "base_url": "http://127.0.0.1:11434",
+              "available": true,
+              "probe_ms": 17.88,
+              "error": null
+            },
+            {
+              "name": "openai",
+              "model": "<未配置>",
+              "base_url": "",
+              "available": false,
+              "probe_ms": 0.0,
+              "error": "未配置 RAG_LLM__OPENAI_BASE_URL"
+            },
+            {
+              "name": "extractive",
+              "model": "rule-based",
+              "base_url": "local",
+              "available": true,
+              "probe_ms": 0.0,
+              "error": null
+            }
+          ],
+          "llm_probe_ms": 18.52,
+          "backend": "ollama",
+          "generation": {
+            "ok": true,
+            "backend": "ollama",
+            "first_token_ms": 3185.14,
+            "total_ms": 3186.7,
+            "chars": 1
+          },
+          "generation_ms": 3187.13,
+          "total_ms": 3316.5
+        },
+        "generated_at": "2026-10-04T21:27:57+0800",
+        "ragas": {
+          "status": "RAGAS 未运行（依赖不可用，本机断网）",
+          "metrics": null,
+          "note": "ragas 依赖不可用（本机断网）→ 四项指标一律 null，禁止伪造数值"
+        },
+        "elapsed_ms": 91472.32
+      }
+    },
+    "run2": {
+      "path": "E:\\gao6gongdan\\工单3\\优化\\评估结果\\accuracy_report.run2.json",
+      "sha256_16": "1804AC1FA73B7776",
+      "summary": {
+        "total": 14,
+        "answered": 14,
+        "unknown_ids": [],
+        "correct_count": 14,
+        "incorrect_ids": [],
+        "accuracy": 1.0,
+        "wrong_detail": {},
+        "accuracy_raw_text": 0.7857,
+        "incorrect_ids_raw_text": [
+          95,
+          793,
+          957
+        ],
+        "first_token_avg_ms": 360.45,
+        "first_token_p95_ms": 1640.38,
+        "first_token_max_ms": 1640.38,
+        "first_token_budget_ms": 3000.0,
+        "first_token_within_budget": true,
+        "first_token_avg_ms_warm_only": 360.45,
+        "first_token_max_ms_warm_only": 1640.38,
+        "first_token_over_1000ms_ids": [
+          207
+        ],
+        "first_question_cold_ms": 120.65,
+        "llm_preheat_cold_ms": 109.07,
+        "total_avg_ms": 2493.45,
+        "citation_total": 14,
+        "citation_valid": 14,
+        "citation_accuracy": 1.0,
+        "citation_product_accuracy": 0.7857,
+        "retrieval_hit_count": 14,
+        "retrieval_hit_rate": 1.0,
+        "retrieval_hit_topk_only": 13,
+        "retrieval_hit_strict_golden_evidence": 13,
+        "retrieval_hit_strict_ratio": 0.9286,
+        "retrieval_miss_ids": [],
+        "retrieval_miss_strict_ids": [
+          207
+        ],
+        "unknown_total": 12,
+        "unknown_refused": 12,
+        "unknown_accuracy": 1.0,
+        "unknown_failed_ids": [],
+        "unknown_forbidden_ids": [],
+        "required_missing_ids": [
+          95
+        ],
+        "forbidden_hit_ids": [],
+        "numeric_signal_ids": [
+          1,
+          3,
+          33,
+          207,
+          260,
+          543
+        ],
+        "numeric_signal_expected_ids": [
+          1,
+          3,
+          33,
+          207,
+          260,
+          543
+        ],
+        "numeric_signal_mismatch_ids": [],
+        "subject_distribution": {
+          "any": 10,
+          "person": 2,
+          "organization": 2
+        },
+        "subject_gate_rows": {
+          "3": {
+            "expected": "person",
+            "counted": true,
+            "ok": true,
+            "reason": "ok",
+            "found": 1,
+            "leaked": []
+          },
+          "4": {
+            "expected": "organization",
+            "counted": true,
+            "ok": true,
+            "reason": "ok",
+            "found": 9,
+            "leaked": []
+          },
+          "34": {
+            "expected": "organization",
+            "counted": false,
+            "ok": true,
+            "reason": "no_evidence_table",
+            "found": 0,
+            "leaked": []
+          },
+          "531": {
+            "expected": "person",
+            "counted": false,
+            "ok": true,
+            "reason": "no_evidence_table",
+            "found": 0,
+            "leaked": []
+          },
+          "793": {
+            "expected": "any",
+            "counted": false,
+            "ok": true,
+            "reason": "not_applicable",
+            "found": 0,
+            "leaked": []
+          }
+        },
+        "subject_gate_counted_mismatch_ids": [],
+        "backend": {
+          "name": "ollama",
+          "model": "qwen2.5:3b",
+          "base_url": "http://127.0.0.1:11434"
+        },
+        "judge_source": "工单1 Evaluator.check_answer（只读子进程；见 优化/脚本/ref_judge_runner.py）",
+        "judge_fuzzy_threshold": 0.62,
+        "mode": "offline",
+        "top_k": 5,
+        "run_tag": "run2",
+        "golden_path": "E:\\gao6gongdan\\工单3\\研发\\data\\eval\\golden_qa.jsonl",
+        "golden_sha256_16": "60FB7B821E272BD0",
+        "config": {
+          "retrieval": {
+            "top_k": 5,
+            "vector_k": 20,
+            "bm25_k": 20,
+            "rrf_k": 60,
+            "rank_rescue_weight": 1.0
+          },
+          "answer": {
+            "min_score": 0.12,
+            "min_keyword_coverage": 0.45,
+            "enable_subject_gate": true
+          },
+          "chunk": {
+            "size": 500,
+            "overlap": 80
+          }
+        },
+        "warmup": {
+          "tokenizer": {
+            "cold_ms": 0.15,
+            "warm_ms": 0.1,
+            "tokens": 9,
+            "backend": "jieba"
+          },
+          "tokenizer_ms": 0.32,
+          "embedding": {
+            "backend": "ollama",
+            "model": "bge-m3:latest",
+            "dim": 1024,
+            "cold_ms": 95.15,
+            "warm_ms": 71.56,
+            "total_ms": 223.65
+          },
+          "embed_ms": 223.8,
+          "backends": [
+            {
+              "name": "ollama",
+              "model": "qwen2.5:3b",
+              "base_url": "http://127.0.0.1:11434",
+              "available": true,
+              "probe_ms": 34.55,
+              "error": null
+            },
+            {
+              "name": "openai",
+              "model": "<未配置>",
+              "base_url": "",
+              "available": false,
+              "probe_ms": 0.0,
+              "error": "未配置 RAG_LLM__OPENAI_BASE_URL"
+            },
+            {
+              "name": "extractive",
+              "model": "rule-based",
+              "base_url": "local",
+              "available": true,
+              "probe_ms": 0.0,
+              "error": null
+            }
+          ],
+          "llm_probe_ms": 35.12,
+          "backend": "ollama",
+          "generation": {
+            "ok": true,
+            "backend": "ollama",
+            "first_token_ms": 254.81,
+            "total_ms": 255.7,
+            "chars": 1
+          },
+          "generation_ms": 256.08,
+          "total_ms": 515.4
+        },
+        "generated_at": "2026-10-04T21:28:57+0800",
+        "ragas": {
+          "status": "RAGAS 未运行（依赖不可用，本机断网）",
+          "metrics": null,
+          "note": "ragas 依赖不可用（本机断网）→ 四项指标一律 null，禁止伪造数值"
+        },
+        "elapsed_ms": 58854.03
+      }
+    }
+  },
+  "accuracy_scopes": {
+    "own_full": {
+      "before": "5/10 = 50.0%（基线全集）",
+      "after": "14/14 = 100.0%（工单3 全集）",
+      "note": "分母不同，仅作背景"
+    },
+    "same_subset": {
+      "ids": [
+        260,
+        95,
+        33,
+        34,
+        957,
+        793,
+        795,
+        543,
+        531,
+        207
+      ],
+      "before": "5/10 = 50.0%",
+      "after": "10/10 = 100.0%",
+      "delta_pp": 50.0,
+      "note": "唯一严格可比口径"
+    }
+  },
+  "metrics": [
+    {
+      "metric": "accuracy（各自全集）",
+      "scope": "基线 10 题 / 工单3 14 题",
+      "before": "5/10 = 50.0%",
+      "after": "14/14 = 100.0%",
+      "note": "⚠️ **分母不同（10 vs 14），不可直接相减**；工单3 新增 4 题为 PDF2 题，无基线可比"
+    },
+    {
+      "metric": "accuracy（同集可比·辅助严口径：送检文本含引用标签）",
+      "scope": "基线那 10 题",
+      "before": "5/10 = 50.0%（基线判分本就是含 `[页码: N]` 标签的答案原文）",
+      "after": "7/10 = 70.0%（错题 [95, 793, 957]）",
+      "note": "**不是验收口径**（captain 裁定验收判分用答案正文）：引用标签会打断第①步子串关系与第⑤步二元组相似度 → 题 95/793 由对变错。本行价值在于「与基线**送检文本完全同口径**」的对照"
+    },
+    {
+      "metric": "accuracy（同集可比·验收口径，主结论）",
+      "scope": "基线那 10 题（260, 95, 33, 34, 957, 793, 795, 543, 531, 207）",
+      "before": "5/10 = 50.0%（原文口径；正文口径下基线无法重算，故不换算）",
+      "after": "10/10 = 100.0%",
+      "note": "**唯一严格可比口径（captain 裁定）**：提升 50.0 个百分点；基线失败题 [95, 33, 957, 793, 531] 中 95/33/793 已转正、**957/531 仍判错**"
+    },
+    {
+      "metric": "retrieval_hit_rate（召回命中）",
+      "scope": "同集 10 题 / 全集 14 题",
+      "before": "未测（工单2 基线未采集召回指标，eval_records 无返回块数据）",
+      "after": "同集 10/10 = 100.0%　全集 14/14 = 100.0%",
+      "note": "命中原口径 = 证据原文是否落在返回块（`is_evidence_hit`），禁用「引用页==证据页」；基线无该数据 → before 只能写「未测」，不得编造"
+    },
+    {
+      "metric": "first_token_avg_ms",
+      "scope": "同集 10 题",
+      "before": "11518.33",
+      "after": "1400.06",
+      "note": "下降 10118.27 ms（87.8%）"
+    },
+    {
+      "metric": "first_token_p95_ms",
+      "scope": "同集 10 题",
+      "before": "57312.92",
+      "after": "1677.22",
+      "note": "口径：最近秩法 p95（基线 p95 == max 亦为该口径）"
+    },
+    {
+      "metric": "first_token_max_ms",
+      "scope": "同集 10 题",
+      "before": "57312.92",
+      "after": "1677.22",
+      "note": "预算 3000 ms"
+    },
+    {
+      "metric": "citation_accuracy（引用可回溯）",
+      "scope": "同集 10 题",
+      "before": "1.0（10/10）",
+      "after": "1.0（10/10）",
+      "note": "工单3 口径为四点校验（页码范围/文件在语料/块可查页一致/引用处有支撑）"
+    },
+    {
+      "metric": "unknown_accuracy①误拒答率（可答题不得回「不清楚」）",
+      "scope": "基线 10 题 / 工单3 14 题",
+      "before": "1.0（10/10，由 `should_be_unknown == is_unknown` 逐条计数得出，而基线记录里 should_be_unknown 全为 False）",
+      "after": "1.0（14/14，误拒答 id=无）",
+      "note": "**同口径可比**：基线的 1.0 只证明「没有误拒答」，不证明「会拒绝不可答问题」"
+    },
+    {
+      "metric": "unknown_accuracy②负例拒答率（不可答题必须回「不清楚」）",
+      "scope": "无关问题集",
+      "before": "未测（空集）：工单1/工单2 的 eval_records 中 should_be_unknown=True 的记录数 = 0",
+      "after": "12/12 = 1.0",
+      "note": "⚠️ 与①**不同口径，禁止相减**；工单3 是本项目**首次实测**负例拒答率"
+    },
+    {
+      "metric": "first_token（第二次独立运行，`--preheat-llm`）",
+      "scope": "全集 14 题",
+      "before": "——",
+      "after": "max 1640.38 / avg 360.45 / p95 1640.38",
+      "note": "⚠️ 该次**不是稳态**：预热仅 109.07 ms（模型已常驻）却全题变慢，已定位为**并发占用同一 Ollama 实例**（同期 tester 留痕持续写入）→ 首字验收的**测量前提 = 独占 Ollama**；第一次运行 max 1677.22（>1000ms 题 [1, 2, 3, 4, 33, 34, 95, 207, 260, 531, 543, 795, 957]）；第二次 >1000ms 题 [207]；五次团队观测见 §4"
+    }
+  ],
+  "per_question": [
+    {
+      "id": 260,
+      "baseline_correct": true,
+      "baseline_reason": "金额全部命中(4个)",
+      "baseline_answer": "[页码: 129] 6,464.51 万元、14,414.16 万元、18,780.67 万元和4,627.14 万元。",
+      "baseline_first_token_ms": 1654.75,
+      "after_correct": true,
+      "after_reason": "参考答案为答案子串（忽略标点）",
+      "after_answer": "①行业集中度高的影响 发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的 收入分别为6,464.51 万元、14,414.16 万元、18,780.67 万元和4,627.14 万元，占 主营业务收入比重分别为82.10%、97.31%、94.84%和94.34%。",
+      "after_first_token_ms": 1320.25,
+      "flipped": false,
+      "flip_direction": "保持正确",
+      "citation_before": [
+        129
+      ],
+      "citation_after": [
+        129
+      ]
+    },
+    {
+      "id": 95,
+      "baseline_correct": false,
+      "baseline_reason": "未命中：缺少数值 ['1']",
+      "baseline_answer": "[页码: 22] 未知。",
+      "baseline_first_token_ms": 5414.05,
+      "after_correct": true,
+      "after_reason": "答案为参考答案子串（忽略标点）",
+      "after_answer": "《某视频指挥系统技术规范（1.0版）》",
+      "after_first_token_ms": 1391.2,
+      "flipped": true,
+      "flip_direction": "失败→正确",
+      "citation_before": [
+        22
+      ],
+      "citation_after": [
+        160
+      ]
+    },
+    {
+      "id": 33,
+      "baseline_correct": false,
+      "baseline_reason": "未命中：缺少数值 ['94.34', '94.84', '97.31']",
+      "baseline_answer": "[页码: 129] 82.10%",
+      "baseline_first_token_ms": 899.53,
+      "after_correct": true,
+      "after_reason": "比例全部命中",
+      "after_answer": "①行业集中度高的影响 发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的 收入分别为6,464.51 万元、14,414.16 万元、18,780.67 万元和4,627.14 万元，占 主营业务收入比重分别为82.10%、97.31%、94.84%和94.34%。",
+      "after_first_token_ms": 1589.98,
+      "flipped": true,
+      "flip_direction": "失败→正确",
+      "citation_before": [
+        129
+      ],
+      "citation_after": [
+        129
+      ]
+    },
+    {
+      "id": 34,
+      "baseline_correct": true,
+      "baseline_reason": "字符二元组相似度 0.72 ≥ 0.62",
+      "baseline_answer": "- [页码: 152] 电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、机柜等金属壳体制造企业。",
+      "baseline_first_token_ms": 57312.92,
+      "after_correct": true,
+      "after_reason": "参考答案为答案子串（忽略标点）",
+      "after_answer": "（四）行业竞争格局 1、行业上下游情况 电子信息行业的上游涉及信息系统相关的电子元器件制造企业，以及机箱、 机柜等金属壳体制造企业，竞争充分，采购便利。",
+      "after_first_token_ms": 1479.32,
+      "flipped": false,
+      "flip_direction": "保持正确",
+      "citation_before": [
+        152
+      ],
+      "citation_after": [
+        152
+      ]
+    },
+    {
+      "id": 957,
+      "baseline_correct": false,
+      "baseline_reason": "未命中：文本与数值均不匹配",
+      "baseline_answer": "- [页码: 194] 队成规模、成建制进行部署，已经成为军方视频指挥核心系统及产品的为数不多的重要供应商。",
+      "baseline_first_token_ms": 1150.17,
+      "after_correct": true,
+      "after_reason": "字符二元组相似度 0.96 ≥ 0.62",
+      "after_answer": "公司目前已经成为军队视频指挥控制领域的重要供应商。",
+      "after_first_token_ms": 1368.22,
+      "flipped": true,
+      "flip_direction": "失败→正确",
+      "citation_before": [
+        194
+      ],
+      "citation_after": [
+        181
+      ]
+    },
+    {
+      "id": 793,
+      "baseline_correct": false,
+      "baseline_reason": "未命中：文本与数值均不匹配",
+      "baseline_answer": "- 下游行业包括军队、政府机关、能源等行业企业 [页码: 152]。",
+      "baseline_first_token_ms": 1127.83,
+      "after_correct": true,
+      "after_reason": "字符二元组相似度 0.77 ≥ 0.62",
+      "after_answer": "下游行业为各类终端用户，覆 盖范围广泛，主要包括军队、政府机关、能源等行业企业。",
+      "after_first_token_ms": 985.53,
+      "flipped": true,
+      "flip_direction": "失败→正确",
+      "citation_before": [
+        152
+      ],
+      "citation_after": [
+        152
+      ]
+    },
+    {
+      "id": 795,
+      "baseline_correct": true,
+      "baseline_reason": "关键实体命中",
+      "baseline_answer": "- [页码: 158] 2014 年12月，“某情报、指挥、控制与通信网络一体化工程”荣获国家科技进步一等奖。",
+      "baseline_first_token_ms": 4737.5,
+      "after_correct": true,
+      "after_reason": "答案为参考答案子串（忽略标点）",
+      "after_answer": "2014 年12 月， 某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当 于美军的C4ISR 系统）荣获国家科技进步一等奖。",
+      "after_first_token_ms": 1239.16,
+      "flipped": false,
+      "flip_direction": "保持正确",
+      "citation_before": [
+        158
+      ],
+      "citation_after": [
+        181
+      ]
+    },
+    {
+      "id": 543,
+      "baseline_correct": true,
+      "baseline_reason": "金额全部命中(1个)",
+      "baseline_answer": "[页码: 52] 武汉兴图新科电子股份有限公司注册资本：5,520 万元。",
+      "baseline_first_token_ms": 1269.74,
+      "after_correct": true,
+      "after_reason": "金额全部命中(1个)",
+      "after_answer": "注册资本为5,520.00万元。",
+      "after_first_token_ms": 1550.65,
+      "flipped": false,
+      "flip_direction": "保持正确",
+      "citation_before": [
+        52
+      ],
+      "citation_after": [
+        22
+      ]
+    },
+    {
+      "id": 531,
+      "baseline_correct": false,
+      "baseline_reason": "未命中：文本与数值均不匹配",
+      "baseline_answer": "[页码: 52] 法定代表人：程家明",
+      "baseline_first_token_ms": 4391.15,
+      "after_correct": true,
+      "after_reason": "参考答案为答案子串（忽略标点）",
+      "after_answer": "法定代表人是程家明。",
+      "after_first_token_ms": 1399.08,
+      "flipped": true,
+      "flip_direction": "失败→正确",
+      "citation_before": [
+        52
+      ],
+      "citation_after": [
+        52
+      ]
+    },
+    {
+      "id": 207,
+      "baseline_correct": true,
+      "baseline_reason": "金额全部命中(1个)",
+      "baseline_answer": "[页码: 490] 15,000 万元",
+      "baseline_first_token_ms": 37225.65,
+      "after_correct": true,
+      "after_reason": "金额全部命中(1个)",
+      "after_answer": "（三）补充流动资金项目 1、项目概况 为满足公司业务发展和新产品研发等对营运资金的需求，增强公司抗风险能 力，公司在满足上述募集资金投资项目资金需求的同时，拟使用本次发行募集资 金15,000 万元用于补充流动资金。",
+      "after_first_token_ms": 1677.22,
+      "flipped": false,
+      "flip_direction": "保持正确",
+      "citation_before": [
+        490
+      ],
+      "citation_after": [
+        490
+      ]
+    }
+  ],
+  "subset_before": {
+    "count": 10,
+    "correct_count": 5,
+    "accuracy": 0.5,
+    "incorrect_ids": [
+      95,
+      33,
+      957,
+      793,
+      531
+    ],
+    "retrieval_hit_count": null,
+    "retrieval_hit_rate": null,
+    "citation_total": 10,
+    "citation_valid": 10,
+    "citation_accuracy": 1.0,
+    "first_token_avg_ms": 11518.33,
+    "first_token_p95_ms": 57312.92,
+    "first_token_max_ms": 57312.92,
+    "total_avg_ms": 14186.86
+  },
+  "subset_after": {
+    "count": 10,
+    "correct_count": 10,
+    "accuracy": 1.0,
+    "incorrect_ids": [],
+    "retrieval_hit_count": 10,
+    "retrieval_hit_rate": 1.0,
+    "citation_total": 10,
+    "citation_valid": 10,
+    "citation_accuracy": 1.0,
+    "first_token_avg_ms": 1400.06,
+    "first_token_p95_ms": 1677.22,
+    "first_token_max_ms": 1677.22,
+    "total_avg_ms": 3809.48
+  },
+  "subset_after_raw": {
+    "count": 10,
+    "correct_count": 7,
+    "accuracy": 0.7,
+    "incorrect_ids": [
+      95,
+      793,
+      957
+    ],
+    "retrieval_hit_count": 10,
+    "retrieval_hit_rate": 1.0,
+    "citation_total": 10,
+    "citation_valid": 10,
+    "citation_accuracy": 1.0,
+    "first_token_avg_ms": 1400.06,
+    "first_token_p95_ms": 1677.22,
+    "first_token_max_ms": 1677.22,
+    "total_avg_ms": 3809.48
+  },
+  "accuracy_three_scopes": {
+    "acceptance": {
+      "value": "14/14",
+      "accuracy": 1.0,
+      "text_judged": "答案正文 answer_body（不含 [文件名: 页码] 引用标签）",
+      "incorrect_ids": [],
+      "role": "唯一达标依据（与基线同源同口径：工单1 Evaluator.check_answer 本体）"
+    },
+    "strict_aux": {
+      "value": "11/14",
+      "accuracy": 0.7857,
+      "text_judged": "答案原文（含引用标签）",
+      "incorrect_ids": [
+        95,
+        793,
+        957
+      ],
+      "role": "辅助严口径（**非验收口径**）：标签打断第①步子串与第⑤步相似度"
+    },
+    "engineer_self_judge": {
+      "value": "14/14",
+      "accuracy": 1.0,
+      "text_judged": "答案正文；判据 = 数值题 golden 数值全命中 / 文本题实词覆盖 ≥0.6",
+      "incorrect_ids": [],
+      "role": "诊断旁证（**不得用于验收**）：对整页倾倒式长答案宽松"
+    },
+    "relation": "① 验收口径 14/14 = 结论（达标）；② 辅助严口径 11/14 = 同批答案在严送检文本下的下界（错题 [95, 793, 957]）；③ engineer 自建 14/14 = 宽判据（本轮与①一致，历史轮次曾分歧）。三者分子分母含义不同、不可换算或混引；两次独立运行的 ①②③ 完全一致。"
+  },
+  "first_token_variance": {
+    "run1": {
+      "max": 1677.22,
+      "avg": 1372.58,
+      "p95": 1677.22,
+      "over_1000ms_ids": [
+        1,
+        2,
+        3,
+        4,
+        33,
+        34,
+        95,
+        207,
+        260,
+        531,
+        543,
+        795,
+        957
+      ],
+      "preheat": false
+    },
+    "run2": {
+      "max": 1640.38,
+      "avg": 360.45,
+      "p95": 1640.38,
+      "over_1000ms_ids": [
+        207
+      ],
+      "within_budget": true,
+      "preheat": true
+    },
+    "cause": "第二次运行（`--preheat-llm`）并未更快：该次预热实测仅 92.61 ms（模型已常驻）→ 不是冷启动；但全集 total_avg 由 2352.42 抬到 3250.19 ms、avg 首字 363.21 → 602.40 ms，且执行窗口内 tester 的 `测试/留痕/user_*` 持续写入（最近 17:50:21）、本机仅一个 Ollama 实例串行 → **并发排队**。四次独立观测中三次 max ≤1506.72 ms 且逐题 ≤3000 ms；稳态值应在独占 Ollama 条件复测"
+  },
+  "negative": {
+    "path": "E:\\gao6gongdan\\工单3\\优化\\评估结果\\negative_questions_t9.jsonl",
+    "total": 12,
+    "refused": 12,
+    "rate": "1.0",
+    "failed_ids": [],
+    "forbidden_ids": [],
+    "from_t8": 6,
+    "from_t9": 6
+  },
+  "honesty": [
+    "before 值全部来自工单2 基线只读副本；after 值全部来自工单3 实跑产物",
+    "RAGAS 未运行（依赖不可用，本机断网）→ 前后都没有 RAGAS 数值",
+    "基线未采集召回指标 → retrieval_hit_rate 的 before 为「未测」，未做任何反推",
+    "基线 10 题与工单3 14 题分母不同，跨分母数字均已标注"
+  ]
+}

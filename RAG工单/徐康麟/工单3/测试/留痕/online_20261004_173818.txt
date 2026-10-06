@@ -1,0 +1,948 @@
+RAGAS 未运行（依赖不可用，本机断网）
+级别：online；目标：测试/在线；开始：2026-10-04T17:38:18.7179330+08:00
+============================= test session starts =============================
+platform win32 -- Python 3.11.15, pytest-7.4.4, pluggy-1.6.0
+rootdir: E:\gao6gongdan\工单3
+plugins: anyio-4.13.0, asyncio-0.23.3, cov-4.1.0
+asyncio: mode=Mode.STRICT
+collected 35 items
+
+测试\在线\test_t7_online_faults.py ..                                    [  5%]
+测试\在线\test_t7_online_http.py F.F.F..                                 [ 25%]
+测试\在线\test_t7_online_hybrid14.py .....                               [ 40%]
+测试\在线\test_t7_online_multiturn.py .F.....                            [ 60%]
+测试\在线\test_t7_online_qa14.py FEEEEEEEEE                              [ 88%]
+测试\在线\test_t7_online_warmup.py ....                                  [100%]
+
+=================================== ERRORS ====================================
+____________________ ERROR at setup of test_accuracy_gate _____________________
+
+engine = <app.core.qa_engine.QAEngine object at 0x000001CF8B8A1290>
+runnable_items = [GoldenItem(id=1, question='武汉力源信息技术股份有限公司本次发行股数是多少？占发行后总股本的比例是多少？', answer='发行 1,670 万股，占发行后总股本的比例为 25.04%。', evidenc...olden_qa.jsonl（answer/evidence 原样）', question_alt='', notes='物理 160 为专节；物理 27 也载该表述（引用页 ≠ evidence_pages 是允许的）。'), ...]
+page_lookup = <function lookup_factory.<locals>.lookup at 0x000001CF95D6AD40>
+page_counts = {'招股说明书1.pdf': 548, '招股说明书2.pdf': 350}
+chunk_lookup = {'招股说明书1_p0001_x00': {'char_count': 270, 'chunk_id': '招股说明书1_p0001_x00', 'content': '武汉兴图新科电子股份有限公司 招股意向书 武汉兴图新科电子股份有限...判断偏离市场需求，研究开发工作不能产生预期效益， 公司研发投入与产出不匹配将导致公司业绩受到不利影响，公司将面临新技术、 新产品研发试制未取得预期效益的风险。', 'file_name': '招股说明书1.pdf', ...}, ...}
+
+    @pytest.fixture(scope="session")
+    def qa_results(engine: Any, runnable_items: list[Any], page_lookup: Any,
+                   page_counts: dict[str, int], chunk_lookup: dict[str, Any]) -> list[dict[str, Any]]:
+        """跑一遍 14 题并缓存逐题结果（含判定、引用核验、要素诊断），同时写留痕。"""
+        files = list(page_counts)
+        rows: list[dict[str, Any]] = []
+        for item in runnable_items:
+            started = time.perf_counter()
+            answer = engine.ask(item.question, session_id=f"t8-q{item.id}", stream=False)
+            wall_ms = round((time.perf_counter() - started) * 1000, 2)
+            correct, reason, source = assertions.judge_answer(str(answer.text), item.answer)
+    
+            citations = list(getattr(answer, "citations", []) or [])
+            cite_rows: list[dict[str, Any]] = []
+            for cite in citations:
+>               check = assertions.check_citation_traceable(
+                    cite, page_lookup=page_lookup, page_counts=page_counts,
+                    discovered_files=files, chunk_lookup=chunk_lookup)
+
+测试\在线\test_t7_online_qa14.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+citation = Citation(file_name='招股说明书2.pdf', page=24, chunk_id='招股说明书2_p0024_x44', quote='武汉力源信息技术股份有限公司 招股意向书 二、本次发行的基本情况 (一)发行基本情况 股票种类 人民币普通股(A 股) 每股面值 人民币1.00 元 发行股数及占发行后总股本比例 1,670 万股，占发行后总股本的比例为25.04% 每股发')
+
+    def check_citation_traceable(
+        citation: Any,
+        *,
+        page_lookup: Callable[[str, int], str],
+        page_counts: Mapping[str, int],
+        discovered_files: Sequence[str],
+        support: str | None = None,
+        chunk_lookup: Callable[[str], Any] | None = None,
+        min_page_support: float = 0.5,
+    ) -> Check:
+        """单条引用四点核验（§2.4）：文件名真实 / 页码 1-based 在范围 / **chunk 回查一致** / 引用页承载该块。
+    
+        ``citation`` 支持 ``Citation`` 对象或 dict（``file_name`` / ``page`` / ``chunk_id`` / ``quote``）。
+    
+        核验顺序：
+            ① 文件名 ∈ 自动发现结果；② ``page`` 为整数且 1 ≤ page ≤ 页数（越界或落入 0-based 区间会给出提示）；
+            ③ 给了 ``chunk_lookup`` 时回查 ``chunk_id``：块必须存在、其 ``page`` 与引用页一致；
+            ④ 引用页必须**承载该块内容**（``page_support_ratio`` ≥ ``min_page_support``，
+               标注行与页眉页脚先剥掉）；块跨页时允许在块覆盖的其它物理页上找到支撑，但会注明页码；
+            ⑤ 反 0-based 陷阱：引用页没有、下一页有 → 判「索引当页码」。
+        """
+        if isinstance(citation, Mapping):
+            file_name = str(citation.get("file_name", ""))
+            page = citation.get("page", 0)
+            quote = str(citation.get("quote", "") or "")
+            chunk_id = str(citation.get("chunk_id", "") or "")
+        else:
+            file_name = str(getattr(citation, "file_name", ""))
+            page = getattr(citation, "page", 0)
+            quote = str(getattr(citation, "quote", "") or "")
+            chunk_id = str(getattr(citation, "chunk_id", "") or "")
+        label = f"{file_name}:{page}"
+    
+        if file_name not in set(discovered_files):
+            return Check(f"引用文件名真实（{label}）", False,
+                         f"文件名不在自动发现结果里：{sorted(discovered_files)}")
+        if not isinstance(page, int) or isinstance(page, bool):
+            return Check(f"引用页码为整数（{label}）", False, f"page 类型 {type(page).__name__}：{page!r}")
+        total = int(page_counts.get(file_name, 0))
+        if page < 1 or page > total:
+            hint = ""
+            if 0 <= page <= total:
+                hint = "　⚠️ 该值落在 0-based 索引区间（0..页数-1）→ 疑似用 0-based 索引当页码"
+            return Check(f"引用页码在 1..{total} 且为 1-based（{label}）", False, f"越界{hint}")
+    
+        try:
+            text = page_lookup(file_name, page)
+        except (KeyError, ValueError) as exc:
+            return Check(f"引用页可读取（{label}）", False, f"{type(exc).__name__}: {exc}")
+    
+        # ③ chunk 回查（给了就必查：chunk_id 可查 + 页码一致）
+        if chunk_lookup is not None and chunk_id:
+>           chunk = (chunk_lookup.get(chunk_id) if isinstance(chunk_lookup, Mapping)
+                     else chunk_lookup(chunk_id))
+E           TypeError: 'dict' object is not callable
+
+测试\common\assertions.py:600: TypeError
+___________________ ERROR at setup of test_no_false_refusal ___________________
+
+engine = <app.core.qa_engine.QAEngine object at 0x000001CF8B8A1290>
+runnable_items = [GoldenItem(id=1, question='武汉力源信息技术股份有限公司本次发行股数是多少？占发行后总股本的比例是多少？', answer='发行 1,670 万股，占发行后总股本的比例为 25.04%。', evidenc...olden_qa.jsonl（answer/evidence 原样）', question_alt='', notes='物理 160 为专节；物理 27 也载该表述（引用页 ≠ evidence_pages 是允许的）。'), ...]
+page_lookup = <function lookup_factory.<locals>.lookup at 0x000001CF95D6AD40>
+page_counts = {'招股说明书1.pdf': 548, '招股说明书2.pdf': 350}
+chunk_lookup = {'招股说明书1_p0001_x00': {'char_count': 270, 'chunk_id': '招股说明书1_p0001_x00', 'content': '武汉兴图新科电子股份有限公司 招股意向书 武汉兴图新科电子股份有限...判断偏离市场需求，研究开发工作不能产生预期效益， 公司研发投入与产出不匹配将导致公司业绩受到不利影响，公司将面临新技术、 新产品研发试制未取得预期效益的风险。', 'file_name': '招股说明书1.pdf', ...}, ...}
+
+    @pytest.fixture(scope="session")
+    def qa_results(engine: Any, runnable_items: list[Any], page_lookup: Any,
+                   page_counts: dict[str, int], chunk_lookup: dict[str, Any]) -> list[dict[str, Any]]:
+        """跑一遍 14 题并缓存逐题结果（含判定、引用核验、要素诊断），同时写留痕。"""
+        files = list(page_counts)
+        rows: list[dict[str, Any]] = []
+        for item in runnable_items:
+            started = time.perf_counter()
+            answer = engine.ask(item.question, session_id=f"t8-q{item.id}", stream=False)
+            wall_ms = round((time.perf_counter() - started) * 1000, 2)
+            correct, reason, source = assertions.judge_answer(str(answer.text), item.answer)
+    
+            citations = list(getattr(answer, "citations", []) or [])
+            cite_rows: list[dict[str, Any]] = []
+            for cite in citations:
+>               check = assertions.check_citation_traceable(
+                    cite, page_lookup=page_lookup, page_counts=page_counts,
+                    discovered_files=files, chunk_lookup=chunk_lookup)
+
+测试\在线\test_t7_online_qa14.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+citation = Citation(file_name='招股说明书2.pdf', page=24, chunk_id='招股说明书2_p0024_x44', quote='武汉力源信息技术股份有限公司 招股意向书 二、本次发行的基本情况 (一)发行基本情况 股票种类 人民币普通股(A 股) 每股面值 人民币1.00 元 发行股数及占发行后总股本比例 1,670 万股，占发行后总股本的比例为25.04% 每股发')
+
+    def check_citation_traceable(
+        citation: Any,
+        *,
+        page_lookup: Callable[[str, int], str],
+        page_counts: Mapping[str, int],
+        discovered_files: Sequence[str],
+        support: str | None = None,
+        chunk_lookup: Callable[[str], Any] | None = None,
+        min_page_support: float = 0.5,
+    ) -> Check:
+        """单条引用四点核验（§2.4）：文件名真实 / 页码 1-based 在范围 / **chunk 回查一致** / 引用页承载该块。
+    
+        ``citation`` 支持 ``Citation`` 对象或 dict（``file_name`` / ``page`` / ``chunk_id`` / ``quote``）。
+    
+        核验顺序：
+            ① 文件名 ∈ 自动发现结果；② ``page`` 为整数且 1 ≤ page ≤ 页数（越界或落入 0-based 区间会给出提示）；
+            ③ 给了 ``chunk_lookup`` 时回查 ``chunk_id``：块必须存在、其 ``page`` 与引用页一致；
+            ④ 引用页必须**承载该块内容**（``page_support_ratio`` ≥ ``min_page_support``，
+               标注行与页眉页脚先剥掉）；块跨页时允许在块覆盖的其它物理页上找到支撑，但会注明页码；
+            ⑤ 反 0-based 陷阱：引用页没有、下一页有 → 判「索引当页码」。
+        """
+        if isinstance(citation, Mapping):
+            file_name = str(citation.get("file_name", ""))
+            page = citation.get("page", 0)
+            quote = str(citation.get("quote", "") or "")
+            chunk_id = str(citation.get("chunk_id", "") or "")
+        else:
+            file_name = str(getattr(citation, "file_name", ""))
+            page = getattr(citation, "page", 0)
+            quote = str(getattr(citation, "quote", "") or "")
+            chunk_id = str(getattr(citation, "chunk_id", "") or "")
+        label = f"{file_name}:{page}"
+    
+        if file_name not in set(discovered_files):
+            return Check(f"引用文件名真实（{label}）", False,
+                         f"文件名不在自动发现结果里：{sorted(discovered_files)}")
+        if not isinstance(page, int) or isinstance(page, bool):
+            return Check(f"引用页码为整数（{label}）", False, f"page 类型 {type(page).__name__}：{page!r}")
+        total = int(page_counts.get(file_name, 0))
+        if page < 1 or page > total:
+            hint = ""
+            if 0 <= page <= total:
+                hint = "　⚠️ 该值落在 0-based 索引区间（0..页数-1）→ 疑似用 0-based 索引当页码"
+            return Check(f"引用页码在 1..{total} 且为 1-based（{label}）", False, f"越界{hint}")
+    
+        try:
+            text = page_lookup(file_name, page)
+        except (KeyError, ValueError) as exc:
+            return Check(f"引用页可读取（{label}）", False, f"{type(exc).__name__}: {exc}")
+    
+        # ③ chunk 回查（给了就必查：chunk_id 可查 + 页码一致）
+        if chunk_lookup is not None and chunk_id:
+>           chunk = (chunk_lookup.get(chunk_id) if isinstance(chunk_lookup, Mapping)
+                     else chunk_lookup(chunk_id))
+E           TypeError: 'dict' object is not callable
+
+测试\common\assertions.py:600: TypeError
+____ ERROR at setup of test_question4_subject_gate_counted_and_not_refused ____
+
+engine = <app.core.qa_engine.QAEngine object at 0x000001CF8B8A1290>
+runnable_items = [GoldenItem(id=1, question='武汉力源信息技术股份有限公司本次发行股数是多少？占发行后总股本的比例是多少？', answer='发行 1,670 万股，占发行后总股本的比例为 25.04%。', evidenc...olden_qa.jsonl（answer/evidence 原样）', question_alt='', notes='物理 160 为专节；物理 27 也载该表述（引用页 ≠ evidence_pages 是允许的）。'), ...]
+page_lookup = <function lookup_factory.<locals>.lookup at 0x000001CF95D6AD40>
+page_counts = {'招股说明书1.pdf': 548, '招股说明书2.pdf': 350}
+chunk_lookup = {'招股说明书1_p0001_x00': {'char_count': 270, 'chunk_id': '招股说明书1_p0001_x00', 'content': '武汉兴图新科电子股份有限公司 招股意向书 武汉兴图新科电子股份有限...判断偏离市场需求，研究开发工作不能产生预期效益， 公司研发投入与产出不匹配将导致公司业绩受到不利影响，公司将面临新技术、 新产品研发试制未取得预期效益的风险。', 'file_name': '招股说明书1.pdf', ...}, ...}
+
+    @pytest.fixture(scope="session")
+    def qa_results(engine: Any, runnable_items: list[Any], page_lookup: Any,
+                   page_counts: dict[str, int], chunk_lookup: dict[str, Any]) -> list[dict[str, Any]]:
+        """跑一遍 14 题并缓存逐题结果（含判定、引用核验、要素诊断），同时写留痕。"""
+        files = list(page_counts)
+        rows: list[dict[str, Any]] = []
+        for item in runnable_items:
+            started = time.perf_counter()
+            answer = engine.ask(item.question, session_id=f"t8-q{item.id}", stream=False)
+            wall_ms = round((time.perf_counter() - started) * 1000, 2)
+            correct, reason, source = assertions.judge_answer(str(answer.text), item.answer)
+    
+            citations = list(getattr(answer, "citations", []) or [])
+            cite_rows: list[dict[str, Any]] = []
+            for cite in citations:
+>               check = assertions.check_citation_traceable(
+                    cite, page_lookup=page_lookup, page_counts=page_counts,
+                    discovered_files=files, chunk_lookup=chunk_lookup)
+
+测试\在线\test_t7_online_qa14.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+citation = Citation(file_name='招股说明书2.pdf', page=24, chunk_id='招股说明书2_p0024_x44', quote='武汉力源信息技术股份有限公司 招股意向书 二、本次发行的基本情况 (一)发行基本情况 股票种类 人民币普通股(A 股) 每股面值 人民币1.00 元 发行股数及占发行后总股本比例 1,670 万股，占发行后总股本的比例为25.04% 每股发')
+
+    def check_citation_traceable(
+        citation: Any,
+        *,
+        page_lookup: Callable[[str, int], str],
+        page_counts: Mapping[str, int],
+        discovered_files: Sequence[str],
+        support: str | None = None,
+        chunk_lookup: Callable[[str], Any] | None = None,
+        min_page_support: float = 0.5,
+    ) -> Check:
+        """单条引用四点核验（§2.4）：文件名真实 / 页码 1-based 在范围 / **chunk 回查一致** / 引用页承载该块。
+    
+        ``citation`` 支持 ``Citation`` 对象或 dict（``file_name`` / ``page`` / ``chunk_id`` / ``quote``）。
+    
+        核验顺序：
+            ① 文件名 ∈ 自动发现结果；② ``page`` 为整数且 1 ≤ page ≤ 页数（越界或落入 0-based 区间会给出提示）；
+            ③ 给了 ``chunk_lookup`` 时回查 ``chunk_id``：块必须存在、其 ``page`` 与引用页一致；
+            ④ 引用页必须**承载该块内容**（``page_support_ratio`` ≥ ``min_page_support``，
+               标注行与页眉页脚先剥掉）；块跨页时允许在块覆盖的其它物理页上找到支撑，但会注明页码；
+            ⑤ 反 0-based 陷阱：引用页没有、下一页有 → 判「索引当页码」。
+        """
+        if isinstance(citation, Mapping):
+            file_name = str(citation.get("file_name", ""))
+            page = citation.get("page", 0)
+            quote = str(citation.get("quote", "") or "")
+            chunk_id = str(citation.get("chunk_id", "") or "")
+        else:
+            file_name = str(getattr(citation, "file_name", ""))
+            page = getattr(citation, "page", 0)
+            quote = str(getattr(citation, "quote", "") or "")
+            chunk_id = str(getattr(citation, "chunk_id", "") or "")
+        label = f"{file_name}:{page}"
+    
+        if file_name not in set(discovered_files):
+            return Check(f"引用文件名真实（{label}）", False,
+                         f"文件名不在自动发现结果里：{sorted(discovered_files)}")
+        if not isinstance(page, int) or isinstance(page, bool):
+            return Check(f"引用页码为整数（{label}）", False, f"page 类型 {type(page).__name__}：{page!r}")
+        total = int(page_counts.get(file_name, 0))
+        if page < 1 or page > total:
+            hint = ""
+            if 0 <= page <= total:
+                hint = "　⚠️ 该值落在 0-based 索引区间（0..页数-1）→ 疑似用 0-based 索引当页码"
+            return Check(f"引用页码在 1..{total} 且为 1-based（{label}）", False, f"越界{hint}")
+    
+        try:
+            text = page_lookup(file_name, page)
+        except (KeyError, ValueError) as exc:
+            return Check(f"引用页可读取（{label}）", False, f"{type(exc).__name__}: {exc}")
+    
+        # ③ chunk 回查（给了就必查：chunk_id 可查 + 页码一致）
+        if chunk_lookup is not None and chunk_id:
+>           chunk = (chunk_lookup.get(chunk_id) if isinstance(chunk_lookup, Mapping)
+                     else chunk_lookup(chunk_id))
+E           TypeError: 'dict' object is not callable
+
+测试\common\assertions.py:600: TypeError
+____ ERROR at setup of test_question3_subject_gate_counted_and_not_refused ____
+
+engine = <app.core.qa_engine.QAEngine object at 0x000001CF8B8A1290>
+runnable_items = [GoldenItem(id=1, question='武汉力源信息技术股份有限公司本次发行股数是多少？占发行后总股本的比例是多少？', answer='发行 1,670 万股，占发行后总股本的比例为 25.04%。', evidenc...olden_qa.jsonl（answer/evidence 原样）', question_alt='', notes='物理 160 为专节；物理 27 也载该表述（引用页 ≠ evidence_pages 是允许的）。'), ...]
+page_lookup = <function lookup_factory.<locals>.lookup at 0x000001CF95D6AD40>
+page_counts = {'招股说明书1.pdf': 548, '招股说明书2.pdf': 350}
+chunk_lookup = {'招股说明书1_p0001_x00': {'char_count': 270, 'chunk_id': '招股说明书1_p0001_x00', 'content': '武汉兴图新科电子股份有限公司 招股意向书 武汉兴图新科电子股份有限...判断偏离市场需求，研究开发工作不能产生预期效益， 公司研发投入与产出不匹配将导致公司业绩受到不利影响，公司将面临新技术、 新产品研发试制未取得预期效益的风险。', 'file_name': '招股说明书1.pdf', ...}, ...}
+
+    @pytest.fixture(scope="session")
+    def qa_results(engine: Any, runnable_items: list[Any], page_lookup: Any,
+                   page_counts: dict[str, int], chunk_lookup: dict[str, Any]) -> list[dict[str, Any]]:
+        """跑一遍 14 题并缓存逐题结果（含判定、引用核验、要素诊断），同时写留痕。"""
+        files = list(page_counts)
+        rows: list[dict[str, Any]] = []
+        for item in runnable_items:
+            started = time.perf_counter()
+            answer = engine.ask(item.question, session_id=f"t8-q{item.id}", stream=False)
+            wall_ms = round((time.perf_counter() - started) * 1000, 2)
+            correct, reason, source = assertions.judge_answer(str(answer.text), item.answer)
+    
+            citations = list(getattr(answer, "citations", []) or [])
+            cite_rows: list[dict[str, Any]] = []
+            for cite in citations:
+>               check = assertions.check_citation_traceable(
+                    cite, page_lookup=page_lookup, page_counts=page_counts,
+                    discovered_files=files, chunk_lookup=chunk_lookup)
+
+测试\在线\test_t7_online_qa14.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+citation = Citation(file_name='招股说明书2.pdf', page=24, chunk_id='招股说明书2_p0024_x44', quote='武汉力源信息技术股份有限公司 招股意向书 二、本次发行的基本情况 (一)发行基本情况 股票种类 人民币普通股(A 股) 每股面值 人民币1.00 元 发行股数及占发行后总股本比例 1,670 万股，占发行后总股本的比例为25.04% 每股发')
+
+    def check_citation_traceable(
+        citation: Any,
+        *,
+        page_lookup: Callable[[str, int], str],
+        page_counts: Mapping[str, int],
+        discovered_files: Sequence[str],
+        support: str | None = None,
+        chunk_lookup: Callable[[str], Any] | None = None,
+        min_page_support: float = 0.5,
+    ) -> Check:
+        """单条引用四点核验（§2.4）：文件名真实 / 页码 1-based 在范围 / **chunk 回查一致** / 引用页承载该块。
+    
+        ``citation`` 支持 ``Citation`` 对象或 dict（``file_name`` / ``page`` / ``chunk_id`` / ``quote``）。
+    
+        核验顺序：
+            ① 文件名 ∈ 自动发现结果；② ``page`` 为整数且 1 ≤ page ≤ 页数（越界或落入 0-based 区间会给出提示）；
+            ③ 给了 ``chunk_lookup`` 时回查 ``chunk_id``：块必须存在、其 ``page`` 与引用页一致；
+            ④ 引用页必须**承载该块内容**（``page_support_ratio`` ≥ ``min_page_support``，
+               标注行与页眉页脚先剥掉）；块跨页时允许在块覆盖的其它物理页上找到支撑，但会注明页码；
+            ⑤ 反 0-based 陷阱：引用页没有、下一页有 → 判「索引当页码」。
+        """
+        if isinstance(citation, Mapping):
+            file_name = str(citation.get("file_name", ""))
+            page = citation.get("page", 0)
+            quote = str(citation.get("quote", "") or "")
+            chunk_id = str(citation.get("chunk_id", "") or "")
+        else:
+            file_name = str(getattr(citation, "file_name", ""))
+            page = getattr(citation, "page", 0)
+            quote = str(getattr(citation, "quote", "") or "")
+            chunk_id = str(getattr(citation, "chunk_id", "") or "")
+        label = f"{file_name}:{page}"
+    
+        if file_name not in set(discovered_files):
+            return Check(f"引用文件名真实（{label}）", False,
+                         f"文件名不在自动发现结果里：{sorted(discovered_files)}")
+        if not isinstance(page, int) or isinstance(page, bool):
+            return Check(f"引用页码为整数（{label}）", False, f"page 类型 {type(page).__name__}：{page!r}")
+        total = int(page_counts.get(file_name, 0))
+        if page < 1 or page > total:
+            hint = ""
+            if 0 <= page <= total:
+                hint = "　⚠️ 该值落在 0-based 索引区间（0..页数-1）→ 疑似用 0-based 索引当页码"
+            return Check(f"引用页码在 1..{total} 且为 1-based（{label}）", False, f"越界{hint}")
+    
+        try:
+            text = page_lookup(file_name, page)
+        except (KeyError, ValueError) as exc:
+            return Check(f"引用页可读取（{label}）", False, f"{type(exc).__name__}: {exc}")
+    
+        # ③ chunk 回查（给了就必查：chunk_id 可查 + 页码一致）
+        if chunk_lookup is not None and chunk_id:
+>           chunk = (chunk_lookup.get(chunk_id) if isinstance(chunk_lookup, Mapping)
+                     else chunk_lookup(chunk_id))
+E           TypeError: 'dict' object is not callable
+
+测试\common\assertions.py:600: TypeError
+_______________ ERROR at setup of test_first_token_per_question _______________
+
+engine = <app.core.qa_engine.QAEngine object at 0x000001CF8B8A1290>
+runnable_items = [GoldenItem(id=1, question='武汉力源信息技术股份有限公司本次发行股数是多少？占发行后总股本的比例是多少？', answer='发行 1,670 万股，占发行后总股本的比例为 25.04%。', evidenc...olden_qa.jsonl（answer/evidence 原样）', question_alt='', notes='物理 160 为专节；物理 27 也载该表述（引用页 ≠ evidence_pages 是允许的）。'), ...]
+page_lookup = <function lookup_factory.<locals>.lookup at 0x000001CF95D6AD40>
+page_counts = {'招股说明书1.pdf': 548, '招股说明书2.pdf': 350}
+chunk_lookup = {'招股说明书1_p0001_x00': {'char_count': 270, 'chunk_id': '招股说明书1_p0001_x00', 'content': '武汉兴图新科电子股份有限公司 招股意向书 武汉兴图新科电子股份有限...判断偏离市场需求，研究开发工作不能产生预期效益， 公司研发投入与产出不匹配将导致公司业绩受到不利影响，公司将面临新技术、 新产品研发试制未取得预期效益的风险。', 'file_name': '招股说明书1.pdf', ...}, ...}
+
+    @pytest.fixture(scope="session")
+    def qa_results(engine: Any, runnable_items: list[Any], page_lookup: Any,
+                   page_counts: dict[str, int], chunk_lookup: dict[str, Any]) -> list[dict[str, Any]]:
+        """跑一遍 14 题并缓存逐题结果（含判定、引用核验、要素诊断），同时写留痕。"""
+        files = list(page_counts)
+        rows: list[dict[str, Any]] = []
+        for item in runnable_items:
+            started = time.perf_counter()
+            answer = engine.ask(item.question, session_id=f"t8-q{item.id}", stream=False)
+            wall_ms = round((time.perf_counter() - started) * 1000, 2)
+            correct, reason, source = assertions.judge_answer(str(answer.text), item.answer)
+    
+            citations = list(getattr(answer, "citations", []) or [])
+            cite_rows: list[dict[str, Any]] = []
+            for cite in citations:
+>               check = assertions.check_citation_traceable(
+                    cite, page_lookup=page_lookup, page_counts=page_counts,
+                    discovered_files=files, chunk_lookup=chunk_lookup)
+
+测试\在线\test_t7_online_qa14.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+citation = Citation(file_name='招股说明书2.pdf', page=24, chunk_id='招股说明书2_p0024_x44', quote='武汉力源信息技术股份有限公司 招股意向书 二、本次发行的基本情况 (一)发行基本情况 股票种类 人民币普通股(A 股) 每股面值 人民币1.00 元 发行股数及占发行后总股本比例 1,670 万股，占发行后总股本的比例为25.04% 每股发')
+
+    def check_citation_traceable(
+        citation: Any,
+        *,
+        page_lookup: Callable[[str, int], str],
+        page_counts: Mapping[str, int],
+        discovered_files: Sequence[str],
+        support: str | None = None,
+        chunk_lookup: Callable[[str], Any] | None = None,
+        min_page_support: float = 0.5,
+    ) -> Check:
+        """单条引用四点核验（§2.4）：文件名真实 / 页码 1-based 在范围 / **chunk 回查一致** / 引用页承载该块。
+    
+        ``citation`` 支持 ``Citation`` 对象或 dict（``file_name`` / ``page`` / ``chunk_id`` / ``quote``）。
+    
+        核验顺序：
+            ① 文件名 ∈ 自动发现结果；② ``page`` 为整数且 1 ≤ page ≤ 页数（越界或落入 0-based 区间会给出提示）；
+            ③ 给了 ``chunk_lookup`` 时回查 ``chunk_id``：块必须存在、其 ``page`` 与引用页一致；
+            ④ 引用页必须**承载该块内容**（``page_support_ratio`` ≥ ``min_page_support``，
+               标注行与页眉页脚先剥掉）；块跨页时允许在块覆盖的其它物理页上找到支撑，但会注明页码；
+            ⑤ 反 0-based 陷阱：引用页没有、下一页有 → 判「索引当页码」。
+        """
+        if isinstance(citation, Mapping):
+            file_name = str(citation.get("file_name", ""))
+            page = citation.get("page", 0)
+            quote = str(citation.get("quote", "") or "")
+            chunk_id = str(citation.get("chunk_id", "") or "")
+        else:
+            file_name = str(getattr(citation, "file_name", ""))
+            page = getattr(citation, "page", 0)
+            quote = str(getattr(citation, "quote", "") or "")
+            chunk_id = str(getattr(citation, "chunk_id", "") or "")
+        label = f"{file_name}:{page}"
+    
+        if file_name not in set(discovered_files):
+            return Check(f"引用文件名真实（{label}）", False,
+                         f"文件名不在自动发现结果里：{sorted(discovered_files)}")
+        if not isinstance(page, int) or isinstance(page, bool):
+            return Check(f"引用页码为整数（{label}）", False, f"page 类型 {type(page).__name__}：{page!r}")
+        total = int(page_counts.get(file_name, 0))
+        if page < 1 or page > total:
+            hint = ""
+            if 0 <= page <= total:
+                hint = "　⚠️ 该值落在 0-based 索引区间（0..页数-1）→ 疑似用 0-based 索引当页码"
+            return Check(f"引用页码在 1..{total} 且为 1-based（{label}）", False, f"越界{hint}")
+    
+        try:
+            text = page_lookup(file_name, page)
+        except (KeyError, ValueError) as exc:
+            return Check(f"引用页可读取（{label}）", False, f"{type(exc).__name__}: {exc}")
+    
+        # ③ chunk 回查（给了就必查：chunk_id 可查 + 页码一致）
+        if chunk_lookup is not None and chunk_id:
+>           chunk = (chunk_lookup.get(chunk_id) if isinstance(chunk_lookup, Mapping)
+                     else chunk_lookup(chunk_id))
+E           TypeError: 'dict' object is not callable
+
+测试\common\assertions.py:600: TypeError
+___________ ERROR at setup of test_citations_present_and_traceable ____________
+
+engine = <app.core.qa_engine.QAEngine object at 0x000001CF8B8A1290>
+runnable_items = [GoldenItem(id=1, question='武汉力源信息技术股份有限公司本次发行股数是多少？占发行后总股本的比例是多少？', answer='发行 1,670 万股，占发行后总股本的比例为 25.04%。', evidenc...olden_qa.jsonl（answer/evidence 原样）', question_alt='', notes='物理 160 为专节；物理 27 也载该表述（引用页 ≠ evidence_pages 是允许的）。'), ...]
+page_lookup = <function lookup_factory.<locals>.lookup at 0x000001CF95D6AD40>
+page_counts = {'招股说明书1.pdf': 548, '招股说明书2.pdf': 350}
+chunk_lookup = {'招股说明书1_p0001_x00': {'char_count': 270, 'chunk_id': '招股说明书1_p0001_x00', 'content': '武汉兴图新科电子股份有限公司 招股意向书 武汉兴图新科电子股份有限...判断偏离市场需求，研究开发工作不能产生预期效益， 公司研发投入与产出不匹配将导致公司业绩受到不利影响，公司将面临新技术、 新产品研发试制未取得预期效益的风险。', 'file_name': '招股说明书1.pdf', ...}, ...}
+
+    @pytest.fixture(scope="session")
+    def qa_results(engine: Any, runnable_items: list[Any], page_lookup: Any,
+                   page_counts: dict[str, int], chunk_lookup: dict[str, Any]) -> list[dict[str, Any]]:
+        """跑一遍 14 题并缓存逐题结果（含判定、引用核验、要素诊断），同时写留痕。"""
+        files = list(page_counts)
+        rows: list[dict[str, Any]] = []
+        for item in runnable_items:
+            started = time.perf_counter()
+            answer = engine.ask(item.question, session_id=f"t8-q{item.id}", stream=False)
+            wall_ms = round((time.perf_counter() - started) * 1000, 2)
+            correct, reason, source = assertions.judge_answer(str(answer.text), item.answer)
+    
+            citations = list(getattr(answer, "citations", []) or [])
+            cite_rows: list[dict[str, Any]] = []
+            for cite in citations:
+>               check = assertions.check_citation_traceable(
+                    cite, page_lookup=page_lookup, page_counts=page_counts,
+                    discovered_files=files, chunk_lookup=chunk_lookup)
+
+测试\在线\test_t7_online_qa14.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+citation = Citation(file_name='招股说明书2.pdf', page=24, chunk_id='招股说明书2_p0024_x44', quote='武汉力源信息技术股份有限公司 招股意向书 二、本次发行的基本情况 (一)发行基本情况 股票种类 人民币普通股(A 股) 每股面值 人民币1.00 元 发行股数及占发行后总股本比例 1,670 万股，占发行后总股本的比例为25.04% 每股发')
+
+    def check_citation_traceable(
+        citation: Any,
+        *,
+        page_lookup: Callable[[str, int], str],
+        page_counts: Mapping[str, int],
+        discovered_files: Sequence[str],
+        support: str | None = None,
+        chunk_lookup: Callable[[str], Any] | None = None,
+        min_page_support: float = 0.5,
+    ) -> Check:
+        """单条引用四点核验（§2.4）：文件名真实 / 页码 1-based 在范围 / **chunk 回查一致** / 引用页承载该块。
+    
+        ``citation`` 支持 ``Citation`` 对象或 dict（``file_name`` / ``page`` / ``chunk_id`` / ``quote``）。
+    
+        核验顺序：
+            ① 文件名 ∈ 自动发现结果；② ``page`` 为整数且 1 ≤ page ≤ 页数（越界或落入 0-based 区间会给出提示）；
+            ③ 给了 ``chunk_lookup`` 时回查 ``chunk_id``：块必须存在、其 ``page`` 与引用页一致；
+            ④ 引用页必须**承载该块内容**（``page_support_ratio`` ≥ ``min_page_support``，
+               标注行与页眉页脚先剥掉）；块跨页时允许在块覆盖的其它物理页上找到支撑，但会注明页码；
+            ⑤ 反 0-based 陷阱：引用页没有、下一页有 → 判「索引当页码」。
+        """
+        if isinstance(citation, Mapping):
+            file_name = str(citation.get("file_name", ""))
+            page = citation.get("page", 0)
+            quote = str(citation.get("quote", "") or "")
+            chunk_id = str(citation.get("chunk_id", "") or "")
+        else:
+            file_name = str(getattr(citation, "file_name", ""))
+            page = getattr(citation, "page", 0)
+            quote = str(getattr(citation, "quote", "") or "")
+            chunk_id = str(getattr(citation, "chunk_id", "") or "")
+        label = f"{file_name}:{page}"
+    
+        if file_name not in set(discovered_files):
+            return Check(f"引用文件名真实（{label}）", False,
+                         f"文件名不在自动发现结果里：{sorted(discovered_files)}")
+        if not isinstance(page, int) or isinstance(page, bool):
+            return Check(f"引用页码为整数（{label}）", False, f"page 类型 {type(page).__name__}：{page!r}")
+        total = int(page_counts.get(file_name, 0))
+        if page < 1 or page > total:
+            hint = ""
+            if 0 <= page <= total:
+                hint = "　⚠️ 该值落在 0-based 索引区间（0..页数-1）→ 疑似用 0-based 索引当页码"
+            return Check(f"引用页码在 1..{total} 且为 1-based（{label}）", False, f"越界{hint}")
+    
+        try:
+            text = page_lookup(file_name, page)
+        except (KeyError, ValueError) as exc:
+            return Check(f"引用页可读取（{label}）", False, f"{type(exc).__name__}: {exc}")
+    
+        # ③ chunk 回查（给了就必查：chunk_id 可查 + 页码一致）
+        if chunk_lookup is not None and chunk_id:
+>           chunk = (chunk_lookup.get(chunk_id) if isinstance(chunk_lookup, Mapping)
+                     else chunk_lookup(chunk_id))
+E           TypeError: 'dict' object is not callable
+
+测试\common\assertions.py:600: TypeError
+__________________ ERROR at setup of test_question_207_rules __________________
+
+engine = <app.core.qa_engine.QAEngine object at 0x000001CF8B8A1290>
+runnable_items = [GoldenItem(id=1, question='武汉力源信息技术股份有限公司本次发行股数是多少？占发行后总股本的比例是多少？', answer='发行 1,670 万股，占发行后总股本的比例为 25.04%。', evidenc...olden_qa.jsonl（answer/evidence 原样）', question_alt='', notes='物理 160 为专节；物理 27 也载该表述（引用页 ≠ evidence_pages 是允许的）。'), ...]
+page_lookup = <function lookup_factory.<locals>.lookup at 0x000001CF95D6AD40>
+page_counts = {'招股说明书1.pdf': 548, '招股说明书2.pdf': 350}
+chunk_lookup = {'招股说明书1_p0001_x00': {'char_count': 270, 'chunk_id': '招股说明书1_p0001_x00', 'content': '武汉兴图新科电子股份有限公司 招股意向书 武汉兴图新科电子股份有限...判断偏离市场需求，研究开发工作不能产生预期效益， 公司研发投入与产出不匹配将导致公司业绩受到不利影响，公司将面临新技术、 新产品研发试制未取得预期效益的风险。', 'file_name': '招股说明书1.pdf', ...}, ...}
+
+    @pytest.fixture(scope="session")
+    def qa_results(engine: Any, runnable_items: list[Any], page_lookup: Any,
+                   page_counts: dict[str, int], chunk_lookup: dict[str, Any]) -> list[dict[str, Any]]:
+        """跑一遍 14 题并缓存逐题结果（含判定、引用核验、要素诊断），同时写留痕。"""
+        files = list(page_counts)
+        rows: list[dict[str, Any]] = []
+        for item in runnable_items:
+            started = time.perf_counter()
+            answer = engine.ask(item.question, session_id=f"t8-q{item.id}", stream=False)
+            wall_ms = round((time.perf_counter() - started) * 1000, 2)
+            correct, reason, source = assertions.judge_answer(str(answer.text), item.answer)
+    
+            citations = list(getattr(answer, "citations", []) or [])
+            cite_rows: list[dict[str, Any]] = []
+            for cite in citations:
+>               check = assertions.check_citation_traceable(
+                    cite, page_lookup=page_lookup, page_counts=page_counts,
+                    discovered_files=files, chunk_lookup=chunk_lookup)
+
+测试\在线\test_t7_online_qa14.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+citation = Citation(file_name='招股说明书2.pdf', page=24, chunk_id='招股说明书2_p0024_x44', quote='武汉力源信息技术股份有限公司 招股意向书 二、本次发行的基本情况 (一)发行基本情况 股票种类 人民币普通股(A 股) 每股面值 人民币1.00 元 发行股数及占发行后总股本比例 1,670 万股，占发行后总股本的比例为25.04% 每股发')
+
+    def check_citation_traceable(
+        citation: Any,
+        *,
+        page_lookup: Callable[[str, int], str],
+        page_counts: Mapping[str, int],
+        discovered_files: Sequence[str],
+        support: str | None = None,
+        chunk_lookup: Callable[[str], Any] | None = None,
+        min_page_support: float = 0.5,
+    ) -> Check:
+        """单条引用四点核验（§2.4）：文件名真实 / 页码 1-based 在范围 / **chunk 回查一致** / 引用页承载该块。
+    
+        ``citation`` 支持 ``Citation`` 对象或 dict（``file_name`` / ``page`` / ``chunk_id`` / ``quote``）。
+    
+        核验顺序：
+            ① 文件名 ∈ 自动发现结果；② ``page`` 为整数且 1 ≤ page ≤ 页数（越界或落入 0-based 区间会给出提示）；
+            ③ 给了 ``chunk_lookup`` 时回查 ``chunk_id``：块必须存在、其 ``page`` 与引用页一致；
+            ④ 引用页必须**承载该块内容**（``page_support_ratio`` ≥ ``min_page_support``，
+               标注行与页眉页脚先剥掉）；块跨页时允许在块覆盖的其它物理页上找到支撑，但会注明页码；
+            ⑤ 反 0-based 陷阱：引用页没有、下一页有 → 判「索引当页码」。
+        """
+        if isinstance(citation, Mapping):
+            file_name = str(citation.get("file_name", ""))
+            page = citation.get("page", 0)
+            quote = str(citation.get("quote", "") or "")
+            chunk_id = str(citation.get("chunk_id", "") or "")
+        else:
+            file_name = str(getattr(citation, "file_name", ""))
+            page = getattr(citation, "page", 0)
+            quote = str(getattr(citation, "quote", "") or "")
+            chunk_id = str(getattr(citation, "chunk_id", "") or "")
+        label = f"{file_name}:{page}"
+    
+        if file_name not in set(discovered_files):
+            return Check(f"引用文件名真实（{label}）", False,
+                         f"文件名不在自动发现结果里：{sorted(discovered_files)}")
+        if not isinstance(page, int) or isinstance(page, bool):
+            return Check(f"引用页码为整数（{label}）", False, f"page 类型 {type(page).__name__}：{page!r}")
+        total = int(page_counts.get(file_name, 0))
+        if page < 1 or page > total:
+            hint = ""
+            if 0 <= page <= total:
+                hint = "　⚠️ 该值落在 0-based 索引区间（0..页数-1）→ 疑似用 0-based 索引当页码"
+            return Check(f"引用页码在 1..{total} 且为 1-based（{label}）", False, f"越界{hint}")
+    
+        try:
+            text = page_lookup(file_name, page)
+        except (KeyError, ValueError) as exc:
+            return Check(f"引用页可读取（{label}）", False, f"{type(exc).__name__}: {exc}")
+    
+        # ③ chunk 回查（给了就必查：chunk_id 可查 + 页码一致）
+        if chunk_lookup is not None and chunk_id:
+>           chunk = (chunk_lookup.get(chunk_id) if isinstance(chunk_lookup, Mapping)
+                     else chunk_lookup(chunk_id))
+E           TypeError: 'dict' object is not callable
+
+测试\common\assertions.py:600: TypeError
+_______________ ERROR at setup of test_pdf2_questions_cite_pdf2 _______________
+
+engine = <app.core.qa_engine.QAEngine object at 0x000001CF8B8A1290>
+runnable_items = [GoldenItem(id=1, question='武汉力源信息技术股份有限公司本次发行股数是多少？占发行后总股本的比例是多少？', answer='发行 1,670 万股，占发行后总股本的比例为 25.04%。', evidenc...olden_qa.jsonl（answer/evidence 原样）', question_alt='', notes='物理 160 为专节；物理 27 也载该表述（引用页 ≠ evidence_pages 是允许的）。'), ...]
+page_lookup = <function lookup_factory.<locals>.lookup at 0x000001CF95D6AD40>
+page_counts = {'招股说明书1.pdf': 548, '招股说明书2.pdf': 350}
+chunk_lookup = {'招股说明书1_p0001_x00': {'char_count': 270, 'chunk_id': '招股说明书1_p0001_x00', 'content': '武汉兴图新科电子股份有限公司 招股意向书 武汉兴图新科电子股份有限...判断偏离市场需求，研究开发工作不能产生预期效益， 公司研发投入与产出不匹配将导致公司业绩受到不利影响，公司将面临新技术、 新产品研发试制未取得预期效益的风险。', 'file_name': '招股说明书1.pdf', ...}, ...}
+
+    @pytest.fixture(scope="session")
+    def qa_results(engine: Any, runnable_items: list[Any], page_lookup: Any,
+                   page_counts: dict[str, int], chunk_lookup: dict[str, Any]) -> list[dict[str, Any]]:
+        """跑一遍 14 题并缓存逐题结果（含判定、引用核验、要素诊断），同时写留痕。"""
+        files = list(page_counts)
+        rows: list[dict[str, Any]] = []
+        for item in runnable_items:
+            started = time.perf_counter()
+            answer = engine.ask(item.question, session_id=f"t8-q{item.id}", stream=False)
+            wall_ms = round((time.perf_counter() - started) * 1000, 2)
+            correct, reason, source = assertions.judge_answer(str(answer.text), item.answer)
+    
+            citations = list(getattr(answer, "citations", []) or [])
+            cite_rows: list[dict[str, Any]] = []
+            for cite in citations:
+>               check = assertions.check_citation_traceable(
+                    cite, page_lookup=page_lookup, page_counts=page_counts,
+                    discovered_files=files, chunk_lookup=chunk_lookup)
+
+测试\在线\test_t7_online_qa14.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+citation = Citation(file_name='招股说明书2.pdf', page=24, chunk_id='招股说明书2_p0024_x44', quote='武汉力源信息技术股份有限公司 招股意向书 二、本次发行的基本情况 (一)发行基本情况 股票种类 人民币普通股(A 股) 每股面值 人民币1.00 元 发行股数及占发行后总股本比例 1,670 万股，占发行后总股本的比例为25.04% 每股发')
+
+    def check_citation_traceable(
+        citation: Any,
+        *,
+        page_lookup: Callable[[str, int], str],
+        page_counts: Mapping[str, int],
+        discovered_files: Sequence[str],
+        support: str | None = None,
+        chunk_lookup: Callable[[str], Any] | None = None,
+        min_page_support: float = 0.5,
+    ) -> Check:
+        """单条引用四点核验（§2.4）：文件名真实 / 页码 1-based 在范围 / **chunk 回查一致** / 引用页承载该块。
+    
+        ``citation`` 支持 ``Citation`` 对象或 dict（``file_name`` / ``page`` / ``chunk_id`` / ``quote``）。
+    
+        核验顺序：
+            ① 文件名 ∈ 自动发现结果；② ``page`` 为整数且 1 ≤ page ≤ 页数（越界或落入 0-based 区间会给出提示）；
+            ③ 给了 ``chunk_lookup`` 时回查 ``chunk_id``：块必须存在、其 ``page`` 与引用页一致；
+            ④ 引用页必须**承载该块内容**（``page_support_ratio`` ≥ ``min_page_support``，
+               标注行与页眉页脚先剥掉）；块跨页时允许在块覆盖的其它物理页上找到支撑，但会注明页码；
+            ⑤ 反 0-based 陷阱：引用页没有、下一页有 → 判「索引当页码」。
+        """
+        if isinstance(citation, Mapping):
+            file_name = str(citation.get("file_name", ""))
+            page = citation.get("page", 0)
+            quote = str(citation.get("quote", "") or "")
+            chunk_id = str(citation.get("chunk_id", "") or "")
+        else:
+            file_name = str(getattr(citation, "file_name", ""))
+            page = getattr(citation, "page", 0)
+            quote = str(getattr(citation, "quote", "") or "")
+            chunk_id = str(getattr(citation, "chunk_id", "") or "")
+        label = f"{file_name}:{page}"
+    
+        if file_name not in set(discovered_files):
+            return Check(f"引用文件名真实（{label}）", False,
+                         f"文件名不在自动发现结果里：{sorted(discovered_files)}")
+        if not isinstance(page, int) or isinstance(page, bool):
+            return Check(f"引用页码为整数（{label}）", False, f"page 类型 {type(page).__name__}：{page!r}")
+        total = int(page_counts.get(file_name, 0))
+        if page < 1 or page > total:
+            hint = ""
+            if 0 <= page <= total:
+                hint = "　⚠️ 该值落在 0-based 索引区间（0..页数-1）→ 疑似用 0-based 索引当页码"
+            return Check(f"引用页码在 1..{total} 且为 1-based（{label}）", False, f"越界{hint}")
+    
+        try:
+            text = page_lookup(file_name, page)
+        except (KeyError, ValueError) as exc:
+            return Check(f"引用页可读取（{label}）", False, f"{type(exc).__name__}: {exc}")
+    
+        # ③ chunk 回查（给了就必查：chunk_id 可查 + 页码一致）
+        if chunk_lookup is not None and chunk_id:
+>           chunk = (chunk_lookup.get(chunk_id) if isinstance(chunk_lookup, Mapping)
+                     else chunk_lookup(chunk_id))
+E           TypeError: 'dict' object is not callable
+
+测试\common\assertions.py:600: TypeError
+___________ ERROR at setup of test_element_completeness_is_recorded ___________
+
+engine = <app.core.qa_engine.QAEngine object at 0x000001CF8B8A1290>
+runnable_items = [GoldenItem(id=1, question='武汉力源信息技术股份有限公司本次发行股数是多少？占发行后总股本的比例是多少？', answer='发行 1,670 万股，占发行后总股本的比例为 25.04%。', evidenc...olden_qa.jsonl（answer/evidence 原样）', question_alt='', notes='物理 160 为专节；物理 27 也载该表述（引用页 ≠ evidence_pages 是允许的）。'), ...]
+page_lookup = <function lookup_factory.<locals>.lookup at 0x000001CF95D6AD40>
+page_counts = {'招股说明书1.pdf': 548, '招股说明书2.pdf': 350}
+chunk_lookup = {'招股说明书1_p0001_x00': {'char_count': 270, 'chunk_id': '招股说明书1_p0001_x00', 'content': '武汉兴图新科电子股份有限公司 招股意向书 武汉兴图新科电子股份有限...判断偏离市场需求，研究开发工作不能产生预期效益， 公司研发投入与产出不匹配将导致公司业绩受到不利影响，公司将面临新技术、 新产品研发试制未取得预期效益的风险。', 'file_name': '招股说明书1.pdf', ...}, ...}
+
+    @pytest.fixture(scope="session")
+    def qa_results(engine: Any, runnable_items: list[Any], page_lookup: Any,
+                   page_counts: dict[str, int], chunk_lookup: dict[str, Any]) -> list[dict[str, Any]]:
+        """跑一遍 14 题并缓存逐题结果（含判定、引用核验、要素诊断），同时写留痕。"""
+        files = list(page_counts)
+        rows: list[dict[str, Any]] = []
+        for item in runnable_items:
+            started = time.perf_counter()
+            answer = engine.ask(item.question, session_id=f"t8-q{item.id}", stream=False)
+            wall_ms = round((time.perf_counter() - started) * 1000, 2)
+            correct, reason, source = assertions.judge_answer(str(answer.text), item.answer)
+    
+            citations = list(getattr(answer, "citations", []) or [])
+            cite_rows: list[dict[str, Any]] = []
+            for cite in citations:
+>               check = assertions.check_citation_traceable(
+                    cite, page_lookup=page_lookup, page_counts=page_counts,
+                    discovered_files=files, chunk_lookup=chunk_lookup)
+
+测试\在线\test_t7_online_qa14.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+citation = Citation(file_name='招股说明书2.pdf', page=24, chunk_id='招股说明书2_p0024_x44', quote='武汉力源信息技术股份有限公司 招股意向书 二、本次发行的基本情况 (一)发行基本情况 股票种类 人民币普通股(A 股) 每股面值 人民币1.00 元 发行股数及占发行后总股本比例 1,670 万股，占发行后总股本的比例为25.04% 每股发')
+
+    def check_citation_traceable(
+        citation: Any,
+        *,
+        page_lookup: Callable[[str, int], str],
+        page_counts: Mapping[str, int],
+        discovered_files: Sequence[str],
+        support: str | None = None,
+        chunk_lookup: Callable[[str], Any] | None = None,
+        min_page_support: float = 0.5,
+    ) -> Check:
+        """单条引用四点核验（§2.4）：文件名真实 / 页码 1-based 在范围 / **chunk 回查一致** / 引用页承载该块。
+    
+        ``citation`` 支持 ``Citation`` 对象或 dict（``file_name`` / ``page`` / ``chunk_id`` / ``quote``）。
+    
+        核验顺序：
+            ① 文件名 ∈ 自动发现结果；② ``page`` 为整数且 1 ≤ page ≤ 页数（越界或落入 0-based 区间会给出提示）；
+            ③ 给了 ``chunk_lookup`` 时回查 ``chunk_id``：块必须存在、其 ``page`` 与引用页一致；
+            ④ 引用页必须**承载该块内容**（``page_support_ratio`` ≥ ``min_page_support``，
+               标注行与页眉页脚先剥掉）；块跨页时允许在块覆盖的其它物理页上找到支撑，但会注明页码；
+            ⑤ 反 0-based 陷阱：引用页没有、下一页有 → 判「索引当页码」。
+        """
+        if isinstance(citation, Mapping):
+            file_name = str(citation.get("file_name", ""))
+            page = citation.get("page", 0)
+            quote = str(citation.get("quote", "") or "")
+            chunk_id = str(citation.get("chunk_id", "") or "")
+        else:
+            file_name = str(getattr(citation, "file_name", ""))
+            page = getattr(citation, "page", 0)
+            quote = str(getattr(citation, "quote", "") or "")
+            chunk_id = str(getattr(citation, "chunk_id", "") or "")
+        label = f"{file_name}:{page}"
+    
+        if file_name not in set(discovered_files):
+            return Check(f"引用文件名真实（{label}）", False,
+                         f"文件名不在自动发现结果里：{sorted(discovered_files)}")
+        if not isinstance(page, int) or isinstance(page, bool):
+            return Check(f"引用页码为整数（{label}）", False, f"page 类型 {type(page).__name__}：{page!r}")
+        total = int(page_counts.get(file_name, 0))
+        if page < 1 or page > total:
+            hint = ""
+            if 0 <= page <= total:
+                hint = "　⚠️ 该值落在 0-based 索引区间（0..页数-1）→ 疑似用 0-based 索引当页码"
+            return Check(f"引用页码在 1..{total} 且为 1-based（{label}）", False, f"越界{hint}")
+    
+        try:
+            text = page_lookup(file_name, page)
+        except (KeyError, ValueError) as exc:
+            return Check(f"引用页可读取（{label}）", False, f"{type(exc).__name__}: {exc}")
+    
+        # ③ chunk 回查（给了就必查：chunk_id 可查 + 页码一致）
+        if chunk_lookup is not None and chunk_id:
+>           chunk = (chunk_lookup.get(chunk_id) if isinstance(chunk_lookup, Mapping)
+                     else chunk_lookup(chunk_id))
+E           TypeError: 'dict' object is not callable
+
+测试\common\assertions.py:600: TypeError
+================================== FAILURES ===================================
+_________________________________ test_health _________________________________
+
+client = <starlette.testclient.TestClient object at 0x000001CF8B8CCFD0>
+
+    def test_health(client: Any) -> None:
+        """``/api/health`` 返回索引与 LLM 状态，且索引块数 > 0。"""
+        response = client.get("/api/health")
+        assert response.status_code == 200, response.text
+        payload = response.json()
+        assert payload.get("ok") is True
+>       assert int(payload.get("index", {}).get("count", 0)) > 0
+E       AssertionError: assert 0 > 0
+E        +  where 0 = int(0)
+E        +    where 0 = <built-in method get of dict object at 0x000001CF90CE7900>('count', 0)
+E        +      where <built-in method get of dict object at 0x000001CF90CE7900> = {}.get
+E        +        where {} = <built-in method get of dict object at 0x000001CF9067F4C0>('index', {})
+E        +          where <built-in method get of dict object at 0x000001CF9067F4C0> = {'checked_at': '2026-10-04T17:38:27.619+08:00', 'files': [{'chunk_count': 1647, 'file_name': '招股说明书1.pdf', 'page_count...rue, ...}], 'llm': {'backend': 'ollama', 'base_url': 'http://127.0.0.1:11434', 'model': 'qwen2.5:3b'}, 'ok': True, ...}.get
+
+测试\在线\test_t7_online_http.py:40: AssertionError
+____________________ test_ask_returns_answer_with_citation ____________________
+
+client = <starlette.testclient.TestClient object at 0x000001CF8B8CCFD0>
+
+    def test_ask_returns_answer_with_citation(client: Any) -> None:
+        """``/api/ask`` 返回答案 + 引用 + 首字耗时，且字段齐备。"""
+        response = client.post("/api/ask", json={"question": QUESTION, "session_id": "t8-http-1", "top_k": 5})
+        assert response.status_code == 200, response.text
+        payload = response.json()
+        for key in ("text", "citations", "is_unknown", "first_token_ms", "session_id", "trace_id", "chunks"):
+>           assert key in payload, f"响应缺少字段 {key!r}：{sorted(payload)}"
+E           AssertionError: 响应缺少字段 'text'：['answer', 'answer_id', 'backend', 'citations', 'first_token_ms', 'is_unknown', 'model', 'retrieval', 'session_id', 'total_ms', 'trace_id', 'unknown_reason', 'wall_ms']
+E           assert 'text' in {'answer': '| 注册资本 | 5,520.00 万元 | 法定代表人 | 程家明 |\n引用：[招股说明书1.pdf: 22]', 'answer_id': 'a06709803', 'backend': 'ollama',...基本情况\n[来源] 招股说明书1.pdf 第 22 页\n[Markdown]\n| 中文名称 | 武汉兴图新科电子股份有限公司 | 有限公司成立日期 | 2004 年6 月17 日 |\n| --- | --- | '}], ...}
+
+测试\在线\test_t7_online_http.py:60: AssertionError
+_______________________ test_invalid_input_status_codes _______________________
+
+client = <starlette.testclient.TestClient object at 0x000001CF8B8CCFD0>
+
+    def test_invalid_input_status_codes(client: Any) -> None:
+        """入参非法：空问题 → 4xx；不存在的文件名 → 4xx（§7 约定 400）。"""
+        empty = client.post("/api/ask", json={"question": "", "session_id": "t8-http-bad"})
+        assert empty.status_code in (400, 422), f"空问题应 4xx，实测 {empty.status_code}"
+        missing = client.post("/api/ask", json={"question": QUESTION, "file_names": ["不存在的文件.pdf"]})
+>       assert missing.status_code in (400, 404, 422), f"不存在的文件名应 4xx，实测 {missing.status_code}"
+E       AssertionError: 不存在的文件名应 4xx，实测 200
+E       assert 200 in (400, 404, 422)
+E        +  where 200 = <Response [200 OK]>.status_code
+
+测试\在线\test_t7_online_http.py:83: AssertionError
+______________________ test_follow_up_resolves_reference ______________________
+
+dialogue = {'session_id': 't8-multiturn-1791106719', 'turns': [{'citations': [{'file_name': '招股说明书1.pdf', 'page': 22}], 'first_to...ns': [{'file_name': '招股说明书1.pdf', 'page': 22}], 'first_token_ms': 103.44, 'is_unknown': False, 'language': 'en', ...}]}
+
+    def test_follow_up_resolves_reference(dialogue: dict[str, Any]) -> None:
+        """轮 2 追问「那法定代表人呢？」必须消解指代 → 答程家明。"""
+        turn2 = dialogue["turns"][1]
+>       assert "程家明" in turn2["text"], f"指代消解失败，轮 2 答：{turn2['text'][:80]!r}"
+E       AssertionError: 指代消解失败，轮 2 答：'2017 年至今任汕 头市万顺贸易有限公司，法定代表人、执行董事、经理，任安徽美信铝业有限公司法定代表人、执行董事、总经理；\n引用：[招股说明书1.pdf: 7'
+E       assert '程家明' in '2017 年至今任汕 头市万顺贸易有限公司，法定代表人、执行董事、经理，任安徽美信铝业有限公司法定代表人、执行董事、总经理；\n引用：[招股说明书1.pdf: 72]'
+
+测试\在线\test_t7_online_multiturn.py:63: AssertionError
+_____________________ test_frozen_judge_module_available ______________________
+
+    def test_frozen_judge_module_available() -> None:
+        """冻结判分模块 ``app/core/evaluator_bridge.py``（设计 §3.23）必须存在。
+    
+        它是验收 3「14 题准确率 ≥ 90%」的**唯一合规判分口径**；缺失时只能用
+        「工单1 权威 Evaluator（只读）」兜底 —— 那属于降级，必须在报告里注明（不得冒充产品口径）。
+        """
+        available, detail = judge_local.judge_source_available()
+>       assert available, f"判分口径被降级：{detail}"
+E       AssertionError: 判分口径被降级：缺少冻结模块 研发\app\core\evaluator_bridge.py（设计/接口设计.md §3.23）：ImportError: cannot import name 'evaluator_bridge' from 'app.core' (E:\gao6gongdan\工单3\研发\app\core\__init__.py)
+E       assert False
+
+测试\在线\test_t7_online_qa14.py:38: AssertionError
+============================== warnings summary ===============================
+测试/在线/test_t7_online_faults.py::test_model_exception_is_not_silent
+  E:\gao6gongdan\工单1\.venv\Lib\site-packages\jieba\_compat.py:18: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+    import pkg_resources
+
+测试/在线/test_t7_online_http.py::test_health
+  E:\gao6gongdan\工单3\研发\app\main.py:54: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+测试/在线/test_t7_online_http.py::test_health
+测试/在线/test_t7_online_http.py::test_health
+  E:\Anaconda\envs\fastapi_faq\Lib\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+测试/在线/test_t7_online_http.py::test_health
+  E:\gao6gongdan\工单3\研发\app\main.py:71: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("shutdown")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+---------------------------------- RAGAS 状态 -----------------------------------
+RAGAS 未运行（依赖不可用，本机断网）
+替代口径：确定性指标（14 题命中/准确率/引用可回溯/首字/拒答率）
+=========================== short test summary info ===========================
+FAILED 测试/在线/test_t7_online_http.py::test_health - AssertionError: assert...
+FAILED 测试/在线/test_t7_online_http.py::test_ask_returns_answer_with_citation
+FAILED 测试/在线/test_t7_online_http.py::test_invalid_input_status_codes - As...
+FAILED 测试/在线/test_t7_online_multiturn.py::test_follow_up_resolves_reference
+FAILED 测试/在线/test_t7_online_qa14.py::test_frozen_judge_module_available
+ERROR 测试/在线/test_t7_online_qa14.py::test_accuracy_gate - TypeError: 'dict...
+ERROR 测试/在线/test_t7_online_qa14.py::test_no_false_refusal - TypeError: 'd...
+ERROR 测试/在线/test_t7_online_qa14.py::test_question4_subject_gate_counted_and_not_refused
+ERROR 测试/在线/test_t7_online_qa14.py::test_question3_subject_gate_counted_and_not_refused
+ERROR 测试/在线/test_t7_online_qa14.py::test_first_token_per_question - TypeE...
+ERROR 测试/在线/test_t7_online_qa14.py::test_citations_present_and_traceable
+ERROR 测试/在线/test_t7_online_qa14.py::test_question_207_rules - TypeError: ...
+ERROR 测试/在线/test_t7_online_qa14.py::test_pdf2_questions_cite_pdf2 - TypeE...
+ERROR 测试/在线/test_t7_online_qa14.py::test_element_completeness_is_recorded
+============= 5 failed, 21 passed, 5 warnings, 9 errors in 32.67s =============
+级别：online；退出码：1

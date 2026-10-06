@@ -1,0 +1,60 @@
+# =============================================================================
+# 工单：人工智能NLP-RAG-PDF文档的表格解析及检索优化
+# 文件：部署/配置/requirements.txt —— **本机基线依赖**（唯一可用解释器实测）
+#
+# 唯一可用解释器：E:\gao6gongdan\工单1\.venv\Scripts\python.exe（Python 3.11.15）
+# 本机**已断网**（pypi TLS 握手失败）：本文件是「基线快照」，**不是**安装指令。
+#   在本机执行 `pip install -r 部署/配置/requirements.txt` 会挂死 —— 严禁。
+#   本文件用于：① 归档当前可用版本；② 在算力云 / 新机上复现同一基线。
+#
+# 版本号来源（全部实测，非推测）：`importlib.metadata.version()` 逐个读取，
+#   与 部署/配置/verify_env_report.json（T0 校验报告）一致。
+#
+# 分组说明：
+#   [必需]   本机在线问答链路真实使用（缺任一 → 服务起不来）
+#   [可选]   已装可用；不装也能跑（对应能力有内置降级路径）
+#   [禁止]   本机缺失且断网装不上；代码**不 import**，只用替代实现（见文件末尾）
+# =============================================================================
+
+# ------------------------------- [必需] 核心链路 -------------------------------
+pymupdf==1.28.2            # PDF 文本层 + 表格提取（page.find_tables，逐页扫描）
+numpy==1.26.4              # 向量精确检索 + 嵌入矩阵运算
+jieba==0.42.1              # 自实现 BM25 的中文分词（jieba 冷启动约 1 s，启动必须预热）
+fastapi==0.109.0           # 在线 HTTP 服务（/api/*），标准库备用界面不依赖它
+uvicorn==0.27.0            # ASGI 服务器（app.main:app，需 --app-dir 研发）
+
+# ------------------------- [必需] 传递依赖（显式冻住基线） -------------------------
+starlette==0.35.1          # fastapi 依赖
+pydantic==2.5.3            # fastapi 依赖（请求/响应模型）
+
+# --------------------------- [可选] 本地嵌入降级路径 ---------------------------
+# 在线主路径是 Ollama HTTP（/api/embed），这三者只在「Ollama 不可用」时被惰性 import。
+# 注意：单独 import 就要 2.7~3.2 s（实测），**禁止在请求路径上 eager import**。
+torch==2.11.0+cpu          # CPU 版；本机无 CUDA，代码中不得出现 torch.cuda 路径
+transformers==4.57.6
+sentence-transformers==2.3.1
+sentencepiece==0.2.1       # 上述分词后端
+
+# ----------------------------- [可选] 其它已装可用 -----------------------------
+faiss-cpu==1.7.4           # 可选向量加速；默认关闭（numpy 精确检索 top-5 实测 1.1 ms）
+scikit-learn==1.8.0        # 工具包（当前主链路未使用，保留以兼容实验脚本）
+pytest==7.4.4              # 三级测试（测试/离线、测试/在线、测试/用户）
+requests==2.33.1           # 测试/脚本用；产品链路自身只用 urllib（标准库）
+httpx==0.26.0              # fastapi TestClient 依赖
+openai==1.10.0             # **产品代码并未 import**：vLLM/SGLang 后端走 urllib + /v1/chat/completions
+                           # （保留只是为了不误删既有环境；算力云同样不需要它）
+
+# =============================================================================
+# [禁止] 本机缺失且断网无法安装 —— 代码库对它们的 import 数 = 0（AST 扫描实测）
+#   名字        替代实现（均在 研发/app/core/ 内，可核对）
+#   streamlit   本机不跑；用 部署/脚本/run_app.ps1 -Mode fallback（纯标准库 http.server）。
+#               算力云安装后可用 -Mode streamlit（真正的 Streamlit 应用，共用 app/core）
+#   loguru      自实现 loguru 风格 JSON logger：研发/app/core/logging_conf.py
+#   pdfplumber  pymupdf page.find_tables()：研发/app/core/table_parser.py
+#   chromadb    numpy 精确检索：研发/app/core/vector_store.py（可选 faiss）
+#   langchain   不需要：检索/生成/引用/会话全部自实现
+#   rank_bm25   自实现 BM25（jieba + 倒排表）：研发/app/core/bm25_index.py
+#   ragas       **未运行**；评测用确定性指标替代（优化/评估结果/*.json），严禁伪造 RAGAS 数值
+#   pandas      评估产物用标准库 json/csv 写出
+#   gradio / markdown / bs4 / lxml —— 均未使用
+# =============================================================================

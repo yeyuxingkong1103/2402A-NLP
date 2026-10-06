@@ -1,0 +1,268 @@
+RAGAS 未运行（依赖不可用，本机断网）
+级别：online；目标：测试/在线；开始：2026-10-04T17:19:16.4428820+08:00
+============================= test session starts =============================
+platform win32 -- Python 3.11.15, pytest-7.4.4, pluggy-1.6.0
+rootdir: E:\gao6gongdan\工单3
+plugins: anyio-4.13.0, asyncio-0.23.3, cov-4.1.0
+asyncio: mode=Mode.STRICT
+collected 34 items
+
+测试\在线\test_t7_online_faults.py ..                                    [  5%]
+测试\在线\test_t7_online_http.py F.F.F..                                 [ 26%]
+测试\在线\test_t7_online_hybrid14.py .F...                               [ 41%]
+测试\在线\test_t7_online_multiturn.py .F.....                            [ 61%]
+测试\在线\test_t7_online_qa14.py F.FF.F..F                               [ 88%]
+测试\在线\test_t7_online_warmup.py .FF.                                  [100%]
+
+================================== FAILURES ===================================
+_________________________________ test_health _________________________________
+
+client = <starlette.testclient.TestClient object at 0x000001D5B334FC10>
+
+    def test_health(client: Any) -> None:
+        """``/api/health`` 返回索引与 LLM 状态，且索引块数 > 0。"""
+        response = client.get("/api/health")
+        assert response.status_code == 200, response.text
+        payload = response.json()
+        assert payload.get("ok") is True
+>       assert int(payload.get("index", {}).get("count", 0)) > 0
+E       AssertionError: assert 0 > 0
+E        +  where 0 = int(0)
+E        +    where 0 = <built-in method get of dict object at 0x000001D5BBDBD800>('count', 0)
+E        +      where <built-in method get of dict object at 0x000001D5BBDBD800> = {}.get
+E        +        where {} = <built-in method get of dict object at 0x000001D5BBDBF600>('index', {})
+E        +          where <built-in method get of dict object at 0x000001D5BBDBF600> = {'checked_at': '2026-10-04T17:19:25.345+08:00', 'files': [{'chunk_count': 1647, 'file_name': '招股说明书1.pdf', 'page_count...rue, ...}], 'llm': {'backend': 'ollama', 'base_url': 'http://127.0.0.1:11434', 'model': 'qwen2.5:3b'}, 'ok': True, ...}.get
+
+测试\在线\test_t7_online_http.py:40: AssertionError
+____________________ test_ask_returns_answer_with_citation ____________________
+
+client = <starlette.testclient.TestClient object at 0x000001D5B334FC10>
+
+    def test_ask_returns_answer_with_citation(client: Any) -> None:
+        """``/api/ask`` 返回答案 + 引用 + 首字耗时，且字段齐备。"""
+        response = client.post("/api/ask", json={"question": QUESTION, "session_id": "t8-http-1", "top_k": 5})
+        assert response.status_code == 200, response.text
+        payload = response.json()
+        for key in ("text", "citations", "is_unknown", "first_token_ms", "session_id", "trace_id", "chunks"):
+>           assert key in payload, f"响应缺少字段 {key!r}：{sorted(payload)}"
+E           AssertionError: 响应缺少字段 'text'：['answer', 'answer_id', 'backend', 'citations', 'first_token_ms', 'is_unknown', 'model', 'retrieval', 'session_id', 'total_ms', 'trace_id', 'unknown_reason', 'wall_ms']
+E           assert 'text' in {'answer': '| 注册资本 | 5,520.00 万元 | 法定代表人 | 程家明 |\n引用：[招股说明书1.pdf: 22]', 'answer_id': 'a05567731', 'backend': 'ollama',...基本情况\n[来源] 招股说明书1.pdf 第 22 页\n[Markdown]\n| 中文名称 | 武汉兴图新科电子股份有限公司 | 有限公司成立日期 | 2004 年6 月17 日 |\n| --- | --- | '}], ...}
+
+测试\在线\test_t7_online_http.py:60: AssertionError
+_______________________ test_invalid_input_status_codes _______________________
+
+client = <starlette.testclient.TestClient object at 0x000001D5B334FC10>
+
+    def test_invalid_input_status_codes(client: Any) -> None:
+        """入参非法：空问题 → 4xx；不存在的文件名 → 4xx（§7 约定 400）。"""
+        empty = client.post("/api/ask", json={"question": "", "session_id": "t8-http-bad"})
+        assert empty.status_code in (400, 422), f"空问题应 4xx，实测 {empty.status_code}"
+        missing = client.post("/api/ask", json={"question": QUESTION, "file_names": ["不存在的文件.pdf"]})
+>       assert missing.status_code in (400, 404, 422), f"不存在的文件名应 4xx，实测 {missing.status_code}"
+E       AssertionError: 不存在的文件名应 4xx，实测 200
+E       assert 200 in (400, 404, 422)
+E        +  where 200 = <Response [200 OK]>.status_code
+
+测试\在线\test_t7_online_http.py:83: AssertionError
+_____________________ test_question_207_hit_uses_verbatim _____________________
+
+retriever = <app.core.retriever.HybridRetriever object at 0x000001D587444650>
+golden_index = {1: GoldenItem(id=1, question='武汉力源信息技术股份有限公司本次发行股数是多少？占发行后总股本的比例是多少？', answer='发行 1,670 万股，占发行后总股本的比例为 25.04%。', evid...stion_alt='根据武汉力源信息技术股份有限公司招股意向书，不存在控制关系的关联方企业有哪些？', notes='N-5①：赵马克是自然人，出现在答案里即判错；N-5③：力源贸易/普芯达是企业，属本题答案，不得误删。'), ...}
+
+    def test_question_207_hit_uses_verbatim(retriever: Any, golden_index: dict[int, Any]) -> None:
+        """题 207：必须用 ``evidence_verbatim``（物理 490 原文）判命中，且命中块含 15,000。"""
+        item = golden_index[207]
+        result = retriever.retrieve(item.question, top_k=5)
+        outcome = assertions.evidence_hit(result.chunks, evidence=item.evidence, verbatim=item.evidence_verbatim)
+>       assert outcome.hit, f"题 207 top-5 未命中：{outcome.detail}"
+E       AssertionError: 题 207 top-5 未命中：判据=evidence_contains(threshold=0.9)　字段=evidence_verbatim　匹配块=无　证据片段='拟使用本次发行募集资\n金15,000 万元用于补充流动资金'
+E       assert False
+E        +  where False = HitOutcome(hit=False, criterion='evidence_contains', used_field='evidence_verbatim', matched_chunk_ids=[], detail="判据=evidence_contains(threshold=0.9)\u3000字段=evidence_verbatim\u3000匹配块=无\u3000证据片段='拟使用本次发行募集资\\n金15,000 万元用于补充流动资金'").hit
+
+测试\在线\test_t7_online_hybrid14.py:61: AssertionError
+______________________ test_follow_up_resolves_reference ______________________
+
+dialogue = {'session_id': 't8-multiturn-1791105577', 'turns': [{'citations': [{'file_name': '招股说明书1.pdf', 'page': 22}], 'first_to...ns': [{'file_name': '招股说明书1.pdf', 'page': 22}], 'first_token_ms': 858.56, 'is_unknown': False, 'language': 'en', ...}]}
+
+    def test_follow_up_resolves_reference(dialogue: dict[str, Any]) -> None:
+        """轮 2 追问「那法定代表人呢？」必须消解指代 → 答程家明。"""
+        turn2 = dialogue["turns"][1]
+>       assert "程家明" in turn2["text"], f"指代消解失败，轮 2 答：{turn2['text'][:80]!r}"
+E       AssertionError: 指代消解失败，轮 2 答：'2017 年至今任汕 头市万顺贸易有限公司，法定代表人、执行董事、经理，任安徽美信铝业有限公司法定代表人、执行董事、总经理；\n引用：[招股说明书1.pdf: 7'
+E       assert '程家明' in '2017 年至今任汕 头市万顺贸易有限公司，法定代表人、执行董事、经理，任安徽美信铝业有限公司法定代表人、执行董事、总经理；\n引用：[招股说明书1.pdf: 72]'
+
+测试\在线\test_t7_online_multiturn.py:63: AssertionError
+_____________________________ test_accuracy_gate ______________________________
+
+qa_results = [{'answer_text': '1,670万股，占发行后总股本的比例为25.04%\n引用：[招股说明书2.pdf: 24]', 'backend': 'ollama', 'citations': [{'detail': "引用页未...司 招股意向书 公司目前已经成为军队视频指挥领域的重要'", 'file_name': '招股说明书1.pdf', 'ok': False, 'page': 160, ...}], 'corpus': 'pdf1', ...}, ...]
+
+    def test_accuracy_gate(qa_results: list[dict[str, Any]]) -> None:
+        """验收 3：语义正确 ≥ 13/14 且准确率 ≥ 0.90。"""
+        correct = sum(1 for row in qa_results if row["correct"])
+        wrong = [(row["id"], row["judge_reason"]) for row in qa_results if not row["correct"]]
+        checks = assertions.accuracy_gate(correct, len(qa_results))
+>       assert all(check.ok for check in checks), (
+            f"准确率未达标：{correct}/{len(qa_results)}；判错题 {wrong}；"
+            f"逐题见 测试/留痕/online_qa14.json")
+E       AssertionError: 准确率未达标：0/14；判错题 [(1, "判分口径不可用：evaluator_bridge 导入失败（ImportError: cannot import name 'evaluator_bridge' from 'app.core' (E:\\gao6gongdan\\工单3\\研发\\app\\core\\__init__.py)）；判分口径来源：不可用"), (2, "判分口径不可用：evaluator_bridge 导入失败（ImportError: cannot import name 'evaluator_bridge' from 'app.core' (E:\\gao6gongdan\\工单3\\研发\\app\\core\\__init__.py)）；判分口径来源：不可用"), (3, "判分口径不可用：evaluator_bridge 导入失败（ImportError: cannot import name 'evaluator_bridge' from 'app.core' (E:\\gao6gongdan\\工单3\\研发\\app\\core\\__init__.py)）；判分口径来源：不可用"), (4, "判分口径不可用：evaluator_bridge 导入失败（ImportError: cannot import name 'evaluator_bridge' from 'app.core' (E:\\gao6gongdan\\工单3\\研发\\app\\core\\__init__.py)）；判分口径来源：不可用"), (260, "判分口径不可用：evaluator_bridge 导入失败（ImportError: cannot import name 'evaluator_bridge' from 'app.core' (E:\\gao6gongdan\\工单3\\研发\\app\\core\\__init__.py)）；判分口径来源：不可用"), (95, "判分口径不可用：evaluator_bridge 导入失败（ImportError: cannot import name 'evaluator_bridge' from 'app.core' (E:\\gao6gongdan\\工单3\\研发\\app\\core\\__init__.py)）；判分口径来源：不可用"), (33, "判分口径不可用：evaluator_bridge 导入失败（ImportError: cannot import name 'evaluator_bridge' from 'app.core' (E:\\gao6gongdan\\工单3\\研发\\app\\core\\__init__.py)）；判分口径来源：不可用"), (34, "判分口径不可用：evaluator_bridge 导入失败（ImportError: cannot import name 'evaluator_bridge' from 'app.core' (E:\\gao6gongdan\\工单3\\研发\\app\\core\\__init__.py)）；判分口径来源：不可用"), (957, "判分口径不可用：evaluator_bridge 导入失败（ImportError: cannot import name 'evaluator_bridge' from 'app.core' (E:\\gao6gongdan\\工单3\\研发\\app\\core\\__init__.py)）；判分口径来源：不可用"), (793, "判分口径不可用：evaluator_bridge 导入失败（ImportError: cannot import name 'evaluator_bridge' from 'app.core' (E:\\gao6gongdan\\工单3\\研发\\app\\core\\__init__.py)）；判分口径来源：不可用"), (795, "判分口径不可用：evaluator_bridge 导入失败（ImportError: cannot import name 'evaluator_bridge' from 'app.core' (E:\\gao6gongdan\\工单3\\研发\\app\\core\\__init__.py)）；判分口径来源：不可用"), (543, "判分口径不可用：evaluator_bridge 导入失败（ImportError: cannot import name 'evaluator_bridge' from 'app.core' (E:\\gao6gongdan\\工单3\\研发\\app\\core\\__init__.py)）；判分口径来源：不可用"), (531, "判分口径不可用：evaluator_bridge 导入失败（ImportError: cannot import name 'evaluator_bridge' from 'app.core' (E:\\gao6gongdan\\工单3\\研发\\app\\core\\__init__.py)）；判分口径来源：不可用"), (207, "判分口径不可用：evaluator_bridge 导入失败（ImportError: cannot import name 'evaluator_bridge' from 'app.core' (E:\\gao6gongdan\\工单3\\研发\\app\\core\\__init__.py)）；判分口径来源：不可用")]；逐题见 测试/留痕/online_qa14.json
+E       assert False
+E        +  where False = all(<generator object test_accuracy_gate.<locals>.<genexpr> at 0x000001D5BBF7F780>)
+
+测试\在线\test_t7_online_qa14.py:87: AssertionError
+_____________ test_question4_subject_gate_counted_and_not_refused _____________
+
+qa_results = [{'answer_text': '1,670万股，占发行后总股本的比例为25.04%\n引用：[招股说明书2.pdf: 24]', 'backend': 'ollama', 'citations': [{'detail': "引用页未...司 招股意向书 公司目前已经成为军队视频指挥领域的重要'", 'file_name': '招股说明书1.pdf', 'ok': False, 'page': 160, ...}], 'corpus': 'pdf1', ...}, ...]
+
+    def test_question4_subject_gate_counted_and_not_refused(qa_results: list[dict[str, Any]]) -> None:
+        """题 4 闸门必须真正生效且不误拒答：ok=True、expected=organization、counted=True、allowed ⊇ 7 家。"""
+        row = next(r for r in qa_results if r["id"] == 4)
+        gate = row.get("subject_gate")
+>       assert gate is not None, "题 4 未返回 subject_gate 字段（闸门结果无法审计）"
+E       AssertionError: 题 4 未返回 subject_gate 字段（闸门结果无法审计）
+E       assert None is not None
+
+测试\在线\test_t7_online_qa14.py:108: AssertionError
+_____________ test_question3_subject_gate_counted_and_not_refused _____________
+
+qa_results = [{'answer_text': '1,670万股，占发行后总股本的比例为25.04%\n引用：[招股说明书2.pdf: 24]', 'backend': 'ollama', 'citations': [{'detail': "引用页未...司 招股意向书 公司目前已经成为军队视频指挥领域的重要'", 'file_name': '招股说明书1.pdf', 'ok': False, 'page': 160, ...}], 'corpus': 'pdf1', ...}, ...]
+
+    def test_question3_subject_gate_counted_and_not_refused(qa_results: list[dict[str, Any]]) -> None:
+        """题 3 闸门必须真正生效且不误拒答：ok=True、expected=person、counted=True、allowed ∋ 赵马克。"""
+        row = next(r for r in qa_results if r["id"] == 3)
+        gate = row.get("subject_gate")
+>       assert gate is not None, "题 3 未返回 subject_gate 字段（闸门结果无法审计）"
+E       AssertionError: 题 3 未返回 subject_gate 字段（闸门结果无法审计）
+E       assert None is not None
+
+测试\在线\test_t7_online_qa14.py:119: AssertionError
+____________________ test_citations_present_and_traceable _____________________
+
+qa_results = [{'answer_text': '1,670万股，占发行后总股本的比例为25.04%\n引用：[招股说明书2.pdf: 24]', 'backend': 'ollama', 'citations': [{'detail': "引用页未...司 招股意向书 公司目前已经成为军队视频指挥领域的重要'", 'file_name': '招股说明书1.pdf', 'ok': False, 'page': 160, ...}], 'corpus': 'pdf1', ...}, ...]
+
+    def test_citations_present_and_traceable(qa_results: list[dict[str, Any]]) -> None:
+        """验收 5：每题都有引用，且引用正确率 = 1.0（逐条可回溯到真实物理页）。"""
+        missing = [row["id"] for row in qa_results if not row["citations"]]
+        assert not missing, f"以下题没有引用：{missing}"
+        checks = [assertions.Check(f"引用 {row['file_name']}:{row['page']}（题 {r['id']}）",
+                                   row["ok"], row["detail"])
+                  for r in qa_results for row in r["citations"]]
+        accuracy = assertions.citation_accuracy(checks)
+        failures = [c.render() for c in checks if not c.ok]
+>       assert accuracy == 1.0, (f"引用正确率 {accuracy:.4f} < 1.0；失败引用：\n" + "\n".join(failures))
+E       AssertionError: 引用正确率 0.3571 < 1.0；失败引用：
+E         ❌ 引用 招股说明书2.pdf:24（题 1）　引用页未含支撑原文：'武汉力源信息技术股份有限公司 招股意向书 二、本次发行的基本情况 (一)发行基本'
+E         ❌ 引用 招股说明书2.pdf:22（题 2）　引用页未含支撑原文：'[表标题] 五、募集资金用途\n[来源] 招股说明书2.pdf 第 22 页\n[M'
+E         ❌ 引用 招股说明书2.pdf:157（题 3）　引用页未含支撑原文：'武汉力源信息技术股份有限公司 招股意向书 3、本人保证将不利用对股份公司的控股关'
+E         ❌ 引用 招股说明书2.pdf:157（题 4）　引用页未含支撑原文：'[表标题] 2、不存在控制关系的关联方\n[来源] 招股说明书2.pdf 第 15'
+E         ❌ 引用 招股说明书1.pdf:160（题 95）　引用页未含支撑原文：'武汉兴图新科电子股份有限公司 招股意向书 公司目前已经成为军队视频指挥领域的重要'
+E         ❌ 引用 招股说明书1.pdf:155（题 957）　引用页未含支撑原文：'武汉兴图新科电子股份有限公司 招股意向书 等产品在技术上已经达到了全军较为先进的'
+E         ❌ 引用 招股说明书1.pdf:181（题 795）　引用页未含支撑原文：'武汉兴图新科电子股份有限公司 招股意向书 公司目前已经成为军队视频指挥控制领域的'
+E         ❌ 引用 招股说明书1.pdf:22（题 543）　引用页未含支撑原文：'[表标题] （一）本次发行的基本情况\n[来源] 招股说明书1.pdf 第 22 '
+E         ❌ 引用 招股说明书1.pdf:52（题 531）　引用页未含支撑原文：'武汉兴图新科电子股份有限公司 招股意向书 第五节 发行人基本情况 一、发行人的基'
+E       assert 0.35714285714285715 == 1.0
+
+测试\在线\test_t7_online_qa14.py:144: AssertionError
+____________________ test_element_completeness_is_recorded ____________________
+
+qa_results = [{'answer_text': '1,670万股，占发行后总股本的比例为25.04%\n引用：[招股说明书2.pdf: 24]', 'backend': 'ollama', 'citations': [{'detail': "引用页未...司 招股意向书 公司目前已经成为军队视频指挥领域的重要'", 'file_name': '招股说明书1.pdf', 'ok': False, 'page': 160, ...}], 'corpus': 'pdf1', ...}, ...]
+
+    def test_element_completeness_is_recorded(qa_results: list[dict[str, Any]]) -> None:
+        """要素齐备只作诊断（不参与准确率门槛），但必须写入留痕且 207/1/2 要素不得缺失。"""
+        weak = [(row["id"], [e["name"] for e in row["elements"] if not e["ok"]])
+                for row in qa_results if not row["elements_ok"]]
+        if weak:
+            print("要素诊断（非门槛，供 T9/T11 参考）：", weak)
+        for question_id in (207, 543, 531):
+            row = next(r for r in qa_results if r["id"] == question_id)
+>           assert row["correct"], f"题 {question_id} 判错（准确率门槛已在别处断言）"
+E           AssertionError: 题 207 判错（准确率门槛已在别处断言）
+E           assert False
+
+测试\在线\test_t7_online_qa14.py:177: AssertionError
+---------------------------- Captured stdout call -----------------------------
+要素诊断（非门槛，供 T9/T11 参考）： [(2, ['答案未混入「0.00万元」（题 2）']), (95, ['答案含必需要素「视频指挥系统技术标准」（题 95）'])]
+_________________________ test_warmup_events_in_trace _________________________
+
+engine = <app.core.qa_engine.QAEngine object at 0x000001D5B2F87850>
+
+    def test_warmup_events_in_trace(engine: Any) -> None:
+        """``rag_trace.jsonl`` 必须含三段预热的 ``func.exit`` + ``elapsed_ms``。"""
+        engine.warmup()
+        events = trace_events("rag_trace.jsonl")
+        exits = [row for row in events
+                 if str(row.get("event", "")).endswith(".exit") and row.get("elapsed_ms") is not None]
+        funcs = [str(row.get("func", "")) for row in exits]
+        for token in ("warmup_tokenizer", "probe_backends"):
+>           assert any(token in name for name in funcs), f"缺少 {token} 的 func.exit 事件：{sorted(set(funcs))[:30]}"
+E           AssertionError: 缺少 warmup_tokenizer 的 func.exit 事件：[]
+E           assert False
+E            +  where False = any(<generator object test_warmup_events_in_trace.<locals>.<genexpr> at 0x000001D5BC44BAE0>)
+
+测试\在线\test_t7_online_warmup.py:42: AssertionError
+_____________________ test_llm_probe_budget_and_no_retry ______________________
+
+engine = <app.core.qa_engine.QAEngine object at 0x000001D5B2F87850>
+
+    def test_llm_probe_budget_and_no_retry(engine: Any) -> None:
+        """探测预算：三后端 × 0.5 s 超时、不重试 → 总耗时上界 1.5 s。"""
+        engine.warmup()
+        events = trace_events("rag_trace.jsonl")
+        probes = [row for row in events if "probe_backends" in str(row.get("func", ""))
+                  and str(row.get("event", "")).endswith(".exit")]
+>       assert probes, "缺少 probe_backends 的 func.exit 事件"
+E       AssertionError: 缺少 probe_backends 的 func.exit 事件
+E       assert []
+
+测试\在线\test_t7_online_warmup.py:57: AssertionError
+============================== warnings summary ===============================
+测试/在线/test_t7_online_faults.py::test_model_exception_is_not_silent
+  E:\gao6gongdan\工单1\.venv\Lib\site-packages\jieba\_compat.py:18: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+    import pkg_resources
+
+测试/在线/test_t7_online_http.py::test_health
+  E:\gao6gongdan\工单3\研发\app\main.py:54: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+测试/在线/test_t7_online_http.py::test_health
+测试/在线/test_t7_online_http.py::test_health
+  E:\Anaconda\envs\fastapi_faq\Lib\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+测试/在线/test_t7_online_http.py::test_health
+  E:\gao6gongdan\工单3\研发\app\main.py:71: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("shutdown")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+---------------------------------- RAGAS 状态 -----------------------------------
+RAGAS 未运行（依赖不可用，本机断网）
+替代口径：确定性指标（14 题命中/准确率/引用可回溯/首字/拒答率）
+=========================== short test summary info ===========================
+FAILED 测试/在线/test_t7_online_http.py::test_health - AssertionError: assert...
+FAILED 测试/在线/test_t7_online_http.py::test_ask_returns_answer_with_citation
+FAILED 测试/在线/test_t7_online_http.py::test_invalid_input_status_codes - As...
+FAILED 测试/在线/test_t7_online_hybrid14.py::test_question_207_hit_uses_verbatim
+FAILED 测试/在线/test_t7_online_multiturn.py::test_follow_up_resolves_reference
+FAILED 测试/在线/test_t7_online_qa14.py::test_accuracy_gate - AssertionError:...
+FAILED 测试/在线/test_t7_online_qa14.py::test_question4_subject_gate_counted_and_not_refused
+FAILED 测试/在线/test_t7_online_qa14.py::test_question3_subject_gate_counted_and_not_refused
+FAILED 测试/在线/test_t7_online_qa14.py::test_citations_present_and_traceable
+FAILED 测试/在线/test_t7_online_qa14.py::test_element_completeness_is_recorded
+FAILED 测试/在线/test_t7_online_warmup.py::test_warmup_events_in_trace - Asse...
+FAILED 测试/在线/test_t7_online_warmup.py::test_llm_probe_budget_and_no_retry
+============ 12 failed, 22 passed, 5 warnings in 63.57s (0:01:03) =============
+级别：online；退出码：1

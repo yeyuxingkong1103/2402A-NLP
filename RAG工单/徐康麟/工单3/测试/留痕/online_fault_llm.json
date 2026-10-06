@@ -1,0 +1,23 @@
+{
+  "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化",
+  "name": "online_fault_llm",
+  "title": "模型异常故障注入",
+  "generated_at": "2026-10-04T20:46:03+0800",
+  "ragas": "RAGAS 未运行（依赖不可用，本机断网）",
+  "extra": {},
+  "rows": [
+    {
+      "outcome": "raise",
+      "answer_text": "",
+      "answer_chars": 0,
+      "fresh_log_records": {
+        "app.log": 0,
+        "error.log": 1
+      },
+      "errorish_events": [
+        "func.error"
+      ],
+      "note": "两种处置都允许：抛 RagError（log+传播）或显式降级并给出非空答案；两者都必须留痕"
+    }
+  ]
+}

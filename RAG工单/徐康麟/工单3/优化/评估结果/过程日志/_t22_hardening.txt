@@ -1,0 +1,20 @@
+=== 英文正例（应全部作答）===
+  [作答] EN1 registered capital 兴图: reason=None cites=['[招股说明书1.pdf: 22]']
+  [作答] EN2 legal representative 兴图: reason=None cites=['[招股说明书1.pdf: 22]']
+  [作答] EN3 supplier field 兴图: reason=None cites=['[招股说明书1.pdf: 22]']
+  [作答] EN4 registered capital 力源: reason=None cites=['[招股说明书2.pdf: 51]']
+  [作答] EN5 shares 力源: reason=None cites=['[招股说明书2.pdf: 2]']
+=== 英文负例（应拒答）===
+  [拒答] NEN1 Tesla: reason=issuer_mismatch cites=0
+  [拒答] NEN2 2099 月球: reason=low_coverage cites=0
+  [作答!] NEN3 期权归属: reason=None cites=1
+=== 中文负例（应全部拒答且零引用）===
+  [拒答] N-4: reason=numeric_missing cites=0
+  [拒答] N-4b: reason=numeric_missing cites=0
+  [拒答] N-GEN1: reason=low_coverage cites=0
+  [拒答] N-GEN2: reason=low_coverage cites=0
+  [拒答] N-GEN3: reason=numeric_missing cites=0
+  [拒答] N-GEN4: reason=low_coverage cites=0
+=== 中文对照（207 可答 / 543 与多轮）===
+  [作答] 207 补充流动资金: cites=['[招股说明书1.pdf: 490]']
+  [作答] 543 注册资本: cites=['[招股说明书1.pdf: 22]']

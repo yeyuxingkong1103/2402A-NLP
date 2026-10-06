@@ -1,0 +1,419 @@
+{
+  "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化",
+  "rows": [
+    {
+      "id": "N-4",
+      "question": "根据武汉力源信息技术股份有限公司招股意向书，本次发行募集资金中有多少用于补充流动资金？",
+      "file_names": [
+        "招股说明书2.pdf"
+      ],
+      "expects_numeric": true,
+      "field_type": "补充流动资金",
+      "gate": {
+        "is_answerable": true,
+        "reason": "ok",
+        "top_score": 0.289803,
+        "keyword_coverage": 0.7333,
+        "numeric_matched": true
+      },
+      "thresholds": {
+        "min_score": 0.12,
+        "min_keyword_coverage": 0.45
+      },
+      "top_chunks": [
+        {
+          "chunk_id": "招股说明书2_p0306_x671",
+          "file_name": "招股说明书2.pdf",
+          "page": 306,
+          "type": "text",
+          "score": 0.2898,
+          "head": "武汉力源信息技术股份有限公司 招股意向书 第十一节 募集资金运用 一、本次募集资金运用方案 (一)募集资金数额及专户存储安排 经公司第一届董事会第三次会议及2009 年年度股东大会"
+        },
+        {
+          "chunk_id": "招股说明书2_p0022_x42",
+          "file_name": "招股说明书2.pdf",
+          "page": 22,
+          "type": "text",
+          "score": 0.26411,
+          "head": "武汉力源信息技术股份有限公司 招股意向书 项目 2010 年1-6 月 2009 年度 2008 年度 2007 年度 总资产周转率(次) 0.76 1.33 1.39 1.28 "
+        },
+        {
+          "chunk_id": "招股说明书2_p0329_x716",
+          "file_name": "招股说明书2.pdf",
+          "page": 329,
+          "type": "text",
+          "score": 0.24338,
+          "head": "武汉力源信息技术股份有限公司 招股意向书 对于补充与主营业务相关的营运资金，本公司将严格按照中国证监会、深圳 证券交易所有关规定及公司募集资金管理制度进行管理，根据公司业务发展需要"
+        },
+        {
+          "chunk_id": "招股说明书2_p0306_t196",
+          "file_name": "招股说明书2.pdf",
+          "page": 306,
+          "type": "table",
+          "score": 0.22848,
+          "head": "[表标题] 一、本次募集资金运用方案 [来源] 招股说明书2.pdf 第 306 页 [Markdown] | 序号 | 项目名称 | 项目总投资(万元) | 项目核准情况 | 项"
+        },
+        {
+          "chunk_id": "招股说明书2_p0024_x44",
+          "file_name": "招股说明书2.pdf",
+          "page": 24,
+          "type": "text",
+          "score": 0.22453,
+          "head": "武汉力源信息技术股份有限公司 招股意向书 二、本次发行的基本情况 (一)发行基本情况 股票种类 人民币普通股(A 股) 每股面值 人民币1.00 元 发行股数及占发行后总股本比例 "
+        }
+      ],
+      "answer_text": "武汉力源信息技术股份有限公司 招股意向书 第十一节 募集资金运用 一、本次募集资金运用方案 (一)募集资金数额及专户存储安排 经公司第一届董事会第三次会议及2009 年年度股东大会审议通过，公司本 次拟向社会公开发行股票1,670 万股，占发行后总股本的25.04%，实际募集资 金扣除发行费用后的净额为[ ◆ ]万元，将全部用于公司主营业务相关的项目及 主营业务发展所需的营运资金。\n引用：[招股说明书2.pdf: 306]",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "citations": [
+        "[招股说明书2.pdf: 306]"
+      ],
+      "must_not_contain_hit": [],
+      "elapsed_ms": 6180.31
+    },
+    {
+      "id": "N-4b",
+      "question": "武汉力源信息技术股份有限公司本次募集资金中计划用于补充流动资金的金额是多少万元？",
+      "file_names": [
+        "招股说明书2.pdf"
+      ],
+      "expects_numeric": true,
+      "field_type": "补充流动资金",
+      "gate": {
+        "is_answerable": true,
+        "reason": "ok",
+        "top_score": 0.290383,
+        "keyword_coverage": 0.75,
+        "numeric_matched": true
+      },
+      "thresholds": {
+        "min_score": 0.12,
+        "min_keyword_coverage": 0.45
+      },
+      "top_chunks": [
+        {
+          "chunk_id": "招股说明书2_p0306_x671",
+          "file_name": "招股说明书2.pdf",
+          "page": 306,
+          "type": "text",
+          "score": 0.29038,
+          "head": "武汉力源信息技术股份有限公司 招股意向书 第十一节 募集资金运用 一、本次募集资金运用方案 (一)募集资金数额及专户存储安排 经公司第一届董事会第三次会议及2009 年年度股东大会"
+        },
+        {
+          "chunk_id": "招股说明书2_p0022_x42",
+          "file_name": "招股说明书2.pdf",
+          "page": 22,
+          "type": "text",
+          "score": 0.26211,
+          "head": "武汉力源信息技术股份有限公司 招股意向书 项目 2010 年1-6 月 2009 年度 2008 年度 2007 年度 总资产周转率(次) 0.76 1.33 1.39 1.28 "
+        },
+        {
+          "chunk_id": "招股说明书2_p0329_x716",
+          "file_name": "招股说明书2.pdf",
+          "page": 329,
+          "type": "text",
+          "score": 0.25244,
+          "head": "武汉力源信息技术股份有限公司 招股意向书 对于补充与主营业务相关的营运资金，本公司将严格按照中国证监会、深圳 证券交易所有关规定及公司募集资金管理制度进行管理，根据公司业务发展需要"
+        },
+        {
+          "chunk_id": "招股说明书2_p0022_t07",
+          "file_name": "招股说明书2.pdf",
+          "page": 22,
+          "type": "table",
+          "score": 0.23037,
+          "head": "[表标题] 五、募集资金用途 [来源] 招股说明书2.pdf 第 22 页 [Markdown] | 序号 | 项目名称 | 计划总投资(万元) | | --- | --- | -"
+        },
+        {
+          "chunk_id": "招股说明书2_p0306_t196",
+          "file_name": "招股说明书2.pdf",
+          "page": 306,
+          "type": "table",
+          "score": 0.22795,
+          "head": "[表标题] 一、本次募集资金运用方案 [来源] 招股说明书2.pdf 第 306 页 [Markdown] | 序号 | 项目名称 | 项目总投资(万元) | 项目核准情况 | 项"
+        }
+      ],
+      "answer_text": "根据该合同：公司向汉口银行借款300 万美元 用于补充流动资金，贷款期限为2010 年4 月8 日至2010 年10 月8 日，贷款年 利率为固定利率3.38%。\n引用：[招股说明书2.pdf: 340]",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "citations": [
+        "[招股说明书2.pdf: 340]"
+      ],
+      "must_not_contain_hit": [],
+      "elapsed_ms": 5183.68
+    },
+    {
+      "id": "N-GEN1",
+      "question": "银河系外文明的量子计算机专利申请数量是多少？",
+      "file_names": null,
+      "expects_numeric": true,
+      "field_type": "other",
+      "gate": {
+        "is_answerable": false,
+        "reason": "low_coverage",
+        "top_score": 0.177385,
+        "keyword_coverage": 0.1429,
+        "numeric_matched": true
+      },
+      "thresholds": {
+        "min_score": 0.12,
+        "min_keyword_coverage": 0.45
+      },
+      "top_chunks": [
+        {
+          "chunk_id": "招股说明书2_p0145_t56",
+          "file_name": "招股说明书2.pdf",
+          "page": 145,
+          "type": "table",
+          "score": 0.17738,
+          "head": "[表标题] 4、专利权申请 [来源] 招股说明书2.pdf 第 145 页 [Markdown] | 编号 | 注册商标 | 申请号 | 类别 | 注册人 | 受理日期 | | -"
+        },
+        {
+          "chunk_id": "招股说明书2_p0146_x292",
+          "file_name": "招股说明书2.pdf",
+          "page": 146,
+          "type": "text",
+          "score": 0.16362,
+          "head": "武汉力源信息技术股份有限公司 招股意向书 序号 申请人 申请号 专利名称 专利类型 申请日期 1 力源信息 201020208179.7 一种血糖仪 实用新型 2010 年5 月2"
+        },
+        {
+          "chunk_id": "招股说明书1_p0217_t149",
+          "file_name": "招股说明书1.pdf",
+          "page": 217,
+          "type": "table",
+          "score": 0.16125,
+          "head": "[表标题] 32.3 [来源] 招股说明书1.pdf 第 217 页 [Markdown] | 序号 | 专利权人 | 专利名称 | 专利号 | 专利类型 | 专利期限 | 取得方"
+        },
+        {
+          "chunk_id": "招股说明书1_p0053_t33",
+          "file_name": "招股说明书1.pdf",
+          "page": 53,
+          "type": "table",
+          "score": 0.14647,
+          "head": "[表标题] 兴图新科有限成立时股权结构如下： [来源] 招股说明书1.pdf 第 53 页 [Markdown] | 序号 | 商品名称 | 数量 | 评估价值（元） | | --"
+        },
+        {
+          "chunk_id": "招股说明书1_p0141_x334",
+          "file_name": "招股说明书1.pdf",
+          "page": 141,
+          "type": "text",
+          "score": 0.14467,
+          "head": "武汉兴图新科电子股份有限公司 招股意向书 1946年2月14日，世界上第一台电子数字计算机ENIAC在美国宾夕法尼亚大 学诞生。迄今为止，计算机技术已经经历了电子管计算机（1946"
+        }
+      ],
+      "answer_text": "不清楚",
+      "is_unknown": true,
+      "unknown_reason": "low_coverage",
+      "citations": [],
+      "must_not_contain_hit": [],
+      "elapsed_ms": 1425.42
+    },
+    {
+      "id": "N-GEN2",
+      "question": "贵州茅台酒股份有限公司的注册资本是多少？",
+      "file_names": null,
+      "expects_numeric": true,
+      "field_type": "注册资本",
+      "gate": {
+        "is_answerable": true,
+        "reason": "ok",
+        "top_score": 0.184799,
+        "keyword_coverage": 0.5,
+        "numeric_matched": true
+      },
+      "thresholds": {
+        "min_score": 0.12,
+        "min_keyword_coverage": 0.45
+      },
+      "top_chunks": [
+        {
+          "chunk_id": "招股说明书2_p0216_t105",
+          "file_name": "招股说明书2.pdf",
+          "page": 216,
+          "type": "table",
+          "score": 0.1848,
+          "head": "[表标题] (单位：元) [来源] 招股说明书2.pdf 第 216-219 页（表头页 216）（第 1/2 部分） [Markdown] | 项目 | 股本 | 资本公积 | "
+        },
+        {
+          "chunk_id": "招股说明书2_p0270_t145",
+          "file_name": "招股说明书2.pdf",
+          "page": 270,
+          "type": "table",
+          "score": 0.17738,
+          "head": "[表标题] (单位：元) [来源] 招股说明书2.pdf 第 270 页 [Markdown] | 项目 | 2010-6-30 | 2009-12-31 | 2008-12-31"
+        },
+        {
+          "chunk_id": "招股说明书2_p0253_x531",
+          "file_name": "招股说明书2.pdf",
+          "page": 253,
+          "type": "text",
+          "score": 0.15949,
+          "head": "武汉力源信息技术股份有限公司 招股意向书 2007 年12 月27 日，大信所出具了大信验字(2007)第0085 号《验资报告》， 对力源有限截至2007 年12 月27 日的新"
+        },
+        {
+          "chunk_id": "招股说明书1_p0332_t232",
+          "file_name": "招股说明书1.pdf",
+          "page": 332,
+          "type": "table",
+          "score": 0.1534,
+          "head": "[表标题] 单位：万元 [来源] 招股说明书1.pdf 第 332-333 页（表头页 332） [Markdown] | 项目 | 2019 年1-6 月 金额 | 2018 年"
+        },
+        {
+          "chunk_id": "招股说明书2_p0252_x529",
+          "file_name": "招股说明书2.pdf",
+          "page": 252,
+          "type": "text",
+          "score": 0.14784,
+          "head": "武汉力源信息技术股份有限公司 招股意向书 “根据有关协议、章程的规定和武汉力源信息技术服务有限公司股东会 2004 年11 月18 日决议，贵公司(筹)申请登记的注册资本为人民币1"
+        }
+      ],
+      "answer_text": "经我们审验，截至2004 年10 月29 日， 贵公司已收到易国平、吴伟钢、朱华、陈新缴纳的注册资本人民币750,000.00 元。\n引用：[招股说明书2.pdf: 251]",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "citations": [
+        "[招股说明书2.pdf: 251]"
+      ],
+      "must_not_contain_hit": [],
+      "elapsed_ms": 4291.41
+    },
+    {
+      "id": "N-GEN3",
+      "question": "武汉兴图新科电子股份有限公司2025年第三季度的营业收入是多少？",
+      "file_names": [
+        "招股说明书1.pdf"
+      ],
+      "expects_numeric": true,
+      "field_type": "收入金额",
+      "gate": {
+        "is_answerable": true,
+        "reason": "ok",
+        "top_score": 0.280635,
+        "keyword_coverage": 0.8182,
+        "numeric_matched": true
+      },
+      "thresholds": {
+        "min_score": 0.12,
+        "min_keyword_coverage": 0.45
+      },
+      "top_chunks": [
+        {
+          "chunk_id": "招股说明书1_p0011_x20",
+          "file_name": "招股说明书1.pdf",
+          "page": 11,
+          "type": "text",
+          "score": 0.28064,
+          "head": "武汉兴图新科电子股份有限公司 招股意向书 订单提前下达，公司作为重要的产品供应商为相关任务提供保障，与此相关的销 售收入1,162.46 万元，占第3 季度营业收入的60.60%。"
+        },
+        {
+          "chunk_id": "招股说明书1_p0236_x544",
+          "file_name": "招股说明书1.pdf",
+          "page": 236,
+          "type": "text",
+          "score": 0.26429,
+          "head": "武汉兴图新科电子股份有限公司 招股意向书 营业收入 4,905.65 19,813.64 14,884.48 7,955.46 47,559.24 占营业收 入的比重 30.84%"
+        },
+        {
+          "chunk_id": "招股说明书1_p0335_x780",
+          "file_name": "招股说明书1.pdf",
+          "page": 335,
+          "type": "text",
+          "score": 0.25672,
+          "head": "武汉兴图新科电子股份有限公司 招股意向书 归属于母公司所有者 的净利润 -103.72 -1,960.27 1,856.55 - 扣除非经常性损益后 归属于母公司所有者 的净利润 "
+        },
+        {
+          "chunk_id": "招股说明书1_p0041_x108",
+          "file_name": "招股说明书1.pdf",
+          "page": 41,
+          "type": "text",
+          "score": 0.25099,
+          "head": "武汉兴图新科电子股份有限公司 招股意向书 调 整 后 营业收入 4,905.65 19,693.98 13,679.39 7,225.55 毛利 3,878.53 13,910.0"
+        },
+        {
+          "chunk_id": "招股说明书1_p0022_t10",
+          "file_name": "招股说明书1.pdf",
+          "page": 22,
+          "type": "table",
+          "score": 0.23765,
+          "head": "[表标题] （一）本次发行的基本情况 [来源] 招股说明书1.pdf 第 22 页 [Markdown] | 中文名称 | 武汉兴图新科电子股份有限公司 | 有限公司成立日期 | "
+        }
+      ],
+      "answer_text": "2019 年第三季度，为配合筹备中华人民共和国成 立70 周年阅兵，军队部分演习活动任务提前进行，公司作为相关任务的产品制 造商之一，销售产品并确认收入1,162.46 万元，占第三季度营业收入的60.60%。\n引用：[招股说明书1.pdf: 335]",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "citations": [
+        "[招股说明书1.pdf: 335]"
+      ],
+      "must_not_contain_hit": [],
+      "elapsed_ms": 2575.83
+    },
+    {
+      "id": "N-GEN4",
+      "question": "武汉力源信息技术股份有限公司在纽约证券交易所的股票代码是什么？",
+      "file_names": [
+        "招股说明书2.pdf"
+      ],
+      "expects_numeric": false,
+      "field_type": "other",
+      "gate": {
+        "is_answerable": true,
+        "reason": "ok",
+        "top_score": 0.15841,
+        "keyword_coverage": 0.625,
+        "numeric_matched": true
+      },
+      "thresholds": {
+        "min_score": 0.12,
+        "min_keyword_coverage": 0.45
+      },
+      "top_chunks": [
+        {
+          "chunk_id": "招股说明书2_p0010_x19",
+          "file_name": "招股说明书2.pdf",
+          "page": 10,
+          "type": "text",
+          "score": 0.15841,
+          "head": "武汉力源信息技术股份有限公司 招股意向书 第一节 释 义 一、常用词语 本公司、公司、 发行人、力源信息 指 武汉力源信息技术股份有限公司 公司股东大会 指 武汉力源信息技术股份有"
+        },
+        {
+          "chunk_id": "招股说明书2_p0023_x43",
+          "file_name": "招股说明书2.pdf",
+          "page": 23,
+          "type": "text",
+          "score": 0.15732,
+          "head": "武汉力源信息技术股份有限公司 招股意向书 第三节 本次发行概况 一、发行人的基本情况 1、公司名称：武汉力源信息技术股份有限公司 2、英文名称：Wuhan P&S Informat"
+        },
+        {
+          "chunk_id": "招股说明书2_p0001_x00",
+          "file_name": "招股说明书2.pdf",
+          "page": 1,
+          "type": "text",
+          "score": 0.14723,
+          "head": "武汉力源信息技术股份有限公司 招股意向书 武汉力源信息技术股份有限公司 Wuhan P&S Information Technology Co., Ltd. (武汉市洪山区珞瑜路4"
+        },
+        {
+          "chunk_id": "招股说明书2_p0015_x26",
+          "file_name": "招股说明书2.pdf",
+          "page": 15,
+          "type": "text",
+          "score": 0.14009,
+          "head": "武汉力源信息技术股份有限公司 招股意向书 第二节 概 览 本概览仅对招股意向书全文作扼要提示。投资者作出投资决策前，应认真阅 读招股意向书全文。 一、发行人简介 (一)公司概况 1"
+        },
+        {
+          "chunk_id": "招股说明书2_p0038_x67",
+          "file_name": "招股说明书2.pdf",
+          "page": 38,
+          "type": "text",
+          "score": 0.13061,
+          "head": "武汉力源信息技术股份有限公司 招股意向书 (二)发行人内部组织结构图 1、公司组织结构图 100.00% 3.30% 3.75% 8.00% 10.59% 42.35% 12.19"
+        }
+      ],
+      "answer_text": "武汉力源信息技术股份有限公司 招股意向书 第一节 释 义 一、常用词语 本公司、公司、 发行人、力源信息 指 武汉力源信息技术股份有限公司 公司股东大会 指 武汉力源信息技术股份有限公司股东大会 公司董事会 指 武汉力源信息技术股份有限公司董事会 公司监事会 指 武汉力源信息技术股份有限公司监事会 本次发行 指 本公司本次拟向社会公开发行1,670 万股A 股的行为 股票、A 股、新股 指 本公司本次发行的人民币普通股股票 国信证券、 保荐机构、主承销商 指 国信证券股份有限公司 大信所、审计机构 指 大信会计师事务有限公司 国浩所、发行人律师 指 国浩律师集团(上海)事务所 中京民信、评估机构 指 中京民信(北京)资产评估有限公司 《公司法》 指 《中华人民共和国公司法》 《证券法》 指 《中华人民共和国证券法》 《公司章程》 指 《武汉力源信息技术股份有限公司章程》 力源有限 指 武汉力源信息技术有限公司，本公司前身 力源服务 指 武汉力源信息技术服务有限公司，力源有限前身 融冰投资 指 武汉融冰投资有限公司，本公司股东 听音投资 指 武汉听音投资有限公司，本公司股东\n引用：[招股说明书2.pdf: 10]",
+      "is_unknown": false,
+      "unknown_reason": null,
+      "citations": [
+        "[招股说明书2.pdf: 10]"
+      ],
+      "must_not_contain_hit": [],
+      "elapsed_ms": 2161.64
+    }
+  ]
+}

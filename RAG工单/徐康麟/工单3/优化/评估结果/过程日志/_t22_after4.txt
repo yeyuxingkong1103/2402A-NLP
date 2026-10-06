@@ -1,0 +1,19 @@
+=== 英文逐题（修后，补丁 4）===
+  EN1 注册资本 兴图 [field] ratio=0.7351 unknown=False cites=['[招股说明书1.pdf: 22]']
+     BODY What is the registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd.?
+Wuhan Xingtu Xinke Electronics Co.
+  EN2 法定代表人 兴图 [field] ratio=0.7733 unknown=False cites=['[招股说明书1.pdf: 22]']
+     BODY The legal representative of Wuhan Xingtu Xinke Electronics Co., Ltd. is程家明.
+  EN3 领域 兴图 [narrative] ratio=0.4156 unknown=False cites=['[招股说明书1.pdf: 22]']
+     BODY | 英文名称 | Wuhan Xingtu Xinke Electronics Co.,Ltd. | 股份公司成立日期 | 2011 年1 月26 日 |
+  EN4 注册资本 力源 [field] ratio=0.33 unknown=False cites=['[招股说明书2.pdf: 15]']
+     BODY 一、发行人简介 (一)公司概况 1、公司名称：武汉力源信息技术股份有限公司 2、英文名称：Wuhan P&S Information Technology Co., Ltd. 3、注册资本：人民币5。
+  EN5 发行股数 力源 [field] ratio=0.0 unknown=False cites=['[招股说明书2.pdf: 2]']
+     BODY | 发行股数 | 1,670万股 |
+  EN6 注册地址 兴图 [field] ratio=0.0208 unknown=False cites=['[招股说明书1.pdf: 22]']
+     BODY | 注册地址 | 湖北省武汉市东湖新技术开发区关山大道1 号软件产业三期A3 栋 8 层 | 主要生产经营地址 | 湖北省武汉市东湖新技术开发区关山大道1 号软件产业三期 A3 栋 8 层 |
+=== 回声专项（最终文本不得是问句回声；中文对照）===
+  ECHO1: 回声=False unknown=False ratio=0.6829 BODY The registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd. is 5,520.00 万元.
+  ECHO2: 回声=False unknown=False ratio=0.7733 BODY The legal representative of Wuhan Xingtu Xinke Electronics Co., Ltd. is程家明.
+  ECHO3: 回声=False unknown=False ratio=0.1886 BODY 武汉力源信息技术股份有限公司 招股意向书 武汉力源信息技术股份有限公司 Wuhan P&S Information Technology Co., Ltd. (武汉市洪山区珞瑜路4
+  ZH 对照: unknown=False lang=zh cites=['[招股说明书1.pdf: 22]'] BODY 注册资本为5,520.00 万元。

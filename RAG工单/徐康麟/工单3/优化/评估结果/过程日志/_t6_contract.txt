@@ -1,0 +1,39 @@
+环境：http://127.0.0.1:11434 / 模型 qwen2.5:3b / 工作目录 E:\gao6gongdan\工单3
+
+[1] 可插拔后端与探测
+  ✅ 探测覆盖 ollama/openai/extractive　实际 ['extractive', 'ollama', 'openai']
+  ✅ ollama 可用且探测 ≤0.5 s　probe_ms=22.59，含三后端总耗时 23.33 ms
+  ✅ 探测超时配置 = 0.5 s 且无重试　probe_timeout_s=0.5
+  ✅ 坏端点显式失败（不静默）　URLError
+
+[2] 多轮对话（SQLite 最近 5 轮）
+  ✅ 历史只保留最近 5 轮（10 条消息）　实际 10 条
+  ✅ 窗口 = 最近 5 轮（第 2~6 轮，10 条消息）　实际 第2轮问题 … 第6轮回答
+  ✅ message_count 同步为 14　实际 14
+  ✅ messages 表真实落行 14 条　实际 14
+  ✅ conversations.message_count 同步　实际 14
+
+[3] 流式作答与首字
+  ✅ 流式首字 ≤3000 ms　首字 195.59 ms
+  ✅ done 携带 Answer 且有引用　引用 ['[招股说明书1.pdf: 22]']
+  ✅ 流式答案非空且带页码可回溯　| 注册资本 | 5,520.00 万元 | 法定代表人 | 程家明 |
+引用：[招股说明书1.pdf: 22]
+
+[4] 中英文
+  ✅ 英文提问识别为 en　检测 en
+  ✅ 中文提问识别为 zh
+  ✅ 英文引用格式用 Page　标签 ('Page', 'Page')
+
+[5] 无依据 → 不清楚
+  ✅ 超出语料的问题回「不清楚」　reason=low_coverage
+  ✅ 拒答不带任何引用
+
+[6] 结构化日志
+  ✅ 存在 func.enter/exit 事件对　enter=1162 exit=1164
+  ✅ exit 事件含 elapsed_ms 与输出摘要　示例 {"func": "AnswerGenerator.answer", "elapsed_ms": 175.06}
+  ✅ 异常路径留堆栈（error.log 含 Traceback/URLError）　error.log 45835 B
+  ✅ 事件带工单编号
+  ✅ 日志含首字/prompt/输出摘要字段
+
+──────────────────────────────────────────────────────────────────────
+T6 契约验收：✅22 / 22

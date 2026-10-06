@@ -1,0 +1,93 @@
+{
+  "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化",
+  "judge": "工单1 研发/app/core/evaluator.py::Evaluator.check_answer（只读子进程、绕过 __init__）",
+  "fuzzy_threshold": 0.62,
+  "evaluator_file": "E:\\gao6gongdan\\工单1\\研发\\app\\core\\evaluator.py",
+  "count": 14,
+  "rows": [
+    {
+      "id": 1,
+      "ok": true,
+      "reason": "金额全部命中(1个)",
+      "elapsed_ms": 0.097
+    },
+    {
+      "id": 2,
+      "ok": true,
+      "reason": "金额全部命中(4个)",
+      "elapsed_ms": 0.072
+    },
+    {
+      "id": 3,
+      "ok": true,
+      "reason": "比例全部命中",
+      "elapsed_ms": 0.04
+    },
+    {
+      "id": 4,
+      "ok": true,
+      "reason": "比例全部命中",
+      "elapsed_ms": 0.114
+    },
+    {
+      "id": 33,
+      "ok": true,
+      "reason": "比例全部命中",
+      "elapsed_ms": 0.115
+    },
+    {
+      "id": 34,
+      "ok": true,
+      "reason": "参考答案为答案子串（忽略标点）",
+      "elapsed_ms": 0.02
+    },
+    {
+      "id": 95,
+      "ok": false,
+      "reason": "未命中：文本与数值均不匹配",
+      "elapsed_ms": 0.16
+    },
+    {
+      "id": 207,
+      "ok": true,
+      "reason": "金额全部命中(1个)",
+      "elapsed_ms": 0.042
+    },
+    {
+      "id": 260,
+      "ok": true,
+      "reason": "参考答案为答案子串（忽略标点）",
+      "elapsed_ms": 0.025
+    },
+    {
+      "id": 531,
+      "ok": true,
+      "reason": "参考答案为答案子串（忽略标点）",
+      "elapsed_ms": 0.006
+    },
+    {
+      "id": 543,
+      "ok": true,
+      "reason": "金额全部命中(1个)",
+      "elapsed_ms": 0.017
+    },
+    {
+      "id": 793,
+      "ok": false,
+      "reason": "未命中：文本与数值均不匹配",
+      "elapsed_ms": 0.065
+    },
+    {
+      "id": 795,
+      "ok": true,
+      "reason": "关键实体命中",
+      "elapsed_ms": 0.043
+    },
+    {
+      "id": 957,
+      "ok": false,
+      "reason": "未命中：文本与数值均不匹配",
+      "elapsed_ms": 0.084
+    }
+  ]
+}

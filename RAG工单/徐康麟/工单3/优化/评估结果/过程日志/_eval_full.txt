@@ -1,0 +1,24 @@
+题集：E:\gao6gongdan\工单3\测试\测试数据\eval_retrieval_14.jsonl（14 题，file_scoped=False）
+检索器：2599 块；生成后端：ollama（qwen2.5:3b）
+LLM 预热完成：冷启动 365.4 ms（不计入首字预算）
+  ✅ id=33   首字=  113.0 ms 总=  1144.3 ms 引用=['[招股说明书1.pdf: 186]'] 
+  ✅ id=34   首字=  806.7 ms 总=  1696.6 ms 引用=['[招股说明书1.pdf: 153]'] 
+  ✅ id=95   首字=  148.8 ms 总=  1060.7 ms 引用=['[招股说明书1.pdf: 155]'] 
+[ERROR] {"ts": "2026-10-03T20:36:49.532+08:00", "level": "ERROR", "event": "generation.citation_failed", "func": null, "module": "eval_answers", "run_id": "r20261003-203640", "trace_id": null, "span_id": null, "stage": "core", "pid": 28116, "thread": "MainThread", "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化", "invalid": [], "retry": 1, "reasons": []}
+  ⚠️ id=207  首字=  147.1 ms 总=  1597.5 ms 引用=[] 【不清楚】
+  ✅ id=260  首字=  170.1 ms 总=  1051.8 ms 引用=['[招股说明书1.pdf: 129]'] 
+[ERROR] {"ts": "2026-10-03T20:36:52.795+08:00", "level": "ERROR", "event": "generation.citation_failed", "func": null, "module": "eval_answers", "run_id": "r20261003-203640", "trace_id": null, "span_id": null, "stage": "core", "pid": 28116, "thread": "MainThread", "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化", "invalid": [], "retry": 1, "reasons": []}
+  ⚠️ id=531  首字=  673.9 ms 总=  1832.3 ms 引用=[] 【不清楚】
+  ✅ id=543  首字=  525.5 ms 总=  1236.0 ms 引用=['[招股说明书1.pdf: 22]'] 
+  ⚠️ id=793  首字=  137.3 ms 总=   559.7 ms 引用=[] 【不清楚】
+  ✅ id=795  首字=  143.5 ms 总=  1008.0 ms 引用=['[招股说明书1.pdf: 94]'] 
+  ✅ id=957  首字=  113.0 ms 总=   678.7 ms 引用=['[招股说明书1.pdf: 26]'] 
+  ✅ id=1    首字=  140.0 ms 总=   957.0 ms 引用=['[招股说明书2.pdf: 24]'] 
+  ✅ id=2    首字=  163.5 ms 总=  1070.5 ms 引用=['[招股说明书2.pdf: 306]'] 
+  ✅ id=3    首字=  162.0 ms 总=   796.4 ms 引用=['[招股说明书2.pdf: 157]'] 
+  ⚠️ id=4    首字=  127.3 ms 总=  1039.8 ms 引用=[] 【不清楚】
+
+==============================================================================
+作答 10/14；首字 max=806.67 ms （预算 3000，达标=True）；引用可回溯 10/10；文件归属错误=无
+JSON：E:\gao6gongdan\工单3\优化\评估结果\answer_eval_t6.json
+MD  ：E:\gao6gongdan\工单3\优化\评估结果\answer_eval_t6.md

@@ -1,0 +1,13 @@
+ZH_PROMPT_SHA256 5a37ea147347689c7626400020dbfa1392a97e50076da6681ad3dbed374582c2
+EN_PROMPT_SHA256 2049734e4b33edd351e7456877797ca25956556ff79ef9684ac8eaf41dc65125
+ZH_PROMPT_TAIL "`），否则中文作答\n7. 只输出答案与引用，不要复述本说明、不要写分析过程\n\n## 检索片段（编号 → 文件名: 页码 / 类型）\n\n[1] 招股说明书1.pdf: 22 / 类型: 正文\n注册资本：5,520.00 万元\n\n## 多轮上下文（仅用于理解指代）\n\n（无）\n\n## 问题\n\n注册资本是多少？\n\n## 答案\n"
+RATIO 0.800 unknown=False lang=en cites=['[招股说明书1.pdf: 22]']
+   BODY What is the registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd.?
+RATIO 0.773 unknown=False lang=en cites=['[招股说明书1.pdf: 22]']
+   BODY The legal representative of Wuhan Xingtu Xinke Electronics Co., Ltd. is程家明.
+RATIO 0.416 unknown=False lang=en cites=['[招股说明书1.pdf: 22]']
+   BODY | 英文名称 | Wuhan Xingtu Xinke Electronics Co.,Ltd. | 股份公司成立日期 | 2011 年1 月26 日 |
+RATIO 0.330 unknown=False lang=en cites=['[招股说明书2.pdf: 15]']
+   BODY 一、发行人简介 (一)公司概况 1、公司名称：武汉力源信息技术股份有限公司 2、英文名称：Wuhan P&S Information Technology Co., Ltd. 3、注册资本：人民币5。
+RATIO 0.000 unknown=False lang=en cites=['[招股说明书2.pdf: 2]']
+   BODY | 发行股数 | 1,670万股 |

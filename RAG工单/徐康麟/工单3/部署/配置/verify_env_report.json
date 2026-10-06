@@ -1,0 +1,429 @@
+{
+  "generated_at": "2026-10-04T18:57:59+08:00",
+  "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化",
+  "script": "E:\\gao6gongdan\\工单3\\部署\\脚本\\verify_config_env.py",
+  "script_sha256_prefix16": "7434FB9FD51B3F7F",
+  "interpreter": "E:\\gao6gongdan\\工单1\\.venv\\Scripts\\python.exe",
+  "python_version": "3.11.15",
+  "argv": [
+    "部署/脚本/verify_config_env.py",
+    "--no-pdf",
+    "--no-ollama"
+  ],
+  "cwd": "E:\\gao6gongdan\\工单3",
+  "summary": {
+    "counts": {
+      "passed": 6,
+      "failed": 0,
+      "degraded": 0,
+      "info": 2
+    },
+    "required_failed": [],
+    "degraded": [],
+    "verdict": "passed"
+  },
+  "items": [
+    {
+      "key": "interpreter",
+      "title": "一、解释器（实测）",
+      "status": "passed",
+      "detail": "3.11.15 / E:\\gao6gongdan\\工单1\\.venv\\Scripts\\python.exe（与 run_py.ps1 一致）",
+      "required": true,
+      "evidence": {
+        "python 版本": "3.11.15",
+        "编译器": "MSC v.1942 64 bit (AMD64)",
+        "sys.executable": "E:\\gao6gongdan\\工单1\\.venv\\Scripts\\python.exe",
+        "run_py.ps1 期望解释器": "E:\\gao6gongdan\\工单1\\.venv\\Scripts\\python.exe（默认工单1 venv）",
+        "解释器是否存在": true,
+        "位数": "64 bit",
+        "sys.prefix": "E:\\gao6gongdan\\工单1\\.venv",
+        "base_prefix": "E:\\Anaconda\\envs\\fastapi_faq",
+        "是否为 venv": true,
+        "platform": "Windows-10-10.0.22631-SP0",
+        "cwd": "E:\\gao6gongdan\\工单3",
+        "PYTHONIOENCODING": "<未设置>",
+        "PYTHONUTF8": "<未设置>"
+      }
+    },
+    {
+      "key": "run_py.ps1",
+      "title": "二、统一入口脚本（实测）",
+      "status": "passed",
+      "detail": "run_py.ps1 就位，含工单编号注释与 RAG_SCHEDULER_PYTHON 覆盖入口",
+      "required": true,
+      "evidence": {
+        "路径": "E:\\gao6gongdan\\工单3\\run_py.ps1",
+        "字节数": 3899,
+        "SHA256(前16)": "21F1608FD1FAA163",
+        "含工单编号注释": true,
+        "支持 RAG_SCHEDULER_PYTHON 覆盖": true,
+        "默认解释器串": "E:\\gao6gongdan\\工单1\\.venv\\Scripts\\python.exe"
+      }
+    },
+    {
+      "key": "skeleton",
+      "title": "三、目录骨架（实测）",
+      "status": "passed",
+      "detail": "18 个目录全部就位",
+      "required": true,
+      "evidence": {
+        "根目录": "E:\\gao6gongdan\\工单3",
+        "要求目录数": 18,
+        "缺失目录": [],
+        "五文件夹": [
+          "设计",
+          "研发",
+          "测试",
+          "优化",
+          "部署"
+        ]
+      }
+    },
+    {
+      "key": "deps.required",
+      "title": "四、依赖探测（实测）",
+      "status": "passed",
+      "detail": "16 个必需依赖全部可用",
+      "required": true,
+      "evidence": {
+        "探测模式": "find_spec + 元数据版本（未真实 import）",
+        "必需包": [
+          {
+            "模块": "pymupdf",
+            "用途": "PDF 文本 + 表格提取（page.find_tables，1.28 起的正式包名）",
+            "发行名": "pymupdf",
+            "可导入": true,
+            "版本": "1.28.2",
+            "探测耗时ms": 4.87
+          },
+          {
+            "模块": "fitz",
+            "用途": "PyMuPDF 的历史别名（仍可用，导入时会打印废弃告警）",
+            "发行名": "pymupdf",
+            "可导入": true,
+            "版本": "1.28.2",
+            "探测耗时ms": 3.27
+          },
+          {
+            "模块": "numpy",
+            "用途": "向量精确检索 / 打分",
+            "发行名": "numpy",
+            "可导入": true,
+            "版本": "1.26.4",
+            "探测耗时ms": 7.28
+          },
+          {
+            "模块": "jieba",
+            "用途": "自实现 BM25 的中文分词",
+            "发行名": "jieba",
+            "可导入": true,
+            "版本": "0.42.1",
+            "探测耗时ms": 3.05
+          },
+          {
+            "模块": "sklearn",
+            "用途": "TF-IDF / 指标计算",
+            "发行名": "scikit-learn",
+            "可导入": true,
+            "版本": "1.8.0",
+            "探测耗时ms": 3.97
+          },
+          {
+            "模块": "faiss",
+            "用途": "可选向量加速（非必需路径）",
+            "发行名": "faiss-cpu",
+            "可导入": true,
+            "版本": "1.7.4",
+            "探测耗时ms": 2.9
+          },
+          {
+            "模块": "torch",
+            "用途": "CPU 版深度模型运行时（无 CUDA）",
+            "发行名": "torch",
+            "可导入": true,
+            "版本": "2.11.0+cpu",
+            "探测耗时ms": 3.96
+          },
+          {
+            "模块": "transformers",
+            "用途": "本地模型加载",
+            "发行名": "transformers",
+            "可导入": true,
+            "版本": "4.57.6",
+            "探测耗时ms": 6.79
+          },
+          {
+            "模块": "sentence_transformers",
+            "用途": "本地嵌入降级后端",
+            "发行名": "sentence-transformers",
+            "可导入": true,
+            "版本": "2.3.1",
+            "探测耗时ms": 3.19
+          },
+          {
+            "模块": "openai",
+            "用途": "vLLM / SGLang 兼容后端客户端",
+            "发行名": "openai",
+            "可导入": true,
+            "版本": "1.10.0",
+            "探测耗时ms": 3.31
+          },
+          {
+            "模块": "fastapi",
+            "用途": "在线服务框架",
+            "发行名": "fastapi",
+            "可导入": true,
+            "版本": "0.109.0",
+            "探测耗时ms": 4.31
+          },
+          {
+            "模块": "uvicorn",
+            "用途": "ASGI 服务器",
+            "发行名": "uvicorn",
+            "可导入": true,
+            "版本": "0.27.0",
+            "探测耗时ms": 5.44
+          },
+          {
+            "模块": "pytest",
+            "用途": "测试框架",
+            "发行名": "pytest",
+            "可导入": true,
+            "版本": "7.4.4",
+            "探测耗时ms": 4.03
+          },
+          {
+            "模块": "requests",
+            "用途": "HTTP 客户端",
+            "发行名": "requests",
+            "可导入": true,
+            "版本": "2.33.1",
+            "探测耗时ms": 3.4
+          },
+          {
+            "模块": "httpx",
+            "用途": "HTTP 客户端",
+            "发行名": "httpx",
+            "可导入": true,
+            "版本": "0.26.0",
+            "探测耗时ms": 3.13
+          },
+          {
+            "模块": "sentencepiece",
+            "用途": "分词器依赖",
+            "发行名": "sentencepiece",
+            "可导入": true,
+            "版本": "0.2.1",
+            "探测耗时ms": 4.56
+          }
+        ]
+      }
+    },
+    {
+      "key": "deps.missing",
+      "title": "五、预期缺失依赖（实测）",
+      "status": "passed",
+      "detail": "12 个包确认缺失或不可用；其中存在但 import 失败：[\"loguru（目录存在但真实 import 失败：ModuleNotFoundError: No module named 'win32_setctime'）\"] —— 降级方案（自实现/替代库）为唯一可行路径",
+      "required": true,
+      "evidence": {
+        "缺失清单（预期）": [
+          {
+            "模块": "streamlit",
+            "find_spec 命中": false,
+            "真实 import 可用": false,
+            "说明": "未发现（完全缺失）",
+            "预期替代方案": "改用自实现 研发/app/ui/serve_fallback.py（http.server）；streamlit_app.py 仍按真 Streamlit 应用交付"
+          },
+          {
+            "模块": "loguru",
+            "find_spec 命中": true,
+            "真实 import 可用": false,
+            "说明": "目录存在但真实 import 失败：ModuleNotFoundError: No module named 'win32_setctime'",
+            "预期替代方案": "改用自实现 loguru 风格 JSON Lines logger"
+          },
+          {
+            "模块": "pdfplumber",
+            "find_spec 命中": false,
+            "真实 import 可用": false,
+            "说明": "未发现（完全缺失）",
+            "预期替代方案": "改用 pymupdf page.find_tables()"
+          },
+          {
+            "模块": "chromadb",
+            "find_spec 命中": false,
+            "真实 import 可用": false,
+            "说明": "未发现（完全缺失）",
+            "预期替代方案": "改用 numpy 精确检索（faiss 可选）"
+          },
+          {
+            "模块": "langchain",
+            "find_spec 命中": false,
+            "真实 import 可用": false,
+            "说明": "未发现（完全缺失）",
+            "预期替代方案": "自实现检索/生成链路"
+          },
+          {
+            "模块": "rank_bm25",
+            "find_spec 命中": false,
+            "真实 import 可用": false,
+            "说明": "未发现（完全缺失）",
+            "预期替代方案": "自实现 BM25（jieba 分词）"
+          },
+          {
+            "模块": "ragas",
+            "find_spec 命中": false,
+            "真实 import 可用": false,
+            "说明": "未发现（完全缺失）",
+            "预期替代方案": "不可用：报告必须标注「RAGAS 未运行（依赖不可用，本机断网）」并给确定性指标替代"
+          },
+          {
+            "模块": "pandas",
+            "find_spec 命中": false,
+            "真实 import 可用": false,
+            "说明": "未发现（完全缺失）",
+            "预期替代方案": "改用标准库 csv 写 qa_results.csv"
+          },
+          {
+            "模块": "gradio",
+            "find_spec 命中": false,
+            "真实 import 可用": false,
+            "说明": "未发现（完全缺失）",
+            "预期替代方案": "改用 http.server 备用界面"
+          },
+          {
+            "模块": "markdown",
+            "find_spec 命中": false,
+            "真实 import 可用": false,
+            "说明": "未发现（完全缺失）",
+            "预期替代方案": "自实现 Markdown 渲染 / 直接输出对齐文本"
+          },
+          {
+            "模块": "bs4",
+            "find_spec 命中": false,
+            "真实 import 可用": false,
+            "说明": "未发现（完全缺失）",
+            "预期替代方案": "改用标准库 html.parser"
+          },
+          {
+            "模块": "lxml",
+            "find_spec 命中": false,
+            "真实 import 可用": false,
+            "说明": "未发现（完全缺失）",
+            "预期替代方案": "改用标准库 xml.etree / html.parser"
+          }
+        ]
+      }
+    },
+    {
+      "key": "config.baseline",
+      "title": "八、配置基线（参考）",
+      "status": "info",
+      "detail": "已就位：['部署/配置/config.example.env', '研发/app/core/config.py', '研发/data/eval/golden_qa.jsonl']；缺失项由后续任务补齐（config.py 一致性校验在研发任务落地后追加）",
+      "required": false,
+      "evidence": {
+        "部署/配置/config.example.env": true,
+        "研发/app/core/config.py": true,
+        "研发/data/eval/golden_qa.jsonl": true,
+        "config.example.env 中 RAG_* 变量数": 36
+      }
+    },
+    {
+      "key": "reference.materials",
+      "title": "九、只读参考基线（参考）",
+      "status": "info",
+      "detail": "工单1 golden 可读，10 题；工单2 基线 JSON 可读",
+      "required": false,
+      "evidence": {
+        "工单1 golden_qa.jsonl": "E:\\gao6gongdan\\工单1\\data\\eval\\golden_qa.jsonl",
+        "工单2 baseline_metrics.json": "E:\\gao6gongdan\\工单2\\优化\\基线\\baseline_metrics.json",
+        "golden 题数": 10,
+        "golden 题号": [
+          260,
+          95,
+          33,
+          34,
+          957,
+          793,
+          795,
+          543,
+          531,
+          207
+        ],
+        "工单2 基线条目": [
+          "baseline_metrics",
+          "meta",
+          "per_question",
+          "verification"
+        ]
+      }
+    },
+    {
+      "key": "self.import",
+      "title": "十、脚本自身 import 自检（实测）",
+      "status": "passed",
+      "detail": "模块级仅标准库（18 个）；延迟 import 仅必需依赖 ['fitz', 'pymupdf']；未触碰任何缺失包",
+      "required": true,
+      "evidence": {
+        "模块级 import": [
+          "__future__",
+          "argparse",
+          "ast",
+          "dataclasses",
+          "datetime",
+          "functools",
+          "hashlib",
+          "importlib",
+          "json",
+          "os",
+          "pathlib",
+          "platform",
+          "struct",
+          "sys",
+          "time",
+          "traceback",
+          "typing",
+          "urllib"
+        ],
+        "延迟（函数内）import": [
+          "fitz",
+          "pymupdf"
+        ],
+        "允许的延迟 import（必需依赖）": [
+          "faiss",
+          "fastapi",
+          "fitz",
+          "httpx",
+          "jieba",
+          "numpy",
+          "openai",
+          "pymupdf",
+          "pytest",
+          "requests",
+          "sentence_transformers",
+          "sentencepiece",
+          "sklearn",
+          "torch",
+          "transformers",
+          "uvicorn"
+        ],
+        "模块级非标准库 import": [],
+        "越权延迟 import": [],
+        "命中禁用清单": [],
+        "禁用清单": [
+          "bs4",
+          "chromadb",
+          "gradio",
+          "langchain",
+          "loguru",
+          "lxml",
+          "markdown",
+          "pandas",
+          "pdfplumber",
+          "ragas",
+          "rank_bm25",
+          "streamlit"
+        ]
+      }
+    }
+  ]
+}

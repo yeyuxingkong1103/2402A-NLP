@@ -1,0 +1,5 @@
+[logging_conf 降级] 写 app 失败（已停用该句柄）：OSError: probe: 合成写失败
+句柄(注入前): ['app', 'error', 'trace']
+句柄(注入后/写失败后): ['error', 'trace'] → 'app' 是否已摘除: True
+写失败是否抛出: None
+close 降级是否抛出: None

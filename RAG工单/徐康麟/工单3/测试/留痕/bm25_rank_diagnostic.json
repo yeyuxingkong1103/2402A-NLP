@@ -1,0 +1,189 @@
+{
+  "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化",
+  "note": "BM25 单路名次诊断（非门槛）。命中判据 = evidence_contains；题 207 用 evidence_verbatim。最终检索门槛在 在线 层的 top-5 混合检索用例。",
+  "ragas": "RAGAS 未运行（依赖不可用，本机断网）",
+  "rows": [
+    {
+      "id": 1,
+      "corpus": "pdf2",
+      "question": "武汉力源信息技术股份有限公司本次发行股数是多少？占发行后总股本的比例是多少？",
+      "bm25_candidates": 200,
+      "best_hit": {
+        "rank": 1,
+        "chunk_id": "招股说明书2_p0024_x44",
+        "score": 28.165596
+      },
+      "hit_in_top20": true,
+      "hit_in_top5": true
+    },
+    {
+      "id": 2,
+      "corpus": "pdf2",
+      "question": "武汉力源信息技术股份有限公司本次募集资金拟投资项目有哪些？",
+      "bm25_candidates": 200,
+      "best_hit": {
+        "rank": 12,
+        "chunk_id": "招股说明书2_p0022_x42",
+        "score": 18.784161
+      },
+      "hit_in_top20": true,
+      "hit_in_top5": false
+    },
+    {
+      "id": 3,
+      "corpus": "pdf2",
+      "question": "武汉力源信息技术股份有限公司存在控制关系的关联方是谁？其持股比例与本公司关系是什么？",
+      "bm25_candidates": 200,
+      "best_hit": {
+        "rank": 1,
+        "chunk_id": "招股说明书2_p0157_x314",
+        "score": 33.821325
+      },
+      "hit_in_top20": true,
+      "hit_in_top5": true
+    },
+    {
+      "id": 4,
+      "corpus": "pdf2",
+      "question": "武汉力源信息技术股份有限公司不存在控制关系的关联方企业有哪些？",
+      "bm25_candidates": 200,
+      "best_hit": {
+        "rank": 2,
+        "chunk_id": "招股说明书2_p0157_t70",
+        "score": 22.963535
+      },
+      "hit_in_top20": true,
+      "hit_in_top5": true
+    },
+    {
+      "id": 260,
+      "corpus": "pdf1",
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "bm25_candidates": 200,
+      "best_hit": {
+        "rank": 1,
+        "chunk_id": "招股说明书1_p0129_x306",
+        "score": 25.363672
+      },
+      "hit_in_top20": true,
+      "hit_in_top5": true
+    },
+    {
+      "id": 95,
+      "corpus": "pdf1",
+      "question": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+      "bm25_candidates": 200,
+      "best_hit": {
+        "rank": 1,
+        "chunk_id": "招股说明书1_p0160_x375",
+        "score": 24.491744
+      },
+      "hit_in_top20": true,
+      "hit_in_top5": true
+    },
+    {
+      "id": 33,
+      "corpus": "pdf1",
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别是多少？",
+      "bm25_candidates": 200,
+      "best_hit": {
+        "rank": 1,
+        "chunk_id": "招股说明书1_p0129_x306",
+        "score": 38.527264
+      },
+      "hit_in_top20": true,
+      "hit_in_top5": true
+    },
+    {
+      "id": 34,
+      "corpus": "pdf1",
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+      "bm25_candidates": 200,
+      "best_hit": {
+        "rank": 1,
+        "chunk_id": "招股说明书1_p0152_x357",
+        "score": 31.276843
+      },
+      "hit_in_top20": true,
+      "hit_in_top5": true
+    },
+    {
+      "id": 957,
+      "corpus": "pdf1",
+      "question": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+      "bm25_candidates": 200,
+      "best_hit": {
+        "rank": 1,
+        "chunk_id": "招股说明书1_p0026_x72",
+        "score": 22.055622
+      },
+      "hit_in_top20": true,
+      "hit_in_top5": true
+    },
+    {
+      "id": 793,
+      "corpus": "pdf1",
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？",
+      "bm25_candidates": 200,
+      "best_hit": {
+        "rank": 1,
+        "chunk_id": "招股说明书1_p0152_x357",
+        "score": 32.135303
+      },
+      "hit_in_top20": true,
+      "hit_in_top5": true
+    },
+    {
+      "id": 795,
+      "corpus": "pdf1",
+      "question": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+      "bm25_candidates": 200,
+      "best_hit": {
+        "rank": 1,
+        "chunk_id": "招股说明书1_p0157_x370",
+        "score": 46.120357
+      },
+      "hit_in_top20": true,
+      "hit_in_top5": true
+    },
+    {
+      "id": 543,
+      "corpus": "pdf1",
+      "question": "武汉兴图新科电子股份有限公司注册资本是多少？",
+      "bm25_candidates": 200,
+      "best_hit": {
+        "rank": 1,
+        "chunk_id": "招股说明书1_p0052_x139",
+        "score": 15.495171
+      },
+      "hit_in_top20": true,
+      "hit_in_top5": true
+    },
+    {
+      "id": 531,
+      "corpus": "pdf1",
+      "question": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+      "bm25_candidates": 200,
+      "best_hit": {
+        "rank": 1,
+        "chunk_id": "招股说明书1_p0534_x1223",
+        "score": 17.261269
+      },
+      "hit_in_top20": true,
+      "hit_in_top5": true
+    },
+    {
+      "id": 207,
+      "corpus": "pdf1",
+      "question": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+      "bm25_candidates": 200,
+      "best_hit": {
+        "rank": 7,
+        "chunk_id": "招股说明书1_p0490_x1131",
+        "score": 37.473523
+      },
+      "hit_in_top20": true,
+      "hit_in_top5": false
+    }
+  ]
+}

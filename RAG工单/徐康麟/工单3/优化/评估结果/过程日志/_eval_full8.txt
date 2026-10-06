@@ -1,0 +1,23 @@
+题集：E:\gao6gongdan\工单3\测试\测试数据\eval_retrieval_14.jsonl（14 题，file_scoped=False）
+检索器：2599 块；生成后端：ollama（qwen2.5:3b）
+LLM 预热完成：冷启动 385.33 ms（不计入首字预算）
+  ⚠️ id=33   首字=  108.3 ms 总= 37478.3 ms 引用=['[招股说明书1.pdf: 185]']  正确=False（golden 数值命中 2/8=0.25）
+  ⚠️ id=34   首字= 3995.5 ms 总= 35647.0 ms 引用=['[招股说明书1.pdf: 456]']  正确=False（golden 实词覆盖 0.26（19 个））
+  ✅ id=95   首字= 4015.0 ms 总=  5391.7 ms 引用=['[招股说明书1.pdf: 160]']  正确=True（golden 数值命中 1/1=1.00）
+  ✅ id=207  首字=  800.7 ms 总= 26415.7 ms 引用=['[招股说明书1.pdf: 479]']  正确=True（golden 数值命中 1/1=1.00）
+  ✅ id=260  首字= 4579.4 ms 总= 35341.9 ms 引用=['[招股说明书1.pdf: 129]']  正确=True（golden 数值命中 4/4=1.00）
+  ✅ id=531  首字= 4043.8 ms 总=  5358.1 ms 引用=['[招股说明书1.pdf: 52]']  正确=True（golden 实词覆盖 1.00（2 个））
+  ✅ id=543  首字=  587.4 ms 总= 29026.8 ms 引用=['[招股说明书1.pdf: 22]']  正确=True（golden 数值命中 1/1=1.00）
+  ✅ id=793  首字= 3972.1 ms 总= 29420.0 ms 引用=['[招股说明书1.pdf: 152]']  正确=True（golden 实词覆盖 0.60（15 个））
+  ⚠️ id=795  首字= 4720.0 ms 总=  6838.9 ms 引用=['[招股说明书1.pdf: 94]']  正确=False（golden 数值命中 0/2=0.00）
+  ✅ id=957  首字=  823.4 ms 总=  1627.2 ms 引用=['[招股说明书1.pdf: 26]']  正确=True（golden 实词覆盖 0.90（10 个））
+  ✅ id=1    首字= 1154.5 ms 总= 36012.3 ms 引用=['[招股说明书2.pdf: 24]']  正确=True（golden 数值命中 3/3=1.00）
+  ⚠️ id=2    首字= 4822.6 ms 总= 37549.3 ms 引用=['[招股说明书2.pdf: 306]']  正确=False（golden 数值命中 0/4=0.00）
+[ERROR] {"ts": "2026-10-04T16:37:38.255+08:00", "level": "ERROR", "event": "generation.subject_gate_failed", "func": null, "module": "eval_answers", "run_id": "r20261004-163128", "trace_id": null, "span_id": null, "stage": "core", "pid": 24564, "thread": "MainThread", "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化", "reason": "triple_incomplete", "leaked": [], "retry": 1}
+  ⚠️ id=3    首字= 4207.4 ms 总= 33050.2 ms 引用=[] 【不清楚】 正确=False（答案为空或「不清楚」）
+  ⚠️ id=4    首字= 4289.1 ms 总=145542.2 ms 引用=[] 【不清楚】 正确=False（答案为空或「不清楚」）
+
+==============================================================================
+作答 12/14；准确率 8/14（错题 [33, 34, 795, 2, 3, 4]）；首字 max=4822.61 ms （预算 3000，达标=False）；引用可回溯 12/12；文件归属错误=无
+JSON：E:\gao6gongdan\工单3\优化\评估结果\answer_eval_t6.json
+MD  ：E:\gao6gongdan\工单3\优化\评估结果\answer_eval_t6.md

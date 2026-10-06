@@ -1,0 +1,23 @@
+RAGAS 未运行（依赖不可用，本机断网）
+级别：user；目标：测试/用户；开始：2026-10-04T19:28:36.2082461+08:00
+============================= test session starts =============================
+platform win32 -- Python 3.11.15, pytest-7.4.4, pluggy-1.6.0
+rootdir: E:\gao6gongdan\工单3
+plugins: anyio-4.13.0, asyncio-0.23.3, cov-4.1.0
+asyncio: mode=Mode.STRICT
+collected 8 items
+
+测试\用户\test_t7_user_negative.py .....                                 [ 62%]
+测试\用户\test_t7_user_ui.py ...                                         [100%]
+
+============================== warnings summary ===============================
+测试/用户/test_t7_user_negative.py::test_unknown_questions_refused
+  E:\gao6gongdan\工单1\.venv\Lib\site-packages\jieba\_compat.py:18: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+    import pkg_resources
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+---------------------------------- RAGAS 状态 -----------------------------------
+RAGAS 未运行（依赖不可用，本机断网）
+替代口径：确定性指标（14 题命中/准确率/引用可回溯/首字/拒答率）
+======================== 8 passed, 1 warning in 44.12s ========================
+级别：user；退出码：0

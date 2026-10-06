@@ -1,0 +1,127 @@
+RAGAS 未运行（依赖不可用，本机断网）
+级别：user；目标：测试/用户；开始：2026-10-04T17:44:45.8625291+08:00
+============================= test session starts =============================
+platform win32 -- Python 3.11.15, pytest-7.4.4, pluggy-1.6.0
+rootdir: E:\gao6gongdan\工单3
+plugins: anyio-4.13.0, asyncio-0.23.3, cov-4.1.0
+asyncio: mode=Mode.STRICT
+collected 8 items
+
+测试\用户\test_t7_user_negative.py FF.F.                                 [ 62%]
+测试\用户\test_t7_user_ui.py ...                                         [100%]
+
+================================== FAILURES ===================================
+_______________________ test_unknown_questions_refused ________________________
+
+engine = <app.core.qa_engine.QAEngine object at 0x0000023B4C3E4B10>
+unknown_cases = [UnknownCase(id='N-4', question='根据武汉力源信息技术股份有限公司招股意向书，本次发行募集资金中有多少用于补充流动资金？', file_names=['招股说明书2.pdf'], reason_expec...t_of_corpus'], must_not_contain=['NYSE', '纽交所', '代码'], category='语料外事实', note='公司在深圳证券交易所创业板发行（PDF2 物理 24），不存在纽交所代码。')]
+
+    def test_unknown_questions_refused(engine: Any, unknown_cases: list[Any]) -> None:
+        """全部不可答负例必须回「不清楚」、无引用、且不含被禁止的编造内容。"""
+        rows: list[dict[str, Any]] = []
+        failures: list[str] = []
+        for case in unknown_cases:
+            answer = _ask(engine, case.question, session=f"t8-unk-{case.id}", file_names=case.file_names)
+            checks = assertions.check_unknown_answer(answer, label=case.id)
+            checks += assertions.check_no_fabrication(
+                answer, forbidden_substrings=case.must_not_contain, label=case.id)
+            bad = [c for c in checks if not c.ok]
+            rows.append({"case": case.id, "question": case.question, "text": str(answer.text),
+                         "is_unknown": bool(getattr(answer, "is_unknown", False)),
+                         "unknown_reason": getattr(answer, "unknown_reason", None),
+                         "citations": [getattr(c, "render", lambda: str(c))() for c in
+                                       (getattr(answer, "citations", []) or [])],
+                         "checks": [c.to_dict() for c in checks]})
+            if bad:
+                failures.append(f"[{case.id}] " + "；".join(c.render() for c in bad))
+        write_report("user_unknown_cases", "不可答负例执行结果", rows)
+>       assert not failures, "\n".join(failures)
+E       AssertionError: [N-4] ❌ 无依据回「不清楚」（N-4）　is_unknown=False text='武汉力源信息技术股份有限公司 招股意向书 第十一节 募集资金运用 一、本次募集资'；❌ 拒答正文规范（N-4）　text='武汉力源信息技术股份有限公司 招股意向书 第十一节 募集资金运用 一、本次募集资金运用方案 (一)募集资金数额及专户存储'；❌ 拒答不带任何引用（N-4）　引用 ['[招股说明书2.pdf: 306]']；❌ unknown_reason 在枚举内（N-4）　reason=None
+E         [N-4b] ❌ 无依据回「不清楚」（N-4b）　is_unknown=False text='根据该合同：公司向汉口银行借款300 万美元 用于补充流动资金，贷款期限为201'；❌ 拒答正文规范（N-4b）　text='根据该合同：公司向汉口银行借款300 万美元 用于补充流动资金，贷款期限为2010 年4 月8 日至2010 年10 月'；❌ 拒答不带任何引用（N-4b）　引用 ['[招股说明书2.pdf: 340]']；❌ unknown_reason 在枚举内（N-4b）　reason=None
+E         [N-GEN2] ❌ 无依据回「不清楚」（N-GEN2）　is_unknown=False text='经我们审验，截至2004 年10 月29 日， 贵公司已收到易国平、吴伟钢、朱华'；❌ 拒答正文规范（N-GEN2）　text='经我们审验，截至2004 年10 月29 日， 贵公司已收到易国平、吴伟钢、朱华、陈新缴纳的注册资本人民币750,000'；❌ 拒答不带任何引用（N-GEN2）　引用 ['[招股说明书2.pdf: 251]']；❌ unknown_reason 在枚举内（N-GEN2）　reason=None
+E         [N-GEN3] ❌ 无依据回「不清楚」（N-GEN3）　is_unknown=False text='2019 年第三季度，为配合筹备中华人民共和国成 立70 周年阅兵，军队部分演习'；❌ 拒答正文规范（N-GEN3）　text='2019 年第三季度，为配合筹备中华人民共和国成 立70 周年阅兵，军队部分演习活动任务提前进行，公司作为相关任务的产品'；❌ 拒答不带任何引用（N-GEN3）　引用 ['[招股说明书1.pdf: 335]']；❌ unknown_reason 在枚举内（N-GEN3）　reason=None
+E         [N-GEN4] ❌ 无依据回「不清楚」（N-GEN4）　is_unknown=False text='武汉力源信息技术股份有限公司 招股意向书 第一节 释 义 一、常用词语 本公司、'；❌ 拒答正文规范（N-GEN4）　text='武汉力源信息技术股份有限公司 招股意向书 第一节 释 义 一、常用词语 本公司、公司、 发行人、力源信息 指 武汉力源信'；❌ 拒答不带任何引用（N-GEN4）　引用 ['[招股说明书2.pdf: 10]']；❌ unknown_reason 在枚举内（N-GEN4）　reason=None
+E       assert not ["[N-4] ❌ 无依据回「不清楚」（N-4）\u3000is_unknown=False text='武汉力源信息技术股份有限公司 招股意向书 第十一节 募集资金运用 一、本次募集资'；❌ 拒答正文规范（N-4）\u3000text...、公司、 发行人、力源信息 指 武汉力源信'；❌ 拒答不带任何引用（N-GEN4）\u3000引用 ['[招股说明书2.pdf: 10]']；❌ unknown_reason 在枚举内（N-GEN4）\u3000reason=None"]
+
+测试\用户\test_t7_user_negative.py:49: AssertionError
+_______________________ test_leakage_and_element_rules ________________________
+
+engine = <app.core.qa_engine.QAEngine object at 0x0000023B4C3E4B10>
+leakage_cases = [LeakageCase(id='N-5-①', question='武汉力源信息技术股份有限公司不存在控制关系的关联方企业有哪些？', corpus='pdf2', required_substrings=['融冰投资', '武汉博润...category='跨语料串题', note='5,520 万元是 PDF1（兴图新科）的注册资本（物理 22）；若在 PDF2 语境答案里出现即串题编造。本题允许「不清楚」（PDF2 是否载明注册资本由 T11 抽验）。'), ...]
+
+    def test_leakage_and_element_rules(engine: Any, leakage_cases: list[Any]) -> None:
+        """互污染/要素齐备用例：required 必含、forbidden 必不含。"""
+        rows: list[dict[str, Any]] = []
+        failures: list[str] = []
+        for case in leakage_cases:
+            answer = _ask(engine, case.question, session=f"t8-leak-{case.id}")
+            checks = assertions.check_leakage(str(answer.text),
+                                              forbidden=case.forbidden_substrings,
+                                              required=case.required_substrings, label=case.id)
+            if case.expect_unknown:
+                checks += assertions.check_unknown_answer(answer, label=case.id)
+            else:
+                # 可答用例**不得被拒答**（题 4 曾被闸门以 subject_gate:org_leaked 误拒答）
+                checks.append(assertions.Check(
+                    f"不得被拒答（{case.id}）", not bool(getattr(answer, "is_unknown", False)),
+                    f"is_unknown={getattr(answer, 'is_unknown', None)}　"
+                    f"reason={getattr(answer, 'unknown_reason', None)}"))
+            bad = [c for c in checks if not c.ok]
+            rows.append({"case": case.id, "question": case.question, "text": str(answer.text),
+                         "is_unknown": bool(getattr(answer, "is_unknown", False)),
+                         "unknown_reason": getattr(answer, "unknown_reason", None),
+                         "checks": [c.to_dict() for c in checks]})
+            if bad:
+                failures.append(f"[{case.id}] " + "；".join(c.render() for c in bad))
+        write_report("user_leakage_cases", "互污染与要素齐备用例执行结果", rows)
+>       assert not failures, "\n".join(failures)
+E       AssertionError: [N-2-ITEM5] ❌ 答案未混入「0万元」（N-2-ITEM5）　答案摘要='本次募集资金拟投资项目包括：仓储及物流中心（3,393.40 万元）、研发中心（1,526.38 万元）、电子商务平台（2,492.78 万元）、扩充产品种类和'；❌ 答案未混入「0.00万元」（N-2-ITEM5）　答案摘要='本次募集资金拟投资项目包括：仓储及物流中心（3,393.40 万元）、研发中心（1,526.38 万元）、电子商务平台（2,492.78 万元）、扩充产品种类和'
+E       assert not ["[N-2-ITEM5] ❌ 答案未混入「0万元」（N-2-ITEM5）\u3000答案摘要='本次募集资金拟投资项目包括：仓储及物流中心（3,393.40 万元）、研发中心（1,526.38 万元）、电子商务平台（2,492.78 ...答案未混入「0.00万元」（N-2-ITEM5）\u3000答案摘要='本次募集资金拟投资项目包括：仓储及物流中心（3,393.40 万元）、研发中心（1,526.38 万元）、电子商务平台（2,492.78 万元）、扩充产品种类和'"]
+
+测试\用户\test_t7_user_negative.py:77: AssertionError
+________________ test_subject_gate_fail_open_for_text_evidence ________________
+
+engine = <app.core.qa_engine.QAEngine object at 0x0000023B4C3E4B10>
+golden_index = {1: GoldenItem(id=1, question='武汉力源信息技术股份有限公司本次发行股数是多少？占发行后总股本的比例是多少？', answer='发行 1,670 万股，占发行后总股本的比例为 25.04%。', evid...stion_alt='根据武汉力源信息技术股份有限公司招股意向书，不存在控制关系的关联方企业有哪些？', notes='N-5①：赵马克是自然人，出现在答案里即判错；N-5③：力源贸易/普芯达是企业，属本题答案，不得误删。'), ...}
+
+    def test_subject_gate_fail_open_for_text_evidence(engine: Any, golden_index: dict[int, Any]) -> None:
+        """N-6：题 34 证据在正文段（物理 152，tables=0）→ 闸门必须 fail-open 且不得拒答。"""
+        failures: list[str] = []
+        rows: list[dict[str, Any]] = []
+        for question_id in (34, 793):
+            item = golden_index[question_id]
+            answer = _ask(engine, item.question, session=f"t8-gate-{question_id}")
+            gate = getattr(answer, "subject_gate", None)
+            rows.append({"id": question_id, "is_unknown": bool(getattr(answer, "is_unknown", False)),
+                         "gate": (gate.to_dict() if hasattr(gate, "to_dict") else
+                                  (dict(gate) if isinstance(gate, dict) else str(gate))),
+                         "text": str(answer.text)})
+            if bool(getattr(answer, "is_unknown", False)):
+                failures.append(f"题 {question_id} 被误判为不可答（N-6 违反）：{answer.text[:60]!r}")
+            if gate is None:
+                failures.append(f"题 {question_id} 未返回 subject_gate 字段（闸门结果无法审计）")
+                continue
+            checks = assertions.check_subject_gate_fail_open(gate, label=f"题 {question_id}")
+            failures += [c.render() for c in checks if not c.ok]
+        write_report("user_subject_gate", "闸门 fail-open 取证", rows)
+>       assert not failures, "\n".join(failures)
+E       AssertionError: 题 34 未返回 subject_gate 字段（闸门结果无法审计）
+E         题 793 未返回 subject_gate 字段（闸门结果无法审计）
+E       assert not ['题 34 未返回 subject_gate 字段（闸门结果无法审计）', '题 793 未返回 subject_gate 字段（闸门结果无法审计）']
+
+测试\用户\test_t7_user_negative.py:130: AssertionError
+============================== warnings summary ===============================
+测试/用户/test_t7_user_negative.py::test_unknown_questions_refused
+  E:\gao6gongdan\工单1\.venv\Lib\site-packages\jieba\_compat.py:18: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+    import pkg_resources
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+---------------------------------- RAGAS 状态 -----------------------------------
+RAGAS 未运行（依赖不可用，本机断网）
+替代口径：确定性指标（14 题命中/准确率/引用可回溯/首字/拒答率）
+=========================== short test summary info ===========================
+FAILED 测试/用户/test_t7_user_negative.py::test_unknown_questions_refused - A...
+FAILED 测试/用户/test_t7_user_negative.py::test_leakage_and_element_rules - A...
+FAILED 测试/用户/test_t7_user_negative.py::test_subject_gate_fail_open_for_text_evidence
+============== 3 failed, 5 passed, 1 warning in 61.36s (0:01:01) ==============
+级别：user；退出码：1

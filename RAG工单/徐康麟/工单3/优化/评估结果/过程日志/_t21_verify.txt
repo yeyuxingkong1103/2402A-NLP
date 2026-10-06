@@ -1,0 +1,45 @@
+=== t21 验证批次 19:46:28 ===
+RAGAS 未运行（依赖不可用，本机断网）
+替代口径：确定性指标（14 题命中/准确率/引用可回溯/首字/拒答率）
+=========================== short test summary info ===========================
+FAILED 测试/在线/test_english_language_path.py::test_english_question_is_answerable_with_citation[en1]
+FAILED 测试/在线/test_english_language_path.py::test_english_question_is_answerable_with_citation[en4]
+FAILED 测试/在线/test_english_language_path.py::test_english_question_is_answerable_with_citation[en5]
+FAILED 测试/在线/test_english_language_path.py::test_english_negative_out_of_corpus_entity_is_refused
+4 failed, 3 passed, 1 warning in 16.18s
+
+RAGAS 未运行（依赖不可用，本机断网）
+替代口径：确定性指标（14 题命中/准确率/引用可回溯/首字/拒答率）
+=========================== short test summary info ===========================
+FAILED 测试/在线/test_english_language_path.py::test_english_question_is_answerable_with_citation[en1]
+FAILED 测试/在线/test_english_language_path.py::test_english_question_is_answerable_with_citation[en4]
+FAILED 测试/在线/test_english_language_path.py::test_english_question_is_answerable_with_citation[en5]
+FAILED 测试/在线/test_english_language_path.py::test_english_negative_out_of_corpus_entity_is_refused
+4 failed, 39 passed, 5 warnings in 99.44s (0:01:39)
+
+  E:\gao6gongdan\工单1\.venv\Lib\site-packages\jieba\_compat.py:18: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+    import pkg_resources
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+---------------------------------- RAGAS 状态 -----------------------------------
+RAGAS 未运行（依赖不可用，本机断网）
+替代口径：确定性指标（14 题命中/准确率/引用可回溯/首字/拒答率）
+8 passed, 1 warning in 41.75s
+
+替代口径：确定性指标（14 题命中/准确率/引用可回溯/首字/拒答率）
+=========================== short test summary info ===========================
+FAILED 测试/离线/test_t7_offline_judge.py::test_mandatory_negative_n1_partial_answer_must_be_wrong
+1 failed, 67 passed, 1 warning in 30.94s
+
+作答 14/14；误拒答 无
+召回命中 14/14（严格 golden evidence 口径 13/14，差集 [207]）
+引用可回溯 14/14 = 100.0%
+首字 max=1272.6 ms（预算 3000，达标=True）/ avg=254.98 / p95=1272.6；>1000ms 题=[260]
+不清楚正确率 1.0（6/6）；judge=工单1 Evaluator.check_answer（只读子进程；见 优化/脚本/ref_judge_runner.py）
+产物 E:\gao6gongdan\工单3\优化\评估结果\qa_results.t21.csv（17080 B）
+产物 E:\gao6gongdan\工单3\优化\评估结果\accuracy_report.t21.json（62871 B）
+产物 E:\gao6gongdan\工单3\优化\评估结果\accuracy_report.t21.md（17636 B）
+产物 E:\gao6gongdan\工单3\优化\评估结果\ragas_report.t21.md（3385 B）
+清单 E:\gao6gongdan\工单3\优化\评估结果\eval_manifest.t21.json
+⚠️ RAGAS 未运行（依赖不可用，本机断网）
+

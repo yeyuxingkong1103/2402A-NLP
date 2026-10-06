@@ -1,0 +1,69 @@
+{
+  "work_order": "人工智能NLP-RAG-PDF文档的表格解析及检索优化",
+  "judge": "工单1 研发/app/core/evaluator.py::Evaluator.check_answer（只读子进程、绕过 __init__）",
+  "fuzzy_threshold": 0.62,
+  "evaluator_file": "E:\\gao6gongdan\\工单1\\研发\\app\\core\\evaluator.py",
+  "count": 10,
+  "rows": [
+    {
+      "id": 260,
+      "ok": true,
+      "reason": "金额全部命中(4个)",
+      "elapsed_ms": 0.088
+    },
+    {
+      "id": 95,
+      "ok": false,
+      "reason": "未命中：缺少数值 ['1']",
+      "elapsed_ms": 0.059
+    },
+    {
+      "id": 33,
+      "ok": false,
+      "reason": "未命中：缺少数值 ['94.34', '94.84', '97.31']",
+      "elapsed_ms": 0.046
+    },
+    {
+      "id": 34,
+      "ok": true,
+      "reason": "字符二元组相似度 0.72 ≥ 0.62",
+      "elapsed_ms": 0.086
+    },
+    {
+      "id": 957,
+      "ok": false,
+      "reason": "未命中：文本与数值均不匹配",
+      "elapsed_ms": 0.063
+    },
+    {
+      "id": 793,
+      "ok": false,
+      "reason": "未命中：文本与数值均不匹配",
+      "elapsed_ms": 0.056
+    },
+    {
+      "id": 795,
+      "ok": true,
+      "reason": "关键实体命中",
+      "elapsed_ms": 0.045
+    },
+    {
+      "id": 543,
+      "ok": true,
+      "reason": "金额全部命中(1个)",
+      "elapsed_ms": 0.025
+    },
+    {
+      "id": 531,
+      "ok": false,
+      "reason": "未命中：文本与数值均不匹配",
+      "elapsed_ms": 0.033
+    },
+    {
+      "id": 207,
+      "ok": true,
+      "reason": "金额全部命中(1个)",
+      "elapsed_ms": 0.02
+    }
+  ]
+}

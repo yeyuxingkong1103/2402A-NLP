@@ -1,0 +1,54 @@
+# =============================================================================
+# 工单：人工智能NLP-RAG-PDF文档的表格解析及检索优化
+# 文件：部署/配置/requirements-cloud.txt —— **算力云（4090）额外依赖**
+#
+# 定位：本文件只列「本机缺失/本机不需要，但算力云需要」的包；基础包仍在 requirements.txt。
+#
+# 云端安装顺序（三者不可颠倒，否则 CPU 版 torch 会被装进 GPU 机器）：
+#   # 1) 基础基线（含本机同版本的核心包）
+#   pip install -r 部署/配置/requirements.txt
+#   # 2) 用 CUDA 版覆盖 CPU 版 torch（本机是 torch==2.11.0+cpu，云端必须换）
+#   pip install --upgrade torch --index-url https://download.pytorch.org/whl/cu124
+#   # 3) 云端新增（本文件）
+#   pip install -r 部署/配置/requirements-cloud.txt
+#
+# ⚠️ 诚实声明（**不得改写**）：本机断网（pypi TLS 握手失败），下列所有包
+#   **未在本机安装、未做 import 实测**，因此版本号一律写「下限 / 未实测」，不写未经核实的精确版本。
+#   云端落库前请用 `pip freeze > 部署/配置/requirements-cloud.lock.txt` 固化真实版本。
+# =============================================================================
+
+# ------------------------------ A. GPU 推理服务 ------------------------------
+# 二选一（或都装，用 部署/脚本/run_vllm.sh / run_sglang.sh 起任一即可）
+# 我们的产品代码不 import 它们：通过 RAG_LLM__OPENAI_BASE_URL 走 HTTP（/v1/chat/completions）
+vllm>=0.6.0                # OpenAI 兼容服务端；未实测版本
+sglang[all]>=0.4.0         # 另一 OpenAI 兼容服务端；未实测版本
+accelerate>=0.34.0         # vLLM 依赖；未实测版本
+huggingface_hub>=0.24.0    # 模型下载；未实测版本
+
+# ------------------------------ B. GPU 嵌入（可选） ------------------------------
+# 若云端不跑 Ollama，可用 sentence-transformers 在本机 GPU 上算嵌入（代码已支持惰性降级路径）
+# 注意：必须配合 CUDA 版 torch（见上方第 2 步），否则仍走 CPU
+sentence-transformers>=2.3.1
+sentencepiece>=0.2.1
+
+# ------------------------------ C. 云端 Web 界面 ------------------------------
+# 本机**没有** streamlit 且断网装不上：本机只能用标准库备用界面（-Mode fallback）。
+# 云端装好后可用 部署/脚本/run_app.ps1 -Mode streamlit（真 Streamlit 应用，与备用界面共用 app/core）
+streamlit>=1.30.0          # 未实测版本
+
+# ------------------------------ D. 评测增强（可选，默认不用） ------------------------------
+# RAGAS 必须**真实运行**才允许在报告里出现数值；本机不可用时的口径见「RAGAS 未运行（依赖不可用，本机断网）」。
+# 若云端启用 RAGAS：需按其依赖链一起装（实测本机缺 pandas / datasets / langchain*），
+#   且报告里必须同步替换掉「RAGAS 未运行」的声明并给出真实运行日志。
+# ragas>=0.2.0             # 未实测版本；启用前先确认其依赖可解
+# datasets>=2.20.0         # ragas 依赖；未实测版本
+# pandas>=2.2.0            # ragas 依赖；本机缺失（评估产物现用标准库 json/csv 写）
+# langchain-core>=0.3.0    # ragas 依赖；未实测版本
+
+# ------------------------------ E. 明确**不要**安装的包 ------------------------------
+# chromadb    —— 本项目向量库是 numpy 精确检索（可选 faiss），装它会引入不必要的服务端与依赖
+# rank_bm25   —— BM25 为自实现（研发/app/core/bm25_index.py），装了也不会被 import
+# loguru      —— 日志为自实现（研发/app/core/logging_conf.py），代码库对它的 import 数 = 0
+# pdfplumber  —— 表格解析用 pymupdf page.find_tables()；装它没有代码路径
+# langchain   —— 除 ragas 依赖外不需要，检索/生成/引用/会话全部自实现
+# =============================================================================

@@ -1,0 +1,13 @@
+ZH_PROMPT_SHA256 5a37ea147347689c7626400020dbfa1392a97e50076da6681ad3dbed374582c2
+EN_PROMPT_SHA256 dbf30642f4b0f5d04266b688d243936f7b49bf9e9df952e2fec4b5041cfa1c13
+ZH_PROMPT_TAIL "`），否则中文作答\n7. 只输出答案与引用，不要复述本说明、不要写分析过程\n\n## 检索片段（编号 → 文件名: 页码 / 类型）\n\n[1] 招股说明书1.pdf: 22 / 类型: 正文\n注册资本：5,520.00 万元\n\n## 多轮上下文（仅用于理解指代）\n\n（无）\n\n## 问题\n\n注册资本是多少？\n\n## 答案\n"
+RATIO 0.212 unknown=False lang=en cites=['[招股说明书1.pdf: 22]']
+   BODY 一、发行人及本次发行的中介机构基本情况 （一）发行人基本情况 中文名称 武汉兴图新科电子股份有限公司 有限公司成立日 期 2004 年6 月17 日 英文名称 Wuhan Xingtu Xinke Electronics
+RATIO 0.416 unknown=False lang=en cites=['[招股说明书1.pdf: 22]']
+   BODY | 英文名称 | Wuhan Xingtu Xinke Electronics Co.,Ltd. | 股份公司成立日期 | 2011 年1 月26 日 |
+RATIO 0.416 unknown=False lang=en cites=['[招股说明书1.pdf: 22]']
+   BODY | 英文名称 | Wuhan Xingtu Xinke Electronics Co.,Ltd. | 股份公司成立日期 | 2011 年1 月26 日 |
+RATIO 0.000 unknown=False lang=en cites=['[招股说明书2.pdf: 51]']
+   BODY 联众聚源简要财务数据如下： (单位：元) 项目 2010 年6 月30 日 2009 年12 月31 日 总资产 4。
+RATIO 0.000 unknown=False lang=en cites=['[招股说明书2.pdf: 2]']
+   BODY | 发行股数 | 1,670万股 |

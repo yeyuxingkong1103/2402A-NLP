@@ -1,0 +1,87 @@
+RAGAS 未运行（依赖不可用，本机断网）
+级别：online；目标：测试/在线；开始：2026-10-04T20:44:15.2137220+08:00
+============================= test session starts =============================
+platform win32 -- Python 3.11.15, pytest-7.4.4, pluggy-1.6.0
+rootdir: E:\gao6gongdan\工单3
+plugins: anyio-4.13.0, asyncio-0.23.3, cov-4.1.0
+asyncio: mode=Mode.STRICT
+collected 51 items
+
+测试\在线\test_english_language_path.py ...........                      [ 21%]
+测试\在线\test_t7_online_english.py FF..                                 [ 29%]
+测试\在线\test_t7_online_faults.py ..                                    [ 33%]
+测试\在线\test_t7_online_http.py .......                                 [ 47%]
+测试\在线\test_t7_online_hybrid14.py .....                               [ 56%]
+测试\在线\test_t7_online_multiturn.py .......                            [ 70%]
+测试\在线\test_t7_online_qa14.py ...........                             [ 92%]
+测试\在线\test_t7_online_warmup.py ....                                  [100%]
+
+================================== FAILURES ===================================
+___________________________ test_no_english_refusal ___________________________
+
+english_results = [{'allowed_degrade': False, 'answer_text': 'The registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd. is 5,52...t12', 'detail': 'chunk 招股说明书1_p0022_t12 的 93% 内容落在该页（阈值 50%）', 'file_name': '招股说明书1.pdf', 'ok': True, ...}], ...}, ...]
+
+    def test_no_english_refusal(english_results: list[dict[str, Any]]) -> None:
+        """英文侧**不得拒答**（0 条「不清楚」）—— t21 修复的回归点。"""
+        refused = [(r["tag"], r["unknown_reason"], r["answer_text"][:40])
+                   for r in english_results if r["is_unknown"]]
+>       assert not refused, (f"英文提问被拒答（回归未修复）：{refused}"
+                             f"【根因参考：可答性闸门 keyword_coverage 缺跨语言适配】")
+E       AssertionError: 英文提问被拒答（回归未修复）：[('EN4', 'low_coverage', '不清楚')]【根因参考：可答性闸门 keyword_coverage 缺跨语言适配】
+E       assert not [('EN4', 'low_coverage', '不清楚')]
+
+测试\在线\test_t7_online_english.py:92: AssertionError
+________________ test_english_answers_have_traceable_citations ________________
+
+english_results = [{'allowed_degrade': False, 'answer_text': 'The registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd. is 5,52...t12', 'detail': 'chunk 招股说明书1_p0022_t12 的 93% 内容落在该页（阈值 50%）', 'file_name': '招股说明书1.pdf', 'ok': True, ...}], ...}, ...]
+
+    def test_english_answers_have_traceable_citations(english_results: list[dict[str, Any]]) -> None:
+        """英文答案必须带**可回溯**引用（引用与语言无关，1-based 物理页 + chunk 回查一致）。"""
+        problems = [(r["tag"], r["citations"]) for r in english_results if not r["citation_ok"]]
+>       assert not problems, f"英文答案缺少可回溯引用：{problems}"
+E       AssertionError: 英文答案缺少可回溯引用：[('EN4', [])]
+E       assert not [('EN4', [])]
+
+测试\在线\test_t7_online_english.py:99: AssertionError
+============================== warnings summary ===============================
+测试/在线/test_english_language_path.py::test_english_question_three_state[EN1]
+  E:\gao6gongdan\工单1\.venv\Lib\site-packages\jieba\_compat.py:18: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+    import pkg_resources
+
+测试/在线/test_t7_online_http.py::test_health
+  E:\gao6gongdan\工单3\研发\app\main.py:54: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+测试/在线/test_t7_online_http.py::test_health
+测试/在线/test_t7_online_http.py::test_health
+  E:\Anaconda\envs\fastapi_faq\Lib\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+测试/在线/test_t7_online_http.py::test_health
+  E:\gao6gongdan\工单3\研发\app\main.py:71: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("shutdown")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+---------------------------------- RAGAS 状态 -----------------------------------
+RAGAS 未运行（依赖不可用，本机断网）
+替代口径：确定性指标（14 题命中/准确率/引用可回溯/首字/拒答率）
+=========================== short test summary info ===========================
+FAILED 测试/在线/test_t7_online_english.py::test_no_english_refusal - Asserti...
+FAILED 测试/在线/test_t7_online_english.py::test_english_answers_have_traceable_citations
+============ 2 failed, 49 passed, 5 warnings in 211.64s (0:03:31) =============
+级别：online；退出码：1
