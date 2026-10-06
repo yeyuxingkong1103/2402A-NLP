@@ -1,0 +1,79 @@
+# ==========================================================================
+# 金融问答系统 - Docker Compose 编排
+# 工单编号: 人工智能 NLP-RAG-金融问答系统部署
+#
+# 使用: docker-compose up -d
+# ==========================================================================
+
+services:
+  # ========== 主服务: V9 Graph RAG 金融问答 ==========
+  financial-rag:
+    build:
+      context: ../
+      dockerfile: 部署/Dockerfile
+    container_name: financial-rag-qa
+    image: financial-rag:v10.0
+    restart: unless-stopped
+    ports:
+      - "5008:5008"
+    environment:
+      - FLASK_PORT=5008
+      - FLASK_HOST=0.0.0.0
+      - RAG_DATA_DIR=/app/data
+      - RAG_CACHE_DIR=/app/cache
+      - RAG_LOG_DIR=/app/logs
+      - RAG_SHARED_DIR=/app/shared
+      # LLM (可选, 不配置则降级)
+      - LLM_API_KEY=${LLM_API_KEY:-}
+      - LLM_BASE_URL=${LLM_BASE_URL:-https://api.openai.com/v1}
+      - LLM_MODEL=${LLM_MODEL:-gpt-3.5-turbo}
+    volumes:
+      # 持久化卷
+      - rag_data:/app/data
+      - rag_cache:/app/cache
+      - rag_logs:/app/logs
+      # 共享卷 (容器间数据共享)
+      - rag_shared:/app/shared
+    healthcheck:
+      test: ["CMD", "python", "-c",
+             "import urllib.request; urllib.request.urlopen('http://localhost:5008/api/health')"]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+    networks:
+      - rag_network
+
+  # ========== 可选: Neo4j 图数据库 ==========
+  # 如需使用, 取消注释并安装: pip install neo4j
+  # neo4j:
+  #   image: neo4j:5
+  #   container_name: rag-neo4j
+  #   restart: unless-stopped
+  #   ports:
+  #     - "7474:7474"  # Browser
+  #     - "7687:7687"  # Bolt
+  #   environment:
+  #     - NEO4J_AUTH=neo4j/password
+  #   volumes:
+  #     - neo4j_data:/data
+  #   networks:
+  #     - rag_network
+
+# ========== 命名卷 (持久化存储) ==========
+volumes:
+  rag_data:
+    driver: local
+  rag_cache:
+    driver: local
+  rag_logs:
+    driver: local
+  rag_shared:
+    driver: local
+  # neo4j_data:
+  #   driver: local
+
+# ========== 网络 (容器间通信) ==========
+networks:
+  rag_network:
+    driver: bridge
