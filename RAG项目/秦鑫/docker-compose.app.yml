@@ -1,0 +1,31 @@
+services:
+  app2:
+    build: .
+    image: law-rag-app:latest
+    env_file:
+      - .env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      SERVER_HOST: 0.0.0.0
+      SERVER_PORT: 7294
+      # Existing MySQL, Redis and Milvus are outside this compose project.
+      TESSERACT_CMD: /usr/bin/tesseract
+      TESSDATA_PREFIX: /usr/share/tesseract-ocr/5/tessdata
+      POPPLER_PATH: ""
+      MYSQL_URL: mysql+pymysql://root:root123456@host.docker.internal:3306/law_rag
+      REDIS_URL: redis://host.docker.internal:6379/0
+      MILVUS_URI: http://host.docker.internal:19530
+      UPLOAD_DIR: /app/data/uploads
+      PROCESSED_DIR: /app/data/processed
+    ports:
+      - "7294:7294"
+    volumes:
+      - ./data/uploads:/app/data/uploads
+      - ./data/processed:/app/data/processed
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:7294/health', timeout=5)\" || exit 1"]
+      interval: 15s
+      timeout: 8s
+      retries: 10
+      start_period: 30s

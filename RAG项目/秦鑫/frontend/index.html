@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#263a32" />
+    <meta name="description" content="基于法律案例库与实时检索的智能法律问答助手" />
+    <title>法衡 · 智能法律问答</title>
+    <link rel="stylesheet" href="src/styles.css?v=20260828-thinking-inline-v1&build=20260903-evidence-drawer-v2" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <div class="brand-icon" data-scale-icon></div>
+          <div><strong>法衡</strong><span>法律智能助手</span></div>
+        </div>
+
+        <button class="new-chat-button" id="new-chat-button" type="button">
+          <span>＋</span> 新建法律咨询
+        </button>
+
+        <div class="task-section">
+          <div class="task-heading"><p>对话任务</p><span id="task-count">0</span></div>
+          <div class="task-list" id="task-list" role="list" aria-label="对话任务列表"></div>
+        </div>
+
+        <div class="sidebar-account-panel">
+          <button class="sidebar-user-card" type="button" id="login-button" aria-label="打开账户登录">
+            <span class="sidebar-user-avatar" id="sidebar-user-avatar" aria-hidden="true">未</span>
+            <span class="sidebar-user-copy">
+              <strong id="sidebar-account-name">未登录</strong>
+              <small class="auth-status" id="auth-status" aria-live="polite">正在恢复登录状态…</small>
+            </span>
+          </button>
+          <button class="sidebar-settings-button" type="button" id="settings-button" aria-label="设置" title="设置">设置</button>
+        </div>
+
+        <div class="service-status">
+          <span class="status-dot checking" id="status-dot"></span>
+          <span id="status-text">正在连接服务</span>
+        </div>
+      </aside>
+
+      <main class="chat-main">
+        <header class="topbar">
+          <div><p id="topbar-title">法衡法律工作台</p><span id="topbar-subtitle">把复杂的法律问题，拆成清晰可执行的步骤</span></div>
+          <nav class="mobile-route-nav" aria-label="页面导航">
+            <button type="button" data-route-target="files">文档材料</button>
+            <button type="button" data-route-target="settings">设置</button>
+          </nav>
+          <div class="topbar-actions">
+            <button class="new-task-compact" id="new-task-compact" type="button" aria-label="新建对话任务" title="新建对话任务">＋</button>
+            <select class="task-select" id="task-select" aria-label="切换对话任务"></select>
+            <button class="delete-task-compact" id="delete-task-compact" type="button" aria-label="删除当前对话" title="删除当前对话"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5" /></svg></button>
+            <div class="workspace-summary"><strong>当前工作区</strong><span id="workspace-label">正在创建</span></div>
+          </div>
+        </header>
+
+        <div class="route-viewport" id="route-viewport">
+          <section class="route-page home-page landing-page login-home-page" data-route-page="home" id="home-page">
+            <div class="login-home-shell">
+              <div class="login-home-visual">
+                <div class="login-home-visual-shade"></div>
+                <div class="login-home-visual-copy">
+                  <p class="eyebrow">法衡 · 法律智能工作台</p>
+                  <h1>让每一个法律问题，<br />都有清晰的下一步。</h1>
+                  <p>从事实梳理、法律检索到证据整理，帮助你更稳妥地理解问题、准备材料并推进处理。</p>
+                  <div class="login-home-tags"><span>民法典知识库</span><span>私有材料检索</span><span>可追溯回答</span></div>
+                </div>
+              </div>
+              <section class="login-home-panel" aria-labelledby="auth-title">
+                <div class="login-home-brand"><strong>法衡</strong><span>法律智能工作台</span></div>
+                <p class="sr-only">开发人员测试</p>
+                <p class="eyebrow">欢迎回来</p>
+                <h2 id="auth-title">登录你的法律工作区</h2>
+                <p class="auth-copy">登录后可以保存完整对话、上传个人材料，并在公共法律库与私有材料之间融合检索。</p>
+                <form id="auth-form" class="auth-form">
+                  <label>用户名<input id="auth-username" name="username" minlength="3" maxlength="32" pattern="[A-Za-z0-9_]{3,32}" title="只能使用英文字母、数字和下划线，长度 3 到 32 位" required autocomplete="username" /></label>
+                  <label id="auth-email-field">邮箱<input id="auth-email" name="email" type="email" maxlength="254" autocomplete="email" required /></label>
+                  <label>密码<input id="auth-password" name="password" type="password" minlength="6" maxlength="20" pattern="(?=.*[A-Za-z])(?=.*[0-9])\S{6,20}" title="6 到 20 位，至少包含一个字母和一个数字，可使用特殊符号" required autocomplete="current-password" /></label>
+                  <p class="auth-error" id="auth-error" role="alert"></p>
+                  <button class="auth-submit" type="submit" id="auth-submit">登录并进入系统</button>
+                </form>
+                <button class="auth-switch" type="button" id="auth-switch">没有账户？注册</button>
+                <p class="login-home-note">登录即表示你了解：回答仅供法律信息参考，重要事项请结合完整证据核实。</p>
+              </section>
+            </div>
+          </section>
+          <section class="route-page ask-page" data-route-page="ask" id="ask-page">
+              <div class="ask-workspace" id="ask-workspace">
+                <div class="ask-conversation-area">
+                  <div class="conversation-scroll" id="conversation-scroll">
+                    <div class="conversation empty-conversation" id="conversation">
+                      <section class="empty-state" id="empty-state">
+                        <div class="empty-mark" data-scale-icon></div>
+                        <p class="eyebrow">法律智能问答</p>
+                        <h1>把复杂的法律问题，<br />讲得清楚一些。</h1>
+                        <p class="empty-copy">基于本地案例库、关键词检索与实时网页信息，为你提供有出处、可追溯的法律参考。</p>
+                        <div class="quick-prompts">
+                          <button type="button" data-prompt="离婚时夫妻共同财产如何分割？"><span>离婚时夫妻共同财产如何分割？</span><span>↗</span></button>
+                          <button type="button" data-prompt="公司拖欠工资，我应该准备哪些证据？"><span>公司拖欠工资，我应该准备哪些证据？</span><span>↗</span></button>
+                          <button type="button" data-prompt="借款到期不还，可以怎么依法追讨？"><span>借款到期不还，可以怎么依法追讨？</span><span>↗</span></button>
+                        </div>
+                      </section>
+                    </div>
+                  </div>
+                  <footer class="composer-wrap">
+                    <button class="composer-resize-handle" id="composer-resize-handle" type="button" data-resize-target="composer" data-resize-axis="y" aria-label="拖动调整输入区高度" title="拖动调整输入区高度"></button>
+                    <form class="composer" id="question-form">
+                      <textarea id="question-input" placeholder="请描述你遇到的法律问题…" rows="2" maxlength="4000" aria-label="法律问题"></textarea>
+                      <div class="composer-actions">
+                        <div class="composer-tools">
+                          <button class="thinking-toggle-button is-enabled" type="button" id="thinking-toggle-button" aria-label="上传材料" title="上传材料">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10m0-10 4 4m-4-4-4 4M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" /></svg>
+                          </button>
+                          <input id="file-input" type="file" hidden multiple data-known-formats=".mp3,.mp4" data-upload-hint="图片、音频或视频证据材料" />
+                          <span id="file-status" class="file-status" aria-live="polite">可上传材料</span>
+                        </div>
+                        <button type="submit" id="send-button" disabled aria-label="发送问题" title="发送问题"></button>
+                      </div>
+                    </form>
+                    <p class="footer-disclaimer">人工智能可能产生错误，请对重要信息进行核实，重大权益事项建议咨询执业律师。</p>
+                    <button class="app-version" id="app-version" type="button" data-diagnostics-trigger title="版本信息，连续点击 5 次打开问题查询" aria-label="版本信息，连续点击 5 次打开问题查询">v1.1</button>
+                  </footer>
+                </div>
+                <button class="material-drawer-toggle" id="material-drawer-toggle" type="button" aria-controls="material-drawer" aria-expanded="false" title="展开证据栏"><span>证据栏</span><strong>‹</strong></button>
+                <aside class="material-drawer" id="material-drawer" aria-label="当前会话材料库">
+                  <button class="material-drawer-resize-handle" id="material-drawer-resize-handle" type="button" data-resize-target="material-drawer" data-resize-axis="x" aria-label="拖动调整材料库宽度" title="拖动调整材料库宽度"></button>
+                  <section class="material-panel">
+                    <div class="material-panel-heading">
+                      <div><p class="eyebrow">会话材料库</p><h2>当前对话材料</h2><span id="material-session-label">每个对话独立保存</span></div>
+                      <div class="material-panel-actions"><button class="material-upload-action" type="button" id="material-upload-action">上传 <span>＋</span></button><button class="material-drawer-close" type="button" id="material-drawer-close" aria-label="隐藏证据栏" title="隐藏证据栏">×</button></div>
+                    </div>
+                    <div class="material-overview"><div><span>材料数量</span><strong id="material-count">0</strong></div><div><span>检索范围</span><strong>当前对话</strong></div></div>
+                    <div class="material-list" id="material-list" aria-live="polite"><div class="empty-panel">当前对话还没有上传材料。</div></div>
+                    <p class="material-tip">材料只绑定当前会话；切换对话后会显示各自独立的材料库。解析内容会保存到 MySQL，用于当前会话证据引用。</p>
+                  </section>
+                </aside>
+              </div>
+          </section>
+          <section class="route-page files-page" data-route-page="files" id="files-page" hidden>
+            <div class="page-content" id="files-page-list"><p>正在同步当前会话材料。</p></div>
+          </section>
+          <section class="route-page settings-page" data-route-page="settings" id="settings-page">
+            <div class="page-content settings-page-content"><div class="page-heading"><div><p class="eyebrow">偏好设置</p><h1>偏好设置</h1><p>调整回答方式、检索范围和工作区体验。</p></div><button class="secondary-action" type="button" id="settings-page-open">打开完整设置</button></div><div class="settings-preview-grid"><article><span>联网检索</span><strong id="settings-preview-web">默认开启</strong><small>回答时补充可信网页资料</small></article><article><span>回答详细程度</span><strong id="settings-preview-detail">标准</strong><small>控制法律分析的展开程度</small></article><article><span>检索过程</span><strong id="settings-preview-process">显示</strong><small>查看检索和证据重排步骤</small></article><article><span>主题</span><strong id="settings-preview-theme">政务墨绿</strong><small>只改变界面颜色方案</small></article></div><div class="settings-page-callout"><div class="card-icon">⚙</div><div><h2>账户与安全</h2><p>登录后可以管理操作记录、个人材料和账号生命周期。</p></div><button class="secondary-action" type="button" id="settings-page-account">管理账户</button></div></div>
+          </section>
+        </div>
+      </main>
+    </div>
+    <div class="settings-backdrop" id="settings-backdrop" hidden>
+      <section class="settings-dialog" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+        <button class="auth-close" id="settings-close" type="button" aria-label="关闭">×</button>
+        <p class="eyebrow">偏好设置</p>
+        <h2 id="settings-title">常用设置</h2>
+        <div class="settings-grid">
+          <label class="setting-field"><span>服务地址</span><input id="setting-backend-url" type="text" placeholder="http://127.0.0.1:7294" spellcheck="false" autocapitalize="off" autocorrect="off" /></label>
+          <label class="setting-toggle"><span><strong>联网检索（始终开启）</strong><small>每次提问都会同时检索可信网页资料</small></span><input id="setting-include-web" type="checkbox" checked disabled /></label>
+          <div class="setting-field"><span>长期记忆</span><strong>暂不用于回答</strong><small>长期记忆始终用于跨对话回答；始终开启：跨对话读取相关长期记忆。已有长期记忆数据保留，恢复功能后仍可使用</small></div>
+          <label class="setting-toggle"><span><strong>自动展开辅助信息</strong><small>回答完成后直接打开检索与引用辅助信息</small></span><input id="setting-auto-expand" type="checkbox" /></label>
+          <label class="setting-toggle"><span><strong>显示检索过程</strong><small>展示规划、检索、重排等步骤</small></span><input id="setting-show-process" type="checkbox" /></label>
+          <label class="setting-field"><span>回答详细程度</span><select id="setting-answer-detail"><option value="concise">简洁</option><option value="standard">标准</option><option value="detailed">详细</option></select></label>
+          <label class="setting-field"><span>主题</span><select id="setting-theme"><option value="government_green">政务墨绿</option><option value="warm_gold">米金暖调</option><option value="indigo_ai">新锐靛紫</option><option value="cool_gray">极简冷灰</option></select></label>
+          <div class="setting-field"><span>会话记忆范围</span><strong>当前完整对话窗口</strong></div>
+        </div>
+        <p class="settings-status" id="settings-status"></p>
+        <button class="auth-submit" id="settings-save" type="button">保存设置</button>
+        <section class="settings-account-card">
+          <div class="settings-account-header">
+            <div>
+              <p class="eyebrow">账户信息</p>
+              <h3 id="settings-account-name">未登录</h3>
+              <span id="settings-account-status">登录后可以同步个人工作区、材料和设置。</span>
+            </div>
+            <button class="secondary-action" id="settings-logout-button" type="button">退出登录</button>
+          </div>
+          <div class="settings-account-grid">
+            <div><span>用户 ID</span><strong id="settings-account-user-id">—</strong></div>
+            <div><span>工作区</span><strong id="settings-account-workspace">公共法律库</strong></div>
+            <div><span>材料范围</span><strong>当前会话隔离</strong></div>
+          </div>
+          <div class="account-danger-panel">
+            <div>
+              <strong>账号注销</strong>
+              <p id="account-deletion-status">登录后可以申请注销账号。</p>
+            </div>
+            <button class="danger-button" id="account-deletion-button" type="button">申请注销</button>
+          </div>
+        </section>
+        <div class="settings-meta">
+          <button class="app-version settings-version" type="button" data-diagnostics-trigger title="版本信息，连续点击 5 次打开问题查询" aria-label="版本信息，连续点击 5 次打开问题查询">v1.1</button>
+        </div>
+        <section class="activity-panel">
+          <div class="activity-heading"><strong>我的操作记录</strong><button id="activity-refresh" type="button">刷新</button></div>
+          <div class="activity-list" id="activity-list">登录后可查看最近操作记录。</div>
+        </section>
+      </section>
+    </div>
+    <div class="settings-backdrop" id="diagnostics-backdrop" hidden>
+      <section class="settings-dialog diagnostics-dialog" role="dialog" aria-modal="true" aria-labelledby="diagnostics-title">
+        <button class="auth-close" id="diagnostics-close" type="button" aria-label="关闭">×</button>
+        <p class="eyebrow">DIAGNOSTICS</p>
+        <h2 id="diagnostics-title">问题查询</h2>
+        <div class="diagnostic-actions"><button id="diagnostics-refresh" type="button">刷新</button><button id="diagnostics-copy" type="button">复制诊断信息</button></div>
+        <pre class="diagnostics-output" id="diagnostics-output">点击刷新查看当前状态。</pre>
+      </section>
+    </div>
+    <!-- Bump this version whenever the UI contract changes so browsers do not keep an old renderer. -->
+    <script src="src/app.js?v=20260828-thinking-inline-v1&build=20260903-evidence-drawer-v2" defer></script>
+  </body>
+</html>

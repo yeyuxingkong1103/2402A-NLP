@@ -1,0 +1,41 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+
+# Runtime data
+logs/
+storage/*.sqlite3
+storage/uploads/
+data_pipeline/user_uploads/
+data/processed/system_logs/
+data/processed/server*.log
+data/processed/*.log
+data/processed/user_uploads/
+data/processed/ocr/
+data/uploads/
+
+# Desktop build output
+desktop-client/dist/
+desktop-client/node_modules/
+
+# Editors and OS files
+.claude/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Build and coverage output
+dist/
+build/
+htmlcov/
+.coverage
+evaluation/reports/
