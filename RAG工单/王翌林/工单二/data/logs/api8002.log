@@ -1,0 +1,26 @@
+INFO:     Started server process [8087]
+INFO:     Waiting for application startup.
+2026-09-28 21:40:45.692 | INFO     | src.api:lifespan:18 - 🚀 RAG API 启动中...
+2026-09-28 21:40:46.496 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-09-28 21:40:46.536 | INFO     | src.embedding:<module>:15 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-09-28 21:40:46.538 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:  68%|██████▊   | 269/393 [00:00<00:00, 2674.88it/s]Loading weights: 100%|██████████| 393/393 [00:00<00:00, 2995.70it/s]
+2026-09-28 21:40:52.188 | INFO     | src.retriever:__init__:70 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+2026-09-28 21:40:52.190 | WARNING  | src.retriever:_ensure_bm25_index:101 - Milvus 为空，无法构建 BM25
+2026-09-28 21:40:52.205 | INFO     | src.retriever:__init__:88 - ✅ 检索缓存已启用 (diskcache)
+2026-09-28 21:40:52.206 | INFO     | src.api:lifespan:35 - ✅ RAG API 就绪 | mysql=ok (8.0.46-0ubuntu0.22.04.4) | milvus=ok (remote)
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8002 (Press CTRL+C to quit)
+INFO:     127.0.0.1:48594 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47252 - "GET /api/health HTTP/1.1" 200 OK
+2026-09-28 21:44:39.390 | INFO     | src.cache:__init__:57 - ✅ 语义缓存就绪: data/retriever_cache/semantic_v2 (threshold=0.92)
+2026-09-28 21:44:39.544 | INFO     | src.embedding:_load:34 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 13990.67it/s]
+2026-09-28 21:44:43.267 | INFO     | src.embedding:_load:38 - 嵌入模型就绪: dim=1024
+2026-09-28 21:44:43.285 | INFO     | src.cache:lookup:105 - 🟡 语义缓存命中 sim=1.000
+INFO:     127.0.0.1:46420 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-09-28 21:45:39.861 | INFO     | src.api:lifespan:37 - 🛑 RAG API 关闭
+INFO:     Application shutdown complete.
+INFO:     Finished server process [8087]

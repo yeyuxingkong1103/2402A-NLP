@@ -1,0 +1,48 @@
+INFO:     Started server process [2068]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8006 (Press CTRL+C to quit)
+2026-10-06 19:04:38.053 | INFO     | src.embedding:<module>:21 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-10-06 19:04:38.396 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-10-06 19:04:38.396 | INFO     | src.rag_engine_v3:_load_text_retriever:76 - [rag_engine_v3] TextRetrieverV3 已加载（多文档）
+2026-10-06 19:04:38.397 | INFO     | src.table_parser.table_store:_connect:69 - [table_store] 远程 Milvus: http://localhost:19530 v=2.6.9
+2026-10-06 19:04:38.397 | INFO     | src.api_v6:get_engine:52 - [api_v6] RAGEngineV6 已加载
+2026-10-06 19:04:38.456 | INFO     | src.image_parser.image_store:__init__:43 - [image_store] 远程 Milvus: http://localhost:19530
+2026-10-06 19:04:38.461 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-10-06 19:04:38.484 | INFO     | src.retrieval.fulltext_retriever:_load_from_milvus:110 - [fulltext_v6] 从 Milvus 加载 1141 个 chunk 建倒排索引
+Building prefix dict from the default dictionary ...
+Loading model from cache /tmp/jieba.cache
+Loading model cost 0.286 seconds.
+Prefix dict has been built successfully.
+INFO:     127.0.0.1:57615 - "GET /api/v6/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58967 - "GET /api/v6/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58981 - "GET /api/v6/config HTTP/1.1" 200 OK
+2026-10-06 19:05:55.408 | INFO     | src.retrieval.fulltext_retriever:search:262 - [fulltext_v6] match=and hits=2
+2026-10-06 19:06:09.837 | INFO     | src.embedding:_load:63 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 28857.52it/s]
+2026-10-06 19:06:12.877 | INFO     | src.embedding:_load:68 - max_seq_length=512
+2026-10-06 19:06:13.285 | INFO     | src.embedding:_load:73 - 嵌入模型就绪: dim=1024
+2026-10-06 19:06:13.330 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:  72%|███████▏  | 282/393 [00:00<00:00, 2811.24it/s]Loading weights: 100%|██████████| 393/393 [00:00<00:00, 3125.53it/s]
+2026-10-06 19:06:14.714 | INFO     | src.reranker:_load:50 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+2026-10-06 19:06:17.679 | INFO     | src.retrieval.hybrid_retriever_v6:retrieve:138 - [hybrid_v6] mode=hybrid fusion=rrf reranker=llm vec=24 ft=2 out=5 12029ms
+2026-10-06 19:06:17.990 | INFO     | src.llm_client_v3:get_client:31 - [llm_client_v3] DeepSeek client 就绪: https://api.deepseek.com/v1
+2026-10-06 19:06:19.831 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1841ms, tokens=2360
+INFO:     127.0.0.1:58715 - "POST /api/v6/ask HTTP/1.1" 200 OK
+2026-10-06 19:06:50.839 | INFO     | src.retrieval.fulltext_retriever:search:262 - [fulltext_v6] match=and hits=2
+2026-10-06 19:06:51.754 | INFO     | src.retrieval.hybrid_retriever_v6:retrieve:138 - [hybrid_v6] mode=hybrid fusion=rrf reranker=llm vec=24 ft=2 out=5 920ms
+2026-10-06 19:06:52.924 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1170ms, tokens=2439
+INFO:     127.0.0.1:57839 - "POST /api/v6/ask HTTP/1.1" 200 OK
+2026-10-06 19:07:29.700 | INFO     | src.api_v6:get_conv:62 - [api_v6] ConversationEngine(v6) 已加载
+2026-10-06 19:07:29.700 | INFO     | src.conversation_engine:chat:231 - [conv_v5] sid=55f0483c9e7a raw='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？' → resolved='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？' entity=武汉兴图新科电子股份有限公司 doc=招股说明书1 strategy=direct
+2026-10-06 19:07:29.706 | INFO     | src.retrieval.fulltext_retriever:search:262 - [fulltext_v6] match=and hits=2
+2026-10-06 19:07:30.023 | INFO     | src.retrieval.hybrid_retriever_v6:retrieve:138 - [hybrid_v6] mode=hybrid fusion=rrf reranker=tfidf vec=24 ft=2 out=5 322ms
+2026-10-06 19:07:30.893 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=869ms, tokens=2818
+INFO:     127.0.0.1:58055 - "POST /api/v6/chat HTTP/1.1" 200 OK
+2026-10-06 19:07:30.898 | INFO     | src.conversation_engine:chat:231 - [conv_v5] sid=55f0483c9e7a raw='这个公司的法定代表人是谁？' → resolved='武汉兴图新科电子股份有限公司的法定代表人是谁？' entity=武汉兴图新科电子股份有限公司 doc=招股说明书1 strategy=pronoun_resolution
+2026-10-06 19:07:30.901 | INFO     | src.retrieval.fulltext_retriever:search:262 - [fulltext_v6] match=and hits=13
+2026-10-06 19:07:31.266 | INFO     | src.retrieval.hybrid_retriever_v6:retrieve:138 - [hybrid_v6] mode=fulltext fusion=rrf reranker=llm vec=0 ft=13 out=5 368ms
+2026-10-06 19:07:32.013 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=747ms, tokens=2521
+INFO:     127.0.0.1:58061 - "POST /api/v6/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59459 - "POST /api/v6/feedback HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59097 - "GET /api/v6/health HTTP/1.1" 200 OK

@@ -1,0 +1,54 @@
+INFO:     Started server process [98416]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8005 (Press CTRL+C to quit)
+2026-10-06 17:32:55.704 | INFO     | src.api_v5:get_engine:46 - [api_v5] ConversationEngine 已加载
+2026-10-06 17:32:55.943 | INFO     | src.embedding:<module>:21 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-10-06 17:32:56.375 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-10-06 17:32:56.375 | INFO     | src.rag_engine_v3:_load_text_retriever:76 - [rag_engine_v3] TextRetrieverV3 已加载（多文档）
+2026-10-06 17:32:56.376 | INFO     | src.table_parser.table_store:_connect:69 - [table_store] 远程 Milvus: http://localhost:19530 v=2.6.9
+2026-10-06 17:32:56.495 | INFO     | src.image_parser.image_store:__init__:43 - [image_store] 远程 Milvus: http://localhost:19530
+INFO:     127.0.0.1:51066 - "GET /api/v5/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51038 - "GET /api/v5/health HTTP/1.1" 200 OK
+2026-10-06 17:33:37.489 | INFO     | src.conversation_engine:chat:231 - [conv_v5] sid=2c36b867f5bf raw='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？' → resolved='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？' entity=武汉兴图新科电子股份有限公司 doc=招股说明书1 strategy=direct
+2026-10-06 17:33:37.491 | INFO     | src.rag_engine_v4:ask:123 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+Building prefix dict from the default dictionary ...
+Loading model from cache /tmp/jieba.cache
+Loading model cost 0.316 seconds.
+Prefix dict has been built successfully.
+2026-10-06 17:33:42.804 | INFO     | src.embedding:_load:63 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 14071.58it/s]
+2026-10-06 17:33:46.195 | INFO     | src.embedding:_load:68 - max_seq_length=512
+2026-10-06 17:33:46.609 | INFO     | src.embedding:_load:73 - 嵌入模型就绪: dim=1024
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:  10%|█         | 41/393 [00:00<00:00, 392.16it/s]Loading weights:  21%|██        | 81/393 [00:00<00:00, 393.50it/s]Loading weights:  31%|███       | 122/393 [00:00<00:00, 393.69it/s]Loading weights:  41%|████      | 162/393 [00:00<00:00, 384.86it/s]Loading weights:  60%|█████▉    | 234/393 [00:00<00:00, 500.44it/s]Loading weights:  78%|███████▊  | 306/393 [00:00<00:00, 573.18it/s]Loading weights: 100%|██████████| 393/393 [00:00<00:00, 589.04it/s]
+2026-10-06 17:33:48.752 | INFO     | src.reranker:_load:50 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+2026-10-06 17:33:51.180 | INFO     | src.text_retriever_v3:retrieve:121 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 13706ms
+2026-10-06 17:33:51.650 | INFO     | src.llm_client_v3:get_client:31 - [llm_client_v3] DeepSeek client 就绪: https://api.deepseek.com/v1
+2026-10-06 17:33:52.903 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1252ms, tokens=2837
+INFO:     127.0.0.1:51332 - "POST /api/v5/chat HTTP/1.1" 200 OK
+2026-10-06 17:33:52.907 | INFO     | src.conversation_engine:chat:231 - [conv_v5] sid=2c36b867f5bf raw='他参与的哪个工程荣获了国家科技进步一等奖？' → resolved='武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？' entity=武汉兴图新科电子股份有限公司 doc=招股说明书1 strategy=pronoun_resolution
+2026-10-06 17:33:52.907 | INFO     | src.rag_engine_v4:ask:123 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 17:33:53.859 | INFO     | src.text_retriever_v3:retrieve:121 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 949ms
+2026-10-06 17:33:54.843 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=803ms, tokens=2681
+INFO:     127.0.0.1:53988 - "POST /api/v5/chat HTTP/1.1" 200 OK
+2026-10-06 17:33:54.846 | INFO     | src.conversation_engine:chat:231 - [conv_v5] sid=2c36b867f5bf raw='这个公司的法定代表人是谁？' → resolved='武汉兴图新科电子股份有限公司的法定代表人是谁？' entity=武汉兴图新科电子股份有限公司 doc=招股说明书1 strategy=pronoun_resolution
+2026-10-06 17:33:54.846 | INFO     | src.rag_engine_v4:ask:123 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 17:33:55.815 | INFO     | src.text_retriever_v3:retrieve:121 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 938ms
+2026-10-06 17:33:56.918 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=930ms, tokens=2309
+INFO:     127.0.0.1:54004 - "POST /api/v5/chat HTTP/1.1" 200 OK
+2026-10-06 17:33:56.927 | INFO     | src.conversation_engine:chat:231 - [conv_v5] sid=2c36b867f5bf raw='那武汉力源信息技术股份有限公司呢？' → resolved='武汉力源信息技术股份有限公司法定代表人是谁' entity=武汉力源信息技术股份有限公司 doc=招股说明书2 strategy=switch_entity_reuse_intent
+2026-10-06 17:33:56.927 | INFO     | src.rag_engine_v4:ask:123 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 17:33:57.850 | INFO     | src.text_retriever_v3:retrieve:121 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 922ms
+2026-10-06 17:33:58.812 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=679ms, tokens=1996
+INFO:     127.0.0.1:54014 - "POST /api/v5/chat HTTP/1.1" 200 OK
+2026-10-06 17:33:58.816 | INFO     | src.conversation_engine:chat:231 - [conv_v5] sid=2c36b867f5bf raw='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有哪些销售处？' → resolved='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有哪些销售处？' entity=武汉力源信息技术股份有限公司 doc=招股说明书2 strategy=direct
+2026-10-06 17:33:58.816 | INFO     | src.rag_engine_v4:ask:123 - [rag_v4] image_route=image_first conf=0.94 hits=['图', '图中', '组织结构', '结构图', '销售部']
+2026-10-06 17:33:58.826 | INFO     | src.image_parser.image_store:__init__:43 - [image_store] 远程 Milvus: http://localhost:19530
+2026-10-06 17:33:59.057 | INFO     | src.image_parser.image_retriever:retrieve:61 - [image_retriever] '武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处' → 3 hits
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:   2%|▏         | 6/399 [00:00<00:09, 41.17it/s]Loading weights:   4%|▍         | 16/399 [00:00<00:11, 34.13it/s]2026-10-06 17:33:59.856 | INFO     | src.text_retriever_v3:retrieve:121 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 1039ms
+Loading weights:   9%|▊         | 34/399 [00:00<00:05, 63.92it/s]Loading weights:  28%|██▊       | 113/399 [00:00<00:01, 238.28it/s]Loading weights:  37%|███▋      | 147/399 [00:11<00:26,  9.59it/s] Loading weights:  64%|██████▍   | 256/399 [00:11<00:06, 23.76it/s]Loading weights:  92%|█████████▏| 368/399 [00:11<00:00, 43.92it/s]Loading weights: 100%|██████████| 399/399 [00:01<00:00, 376.60it/s]
+2026-10-06 17:34:00.454 | INFO     | src.image_parser.image_parser:_ensure_loaded:61 - [clip] Chinese-CLIP 就绪
+2026-10-06 17:34:01.807 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1316ms, tokens=4147
+INFO:     127.0.0.1:54016 - "POST /api/v5/chat HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52328 - "GET /api/v5/history/2c36b867f5bf HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51672 - "GET /api/v5/health HTTP/1.1" 200 OK

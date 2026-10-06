@@ -1,0 +1,69 @@
+2026-10-06 15:33:16.408 | INFO     | src.embedding:<module>:20 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-10-06 15:33:16.717 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-10-06 15:33:16.717 | INFO     | src.rag_engine_v3:_load_text_retriever:76 - [rag_engine_v3] TextRetrieverV3 已加载（多文档）
+2026-10-06 15:33:16.720 | INFO     | src.table_parser.table_store:_connect:69 - [table_store] 远程 Milvus: http://localhost:19530 v=2.6.9
+2026-10-06 15:33:16.720 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+Building prefix dict from the default dictionary ...
+Loading model from cache /tmp/jieba.cache
+Loading model cost 0.340 seconds.
+Prefix dict has been built successfully.
+2026-10-06 15:33:20.233 | INFO     | src.embedding:_load:50 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+2026-10-06 15:33:20.233 | INFO     | src.embedding:_load:50 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 8881.57it/s]
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 6649.85it/s]
+2026-10-06 15:33:14.806 | INFO     | src.embedding:_load:55 - max_seq_length=512
+2026-10-06 15:33:14.869 | INFO     | src.embedding:_load:55 - max_seq_length=512
+2026-10-06 15:33:15.162 | INFO     | src.embedding:_load:60 - 嵌入模型就绪: dim=1024
+2026-10-06 15:33:15.163 | INFO     | src.embedding:_load:60 - 嵌入模型就绪: dim=1024
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:   8%|▊         | 32/393 [00:00<00:01, 318.66it/s]Loading weights:  17%|█▋        | 68/393 [00:00<00:00, 334.63it/s]Loading weights:  28%|██▊       | 109/393 [00:00<00:00, 366.87it/s]Loading weights:  38%|███▊      | 150/393 [00:00<00:00, 373.21it/s]Loading weights:  48%|████▊     | 188/393 [00:00<00:00, 339.90it/s]Loading weights:  57%|█████▋    | 223/393 [00:00<00:00, 279.14it/s]Loading weights:  65%|██████▍   | 255/393 [00:11<00:13, 10.03it/s] Loading weights:  75%|███████▌  | 296/393 [00:11<00:06, 15.21it/s]Loading weights: 100%|██████████| 393/393 [00:11<00:00, 34.17it/s]
+2026-10-06 15:33:28.156 | INFO     | src.reranker:_load:46 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+2026-10-06 15:33:20.596 | INFO     | src.text_retriever_v3:retrieve:121 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 14358ms
+2026-10-06 15:33:21.227 | INFO     | src.llm_client_v3:get_client:31 - [llm_client_v3] DeepSeek client 就绪: https://api.deepseek.com/v1
+2026-10-06 15:33:32.961 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1252ms, tokens=1792
+2026-10-06 15:33:23.831 | INFO     | src.text_retriever_v3:retrieve:121 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 1357ms
+2026-10-06 15:33:25.295 | INFO     | src.text_retriever_v3:retrieve:121 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 1245ms
+route: hybrid
+-- 新逻辑 fused top5:
+  N0 text p37 rr=1.000 ★含注册资本 :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-36 第五节 发行人基本情况 一、
+  N1 text p38 rr=1.000 ★含注册资本 :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-37 17 日以货币资金和实物资产
+  N2 text p16 rr=0.999 ★含注册资本 :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-15 第二节 概览 本概览仅对招股
+  N3 text p39 rr=0.999 ★含注册资本 :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-38 日的净资产进行了审计，并于2
+  N4 text p46 rr=0.999 ★含注册资本 :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-45 （1）基本情况 兴图天建的基
+-- text_hits(8):
+  X0 p37 rr=1.000 ★ :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿）
+1
+  X1 p38 rr=1.000 ★ :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿）
+1
+  X2 p16 rr=0.999 ★ :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿）
+1
+  X3 p39 rr=0.999 ★ :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿）
+1
+  X4 p46 rr=0.999 ★ :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿）
+1
+  X5 p40 rr=0.998 ★ :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿）
+1
+  X6 p43 rr=0.998 ★ :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿）
+1
+  X7 p40 rr=0.995 ★ :: .00
+9.10
+4
+陈爱民
+232.56
+4.63
+5
+张伟
+54.72
+1.09
+6
+方梦兰
+54.72
+1.09
+7
+王智勇
+27.3
+-- 旧逻辑 fused top5:
+  O0 text pNone rr=1.000 ★含注册资本 :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-36 第五节 发行人基本情况 一、
+  O1 text pNone rr=1.000 ★含注册资本 :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-37 17 日以货币资金和实物资产
+  O2 text pNone rr=0.999 ★含注册资本 :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-15 第二节 概览 本概览仅对招股
+  O3 text pNone rr=0.999 ★含注册资本 :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-38 日的净资产进行了审计，并于2
+  O4 text pNone rr=0.999 ★含注册资本 :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-45 （1）基本情况 兴图天建的基

@@ -1,0 +1,88 @@
+2026-10-06 15:06:18.032 | INFO     | src.embedding:<module>:20 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-10-06 15:06:18.474 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-10-06 15:06:18.474 | INFO     | src.rag_engine_v3:_load_text_retriever:76 - [rag_engine_v3] TextRetrieverV3 已加载（多文档）
+2026-10-06 15:06:18.475 | INFO     | src.table_parser.table_store:_connect:69 - [table_store] 远程 Milvus: http://localhost:19530 v=2.6.9
+2026-10-06 15:06:18.569 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+Building prefix dict from the default dictionary ...
+Loading model from cache /tmp/jieba.cache
+Loading model cost 0.301 seconds.
+Prefix dict has been built successfully.
+2026-10-06 15:06:24.166 | INFO     | src.embedding:_load:50 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 12383.13it/s]
+2026-10-06 15:06:37.762 | INFO     | src.embedding:_load:55 - max_seq_length=512
+2026-10-06 15:06:38.073 | INFO     | src.embedding:_load:60 - 嵌入模型就绪: dim=1024
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:  58%|█████▊    | 227/393 [00:00<00:00, 2261.83it/s]Loading weights: 100%|██████████| 393/393 [00:00<00:00, 2524.79it/s]
+2026-10-06 15:06:39.785 | INFO     | src.reranker:_load:46 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+2026-10-06 15:06:42.924 | INFO     | src.text_retriever_v3:retrieve:115 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 4726ms
+2026-10-06 15:06:43.760 | INFO     | src.llm_client_v3:get_client:31 - [llm_client_v3] DeepSeek client 就绪: https://api.deepseek.com/v1
+2026-10-06 15:06:44.927 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1167ms, tokens=1554
+2026-10-06 15:06:45.857 | INFO     | src.text_retriever_v3:retrieve:115 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 673ms
+2026-10-06 15:06:46.453 | INFO     | src.text_retriever_v3:retrieve:115 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 565ms
+2026-10-06 15:06:48.082 | INFO     | src.text_retriever_v3:retrieve:115 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 508ms
+2026-10-06 15:06:48.628 | INFO     | src.text_retriever_v3:retrieve:115 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 546ms
+==========================================================================================
+id5 报告期内，公司来自军用领域的收入分别是多少？  GOLD=['6464', '14414', '18780', '军用', '国防']
+主路由: hybrid 0.7
+-- table_hits(8):
+   T0 p23 score=0.800 path=keyword gold=['军用'] :: 表标题: 项目名称、项目总投资（万元） | 公司: 武汉兴图新科电子股份有限公司 | 来源: 招股说明书1 | 页码: 23 列: 项目名称、项目总投资（万元）
+   T1 p12 score=0.700 path=keyword gold=[] :: 表标题: col_1 | 公司: 武汉兴图新科电子股份有限公司 | 来源: 招股说明书1 | 页码: 12-13 列: col_1 行1: 指 行2: 指 行3
+   T2 p13 score=0.700 path=keyword gold=[] :: 表标题: col_1 | 公司: 武汉兴图新科电子股份有限公司 | 来源: 招股说明书1 | 页码: 13-15 列: col_1 行1: 指 行2: 指 行3
+   T3 p16 score=0.700 path=keyword gold=[] :: 表标题: Wuhan Xingtu Xinke Electronics Co.,Ltd.、股份公司成立日 期 | 公司: 武汉兴图新科电子股份有限公司 | 来源
+   T4 p16 score=0.700 path=keyword gold=[] :: 表标题: col_1、col_2 | 公司: 武汉兴图新科电子股份有限公司 | 来源: 招股说明书1 | 页码: 16 列: col_1、col_2 行1: 不
+   T5 p17 score=0.700 path=keyword gold=[] :: 表标题: col_1、col_2 | 公司: 武汉兴图新科电子股份有限公司 | 来源: 招股说明书1 | 页码: 17 列: col_1、col_2 行1: 3
+   T6 p25 score=0.700 path=keyword gold=[] :: 表标题: col_1、col_2 | 公司: 武汉兴图新科电子股份有限公司 | 来源: 招股说明书1 | 页码: 25 列: col_1、col_2 行1: 不
+   T7 p25 score=0.700 path=keyword gold=[] :: 表标题: col_1、col_2 | 公司: 武汉兴图新科电子股份有限公司 | 来源: 招股说明书1 | 页码: 25 列: col_1、col_2 行1: 3
+-- text_hits(8):
+   X0 p4 rr=0.596 gold=['国防'] :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-3 重大事项提
+   X1 p5 rr=0.380 gold=['国防'] :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-4 （三）营业
+   X2 p9 rr=0.012 gold=[] :: ................................................................................
+   X3 p8 rr=0.009 gold=[] :: ............................................................................. 63
+   X4 p9 rr=0.004 gold=[] :: ..........176 十二、发行人最近三年关联交易制度的执行情况及独立董事意见 ................178 十三、报告期内关联方变化情况 ..
+   X5 p8 rr=0.004 gold=[] :: 其他证券市场上市、挂牌情况以及发行人报告期内重大资产重 组情况 ................................................
+   X6 p9 rr=0.003 gold=[] :: .................................................161 五、发行人报告期内违法违规行为情况 .........
+   X7 p10 rr=0.003 gold=[] :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-9 十三、重大
+-- 新逻辑 fused top5:
+   N0 text p4 rr=0.596 gold=['国防'] :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-3 重大事项提
+   N1 text p5 rr=0.380 gold=['国防'] :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-4 （三）营业
+   N2 text p9 rr=0.012 gold=[] :: ................................................................................
+   N3 text p8 rr=0.009 gold=[] :: ............................................................................. 63
+   N4 text p9 rr=0.004 gold=[] :: ..........176 十二、发行人最近三年关联交易制度的执行情况及独立董事意见 ................178 十三、报告期内关联方变化情况 ..
+-- 旧逻辑(RRF+二次rerank) top5:
+   O0 text p4 rr=0.596 gold=['国防'] :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-3 重大事项提
+   O1 text p5 rr=0.380 gold=['国防'] :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-4 （三）营业
+   O2 text p9 rr=0.012 gold=[] :: ................................................................................
+   O3 text p8 rr=0.009 gold=[] :: ............................................................................. 63
+   O4 text p9 rr=0.004 gold=[] :: ..........176 十二、发行人最近三年关联交易制度的执行情况及独立董事意见 ................178 十三、报告期内关联方变化情况 ..
+==========================================================================================
+id10 力源信息报告期内主营业务收入构成是什么？  GOLD=['主营业务收入', '构成', 'IC卡', '电子元器件']
+主路由: text_only 0.8
+-- table_hits(8):
+   T0 p291 score=0.915 path=vector gold=['主营业务收入'] :: 表标题: 项目、col_2、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 291 列: 项目、col_2、col_
+   T1 p120 score=0.908 path=vector gold=[] :: 表标题: col_1、col_2、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 120 列: col_1、col_
+   T2 p244 score=0.907 path=vector gold=['主营业务收入'] :: 表标题: col_1、分部情况、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 244 列: col_1、分部情况、
+   T3 p22 score=0.900 path=keyword gold=[] :: 表标题: col_1、序号、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 22 列: col_1、序号、col_3
+   T4 p245 score=0.898 path=vector gold=['主营业务收入'] :: 表标题: col_1、分部情况、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 245 列: col_1、分部情况、
+   T5 p246 score=0.898 path=vector gold=['主营业务收入'] :: 表标题: col_1、分部情况、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 246 列: col_1、分部情况、
+   T6 p244 score=0.893 path=vector gold=['主营业务收入'] :: 表标题: col_1、分部情况、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 244 列: col_1、分部情况、
+   T7 p285 score=0.884 path=vector gold=[] :: 表标题: col_1、col_2、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 285 列: col_1、col_
+-- text_hits(8):
+   X0 p15 rr=0.500 gold=['电子元器件'] :: 武汉力源信息技术股份有限公司                                                      招股意向书 14  第二
+   X1 p12 rr=0.365 gold=['电子元器件'] :: 武汉力源信息技术股份有限公司                                                      招股意向书 11 威世集
+   X2 p19 rr=0.340 gold=[] :: 武汉力源信息技术股份有限公司                                                      招股意向书 18 综上，
+   X3 p5 rr=0.270 gold=[] :: 武汉力源信息技术股份有限公司                                                      招股意向书 4 四、本公
+   X4 p7 rr=0.190 gold=[] :: 武汉力源信息技术股份有限公司                                                      招股意向书 6 三、发行
+   X5 p2 rr=0.147 gold=[] :: 武汉力源信息技术股份有限公司                                                      招股意向书 1  本次发
+   X6 p4 rr=0.114 gold=[] :: 武汉力源信息技术股份有限公司                                                      招股意向书 3   重大
+   X7 p8 rr=0.108 gold=[] :: 武汉力源信息技术股份有限公司                                                      招股意向书 7 人签订的
+-- 新逻辑 fused top5:
+   N0 text p15 rr=0.500 gold=['电子元器件'] :: 武汉力源信息技术股份有限公司                                                      招股意向书 14  第二
+   N1 text p12 rr=0.365 gold=['电子元器件'] :: 武汉力源信息技术股份有限公司                                                      招股意向书 11 威世集
+   N2 text p19 rr=0.340 gold=[] :: 武汉力源信息技术股份有限公司                                                      招股意向书 18 综上，
+   N3 text p5 rr=0.270 gold=[] :: 武汉力源信息技术股份有限公司                                                      招股意向书 4 四、本公
+   N4 text p7 rr=0.190 gold=[] :: 武汉力源信息技术股份有限公司                                                      招股意向书 6 三、发行
+-- 旧逻辑(RRF+二次rerank) top5:
+   O0 table p291 rr=0.917 gold=['主营业务收入'] :: 表标题: 项目、col_2、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 291 列: 项目、col_2、col_
+   O1 table p246 rr=0.883 gold=['主营业务收入'] :: 表标题: col_1、分部情况、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 246 列: col_1、分部情况、
+   O2 table p244 rr=0.880 gold=['主营业务收入'] :: 表标题: col_1、分部情况、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 244 列: col_1、分部情况、
+   O3 table p245 rr=0.875 gold=['主营业务收入'] :: 表标题: col_1、分部情况、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 245 列: col_1、分部情况、
+   O4 table p244 rr=0.867 gold=['主营业务收入'] :: 表标题: col_1、分部情况、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 244 列: col_1、分部情况、

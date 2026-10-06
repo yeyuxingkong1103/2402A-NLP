@@ -1,0 +1,197 @@
+2026-10-06 14:44:39.029 | INFO     | src.embedding:<module>:20 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-10-06 14:44:39.335 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-10-06 14:44:39.335 | INFO     | src.rag_engine_v3:_load_text_retriever:76 - [rag_engine_v3] TextRetrieverV3 已加载（多文档）
+2026-10-06 14:44:39.336 | INFO     | src.table_parser.table_store:_connect:69 - [table_store] 远程 Milvus: http://localhost:19530 v=2.6.9
+2026-10-06 14:44:39.718 | INFO     | src.llm_client_v3:get_client:31 - [llm_client_v3] DeepSeek client 就绪: https://api.deepseek.com/v1
+2026-10-06 14:44:40.715 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=997ms, tokens=83
+2026-10-06 14:44:40.715 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=text_only conf=0.80
+2026-10-06 14:44:44.190 | INFO     | src.embedding:_load:50 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+=== 工单四对比评估（人工智能NLP-RAG-图像内容解析及检索优化） ===
+--- 预热中（模型懒加载 + LLM 首连）---
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 12432.42it/s]
+2026-10-06 14:44:46.842 | INFO     | src.embedding:_load:55 - max_seq_length=512
+2026-10-06 14:44:47.224 | INFO     | src.embedding:_load:60 - 嵌入模型就绪: dim=1024
+Building prefix dict from the default dictionary ...
+Loading model from cache /tmp/jieba.cache
+Loading model cost 10.883 seconds.
+Prefix dict has been built successfully.
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:   8%|▊         | 33/393 [00:00<00:01, 319.19it/s]Loading weights:  17%|█▋        | 65/393 [00:00<00:01, 255.29it/s]Loading weights:  23%|██▎       | 92/393 [00:00<00:01, 241.94it/s]Loading weights:  30%|██▉       | 117/393 [00:00<00:01, 240.22it/s]Loading weights:  36%|███▌      | 142/393 [00:00<00:01, 231.51it/s]Loading weights:  44%|████▍     | 172/393 [00:00<00:00, 232.62it/s]Loading weights:  50%|████▉     | 196/393 [00:00<00:00, 219.79it/s]Loading weights:  56%|█████▌    | 219/393 [00:00<00:00, 200.30it/s]Loading weights:  62%|██████▏   | 244/393 [00:01<00:00, 210.31it/s]Loading weights:  68%|██████▊   | 266/393 [00:01<00:00, 204.60it/s]Loading weights:  74%|███████▍  | 290/393 [00:01<00:00, 213.08it/s]Loading weights:  82%|████████▏ | 321/393 [00:01<00:00, 238.72it/s]Loading weights: 100%|██████████| 393/393 [00:01<00:00, 276.40it/s]
+2026-10-06 14:44:50.524 | INFO     | src.reranker:_load:33 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+2026-10-06 14:44:54.921 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 14226ms
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:  71%|███████   | 278/393 [00:00<00:00, 2776.08it/s]Loading weights: 100%|██████████| 393/393 [00:00<00:00, 3004.94it/s]
+2026-10-06 14:44:56.318 | INFO     | src.reranker:_load:33 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+2026-10-06 14:44:58.596 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=861ms, tokens=2569
+2026-10-06 14:44:58.818 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 14:45:00.914 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2096ms
+2026-10-06 14:45:02.365 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1096ms, tokens=2043
+2026-10-06 14:45:02.853 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=435ms, tokens=41
+2026-10-06 14:45:03.994 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1140ms, tokens=51
+2026-10-06 14:45:06.960 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=2966ms, tokens=436
+2026-10-06 14:45:08.355 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1446ms, tokens=222
+2026-10-06 14:45:10.160 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1804ms, tokens=114
+2026-10-06 14:45:11.678 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1518ms, tokens=206
+2026-10-06 14:45:13.834 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=2148ms, tokens=297
+2026-10-06 14:45:14.819 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=985ms, tokens=135
+2026-10-06 14:45:17.079 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=2259ms, tokens=319
+2026-10-06 14:45:19.976 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=2898ms, tokens=399
+2026-10-06 14:45:20.717 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=740ms, tokens=77
+2026-10-06 14:45:21.891 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1174ms, tokens=152
+2026-10-06 14:45:24.635 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=2696ms, tokens=403
+2026-10-06 14:45:26.063 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1427ms, tokens=208
+2026-10-06 14:45:38.122 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1560ms, tokens=222
+2026-10-06 14:45:28.332 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=701ms, tokens=63
+2026-10-06 14:45:28.333 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+2026-10-06 14:45:30.472 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 1935ms
+2026-10-06 14:45:31.827 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=652ms, tokens=1671
+2026-10-06 14:45:31.829 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=table_only conf=0.90
+2026-10-06 14:45:33.420 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1294ms, tokens=2190
+2026-10-06 14:45:33.421 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+2026-10-06 14:45:35.575 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2127ms
+2026-10-06 14:45:38.628 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=2362ms, tokens=2713
+2026-10-06 14:45:38.631 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=table_only conf=0.90
+2026-10-06 14:45:41.354 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=2437ms, tokens=1968
+2026-10-06 14:45:41.355 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+2026-10-06 14:45:43.530 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2091ms
+2026-10-06 14:45:45.510 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1409ms, tokens=1483
+2026-10-06 14:45:45.513 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+2026-10-06 14:45:58.140 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2088ms
+2026-10-06 14:45:49.059 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=733ms, tokens=1727
+2026-10-06 14:45:49.060 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.85
+2026-10-06 14:45:51.133 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2045ms
+2026-10-06 14:46:03.292 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1006ms, tokens=1692
+2026-10-06 14:46:03.293 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+2026-10-06 14:45:54.724 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 1864ms
+2026-10-06 14:45:56.624 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1208ms, tokens=2544
+2026-10-06 14:45:56.627 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+2026-10-06 14:45:58.787 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2136ms
+2026-10-06 14:46:01.053 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1596ms, tokens=2558
+2026-10-06 14:46:01.055 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=text_only conf=0.80
+2026-10-06 14:46:03.217 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2160ms
+2026-10-06 14:46:05.509 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1989ms, tokens=2992
+2026-10-06 14:46:05.511 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+2026-10-06 14:46:06.632 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=0 fused=8 1096ms
+2026-10-06 14:46:08.624 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1259ms, tokens=1740
+2026-10-06 14:46:08.626 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=table_only conf=0.90
+2026-10-06 14:46:10.135 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1161ms, tokens=1449
+2026-10-06 14:46:10.136 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+2026-10-06 14:46:11.248 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=0 fused=8 1085ms
+2026-10-06 14:46:14.286 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=2442ms, tokens=2477
+2026-10-06 14:46:14.289 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=table_only conf=0.90
+2026-10-06 14:46:15.692 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1054ms, tokens=2654
+2026-10-06 14:46:15.693 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+2026-10-06 14:46:28.444 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2154ms
+2026-10-06 14:46:20.479 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1924ms, tokens=2464
+2026-10-06 14:46:20.482 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.50
+2026-10-06 14:46:22.603 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2082ms
+2026-10-06 14:46:25.182 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1857ms, tokens=1964
+2026-10-06 14:46:25.184 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 14:46:27.018 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 1801ms
+2026-10-06 14:46:28.299 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=617ms, tokens=1534
+2026-10-06 14:46:28.301 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 14:46:29.414 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=768ms, tokens=1841
+2026-10-06 14:46:29.415 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 14:46:31.584 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2138ms
+2026-10-06 14:46:34.454 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=2207ms, tokens=2318
+2026-10-06 14:46:34.457 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 14:46:35.433 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=693ms, tokens=1527
+2026-10-06 14:46:35.434 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 14:46:37.560 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2097ms
+2026-10-06 14:46:39.726 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1619ms, tokens=1578
+2026-10-06 14:46:39.727 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 14:46:41.841 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2079ms
+2026-10-06 14:46:43.930 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1333ms, tokens=1547
+2026-10-06 14:46:43.931 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 14:46:45.997 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2039ms
+2026-10-06 14:46:47.686 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1020ms, tokens=1428
+2026-10-06 14:46:47.688 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 14:46:49.579 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 1871ms
+2026-10-06 14:46:51.033 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=762ms, tokens=2246
+2026-10-06 14:46:51.035 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 14:46:53.182 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2157ms
+2026-10-06 14:46:54.813 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=952ms, tokens=2049
+2026-10-06 14:46:54.815 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 14:46:56.984 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2168ms
+2026-10-06 14:46:59.992 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=2701ms, tokens=2671
+2026-10-06 14:46:59.995 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 14:47:01.097 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=0 fused=8 1076ms
+2026-10-06 14:47:03.402 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1598ms, tokens=1721
+2026-10-06 14:47:03.403 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 14:47:04.433 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=673ms, tokens=1390
+2026-10-06 14:47:04.434 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 14:47:05.516 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=0 fused=8 1059ms
+2026-10-06 14:47:08.276 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=2094ms, tokens=2203
+2026-10-06 14:47:08.278 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 14:47:09.650 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1015ms, tokens=2364
+2026-10-06 14:47:09.652 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=image_first conf=0.94 hits=['图', '图中', '组织结构', '结构图', '销售部']
+2026-10-06 14:47:09.661 | INFO     | src.image_parser.image_store:__init__:43 - [image_store] 远程 Milvus: http://localhost:19530
+2026-10-06 14:47:09.712 | INFO     | src.image_parser.image_retriever:retrieve:61 - [image_retriever] '武汉力源信息技术股份有限公司组织结构图中，销售部有几个部门构' → 3 hits
+--- 预热完成 ---
+[pure_llm] id1 acc=1.0 lat=435.5ms
+[pure_llm] id2 acc=0.0 lat=1140.2ms
+[pure_llm] id3 acc=0.0 lat=2965.8ms
+[pure_llm] id4 acc=0.0 lat=1446.7ms
+[pure_llm] id5 acc=1.0 lat=1804.3ms
+[pure_llm] id6 acc=0.0 lat=1518.3ms
+[pure_llm] id7 acc=1.0 lat=2148.1ms
+[pure_llm] id8 acc=0.0 lat=985.1ms
+[pure_llm] id9 acc=1.0 lat=2259.5ms
+[pure_llm] id10 acc=1.0 lat=2897.8ms
+[pure_llm] id11 acc=0.0 lat=739.8ms
+[pure_llm] id12 acc=0.0 lat=1174.4ms
+[pure_llm] id13 acc=0.0 lat=2696.2ms
+[pure_llm] id14 acc=0.0 lat=1427.5ms
+[pure_llm] id105 acc=1.0 lat=1560.3ms
+[pure_llm] id106 acc=0.0 lat=701.4ms
+[v3] id1 acc=1.0 lat=3494.8ms
+[v3] id2 acc=0.0 lat=1641.3ms
+[v3] id3 acc=1.0 lat=5173.2ms
+[v3] id4 acc=1.0 lat=2723.5ms
+[v3] id5 acc=1.0 lat=4152.3ms
+[v3] id6 acc=1.0 lat=3528.8ms
+[v3] id7 acc=1.0 lat=3744.5ms
+[v3] id8 acc=1.0 lat=3886.7ms
+[v3] id9 acc=1.0 lat=4430.9ms
+[v3] id10 acc=1.0 lat=4453.3ms
+[v3] id11 acc=1.0 lat=3042.7ms
+[v3] id12 acc=0.0 lat=1509.6ms
+[v3] id13 acc=1.0 lat=4213.7ms
+[v3] id14 acc=1.0 lat=1403.4ms
+[v3] id105 acc=1.0 lat=4801.1ms
+[v3] id106 acc=0.0 lat=4654.4ms
+[v4] id1 acc=1.0 lat=3153.5ms
+[v4] id2 acc=1.0 lat=1113.2ms
+[v4] id3 acc=1.0 lat=5035.9ms
+[v4] id4 acc=1.0 lat=976.6ms
+[v4] id5 acc=1.0 lat=4312.1ms
+[v4] id6 acc=1.0 lat=4112.0ms
+[v4] id7 acc=1.0 lat=3755.5ms
+[v4] id8 acc=1.0 lat=3354.7ms
+[v4] id9 acc=1.0 lat=3823.3ms
+[v4] id10 acc=1.0 lat=5178.1ms
+[v4] id11 acc=1.0 lat=3358.1ms
+[v4] id12 acc=1.0 lat=1029.8ms
+[v4] id13 acc=1.0 lat=3842.7ms
+[v4] id14 acc=1.0 lat=1372.4ms
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:   0%|          | 1/399 [00:00<04:30,  1.47it/s]Loading weights:   2%|▏         | 6/399 [00:00<00:51,  7.58it/s]Loading weights:   4%|▍         | 16/399 [00:01<00:19, 19.17it/s]Loading weights:   6%|▋         | 25/399 [00:01<00:12, 30.00it/s]Loading weights:   8%|▊         | 30/399 [00:01<00:16, 22.23it/s]2026-10-06 14:47:11.942 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2235ms
+Loading weights:  10%|▉         | 38/399 [00:01<00:11, 30.61it/s]Loading weights:  39%|███▊      | 154/399 [00:01<00:01, 217.19it/s]Loading weights:  50%|█████     | 201/399 [00:01<00:00, 260.83it/s]Loading weights:  60%|█████▉    | 238/399 [00:02<00:00, 251.82it/s]Loading weights:  68%|██████▊   | 271/399 [00:02<00:00, 244.57it/s]Loading weights:  75%|███████▌  | 301/399 [00:02<00:00, 211.53it/s]Loading weights:  96%|█████████▌| 384/399 [00:13<00:00, 15.14it/s] Loading weights: 100%|██████████| 399/399 [00:13<00:00, 30.51it/s]
+2026-10-06 14:47:23.316 | INFO     | src.image_parser.image_parser:_ensure_loaded:61 - [clip] Chinese-CLIP 就绪
+2026-10-06 14:47:13.877 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1031ms, tokens=3413
+2026-10-06 14:47:13.882 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=image_first conf=0.86 hits=['图', '图中', '增长图', '增长率']
+2026-10-06 14:47:13.938 | INFO     | src.image_parser.image_retriever:retrieve:61 - [image_retriever] '从2008年中国IC市场应用结构与增长图中可以看出，增长率最' → 3 hits
+2026-10-06 14:47:16.082 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2138ms
+2026-10-06 14:47:17.739 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=979ms, tokens=3107
+[v4] id105 acc=1.0 lat=4238.6ms
+[v4] id106 acc=1.0 lat=3857.4ms
+
+| 指标 | pure_llm | 工单三(v3) | 工单四(v4) | v4 vs v3 |
+|---|---|---|---|---|
+| 准确率 | 0.375 | 0.812 | 1.0 | +23% |
+| 忠实度 | 0.0 | 0.733 | 0.707 | +-4% |
+| 答案相关性 | 0.717 | 0.552 | 0.637 | +15% |
+| 上下文精度 | 0.0 | 0.896 | 0.927 | +3% |
+| 上下文召回 | 0.625 | 0.938 | 1.0 | +7% |
+| 平均响应ms | 1618.8 | 3553.4 | 3282.1 | — |
+| 表格准确率(v3/v4) | — | 0.778 | 1.0 | — |
+| 图像准确率(v3/v4) | — | 0.5 | 1.0 | — |
+
+结果已写入 docs/eval_v4_results.json

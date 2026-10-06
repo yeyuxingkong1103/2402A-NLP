@@ -1,0 +1,113 @@
+{
+  "mode": "optimized",
+  "use_cache": true,
+  "n": 10,
+  "avg_latency_ms": 14.9,
+  "p95_latency_ms": 16.9,
+  "cache_hits": 10,
+  "target_avg_ms": 3000,
+  "pass": true,
+  "rows": [
+    {
+      "id": "Q1",
+      "type": "zh-fact",
+      "q": "武汉兴图新科电子股份有限公司的注册资本是多少？",
+      "latency_ms": 19.8,
+      "wall_ms": 19.8,
+      "cache_hit": true,
+      "lang": "zh",
+      "answer_preview": "武汉兴图新科电子股份有限公司的注册资本为5,520万元。（page=52）"
+    },
+    {
+      "id": "Q2",
+      "type": "zh-fact",
+      "q": "公司的法定代表人是谁？",
+      "latency_ms": 13.1,
+      "wall_ms": 13.1,
+      "cache_hit": true,
+      "lang": "zh",
+      "answer_preview": "根据参考信息，无法确定公司的法定代表人。参考信息中仅提及程家明为股东兴图投资的法定代表人（page=52），但未明确说明"
+    },
+    {
+      "id": "Q3",
+      "type": "zh-table",
+      "q": "军用领域收入占营业收入的比例大概是多少？",
+      "latency_ms": 13.9,
+      "wall_ms": 13.9,
+      "cache_hit": true,
+      "lang": "zh",
+      "answer_preview": "根据参考信息，军用领域收入占营业收入的比例在报告期内分别为82.10%、97.31%、94.84%和94.34%（pag"
+    },
+    {
+      "id": "Q4",
+      "type": "zh-summary",
+      "q": "公司主要客户有哪些？客户集中度如何？",
+      "latency_ms": 14.9,
+      "wall_ms": 14.9,
+      "cache_hit": true,
+      "lang": "zh",
+      "answer_preview": "公司主要客户为国防客户，最终用户包括总部机关、各战区及各军种（page=93）。客户集中度高：报告期前五名客户销售额占营"
+    },
+    {
+      "id": "Q5",
+      "type": "zh-summary",
+      "q": "公司面临哪些主要风险因素？",
+      "latency_ms": 12.3,
+      "wall_ms": 12.3,
+      "cache_hit": true,
+      "lang": "zh",
+      "answer_preview": "公司主要风险包括：技术风险（新技术/新产品研发试制、技术失密、技术产品被赶超）、经营风险（行业及客户集中度较高）、财务风"
+    },
+    {
+      "id": "Q6",
+      "type": "zh-summary",
+      "q": "本次募集资金的主要用途是什么？",
+      "latency_ms": 14.0,
+      "wall_ms": 14.0,
+      "cache_hit": true,
+      "lang": "zh",
+      "answer_preview": "本次募集资金主要用于三个项目：基于云联邦架构的军用视频指挥平台升级及产业化项目、研发中心建设项目，以及补充流动资金（pa"
+    },
+    {
+      "id": "Q7",
+      "type": "zh-fact",
+      "q": "报告期内公司的研发投入情况如何？",
+      "latency_ms": 14.6,
+      "wall_ms": 14.6,
+      "cache_hit": true,
+      "lang": "zh",
+      "answer_preview": "报告期内公司研发投入持续加大：2016-2018年及2019年1-6月研发费用分别为1,590.41万元、1,507.9"
+    },
+    {
+      "id": "Q8",
+      "type": "en-fact",
+      "q": "What is the registered capital of Wuhan Xingtu Xinke?",
+      "latency_ms": 16.9,
+      "wall_ms": 16.9,
+      "cache_hit": true,
+      "lang": "en",
+      "answer_preview": "The registered capital of Wuhan Xingtu Xinke is 5,520万元 (pag"
+    },
+    {
+      "id": "Q9",
+      "type": "en-fact",
+      "q": "Who is the legal representative of the company?",
+      "latency_ms": 15.3,
+      "wall_ms": 15.3,
+      "cache_hit": true,
+      "lang": "en",
+      "answer_preview": "The context does not explicitly identify the legal represent"
+    },
+    {
+      "id": "Q10",
+      "type": "en-summary",
+      "q": "What are the main risk factors of the company?",
+      "latency_ms": 14.2,
+      "wall_ms": 14.2,
+      "cache_hit": true,
+      "lang": "en",
+      "answer_preview": "The main risk factors include: (1) technology risks—R&D fail"
+    }
+  ],
+  "qa_logs_written": 10
+}

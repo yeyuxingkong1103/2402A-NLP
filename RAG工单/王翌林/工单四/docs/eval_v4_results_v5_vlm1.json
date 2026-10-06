@@ -1,0 +1,1006 @@
+{
+ "work_order": "人工智能NLP-RAG-图像内容解析及检索优化",
+ "ts": "2026-10-06 13:58:52",
+ "note": "图像通道：Qwen2-VL-2B-Instruct 生成 caption 与模板化 VQA，PaddleOCR 提取图内文字，bge-m3 文本向量 + 关键词加权检索（Chinese-CLIP 模型缺失时自动跳过图像向量通道）",
+ "questions": 16,
+ "rows": [
+  {
+   "kws_hit": [
+    "股"
+   ],
+   "accuracy": 0.0,
+   "faithfulness": 0.0,
+   "relevance": 0.7,
+   "ctx_precision": 0.0,
+   "ctx_recall": 1.0,
+   "id": 1,
+   "doc": "招股说明书1",
+   "qtype": "text",
+   "question": "本次发行的发行股数是多少？",
+   "mode": "pure_llm",
+   "latency_ms": 599.7,
+   "answer": "本次发行的发行股数为 **404,598,000 股**。",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "万元",
+    "募集"
+   ],
+   "accuracy": 0.0,
+   "faithfulness": 0.0,
+   "relevance": 0.769,
+   "ctx_precision": 0.0,
+   "ctx_recall": 1.0,
+   "id": 2,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "本次发行的募集资金总额是多少？",
+   "mode": "pure_llm",
+   "latency_ms": 638.3,
+   "answer": "本次发行的募集资金总额为人民币【】万元，扣除发行费用后的净额将用于【】等项目。具体金额以发行情况报告书披露为准。",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "关联"
+   ],
+   "accuracy": 0.0,
+   "faithfulness": 0.0,
+   "relevance": 0.7,
+   "ctx_precision": 0.0,
+   "ctx_recall": 1.0,
+   "id": 3,
+   "doc": "招股说明书1",
+   "qtype": "text",
+   "question": "公司的主要关联方有哪些？",
+   "mode": "pure_llm",
+   "latency_ms": 2666.4,
+   "answer": "查询公司主要关联方需要具体指明**哪家公司**，因为关联方因公司而异。不过我可以先给你一个通用的分析框架，再说明如何快速获取具体信息。\n\n## 关联方的主要类型\n\n根据企业会计准则第36号，关联方通常包括以下几类：\n\n**1. 控股股东与实际控制人**\n- 直接或间接持有公司5%以上表决权的股东\n- 最终控制方（如国资委、自然人等）\n\n**2. 子公司与合营/联营企业**\n- 纳入合并报表范围的子",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "持股",
+    "股东"
+   ],
+   "accuracy": 0.0,
+   "faithfulness": 0.0,
+   "relevance": 0.429,
+   "ctx_precision": 0.0,
+   "ctx_recall": 1.0,
+   "id": 4,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "公司前五大股东的持股比例是多少？",
+   "mode": "pure_llm",
+   "latency_ms": 2806.6,
+   "answer": "我需要先说明：我无法直接查询某家公司的实时股东数据，因为这取决于你具体问的是哪家公司，而且这类信息会随财报、公告更新而变化。\n\n不过我可以告诉你**怎么快速查到准确数据**，以及**看这类数据时要注意什么**。\n\n## 查询渠道\n\n1. **巨潮资讯网（cninfo.com.cn）**——A股上市公司官方披露平台，查最新年报/半年报/季报中的\"前十名股东持股情况\"表。\n2. **公司官网\"投资者关",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "军用"
+   ],
+   "accuracy": 0.0,
+   "faithfulness": 0.0,
+   "relevance": 0.333,
+   "ctx_precision": 0.0,
+   "ctx_recall": 1.0,
+   "id": 5,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "报告期内，公司来自军用领域的收入分别是多少？",
+   "mode": "pure_llm",
+   "latency_ms": 809.7,
+   "answer": "根据您提供的信息，我无法直接获取公司具体的军用领域收入数据。这类财务细节通常会在公司的年度报告、招股说明书或专项公告中披露。如果您能提供公司名称或相关报告文件，我可以协助您查找或分析其中的数据。",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "营业收入"
+   ],
+   "accuracy": 0.0,
+   "faithfulness": 0.0,
+   "relevance": 0.429,
+   "ctx_precision": 0.0,
+   "ctx_recall": 1.0,
+   "id": 6,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "报告期内公司营业收入分别是多少？",
+   "mode": "pure_llm",
+   "latency_ms": 1194.8,
+   "answer": "很抱歉，我无法直接回答这个问题，因为我没有收到你提到的具体报告或公司信息。\n\n如果你能提供以下信息，我可以帮你分析：\n\n1. **公司名称**（或报告文件）\n2. **报告期**（如2023年度、2024年上半年等）\n3. **相关数据或文件内容**\n\n或者，如果你手头有这份报告，可以把营业收入相关的段落或表格贴出来，我来帮你整理和解读。",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "%",
+    "客户"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.0,
+   "relevance": 0.667,
+   "ctx_precision": 0.0,
+   "ctx_recall": 1.0,
+   "id": 7,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "前五大客户占营业收入的比例是多少？",
+   "mode": "pure_llm",
+   "latency_ms": 2784.2,
+   "answer": "我需要先说明：我无法直接查询你提到的某家具体公司的最新财报数据，因为我没有实时联网检索能力，也没有你指的这家公司的具体名称。\n\n不过我可以告诉你**如何快速找到这个数据**，以及**这个指标通常意味着什么**。\n\n## 在哪里找\n\n前五大客户占营业收入比例属于**客户集中度**指标，通常出现在：\n\n1. **年报/招股说明书**的\"主要客户\"章节——一般会列示前五大客户的销售额及占比\n2. **问",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "万股",
+    "股"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.0,
+   "relevance": 0.562,
+   "ctx_precision": 0.0,
+   "ctx_recall": 1.0,
+   "id": 8,
+   "doc": "招股说明书2",
+   "qtype": "table",
+   "question": "武汉力源信息本次发行的发行股数是多少？",
+   "mode": "pure_llm",
+   "latency_ms": 1898.8,
+   "answer": "武汉力源信息技术股份有限公司（股票简称：力源信息，股票代码：300184）在2017年发行股份购买资产并募集配套资金的交易中，**发行股份购买资产的发行股数约为 1.19 亿股**（具体为 119,043,500 股左右，用于收购武汉帕太电子科技有限公司 100% 股权）；同时**募集配套资金的发行股数约为 3,000 万股左右**。\n\n如果你指的是其他年份或某次特定融资（例如可转债、定增等），可",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "项目",
+    "募集"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.0,
+   "relevance": 0.786,
+   "ctx_precision": 0.0,
+   "ctx_recall": 1.0,
+   "id": 9,
+   "doc": "招股说明书2",
+   "qtype": "text",
+   "question": "力源信息的募集资金投向哪些项目？",
+   "mode": "pure_llm",
+   "latency_ms": 3202.1,
+   "answer": "力源信息（股票代码：300184）的募集资金投向会因不同时期的融资方案而有所不同。以下是其主要融资情况及对应募投项目的梳理：\n\n## 一、IPO（2011年上市）募集资金投向\n\n力源信息于2011年2月在创业板上市，IPO募集资金主要投向以下项目：\n\n1. **嵌入式系统及元器件销售网络扩建项目**——用于扩展销售网点布局，提升市场覆盖能力。\n2. **研发中心建设项目**——增强技术研发实力，支",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "%",
+    "收入"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.0,
+   "relevance": 0.667,
+   "ctx_precision": 0.0,
+   "ctx_recall": 1.0,
+   "id": 10,
+   "doc": "招股说明书2",
+   "qtype": "table",
+   "question": "力源信息报告期内主营业务收入构成是什么？",
+   "mode": "pure_llm",
+   "latency_ms": 2820.6,
+   "answer": "力源信息（股票代码：300184）的主营业务收入构成，根据公司定期报告（年度报告、半年度报告）的披露，主要按**行业、产品、地区**等维度划分。以下是其主营业务收入构成的基本框架（具体金额和比例请以最新披露的定期报告为准）：\n\n---\n\n## 一、按行业/业务板块划分\n\n力源信息的业务主要分为两大板块：\n\n1. **电子元器件分销业务**\n   - 这是公司的核心主业，也是收入占比最大的板块。\n ",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [],
+   "accuracy": 0.0,
+   "faithfulness": 0.0,
+   "relevance": 0.25,
+   "ctx_precision": 0.0,
+   "ctx_recall": 0.0,
+   "id": 11,
+   "doc": "招股说明书1",
+   "qtype": "text",
+   "question": "How many shares are issued in this offering?",
+   "mode": "pure_llm",
+   "latency_ms": 1278.0,
+   "answer": "I can answer that, but I need the specific offering document or details you're referring to—there's no offering information in your message yet.\n\nPlease share one of the following:\n- The prospectus/of",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [],
+   "accuracy": 0.0,
+   "faithfulness": 0.0,
+   "relevance": 0.625,
+   "ctx_precision": 0.0,
+   "ctx_recall": 0.0,
+   "id": 12,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "What is the total amount of funds raised?",
+   "mode": "pure_llm",
+   "latency_ms": 1540.4,
+   "answer": "I don't have enough context to answer that. You haven't specified **which** fundraising you're asking about — a company, a VC fund, a charity, a political campaign, an IPO, etc.\n\nIf you can tell me:\n-",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [],
+   "accuracy": 0.0,
+   "faithfulness": 0.0,
+   "relevance": 0.625,
+   "ctx_precision": 0.0,
+   "ctx_recall": 0.0,
+   "id": 13,
+   "doc": "招股说明书1",
+   "qtype": "text",
+   "question": "Who are the main related parties of the company?",
+   "mode": "pure_llm",
+   "latency_ms": 2598.3,
+   "answer": "I don't have access to a specific company's financial statements or filings, so I can't identify the actual related parties for a particular entity. However, I can explain what \"related parties\" typic",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [],
+   "accuracy": 0.0,
+   "faithfulness": 0.0,
+   "relevance": 0.778,
+   "ctx_precision": 0.0,
+   "ctx_recall": 0.0,
+   "id": 14,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "What is the shareholding ratio of top five shareholders?",
+   "mode": "pure_llm",
+   "latency_ms": 1000.4,
+   "answer": "I can help with that, but I need to know **which company** you're asking about. Shareholding ratios of the top five shareholders differ by company and change over time.\n\nPlease provide one of the foll",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "4",
+    "销售部",
+    "销售处"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.0,
+   "relevance": 1.0,
+   "ctx_precision": 0.0,
+   "ctx_recall": 0.0,
+   "id": 105,
+   "doc": "招股说明书2",
+   "qtype": "image",
+   "question": "武汉力源信息技术股份有限公司组织结构图中，销售部有几个部门构成，其中大客户销售部有几个销售处构成？",
+   "mode": "pure_llm",
+   "latency_ms": 1452.7,
+   "answer": "根据武汉力源信息技术股份有限公司（力源信息，股票代码：300184）的**组织结构图**，其销售体系通常划分为以下几个主要部门：\n\n1. **大客户销售部**\n2. **区域销售部**\n3. **渠道销售部**\n4. **海外销售部**\n5. **销售管理部**（或销售支持部）\n\n其中，**大客户销售部**一般由以下**销售处**构成：\n\n1. **华东大客户销售处**\n2. **华南大客户销售处",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "汽车"
+   ],
+   "accuracy": 0.0,
+   "faithfulness": 0.0,
+   "relevance": 0.679,
+   "ctx_precision": 0.0,
+   "ctx_recall": 0.0,
+   "id": 106,
+   "doc": "招股说明书2",
+   "qtype": "image",
+   "question": "从2008年中国IC市场应用结构与增长图中可以看出，增长率最快的是哪个行业？负增长的是哪个行业？",
+   "mode": "pure_llm",
+   "latency_ms": 618.3,
+   "answer": "根据2008年中国IC市场应用结构与增长图，增长率最快的行业是**汽车电子**，负增长的行业是**计算机**。",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "股",
+    "万股"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.889,
+   "relevance": 0.7,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 1,
+   "doc": "招股说明书1",
+   "qtype": "text",
+   "question": "本次发行的发行股数是多少？",
+   "mode": "v3",
+   "latency_ms": 3470.2,
+   "answer": "本次发行的发行股数不低于1,840万股（全部为公开发行的新股），占发行后总股本比例不低于25.00%。[资料1][资料2][资料3]",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "万元",
+    "募集"
+   ],
+   "accuracy": 0.0,
+   "faithfulness": 0.683,
+   "relevance": 0.769,
+   "ctx_precision": 0.333,
+   "ctx_recall": 1.0,
+   "id": 2,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "本次发行的募集资金总额是多少？",
+   "mode": "v3",
+   "latency_ms": 1172.4,
+   "answer": "根据[表1]（第267页），本次发行拟投入募集资金合计为 **40,584.83 万元**，其中各项目分别为：\n\n- 基于云联邦架构的军用视频指挥平台升级及产业化项目：20,658.33 万元\n- 研发中心建设项目：4,926.50 万元\n- 补充流动资金：15,000.00 万元\n\n因此，本次发行的募集资金总额为 **40,584.83 万元**。[表1]",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "有限公司",
+    "关联"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.944,
+   "relevance": 0.7,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 3,
+   "doc": "招股说明书1",
+   "qtype": "text",
+   "question": "公司的主要关联方有哪些？",
+   "mode": "v3",
+   "latency_ms": 5086.0,
+   "answer": "根据参考资料，公司的主要关联方包括以下几类：\n\n**一、控股股东、实际控制人**\n程家明为公司的控股股东、实际控制人 [资料3]。\n\n**二、其他持有5%以上股份的股东**\n| 序号 | 关联人名称 | 对公司的持股比例 |\n|------|-----------|----------------|\n| 1 | 兴图投资 | 19.28% |\n| 2 | 光谷人才创投 | 6.38% |\n| 3 ",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "%",
+    "持股",
+    "股东"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.244,
+   "relevance": 0.786,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 4,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "公司前五大股东的持股比例是多少？",
+   "mode": "v3",
+   "latency_ms": 2638.8,
+   "answer": "根据参考资料，公司前五大股东的持股比例需结合不同时点的股东名册来看。招股说明书第54页披露了发行前的前十大股东情况，其中前五大股东及其持股比例为：\n\n| 序号 | 股东名称 | 持股数量（万股） | 持股比例（%） |\n|------|----------|------------------|----------------|\n| 1 | 程家明 | 2,886.29 | 52.29 |\n| 2",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "军用"
+   ],
+   "accuracy": 0.0,
+   "faithfulness": 0.523,
+   "relevance": 0.778,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 5,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "报告期内，公司来自军用领域的收入分别是多少？",
+   "mode": "v3",
+   "latency_ms": 3287.4,
+   "answer": "根据参考资料，报告期内公司来自军用领域的收入占比分别为82.10%、97.31%和94.84% [资料1][资料4][资料5]。但参考资料中未直接给出军用领域收入的具体金额，仅提供了占比数据。",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "万元",
+    "营业收入"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.625,
+   "relevance": 0.786,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 6,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "报告期内公司营业收入分别是多少？",
+   "mode": "v3",
+   "latency_ms": 3822.7,
+   "answer": "根据参考资料，报告期内公司营业收入分别为：\n\n- 2016年度：7,955.46 万元 [资料4]\n- 2017年度：14,884.48 万元 [资料4]\n- 2018年度：19,813.64 万元 [资料4]\n\n以上数据来源于招股说明书中“利润情况分析”部分的营业收入数据 [资料4]。",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "%",
+    "客户"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.781,
+   "relevance": 0.667,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 7,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "前五大客户占营业收入的比例是多少？",
+   "mode": "v3",
+   "latency_ms": 4205.3,
+   "answer": "根据参考资料，报告期内发行人前五名客户合计销售额占营业收入的比重分别为：\n\n- 2016年度：**52.66%**\n- 2017年度：**68.58%**\n- 2018年度：**80.83%**\n\n具体数据为：前五名客户合计销售额分别为 **4,189.49万元、10,208.22万元和16,014.91万元**，占营业收入的比重分别为 **52.66%、68.58%和80.83%** [资料1]",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "万股",
+    "股"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.756,
+   "relevance": 0.812,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 8,
+   "doc": "招股说明书2",
+   "qtype": "table",
+   "question": "武汉力源信息本次发行的发行股数是多少？",
+   "mode": "v3",
+   "latency_ms": 3600.1,
+   "answer": "武汉力源信息本次发行的发行股数为 **1,670 万股** [资料1][资料2][表1]。\n\n具体依据如下：\n- [资料1]“本次发行概况”中列明：发行股数为 **1,670 万股**。\n- [资料2]“二、本次发行的基本情况”中列明：发行股数及占发行后总股本比例为 **1,670 万股**，占发行后总股本的比例为 **25.04%**。\n- [表1]（第2页）中列明：发行股数为 **1,670 ",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "项目",
+    "募集"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.911,
+   "relevance": 0.643,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 9,
+   "doc": "招股说明书2",
+   "qtype": "text",
+   "question": "力源信息的募集资金投向哪些项目？",
+   "mode": "v3",
+   "latency_ms": 4955.4,
+   "answer": "根据参考资料，力源信息本次募集资金投向以下五个项目 [资料1][资料3]：\n\n| 序号 | 项目名称 | 项目总投资（万元） | 项目核准情况 | 项目环保核查情况 |\n|------|----------|-------------------|--------------|------------------|\n| 1 | 仓储及物流中心 | 3,393.40 | 武发改核新字[2010]02",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "%",
+    "收入"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.792,
+   "relevance": 0.833,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 10,
+   "doc": "招股说明书2",
+   "qtype": "table",
+   "question": "力源信息报告期内主营业务收入构成是什么？",
+   "mode": "v3",
+   "latency_ms": 5113.2,
+   "answer": "力源信息报告期内主营业务收入构成，按产品类别和地区分部划分如下：\n\n**一、按产品类别构成**\n\n根据[资料1]（第120页），报告期内公司主营业务收入按产品类别构成如下（单位：万元）：\n\n| 产品类别 | 2010年1-6月 | 占比(%) | 2009年度 | 占比(%) | 2008年度 | 占比(%) | 2007年度 | 占比(%) |\n|---|---|---|---|---|---|",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "股",
+    "万"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.613,
+   "relevance": 0.0,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 11,
+   "doc": "招股说明书1",
+   "qtype": "text",
+   "question": "How many shares are issued in this offering?",
+   "mode": "v3",
+   "latency_ms": 2873.7,
+   "answer": "根据参考资料，本次发行的股份数量为**不低于1,840.00万股**（全部为公开发行的新股），占发行后总股本的比例不低于25.00% [资料1][资料3][资料4]。\n\n具体数据如下：\n- 发行股数：不低于1,840.00万股 [资料1]\n- 其中发行新股数量：不低于1,840.00万股 [资料3][资料4]\n- 股东公开发售股份数量：0万股 [资料3]\n\n此外，[资料2]中的表格也显示，新股发行",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "万元"
+   ],
+   "accuracy": 0.0,
+   "faithfulness": 0.6,
+   "relevance": 0.0,
+   "ctx_precision": 0.5,
+   "ctx_recall": 1.0,
+   "id": 12,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "What is the total amount of funds raised?",
+   "mode": "v3",
+   "latency_ms": 1397.9,
+   "answer": "根据参考资料，募集资金总额为 **40,584.83 万元**。\n\n具体依据如下：\n\n- [表1]（第267页）显示，三个募投项目的“拟投入募集资金”分别为：\n  - 基于云联邦架构的军用视频指挥平台升级及产业化项目：20,658.33 万元\n  - 研发中心建设项目：4,926.50 万元\n  - 补充流动资金：15,000.00 万元\n  - 合计拟投入募集资金：**40,584.83 万元*",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "有限公司"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.944,
+   "relevance": 0.0,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 13,
+   "doc": "招股说明书1",
+   "qtype": "text",
+   "question": "Who are the main related parties of the company?",
+   "mode": "v3",
+   "latency_ms": 4411.4,
+   "answer": "根据参考资料，公司的主要关联方包括以下几类：\n\n**一、控股股东、实际控制人**\n程家明为公司的控股股东、实际控制人 [资料2]。\n\n**二、其他持有5%以上股份的股东**\n| 序号 | 关联人名称 | 对公司的持股比例 |\n|------|-----------|----------------|\n| 1 | 兴图投资 | 19.28% |\n| 2 | 光谷人才创投 | 6.38% |\n| 3 ",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "%",
+    "股东"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.452,
+   "relevance": 0.0,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 14,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "What is the shareholding ratio of top five shareholders?",
+   "mode": "v3",
+   "latency_ms": 1454.9,
+   "answer": "根据参考资料，前五大股东及其持股比例（合计）如下：\n\n**前五大股东持股比例合计：61.70%** [表1]\n\n具体明细为 [表1]（第54页）：\n\n| 序号 | 股东名称 | 持股数量（万股） | 持股比例（%） |\n|------|----------|------------------|----------------|\n| 1 | 程家明 | 2,886.29 | 52.29 |\n| 2",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "销售部",
+    "销售处"
+   ],
+   "accuracy": 0.0,
+   "faithfulness": 1.0,
+   "relevance": 0.767,
+   "ctx_precision": 1.0,
+   "ctx_recall": 0.75,
+   "id": 105,
+   "doc": "招股说明书2",
+   "qtype": "image",
+   "question": "武汉力源信息技术股份有限公司组织结构图中，销售部有几个部门构成，其中大客户销售部有几个销售处构成？",
+   "mode": "v3",
+   "latency_ms": 4174.8,
+   "answer": "根据提供的参考资料，**无法完整回答该问题**。具体说明如下：\n\n1. **关于“销售部有几个部门构成”**：参考资料中未提及组织结构图中销售部的具体部门构成。[资料1] 仅提到“本公司在采购、技术、财务、销售等方面，设立了8个职能部门”，但未列出销售部内部由哪几个部门组成。\n\n2. **关于“大客户销售部有几个销售处构成”**：[资料3] 提到“公司目前在上海设立有1家分公司，在北京、广州、成都",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "汽车"
+   ],
+   "accuracy": 0.0,
+   "faithfulness": 1.0,
+   "relevance": 0.714,
+   "ctx_precision": 0.5,
+   "ctx_recall": 0.25,
+   "id": 106,
+   "doc": "招股说明书2",
+   "qtype": "image",
+   "question": "从2008年中国IC市场应用结构与增长图中可以看出，增长率最快的是哪个行业？负增长的是哪个行业？",
+   "mode": "v3",
+   "latency_ms": 4373.1,
+   "answer": "根据参考资料，2008年中国IC市场应用结构与增长图中显示：\n\n- **增长率最快的行业是汽车电子**，增长率为10.5%，在所有应用行业中位列第一 [资料1]。\n- **负增长的行业是计算机**，增长率为-3.1% [资料1]。\n\n具体数据如下（单位：%）：\n\n| 应用行业 | 2008年增长率 |\n|----------|-------------|\n| 汽车电子 | 10.5% |\n| 工业",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "股",
+    "万股"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.867,
+   "relevance": 0.7,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 1,
+   "doc": "招股说明书1",
+   "qtype": "text",
+   "question": "本次发行的发行股数是多少？",
+   "mode": "v4",
+   "latency_ms": 3222.7,
+   "answer": "本次发行的发行股数为不低于1,840.00万股（全部为公开发行新股，不涉及现有股东公开发售股份）[资料1][资料2]。",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "万元",
+    "亿元",
+    "募集"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.462,
+   "relevance": 0.769,
+   "ctx_precision": 0.333,
+   "ctx_recall": 1.0,
+   "id": 2,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "本次发行的募集资金总额是多少？",
+   "mode": "v4",
+   "latency_ms": 855.7,
+   "answer": "本次发行的募集资金总额为40,584.83万元（约4.06亿元）[表1]。",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "有限公司",
+    "关联"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.917,
+   "relevance": 0.7,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 3,
+   "doc": "招股说明书1",
+   "qtype": "text",
+   "question": "公司的主要关联方有哪些？",
+   "mode": "v4",
+   "latency_ms": 4941.3,
+   "answer": "公司的主要关联方包括以下几类：\n\n**一、控股股东、实际控制人**\n程家明为公司的控股股东、实际控制人[资料3]。\n\n**二、其他持有5%以上股份的股东**\n包括兴图投资（持股19.28%）、光谷人才创投（持股6.38%）、华汇创投（持股5.54%）[资料3]。\n\n**三、控股子公司**\n报告期内公司存在控股子公司[资料3]。\n\n**四、董事、监事、高级管理人员**\n公司董事、监事、高级管理人员构",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "%",
+    "持股",
+    "股东"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.581,
+   "relevance": 0.786,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 4,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "公司前五大股东的持股比例是多少？",
+   "mode": "v4",
+   "latency_ms": 1221.4,
+   "answer": "根据招股说明书披露，公司前五大股东的持股比例分别为：程家明52.29%、陈爱民4.21%、杜成城2.72%、张伟0.99%、方梦兰0.99%[表1]。",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "万元",
+    "军用"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.571,
+   "relevance": 0.833,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 5,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "报告期内，公司来自军用领域的收入分别是多少？",
+   "mode": "v4",
+   "latency_ms": 4100.0,
+   "answer": "根据资料，报告期内公司来自军用领域的收入占比分别为82.10%、97.31%和94.84%[资料1][资料4][资料5]。结合同期营业收入合计数据（2016年度7,873.63万元、2017年度14,812.72万元、2018年度19,802.48万元）[资料1]，可推算各年度军用领域收入约为：\n\n- 2016年度：7,873.63万元 × 82.10% ≈ 6,464.25万元\n- 2017年度",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "万元",
+    "营业收入"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.75,
+   "relevance": 0.786,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 6,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "报告期内公司营业收入分别是多少？",
+   "mode": "v4",
+   "latency_ms": 3578.1,
+   "answer": "报告期内公司营业收入分别为：2016年度7,955.46万元、2017年度14,884.48万元（约1.49亿元）、2018年度19,813.64万元（约1.98亿元）[资料4]。",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "%",
+    "客户"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.824,
+   "relevance": 0.8,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 7,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "前五大客户占营业收入的比例是多少？",
+   "mode": "v4",
+   "latency_ms": 3397.1,
+   "answer": "前五大客户占营业收入的比例分别为：2016年度52.66%、2017年度68.58%、2018年度80.83%[资料1][资料4]。",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "万股",
+    "股"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.812,
+   "relevance": 0.812,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 8,
+   "doc": "招股说明书2",
+   "qtype": "table",
+   "question": "武汉力源信息本次发行的发行股数是多少？",
+   "mode": "v4",
+   "latency_ms": 3034.7,
+   "answer": "武汉力源信息本次发行的发行股数为1,670万股【表1】【资料1】【资料2】【资料3】【资料4】。",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "项目",
+    "募集"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.768,
+   "relevance": 0.786,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 9,
+   "doc": "招股说明书2",
+   "qtype": "text",
+   "question": "力源信息的募集资金投向哪些项目？",
+   "mode": "v4",
+   "latency_ms": 3784.3,
+   "answer": "力源信息的募集资金投向以下项目：仓储及物流中心、研发中心、电子商务平台、扩充产品种类和数量，以及补充其他与主营业务相关的营运资金[资料1][资料3]。\n\n各项目的计划总投资为：仓储及物流中心3,393.40万元，研发中心1,526.38万元，电子商务平台2,492.78万元，扩充产品种类和数量9,000.00万元；其他与主营业务相关的营运资金金额在资料中未披露[资料1][资料3]。",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "%",
+    "收入"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.749,
+   "relevance": 0.778,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 10,
+   "doc": "招股说明书2",
+   "qtype": "table",
+   "question": "力源信息报告期内主营业务收入构成是什么？",
+   "mode": "v4",
+   "latency_ms": 5211.4,
+   "answer": "力源信息报告期内的主营业务收入构成可从产品类别和地区分布两个维度来看。\n\n**一、按产品类别构成**\n\n报告期内，公司主营业务收入按产品类别划分为15大类，主要包括微控制器器件、电源管理器件、系统管理器件、通信接口器件、信号放大调理器件、分立半导体器件、数字电位器器件、数据变换器件、时钟管理器件、模拟开关器件、数字逻辑器件、存储器器件、功率驱动器件、无源被动元器件、开发工具等[资料1][资料4]。",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "股",
+    "万"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.439,
+   "relevance": 0.625,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 11,
+   "doc": "招股说明书1",
+   "qtype": "text",
+   "question": "How many shares are issued in this offering?",
+   "mode": "v4",
+   "latency_ms": 3417.2,
+   "answer": "Based on the provided materials, the number of shares issued in this offering is **no less than 18.40 million shares** (不低于1,840.00万股) [资料1][资料3].\n\nKey details:\n- **发行股数**: 不低于1,840.00万股 (no less than",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "万元",
+    "亿"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.1,
+   "relevance": 0.875,
+   "ctx_precision": 0.5,
+   "ctx_recall": 1.0,
+   "id": 12,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "What is the total amount of funds raised?",
+   "mode": "v4",
+   "latency_ms": 1108.7,
+   "answer": "The total amount of funds raised is 40,584.83万元 (about 4.06亿元) [表1][表3].",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "有限公司"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.909,
+   "relevance": 0.0,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 13,
+   "doc": "招股说明书1",
+   "qtype": "text",
+   "question": "Who are the main related parties of the company?",
+   "mode": "v4",
+   "latency_ms": 4368.5,
+   "answer": "根据提供的资料，公司的主要关联方包括以下几类：\n\n**1. 控股股东、实际控制人**\n程家明为公司的控股股东、实际控制人[资料2]。\n\n**2. 其他持有5%以上股份的股东**\n- 兴图投资，持股比例19.28%[资料2]\n- 光谷人才创投，持股比例6.38%[资料2]\n- 华汇创投，持股比例5.54%[资料2]\n\n**3. 控股子公司**\n报告期内公司存在控股子公司[资料2]。\n\n**4. 董事",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "%",
+    "股东"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 0.521,
+   "relevance": 0.0,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 14,
+   "doc": "招股说明书1",
+   "qtype": "table",
+   "question": "What is the shareholding ratio of top five shareholders?",
+   "mode": "v4",
+   "latency_ms": 1462.9,
+   "answer": "根据【表1】（招股说明书1 第54页），前五大股东及其持股比例为：\n\n| 序号 | 股东名称 | 持股数量（万股） | 持股比例（%） |\n|------|----------|------------------|----------------|\n| 1 | 程家明 | 2,886.29 | 52.29 |\n| 2 | 陈爱民 | 232.56 | 4.21 |\n| 3 | 杜成城 | 150",
+   "n_images": 0
+  },
+  {
+   "kws_hit": [
+    "销售部",
+    "销售处"
+   ],
+   "accuracy": 0.0,
+   "faithfulness": 1.0,
+   "relevance": 0.6,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 105,
+   "doc": "招股说明书2",
+   "qtype": "image",
+   "question": "武汉力源信息技术股份有限公司组织结构图中，销售部有几个部门构成，其中大客户销售部有几个销售处构成？",
+   "mode": "v4",
+   "latency_ms": 4265.8,
+   "answer": "根据组织结构图，销售部由3个部门构成，分别是大客户销售部、电话及网络销售部、渠道销售部[图1]。其中，大客户销售部由6个销售处构成，分别是北京销售处、广州销售处、成都销售处、深圳销售处、武汉销售处、珠海销售处[图1][资料3]。",
+   "n_images": 3
+  },
+  {
+   "kws_hit": [
+    "汽车",
+    "IC卡"
+   ],
+   "accuracy": 1.0,
+   "faithfulness": 1.0,
+   "relevance": 0.714,
+   "ctx_precision": 1.0,
+   "ctx_recall": 1.0,
+   "id": 106,
+   "doc": "招股说明书2",
+   "qtype": "image",
+   "question": "从2008年中国IC市场应用结构与增长图中可以看出，增长率最快的是哪个行业？负增长的是哪个行业？",
+   "mode": "v4",
+   "latency_ms": 3680.4,
+   "answer": "根据图1（2008年中国IC市场应用结构与增长图），增长率最快的是**汽车**行业，增长率为**14.0%**[图1]；负增长的是**IC卡**行业，增长率为**-2.0%**[图1]。",
+   "n_images": 3
+  }
+ ],
+ "summary": {
+  "pure_llm": {
+   "all": {
+    "accuracy": 0.312,
+    "faithfulness": 0.0,
+    "relevance": 0.625,
+    "ctx_precision": 0.0,
+    "ctx_recall": 0.625,
+    "avg_latency_ms": 1744.3
+   },
+   "text": {
+    "accuracy": 0.2,
+    "faithfulness": 0.0,
+    "relevance": 0.612,
+    "ctx_precision": 0.0,
+    "ctx_recall": 0.6,
+    "avg_latency_ms": 2068.9
+   },
+   "table": {
+    "accuracy": 0.333,
+    "faithfulness": 0.0,
+    "relevance": 0.584,
+    "ctx_precision": 0.0,
+    "ctx_recall": 0.778,
+    "avg_latency_ms": 1721.5
+   },
+   "image": {
+    "accuracy": 0.5,
+    "faithfulness": 0.0,
+    "relevance": 0.84,
+    "ctx_precision": 0.0,
+    "ctx_recall": 0.0,
+    "avg_latency_ms": 1035.5
+   }
+  },
+  "v3": {
+   "all": {
+    "accuracy": 0.688,
+    "faithfulness": 0.735,
+    "relevance": 0.56,
+    "ctx_precision": 0.896,
+    "ctx_recall": 0.938,
+    "avg_latency_ms": 3502.3
+   },
+   "text": {
+    "accuracy": 1.0,
+    "faithfulness": 0.86,
+    "relevance": 0.409,
+    "ctx_precision": 1.0,
+    "ctx_recall": 1.0,
+    "avg_latency_ms": 4159.3
+   },
+   "table": {
+    "accuracy": 0.667,
+    "faithfulness": 0.606,
+    "relevance": 0.603,
+    "ctx_precision": 0.87,
+    "ctx_recall": 1.0,
+    "avg_latency_ms": 2965.9
+   },
+   "image": {
+    "accuracy": 0.0,
+    "faithfulness": 1.0,
+    "relevance": 0.74,
+    "ctx_precision": 0.75,
+    "ctx_recall": 0.5,
+    "avg_latency_ms": 4274.0
+   }
+  },
+  "v4": {
+   "all": {
+    "accuracy": 0.938,
+    "faithfulness": 0.704,
+    "relevance": 0.66,
+    "ctx_precision": 0.927,
+    "ctx_recall": 1.0,
+    "avg_latency_ms": 3228.1
+   },
+   "text": {
+    "accuracy": 1.0,
+    "faithfulness": 0.78,
+    "relevance": 0.562,
+    "ctx_precision": 1.0,
+    "ctx_recall": 1.0,
+    "avg_latency_ms": 3946.8
+   },
+   "table": {
+    "accuracy": 1.0,
+    "faithfulness": 0.597,
+    "relevance": 0.715,
+    "ctx_precision": 0.87,
+    "ctx_recall": 1.0,
+    "avg_latency_ms": 2663.3
+   },
+   "image": {
+    "accuracy": 0.5,
+    "faithfulness": 1.0,
+    "relevance": 0.657,
+    "ctx_precision": 1.0,
+    "ctx_recall": 1.0,
+    "avg_latency_ms": 3973.1
+   }
+  }
+ }
+}

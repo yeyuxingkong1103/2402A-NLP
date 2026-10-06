@@ -1,0 +1,51 @@
+2026-10-06 14:50:50.957 | INFO     | src.embedding:<module>:20 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-10-06 14:50:51.345 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-10-06 14:50:51.345 | INFO     | src.rag_engine_v3:_load_text_retriever:76 - [rag_engine_v3] TextRetrieverV3 已加载（多文档）
+2026-10-06 14:50:51.346 | INFO     | src.table_parser.table_store:_connect:69 - [table_store] 远程 Milvus: http://localhost:19530 v=2.6.9
+2026-10-06 14:50:51.818 | INFO     | src.llm_client_v3:get_client:31 - [llm_client_v3] DeepSeek client 就绪: https://api.deepseek.com/v1
+2026-10-06 14:50:52.920 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1102ms, tokens=90
+2026-10-06 14:50:52.920 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=text_only conf=0.80
+2026-10-06 14:51:08.708 | INFO     | src.embedding:_load:50 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [-00:10<00:00, -37.27it/s]
+2026-10-06 14:51:02.049 | INFO     | src.embedding:_load:55 - max_seq_length=512
+2026-10-06 14:51:02.604 | INFO     | src.embedding:_load:60 - 嵌入模型就绪: dim=1024
+Building prefix dict from the default dictionary ...
+Loading model from cache /tmp/jieba.cache
+Loading model cost 0.296 seconds.
+Prefix dict has been built successfully.
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:  10%|█         | 41/393 [00:00<00:00, 403.44it/s]Loading weights:  21%|██        | 82/393 [00:00<00:00, 391.06it/s]Loading weights:  34%|███▍      | 134/393 [00:00<00:00, 448.11it/s]Loading weights:  76%|███████▌  | 298/393 [00:00<00:00, 909.69it/s]Loading weights: 100%|██████████| 393/393 [00:00<00:00, 914.75it/s]
+2026-10-06 14:51:04.817 | INFO     | src.reranker:_load:33 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+2026-10-06 14:51:07.898 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 14935ms
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:  66%|██████▌   | 258/393 [00:00<00:00, 2569.03it/s]Loading weights: 100%|██████████| 393/393 [00:00<00:00, 2886.20it/s]
+2026-10-06 14:51:09.300 | INFO     | src.reranker:_load:33 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+2026-10-06 14:51:12.059 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1012ms, tokens=2547
+2026-10-06 14:51:12.296 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 14:51:14.458 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2147ms
+2026-10-06 14:51:15.449 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=659ms, tokens=2043
+2026-10-06 14:51:15.449 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 14:51:17.522 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2073ms
+2026-10-06 14:51:18.501 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=634ms, tokens=2043
+2026-10-06 14:51:18.502 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 14:51:20.615 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2057ms
+2026-10-06 14:51:21.953 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=732ms, tokens=1578
+2026-10-06 14:51:21.953 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 14:51:33.770 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=968ms, tokens=2974
+2026-10-06 14:51:33.770 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=image_first conf=0.86 hits=['图', '图中', '增长图', '增长率']
+2026-10-06 14:51:33.785 | INFO     | src.image_parser.image_store:__init__:43 - [image_store] 远程 Milvus: http://localhost:19530
+2026-10-06 14:51:23.482 | INFO     | src.image_parser.image_retriever:retrieve:61 - [image_retriever] '从2008年中国IC市场应用结构与增长图中可以看出，增长率最' → 3 hits
+
+Q: 公司主营业务是什么
+  total=3042ms retrieve=2407 llm=634 nimg=0 ntxt=5 ntbl=0
+
+Q: 前五大客户占营业收入的比例？
+  total=3452ms retrieve=2719 llm=732 nimg=0 ntxt=5 ntbl=0
+
+Q: 本次募集资金总额是多少
+  total=1316ms retrieve=347 llm=969 nimg=0 ntxt=0 ntbl=5
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:   0%|          | 1/399 [00:00<04:43,  1.40it/s]Loading weights:   2%|▏         | 6/399 [00:01<01:42,  3.84it/s]2026-10-06 14:51:25.681 | INFO     | src.text_retriever_v3:retrieve:107 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2201ms
+Loading weights:   8%|▊         | 32/399 [00:01<00:14, 26.06it/s]Loading weights:  13%|█▎        | 50/399 [00:01<00:08, 42.10it/s]Loading weights:  24%|██▎       | 94/399 [00:02<00:03, 93.72it/s]Loading weights:  32%|███▏      | 126/399 [00:02<00:02, 128.69it/s]Loading weights:  50%|█████     | 201/399 [00:02<00:00, 237.38it/s]Loading weights:  60%|██████    | 240/399 [00:02<00:00, 195.87it/s]Loading weights:  99%|█████████▊| 394/399 [00:02<00:00, 431.34it/s]Loading weights: 100%|██████████| 399/399 [00:02<00:00, 151.09it/s]
+2026-10-06 14:51:26.603 | INFO     | src.image_parser.image_parser:_ensure_loaded:61 - [clip] Chinese-CLIP 就绪
+2026-10-06 14:51:27.214 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=567ms, tokens=3105
+
+Q: 从2008年中国IC市场应用结构与增长图中可以看出，增长率最
+  total=3990ms retrieve=3240 llm=568 nimg=3 ntxt=5 ntbl=0

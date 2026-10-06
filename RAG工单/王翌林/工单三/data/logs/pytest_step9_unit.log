@@ -1,0 +1,51 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /home/dabaie/code/my_project/.venv/bin/python
+rootdir: /home/dabaie/code/工单/工单二
+plugins: anyio-4.15.1, langsmith-0.12.4, asyncio-1.4.0
+asyncio: mode=strict, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 32 items
+
+tests/test_api_optimized.py::test_pdf_parse_success PASSED               [  3%]
+tests/test_api_optimized.py::test_pdf_file_not_found PASSED              [  6%]
+tests/test_api_optimized.py::test_pdf_encrypted PASSED                   [  9%]
+tests/test_api_optimized.py::test_pdf_parser_without_pymupdf PASSED      [ 12%]
+tests/test_api_optimized.py::test_sliding_window_short_text_single_piece PASSED [ 15%]
+tests/test_api_optimized.py::test_sliding_window_size_and_overlap PASSED [ 18%]
+tests/test_api_optimized.py::test_parent_blocks_structure PASSED         [ 21%]
+tests/test_api_optimized.py::test_children_link_to_parents PASSED        [ 25%]
+tests/test_api_optimized.py::test_chunk_semantic_summary PASSED          [ 28%]
+tests/test_api_optimized.py::test_rrf_fuse_dedup_and_order PASSED        [ 31%]
+tests/test_api_optimized.py::test_rrf_fuse_empty PASSED                  [ 34%]
+tests/test_api_optimized.py::test_format_for_prompt_citation PASSED      [ 37%]
+tests/test_api_optimized.py::test_reranker_empty_candidates PASSED       [ 40%]
+tests/test_api_optimized.py::test_reranker_degradation_when_model_unavailable PASSED [ 43%]
+tests/test_api_optimized.py::test_reranker_scores_reorder PASSED         [ 46%]
+tests/test_api_optimized.py::test_reranker_compute_error_fallback PASSED [ 50%]
+tests/test_api_optimized.py::test_llm_timeout_propagates PASSED          [ 53%]
+tests/test_api_optimized.py::test_llm_missing_api_key PASSED             [ 56%]
+tests/test_api_optimized.py::test_vector_store_all_endpoints_unavailable PASSED [ 59%]
+tests/test_api_optimized.py::test_api_health PASSED                      [ 62%]
+tests/test_api_optimized.py::test_api_questions PASSED                   [ 65%]
+tests/test_api_optimized.py::test_api_ask_optimized_ok PASSED            [ 68%]
+tests/test_api_optimized.py::test_api_ask_baseline_chain PASSED          [ 71%]
+tests/test_api_optimized.py::test_api_ask_pure_llm PASSED                [ 75%]
+tests/test_api_optimized.py::test_api_ask_empty_question_422 PASSED      [ 78%]
+tests/test_api_optimized.py::test_api_ask_question_too_long_422 PASSED   [ 81%]
+tests/test_api_optimized.py::test_api_ask_topk_out_of_range_422 PASSED   [ 84%]
+tests/test_api_optimized.py::test_api_ask_engine_not_ready_503 PASSED    [ 87%]
+tests/test_api_optimized.py::test_api_ask_engine_exception_500 PASSED    [ 90%]
+tests/test_api_optimized.py::test_api_feedback_rating_validation PASSED  [ 93%]
+tests/test_api_optimized.py::test_api_feedback_ok PASSED                 [ 96%]
+tests/test_api_optimized.py::test_api_feedback_db_failure_500 PASSED     [100%]
+
+=============================== warnings summary ===============================
+../../my_project/.venv/lib/python3.10/site-packages/jieba/_compat.py:18
+  /home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/jieba/_compat.py:18: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+    import pkg_resources
+
+../../my_project/.venv/lib/python3.10/site-packages/starlette/testclient.py:53
+  /home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 32 passed, 2 warnings in 0.95s ========================
