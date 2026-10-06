@@ -1,0 +1,180 @@
+2026-09-30 11:06:45.674 | INFO     | src.embedding:<module>:20 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-09-30 11:06:45.996 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-09-30 11:06:45.996 | INFO     | src.rag_engine_v3:_load_text_retriever:76 - [rag_engine_v3] TextRetrieverV3 已加载（多文档）
+2026-09-30 11:06:45.997 | INFO     | src.table_parser.table_store:_connect:63 - [table_store] 远程 Milvus: http://localhost:19530 v=2.6.9
+2026-09-30 11:06:46.337 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+Building prefix dict from the default dictionary ...
+Loading model from cache /tmp/jieba.cache
+Loading model cost 0.321 seconds.
+Prefix dict has been built successfully.
+2026-09-30 11:06:51.133 | INFO     | src.embedding:_load:50 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+=== 工单四对比评估（人工智能NLP-RAG-图像内容解析及检索优化） ===
+[pure_llm] id1 acc=0.0 lat=340.1ms
+[pure_llm] id2 acc=0.0 lat=0.0ms
+[pure_llm] id3 acc=0.0 lat=0.0ms
+[pure_llm] id4 acc=0.0 lat=0.0ms
+[pure_llm] id5 acc=0.0 lat=0.0ms
+[pure_llm] id6 acc=0.0 lat=0.0ms
+[pure_llm] id7 acc=0.0 lat=0.0ms
+[pure_llm] id8 acc=0.0 lat=0.0ms
+[pure_llm] id9 acc=0.0 lat=0.0ms
+[pure_llm] id10 acc=0.0 lat=0.0ms
+[pure_llm] id11 acc=0.0 lat=0.0ms
+[pure_llm] id12 acc=0.0 lat=0.0ms
+[pure_llm] id13 acc=0.0 lat=0.0ms
+[pure_llm] id14 acc=0.0 lat=0.0ms
+[pure_llm] id5 acc=0.0 lat=0.0ms
+[pure_llm] id6 acc=0.0 lat=0.0ms
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 10310.79it/s]
+2026-09-30 11:06:54.947 | INFO     | src.embedding:_load:55 - max_seq_length=512
+2026-09-30 11:06:55.794 | INFO     | src.embedding:_load:60 - 嵌入模型就绪: dim=1024
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:   7%|▋         | 27/393 [00:00<00:01, 266.56it/s]Loading weights:  15%|█▌        | 60/393 [00:00<00:01, 296.91it/s]Loading weights:  24%|██▎       | 93/393 [00:00<00:01, 294.38it/s]Loading weights:  31%|███▏      | 123/393 [00:00<00:00, 294.35it/s]Loading weights:  39%|███▉      | 153/393 [00:00<00:00, 276.43it/s]Loading weights:  46%|████▌     | 181/393 [00:00<00:00, 262.77it/s]Loading weights:  53%|█████▎    | 208/393 [00:00<00:00, 242.63it/s]Loading weights:  59%|█████▉    | 233/393 [00:00<00:00, 231.04it/s]Loading weights:  69%|██████▉   | 272/393 [00:01<00:00, 267.10it/s]Loading weights:  79%|███████▉  | 310/393 [00:01<00:00, 292.07it/s]Loading weights: 100%|██████████| 393/393 [00:01<00:00, 329.08it/s]
+2026-09-30 11:06:58.790 | INFO     | src.reranker:_load:33 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+2026-09-30 11:07:03.102 | INFO     | src.text_retriever_v3:retrieve:106 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 7128ms
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:  69%|██████▊   | 270/393 [00:00<00:00, 2692.40it/s]Loading weights: 100%|██████████| 393/393 [00:00<00:00, 3028.86it/s]
+2026-09-30 11:07:04.199 | INFO     | src.reranker:_load:33 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+2026-09-30 11:07:06.644 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=table_only conf=0.90
+2026-09-30 11:07:06.782 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+2026-09-30 11:07:09.050 | INFO     | src.text_retriever_v3:retrieve:106 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2240ms
+2026-09-30 11:07:09.370 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=table_only conf=0.90
+2026-09-30 11:07:09.401 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+2026-09-30 11:07:11.181 | INFO     | src.text_retriever_v3:retrieve:106 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 1725ms
+2026-09-30 11:07:11.418 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+2026-09-30 11:07:12.936 | INFO     | src.text_retriever_v3:retrieve:106 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 1498ms
+2026-09-30 11:07:13.173 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=table_only conf=0.90
+2026-09-30 11:07:13.191 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+2026-09-30 11:07:14.554 | INFO     | src.text_retriever_v3:retrieve:106 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 1345ms
+2026-09-30 11:07:14.794 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+2026-09-30 11:07:16.399 | INFO     | src.text_retriever_v3:retrieve:106 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 1585ms
+2026-09-30 11:07:16.663 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=text_only conf=0.80
+2026-09-30 11:07:20.802 | INFO     | src.text_retriever_v3:retrieve:106 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 4138ms
+2026-09-30 11:07:21.022 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+2026-09-30 11:07:21.945 | INFO     | src.text_retriever_v3:retrieve:106 - [text_retriever_v3] retrieve: vec=24 kw=0 fused=8 822ms
+2026-09-30 11:07:22.286 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=table_only conf=0.90
+2026-09-30 11:08:18,614 [WARNING][_recover]: Connection recovery failed (connection_manager.py:676)
+Traceback (most recent call last):
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/decorators.py", line 419, in handler
+    return func(*args, **kwargs)
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/client/grpc_handler.py", line 1461, in search
+    return self._execute_search(
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/client/grpc_handler.py", line 1343, in _execute_search
+    response = self._stub.Search(request, timeout=timeout, metadata=_api_level_md(context))
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/grpc/_interceptor.py", line 276, in __call__
+    response, ignored_call = self._with_call(
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/grpc/_interceptor.py", line 331, in _with_call
+    return call.result(), call
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/grpc/_channel.py", line 447, in result
+    raise self
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/grpc/_interceptor.py", line 314, in continuation
+    response, call = self._thunk(new_method).with_call(
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/grpc/_channel.py", line 1182, in with_call
+    return _end_unary_response_blocking(state, call, True, None)
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/grpc/_channel.py", line 999, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "Stream removed (Socket closed)"
+	debug_error_string = "UNAVAILABLE:Stream removed (Socket closed)"
+>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/client/grpc_handler.py", line 257, in _wait_for_channel_ready
+    target_final_channel, target_stub = self._setup_identifier_interceptor(
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/client/grpc_handler.py", line 450, in _setup_identifier_interceptor
+    else self._internal_register(user, host, stub=target_stub, timeout=timeout)
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/client/grpc_handler.py", line 3267, in _internal_register
+    response = target_stub.Connect(request=req, timeout=kwargs.get("timeout"))
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/grpc/_channel.py", line 1168, in __call__
+    return _end_unary_response_blocking(state, call, False, None)
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/grpc/_channel.py", line 999, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:19530: Failed to connect to remote host: Connection refused"
+	debug_error_string = "UNAVAILABLE:failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:19530: Failed to connect to remote host: Connection refused"
+>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/client/connection_manager.py", line 672, in _recover
+    managed.handler.reconnect(address=new_address, timeout=managed.connect_timeout)
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/client/grpc_handler.py", line 318, in reconnect
+    new_final_channel, new_stub = self._wait_for_channel_ready(
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/client/grpc_handler.py", line 264, in _wait_for_channel_ready
+    raise MilvusException(
+pymilvus.exceptions.MilvusException: <MilvusException: (code=2, message=Fail connecting to server on localhost:19530, illegal connection params or server unavailable)>
+2026-09-30 11:08:18,650 [ERROR][_log_rpc_error]: RPC error: [search], <MilvusException: (code=2, message=Fail connecting to server on localhost:19530, illegal connection params or server unavailable)>, <elapsed:54057.3ms>
+Traceback:
+Traceback (most recent call last):
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/decorators.py", line 419, in handler
+    return func(*args, **kwargs)
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/client/grpc_handler.py", line 1461, in search
+    return self._execute_search(
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/client/grpc_handler.py", line 1343, in _execute_search
+    response = self._stub.Search(request, timeout=timeout, metadata=_api_level_md(context))
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/grpc/_interceptor.py", line 276, in __call__
+    response, ignored_call = self._with_call(
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/grpc/_interceptor.py", line 331, in _with_call
+    return call.result(), call
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/grpc/_channel.py", line 447, in result
+    raise self
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/grpc/_interceptor.py", line 314, in continuation
+    response, call = self._thunk(new_method).with_call(
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/grpc/_channel.py", line 1182, in with_call
+    return _end_unary_response_blocking(state, call, True, None)
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/grpc/_channel.py", line 999, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "Stream removed (Socket closed)"
+	debug_error_string = "UNAVAILABLE:Stream removed (Socket closed)"
+>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/client/grpc_handler.py", line 257, in _wait_for_channel_ready
+    target_final_channel, target_stub = self._setup_identifier_interceptor(
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/client/grpc_handler.py", line 450, in _setup_identifier_interceptor
+    else self._internal_register(user, host, stub=target_stub, timeout=timeout)
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/client/grpc_handler.py", line 3267, in _internal_register
+    response = target_stub.Connect(request=req, timeout=kwargs.get("timeout"))
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/grpc/_channel.py", line 1168, in __call__
+    return _end_unary_response_blocking(state, call, False, None)
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/grpc/_channel.py", line 999, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:19530: Failed to connect to remote host: Connection refused"
+	debug_error_string = "UNAVAILABLE:failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:19530: Failed to connect to remote host: Connection refused"
+>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/decorators.py", line 518, in handler
+    return func(*args, **kwargs)
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/decorators.py", line 565, in handler
+    return func(self, *args, **kwargs)
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/decorators.py", line 425, in handler
+    args[0]._on_rpc_error(e)
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/client/connection_manager.py", line 512, in <lambda>
+    handler._on_rpc_error = lambda error: self.handle_error(handler, error)
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/client/connection_manager.py", line 726, in handle_error
+    self._recover(managed)
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/client/connection_manager.py", line 672, in _recover
+    managed.handler.reconnect(address=new_address, timeout=managed.connect_timeout)
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/client/grpc_handler.py", line 318, in reconnect
+    new_final_channel, new_stub = self._wait_for_channel_ready(
+  File "/home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/pymilvus/client/grpc_handler.py", line 264, in _wait_for_channel_ready
+    raise MilvusException(
+pymilvus.exceptions.MilvusException: <MilvusException: (code=2, message=Fail connecting to server on localhost:19530, illegal connection params or server unavailable)>
+ (decorators.py:472)
+2026-09-30 11:08:18.650 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+2026-09-30 11:08:32.187 | INFO     | src.text_retriever_v3:retrieve:106 - [text_retriever_v3] retrieve: vec=24 kw=0 fused=8 5560ms
+2026-09-30 11:08:32.536 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=table_only conf=0.90
+2026-09-30 11:08:32.758 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+2026-09-30 11:08:42.359 | INFO     | src.text_retriever_v3:retrieve:106 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 6007ms

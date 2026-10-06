@@ -1,0 +1,8 @@
+2026-10-06 16:05:29.562 | INFO     | src.image_parser.image_store:__init__:43 - [image_store] 远程 Milvus: http://localhost:19530
+filter none: ''
+filter one: 'doc_id in ["招股说明书2"]'
+empty-filter query rows: 3
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:   2%|▏         | 6/399 [00:00<00:13, 28.32it/s]Loading weights:  19%|█▊        | 74/399 [00:00<00:01, 286.28it/s]Loading weights:  38%|███▊      | 150/399 [00:00<00:00, 446.51it/s]Loading weights:  51%|█████▏    | 205/399 [00:02<00:02, 77.12it/s] Loading weights:  79%|███████▉  | 317/399 [00:02<00:00, 150.59it/s]Loading weights: 100%|██████████| 399/399 [00:02<00:00, 175.52it/s]
+2026-10-06 16:05:40.704 | INFO     | src.image_parser.image_parser:_ensure_loaded:61 - [clip] Chinese-CLIP 就绪
+clip all: [('img_008', 0.45), ('img_011', 0.397), ('img_012', 0.38)]
+clip doc2: [('img_008', 0.45), ('img_011', 0.397), ('img_012', 0.38)]

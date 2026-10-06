@@ -1,0 +1,167 @@
+INFO:     Started server process [97743]
+INFO:     Waiting for application startup.
+2026-09-28 16:54:36.078 | INFO     | src.api:lifespan:18 - 🚀 RAG API 启动中...
+2026-09-28 16:54:37.000 | INFO     | src.vector_store:_connect:35 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-09-28 16:54:37.095 | INFO     | src.embedding:<module>:15 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-09-28 16:54:37.096 | INFO     | src.vector_store:_connect:35 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:   7%|▋         | 26/393 [00:00<00:01, 252.08it/s]Loading weights:  14%|█▍        | 56/393 [00:00<00:01, 265.93it/s]Loading weights:  21%|██        | 83/393 [00:00<00:01, 242.28it/s]Loading weights:  29%|██▉       | 113/393 [00:00<00:01, 253.39it/s]Loading weights:  38%|███▊      | 149/393 [00:00<00:00, 286.53it/s]Loading weights:  45%|████▌     | 178/393 [00:00<00:00, 277.13it/s]Loading weights:  52%|█████▏    | 206/393 [00:00<00:00, 256.15it/s]Loading weights:  59%|█████▉    | 232/393 [00:00<00:00, 246.86it/s]Loading weights:  67%|██████▋   | 264/393 [00:01<00:00, 267.48it/s]Loading weights:  78%|███████▊  | 306/393 [00:01<00:00, 306.49it/s]Loading weights:  87%|████████▋ | 342/393 [00:01<00:00, 321.55it/s]Loading weights: 100%|██████████| 393/393 [00:01<00:00, 324.04it/s]
+2026-09-28 16:54:46.341 | INFO     | src.retriever:__init__:70 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+2026-09-28 16:54:46.342 | WARNING  | src.retriever:_ensure_bm25_index:101 - Milvus 为空，无法构建 BM25
+2026-09-28 16:54:46.363 | INFO     | src.retriever:__init__:88 - ✅ 检索缓存已启用 (diskcache)
+2026-09-28 16:54:46.363 | INFO     | src.api:lifespan:35 - ✅ RAG API 就绪 | mysql=ok (8.0.46-0ubuntu0.22.04.4) | milvus=ok (remote)
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+INFO:     127.0.0.1:46014 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44632 - "GET /api/health HTTP/1.1" 200 OK
+2026-09-28 16:55:53.802 | INFO     | src.llm_client:get_client:21 - DeepSeek client 就绪: https://api.deepseek.com/v1
+2026-09-28 16:56:03.845 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=10043ms, tokens=2101
+INFO:     127.0.0.1:44636 - "POST /api/ask HTTP/1.1" 200 OK
+Building prefix dict from the default dictionary ...
+Loading model from cache /tmp/jieba.cache
+Loading model cost 0.276 seconds.
+Prefix dict has been built successfully.
+2026-09-28 16:56:04.196 | INFO     | src.retriever:retrieve:126 - 📦 检索缓存命中: 报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？
+2026-09-28 16:56:07.898 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=3702ms, tokens=3287
+INFO:     127.0.0.1:45910 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 16:56:13.056 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=5139ms, tokens=1095
+INFO:     127.0.0.1:45912 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 16:56:13.282 | INFO     | src.embedding:_load:34 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 12073.81it/s]
+2026-09-28 16:56:17.388 | INFO     | src.embedding:_load:38 - 嵌入模型就绪: dim=1024
+2026-09-28 16:56:17.600 | INFO     | src.retriever:retrieve:134 - 🔍 向量召回: 50 chunks in 4514ms
+2026-09-28 16:56:17.600 | INFO     | src.retriever:retrieve:161 - 🔀 RRF 融合: 31 chunks in 0ms
+2026-09-28 16:56:22.157 | INFO     | src.retriever:retrieve:174 - 📊 Rerank 重排: top 5 in 4557ms
+2026-09-28 16:56:22.166 | INFO     | src.retriever:retrieve:195 - ✅ 检索完成: 5 chunks | vec=4514ms bm25=0ms fuse=0ms
+2026-09-28 16:56:24.648 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=2482ms, tokens=2651
+INFO:     127.0.0.1:48336 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 16:56:33.843 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=9125ms, tokens=2105
+INFO:     127.0.0.1:46612 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 16:56:34.060 | INFO     | src.retriever:retrieve:134 - 🔍 向量召回: 50 chunks in 197ms
+2026-09-28 16:56:34.060 | INFO     | src.retriever:retrieve:161 - 🔀 RRF 融合: 32 chunks in 0ms
+2026-09-28 16:56:35.065 | INFO     | src.retriever:retrieve:174 - 📊 Rerank 重排: top 5 in 1005ms
+2026-09-28 16:56:35.065 | INFO     | src.retriever:retrieve:195 - ✅ 检索完成: 5 chunks | vec=197ms bm25=0ms fuse=0ms
+2026-09-28 16:56:37.026 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=1960ms, tokens=2584
+INFO:     127.0.0.1:48090 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 16:56:48.106 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=11063ms, tokens=2105
+INFO:     127.0.0.1:48100 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 16:56:48.216 | INFO     | src.retriever:retrieve:134 - 🔍 向量召回: 50 chunks in 86ms
+2026-09-28 16:56:48.216 | INFO     | src.retriever:retrieve:161 - 🔀 RRF 融合: 29 chunks in 0ms
+2026-09-28 16:56:49.131 | INFO     | src.retriever:retrieve:174 - 📊 Rerank 重排: top 5 in 914ms
+2026-09-28 16:56:49.131 | INFO     | src.retriever:retrieve:195 - ✅ 检索完成: 5 chunks | vec=86ms bm25=0ms fuse=0ms
+2026-09-28 16:56:55.208 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=6077ms, tokens=3117
+INFO:     127.0.0.1:47430 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 16:56:57.863 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=2634ms, tokens=435
+INFO:     127.0.0.1:48686 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 16:56:57.932 | INFO     | src.retriever:retrieve:134 - 🔍 向量召回: 50 chunks in 52ms
+2026-09-28 16:56:57.932 | INFO     | src.retriever:retrieve:161 - 🔀 RRF 融合: 30 chunks in 0ms
+2026-09-28 16:56:58.927 | INFO     | src.retriever:retrieve:174 - 📊 Rerank 重排: top 5 in 994ms
+2026-09-28 16:56:58.927 | INFO     | src.retriever:retrieve:195 - ✅ 检索完成: 5 chunks | vec=52ms bm25=0ms fuse=0ms
+2026-09-28 16:57:00.259 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=1332ms, tokens=2030
+INFO:     127.0.0.1:48698 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 16:57:10.425 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=10150ms, tokens=2083
+INFO:     127.0.0.1:48712 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 16:57:10.533 | INFO     | src.retriever:retrieve:134 - 🔍 向量召回: 50 chunks in 88ms
+2026-09-28 16:57:10.533 | INFO     | src.retriever:retrieve:161 - 🔀 RRF 融合: 29 chunks in 0ms
+2026-09-28 16:57:11.431 | INFO     | src.retriever:retrieve:174 - 📊 Rerank 重排: top 5 in 898ms
+2026-09-28 16:57:11.432 | INFO     | src.retriever:retrieve:195 - ✅ 检索完成: 5 chunks | vec=88ms bm25=0ms fuse=0ms
+2026-09-28 16:57:17.669 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=6237ms, tokens=2957
+INFO:     127.0.0.1:46184 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 16:57:29.915 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=12221ms, tokens=2100
+INFO:     127.0.0.1:47066 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 16:57:30.035 | INFO     | src.retriever:retrieve:134 - 🔍 向量召回: 50 chunks in 101ms
+2026-09-28 16:57:30.035 | INFO     | src.retriever:retrieve:161 - 🔀 RRF 融合: 33 chunks in 0ms
+2026-09-28 16:57:31.034 | INFO     | src.retriever:retrieve:174 - 📊 Rerank 重排: top 5 in 999ms
+2026-09-28 16:57:31.035 | INFO     | src.retriever:retrieve:195 - ✅ 检索完成: 5 chunks | vec=101ms bm25=0ms fuse=0ms
+2026-09-28 16:57:33.114 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=2079ms, tokens=2151
+INFO:     127.0.0.1:47544 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 16:57:43.416 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=10281ms, tokens=2094
+INFO:     127.0.0.1:47556 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 16:57:43.441 | INFO     | src.retriever:retrieve:126 - 📦 检索缓存命中: 武汉兴图新科电子股份有限公司注册资本是多少？
+2026-09-28 16:57:44.891 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=1450ms, tokens=2327
+INFO:     127.0.0.1:44704 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 16:57:46.853 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=1940ms, tokens=351
+INFO:     127.0.0.1:46386 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 16:57:46.878 | INFO     | src.retriever:retrieve:126 - 📦 检索缓存命中: 武汉兴图新科电子股份有限公司法定代表人是谁？
+2026-09-28 16:57:48.394 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=1516ms, tokens=2362
+INFO:     127.0.0.1:46388 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 16:57:58.206 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=9785ms, tokens=2102
+INFO:     127.0.0.1:46402 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 16:57:58.434 | INFO     | src.retriever:retrieve:134 - 🔍 向量召回: 50 chunks in 202ms
+2026-09-28 16:57:58.434 | INFO     | src.retriever:retrieve:161 - 🔀 RRF 融合: 29 chunks in 0ms
+2026-09-28 16:57:59.395 | INFO     | src.retriever:retrieve:174 - 📊 Rerank 重排: top 5 in 961ms
+2026-09-28 16:57:59.396 | INFO     | src.retriever:retrieve:195 - ✅ 检索完成: 5 chunks | vec=202ms bm25=0ms fuse=0ms
+2026-09-28 16:58:01.224 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=1829ms, tokens=2264
+INFO:     127.0.0.1:48348 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48378 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48394 - "GET /api/questions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45474 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45482 - "GET /api/questions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45076 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45088 - "GET /api/questions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47580 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47586 - "GET /api/questions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6937 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6937 - "GET /%40vite/client HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:46286 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46290 - "GET /api/questions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47318 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45944 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45954 - "GET /api/questions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:7925 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:7925 - "GET /%40vite/client HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:7925 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:7925 - "GET /%40vite/client HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:7925 - "GET /api/questions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:7925 - "GET /%40vite/client HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:46034 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46040 - "GET /api/questions HTTP/1.1" 200 OK
+2026-09-28 17:08:27.132 | INFO     | src.retriever:retrieve:126 - 📦 检索缓存命中: 武汉兴图新科电子股份有限公司法定代表人是谁？
+2026-09-28 17:08:28.350 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=1217ms, tokens=2251
+INFO:     127.0.0.1:45980 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 17:08:29.990 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=1619ms, tokens=328
+INFO:     127.0.0.1:45982 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 17:08:30.006 | INFO     | src.retriever:retrieve:126 - 📦 检索缓存命中: 武汉兴图新科电子股份有限公司注册资本是多少？
+2026-09-28 17:08:31.112 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=1106ms, tokens=2284
+INFO:     127.0.0.1:45996 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 17:08:41.240 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=10112ms, tokens=2093
+INFO:     127.0.0.1:46000 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 17:08:41.261 | INFO     | src.retriever:retrieve:126 - 📦 检索缓存命中: 报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？
+2026-09-28 17:08:43.907 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=2646ms, tokens=2983
+INFO:     127.0.0.1:45420 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 17:08:53.238 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=9311ms, tokens=2101
+INFO:     127.0.0.1:45426 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 17:08:53.258 | INFO     | src.retriever:retrieve:126 - 📦 检索缓存命中: 报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别
+2026-09-28 17:08:55.653 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=2394ms, tokens=2670
+INFO:     127.0.0.1:48674 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 17:09:05.012 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=9337ms, tokens=2105
+INFO:     127.0.0.1:45300 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 17:09:05.029 | INFO     | src.retriever:retrieve:126 - 📦 检索缓存命中: 武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？
+2026-09-28 17:09:07.041 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=2012ms, tokens=2204
+INFO:     127.0.0.1:45304 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 17:09:19.132 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=12072ms, tokens=2099
+INFO:     127.0.0.1:45490 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 17:09:19.162 | INFO     | src.retriever:retrieve:126 - 📦 检索缓存命中: 武汉兴图新科电子股份有限公司参与制定了哪个技术标准？
+2026-09-28 17:09:21.401 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=2239ms, tokens=2598
+INFO:     127.0.0.1:48432 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 17:09:31.470 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=10054ms, tokens=2017
+INFO:     127.0.0.1:48434 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 17:09:31.494 | INFO     | src.retriever:retrieve:126 - 📦 检索缓存命中: 武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？
+2026-09-28 17:09:32.978 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=1484ms, tokens=2364
+INFO:     127.0.0.1:46254 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 17:09:42.436 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=9436ms, tokens=2102
+INFO:     127.0.0.1:46262 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 17:09:42.460 | INFO     | src.retriever:retrieve:126 - 📦 检索缓存命中: 武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？
+2026-09-28 17:09:43.934 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=1474ms, tokens=2117
+INFO:     127.0.0.1:46532 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 17:09:46.446 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=2492ms, tokens=442
+INFO:     127.0.0.1:46548 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 17:09:46.470 | INFO     | src.retriever:retrieve:126 - 📦 检索缓存命中: 根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？
+2026-09-28 17:09:50.065 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=3595ms, tokens=2677
+INFO:     127.0.0.1:47792 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 17:10:01.795 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=11713ms, tokens=2105
+INFO:     127.0.0.1:47796 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 17:10:01.813 | INFO     | src.retriever:retrieve:126 - 📦 检索缓存命中: 根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？
+2026-09-28 17:10:05.611 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=3797ms, tokens=2186
+INFO:     127.0.0.1:47286 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-28 17:10:16.103 | INFO     | src.llm_client:chat:37 - LLM 返回: model=deepseek-v4-flash, latency=10475ms, tokens=2105
+INFO:     127.0.0.1:47298 - "POST /api/ask HTTP/1.1" 200 OK

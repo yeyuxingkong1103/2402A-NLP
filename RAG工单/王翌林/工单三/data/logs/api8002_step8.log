@@ -1,0 +1,44 @@
+INFO:     Started server process [9954]
+INFO:     Waiting for application startup.
+2026-09-29 07:42:36.413 | INFO     | src.api:lifespan:18 - 🚀 RAG API 启动中...
+2026-09-29 07:42:37.241 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-09-29 07:42:37.302 | INFO     | src.embedding:<module>:15 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-09-29 07:42:37.303 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:  75%|███████▍  | 293/393 [00:00<00:00, 2927.71it/s]Loading weights: 100%|██████████| 393/393 [00:00<00:00, 3088.93it/s]
+2026-09-29 07:42:43.789 | INFO     | src.retriever:__init__:70 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+2026-09-29 07:42:43.790 | WARNING  | src.retriever:_ensure_bm25_index:101 - Milvus 为空，无法构建 BM25
+2026-09-29 07:42:43.803 | INFO     | src.retriever:__init__:88 - ✅ 检索缓存已启用 (diskcache)
+2026-09-29 07:42:43.804 | INFO     | src.api:lifespan:35 - ✅ RAG API 就绪 | mysql=ok (8.0.46-0ubuntu0.22.04.4) | milvus=ok (remote)
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8002 (Press CTRL+C to quit)
+INFO:     127.0.0.1:47484 - "GET /api/health HTTP/1.1" 200 OK
+2026-09-29 07:42:44.087 | INFO     | src.cache:__init__:57 - ✅ 语义缓存就绪: data/retriever_cache/semantic_v2 (threshold=0.92)
+2026-09-29 07:42:44.228 | INFO     | src.embedding:_load:34 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 9453.76it/s]
+2026-09-29 07:42:47.534 | INFO     | src.embedding:_load:38 - 嵌入模型就绪: dim=1024
+2026-09-29 07:42:47.552 | INFO     | src.cache:lookup:105 - 🟡 语义缓存命中 sim=0.998
+INFO:     127.0.0.1:47498 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48696 - "GET /api/health HTTP/1.1" 200 OK
+Building prefix dict from the default dictionary ...
+Loading model from cache /tmp/jieba.cache
+Loading model cost 0.457 seconds.
+Prefix dict has been built successfully.
+2026-09-29 08:37:33.131 | INFO     | src.hybrid_retriever:__init__:102 - ✅ 向量索引缓存载入: data/optimized/chunk_vectors.npy (1565, 1024)
+2026-09-29 08:37:33.142 | INFO     | src.rag_engine:get_hybrid_retriever:47 - ✅ 工单二优化检索器就绪: 1565 子块 / 843 父块
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:   4%|▍         | 16/393 [00:00<00:02, 155.40it/s]Loading weights:  11%|█         | 44/393 [00:00<00:01, 207.44it/s]Loading weights:  17%|█▋        | 65/393 [00:00<00:01, 201.43it/s]Loading weights:  22%|██▏       | 85/393 [00:00<00:01, 189.14it/s]Loading weights:  28%|██▊       | 112/393 [00:00<00:01, 206.15it/s]Loading weights:  36%|███▌      | 142/393 [00:00<00:01, 234.39it/s]Loading weights:  42%|████▏     | 166/393 [00:00<00:01, 225.55it/s]Loading weights:  48%|████▊     | 189/393 [00:00<00:00, 205.16it/s]Loading weights:  53%|█████▎    | 210/393 [00:01<00:02, 87.95it/s] Loading weights:  58%|█████▊    | 226/393 [00:01<00:01, 91.84it/s]Loading weights:  62%|██████▏   | 243/393 [00:01<00:01, 104.02it/s]Loading weights:  68%|██████▊   | 266/393 [00:01<00:01, 126.72it/s]Loading weights:  73%|███████▎  | 285/393 [00:01<00:00, 137.41it/s]Loading weights:  79%|███████▉  | 312/393 [00:02<00:00, 164.29it/s]Loading weights: 100%|██████████| 393/393 [00:02<00:00, 181.46it/s]
+2026-09-29 08:37:41.910 | INFO     | src.reranker:_load:33 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+2026-09-29 08:37:45.903 | INFO     | src.llm_client:get_client:21 - DeepSeek client 就绪: https://api.deepseek.com/v1
+2026-09-29 08:37:46.975 | INFO     | src.llm_client:chat:50 - LLM 返回: model=deepseek-v4-flash, latency=1071ms, tokens=1917
+INFO:     127.0.0.1:47120 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-29 08:37:47.709 | INFO     | src.retriever:retrieve:134 - 🔍 向量召回: 50 chunks in 534ms
+2026-09-29 08:37:47.709 | INFO     | src.retriever:retrieve:161 - 🔀 RRF 融合: 41 chunks in 0ms
+2026-09-29 08:37:59.566 | INFO     | src.retriever:retrieve:174 - 📊 Rerank 重排: top 5 in 11856ms
+2026-09-29 08:37:59.578 | INFO     | src.retriever:retrieve:195 - ✅ 检索完成: 5 chunks | vec=534ms bm25=0ms fuse=0ms
+2026-09-29 08:38:00.693 | INFO     | src.llm_client:chat:50 - LLM 返回: model=deepseek-v4-flash, latency=1114ms, tokens=1511
+INFO:     127.0.0.1:47674 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44960 - "POST /api/ask HTTP/1.1" 200 OK
+2026-09-29 08:45:53.076 | INFO     | src.retriever:retrieve:126 - 📦 检索缓存命中: 报告期内公司营业收入分别是多少？
+2026-09-29 08:45:54.840 | INFO     | src.llm_client:chat:50 - LLM 返回: model=deepseek-v4-flash, latency=1764ms, tokens=1507
+INFO:     127.0.0.1:44976 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48002 - "POST /api/feedback HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48272 - "GET /api/health HTTP/1.1" 200 OK

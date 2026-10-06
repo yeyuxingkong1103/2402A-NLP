@@ -1,0 +1,36 @@
+2026-10-06 15:10:21.367 | INFO     | src.embedding:<module>:20 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-10-06 15:10:21.463 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-10-06 15:10:21.670 | INFO     | src.embedding:_load:50 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 12721.45it/s]
+2026-10-06 15:10:24.692 | INFO     | src.embedding:_load:55 - max_seq_length=512
+2026-10-06 15:10:25.050 | INFO     | src.embedding:_load:60 - 嵌入模型就绪: dim=1024
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:  19%|█▉        | 76/393 [00:00<00:00, 709.05it/s]Loading weights:  42%|████▏     | 167/393 [00:00<00:00, 791.37it/s]Loading weights:  63%|██████▎   | 247/393 [00:00<00:00, 738.40it/s]Loading weights:  82%|████████▏ | 322/393 [00:00<00:00, 689.37it/s]Loading weights: 100%|██████████| 393/393 [00:00<00:00, 791.85it/s]
+2026-10-06 15:10:26.797 | INFO     | src.reranker:_load:46 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+Building prefix dict from the default dictionary ...
+Loading model from cache /tmp/jieba.cache
+Loading model cost 0.304 seconds.
+Prefix dict has been built successfully.
+2026-10-06 15:10:30.921 | INFO     | src.text_retriever_v3:retrieve:115 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 4115ms
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:  53%|█████▎    | 208/393 [00:00<00:00, 2079.30it/s]Loading weights: 100%|██████████| 393/393 [00:00<00:00, 2598.93it/s]
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:  70%|███████   | 276/393 [00:00<00:00, 2731.78it/s]Loading weights: 100%|██████████| 393/393 [00:00<00:00, 2945.84it/s]
+==========================================================================================
+id3 公司的主要关联方有哪些？
+vec=24 kw_total=24 kw_new=24
+smart_pool=28
+  full: 1212ms top8=['p173*v', 'p172*v', 'p171*v', 'p172*v', 'p131*v', 'p9*k', 'p55*v', 'p179*v']
+  cut8: 2418ms top8=['p173*v', 'p172*v', 'p171*v', 'p172*v', 'p131*v', 'p9*k', 'p55*v', 'p179*v']
+  cut6: 1723ms top8=['p173*v', 'p172*v', 'p171*v', 'p172*v', 'p131*v', 'p9*k', 'p55*v', 'p179*v']
+==========================================================================================
+id5 报告期内，公司来自军用领域的收入分别是多少？
+vec=24 kw_total=24 kw_new=23
+smart_pool=28
+  full: 1256ms top8=['p217v', 'p263v', 'p131v', 'p4*v', 'p29v', 'p213v', 'p130v', 'p218v']
+  cut8: 1221ms top8=['p217v', 'p263v', 'p131v', 'p4*v', 'p29v', 'p213v', 'p130v', 'p218v']
+  cut6: 1208ms top8=['p217v', 'p263v', 'p131v', 'p4*v', 'p29v', 'p213v', 'p130v', 'p218v']
+==========================================================================================
+id10 力源信息报告期内主营业务收入构成是什么？
+vec=24 kw_total=24 kw_new=24
+smart_pool=28
+  full: 1216ms top8=['p120*v', 'p279*v', 'p246*v', 'p287v', 'p244*v', 'p278*v', 'p285*v', 'p255v']
+  cut8: 1221ms top8=['p120*v', 'p279*v', 'p246*v', 'p287v', 'p244*v', 'p278*v', 'p285*v', 'p255v']
+  cut6: 1180ms top8=['p120*v', 'p279*v', 'p246*v', 'p287v', 'p244*v', 'p278*v', 'p285*v', 'p255v']

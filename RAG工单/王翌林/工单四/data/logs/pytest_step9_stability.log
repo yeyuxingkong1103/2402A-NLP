@@ -1,0 +1,17 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /home/dabaie/code/my_project/.venv/bin/python
+rootdir: /home/dabaie/code/工单/工单二
+plugins: anyio-4.15.1, langsmith-0.12.4, asyncio-1.4.0
+asyncio: mode=strict, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 2 items
+
+tests/test_stability.py::test_100_requests_latency_and_memory PASSED
+tests/test_stability.py::test_mixed_invalid_input_keeps_service_alive PASSED
+
+=============================== warnings summary ===============================
+../../my_project/.venv/lib/python3.10/site-packages/starlette/testclient.py:53
+  /home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+========================= 2 passed, 1 warning in 1.93s =========================

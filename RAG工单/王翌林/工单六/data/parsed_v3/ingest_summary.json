@@ -1,0 +1,52 @@
+{
+  "ingest_started_at": "2026-09-29T15:29:39",
+  "attach_dir": "/home/dabaie/code/工单/工单三/附件",
+  "total_pdfs_scanned": 2,
+  "ingested_count": 2,
+  "skipped_count": 0,
+  "failed_count": 0,
+  "ingested": [
+    {
+      "doc_id": "f23b7efce300c885",
+      "doc_name": "招股说明书1",
+      "company": "武汉兴图新科电子股份有限公司",
+      "filename": "招股说明书1-无水印.pdf",
+      "file_hash": "1917f9568d5e05b05c5355a9108fbafabbe516a37f634e5aef70e3a32b7a975d",
+      "total_pages": 333,
+      "total_chars": 283839,
+      "text_chunk_count": 548,
+      "table_count": 246,
+      "raw_table_count": 266,
+      "parse_seconds": 15.1,
+      "text_json": "data/parsed_v3/招股说明书1_text.json",
+      "tables_json": "data/tables/招股说明书1_tables.json",
+      "errors": []
+    },
+    {
+      "doc_id": "db53c57fa7f2e004",
+      "doc_name": "招股说明书2",
+      "company": "武汉力源信息技术股份有限公司",
+      "filename": "招股说明书2.pdf",
+      "file_hash": "24deaf622e882269968a27fea702493ab3be909d6fadd35785dae64f783008f1",
+      "total_pages": 350,
+      "total_chars": 311980,
+      "text_chunk_count": 593,
+      "table_count": 230,
+      "raw_table_count": 241,
+      "parse_seconds": 10.45,
+      "text_json": "data/parsed_v3/招股说明书2_text.json",
+      "tables_json": "data/tables/招股说明书2_tables.json",
+      "errors": []
+    }
+  ],
+  "skipped": [],
+  "failed": [],
+  "all_text_chunks_files": [
+    "data/parsed_v3/招股说明书1_text.json",
+    "data/parsed_v3/招股说明书2_text.json"
+  ],
+  "all_table_chunks_files": [
+    "data/tables/招股说明书1_tables.json",
+    "data/tables/招股说明书2_tables.json"
+  ]
+}

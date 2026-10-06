@@ -1,0 +1,58 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________________ test_integration_chinese_registered_capital __________________
+
+engine = <src.rag_engine_v3.RAGEngineV3 object at 0x7e1d4595e650>
+
+    @pytest.mark.skipif(not _HAS_LLM, reason="无 DEEPSEEK_API_KEY")
+    def test_integration_chinese_registered_capital(engine):
+        """工单三：中文注册资本问题"""
+        query = "武汉兴图新科电子股份有限公司注册资本是多少？"
+        r = bilingual_ask_rag(engine, query, doc_id="招股说明书1")
+        assert r["lang"] == "zh"
+        assert r["answer_lang"] == "zh"
+        assert len(r["answer"]) > 0
+        # 答案应含"万"或"元"（注册资本金额单位）
+>       assert "万" in r["answer"] or "元" in r["answer"], \
+            f"答案应含金额单位，实际: {r['answer'][:200]}"
+E       AssertionError: 答案应含金额单位，实际: 参考资料中未提及武汉兴图新科电子股份有限公司的注册资本信息。
+E       assert ('万' in '参考资料中未提及武汉兴图新科电子股份有限公司的注册资本信息。' or '元' in '参考资料中未提及武汉兴图新科电子股份有限公司的注册资本信息。')
+
+../工单三/tests/test_multilingual_v3.py:87: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+2026-10-06 15:29:45.514 | INFO     | src.embedding:<module>:20 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-10-06 15:29:45.907 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-10-06 15:29:45.908 | INFO     | src.rag_engine_v3:_load_text_retriever:76 - [rag_engine_v3] TextRetrieverV3 已加载（多文档）
+2026-10-06 15:29:45.909 | INFO     | src.table_parser.table_store:_connect:69 - [table_store] 远程 Milvus: http://localhost:19530 v=2.6.9
+----------------------------- Captured stderr call -----------------------------
+2026-10-06 15:29:45.910 | INFO     | src.rag_engine_v3:ask_rag:115 - [rag_engine_v3] route=hybrid conf=0.70
+Building prefix dict from the default dictionary ...
+Loading model from cache /tmp/jieba.cache
+Loading model cost 0.355 seconds.
+Prefix dict has been built successfully.
+2026-10-06 15:29:50.194 | INFO     | src.embedding:_load:50 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+2026-10-06 15:29:50.194 | INFO     | src.embedding:_load:50 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s][ALoading weights: 100%|██████████| 391/391 [00:00<00:00, 4188.52it/s]
+Loading weights: 100%|██████████| 391/391 [00:00<00:00, 7395.46it/s]
+2026-10-06 15:29:55.198 | INFO     | src.embedding:_load:55 - max_seq_length=512
+2026-10-06 15:29:55.268 | INFO     | src.embedding:_load:55 - max_seq_length=512
+2026-10-06 15:29:55.632 | INFO     | src.embedding:_load:60 - 嵌入模型就绪: dim=1024
+2026-10-06 15:29:55.634 | INFO     | src.embedding:_load:60 - 嵌入模型就绪: dim=1024
+2026-10-06 15:29:55.821 | INFO     | src.text_retriever_v3:retrieve:121 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 9873ms
+2026-10-06 15:29:56.088 | INFO     | src.llm_client_v3:get_client:31 - [llm_client_v3] DeepSeek client 就绪: https://api.deepseek.com/v1
+2026-10-06 15:29:56.797 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=709ms, tokens=1228
+------------------------------ Captured log call -------------------------------
+DEBUG    jieba:__init__.py:113 Building prefix dict from the default dictionary ...
+DEBUG    jieba:__init__.py:132 Loading model from cache /tmp/jieba.cache
+DEBUG    jieba:__init__.py:164 Loading model cost 0.355 seconds.
+DEBUG    jieba:__init__.py:166 Prefix dict has been built successfully.
+=============================== warnings summary ===============================
+tests/test_multilingual_v3.py::test_integration_chinese_registered_capital
+  /home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/jieba/_compat.py:18: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+    import pkg_resources
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_multilingual_v3.py::test_integration_chinese_registered_capital
+1 failed, 1 warning in 11.52s

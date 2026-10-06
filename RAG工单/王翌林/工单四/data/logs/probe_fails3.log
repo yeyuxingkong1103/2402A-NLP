@@ -1,0 +1,88 @@
+2026-10-06 15:07:53.069 | INFO     | src.embedding:<module>:20 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-10-06 15:07:53.527 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-10-06 15:07:53.527 | INFO     | src.rag_engine_v3:_load_text_retriever:76 - [rag_engine_v3] TextRetrieverV3 已加载（多文档）
+2026-10-06 15:07:53.528 | INFO     | src.table_parser.table_store:_connect:69 - [table_store] 远程 Milvus: http://localhost:19530 v=2.6.9
+2026-10-06 15:07:53.613 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+Building prefix dict from the default dictionary ...
+Loading model from cache /tmp/jieba.cache
+Loading model cost 0.314 seconds.
+Prefix dict has been built successfully.
+2026-10-06 15:07:59.201 | INFO     | src.embedding:_load:50 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 12661.54it/s]
+2026-10-06 15:08:02.629 | INFO     | src.embedding:_load:55 - max_seq_length=512
+2026-10-06 15:08:03.003 | INFO     | src.embedding:_load:60 - 嵌入模型就绪: dim=1024
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:  58%|█████▊    | 226/393 [00:00<00:00, 2253.47it/s]Loading weights: 100%|██████████| 393/393 [00:00<00:00, 2712.08it/s]
+2026-10-06 15:08:04.757 | INFO     | src.reranker:_load:46 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+2026-10-06 15:08:07.953 | INFO     | src.text_retriever_v3:retrieve:115 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 4930ms
+2026-10-06 15:08:08.661 | INFO     | src.llm_client_v3:get_client:31 - [llm_client_v3] DeepSeek client 就绪: https://api.deepseek.com/v1
+2026-10-06 15:08:20.489 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1272ms, tokens=1559
+2026-10-06 15:08:12.402 | INFO     | src.text_retriever_v3:retrieve:115 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2110ms
+2026-10-06 15:08:14.524 | INFO     | src.text_retriever_v3:retrieve:115 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2078ms
+2026-10-06 15:08:17.733 | INFO     | src.text_retriever_v3:retrieve:115 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2131ms
+==========================================================================================
+id5 报告期内，公司来自军用领域的收入分别是多少？  GOLD=['6464', '14414', '18780', '军用', '国防']
+主路由: hybrid 0.7
+-- table_hits(8):
+   T0 p23 score=0.800 path=keyword gold=['军用'] :: 表标题: 项目名称、项目总投资（万元） | 公司: 武汉兴图新科电子股份有限公司 | 来源: 招股说明书1 | 页码: 23 列: 项目名称、项目总投资（万元）
+   T1 p12 score=0.700 path=keyword gold=[] :: 表标题: col_1 | 公司: 武汉兴图新科电子股份有限公司 | 来源: 招股说明书1 | 页码: 12-13 列: col_1 行1: 指 行2: 指 行3
+   T2 p13 score=0.700 path=keyword gold=[] :: 表标题: col_1 | 公司: 武汉兴图新科电子股份有限公司 | 来源: 招股说明书1 | 页码: 13-15 列: col_1 行1: 指 行2: 指 行3
+   T3 p16 score=0.700 path=keyword gold=[] :: 表标题: Wuhan Xingtu Xinke Electronics Co.,Ltd.、股份公司成立日 期 | 公司: 武汉兴图新科电子股份有限公司 | 来源
+   T4 p16 score=0.700 path=keyword gold=[] :: 表标题: col_1、col_2 | 公司: 武汉兴图新科电子股份有限公司 | 来源: 招股说明书1 | 页码: 16 列: col_1、col_2 行1: 不
+   T5 p17 score=0.700 path=keyword gold=[] :: 表标题: col_1、col_2 | 公司: 武汉兴图新科电子股份有限公司 | 来源: 招股说明书1 | 页码: 17 列: col_1、col_2 行1: 3
+   T6 p25 score=0.700 path=keyword gold=[] :: 表标题: col_1、col_2 | 公司: 武汉兴图新科电子股份有限公司 | 来源: 招股说明书1 | 页码: 25 列: col_1、col_2 行1: 不
+   T7 p25 score=0.700 path=keyword gold=[] :: 表标题: col_1、col_2 | 公司: 武汉兴图新科电子股份有限公司 | 来源: 招股说明书1 | 页码: 25 列: col_1、col_2 行1: 3
+-- text_hits(8):
+   X0 p217 rr=0.986 gold=['军用', '国防'] :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-216 项目 
+   X1 p263 rr=0.890 gold=[] :: 现金分别为9,439.40 万元、 14,895.17 万元和13,870.75 万元，除2016 年外均低于同期的含税营业收入，其 主要原因为：第一，公司产品
+   X2 p131 rr=0.835 gold=[] :: .50 摄像设备 34.68 149.72 324.38 其他 23.78 6.25 12.31 合计 3,367.82 3,519.88 3,087.57 报
+   X3 p4 rr=0.834 gold=['国防'] :: 18,780.67 万元，占主营业务收入的比重分别为82.10%、97.31%和94.84%； 我国军工行业用户集中度高，导致以国防客户为主的发行人具有客户集中
+   X4 p29 rr=0.793 gold=['国防'] :: 占主营业务收入的比重分别为82.10%、97.31%和94.84%； 我国军工行业用户集中度高，导致以国防客户为主的发行人具有客户集中的特征， 发行人报告期内向
+   X5 p213 rr=0.708 gold=['国防'] :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-212 由于本
+   X6 p130 rr=0.701 gold=[] :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-129 4、按
+   X7 p218 rr=0.681 gold=[] :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-217 报告期
+-- 新逻辑 fused top5:
+   N0 text p217 rr=0.986 gold=['军用', '国防'] :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-216 项目 
+   N1 text p263 rr=0.890 gold=[] :: 现金分别为9,439.40 万元、 14,895.17 万元和13,870.75 万元，除2016 年外均低于同期的含税营业收入，其 主要原因为：第一，公司产品
+   N2 text p131 rr=0.835 gold=[] :: .50 摄像设备 34.68 149.72 324.38 其他 23.78 6.25 12.31 合计 3,367.82 3,519.88 3,087.57 报
+   N3 text p4 rr=0.834 gold=['国防'] :: 18,780.67 万元，占主营业务收入的比重分别为82.10%、97.31%和94.84%； 我国军工行业用户集中度高，导致以国防客户为主的发行人具有客户集中
+   N4 text p29 rr=0.793 gold=['国防'] :: 占主营业务收入的比重分别为82.10%、97.31%和94.84%； 我国军工行业用户集中度高，导致以国防客户为主的发行人具有客户集中的特征， 发行人报告期内向
+-- 旧逻辑(RRF+二次rerank) top5:
+   O0 text pNone rr=0.986 gold=['军用', '国防'] :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-216 项目 
+   O1 text pNone rr=0.890 gold=[] :: 现金分别为9,439.40 万元、 14,895.17 万元和13,870.75 万元，除2016 年外均低于同期的含税营业收入，其 主要原因为：第一，公司产品
+   O2 text pNone rr=0.835 gold=[] :: .50 摄像设备 34.68 149.72 324.38 其他 23.78 6.25 12.31 合计 3,367.82 3,519.88 3,087.57 报
+   O3 text pNone rr=0.834 gold=['国防'] :: 18,780.67 万元，占主营业务收入的比重分别为82.10%、97.31%和94.84%； 我国军工行业用户集中度高，导致以国防客户为主的发行人具有客户集中
+   O4 text pNone rr=0.793 gold=['国防'] :: 占主营业务收入的比重分别为82.10%、97.31%和94.84%； 我国军工行业用户集中度高，导致以国防客户为主的发行人具有客户集中的特征， 发行人报告期内向
+==========================================================================================
+id10 力源信息报告期内主营业务收入构成是什么？  GOLD=['主营业务收入', '构成', 'IC卡', '电子元器件']
+主路由: text_only 0.8
+-- table_hits(8):
+   T0 p291 score=0.915 path=vector gold=['主营业务收入'] :: 表标题: 项目、col_2、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 291 列: 项目、col_2、col_
+   T1 p120 score=0.908 path=vector gold=[] :: 表标题: col_1、col_2、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 120 列: col_1、col_
+   T2 p244 score=0.907 path=vector gold=['主营业务收入'] :: 表标题: col_1、分部情况、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 244 列: col_1、分部情况、
+   T3 p22 score=0.900 path=keyword gold=[] :: 表标题: col_1、序号、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 22 列: col_1、序号、col_3
+   T4 p245 score=0.898 path=vector gold=['主营业务收入'] :: 表标题: col_1、分部情况、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 245 列: col_1、分部情况、
+   T5 p246 score=0.898 path=vector gold=['主营业务收入'] :: 表标题: col_1、分部情况、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 246 列: col_1、分部情况、
+   T6 p244 score=0.893 path=vector gold=['主营业务收入'] :: 表标题: col_1、分部情况、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 244 列: col_1、分部情况、
+   T7 p285 score=0.884 path=vector gold=[] :: 表标题: col_1、col_2、col_3 | 公司: 武汉力源信息技术股份有限公司 | 来源: 招股说明书2 | 页码: 285 列: col_1、col_
+-- text_hits(8):
+   X0 p120 rr=0.976 gold=['主营业务收入'] :: 武汉力源信息技术股份有限公司                                                      招股意向书 119 时钟
+   X1 p279 rr=0.975 gold=['主营业务收入'] :: 武汉力源信息技术股份有限公司                                                      招股意向书 278 3、
+   X2 p246 rr=0.943 gold=['主营业务收入'] :: 武汉力源信息技术股份有限公司                                                      招股意向书 245 收入
+   X3 p287 rr=0.939 gold=[] :: 武汉力源信息技术股份有限公司                                                      招股意向书 286 综合
+2026-10-06 15:08:19.837 | INFO     | src.text_retriever_v3:retrieve:115 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 2104ms
+   X4 p244 rr=0.920 gold=['主营业务收入'] :: 武汉力源信息技术股份有限公司                                                      招股意向书 243 因本
+   X5 p278 rr=0.913 gold=['主营业务收入'] :: 武汉力源信息技术股份有限公司                                                      招股意向书 277 售收
+   X6 p285 rr=0.903 gold=['构成'] :: 武汉力源信息技术股份有限公司                                                      招股意向书 284 3、
+   X7 p255 rr=0.902 gold=[] :: 武汉力源信息技术股份有限公司                                                      招股意向书 254 在建
+-- 新逻辑 fused top5:
+   N0 text p120 rr=0.976 gold=['主营业务收入'] :: 武汉力源信息技术股份有限公司                                                      招股意向书 119 时钟
+   N1 text p279 rr=0.975 gold=['主营业务收入'] :: 武汉力源信息技术股份有限公司                                                      招股意向书 278 3、
+   N2 text p246 rr=0.943 gold=['主营业务收入'] :: 武汉力源信息技术股份有限公司                                                      招股意向书 245 收入
+   N3 text p287 rr=0.939 gold=[] :: 武汉力源信息技术股份有限公司                                                      招股意向书 286 综合
+   N4 text p244 rr=0.920 gold=['主营业务收入'] :: 武汉力源信息技术股份有限公司                                                      招股意向书 243 因本
+-- 旧逻辑(RRF+二次rerank) top5:
+   O0 text pNone rr=0.976 gold=['主营业务收入'] :: 武汉力源信息技术股份有限公司                                                      招股意向书 119 时钟
+   O1 text pNone rr=0.975 gold=['主营业务收入'] :: 武汉力源信息技术股份有限公司                                                      招股意向书 278 3、
+   O2 text pNone rr=0.943 gold=['主营业务收入'] :: 武汉力源信息技术股份有限公司                                                      招股意向书 245 收入
+   O3 text pNone rr=0.939 gold=[] :: 武汉力源信息技术股份有限公司                                                      招股意向书 286 综合
+   O4 text pNone rr=0.920 gold=['主营业务收入'] :: 武汉力源信息技术股份有限公司                                                      招股意向书 243 因本

@@ -1,0 +1,21 @@
+........................................................................ [ 96%]
+...                                                                      [100%]
+=============================== warnings summary ===============================
+../../my_project/.venv/lib/python3.10/site-packages/paddlex/inference/pipelines/components/retriever/base.py:29
+  /home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/paddlex/inference/pipelines/components/retriever/base.py:29: DeprecationWarning: `langchain-community` is being sunset and is no longer actively maintained. See https://github.com/langchain-ai/langchain-community/issues/674 for details and migration guidance toward standalone integration packages.
+    from langchain_community import vectorstores
+
+../../my_project/.venv/lib/python3.10/site-packages/jieba/_compat.py:18
+  /home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/jieba/_compat.py:18: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+    import pkg_resources
+
+../../my_project/.venv/lib/python3.10/site-packages/starlette/testclient.py:53
+  /home/dabaie/code/my_project/.venv/lib/python3.10/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+tests/test_pdf_parser_optimized.py::test_table_structured
+  /home/dabaie/code/工单/工单四/src/pdf_parser_optimized.py:91: DeprecationWarning: The parameter `use_angle_cls` has been deprecated and will be removed in the future. Please use `use_textline_orientation` instead.
+    self._paddle = PaddleOCR(use_angle_cls=True, lang="ch", show_log=False)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+75 passed, 124 deselected, 4 warnings in 63.50s (0:01:03)

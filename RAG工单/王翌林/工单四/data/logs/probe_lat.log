@@ -1,0 +1,12 @@
+2026-10-06 14:53:16.121 | INFO     | src.embedding:<module>:20 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-10-06 14:53:21.406 | INFO     | src.embedding:_load:50 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 12572.04it/s]
+2026-10-06 14:53:25.247 | INFO     | src.embedding:_load:55 - max_seq_length=512
+2026-10-06 14:53:25.686 | INFO     | src.embedding:_load:60 - 嵌入模型就绪: dim=1024
+bge encode: 9559ms
+milvus vec search: 10ms hits=24
+milvus LIKE query(单词): 6ms hits=24
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:  38%|███▊      | 151/393 [00:00<00:00, 1506.63it/s]Loading weights: 100%|██████████| 393/393 [00:00<00:00, 2331.20it/s]
+2026-10-06 14:53:27.246 | INFO     | src.reranker:_load:33 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+rerank 8: 2587ms
+rerank 5: 164ms

@@ -1,0 +1,796 @@
+
+ _   .-')                _ .-') _     ('-.             .-')                              _ (`-.    ('-.
+( '.( OO )_             ( (  OO) )  _(  OO)           ( OO ).                           ( (OO  ) _(  OO)
+ ,--.   ,--.).-'),-----. \     .'_ (,------.,--.     (_)---\_)   .-----.  .-'),-----.  _.`     \(,------.
+ |   `.'   |( OO'  .-.  ',`'--..._) |  .---'|  |.-') /    _ |   '  .--./ ( OO'  .-.  '(__...--'' |  .---'
+ |         |/   |  | |  ||  |  \  ' |  |    |  | OO )\  :` `.   |  |('-. /   |  | |  | |  /  | | |  |
+ |  |'.'|  |\_) |  |\|  ||  |   ' |(|  '--. |  |`-' | '..`''.) /_) |OO  )\_) |  |\|  | |  |_.' |(|  '--.
+ |  |   |  |  \ |  | |  ||  |   / : |  .--'(|  '---.'.-._)   \ ||  |`-'|   \ |  | |  | |  .___.' |  .--'
+ |  |   |  |   `'  '-'  '|  '--'  / |  `---.|      | \       /(_'  '--'\    `'  '-'  ' |  |      |  `---.
+ `--'   `--'     `-----' `-------'  `------'`------'  `-----'    `-----'      `-----'  `--'      `------'
+
+2026-10-06 13:49:44,893 | INFO    | modelscope_hub.download | Downloading 9 files from AI-ModelScope/chinese-clip-vit-base-patch16@master
+Downloading snapshot of AI-ModelScope/chinese-clip-vit-base-patch16 (model)…
+Downloading:   0%|          | 0/9 [00:00<?, ?file/s]
+clip_cn_vit-b-16.pt:   0%|          | 0.00/753M [00:00<?, ?B/s][A
+                                                               [A2026-10-06 13:49:45,416 | WARNING | modelscope_hub.download | Download failed for clip_cn_vit-b-16.pt: ('Connection broken: IncompleteRead(0 bytes read, 753196934 more expected)', IncompleteRead(0 bytes read, 753196934 more expected)), will retry
+
+.gitattributes:   0%|          | 0.00/1.59k [00:00<?, ?B/s][A
+                                                           [ADownloading:  11%|█         | 1/9 [00:00<00:04,  1.72file/s]
+README.md:   0%|          | 0.00/7.70k [00:00<?, ?B/s][A
+                                                      [A
+configuration.json:   0%|          | 0.00/64.0 [00:00<?, ?B/s][A
+                                                              [ADownloading:  33%|███▎      | 3/9 [00:00<00:01,  4.79file/s]
+config.json:   0%|          | 0.00/3.01k [00:00<?, ?B/s][A
+                                                        [A
+clip_cn_vit-b-16.pt:   0%|          | 0.00/753M [00:00<?, ?B/s][A
+
+festival.jpg:   0%|          | 0.00/72.1k [00:00<?, ?B/s][A[A
+
+
+preprocessor_config.json:   0%|          | 0.00/342 [00:00<?, ?B/s][A[A[A
+
+
+                                                                   [A[A[ADownloading:  56%|█████▌    | 5/9 [00:00<00:00,  6.60file/s]
+
+
+pytorch_model.bin:   0%|          | 0.00/753M [00:00<?, ?B/s][A[A[A
+
+festival.jpg: 100%|██████████| 72.1k/72.1k [00:00<00:00, 224kB/s][A[A
+
+                                                                 [A[ADownloading:  67%|██████▋   | 6/9 [00:01<00:00,  5.77file/s]
+
+vocab.txt:   0%|          | 0.00/110k [00:00<?, ?B/s][A[A
+
+vocab.txt: 100%|██████████| 110k/110k [00:00<00:00, 635kB/s][A[A
+
+                                                            [A[ADownloading:  78%|███████▊  | 7/9 [00:01<00:00,  5.13file/s]
+clip_cn_vit-b-16.pt:   0%|          | 1.05M/753M [00:00<11:25, 1.10MB/s][A
+clip_cn_vit-b-16.pt:   0%|          | 2.10M/753M [00:03<23:00, 544kB/s] [A
+
+
+pytorch_model.bin:   0%|          | 1.05M/753M [00:03<47:47, 262kB/s][A[A[A
+clip_cn_vit-b-16.pt:   0%|          | 3.15M/753M [00:05<21:35, 579kB/s][A
+
+
+pytorch_model.bin:   0%|          | 2.10M/753M [00:06<40:36, 308kB/s][A[A[A
+
+
+pytorch_model.bin:   0%|          | 3.15M/753M [00:08<31:33, 396kB/s][A[A[A
+clip_cn_vit-b-16.pt:   1%|          | 4.19M/753M [00:09<34:03, 367kB/s][A
+clip_cn_vit-b-16.pt:   1%|          | 5.24M/753M [00:11<30:25, 410kB/s][A
+clip_cn_vit-b-16.pt:   1%|          | 6.29M/753M [00:13<28:18, 440kB/s][A
+
+
+pytorch_model.bin:   1%|          | 4.19M/753M [00:14<44:45, 279kB/s][A[A[A
+clip_cn_vit-b-16.pt:   1%|          | 7.34M/753M [00:16<27:54, 445kB/s][A
+clip_cn_vit-b-16.pt:   1%|          | 8.39M/753M [00:17<24:53, 499kB/s][A
+
+
+pytorch_model.bin:   1%|          | 5.24M/753M [00:18<47:18, 263kB/s][A[A[A
+clip_cn_vit-b-16.pt:   1%|▏         | 9.44M/753M [00:19<24:53, 498kB/s][A
+
+
+pytorch_model.bin:   1%|          | 6.29M/753M [00:21<43:14, 288kB/s][A[A[A
+
+
+pytorch_model.bin:   1%|          | 7.34M/753M [00:23<35:32, 350kB/s][A[A[A
+clip_cn_vit-b-16.pt:   1%|▏         | 10.5M/753M [00:23<32:01, 386kB/s][A
+clip_cn_vit-b-16.pt:   2%|▏         | 11.5M/753M [00:25<27:43, 446kB/s][A
+clip_cn_vit-b-16.pt:   2%|▏         | 12.6M/753M [00:27<28:24, 435kB/s][A
+
+
+pytorch_model.bin:   1%|          | 8.39M/753M [00:28<44:46, 277kB/s][A[A[A
+clip_cn_vit-b-16.pt:   2%|▏         | 13.6M/753M [00:29<25:32, 483kB/s][A
+clip_cn_vit-b-16.pt:   2%|▏         | 14.7M/753M [00:32<28:07, 438kB/s][A
+
+
+pytorch_model.bin:   1%|▏         | 9.44M/753M [00:33<47:30, 261kB/s][A[A[A
+clip_cn_vit-b-16.pt:   2%|▏         | 15.7M/753M [00:35<28:57, 425kB/s][A
+clip_cn_vit-b-16.pt:   2%|▏         | 16.8M/753M [00:36<25:24, 483kB/s][A
+
+
+pytorch_model.bin:   1%|▏         | 10.5M/753M [00:36<46:14, 268kB/s][A[A[A
+clip_cn_vit-b-16.pt:   2%|▏         | 17.8M/753M [00:38<23:12, 528kB/s][A
+
+
+pytorch_model.bin:   2%|▏         | 11.5M/753M [00:40<44:37, 277kB/s][A[A[A
+
+
+pytorch_model.bin:   2%|▏         | 12.6M/753M [00:41<35:21, 349kB/s][A[A[A
+
+
+pytorch_model.bin:   2%|▏         | 13.6M/753M [00:43<29:56, 412kB/s][A[A[A
+
+
+pytorch_model.bin:   2%|▏         | 14.7M/753M [00:44<25:50, 476kB/s][A[A[A
+
+
+pytorch_model.bin:   2%|▏         | 15.7M/753M [00:45<22:59, 534kB/s][A[A[A
+clip_cn_vit-b-16.pt:   3%|▎         | 18.9M/753M [00:46<45:57, 266kB/s][A
+clip_cn_vit-b-16.pt:   3%|▎         | 19.9M/753M [00:48<37:39, 324kB/s][A
+clip_cn_vit-b-16.pt:   3%|▎         | 21.0M/753M [00:50<34:44, 351kB/s][A
+
+
+pytorch_model.bin:   2%|▏         | 16.8M/753M [00:50<33:02, 371kB/s][A[A[A
+clip_cn_vit-b-16.pt:   3%|▎         | 22.0M/753M [00:52<31:33, 386kB/s][A
+
+
+pytorch_model.bin:   2%|▏         | 17.8M/753M [00:53<33:10, 369kB/s][A[A[A
+
+
+pytorch_model.bin:   3%|▎         | 18.9M/753M [00:55<28:21, 432kB/s][A[A[A
+clip_cn_vit-b-16.pt:   3%|▎         | 23.1M/753M [00:57<38:31, 316kB/s][A
+
+
+pytorch_model.bin:   3%|▎         | 19.9M/753M [00:58<30:51, 396kB/s][A[A[A
+
+
+pytorch_model.bin:   3%|▎         | 21.0M/753M [00:59<27:13, 448kB/s][A[A[A
+clip_cn_vit-b-16.pt:   3%|▎         | 24.1M/753M [01:01<39:40, 306kB/s][A
+
+
+pytorch_model.bin:   3%|▎         | 22.0M/753M [01:03<30:51, 395kB/s][A[A[A
+
+
+pytorch_model.bin:   3%|▎         | 23.1M/753M [01:04<26:40, 456kB/s][A[A[A
+clip_cn_vit-b-16.pt:   3%|▎         | 25.2M/753M [01:05<43:38, 278kB/s][A
+
+
+pytorch_model.bin:   3%|▎         | 24.1M/753M [01:06<23:23, 519kB/s][A[A[A
+
+
+pytorch_model.bin:   3%|▎         | 25.2M/753M [01:07<20:53, 581kB/s][A[A[A
+
+
+pytorch_model.bin:   3%|▎         | 26.2M/753M [01:08<19:26, 623kB/s][A[A[A
+clip_cn_vit-b-16.pt:   3%|▎         | 26.2M/753M [01:11<49:37, 244kB/s][A
+clip_cn_vit-b-16.pt:   4%|▎         | 27.3M/753M [01:12<40:14, 301kB/s][A
+
+
+pytorch_model.bin:   4%|▎         | 27.3M/753M [01:14<31:53, 379kB/s][A[A[A
+
+
+pytorch_model.bin:   4%|▍         | 28.3M/753M [01:16<30:30, 396kB/s][A[A[A
+clip_cn_vit-b-16.pt:   4%|▍         | 28.3M/753M [01:18<46:15, 261kB/s][A
+
+
+pytorch_model.bin:   4%|▍         | 29.4M/753M [01:18<26:47, 450kB/s][A[A[A
+
+
+pytorch_model.bin:   4%|▍         | 30.4M/753M [01:19<24:04, 500kB/s][A[A[A
+
+
+pytorch_model.bin:   4%|▍         | 31.5M/753M [01:21<21:46, 552kB/s][A[A[A
+
+
+pytorch_model.bin:   4%|▍         | 32.5M/753M [01:22<21:43, 553kB/s][A[A[A
+clip_cn_vit-b-16.pt:   4%|▍         | 29.4M/753M [01:25<56:57, 212kB/s][A
+
+
+pytorch_model.bin:   4%|▍         | 33.6M/753M [01:25<24:08, 497kB/s][A[A[A
+clip_cn_vit-b-16.pt:   4%|▍         | 30.4M/753M [01:27<48:10, 250kB/s][A
+clip_cn_vit-b-16.pt:   4%|▍         | 31.5M/753M [01:29<41:25, 290kB/s][A
+
+
+pytorch_model.bin:   5%|▍         | 34.6M/753M [01:30<32:27, 369kB/s][A[A[A
+clip_cn_vit-b-16.pt:   4%|▍         | 32.5M/753M [01:32<36:33, 329kB/s][A
+clip_cn_vit-b-16.pt:   4%|▍         | 33.6M/753M [01:34<32:47, 366kB/s][A
+
+
+pytorch_model.bin:   5%|▍         | 35.7M/753M [01:35<41:56, 285kB/s][A[A[A
+clip_cn_vit-b-16.pt:   5%|▍         | 34.6M/753M [01:36<32:33, 368kB/s][A
+
+
+pytorch_model.bin:   5%|▍         | 36.7M/753M [01:38<37:09, 321kB/s][A[A[A
+
+
+pytorch_model.bin:   5%|▌         | 37.7M/753M [01:39<32:03, 372kB/s][A[A[A
+clip_cn_vit-b-16.pt:   5%|▍         | 35.7M/753M [01:40<36:10, 331kB/s][A
+
+
+pytorch_model.bin:   5%|▌         | 38.8M/753M [01:42<30:47, 387kB/s][A[A[A
+clip_cn_vit-b-16.pt:   5%|▍         | 36.7M/753M [01:44<38:29, 310kB/s][A
+
+
+pytorch_model.bin:   5%|▌         | 39.8M/753M [01:45<33:01, 360kB/s][A[A[A
+
+
+pytorch_model.bin:   5%|▌         | 40.9M/753M [01:47<27:59, 424kB/s][A[A[A
+clip_cn_vit-b-16.pt:   5%|▌         | 37.7M/753M [01:47<37:05, 322kB/s][A
+
+
+pytorch_model.bin:   6%|▌         | 41.9M/753M [01:49<27:35, 430kB/s][A[A[A
+clip_cn_vit-b-16.pt:   5%|▌         | 38.8M/753M [01:50<36:48, 323kB/s][A
+
+
+pytorch_model.bin:   6%|▌         | 43.0M/753M [01:53<31:47, 372kB/s][A[A[A
+clip_cn_vit-b-16.pt:   5%|▌         | 39.8M/753M [01:54<38:19, 310kB/s][A
+
+
+pytorch_model.bin:   6%|▌         | 44.0M/753M [01:55<28:31, 414kB/s][A[A[A
+
+
+pytorch_model.bin:   6%|▌         | 45.1M/753M [01:57<28:05, 420kB/s][A[A[A
+clip_cn_vit-b-16.pt:   5%|▌         | 40.9M/753M [01:58<38:42, 307kB/s][A
+clip_cn_vit-b-16.pt:   6%|▌         | 41.9M/753M [01:59<32:41, 363kB/s][A
+
+
+pytorch_model.bin:   6%|▌         | 46.1M/753M [02:01<33:27, 352kB/s][A[A[A
+clip_cn_vit-b-16.pt:   6%|▌         | 43.0M/753M [02:02<33:01, 358kB/s][A
+
+
+pytorch_model.bin:   6%|▋         | 47.2M/753M [02:03<31:02, 379kB/s][A[A[A
+clip_cn_vit-b-16.pt:   6%|▌         | 44.0M/753M [02:05<33:22, 354kB/s][A
+
+
+pytorch_model.bin:   6%|▋         | 48.2M/753M [02:07<33:56, 346kB/s][A[A[A
+clip_cn_vit-b-16.pt:   6%|▌         | 45.1M/753M [02:08<32:34, 362kB/s][A
+
+
+pytorch_model.bin:   7%|▋         | 49.3M/753M [02:09<30:07, 389kB/s][A[A[A
+
+
+pytorch_model.bin:   7%|▋         | 50.3M/753M [02:10<25:50, 453kB/s][A[A[A
+
+
+pytorch_model.bin:   7%|▋         | 51.4M/753M [02:13<26:36, 440kB/s][A[A[A
+clip_cn_vit-b-16.pt:   6%|▌         | 46.1M/753M [02:14<42:21, 278kB/s][A
+
+
+pytorch_model.bin:   7%|▋         | 52.4M/753M [02:15<26:38, 438kB/s][A[A[A
+
+
+pytorch_model.bin:   7%|▋         | 53.5M/753M [02:17<23:19, 500kB/s][A[A[A
+clip_cn_vit-b-16.pt:   6%|▋         | 47.2M/753M [02:17<41:25, 284kB/s][A
+clip_cn_vit-b-16.pt:   6%|▋         | 48.2M/753M [02:19<34:49, 337kB/s][A
+
+
+pytorch_model.bin:   7%|▋         | 54.5M/753M [02:21<32:11, 362kB/s][A[A[A
+clip_cn_vit-b-16.pt:   7%|▋         | 49.3M/753M [02:22<33:18, 352kB/s][A
+clip_cn_vit-b-16.pt:   7%|▋         | 50.3M/753M [02:24<30:06, 389kB/s][A
+
+
+pytorch_model.bin:   7%|▋         | 55.6M/753M [02:25<34:56, 333kB/s][A[A[A
+clip_cn_vit-b-16.pt:   7%|▋         | 51.4M/753M [02:26<29:10, 401kB/s][A
+clip_cn_vit-b-16.pt:   7%|▋         | 52.4M/753M [02:28<25:51, 452kB/s][A
+
+
+pytorch_model.bin:   8%|▊         | 56.6M/753M [02:30<41:14, 282kB/s][A[A[A
+clip_cn_vit-b-16.pt:   7%|▋         | 53.5M/753M [02:31<29:43, 392kB/s][A
+
+
+pytorch_model.bin:   8%|▊         | 57.7M/753M [02:33<39:18, 295kB/s][A[A[A
+clip_cn_vit-b-16.pt:   7%|▋         | 54.5M/753M [02:34<29:36, 393kB/s][A
+clip_cn_vit-b-16.pt:   7%|▋         | 55.6M/753M [02:35<25:11, 462kB/s][A
+clip_cn_vit-b-16.pt:   8%|▊         | 56.6M/753M [02:37<23:03, 504kB/s][A
+clip_cn_vit-b-16.pt:   8%|▊         | 57.7M/753M [02:39<23:58, 484kB/s][A
+clip_cn_vit-b-16.pt:   8%|▊         | 58.7M/753M [02:41<21:04, 549kB/s][A
+clip_cn_vit-b-16.pt:   8%|▊         | 59.8M/753M [02:42<20:25, 566kB/s][A
+clip_cn_vit-b-16.pt:   8%|▊         | 60.8M/753M [02:44<18:45, 615kB/s][A
+
+
+pytorch_model.bin:   8%|▊         | 58.7M/753M [02:45<1:06:26, 174kB/s][A[A[A
+clip_cn_vit-b-16.pt:   8%|▊         | 61.9M/753M [02:46<18:46, 614kB/s][A
+clip_cn_vit-b-16.pt:   8%|▊         | 62.9M/753M [02:47<18:43, 614kB/s][A
+clip_cn_vit-b-16.pt:   8%|▊         | 64.0M/753M [02:49<17:19, 663kB/s][A
+clip_cn_vit-b-16.pt:   9%|▊         | 65.0M/753M [02:50<17:37, 651kB/s][A
+clip_cn_vit-b-16.pt:   9%|▉         | 66.1M/753M [02:52<16:37, 689kB/s][A
+clip_cn_vit-b-16.pt:   9%|▉         | 67.1M/753M [02:53<15:51, 721kB/s][A
+clip_cn_vit-b-16.pt:   9%|▉         | 68.2M/753M [02:54<15:31, 736kB/s][A
+clip_cn_vit-b-16.pt:   9%|▉         | 69.2M/753M [02:56<16:17, 699kB/s][A
+clip_cn_vit-b-16.pt:   9%|▉         | 70.3M/753M [02:57<15:47, 721kB/s][A
+clip_cn_vit-b-16.pt:   9%|▉         | 71.3M/753M [02:58<15:15, 745kB/s][A
+
+
+pytorch_model.bin:   8%|▊         | 58.7M/753M [02:59<1:06:26, 174kB/s][A[A[A
+
+
+pytorch_model.bin:   8%|▊         | 59.8M/753M [03:01<1:37:31, 118kB/s][A[A[A
+
+
+pytorch_model.bin:   8%|▊         | 60.8M/753M [03:02<1:12:49, 158kB/s][A[A[A
+clip_cn_vit-b-16.pt:  10%|▉         | 72.4M/753M [03:03<24:36, 461kB/s][A
+clip_cn_vit-b-16.pt:  10%|▉         | 73.4M/753M [03:04<22:39, 500kB/s][A
+clip_cn_vit-b-16.pt:  10%|▉         | 74.4M/753M [03:06<19:59, 566kB/s][A
+clip_cn_vit-b-16.pt:  10%|█         | 75.5M/753M [03:07<19:16, 586kB/s][A
+clip_cn_vit-b-16.pt:  10%|█         | 76.5M/753M [03:09<17:43, 636kB/s][A
+
+
+pytorch_model.bin:   8%|▊         | 61.9M/753M [03:10<1:17:39, 148kB/s][A[A[A
+
+
+pytorch_model.bin:   8%|▊         | 62.9M/753M [03:12<59:08, 195kB/s]  [A[A[A
+clip_cn_vit-b-16.pt:  10%|█         | 77.6M/753M [03:13<25:47, 437kB/s][A
+clip_cn_vit-b-16.pt:  10%|█         | 78.6M/753M [03:14<22:31, 499kB/s][A
+
+
+pytorch_model.bin:   8%|▊         | 64.0M/753M [03:16<55:21, 208kB/s][A[A[A
+clip_cn_vit-b-16.pt:  11%|█         | 79.7M/753M [03:17<25:27, 441kB/s][A
+clip_cn_vit-b-16.pt:  11%|█         | 80.7M/753M [03:19<23:29, 477kB/s][A
+clip_cn_vit-b-16.pt:  11%|█         | 81.8M/753M [03:21<21:47, 513kB/s][A
+
+
+pytorch_model.bin:   9%|▊         | 65.0M/753M [03:32<1:30:21, 127kB/s][A[A[A
+clip_cn_vit-b-16.pt:  11%|█         | 82.8M/753M [03:26<32:02, 349kB/s][A
+clip_cn_vit-b-16.pt:  11%|█         | 83.9M/753M [03:28<27:39, 403kB/s][A
+clip_cn_vit-b-16.pt:  11%|█▏        | 84.9M/753M [03:29<23:39, 471kB/s][A
+clip_cn_vit-b-16.pt:  11%|█▏        | 86.0M/753M [03:31<22:05, 503kB/s][A
+
+
+pytorch_model.bin:   9%|▉         | 69.2M/753M [03:34<37:50, 301kB/s]  [A[A[A
+clip_cn_vit-b-16.pt:  12%|█▏        | 87.0M/753M [03:35<28:03, 396kB/s][A
+clip_cn_vit-b-16.pt:  12%|█▏        | 88.1M/753M [03:47<58:09, 191kB/s][A
+
+
+pytorch_model.bin:   9%|▉         | 70.3M/753M [03:42<46:28, 245kB/s][A[A[A
+
+
+pytorch_model.bin:   9%|▉         | 71.3M/753M [03:47<48:34, 234kB/s][A[A[A
+clip_cn_vit-b-16.pt:  13%|█▎        | 95.4M/753M [03:49<17:11, 638kB/s][A
+clip_cn_vit-b-16.pt:  13%|█▎        | 96.5M/753M [04:02<31:59, 342kB/s][A
+
+
+pytorch_model.bin:  10%|▉         | 72.4M/753M [03:53<51:51, 219kB/s][A[A[A
+
+
+pytorch_model.bin:  10%|▉         | 73.4M/753M [03:58<50:31, 224kB/s][A[A[A
+
+
+pytorch_model.bin:  10%|▉         | 74.4M/753M [03:59<41:02, 276kB/s][A[A[A
+
+
+pytorch_model.bin:  10%|█         | 75.5M/753M [04:00<33:43, 335kB/s][A[A[A
+
+
+pytorch_model.bin:  10%|█         | 76.5M/753M [04:03<31:20, 360kB/s][A[A[A
+
+
+pytorch_model.bin:  10%|█         | 77.6M/753M [04:04<27:10, 414kB/s][A[A[A
+clip_cn_vit-b-16.pt:  13%|█▎        | 101M/753M [04:06<22:41, 479kB/s] [A
+
+
+pytorch_model.bin:  10%|█         | 78.6M/753M [04:07<28:09, 399kB/s][A[A[A
+clip_cn_vit-b-16.pt:  14%|█▎        | 102M/753M [04:09<23:42, 458kB/s][A
+clip_cn_vit-b-16.pt:  14%|█▎        | 103M/753M [04:10<22:18, 486kB/s][A
+
+
+pytorch_model.bin:  11%|█         | 79.7M/753M [04:22<1:05:55, 170kB/s][A[A[A
+clip_cn_vit-b-16.pt:  14%|█▍        | 104M/753M [04:13<22:25, 482kB/s][A
+clip_cn_vit-b-16.pt:  14%|█▍        | 105M/753M [04:15<22:37, 478kB/s][A
+clip_cn_vit-b-16.pt:  14%|█▍        | 106M/753M [04:20<28:29, 379kB/s][A
+clip_cn_vit-b-16.pt:  14%|█▍        | 107M/753M [04:24<32:36, 330kB/s][A
+
+
+pytorch_model.bin:  11%|█▏        | 84.9M/753M [04:24<24:20, 458kB/s]  [A[A[A
+clip_cn_vit-b-16.pt:  14%|█▍        | 108M/753M [04:26<28:40, 375kB/s][A
+
+
+pytorch_model.bin:  11%|█▏        | 86.0M/753M [04:27<25:26, 437kB/s][A[A[A
+
+
+pytorch_model.bin:  12%|█▏        | 87.0M/753M [04:28<23:43, 468kB/s][A[A[A
+
+
+pytorch_model.bin:  12%|█▏        | 88.1M/753M [04:30<21:21, 519kB/s][A[A[A
+
+
+pytorch_model.bin:  12%|█▏        | 89.1M/753M [04:42<45:58, 241kB/s][A[A[A
+clip_cn_vit-b-16.pt:  14%|█▍        | 109M/753M [04:34<44:50, 239kB/s][A
+clip_cn_vit-b-16.pt:  15%|█▍        | 110M/753M [04:39<45:08, 237kB/s][A
+clip_cn_vit-b-16.pt:  15%|█▍        | 111M/753M [04:41<37:47, 283kB/s][A
+
+
+pytorch_model.bin:  12%|█▏        | 93.3M/753M [04:52<34:33, 318kB/s][A[A[A
+clip_cn_vit-b-16.pt:  15%|█▍        | 112M/753M [04:42<31:50, 336kB/s][A
+clip_cn_vit-b-16.pt:  15%|█▌        | 113M/753M [04:45<30:01, 355kB/s][A
+
+
+pytorch_model.bin:  13%|█▎        | 94.4M/753M [04:57<37:27, 293kB/s][A[A[A
+clip_cn_vit-b-16.pt:  15%|█▌        | 114M/753M [04:47<26:27, 403kB/s][A
+clip_cn_vit-b-16.pt:  15%|█▌        | 115M/753M [04:50<28:19, 375kB/s][A
+clip_cn_vit-b-16.pt:  15%|█▌        | 116M/753M [04:52<27:20, 388kB/s][A
+clip_cn_vit-b-16.pt:  16%|█▌        | 117M/753M [04:54<24:21, 435kB/s][A
+
+
+pytorch_model.bin:  13%|█▎        | 97.5M/753M [05:07<36:16, 301kB/s][A[A[A
+clip_cn_vit-b-16.pt:  16%|█▌        | 118M/753M [04:58<28:45, 368kB/s][A
+clip_cn_vit-b-16.pt:  16%|█▌        | 120M/753M [05:02<30:49, 343kB/s][A
+clip_cn_vit-b-16.pt:  16%|█▌        | 121M/753M [05:04<28:53, 365kB/s][A
+clip_cn_vit-b-16.pt:  16%|█▌        | 122M/753M [05:06<25:29, 413kB/s][A
+
+
+pytorch_model.bin:  14%|█▎        | 102M/753M [05:07<20:26, 531kB/s] [A[A[A
+clip_cn_vit-b-16.pt:  16%|█▋        | 123M/753M [05:09<27:12, 386kB/s][A
+clip_cn_vit-b-16.pt:  16%|█▋        | 124M/753M [05:10<23:46, 441kB/s][A
+clip_cn_vit-b-16.pt:  17%|█▋        | 125M/753M [05:13<23:21, 448kB/s][A
+
+
+pytorch_model.bin:  14%|█▎        | 103M/753M [05:13<25:32, 424kB/s][A[A[A
+
+
+pytorch_model.bin:  14%|█▍        | 104M/753M [05:15<25:43, 421kB/s][A[A[A
+
+
+pytorch_model.bin:  14%|█▍        | 105M/753M [05:17<24:11, 447kB/s][A[A[A
+clip_cn_vit-b-16.pt:  17%|█▋        | 126M/753M [05:18<32:12, 325kB/s][A
+
+
+pytorch_model.bin:  14%|█▍        | 106M/753M [05:19<23:43, 455kB/s][A[A[A
+clip_cn_vit-b-16.pt:  17%|█▋        | 127M/753M [05:32<1:04:11, 163kB/s][A
+
+
+pytorch_model.bin:  14%|█▍        | 107M/753M [05:22<23:59, 449kB/s][A[A[A
+
+
+pytorch_model.bin:  14%|█▍        | 108M/753M [05:28<34:01, 316kB/s][A[A[A
+clip_cn_vit-b-16.pt:  18%|█▊        | 133M/753M [05:33<18:41, 553kB/s]  [A
+clip_cn_vit-b-16.pt:  18%|█▊        | 134M/753M [05:34<17:43, 582kB/s][A
+clip_cn_vit-b-16.pt:  18%|█▊        | 135M/753M [05:35<16:42, 616kB/s][A
+clip_cn_vit-b-16.pt:  18%|█▊        | 136M/753M [05:37<16:27, 625kB/s][A
+clip_cn_vit-b-16.pt:  18%|█▊        | 137M/753M [05:38<15:29, 663kB/s][A
+clip_cn_vit-b-16.pt:  18%|█▊        | 138M/753M [05:40<15:30, 661kB/s][A
+clip_cn_vit-b-16.pt:  19%|█▊        | 139M/753M [05:41<14:39, 698kB/s][A
+clip_cn_vit-b-16.pt:  19%|█▊        | 141M/753M [05:43<15:45, 648kB/s][A
+
+
+pytorch_model.bin:  14%|█▍        | 109M/753M [05:43<1:06:41, 161kB/s][A[A[A
+
+
+pytorch_model.bin:  15%|█▍        | 110M/753M [05:45<52:16, 205kB/s]  [A[A[A
+clip_cn_vit-b-16.pt:  19%|█▉        | 142M/753M [05:46<19:48, 514kB/s][A
+
+
+pytorch_model.bin:  15%|█▍        | 111M/753M [05:47<45:11, 237kB/s][A[A[A
+clip_cn_vit-b-16.pt:  19%|█▉        | 143M/753M [05:49<22:08, 460kB/s][A
+clip_cn_vit-b-16.pt:  19%|█▉        | 144M/753M [05:50<19:43, 515kB/s][A
+clip_cn_vit-b-16.pt:  19%|█▉        | 145M/753M [05:52<18:38, 544kB/s][A
+clip_cn_vit-b-16.pt:  19%|█▉        | 146M/753M [05:53<16:56, 598kB/s][A
+
+
+pytorch_model.bin:  15%|█▍        | 112M/753M [05:55<54:13, 197kB/s][A[A[A
+clip_cn_vit-b-16.pt:  19%|█▉        | 147M/753M [05:57<21:13, 476kB/s][A
+clip_cn_vit-b-16.pt:  20%|█▉        | 148M/753M [05:58<19:38, 514kB/s][A
+clip_cn_vit-b-16.pt:  20%|█▉        | 149M/753M [05:59<17:16, 583kB/s][A
+clip_cn_vit-b-16.pt:  20%|█▉        | 150M/753M [06:01<15:59, 629kB/s][A
+clip_cn_vit-b-16.pt:  20%|██        | 151M/753M [06:03<16:08, 622kB/s][A
+
+
+pytorch_model.bin:  15%|█▌        | 113M/753M [06:03<1:02:18, 171kB/s][A[A[A
+
+
+pytorch_model.bin:  15%|█▌        | 114M/753M [06:05<48:54, 218kB/s]  [A[A[A
+clip_cn_vit-b-16.pt:  20%|██        | 152M/753M [06:06<20:52, 480kB/s][A
+clip_cn_vit-b-16.pt:  20%|██        | 153M/753M [06:07<18:22, 544kB/s][A
+clip_cn_vit-b-16.pt:  20%|██        | 154M/753M [06:09<17:30, 570kB/s][A
+clip_cn_vit-b-16.pt:  21%|██        | 155M/753M [06:10<15:58, 624kB/s][A
+clip_cn_vit-b-16.pt:  21%|██        | 156M/753M [06:22<45:02, 221kB/s][A
+
+
+pytorch_model.bin:  15%|█▌        | 114M/753M [06:18<48:54, 218kB/s][A[A[A
+clip_cn_vit-b-16.pt:  22%|██▏       | 164M/753M [06:23<11:44, 837kB/s][A
+clip_cn_vit-b-16.pt:  22%|██▏       | 165M/753M [06:24<12:13, 803kB/s][A
+
+
+pytorch_model.bin:  15%|█▌        | 115M/753M [06:25<1:35:07, 112kB/s][A[A[A
+clip_cn_vit-b-16.pt:  22%|██▏       | 166M/753M [06:26<12:49, 764kB/s][A
+clip_cn_vit-b-16.pt:  22%|██▏       | 167M/753M [06:28<13:09, 743kB/s][A
+clip_cn_vit-b-16.pt:  22%|██▏       | 168M/753M [06:29<13:39, 715kB/s][A
+clip_cn_vit-b-16.pt:  22%|██▏       | 169M/753M [06:32<15:29, 629kB/s][A
+
+
+pytorch_model.bin:  15%|█▌        | 116M/753M [06:32<1:28:25, 120kB/s][A[A[A
+
+
+pytorch_model.bin:  16%|█▌        | 117M/753M [06:34<1:07:22, 157kB/s][A[A[A
+clip_cn_vit-b-16.pt:  23%|██▎       | 170M/753M [06:36<20:26, 476kB/s][A
+
+
+pytorch_model.bin:  16%|█▌        | 118M/753M [06:35<51:28, 205kB/s]  [A[A[A
+
+
+pytorch_model.bin:  16%|█▌        | 120M/753M [06:37<40:02, 264kB/s][A[A[A
+
+
+pytorch_model.bin:  16%|█▌        | 121M/753M [06:38<32:15, 327kB/s][A[A[A
+clip_cn_vit-b-16.pt:  23%|██▎       | 171M/753M [06:41<27:34, 352kB/s][A
+
+
+pytorch_model.bin:  16%|█▌        | 122M/753M [06:42<34:06, 309kB/s][A[A[A
+
+
+pytorch_model.bin:  16%|█▋        | 123M/753M [06:43<26:58, 390kB/s][A[A[A
+clip_cn_vit-b-16.pt:  23%|██▎       | 172M/753M [06:45<31:14, 310kB/s][A
+clip_cn_vit-b-16.pt:  23%|██▎       | 173M/753M [06:47<27:03, 357kB/s][A
+clip_cn_vit-b-16.pt:  23%|██▎       | 174M/753M [06:49<23:48, 405kB/s][A
+clip_cn_vit-b-16.pt:  23%|██▎       | 175M/753M [06:50<20:01, 481kB/s][A
+
+
+pytorch_model.bin:  16%|█▋        | 124M/753M [06:50<40:38, 258kB/s][A[A[A
+
+
+pytorch_model.bin:  17%|█▋        | 125M/753M [06:52<33:29, 313kB/s][A[A[A
+
+
+pytorch_model.bin:  17%|█▋        | 126M/753M [06:53<27:10, 385kB/s][A[A[A
+
+
+pytorch_model.bin:  17%|█▋        | 127M/753M [06:55<23:16, 448kB/s][A[A[A
+
+
+pytorch_model.bin:  17%|█▋        | 128M/753M [06:56<19:47, 527kB/s][A[A[A
+
+
+pytorch_model.bin:  17%|█▋        | 129M/753M [06:57<17:57, 580kB/s][A[A[A
+
+
+pytorch_model.bin:  17%|█▋        | 130M/753M [06:59<16:57, 613kB/s][A[A[A
+
+
+pytorch_model.bin:  17%|█▋        | 131M/753M [07:00<15:26, 672kB/s][A[A[A
+
+
+pytorch_model.bin:  18%|█▊        | 132M/753M [07:12<46:30, 223kB/s][A[A[A
+clip_cn_vit-b-16.pt:  23%|██▎       | 175M/753M [07:08<20:01, 481kB/s][A
+
+
+pytorch_model.bin:  19%|█▊        | 141M/753M [07:12<10:48, 945kB/s][A[A[A
+
+
+pytorch_model.bin:  19%|█▉        | 142M/753M [07:14<11:11, 911kB/s][A[A[A
+
+
+pytorch_model.bin:  19%|█▉        | 143M/753M [07:15<11:18, 900kB/s][A[A[A
+
+
+pytorch_model.bin:  19%|█▉        | 144M/753M [07:17<11:41, 869kB/s][A[A[A
+
+
+pytorch_model.bin:  19%|█▉        | 145M/753M [07:18<11:42, 867kB/s][A[A[A
+
+
+pytorch_model.bin:  19%|█▉        | 146M/753M [07:20<13:12, 766kB/s][A[A[A
+clip_cn_vit-b-16.pt:  23%|██▎       | 176M/753M [07:21<1:38:54, 97.2kB/s][A
+
+
+pytorch_model.bin:  19%|█▉        | 147M/753M [07:22<16:11, 624kB/s][A[A[A
+clip_cn_vit-b-16.pt:  24%|██▎       | 177M/753M [07:24<1:17:47, 123kB/s] [A
+clip_cn_vit-b-16.pt:  24%|██▎       | 178M/753M [07:26<59:14, 162kB/s]  [A
+
+
+pytorch_model.bin:  20%|█▉        | 148M/753M [07:27<22:28, 449kB/s][A[A[A
+
+
+pytorch_model.bin:  20%|█▉        | 149M/753M [07:29<21:19, 472kB/s][A[A[A
+clip_cn_vit-b-16.pt:  24%|██▍       | 179M/753M [07:30<53:11, 180kB/s][A
+
+
+pytorch_model.bin:  20%|█▉        | 150M/753M [07:30<20:28, 491kB/s][A[A[A
+clip_cn_vit-b-16.pt:  24%|██▍       | 180M/753M [07:32<42:01, 227kB/s][A
+
+
+pytorch_model.bin:  20%|██        | 151M/753M [07:35<25:43, 390kB/s][A[A[A
+
+
+pytorch_model.bin:  20%|██        | 152M/753M [07:36<22:14, 450kB/s][A[A[A
+clip_cn_vit-b-16.pt:  24%|██▍       | 181M/753M [07:47<1:10:04, 136kB/s][A
+clip_cn_vit-b-16.pt:  25%|██▍       | 185M/753M [07:52<39:14, 242kB/s]  [A
+
+
+pytorch_model.bin:  20%|██        | 152M/753M [07:48<22:14, 450kB/s][A[A[A
+clip_cn_vit-b-16.pt:  25%|██▌       | 192M/753M [07:53<13:44, 681kB/s][A
+clip_cn_vit-b-16.pt:  26%|██▌       | 193M/753M [07:54<13:35, 687kB/s][A
+clip_cn_vit-b-16.pt:  26%|██▌       | 194M/753M [07:56<13:48, 675kB/s][A
+clip_cn_vit-b-16.pt:  26%|██▌       | 195M/753M [07:57<13:57, 667kB/s][A
+clip_cn_vit-b-16.pt:  26%|██▌       | 196M/753M [07:59<13:10, 705kB/s][A
+clip_cn_vit-b-16.pt:  26%|██▌       | 197M/753M [08:00<13:34, 683kB/s][A
+clip_cn_vit-b-16.pt:  26%|██▋       | 198M/753M [08:02<13:48, 670kB/s][A
+clip_cn_vit-b-16.pt:  26%|██▋       | 199M/753M [08:04<14:01, 658kB/s][A
+clip_cn_vit-b-16.pt:  27%|██▋       | 200M/753M [08:05<14:03, 656kB/s][A
+clip_cn_vit-b-16.pt:  27%|██▋       | 201M/753M [08:06<13:13, 695kB/s][A
+clip_cn_vit-b-16.pt:  27%|██▋       | 202M/753M [08:08<13:25, 684kB/s][A
+clip_cn_vit-b-16.pt:  27%|██▋       | 203M/753M [08:10<13:15, 691kB/s][A
+clip_cn_vit-b-16.pt:  27%|██▋       | 204M/753M [08:11<13:08, 696kB/s][A
+clip_cn_vit-b-16.pt:  27%|██▋       | 206M/753M [08:12<12:17, 743kB/s][A
+clip_cn_vit-b-16.pt:  27%|██▋       | 207M/753M [08:14<12:37, 722kB/s][A
+clip_cn_vit-b-16.pt:  28%|██▊       | 208M/753M [08:15<11:54, 763kB/s][A
+clip_cn_vit-b-16.pt:  28%|██▊       | 209M/753M [08:17<12:24, 731kB/s][A
+clip_cn_vit-b-16.pt:  28%|██▊       | 210M/753M [08:18<11:51, 764kB/s][A
+clip_cn_vit-b-16.pt:  28%|██▊       | 211M/753M [08:19<11:57, 756kB/s][A
+clip_cn_vit-b-16.pt:  28%|██▊       | 212M/753M [08:21<12:24, 727kB/s][A
+clip_cn_vit-b-16.pt:  28%|██▊       | 213M/753M [08:22<11:59, 751kB/s][A
+clip_cn_vit-b-16.pt:  28%|██▊       | 214M/753M [08:24<12:23, 725kB/s][A
+clip_cn_vit-b-16.pt:  29%|██▊       | 215M/753M [08:25<11:34, 775kB/s][A
+clip_cn_vit-b-16.pt:  29%|██▊       | 216M/753M [08:26<12:02, 744kB/s][A
+clip_cn_vit-b-16.pt:  29%|██▉       | 217M/753M [08:28<11:53, 751kB/s][A
+clip_cn_vit-b-16.pt:  29%|██▉       | 218M/753M [08:29<11:20, 787kB/s][A
+
+
+pytorch_model.bin:  20%|██        | 153M/753M [08:31<2:47:21, 59.8kB/s][A[A[A
+
+
+pytorch_model.bin:  20%|██        | 154M/753M [08:33<2:03:31, 80.8kB/s][A[A[A
+
+
+pytorch_model.bin:  21%|██        | 155M/753M [08:34<1:30:21, 110kB/s] [A[A[A
+
+
+pytorch_model.bin:  21%|██        | 156M/753M [08:35<1:08:08, 146kB/s][A[A[A
+
+
+pytorch_model.bin:  21%|██        | 157M/753M [08:37<51:48, 192kB/s]  [A[A[A
+clip_cn_vit-b-16.pt:  29%|██▉       | 219M/753M [08:38<30:51, 288kB/s][A
+clip_cn_vit-b-16.pt:  29%|██▉       | 220M/753M [08:40<25:57, 342kB/s][A
+clip_cn_vit-b-16.pt:  29%|██▉       | 221M/753M [08:41<22:53, 387kB/s][A
+clip_cn_vit-b-16.pt:  30%|██▉       | 222M/753M [08:43<19:11, 461kB/s][A
+
+
+pytorch_model.bin:  21%|██        | 158M/753M [08:44<55:04, 180kB/s][A[A[A
+clip_cn_vit-b-16.pt:  30%|██▉       | 223M/753M [08:45<18:28, 478kB/s][A
+clip_cn_vit-b-16.pt:  30%|██▉       | 224M/753M [08:57<44:49, 197kB/s][A
+
+
+pytorch_model.bin:  21%|██        | 159M/753M [08:49<52:33, 188kB/s][A[A[A
+
+
+pytorch_model.bin:  21%|██▏       | 160M/753M [08:50<40:49, 242kB/s][A[A[A
+
+
+pytorch_model.bin:  21%|██▏       | 161M/753M [08:52<34:36, 285kB/s][A[A[A
+
+
+pytorch_model.bin:  22%|██▏       | 163M/753M [08:56<34:57, 282kB/s][A[A[A
+clip_cn_vit-b-16.pt:  30%|███       | 229M/753M [08:58<16:58, 515kB/s][A
+
+
+pytorch_model.bin:  22%|██▏       | 164M/753M [08:59<32:08, 306kB/s][A[A[A
+clip_cn_vit-b-16.pt:  30%|███       | 230M/753M [09:01<19:03, 458kB/s][A
+
+
+pytorch_model.bin:  22%|██▏       | 165M/753M [09:12<1:00:17, 163kB/s][A[A[A
+clip_cn_vit-b-16.pt:  31%|███       | 231M/753M [09:09<27:56, 312kB/s][A
+clip_cn_vit-b-16.pt:  31%|███       | 232M/753M [09:10<24:28, 355kB/s][A
+
+
+pytorch_model.bin:  22%|██▏       | 168M/753M [09:22<44:01, 222kB/s]  [A[A[A
+clip_cn_vit-b-16.pt:  31%|███       | 233M/753M [09:14<26:05, 332kB/s][A
+
+
+pytorch_model.bin:  23%|██▎       | 170M/753M [09:27<36:38, 265kB/s][A[A[A
+clip_cn_vit-b-16.pt:  31%|███       | 233M/753M [09:28<26:05, 332kB/s][A
+
+
+pytorch_model.bin:  24%|██▎       | 177M/753M [09:31<16:17, 589kB/s][A[A[A
+clip_cn_vit-b-16.pt:  31%|███       | 234M/753M [09:37<1:07:46, 128kB/s][A
+clip_cn_vit-b-16.pt:  31%|███       | 234M/753M [09:48<1:07:46, 128kB/s][A
+
+
+pytorch_model.bin:  24%|██▎       | 177M/753M [09:48<16:17, 589kB/s][A[A[A
+
+
+pytorch_model.bin:  24%|██▎       | 178M/753M [09:52<35:50, 267kB/s][A[A[A
+clip_cn_vit-b-16.pt:  31%|███       | 235M/753M [09:53<1:26:37, 99.7kB/s][A
+clip_cn_vit-b-16.pt:  31%|███       | 235M/753M [10:08<1:26:37, 99.7kB/s][A
+
+
+pytorch_model.bin:  24%|██▎       | 178M/753M [10:08<35:50, 267kB/s][A[A[A
+clip_cn_vit-b-16.pt:  31%|███▏      | 236M/753M [10:15<1:52:47, 76.4kB/s][A
+clip_cn_vit-b-16.pt:  31%|███▏      | 236M/753M [10:28<1:52:47, 76.4kB/s][A
+clip_cn_vit-b-16.pt:  31%|███▏      | 237M/753M [10:35<2:05:49, 68.4kB/s][A
+clip_cn_vit-b-16.pt:  31%|███▏      | 237M/753M [10:48<2:05:49, 68.4kB/s][A
+
+
+pytorch_model.bin:  24%|██▍       | 179M/753M [11:03<2:02:35, 78.0kB/s][A[A[A
+clip_cn_vit-b-16.pt:  32%|███▏      | 238M/753M [11:08<2:48:05, 51.1kB/s][A
+
+
+pytorch_model.bin:  24%|██▍       | 179M/753M [11:18<2:02:35, 78.0kB/s][A[A[A
+clip_cn_vit-b-16.pt:  32%|███▏      | 239M/753M [11:27<2:43:32, 52.4kB/s][A
+
+
+pytorch_model.bin:  24%|██▍       | 180M/753M [11:29<2:21:38, 67.4kB/s][A[A[A
+clip_cn_vit-b-16.pt:  32%|███▏      | 240M/753M [11:31<2:06:35, 67.5kB/s][A
+clip_cn_vit-b-16.pt:  32%|███▏      | 240M/753M [11:48<2:06:35, 67.5kB/s][A
+
+
+pytorch_model.bin:  24%|██▍       | 180M/753M [11:48<2:21:38, 67.4kB/s][A[A[A
+clip_cn_vit-b-16.pt:  32%|███▏      | 241M/753M [11:51<2:17:05, 62.2kB/s][A
+clip_cn_vit-b-16.pt:  32%|███▏      | 242M/753M [12:08<2:15:13, 63.0kB/s][A
+clip_cn_vit-b-16.pt:  32%|███▏      | 242M/753M [12:18<2:15:13, 63.0kB/s][A
+clip_cn_vit-b-16.pt:  32%|███▏      | 243M/753M [12:19<2:02:07, 69.6kB/s][A
+clip_cn_vit-b-16.pt:  32%|███▏      | 244M/753M [12:32<1:56:28, 72.8kB/s][A
+clip_cn_vit-b-16.pt:  32%|███▏      | 244M/753M [12:48<1:56:28, 72.8kB/s][A
+clip_cn_vit-b-16.pt:  33%|███▎      | 245M/753M [13:14<3:03:17, 46.2kB/s][A
+clip_cn_vit-b-16.pt:  33%|███▎      | 245M/753M [13:28<3:03:17, 46.2kB/s][A
+clip_cn_vit-b-16.pt:  33%|███▎      | 246M/753M [14:09<4:19:54, 32.5kB/s][A
+
+
+                                                                       [A[A[A2026-10-06 14:04:04,459 | WARNING | modelscope_hub.download | Download failed for pytorch_model.bin: HTTPSConnectionPool(host='cdn-lfs-cn-1.modelscope.cn', port=443): Read timed out., will retry
+
+
+pytorch_model.bin:  24%|██▍       | 180M/753M [00:00<?, ?B/s][A[A
+clip_cn_vit-b-16.pt:  33%|███▎      | 246M/753M [14:28<4:19:54, 32.5kB/s][A
+clip_cn_vit-b-16.pt:  33%|███▎      | 247M/753M [14:48<4:36:09, 30.5kB/s][A
+clip_cn_vit-b-16.pt:  33%|███▎      | 247M/753M [15:18<4:36:09, 30.5kB/s][A
+clip_cn_vit-b-16.pt:  33%|███▎      | 249M/753M [15:49<5:40:01, 24.7kB/s][A
+clip_cn_vit-b-16.pt:  33%|███▎      | 250M/753M [16:07<4:40:33, 29.9kB/s][A
+clip_cn_vit-b-16.pt:  33%|███▎      | 250M/753M [16:18<4:40:33, 29.9kB/s][A
+
+pytorch_model.bin:  24%|██▍       | 181M/753M [03:43<33:54:54, 4.68kB/s][A[A
+
+pytorch_model.bin:  24%|██▍       | 181M/753M [03:58<33:54:54, 4.68kB/s][A[A
+                                                                         [A2026-10-06 14:08:45,189 | WARNING | modelscope_hub.download | Download failed for clip_cn_vit-b-16.pt: HTTPSConnectionPool(host='cdn-lfs-cn-1.modelscope.cn', port=443): Read timed out., will retry
+
+clip_cn_vit-b-16.pt:  33%|███▎      | 250M/753M [00:00<?, ?B/s][A
+
+                                                                        [A[A2026-10-06 14:09:02,234 | WARNING | modelscope_hub.download | Download failed for pytorch_model.bin: HTTPSConnectionPool(host='cdn-lfs-cn-1.modelscope.cn', port=443): Read timed out., will retry
+
+
+pytorch_model.bin:  24%|██▍       | 181M/753M [00:00<?, ?B/s][A[A
+clip_cn_vit-b-16.pt:  33%|███▎      | 251M/753M [00:51<6:52:21, 20.3kB/s][A
+clip_cn_vit-b-16.pt:  33%|███▎      | 251M/753M [01:06<6:52:21, 20.3kB/s][A
+
+pytorch_model.bin:  24%|██▍       | 182M/753M [01:07<10:08:33, 15.6kB/s][A[A
+
+pytorch_model.bin:  24%|██▍       | 184M/753M [01:08<4:20:06, 36.5kB/s] [A[A
+
+pytorch_model.bin:  24%|██▍       | 184M/753M [01:28<4:20:06, 36.5kB/s][A[A
+
+pytorch_model.bin:  25%|██▍       | 185M/753M [02:57<9:47:32, 16.1kB/s][A[A
+
+pytorch_model.bin:  25%|██▍       | 185M/753M [03:08<9:47:32, 16.1kB/s][A[A
+
+pytorch_model.bin:  25%|██▍       | 186M/753M [03:10<6:41:17, 23.6kB/s][A[A
+                                                                         [A2026-10-06 14:12:19,793 | WARNING | modelscope_hub.download | Download failed for clip_cn_vit-b-16.pt: HTTPSConnectionPool(host='cdn-lfs-cn-1.modelscope.cn', port=443): Read timed out., will retry
+
+clip_cn_vit-b-16.pt:  33%|███▎      | 251M/753M [00:00<?, ?B/s][A
+clip_cn_vit-b-16.pt:  33%|███▎      | 252M/753M [00:06<55:38, 150kB/s][A
+
+pytorch_model.bin:  25%|██▍       | 186M/753M [03:28<6:41:17, 23.6kB/s][A[A
+clip_cn_vit-b-16.pt:  34%|███▎      | 253M/753M [00:20<1:27:53, 94.9kB/s][A
+
+pytorch_model.bin:  25%|██▍       | 187M/753M [03:31<5:26:10, 28.9kB/s][A[A
+
+pytorch_model.bin:  25%|██▍       | 188M/753M [03:34<3:43:00, 42.3kB/s][A[A
+clip_cn_vit-b-16.pt:  34%|███▎      | 254M/753M [00:35<1:41:30, 82.0kB/s][A
+
+pytorch_model.bin:  25%|██▍       | 188M/753M [03:48<3:43:00, 42.3kB/s][A[A
+clip_cn_vit-b-16.pt:  34%|███▍      | 255M/753M [00:44<1:29:20, 93.0kB/s][A
+
+pytorch_model.bin:  25%|██▌       | 189M/753M [04:05<4:00:20, 39.1kB/s][A[A
+clip_cn_vit-b-16.pt:  34%|███▍      | 255M/753M [00:59<1:29:20, 93.0kB/s][A
+
+pytorch_model.bin:  25%|██▌       | 189M/753M [04:18<4:00:20, 39.1kB/s][A[A
+clip_cn_vit-b-16.pt:  34%|███▍      | 256M/753M [01:16<2:28:19, 55.9kB/s][A
+
+pytorch_model.bin:  25%|██▌       | 190M/753M [04:37<4:14:26, 36.9kB/s][A[A
+clip_cn_vit-b-16.pt:  34%|███▍      | 257M/753M [01:23<1:54:34, 72.2kB/s][A
+
+pytorch_model.bin:  25%|██▌       | 191M/753M [04:44<3:15:40, 47.9kB/s][A[A
+clip_cn_vit-b-16.pt:  34%|███▍      | 258M/753M [01:28<1:32:06, 89.6kB/s][A
+clip_cn_vit-b-16.pt:  34%|███▍      | 258M/753M [01:39<1:32:06, 89.6kB/s][A
+
+pytorch_model.bin:  25%|██▌       | 191M/753M [04:58<3:15:40, 47.9kB/s][A[A
+
+pytorch_model.bin:  25%|██▌       | 192M/753M [05:02<3:04:16, 50.8kB/s][A[A
+
+pytorch_model.bin:  26%|██▌       | 193M/753M [05:12<2:34:42, 60.4kB/s][A[A
+clip_cn_vit-b-16.pt:  34%|███▍      | 259M/753M [01:58<2:15:25, 60.8kB/s][A
+
+pytorch_model.bin:  26%|██▌       | 194M/753M [05:21<2:12:49, 70.2kB/s][A[A
+clip_cn_vit-b-16.pt:  35%|███▍      | 260M/753M [02:05<1:50:36, 74.3kB/s][A
+
+pytorch_model.bin:  26%|██▌       | 195M/753M [05:30<1:54:12, 81.4kB/s][A[A
+clip_cn_vit-b-16.pt:  35%|███▍      | 260M/753M [02:19<1:50:36, 74.3kB/s][A
+clip_cn_vit-b-16.pt:  35%|███▍      | 261M/753M [02:22<1:58:57, 68.9kB/s][A
+
+pytorch_model.bin:  26%|██▌       | 196M/753M [05:45<2:01:09, 76.6kB/s][A[A
+
+pytorch_model.bin:  26%|██▌       | 197M/753M [05:51<1:39:11, 93.4kB/s][A[A
+clip_cn_vit-b-16.pt:  35%|███▍      | 262M/753M [02:37<1:57:40, 69.5kB/s][A
+clip_cn_vit-b-16.pt:  35%|███▍      | 262M/753M [02:49<1:57:40, 69.5kB/s][A
+
+pytorch_model.bin:  26%|██▌       | 197M/753M [06:08<1:39:11, 93.4kB/s][A[A
+
+pytorch_model.bin:  26%|██▋       | 198M/753M [06:09<1:58:59, 77.7kB/s][A[A
+clip_cn_vit-b-16.pt:  35%|███▍      | 263M/753M [02:51<1:53:44, 71.8kB/s][A

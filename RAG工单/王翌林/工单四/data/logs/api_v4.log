@@ -1,0 +1,46 @@
+INFO:     Started server process [95596]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8004 (Press CTRL+C to quit)
+2026-10-06 17:11:14.601 | INFO     | src.embedding:<module>:21 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-10-06 17:11:14.981 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-10-06 17:11:14.982 | INFO     | src.rag_engine_v3:_load_text_retriever:76 - [rag_engine_v3] TextRetrieverV3 已加载（多文档）
+2026-10-06 17:11:14.982 | INFO     | src.table_parser.table_store:_connect:69 - [table_store] 远程 Milvus: http://localhost:19530 v=2.6.9
+2026-10-06 17:11:14.982 | INFO     | src.api_v4:get_engine:48 - [api_v4] RAGEngineV4 已加载
+2026-10-06 17:11:15.100 | INFO     | src.image_parser.image_store:__init__:43 - [image_store] 远程 Milvus: http://localhost:19530
+INFO:     127.0.0.1:50912 - "GET /api/v4/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53954 - "GET /api/v4/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50944 - "POST /api/v4/ask HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:52632 - "POST /api/v4/ask HTTP/1.1" 422 Unprocessable Entity
+2026-10-06 17:16:05.216 | INFO     | src.rag_engine_v4:ask:123 - [rag_v4] image_route=image_first conf=0.94 hits=['图', '图中', '组织结构', '结构图', '销售部']
+2026-10-06 17:16:05.226 | INFO     | src.image_parser.image_store:__init__:43 - [image_store] 远程 Milvus: http://localhost:19530
+Building prefix dict from the default dictionary ...
+Loading model from cache /tmp/jieba.cache
+Loading model cost 0.342 seconds.
+Prefix dict has been built successfully.
+2026-10-06 17:16:10.145 | INFO     | src.embedding:_load:63 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 12629.26it/s]
+2026-10-06 17:16:13.671 | INFO     | src.embedding:_load:68 - max_seq_length=512
+2026-10-06 17:16:14.054 | INFO     | src.embedding:_load:73 - 嵌入模型就绪: dim=1024
+2026-10-06 17:16:14.376 | INFO     | src.image_parser.image_retriever:retrieve:61 - [image_retriever] '武汉力源信息技术股份有限公司组织结构图中，销售部有几个部门构' → 3 hits
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:  44%|████▍     | 174/393 [00:00<00:00, 1484.72it/s]
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s][ALoading weights:  82%|████████▏ | 323/393 [00:00<00:00, 894.72it/s] 
+Loading weights:   7%|▋         | 28/399 [00:00<00:01, 260.90it/s][ALoading weights: 100%|██████████| 393/393 [00:00<00:00, 763.35it/s]
+
+Loading weights:  22%|██▏       | 89/399 [00:00<00:00, 460.10it/s][A2026-10-06 17:16:16.227 | INFO     | src.reranker:_load:50 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+
+Loading weights:  35%|███▍      | 138/399 [00:00<00:00, 323.28it/s][A
+Loading weights:  44%|████▍     | 175/399 [00:01<00:02, 103.25it/s][A
+Loading weights:  50%|████▉     | 199/399 [00:01<00:01, 100.17it/s][A
+Loading weights:  75%|███████▌  | 301/399 [00:01<00:00, 213.50it/s][A
+Loading weights:  91%|█████████ | 363/399 [00:01<00:00, 268.49it/s][ALoading weights: 100%|██████████| 399/399 [00:01<00:00, 222.66it/s]
+2026-10-06 17:16:17.868 | INFO     | src.image_parser.image_parser:_ensure_loaded:61 - [clip] Chinese-CLIP 就绪
+2026-10-06 17:16:20.558 | INFO     | src.text_retriever_v3:retrieve:121 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 15324ms
+2026-10-06 17:16:21.292 | INFO     | src.llm_client_v3:get_client:31 - [llm_client_v3] DeepSeek client 就绪: https://api.deepseek.com/v1
+2026-10-06 17:16:22.458 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1166ms, tokens=3909
+INFO:     127.0.0.1:51622 - "POST /api/v4/ask HTTP/1.1" 200 OK
+2026-10-06 17:16:22.468 | INFO     | src.rag_engine_v4:ask:123 - [rag_v4] image_route=image_first conf=0.86 hits=['图', '图中', '增长图', '增长率']
+2026-10-06 17:16:22.605 | INFO     | src.image_parser.image_retriever:retrieve:61 - [image_retriever] '从2008年中国IC市场应用结构与增长图中可以看出，增长率最' → 3 hits
+2026-10-06 17:16:23.616 | INFO     | src.text_retriever_v3:retrieve:121 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 1122ms
+2026-10-06 17:16:24.719 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=829ms, tokens=3550
+INFO:     127.0.0.1:52868 - "POST /api/v4/ask HTTP/1.1" 200 OK

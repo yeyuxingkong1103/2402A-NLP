@@ -1,0 +1,54 @@
+2026-10-06 15:04:51.712 | INFO     | src.embedding:<module>:20 - 使用本地嵌入模型: /home/dabaie/models/bge-m3
+2026-10-06 15:04:52.125 | INFO     | src.vector_store:_connect:37 - 已连接远程 Milvus: http://localhost:19530, v=2.6.9
+2026-10-06 15:04:52.125 | INFO     | src.rag_engine_v3:_load_text_retriever:76 - [rag_engine_v3] TextRetrieverV3 已加载（多文档）
+2026-10-06 15:04:52.126 | INFO     | src.table_parser.table_store:_connect:69 - [table_store] 远程 Milvus: http://localhost:19530 v=2.6.9
+2026-10-06 15:04:52.196 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+Building prefix dict from the default dictionary ...
+Loading model from cache /tmp/jieba.cache
+Loading model cost 0.310 seconds.
+Prefix dict has been built successfully.
+2026-10-06 15:04:57.484 | INFO     | src.embedding:_load:50 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cuda
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 10089.41it/s]
+2026-10-06 15:05:01.316 | INFO     | src.embedding:_load:55 - max_seq_length=512
+2026-10-06 15:05:01.818 | INFO     | src.embedding:_load:60 - 嵌入模型就绪: dim=1024
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:  20%|██        | 79/393 [00:00<00:00, 789.39it/s]Loading weights:  71%|███████   | 278/393 [00:00<00:00, 1490.88it/s]Loading weights: 100%|██████████| 393/393 [00:00<00:00, 1728.18it/s]
+2026-10-06 15:05:03.432 | INFO     | src.reranker:_load:46 - ✅ Reranker 加载完成: /home/dabaie/models/bge-reranker-v2-m3
+2026-10-06 15:05:05.725 | INFO     | src.text_retriever_v3:retrieve:115 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 3877ms
+2026-10-06 15:05:06.562 | INFO     | src.llm_client_v3:get_client:31 - [llm_client_v3] DeepSeek client 就绪: https://api.deepseek.com/v1
+2026-10-06 15:05:07.528 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=965ms, tokens=1554
+2026-10-06 15:05:07.539 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 15:05:08.180 | INFO     | src.text_retriever_v3:retrieve:115 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 500ms
+2026-10-06 15:05:09.411 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=1044ms, tokens=1292
+2026-10-06 15:05:09.420 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 15:05:10.038 | INFO     | src.text_retriever_v3:retrieve:115 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 528ms
+2026-10-06 15:05:10.940 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=712ms, tokens=1280
+2026-10-06 15:05:10.940 | INFO     | src.rag_engine_v4:ask:102 - [rag_v4] image_route=hybrid conf=0.50 hits=[]
+2026-10-06 15:05:11.463 | INFO     | src.text_retriever_v3:retrieve:115 - [text_retriever_v3] retrieve: vec=24 kw=24 fused=8 522ms
+2026-10-06 15:05:12.192 | INFO     | src.llm_client_v3:chat:71 - [llm_client_v3] LLM 返回: model=deepseek-v4-flash, latency=728ms, tokens=1695
+================================================================================
+id3 公司的主要关联方有哪些？
+img_route: {'mode': 'hybrid', 'confidence': 0.5, 'hits': []} | n_ctx: 5 | n_img: 0 | retrieve_ms: 826.8
+  [0] text p9 :: .................................................161 五、发行人报告期内违法违规行为情况 .......................................
+  [1] text p9 :: ..........176 十二、发行人最近三年关联交易制度的执行情况及独立董事意见 ................178 十三、报告期内关联方变化情况 ................................
+  [2] text p4 :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-3 重大事项提示 发行人特别提请投资者注意，在作出投资决策之前，务必仔细阅
+  [3] text p8 :: ............................................................................. 63 十一、报告期内董事、监事及高级管理人员变动情况 .....
+  [4] text p5 :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-4 （三）营业收入及经营业绩的波动性风险 报告期内，公司的下游行业主要为军
+ANS: 根据提供的资料，无法确定公司的主要关联方具体有哪些。资料中仅提及招股说明书设有“关联方及关联关系”章节（第九节）[资料1]，以及“报告期内关联方变化情况”章节[资料2]，但未列出任何具体关联方名称。
+================================================================================
+id5 报告期内，公司来自军用领域的收入分别是多少？
+img_route: {'mode': 'hybrid', 'confidence': 0.5, 'hits': []} | n_ctx: 5 | n_img: 0 | retrieve_ms: 806.9
+  [0] text p4 :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-3 重大事项提示 发行人特别提请投资者注意，在作出投资决策之前，务必仔细阅
+  [1] text p5 :: 武汉兴图新科电子股份有限公司                                            招股说明书（申报稿） 1-1-4 （三）营业收入及经营业绩的波动性风险 报告期内，公司的下游行业主要为军
+  [2] text p9 :: ...........................................................................................205 七、非经常性损益情况 ....
+  [3] text p8 :: ............................................................................. 63 十一、报告期内董事、监事及高级管理人员变动情况 .....
+  [4] text p9 :: ..........176 十二、发行人最近三年关联交易制度的执行情况及独立董事意见 ................178 十三、报告期内关联方变化情况 ................................
+ANS: 根据提供的资料，无法回答报告期内公司来自军用领域的收入分别是多少。资料中仅提及公司下游行业主要为军工行业[资料2]，但未披露各报告期来自军用领域的具体收入金额。
+================================================================================
+id10 力源信息报告期内主营业务收入构成是什么？
+img_route: {'mode': 'hybrid', 'confidence': 0.5, 'hits': []} | n_ctx: 5 | n_img: 0 | retrieve_ms: 522.6
+  [0] text p15 :: 武汉力源信息技术股份有限公司                                                      招股意向书 14  第二节  概  览 本概览仅对招股意向书全文作扼要提示。投资者作
+  [1] text p12 :: 武汉力源信息技术股份有限公司                                                      招股意向书 11 威世集团、Vishay 指 Vishay Intertechnol
+  [2] text p19 :: 武汉力源信息技术股份有限公司                                                      招股意向书 18 综上，本公司的服务模式是针对中国工业控制领域的客户需求特点而设计，
+  [3] text p5 :: 武汉力源信息技术股份有限公司                                                      招股意向书 4 四、本公司特别提醒投资者注意“风险因素”中的下列风险： 1、市场风险
+  [4] text p7 :: 武汉力源信息技术股份有限公司                                                      招股意向书 6 三、发行人重大资产重组情况.....................
+ANS: 力源信息报告期内的主营业务收入构成，依据所提供资料无法确定。资料仅披露公司主营业务为“半导体集成电路（IC）等电子元器件的推广、销售及应用服务”[资料1]，未提供报告期内主营业务收入按产品、业务或地区等维度的具体构成数据。
