@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <title>招股说明书问答系统 V3 | 多文档+表格解析</title>
+    <style>
+        body { font-family: "Microsoft YaHei", Arial, sans-serif; background: #f0f7ff; margin: 0; padding: 0; color: #2c3e50; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 30px 20px; }
+        h1 { color: #2563eb; border-bottom: 2px solid #2563eb; padding-bottom: 10px; font-size: 24px; }
+        .v3-badge { background: #2563eb; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-left: 8px; }
+        .panel { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 20px; }
+        textarea { width: 100%; min-height: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; resize: vertical; box-sizing: border-box; }
+        button { background: #2563eb; color: #fff; border: 0; padding: 10px 24px; border-radius: 6px; font-size: 14px; cursor: pointer; margin-top: 10px; }
+        button:hover { background: #1d4ed8; }
+        button:disabled { background: #aaa; cursor: not-allowed; }
+        .doc-bar { font-size: 12px; color: #2563eb; background: #eff6ff; padding: 8px 12px; border-radius: 4px; margin-top: 10px; }
+        .tag-table { background: #dbeafe; color: #1d4ed8; padding: 2px 6px; border-radius: 3px; font-size: 11px; }
+        .tag-text { background: #dcfce7; color: #15803d; padding: 2px 6px; border-radius: 3px; font-size: 11px; }
+        .row { display: flex; gap: 20px; }
+        .col { flex: 1; background: #fafbfc; border: 1px solid #eee; border-radius: 6px; padding: 15px; min-height: 180px; }
+        .col h3 { margin: 0 0 10px 0; font-size: 15px; border-left: 3px solid #2563eb; padding-left: 8px; }
+        .answer-text { white-space: pre-wrap; font-size: 14px; line-height: 1.7; }
+        .table-block { background: #fefce8; border: 1px solid #fde68a; border-radius: 6px; padding: 12px; margin-top: 8px; font-size: 13px; }
+        .table-block table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+        .table-block th, .table-block td { border: 1px solid #fde68a; padding: 6px 10px; text-align: left; font-size: 12px; }
+        .table-block th { background: #fef08a; }
+        .table-block tr.hit-row { background: #bbf7d0; }
+        .meta { font-size: 12px; color: #888; margin-top: 8px; }
+        .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 12px; color: #fff; background: #2ecc71; margin-left: 8px; }
+        .badge.warn { background: #e74c3c; }
+        .example-link { color: #2563eb; cursor: pointer; margin-right: 10px; text-decoration: underline; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>招股说明书问答系统 <span class="v3-badge">V3 多文档+表格解析</span></h1>
+        <div style="color:#666;font-size:13px;margin-top:-5px;">
+            工单编号: 人工智能 NLP-RAG-PDF 文档的表格解析及检索优化 · 武汉力源信息 + 武汉兴图新科
+        </div>
+
+        <div class="panel">
+            <label for="question"><b>请输入问题 (支持中英文):</b></label>
+            <textarea id="question" placeholder="例如: 武汉力源信息技术股份有限公司本次发行股数是多少? 或: 武汉兴图新科电子股份有限公司注册资本是多少?"></textarea>
+            <button id="askBtn" onclick="ask()">提问 (Ctrl+Enter)</button>
+            <div class="doc-bar" id="docBar">加载中...</div>
+            <div style="margin-top:10px;font-size:13px;color:#888;">
+                示例 (武汉力源):
+                <span class="example-link" onclick="fillExample(this)">武汉力源信息技术股份有限公司本次发行股数是多少, 占发行后总股本的比例是多少?</span>
+                <span class="example-link" onclick="fillExample(this)">与武汉力源信息技术股份有限公司存在控制关系的关联方是谁?</span>
+            </div>
+        </div>
+
+        <div class="panel" id="resultPanel" style="display:none;">
+            <div class="row">
+                <div class="col">
+                    <h3>RAG 答案</h3>
+                    <div class="answer-text" id="ragAnswer">-</div>
+                </div>
+                <div class="col">
+                    <h3>纯 LLM 答案 (对比基线)</h3>
+                    <div class="answer-text" id="llmAnswer">-</div>
+                </div>
+            </div>
+            <div class="meta" id="meta">-</div>
+            <div id="tableBlocks"></div>
+        </div>
+    </div>
+
+    <script>
+        function fillExample(el) { document.getElementById('question').value = el.innerText; }
+
+        async function loadHealth() {
+            try {
+                const r = await fetch('/api/health');
+                const data = await r.json();
+                const docs = (data.documents || []).map(d => {
+                    const icon = d.exists ? '📄' : '📋';
+                    const status = d.exists ? '已加载' : (d.uses_preset ? '预设数据' : '缺失');
+                    return `${icon} ${d.company} (${status})`;
+                }).join(' | ');
+                document.getElementById('docBar').innerText = '文档状态: ' + docs;
+            } catch(e) { document.getElementById('docBar').innerText = ''; }
+        }
+        loadHealth();
+
+        function renderTableResult(tr) {
+            let html = `<div class="table-block">`;
+            html += `<div style="font-weight:bold;">📊 表格: ${tr.table_name} (${tr.company}, 页${tr.page || '?'}) `;
+            html += `<span style="color:#888;font-weight:normal;">score=${tr.score}</span></div>`;
+            // 从 table_results 渲染, 我们没传完整表格结构, 简化展示
+            const matched = (tr.matched_cols || []).join(', ');
+            const hits = (tr.hit_rows || []).map(h => h.row_index + 1).join(', ');
+            if (matched) html += `<div style="font-size:12px;color:#666;">命中列: ${matched}</div>`;
+            if (hits) html += `<div style="font-size:12px;color:#666;">命中行: ${hits}</div>`;
+            html += `</div>`;
+            return html;
+        }
+
+        async function ask() {
+            const q = document.getElementById('question').value.trim();
+            if (!q) { alert('请输入问题'); return; }
+            const btn = document.getElementById('askBtn');
+            btn.disabled = true; btn.innerText = '查询中...';
+            document.getElementById('resultPanel').style.display = 'block';
+            document.getElementById('ragAnswer').innerText = '加载中...';
+            document.getElementById('llmAnswer').innerText = '加载中...';
+            document.getElementById('tableBlocks').innerHTML = '';
+            document.getElementById('meta').innerText = '';
+
+            try {
+                const resp = await fetch('/api/ask', {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({question: q})
+                });
+                const data = await resp.json();
+                document.getElementById('ragAnswer').innerText = data.rag_answer || '(空)';
+                document.getElementById('llmAnswer').innerText = data.llm_answer || '(空)';
+
+                const tag = data.is_table_query
+                    ? '<span class="tag-table">表格查询</span>'
+                    : '<span class="tag-text">文本查询</span>';
+                const flag = data.within_time_limit ? '<span class="badge">≤3s</span>' : '<span class="badge warn">>3s</span>';
+                document.getElementById('meta').innerHTML =
+                    tag + ' | 响应时间: ' + data.response_time + 's ' + flag +
+                    ' | 文档: ' + (data.routed_docs || []).join(', ') +
+                    ' | 表格结果: ' + (data.table_results||[]).length + ', 文本结果: ' + (data.text_results||[]).length;
+
+                let tableHtml = '';
+                for (const tr of (data.table_results || [])) {
+                    tableHtml += renderTableResult(tr);
+                }
+                document.getElementById('tableBlocks').innerHTML = tableHtml;
+            } catch (e) {
+                document.getElementById('ragAnswer').innerText = '请求失败: ' + e;
+            } finally {
+                btn.disabled = false; btn.innerText = '提问';
+            }
+        }
+
+        document.getElementById('question').addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') ask();
+        });
+    </script>
+</body>
+</html>
