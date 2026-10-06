@@ -1,0 +1,40 @@
+# 工单编号：人工智能NLP-RAG-金融问答系统部署
+# docker-compose.yml - 一键部署
+
+version: "3.9"
+
+services:
+  rag-qa:
+    build: .
+    image: rag-qa:latest
+    container_name: rag-qa-service
+    ports:
+      - "6006:6006"
+    volumes:
+      - rag_data:/app/data
+      - rag_models:/app/models
+      - rag_logs:/app/logs
+    environment:
+      - HF_HOME=/app/models
+      - HF_ENDPOINT=https://hf-mirror.com
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    networks:
+      - rag_net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6006/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  rag_data:
+    driver: local
+  rag_models:
+    driver: local
+  rag_logs:
+    driver: local
+
+networks:
+  rag_net:
+    driver: bridge
