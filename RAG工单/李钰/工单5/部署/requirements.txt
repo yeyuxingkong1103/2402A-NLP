@@ -1,0 +1,22 @@
+# 基于 PDF 文档的 Query 理解优化 - Python 依赖
+# 工单编号: 人工智能 NLP-RAG-Query 理解优化任务
+
+# Web 框架
+Flask>=2.0
+
+# PDF 解析 (复用)
+pdfplumber>=0.9.0
+
+# 检索
+scikit-learn>=1.0
+numpy>=1.20
+
+# LLM 调用
+requests>=2.25
+
+# 中文分词
+jieba>=0.42
+
+# === 进阶 (可选) ===
+# sentence-transformers>=2.2.0    # CLIP 跨模态
+# PyMuPDF>=1.23.0                 # 图像提取
