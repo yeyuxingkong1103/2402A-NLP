@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <title>招股说明书问答系统 V2 | 优化版</title>
+    <style>
+        body { font-family: "Microsoft YaHei", Arial, sans-serif; background: #f0f4f8; margin: 0; padding: 0; color: #2c3e50; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 30px 20px; }
+        h1 { color: #059669; border-bottom: 2px solid #059669; padding-bottom: 10px; font-size: 24px; }
+        .v2-badge { background: #059669; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-left: 8px; }
+        .panel { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 20px; }
+        textarea { width: 100%; min-height: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; resize: vertical; box-sizing: border-box; }
+        button { background: #059669; color: #fff; border: 0; padding: 10px 24px; border-radius: 6px; font-size: 14px; cursor: pointer; margin-top: 10px; }
+        button:hover { background: #047857; }
+        button:disabled { background: #aaa; cursor: not-allowed; }
+        .row { display: flex; gap: 20px; }
+        .col { flex: 1; background: #fafbfc; border: 1px solid #eee; border-radius: 6px; padding: 15px; min-height: 180px; }
+        .col h3 { margin: 0 0 10px 0; font-size: 15px; border-left: 3px solid #059669; padding-left: 8px; }
+        .answer-text { white-space: pre-wrap; font-size: 14px; line-height: 1.7; }
+        .meta { font-size: 12px; color: #888; margin-top: 8px; }
+        .retrieval { font-size: 13px; color: #555; background: #f0fdf4; padding: 8px; border-radius: 4px; margin-top: 6px; max-height: 160px; overflow: auto; }
+        .enrich-info { font-size: 12px; color: #059669; background: #ecfdf5; padding: 6px 10px; border-radius: 4px; margin-top: 10px; }
+        .type-table { color: #dc2626; font-weight: bold; }
+        .type-text { color: #0891b2; }
+        .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 12px; color: #fff; background: #2ecc71; margin-left: 8px; }
+        .badge.warn { background: #e74c3c; }
+        .badge.v2 { background: #059669; }
+        .example-link { color: #059669; cursor: pointer; margin-right: 10px; text-decoration: underline; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>招股说明书问答系统 <span class="v2-badge">V2 优化版</span></h1>
+        <div style="color:#666;font-size:13px;margin-top:-5px;">
+            工单编号: 人工智能 NLP-RAG-基于 PDF 文档的问答系统优化 · 混合检索(BM25+TF-IDF)+查询扩展+语义分块
+        </div>
+
+        <div class="panel">
+            <label for="question"><b>请输入问题 (支持中英文):</b></label>
+            <textarea id="question" placeholder="例如: 武汉兴图新科电子股份有限公司的注册资本是多少? 或英文: What is the registered capital?"></textarea>
+            <button id="askBtn" onclick="ask()">提问 (Ctrl+Enter)</button>
+            <div style="margin-top:10px;font-size:13px;color:#888;">
+                示例:
+                <span class="example-link" onclick="fillExample(this)">报告期内, 武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少?</span>
+                <span class="example-link" onclick="fillExample(this)">武汉兴图新科电子股份有限公司法定代表人是谁?</span>
+                <span class="example-link" onclick="fillExample(this)">What is the registered capital of the company?</span>
+            </div>
+        </div>
+
+        <div class="panel" id="resultPanel" style="display:none;">
+            <div class="row">
+                <div class="col">
+                    <h3>RAG 答案 <span class="badge v2">V2</span></h3>
+                    <div class="answer-text" id="ragAnswer">-</div>
+                </div>
+                <div class="col">
+                    <h3>纯 LLM 答案 (对比基线)</h3>
+                    <div class="answer-text" id="llmAnswer">-</div>
+                </div>
+            </div>
+            <div class="enrich-info" id="enrichInfo"></div>
+            <div class="meta" id="meta">-</div>
+            <div class="retrieval" id="retrieval">-</div>
+        </div>
+    </div>
+
+    <script>
+        function fillExample(el) { document.getElementById('question').value = el.innerText; }
+
+        async function ask() {
+            const q = document.getElementById('question').value.trim();
+            if (!q) { alert('请输入问题'); return; }
+            const btn = document.getElementById('askBtn');
+            btn.disabled = true; btn.innerText = '查询中...';
+            document.getElementById('resultPanel').style.display = 'block';
+            document.getElementById('ragAnswer').innerText = '加载中...';
+            document.getElementById('llmAnswer').innerText = '加载中...';
+            document.getElementById('enrichInfo').innerText = '';
+            document.getElementById('meta').innerText = '';
+            document.getElementById('retrieval').innerText = '';
+
+            try {
+                const resp = await fetch('/api/ask', {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({question: q})
+                });
+                const data = await resp.json();
+                document.getElementById('ragAnswer').innerText = data.rag_answer || '(空)';
+                document.getElementById('llmAnswer').innerText = data.llm_answer || '(空)';
+
+                // 查询增强信息
+                const enh = data.enhancement || {};
+                let enrichHtml = '';
+                if (enh.expanded && enh.expanded !== enh.original) {
+                    enrichHtml = `查询扩展: "${enh.original}" → "${enh.expanded}"`;
+                }
+                if (enh.intent) enrichHtml += ` | 意图: ${enh.intent}`;
+                document.getElementById('enrichInfo').innerText = enrichHtml;
+
+                const flag = data.within_time_limit ? '<span class="badge">≤3s</span>' : '<span class="badge warn">>3s</span>';
+                document.getElementById('meta').innerHTML =
+                    '响应时间: ' + data.response_time + 's ' + flag +
+                    ' | 检索片段: ' + (data.retrieval||[]).length + ' 个';
+                const rets = (data.retrieval || []).map(r => {
+                    const typeLabel = r.type === 'table' ? '<span class="type-table">[表格]</span>' : '<span class="type-text">[文本]</span>';
+                    return typeLabel + ' p' + r.page + ' score=' + r.score.toFixed(3) + ' ' + (r.text || '').slice(0, 100);
+                }).join('\n---\n');
+                document.getElementById('retrieval').innerText = '检索片段:\n' + rets;
+            } catch (e) {
+                document.getElementById('ragAnswer').innerText = '请求失败: ' + e;
+            } finally {
+                btn.disabled = false; btn.innerText = '提问';
+            }
+        }
+
+        document.getElementById('question').addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') ask();
+        });
+    </script>
+</body>
+</html>

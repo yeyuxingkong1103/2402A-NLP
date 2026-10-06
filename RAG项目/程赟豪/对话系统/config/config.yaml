@@ -1,0 +1,101 @@
+# 配置文件
+app:
+  name: "RAG角色扮演系统"
+  version: "1.0.0"
+  debug: true
+  host: "0.0.0.0"
+  port: 8000
+
+# 大模型配置
+llm:
+  # 选择: local / api
+  provider: "api"
+
+  # 本地部署 (vLLM/SGLang)
+  local:
+    base_url: "http://localhost:8000/v1"
+    model: "qwen2.5"
+    temperature: 0.7
+    max_tokens: 2048
+
+  # 在线API
+  api:
+    # 可选: deepseek / qwen / doubao / openai
+    provider: "deepseek"
+    api_key: "sk-***************"
+    base_url: "https://api.deepseek.com/v1"
+    model: "deepseek-chat"
+    temperature: 0.7
+    max_tokens: 2048
+
+# 向量化模型
+embedding:
+  model: "C:/Users/cyh/Desktop/111/rag_roleplay/models/bge-m3"
+  device: "cpu"  # cuda / cpu（本机内存紧张，cpu 降低峰值内存；显存充足时可改回 cuda）
+  normalize: true
+  batch_size: 32
+
+# 重排序模型
+rerank:
+  # 精排方法: auto / bge / simple
+  #   auto: 有 FlagEmbedding + bge-rerank 模型时用 BGE，否则退回 simple（本地关键词精排）
+  method: "auto"
+  model: "BAAI/bge-rerank-base"
+  device: "cpu"  # 本机显存紧张，rerank 用 CPU；显存充足可改 cuda
+  top_k: 5
+
+# 向量数据库
+milvus:
+  host: "localhost"
+  port: 19530
+  collection_name: "roleplay_knowledge"
+  dimension: 1024  # bge-m3 输出维度
+
+# 短期记忆 (Redis)
+redis:
+  host: "localhost"
+  port: 6379
+  db: 0
+  password: null
+  # 会话过期时间（秒）
+  session_expire: 3600
+
+# 长期记忆 (MySQL)
+mysql:
+  host: "localhost"
+  port: 3306
+  user: "root"
+  password: "password"
+  database: "roleplay"
+
+# 文档解析
+document:
+  # PDF去水印
+  remove_watermark: true
+  # 分块大小
+  chunk_size: 512
+  chunk_overlap: 50
+  # 分块方式: fixed / sentence / paragraph / semantic
+  chunking_method: "semantic"
+
+# 检索配置
+retrieval:
+  top_k: 5
+  similarity_threshold: 0.5
+  # 混合检索（向量 + BM25 多路召回）
+  use_bm25: true
+  # Query 改写（结合历史做共指消解）
+  query_rewrite: true
+  # RRF 融合参数
+  rrf_k: 60
+  # 混合检索权重（保留字段）
+  vector_weight: 0.7
+  bm25_weight: 0.3
+
+# 日志配置
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/app.log"
+  max_bytes: 10485760  # 10MB
+  backup_count: 5

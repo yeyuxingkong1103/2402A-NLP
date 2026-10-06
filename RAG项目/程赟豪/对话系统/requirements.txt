@@ -1,0 +1,32 @@
+# 依赖包
+# RAG核心
+pymupdf>=1.23.0        # PDF解析
+pdfplumber>=0.10.0     # 表格解析
+paddlepaddle>=2.5.0   # PaddleOCR
+paddlenlp>=2.5.0      # PaddleNLP
+sentence-transformers>=0.2.0  # 向量化模型
+pymilvus>=2.3.0       # 向量数据库
+
+# 大模型
+openai>=1.0.0         # OpenAI API兼容
+requests>=2.31.0      # HTTP请求
+
+# 数据库
+redis>=5.0.0          # 短期记忆
+pymysql>=1.1.0       # MySQL
+pymongo>=4.6.0       # MongoDB
+
+# Web服务
+fastapi>=0.104.0      # API框架
+uvicorn>=0.24.0      # ASGI服务器
+pydantic>=2.5.0      # 数据验证
+
+# 工具
+python-dotenv>=1.0.0  # 环境变量
+pyyaml>=6.0.0         # YAML配置
+numpy>=1.24.0        # 数值计算
+aiofiles>=23.2.0     # 异步文件
+
+# 测试
+pytest>=7.4.0        # 单元测试
+httpx>=0.25.0        # HTTP测试客户端

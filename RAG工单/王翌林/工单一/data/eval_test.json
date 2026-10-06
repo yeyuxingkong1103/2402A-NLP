@@ -1,0 +1,45 @@
+{
+  "results": [
+    {
+      "id": 260,
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "reference": "2019年：6,464.51万元；2020年：7,811.23万元；2021年：10,256.89万元；2022年：12,345.67万元",
+      "rag": {
+        "answer": "根据[资料1]，报告期内武汉兴图新科电子股份有限公司来自军用领域的收入（军用领域小计）分别为：\n\n- 2016年度：6,464.51万元，占比82.10%\n- 2017年度：14,414.16万元，占比97.31%\n- 2018年度：18,780.67万元，占比94.84%\n- 2019年1-6月：4,627.15万元，占比94.34%\n\n以上数据均来自[资料1]中的分项目收入表。",
+        "latency_ms": 3637.5,
+        "references_count": 5,
+        "accuracy_keyword_hit": 1.0,
+        "matched_keywords": [
+          "万元"
+        ]
+      },
+      "llm": {
+        "answer": "",
+        "latency_ms": 10464.4,
+        "accuracy_keyword_hit": 0.0,
+        "matched_keywords": []
+      },
+      "ragas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.9737,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "timestamp": "2026-09-28T16:08:13.430849"
+    }
+  ],
+  "summary": {
+    "avg_rag_latency_ms": 3637.5,
+    "avg_llm_latency_ms": 10464.4,
+    "rag_accuracy_mean": 1.0,
+    "llm_accuracy_mean": 0.0,
+    "ragas_avg": {
+      "faithfulness": 0.0,
+      "answer_relevancy": 0.9737,
+      "context_precision": 0.0,
+      "context_recall": 0.0
+    },
+    "total_questions": 1
+  },
+  "generated_at": "2026-09-28T16:08:13.431659"
+}

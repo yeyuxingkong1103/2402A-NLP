@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAG 智能问答工作台</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="enhancements.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">R</div><div><strong>RAG WORKBENCH</strong><span>PDF 智能检索实验室</span></div></div>
+      <nav class="nav-list" aria-label="主导航">
+        <button class="nav-item active" data-view="workspace"><span class="nav-icon">⌘</span>问答工作台</button>
+        <button class="nav-item" data-view="knowledge"><span class="nav-icon">▤</span>知识库</button>
+        <button class="nav-item" data-view="evaluation"><span class="nav-icon">◒</span>RAG 评估</button>
+        <button class="nav-item" data-view="docs"><span class="nav-icon">◫</span>文档与演示</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="health"><span class="dot"></span><div><b>系统运行正常</b><small>索引服务 · 本地演示</small></div></div>
+        <div class="profile"><div class="avatar">王</div><div><b>项目成员</b><small>开发环境</small></div><span>···</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar"><div><div class="eyebrow">人工智能 NLP · 优化工单 RAG-02</div><h1 id="page-title">问答工作台</h1></div><div class="top-actions"><button class="icon-btn" title="快捷键">⌘ K</button><button class="outline-btn" id="reset-btn">↻ 重置会话</button></div></header>
+
+      <section id="workspace-view" class="view active-view">
+        <div class="workspace-grid">
+          <div class="chat-panel panel">
+            <div class="panel-head"><div><h2>对话</h2><p id="chat-status">已连接到「招股说明书 1.pdf」知识库</p></div><span class="live-pill"><i></i>LIVE</span></div>
+            <div class="chat-messages" id="chat-messages">
+              <div class="message assistant"><div class="message-avatar">R</div><div class="bubble"><div class="bubble-meta">RAG 助手 <span>本地检索</span></div><p>知识库已准备就绪。输入问题，我会从已解析的 PDF 片段中检索依据，并附上来源页码。没有足够证据时会明确提示。</p><div class="welcome-tags"><span>支持中文 / English</span><span>回答附来源页码</span><span>无证据时拒答</span></div></div></div>
+            </div>
+            <div class="suggestions"><span>试试：</span><button data-question="武汉兴图新科参与制定了哪个技术标准？">参与制定了哪个技术标准？</button><button data-question="公司注册资本是多少？">注册资本是多少？</button><button data-question="电子信息行业的下游主要包括哪些行业？">下游主要包括哪些行业？</button></div>
+            <form class="composer" id="question-form"><button type="button" class="attach-btn" title="上传 PDF">＋</button><input id="question-input" placeholder="输入你的问题，支持中文和 English" autocomplete="off" /><button class="send-btn" type="submit">发送 <span>↗</span></button></form>
+            <div class="composer-note"><span>Enter 发送 · Shift + Enter 换行</span><span>基于检索内容回答</span></div>
+          </div>
+          <aside class="right-rail">
+            <div class="panel source-panel"><div class="panel-head"><div><h2>当前知识库</h2><p id="kb-status">正在读取本地索引</p></div><button class="more-btn">···</button></div><div class="doc-card"><div class="pdf-icon">PDF</div><div><b id="kb-document">招股说明书1.pdf</b><small id="kb-document-state">内置演示文档</small></div><span class="check">✓</span></div><div class="index-stats"><div><b id="chunk-count">-</b><small>文本片段</small></div><div><b>页码</b><small>来源定位</small></div><div><b id="latency-stat">-</b><small>检索耗时</small></div></div><div class="progress-label"><span>索引状态</span><span id="index-state">连接中</span></div><div class="progress"><i id="index-progress"></i></div><button class="secondary-btn" id="upload-btn">＋ 添加 PDF 文档</button><input type="file" id="file-input" accept="application/pdf" hidden /></div>
+            <div class="panel intent-panel"><div class="panel-head"><div><h2>Query 理解</h2><p>本轮问题的解析结果</p></div><span class="confidence">实时解析</span></div><div class="intent-row"><span>意图</span><b id="intent-value">等待问题输入</b></div><div class="intent-row"><span>实体</span><div class="chips" id="query-entities"><em>等待解析</em></div></div><div class="intent-row"><span>查询策略</span><b class="mono">BM25 + n-gram · RRF</b></div></div>
+            <div class="panel metric-panel"><div class="panel-head"><div><h2>本轮质量</h2><p>最近一次真实请求</p></div><button class="link-btn" data-view="evaluation">查看评估 →</button></div><div class="metric-grid"><div><strong id="retrieval-candidates">-</strong><span>候选片段</span></div><div><strong id="retrieval-routes">4路</strong><span>优化步骤</span></div><div><strong id="retrieval-latency">-</strong><span>检索耗时</span></div></div></div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="knowledge-view" class="view"><div class="section-heading"><div><div class="eyebrow">DOCUMENT INGESTION</div><h2>知识库管理</h2><p>上传可搜索文本的 PDF，系统按页解析、清洗和切块。</p></div><button class="primary-btn" id="upload-btn-2">＋ 上传 PDF</button></div><div class="knowledge-grid"><div class="panel upload-zone" id="drop-zone"><div class="upload-glyph">↥</div><h3>拖放 PDF 到这里</h3><p>或点击选择文件 · 单文件最大 80 MB</p><button class="secondary-btn">选择文件</button></div><div class="panel pipeline"><div class="panel-head"><div><h2>解析流水线</h2><p>本地运行进度</p></div><span class="status-badge" id="pipeline-state">等待文件</span></div><div class="pipeline-step done"><span>1</span><div><b>文档解析</b><small>读取文字内容与页码</small></div></div><div class="pipeline-step done"><span>2</span><div><b>分块与清洗</b><small>按段落和句子保留上下文</small></div></div><div class="pipeline-step done"><span>3</span><div><b>混合检索索引</b><small>BM25 与字符 n-gram</small></div></div></div></div><div class="panel documents-table"><div class="panel-head"><div><h2>已索引片段</h2><p id="document-summary">由当前本地索引读取</p></div><span class="filter-btn">PDF</span></div><div id="document-rows"><div class="table-row table-header"><span>文档名称</span><span>大小</span><span>片段</span><span>状态</span><span></span></div></div></div></section>
+
+      <section id="evaluation-view" class="view"><div class="section-heading"><div><div class="eyebrow">RAG EVALUATION</div><h2>检索质量评估</h2><p>用工单 10 道示例题对比 BM25 基线与优化后的 Top-5 证据命中。</p></div><button class="outline-btn" id="refresh-evaluation">↻ 重新评估</button></div><div class="eval-summary"><div class="panel eval-score"><span class="score-label">优化后 Top-5 命中率</span><strong id="eval-after">-<span>/10</span></strong><div class="score-bar"><i id="eval-progress"></i></div><small id="eval-caption">加载真实评测中</small></div><div class="panel eval-stat"><span>BM25 基线命中</span><strong id="eval-before">-</strong><small>相同题集、相同文档</small></div><div class="panel eval-stat"><span>优化后证据命中</span><strong id="eval-hit">-</strong><small>关键词召回 + 字符 n-gram</small></div><div class="panel eval-stat"><span>平均检索耗时</span><strong id="eval-latency">-</strong><small>本机运行时测得</small><span class="trend neutral">目标 ≤ 3 秒</span></div></div><div class="panel comparison"><div class="panel-head"><div><h2>10 题逐项对比</h2><p>该命中率是证据关键词代理值，不代表人工核验的答案准确率</p></div><span class="comparison-tag">实时数据</span></div><div id="evaluation-rows" class="evaluation-rows"><div class="loading-row">正在评测工单示例问题…</div></div></div></section>
+
+      <section id="docs-view" class="view"><div class="section-heading"><div><div class="eyebrow">DOCUMENTATION</div><h2>文档与演示</h2><p>系统架构和演示操作步骤。</p></div><button class="primary-btn" id="demo-btn">▶ 填入演示问题</button></div><div class="docs-grid"><div class="panel doc-link"><span class="doc-number">01</span><div><h3>技术方案</h3><p>本地 PDF 解析、混合检索、RRF 融合、重排和证据引用。</p><a href="README.md" target="_blank">打开技术说明 ↗</a></div></div><div class="panel doc-link"><span class="doc-number">02</span><div><h3>用户操作</h3><p>上传 PDF 后等待索引完成，输入问题即可查看原文页码。</p><a href="README.md" target="_blank">查看运行说明 ↗</a></div></div><div class="panel doc-link"><span class="doc-number">03</span><div><h3>评测问题集</h3><p>10 道优化工单示例题，与 BM25 基线逐题比较。</p><a href="#" id="open-evaluation">打开评测 ↗</a></div></div></div><div class="panel architecture"><div class="panel-head"><div><h2>检索链路</h2><p>可复现的本地检索步骤</p></div></div><div class="arch-flow"><div><b>用户 Query</b><small>关键词扩展</small></div><span>→</span><div><b>混合召回</b><small>BM25 + 字符 n-gram</small></div><span>→</span><div><b>融合重排</b><small>RRF + 相关度</small></div><span>→</span><div><b>证据回答</b><small>原文片段 + 页码</small></div></div></div></section>
+    </main>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>

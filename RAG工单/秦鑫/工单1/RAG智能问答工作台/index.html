@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAG 智能问答工作台</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">R</div><div><strong>RAG WORKBENCH</strong><span>PDF 智能检索实验室</span></div></div>
+      <nav class="nav-list" aria-label="主导航">
+        <button class="nav-item active" data-view="workspace"><span class="nav-icon">⌘</span>问答工作台</button>
+        <button class="nav-item" data-view="knowledge"><span class="nav-icon">▤</span>知识库</button>
+        <button class="nav-item" data-view="evaluation"><span class="nav-icon">◒</span>RAG 评估</button>
+        <button class="nav-item" data-view="docs"><span class="nav-icon">◫</span>文档与演示</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="health"><span class="dot"></span><div><b>系统运行正常</b><small>索引服务 · 本地演示</small></div></div>
+        <div class="profile"><div class="avatar">王</div><div><b>项目成员</b><small>开发环境</small></div><span>···</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar"><div><div class="eyebrow">人工智能 NLP · 任务工单 RAG-01</div><h1 id="page-title">问答工作台</h1></div><div class="top-actions"><button class="icon-btn" title="快捷键">⌘ K</button><button class="outline-btn" id="reset-btn">↻ 重置会话</button></div></header>
+
+      <section id="workspace-view" class="view active-view">
+        <div class="workspace-grid">
+          <div class="chat-panel panel">
+            <div class="panel-head"><div><h2>对话</h2><p id="chat-status">已连接到「招股说明书 1.pdf」知识库</p></div><span class="live-pill"><i></i>LIVE</span></div>
+            <div class="chat-messages" id="chat-messages">
+              <div class="message assistant"><div class="message-avatar">R</div><div class="bubble"><div class="bubble-meta">RAG 助手 <span>刚刚</span></div><p>你好，我是你的 PDF 文档问答助手。上传文档后，我会基于原文检索并给出可追溯的回答。</p><div class="welcome-tags"><span>支持中文 / English</span><span>回答附来源</span><span>响应目标 &lt; 3s</span></div></div></div>
+              <div class="message user"><div class="bubble"><div class="bubble-meta">你 <span>刚刚</span></div><p>报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？</p></div><div class="message-avatar user-avatar">你</div></div>
+              <div class="message assistant"><div class="message-avatar">R</div><div class="bubble answer-bubble"><div class="bubble-meta">RAG 助手 <span>刚刚 · 1.8s</span></div><p>报告期内，公司来自军用领域的收入如下：</p><ul><li><b>2019 年 1-6 月：</b>4,627.14 万元</li><li><b>2018 年度：</b>18,780.67 万元</li><li><b>2017 年度：</b>14,414.16 万元</li><li><b>2016 年度：</b>6,464.51 万元</li></ul><div class="sources"><span>↗ 来源  招股说明书 1.pdf · 第 157 页</span><span>相关度 96%</span></div><div class="answer-actions"><button>□ 复制</button><button>↻ 再问一次</button><button>♡ 有帮助</button></div></div></div>
+            </div>
+            <div class="suggestions"><span>试试：</span><button data-question="武汉兴图新科参与制定了哪个技术标准？">参与制定了哪个技术标准？</button><button data-question="公司注册资本是多少？">注册资本是多少？</button><button data-question="电子信息行业的下游主要包括哪些行业？">下游主要包括哪些行业？</button></div>
+            <form class="composer" id="question-form"><button type="button" class="attach-btn" title="上传 PDF">＋</button><input id="question-input" placeholder="输入你的问题，支持中文和 English" autocomplete="off" /><button class="send-btn" type="submit">发送 <span>↗</span></button></form>
+            <div class="composer-note"><span>Enter 发送 · Shift + Enter 换行</span><span>基于检索内容回答</span></div>
+          </div>
+          <aside class="right-rail">
+            <div class="panel source-panel"><div class="panel-head"><div><h2>当前知识库</h2><p>已索引文档与检索状态</p></div><button class="more-btn">···</button></div><div class="doc-card"><div class="pdf-icon">PDF</div><div><b>招股说明书 1.pdf</b><small>10.47 MB · 已解析</small></div><span class="check">✓</span></div><div class="index-stats"><div><b>1,248</b><small>文本片段</small></div><div><b>96%</b><small>解析完整度</small></div><div><b>153 ms</b><small>平均检索</small></div></div><div class="progress-label"><span>索引状态</span><span>已完成</span></div><div class="progress"><i></i></div><button class="secondary-btn" id="upload-btn">＋ 添加 PDF 文档</button><input type="file" id="file-input" accept="application/pdf" hidden /></div>
+            <div class="panel intent-panel"><div class="panel-head"><div><h2>Query 理解</h2><p>本轮问题的解析结果</p></div><span class="confidence">高置信度</span></div><div class="intent-row"><span>意图</span><b>事实检索 · 财务数据</b></div><div class="intent-row"><span>实体</span><div class="chips"><em>武汉兴图新科</em><em>军用领域</em><em>收入</em></div></div><div class="intent-row"><span>查询策略</span><b class="mono">multi-hop · top_k=5</b></div></div>
+            <div class="panel metric-panel"><div class="panel-head"><div><h2>本轮质量</h2><p>实时评估信号</p></div><button class="link-btn" data-view="evaluation">查看评估 →</button></div><div class="metric-grid"><div><strong>0.96</strong><span>检索相关度</span></div><div><strong>0.91</strong><span>答案忠实度</span></div><div><strong>1.8s</strong><span>响应耗时</span></div></div></div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="knowledge-view" class="view"><div class="section-heading"><div><div class="eyebrow">DOCUMENT INGESTION</div><h2>知识库管理</h2><p>上传 PDF，解析文本并建立可检索的向量索引。</p></div><button class="primary-btn" id="upload-btn-2">＋ 上传 PDF</button></div><div class="knowledge-grid"><div class="panel upload-zone" id="drop-zone"><div class="upload-glyph">↥</div><h3>拖放 PDF 到这里</h3><p>或点击选择文件 · 单文件最大 50 MB</p><button class="secondary-btn">选择文件</button></div><div class="panel pipeline"><div class="panel-head"><div><h2>解析流水线</h2><p>招股说明书 1.pdf</p></div><span class="status-badge">已完成</span></div><div class="pipeline-step done"><span>✓</span><div><b>文档解析</b><small>提取文字、表格与页码</small></div><time>00:42</time></div><div class="pipeline-step done"><span>✓</span><div><b>分块与清洗</b><small>1,248 个文本片段</small></div><time>00:18</time></div><div class="pipeline-step done"><span>✓</span><div><b>向量化与索引</b><small>知识库可供检索</small></div><time>00:53</time></div></div></div><div class="panel documents-table"><div class="panel-head"><div><h2>已上传文档</h2><p>1 个文档 · 1,248 个片段</p></div><button class="filter-btn">全部状态⌄</button></div><div class="table-row table-header"><span>文档名称</span><span>大小</span><span>片段</span><span>状态</span><span></span></div><div class="table-row"><span><i class="mini-pdf">PDF</i><b>招股说明书 1.pdf</b></span><span>10.47 MB</span><span>1,248</span><span class="table-status">已索引</span><span>···</span></div></div></section>
+
+      <section id="evaluation-view" class="view"><div class="section-heading"><div><div class="eyebrow">RAG EVALUATION</div><h2>检索质量评估</h2><p>对比 RAG 与纯 LLM 的回答，验证准确性与可追溯性。</p></div><button class="outline-btn">导出评估报告 ↗</button></div><div class="eval-summary"><div class="panel eval-score"><span class="score-label">RAG 总评分</span><strong>92<span>/100</span></strong><div class="score-bar"><i></i></div><small>较纯 LLM 提升 27%</small></div><div class="panel eval-stat"><span>答案准确率</span><strong>96.2%</strong><small>基于 10 道工单示例题</small><span class="trend">↗ 12.4%</span></div><div class="panel eval-stat"><span>引用覆盖率</span><strong>100%</strong><small>每个答案均可定位原文</small><span class="trend">↗ 18.7%</span></div><div class="panel eval-stat"><span>平均响应时间</span><strong>1.8s</strong><small>目标：不超过 3 秒</small><span class="trend neutral">达标</span></div></div><div class="panel comparison"><div class="panel-head"><div><h2>回答对比</h2><p>示例题 · ID 260</p></div><span class="comparison-tag">RAG 优势</span></div><div class="question-quote">“报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？”</div><div class="compare-columns"><div><div class="compare-title"><span class="model-dot llm"></span>纯 LLM 回答 <em>无检索</em></div><p>公司来自军用领域的收入在报告期内保持增长，具体数据请参考公司年度报告。</p><div class="compare-foot bad">✕ 未提供具体数据 · 无来源引用</div></div><div class="compare-divider"></div><div><div class="compare-title"><span class="model-dot rag"></span>RAG 回答 <em>基于 PDF</em></div><p>2019 年 1-6 月 4,627.14 万元；2018 年度 18,780.67 万元；2017 年度 14,414.16 万元；2016 年度 6,464.51 万元。</p><div class="compare-foot good">✓ 4 项数据匹配 · 第 157 页 · 忠实度 0.91</div></div></div></div></section>
+
+      <section id="docs-view" class="view"><div class="section-heading"><div><div class="eyebrow">DOCUMENTATION</div><h2>文档与演示</h2><p>从系统架构到用户操作，一页了解完整交付物。</p></div><button class="primary-btn" id="demo-btn">▶ 开始演示</button></div><div class="docs-grid"><div class="panel doc-link"><span class="doc-number">01</span><div><h3>技术文档</h3><p>系统架构、技术选型、开发流程与使用方法。</p><a href="#">查看文档 ↗</a></div></div><div class="panel doc-link"><span class="doc-number">02</span><div><h3>用户手册</h3><p>如何上传 PDF、提出问题和查看带引用的结果。</p><a href="#">查看手册 ↗</a></div></div><div class="panel doc-link"><span class="doc-number">03</span><div><h3>完整演示视频</h3><p>展示从文档上传到 RAG 评估的完整操作流程。</p><a href="#">播放演示 ↗</a></div></div></div><div class="panel architecture"><div class="panel-head"><div><h2>系统架构</h2><p>从用户问题到可验证答案的完整链路</p></div></div><div class="arch-flow"><div><b>用户输入</b><small>Query 理解</small></div><span>→</span><div><b>检索层</b><small>向量 + 关键词</small></div><span>→</span><div><b>生成层</b><small>LLM + 上下文</small></div><span>→</span><div><b>回答输出</b><small>答案 + 引用</small></div></div></div></section>
+    </main>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
