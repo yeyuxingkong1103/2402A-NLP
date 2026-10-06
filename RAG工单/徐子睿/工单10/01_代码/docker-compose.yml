@@ -1,0 +1,20 @@
+# 工单编号：人工智能NLP-RAG-金融问答系统部署任务
+version: "3.9"
+
+services:
+  finqa:
+    build: .
+    image: finqa-graphrag:1.0
+    container_name: finqa-api
+    ports:
+      - "8100:8100"
+    environment:
+      # 本机 Ollama（宿主机）；容器内用 host.docker.internal 访问
+      OLLAMA_BASE: "http://host.docker.internal:11434"
+      RAG_STRATEGY: "rrf"
+    volumes:
+      # 索引/图谱/语料（离线产物）挂载进容器
+      - ./data:/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
