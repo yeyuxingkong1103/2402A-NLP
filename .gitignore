@@ -17,3 +17,7 @@ conda_packages/
 **/tools/redis/
 **/.mimosa/
 **/.superpowers/
+**/chroma_db/
+
+# ---- RAG工单：工单自带的 data 目录要上传，上面 data/ 规则会误伤，加例外 ----
+!RAG工单/刘文豪/*/data/
