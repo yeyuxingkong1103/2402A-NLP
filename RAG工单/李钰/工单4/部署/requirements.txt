@@ -1,0 +1,27 @@
+# 基于 PDF 文档的图像内容解析及检索优化 - Python 依赖
+# 工单编号: 人工智能 NLP-RAG-图像内容解析及检索优化
+
+# Web 框架
+Flask>=2.0
+
+# PDF 解析
+pdfplumber>=0.9.0
+
+# 检索
+scikit-learn>=1.0
+numpy>=1.20
+
+# LLM 调用
+requests>=2.25
+
+# 中文分词
+jieba>=0.42
+
+# === V4 图像解析 (可选) ===
+# sentence-transformers>=2.2.0     # CLIP 跨模态检索 (需 ~300MB 下载)
+# PyMuPDF>=1.23.0                  # 从 PDF 提取内嵌图像
+# Pillow>=9.0.0                    # 图像处理
+
+# === 多模态 LLM ===
+# 需支持 GPT-4V / Claude Vision / Gemini Pro Vision 的 API Key
+# 设置环境变量: VISION_API_KEY, VISION_BASE_URL, VISION_MODEL
