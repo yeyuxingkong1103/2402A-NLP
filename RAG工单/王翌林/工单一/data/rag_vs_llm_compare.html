@@ -1,0 +1,269 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<title>RAG vs LLM 对比测试 — 工单：人工智能NLP-RAG-基于PDF文档的问答系统</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'SimHei', 'Microsoft YaHei', sans-serif; background: #f0f2f5; margin: 0; padding: 20px; color: #333; }
+  h1 { text-align: center; color: #1a1a2e; margin-bottom: 5px; }
+  .subtitle { text-align: center; color: #666; margin-bottom: 25px; font-size: 14px; }
+  .summary { max-width: 1400px; margin: 0 auto 25px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+  .summary-item { text-align: center; }
+  .summary-num { font-size: 32px; font-weight: bold; }
+  .summary-label { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+  .question-card { max-width: 1400px; margin: 0 auto 20px; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .question-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #eee; }
+  .qid { background: #667eea; color: white; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 13px; }
+  .qcat { background: #e8f5e9; color: #2e7d32; padding: 3px 10px; border-radius: 12px; font-size: 12px; }
+  .qtext { flex: 1; font-size: 15px; font-weight: 500; }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+  .col { border-radius: 8px; padding: 15px; position: relative; }
+  .col-rag { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border-left: 4px solid #4CAF50; }
+  .col-llm { background: linear-gradient(135deg, #fff3e0, #ffe0b2); border-left: 4px solid #FF9800; }
+  .col-label { font-weight: bold; margin-bottom: 8px; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
+  .rag-label { color: #2e7d32; }
+  .llm-label { color: #e65100; }
+  .latency-badge { background: white; padding: 2px 10px; border-radius: 10px; font-size: 11px; font-weight: normal; }
+  .answer { font-size: 13px; line-height: 1.7; white-space: pre-wrap; word-break: break-word; max-height: 200px; overflow-y: auto; }
+  .refs { margin-top: 10px; padding-top: 10px; border-top: 1px dashed #ccc; font-size: 11px; color: #555; }
+  .ref-item { margin: 3px 0; padding: 3px 8px; background: rgba(255,255,255,0.6); border-radius: 4px; }
+  .footer { text-align: center; margin-top: 30px; color: #999; font-size: 12px; }
+</style></head><body>
+<h1>🔬 RAG 检索增强 vs 纯 LLM 问答 — 10 题对比测试</h1>
+<p class="subtitle">工单：人工智能NLP-RAG-基于PDF文档的问答系统 | 招股说明书1.pdf (548页, 1303 chunks) | 2026-09-28</p>
+
+<div class="summary">
+  <div class="summary-item"><div class="summary-num">9/10</div><div class="summary-label">RAG 胜场</div></div>
+  <div class="summary-item"><div class="summary-num">75%</div><div class="summary-label">RAG 关键词命中率</div></div>
+  <div class="summary-item"><div class="summary-num">4,478ms</div><div class="summary-label">RAG 平均延迟</div></div>
+  <div class="summary-item"><div class="summary-num">92 vs 6</div><div class="summary-label">数字密度 (RAG vs LLM)</div></div>
+  <div class="summary-item"><div class="summary-num">15×</div><div class="summary-label">RAG 返回数字倍数</div></div>
+</div>
+
+<div class="question-card">
+  <div class="question-header">
+    <span class="qid">Q#531</span>
+    <span class="qcat">事实型</span>
+    <span class="qtext">Q: 武汉兴图新科电子股份有限公司法定代表人是谁？</span>
+  </div>
+  <div class="compare-grid">
+    <div class="col col-rag">
+      <div class="col-label rag-label">✅ RAG 检索增强 <span class="latency-badge">1241ms</span></div>
+      <div class="answer">武汉兴图新科电子股份有限公司的法定代表人是**程家明**。[资料1][资料5]</div>
+      <div class="refs"><div class="ref-item">📄 p.52 | score=8.4453 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.63 | score=7.957 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.68 | score=7.8242 | 武汉兴图新科电子股份有限公司                                              ...</div></div>
+    </div>
+    <div class="col col-llm">
+      <div class="col-label llm-label">⚡ 纯 LLM 问答 <span class="latency-badge">1635ms</span></div>
+      <div class="answer">武汉兴图新科电子股份有限公司的法定代表人是**程家明**。</div>
+    </div>
+  </div>
+</div>
+
+<div class="question-card">
+  <div class="question-header">
+    <span class="qid">Q#543</span>
+    <span class="qcat">数值型</span>
+    <span class="qtext">Q: 武汉兴图新科电子股份有限公司注册资本是多少？</span>
+  </div>
+  <div class="compare-grid">
+    <div class="col col-rag">
+      <div class="col-label rag-label">✅ RAG 检索增强 <span class="latency-badge">1122ms</span></div>
+      <div class="answer">根据参考资料，武汉兴图新科电子股份有限公司的注册资本为 **5,520 万元**，实收资本也为 **5,520 万元**。[资料1]</div>
+      <div class="refs"><div class="ref-item">📄 p.52 | score=8.1406 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.53 | score=7.9844 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.68 | score=7.5586 | 武汉兴图新科电子股份有限公司                                              ...</div></div>
+    </div>
+    <div class="col col-llm">
+      <div class="col-label llm-label">⚡ 纯 LLM 问答 <span class="latency-badge">10133ms</span></div>
+      <div class="answer"></div>
+    </div>
+  </div>
+</div>
+
+<div class="question-card">
+  <div class="question-header">
+    <span class="qid">Q#260</span>
+    <span class="qcat">数值型</span>
+    <span class="qtext">Q: 报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？</span>
+  </div>
+  <div class="compare-grid">
+    <div class="col col-rag">
+      <div class="col-label rag-label">✅ RAG 检索增强 <span class="latency-badge">2666ms</span></div>
+      <div class="answer">根据[资料2]，报告期内武汉兴图新科电子股份有限公司来自军用领域的收入分别为：
+
+- 2016年度：6,464.51万元，占营业收入比例82.10%
+- 2017年度：14,414.16万元，占营业收入比例97.31%
+- 2018年度：18,780.67万元，占营业收入比例94.84%
+- 2019年1-6月：4,627.15万元，占营业收入比例94.34%
+
+以上数据来源于[资料2]中“军用领域”小计金额及占比。</div>
+      <div class="refs"><div class="ref-item">📄 p.130 | score=7.6133 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.343 | score=7.5547 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.378 | score=7.2031 | 武汉兴图新科电子股份有限公司                                              ...</div></div>
+    </div>
+    <div class="col col-llm">
+      <div class="col-label llm-label">⚡ 纯 LLM 问答 <span class="latency-badge">9330ms</span></div>
+      <div class="answer"></div>
+    </div>
+  </div>
+</div>
+
+<div class="question-card">
+  <div class="question-header">
+    <span class="qid">Q#33</span>
+    <span class="qcat">数值型</span>
+    <span class="qtext">Q: 报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别是多少？</span>
+  </div>
+  <div class="compare-grid">
+    <div class="col col-rag">
+      <div class="col-label rag-label">✅ RAG 检索增强 <span class="latency-badge">2416ms</span></div>
+      <div class="answer">报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别为：
+
+- 2016年度：82.10%
+- 2017年度：97.31%
+- 2018年度：94.84%
+- 2019年1-6月：94.34%
+
+即分别为 **82.10%、97.31%、94.84%和94.34%**。[资料3][资料5]</div>
+      <div class="refs"><div class="ref-item">📄 p.130 | score=8.4062 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.378 | score=8.3359 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.343 | score=8.3047 | 武汉兴图新科电子股份有限公司                                              ...</div></div>
+    </div>
+    <div class="col col-llm">
+      <div class="col-label llm-label">⚡ 纯 LLM 问答 <span class="latency-badge">9354ms</span></div>
+      <div class="answer"></div>
+    </div>
+  </div>
+</div>
+
+<div class="question-card">
+  <div class="question-header">
+    <span class="qid">Q#795</span>
+    <span class="qcat">事实型</span>
+    <span class="qtext">Q: 武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？</span>
+  </div>
+  <div class="compare-grid">
+    <div class="col col-rag">
+      <div class="col-label rag-label">✅ RAG 检索增强 <span class="latency-badge">2032ms</span></div>
+      <div class="answer">武汉兴图新科电子股份有限公司参与的是“**某情报、指挥、控制与通信网络一体化工程**”（即相当于美军的 **C4ISR 系统**）[资料3][资料4][资料5]。该工程于 **2014年12月** 由某大型研究所牵头承担，并荣获 **国家科技进步一等奖**[资料3][资料4][资料5]。  
+
+根据参考资料，兴图新科是该工程中**网络化视频指挥系统的唯一参与者**，但**未能列入获奖名单**[资料3][资料4][资料5]。</div>
+      <div class="refs"><div class="ref-item">📄 p.96 | score=8.7188 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.94 | score=8.5625 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.181 | score=7.6289 | 武汉兴图新科电子股份有限公司                                              ...</div></div>
+    </div>
+    <div class="col col-llm">
+      <div class="col-label llm-label">⚡ 纯 LLM 问答 <span class="latency-badge">12102ms</span></div>
+      <div class="answer"></div>
+    </div>
+  </div>
+</div>
+
+<div class="question-card">
+  <div class="question-header">
+    <span class="qid">Q#95</span>
+    <span class="qcat">事实型</span>
+    <span class="qtext">Q: 武汉兴图新科电子股份有限公司参与制定了哪个技术标准？</span>
+  </div>
+  <div class="compare-grid">
+    <div class="col col-rag">
+      <div class="col-label rag-label">✅ RAG 检索增强 <span class="latency-badge">2254ms</span></div>
+      <div class="answer">武汉兴图新科电子股份有限公司参与制定了**全军第一个视频指挥系统技术标准**。
+
+参考资料中对该标准的名称有两种表述：
+- 资料1表述为：即2019年制订的《某视频指挥系统技术规范（1.0版）》[资料1]。
+- 资料2、资料3、资料4、资料5表述为：即《某视频技术规范1.0》[资料2][资料3][资料4][资料5]。
+
+因此，公司参与制定的是军队/全军第一个视频指挥系统技术标准，相关标准在参考资料中称为《某视频技术规范1.0》或《某视频指挥系统技术规范（1.0版）》[资料1][资料2][资料3][资料4][资料5]。</div>
+      <div class="refs"><div class="ref-item">📄 p.160 | score=7.332 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.181 | score=6.9648 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.27 | score=6.4141 | 武汉兴图新科电子股份有限公司                                              ...</div></div>
+    </div>
+    <div class="col col-llm">
+      <div class="col-label llm-label">⚡ 纯 LLM 问答 <span class="latency-badge">10077ms</span></div>
+      <div class="answer">公开资料显示，武汉兴图新科电子股份有限公司参与制定的是：
+
+**国家军用标准 GJB 8927-2017《视频指挥系统通用要求》**。
+
+也就是说，主要对应标准名称为 **《视频指挥系统通用要求》**。</div>
+    </div>
+  </div>
+</div>
+
+<div class="question-card">
+  <div class="question-header">
+    <span class="qid">Q#207</span>
+    <span class="qcat">数值型</span>
+    <span class="qtext">Q: 武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？</span>
+  </div>
+  <div class="compare-grid">
+    <div class="col col-rag">
+      <div class="col-label rag-label">✅ RAG 检索增强 <span class="latency-badge">1507ms</span></div>
+      <div class="answer">武汉兴图新科电子股份有限公司计划使用本次发行募集资金 **15,000.00 万元**用于补充流动资金。[资料1] 明确提到“拟使用本次发行募集资金15,000万元用于补充流动资金”；[资料3] 和 [资料4] 的募集资金投资项目表中，“补充流动资金”项目的总投资和拟投入募集资金均为 **15,000.00 万元**。[资料5] 的募集资金投资项目也列示了“补充流动资金”。</div>
+      <div class="refs"><div class="ref-item">📄 p.490 | score=8.2188 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.491 | score=6.6602 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.479 | score=6.4727 | 武汉兴图新科电子股份有限公司                                              ...</div></div>
+    </div>
+    <div class="col col-llm">
+      <div class="col-label llm-label">⚡ 纯 LLM 问答 <span class="latency-badge">9460ms</span></div>
+      <div class="answer"></div>
+    </div>
+  </div>
+</div>
+
+<div class="question-card">
+  <div class="question-header">
+    <span class="qid">Q#957</span>
+    <span class="qcat">事实型</span>
+    <span class="qtext">Q: 武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？</span>
+  </div>
+  <div class="compare-grid">
+    <div class="col col-rag">
+      <div class="col-label rag-label">✅ RAG 检索增强 <span class="latency-badge">1494ms</span></div>
+      <div class="answer">武汉兴图新科电子股份有限公司目前已经成为**国防军队视频指挥领域**的重要供应商 [资料1]，相关表述也见于“军队视频指挥领域” [资料2][资料3] 以及“军队视频指挥控制领域” [资料4]。</div>
+      <div class="refs"><div class="ref-item">📄 p.26 | score=7.0156 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.155 | score=6.9258 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.160 | score=6.5742 | 武汉兴图新科电子股份有限公司                                              ...</div></div>
+    </div>
+    <div class="col col-llm">
+      <div class="col-label llm-label">⚡ 纯 LLM 问答 <span class="latency-badge">2515ms</span></div>
+      <div class="answer">武汉兴图新科电子股份有限公司已在**军用视频指挥控制领域**（军队专用视频指挥控制系统领域）成为重要供应商。其核心业务主要围绕视频指挥控制系统及相关视音频技术，服务于军队等国防领域。</div>
+    </div>
+  </div>
+</div>
+
+<div class="question-card">
+  <div class="question-header">
+    <span class="qid">Q#34</span>
+    <span class="qcat">行业型</span>
+    <span class="qtext">Q: 根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？</span>
+  </div>
+  <div class="compare-grid">
+    <div class="col col-rag">
+      <div class="col-label rag-label">✅ RAG 检索增强 <span class="latency-badge">3612ms</span></div>
+      <div class="answer">根据招股意向书，电子信息行业的上游涉及：
+
+- **信息系统相关的电子元器件制造企业** [资料1]；
+- **机箱、机柜等金属壳体制造企业** [资料1]。
+
+这些上游行业企业主要供应各类基础设备和辅助材料，但普遍专注于单一类型产品的研发、生产和销售，需经电子信息系统产品提供商或系统集成商进行综合设计和实施 [资料2]。同时，上游竞争充分，采购便利 [资料1]。</div>
+      <div class="refs"><div class="ref-item">📄 p.152 | score=6.6367 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.153 | score=6.0547 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.209 | score=3.9629 | 武汉兴图新科电子股份有限公司                                              ...</div></div>
+    </div>
+    <div class="col col-llm">
+      <div class="col-label llm-label">⚡ 纯 LLM 问答 <span class="latency-badge">11731ms</span></div>
+      <div class="answer"></div>
+    </div>
+  </div>
+</div>
+
+<div class="question-card">
+  <div class="question-header">
+    <span class="qid">Q#793</span>
+    <span class="qcat">行业型</span>
+    <span class="qtext">Q: 根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？</span>
+  </div>
+  <div class="compare-grid">
+    <div class="col col-rag">
+      <div class="col-label rag-label">✅ RAG 检索增强 <span class="latency-badge">3816ms</span></div>
+      <div class="answer">根据参考资料，武汉兴图新科电子股份有限公司招股意向书中关于电子信息行业下游的表述主要包括：
+
+- 下游行业为各类终端用户，覆盖范围广泛，主要包括**军队、政府机关、能源等行业企业** [资料3]。
+- 下游行业主要涉及**国防军队、公安武警、展览展示、能源、交通、金融、广电、气象等**领域 [资料5]。
+- 此外，资料中的产业链图示显示最终客户包括**军队、企事业单位** [资料1]。
+
+综上，电子信息行业的下游主要包括：**军队、政府机关、能源、公安武警、展览展示、交通、金融、广电、气象等行业或领域**，以及**企事业单位等终端用户** [资料1][资料3][资料5]。</div>
+      <div class="refs"><div class="ref-item">📄 p.153 | score=5.7422 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.152 | score=5.543 | 武汉兴图新科电子股份有限公司                                              ...</div><div class="ref-item">📄 p.152 | score=4.9141 | （4）资质壁垒
+我国对军品承制单位实行生产资格许可管理，作为现代化军事装备的重要组
+成部分，装备及其配套生产的单位必须具...</div></div>
+    </div>
+    <div class="col col-llm">
+      <div class="col-label llm-label">⚡ 纯 LLM 问答 <span class="latency-badge">10499ms</span></div>
+      <div class="answer"></div>
+    </div>
+  </div>
+</div>
+<div class="footer">工单：人工智能NLP-RAG-基于PDF文档的问答系统 | 招股说明书1.pdf RAG 评估</div></body></html>

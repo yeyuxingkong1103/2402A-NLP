@@ -1,0 +1,281 @@
+{
+  "results": [
+    {
+      "id": 260,
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "reference": "2019年：6,464.51万元；2020年：7,811.23万元；2021年：10,256.89万元；2022年：12,345.67万元",
+      "rag": {
+        "answer": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别为：\n\n- **2016年度**：6,464.51万元，占营业收入比例 **82.10%**\n- **2017年度**：14,414.16万元，占营业收入比例 **97.31%**\n- **2018年度**：18,780.67万元，占营业收入比例 **94.84%**\n- **2019年1-6月**：4,627.15万元，占营业收入比例 **94.34%**\n\n上述数据来自招股意向书中“军用领域”收入小计及占比情况 [资料1]。",
+        "latency_ms": 3878.0,
+        "references_count": 5,
+        "accuracy_keyword_hit": 1.0,
+        "matched_keywords": [
+          "万元"
+        ]
+      },
+      "llm": {
+        "answer": "",
+        "latency_ms": 11704.1,
+        "accuracy_keyword_hit": 0.0,
+        "matched_keywords": []
+      },
+      "ragas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.9674,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "timestamp": "2026-09-28T16:09:37.164559"
+    },
+    {
+      "id": 95,
+      "question": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+      "reference": "公司参与制定了国家军用标准（GJB）和国家标准中的多项电子信息类技术标准",
+      "rag": {
+        "answer": "武汉兴图新科电子股份有限公司参与制定了**全军第一个视频指挥系统技术标准**，即2019年制订的《某视频指挥系统技术规范（1.0版）》[资料2]。\n\n资料1和资料3也提到，公司参与制定了国防用户/全军第一个视频指挥系统技术标准，即《某视频技术规范1.0》[资料1][资料3]。\n\n根据资料2，该技术标准由军事科学院牵头，联合数据通信科学技术研究所、北京大学共同制定，兴图新科等国内主流视频设备厂商参与了技术规范制定和试验验证等工作；该技术规范主要用于指导视频指挥系统相关设备的研制及系统建设[资料2]。",
+        "latency_ms": 5184.5,
+        "references_count": 5,
+        "accuracy_keyword_hit": 0.0,
+        "matched_keywords": []
+      },
+      "llm": {
+        "answer": "武汉兴图新科电子股份有限公司参与制定了国家军用标准 **《视频指挥调度系统通用要求》（GJB 8140-2013）**。公开资料中还提到其参与制定了相关标准 **《视频指挥调度系统测试方法》（GJB 8141-2013）**。",
+        "latency_ms": 11762.3,
+        "accuracy_keyword_hit": 0.5,
+        "matched_keywords": [
+          "公司参与制定了国家军用标准"
+        ]
+      },
+      "ragas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.7966,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "timestamp": "2026-09-28T16:10:34.018068"
+    },
+    {
+      "id": 33,
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别是多少？",
+      "reference": "军用收入占主营业务收入比重较高，各报告期均超过80%",
+      "rag": {
+        "answer": "根据[资料1]，报告期内武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别为：\n\n- 2016年度：82.10%\n- 2017年度：97.31%\n- 2018年度：94.84%\n- 2019年1-6月：94.34%\n\n[资料1]中的文字也明确表述：“报告期内，公司来自军用领域的收入占比分别为82.10%、97.31%、94.84%和94.34%。”",
+        "latency_ms": 4498.3,
+        "references_count": 5,
+        "accuracy_keyword_hit": 0.0,
+        "matched_keywords": []
+      },
+      "llm": {
+        "answer": "",
+        "latency_ms": 10407.9,
+        "accuracy_keyword_hit": 0.0,
+        "matched_keywords": []
+      },
+      "ragas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.9978,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "timestamp": "2026-09-28T16:11:27.743999"
+    },
+    {
+      "id": 34,
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+      "reference": "电子信息行业上游主要包括集成电路、元器件、原材料等供应商，如中国电子科技集团、中航工业集团等大型国企",
+      "rag": {
+        "answer": "根据招股意向书，电子信息行业的上游主要涉及以下企业类型：\n\n1. **信息系统相关的电子元器件制造企业** [资料3]，对应上游行业中的电子元器件制造业（提供元器件等）[资料1]。\n2. **机箱、机柜等金属壳体制造企业** [资料3]，对应上游行业中的金属制品业（提供机箱、其他壳体等）[资料1]。\n\n这些上游企业主要供应各类基础设备和辅助材料，且普遍专注于单一类型产品的研发、生产和销售 [资料1]。同时，该上游行业竞争充分、采购便利 [资料3]。\n\n资料中未提及除此之外的其他上游企业类型。",
+        "latency_ms": 10241.5,
+        "references_count": 5,
+        "accuracy_keyword_hit": 0.2,
+        "matched_keywords": [
+          "元器件"
+        ]
+      },
+      "llm": {
+        "answer": "",
+        "latency_ms": 12015.8,
+        "accuracy_keyword_hit": 0.0,
+        "matched_keywords": []
+      },
+      "ragas": {
+        "faithfulness": 0.0833,
+        "answer_relevancy": 0.8567,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "timestamp": "2026-09-28T16:13:00.842806"
+    },
+    {
+      "id": 957,
+      "question": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+      "reference": "武汉兴图新科电子股份有限公司在军用电子信息领域已成为重要供应商",
+      "rag": {
+        "answer": "武汉兴图新科电子股份有限公司已经成为**国防军队视频指挥领域**的重要供应商 [资料1]，相关资料中也表述为**军队视频指挥领域**的重要供应商 [资料2]，以及**军队视频指挥控制领域**的重要供应商 [资料3]。",
+        "latency_ms": 6943.7,
+        "references_count": 5,
+        "accuracy_keyword_hit": 0.0,
+        "matched_keywords": []
+      },
+      "llm": {
+        "answer": "武汉兴图新科电子股份有限公司已成为**军队（军用）视频指挥控制领域**的重要供应商。",
+        "latency_ms": 4601.4,
+        "accuracy_keyword_hit": 0.0,
+        "matched_keywords": []
+      },
+      "ragas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.9954,
+        "context_precision": 0.3333,
+        "context_recall": 0.0
+      },
+      "timestamp": "2026-09-28T16:14:37.903412"
+    },
+    {
+      "id": 793,
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？",
+      "reference": "电子信息行业下游主要包括国防军工、航空航天、通信、金融、医疗等行业",
+      "rag": {
+        "answer": "根据招股意向书，电子信息行业的下游情况如下：\n\n1. 电子信息行业的下游为各类终端用户 [资料2]。\n2. 从应用领域看，电子信息主要应用于**国防、市政、工程**等领域 [资料1]。\n3. 从最终客户类型看，下游最终客户包括**军队、企事业单位** [资料1]。\n4. 下游需求主要受军队信息化、办公电子化、城市智能化等进程推动 [资料1]。\n\n因此，电子信息行业的下游主要包括**国防、市政、工程等应用领域**，最终客户主要为**军队、企事业单位等终端用户** [资料1][资料2]。",
+        "latency_ms": 7349.8,
+        "references_count": 5,
+        "accuracy_keyword_hit": 0.0,
+        "matched_keywords": []
+      },
+      "llm": {
+        "answer": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括：\n\n**国防、政府、金融、电信、能源、交通、教育、医疗等行业。**\n\n该表述用于说明电子信息行业下游应用领域较广，覆盖国民经济多个主要领域；其中，兴图新科自身下游客户主要集中于国防、政府等领域。",
+        "latency_ms": 12239.8,
+        "accuracy_keyword_hit": 0.4,
+        "matched_keywords": [
+          "金融",
+          "医疗等行业"
+        ]
+      },
+      "ragas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.8083,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "timestamp": "2026-09-28T16:15:22.637954"
+    },
+    {
+      "id": 795,
+      "question": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+      "reference": "公司参与的军用电子信息系统相关工程荣获了国家科技进步一等奖",
+      "rag": {
+        "answer": "武汉兴图新科电子股份有限公司参与的是“**某情报、指挥、控制与通信网络一体化工程**”（即相当于美军的 **C4ISR 系统**）。该工程于 **2014年12月** 荣获 **国家科技进步一等奖**。\n\n根据资料，兴图新科是该工程中**网络化视频指挥系统的唯一参与者**，但**未能列入获奖名单**。[资料1][资料2][资料3][资料4][资料5]",
+        "latency_ms": 4575.3,
+        "references_count": 5,
+        "accuracy_keyword_hit": 0.0,
+        "matched_keywords": []
+      },
+      "llm": {
+        "answer": "",
+        "latency_ms": 13205.8,
+        "accuracy_keyword_hit": 0.0,
+        "matched_keywords": []
+      },
+      "ragas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.9096,
+        "context_precision": 0.5,
+        "context_recall": 0.0
+      },
+      "timestamp": "2026-09-28T16:16:18.389316"
+    },
+    {
+      "id": 543,
+      "question": "武汉兴图新科电子股份有限公司注册资本是多少？",
+      "reference": "武汉兴图新科电子股份有限公司注册资本为人民币6,000万元",
+      "rag": {
+        "answer": "根据参考资料，武汉兴图新科电子股份有限公司的注册资本为 **5,520.00 万元**。[资料4]\n\n补充说明：资料5也显示，公司报告期末股本为 **5,520.00 万元**；同时，本次发行后总股本为 **7,360 万股**。[资料4][资料5]",
+        "latency_ms": 3979.8,
+        "references_count": 5,
+        "accuracy_keyword_hit": 0.5,
+        "matched_keywords": [
+          "万元"
+        ]
+      },
+      "llm": {
+        "answer": "",
+        "latency_ms": 10835.4,
+        "accuracy_keyword_hit": 0.0,
+        "matched_keywords": []
+      },
+      "ragas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.9989,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "timestamp": "2026-09-28T16:17:18.978499"
+    },
+    {
+      "id": 531,
+      "question": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+      "reference": "武汉兴图新科电子股份有限公司法定代表人是程家明",
+      "rag": {
+        "answer": "根据参考资料，武汉兴图新科电子股份有限公司的法定代表人是 **程家明**。[资料1][资料3]",
+        "latency_ms": 3776.7,
+        "references_count": 5,
+        "accuracy_keyword_hit": 0.0,
+        "matched_keywords": []
+      },
+      "llm": {
+        "answer": "武汉兴图新科电子股份有限公司的法定代表人是**程家明**。",
+        "latency_ms": 2588.2,
+        "accuracy_keyword_hit": 0.0,
+        "matched_keywords": []
+      },
+      "ragas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.9977,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "timestamp": "2026-09-28T16:18:06.814578"
+    },
+    {
+      "id": 207,
+      "question": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+      "reference": "本次发行募集资金中计划使用约30%用于补充流动资金",
+      "rag": {
+        "answer": "根据参考资料，武汉兴图新科电子股份有限公司计划使用本次发行募集资金中的 **15,000.00 万元** 用于补充流动资金 [资料1][资料2]。\n\n该金额在募集资金投资项目“补充流动资金”中列示，项目总投资及拟投入募集资金均为 **15,000.00 万元** [资料1][资料2]。本次募集资金投资项目合计拟投入募集资金为 **40,584.83 万元** [资料1][资料2]。",
+        "latency_ms": 2547.9,
+        "references_count": 5,
+        "accuracy_keyword_hit": 0.5,
+        "matched_keywords": [
+          "用于补充流动资金"
+        ]
+      },
+      "llm": {
+        "answer": "",
+        "latency_ms": 10196.0,
+        "accuracy_keyword_hit": 0.0,
+        "matched_keywords": []
+      },
+      "ragas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.9902,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      },
+      "timestamp": "2026-09-28T16:19:21.505920"
+    }
+  ],
+  "summary": {
+    "avg_rag_latency_ms": 5297.6,
+    "avg_llm_latency_ms": 9955.7,
+    "rag_accuracy_mean": 0.22,
+    "llm_accuracy_mean": 0.09,
+    "ragas_avg": {
+      "faithfulness": 0.0083,
+      "answer_relevancy": 0.9319,
+      "context_precision": 0.0833,
+      "context_recall": 0.0
+    },
+    "total_questions": 10
+  },
+  "generated_at": "2026-09-28T16:19:21.506898"
+}
