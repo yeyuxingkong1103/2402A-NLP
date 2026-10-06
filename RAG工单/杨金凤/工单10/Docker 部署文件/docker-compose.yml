@@ -1,0 +1,15 @@
+# 工单编号：人工智能NLP-RAG-金融问答系统部署
+version: '3.8'
+services:
+  rag-finance:
+    build: .
+    image: rag-finance:1.0
+    container_name: rag-finance
+    ports:
+      - "6006:6006"
+    volumes:
+      - /root/autodl-tmp/models:/app/models:ro
+      - /root/autodl-tmp/projects/RAG/2_vector_db:/app/2_vector_db:ro
+      - /root/autodl-tmp/projects/RAG/ccf_vector_db:/app/ccf_vector_db:ro
+      - /root/autodl-tmp/projects/RAG/kg_graph.json:/app/kg_graph.json:ro
+    restart: unless-stopped
