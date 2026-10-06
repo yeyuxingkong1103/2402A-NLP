@@ -1,0 +1,32 @@
+﻿warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+[STEP1] 解析 PDF: C:\Users\h1981\Desktop\RAG工单一\招股说明书1.pdf
+[STEP2] 切分文本
+[OK] 切分完成: 共 1612 个文本块
+[STEP3] 向量化 1612 个文本块（BAAI/bge-base-zh-v1.5）
+[INFO] 加载 Embedding 模型: BAAI/bge-base-zh-v1.5 on cpu
+[STEP4] 写入向量库（faiss）
+python : Traceback (most recent call last):
+At line:15 char:2277
++ ... SM='false'; python rag_engine.py ingest *> '..\03-测试\ingest_faiss.txt ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "C:\Users\h1981\Desktop\RAG工单一\02-研发\rag_engine.py", line 299, in <module>
+    ingest()
+  File "C:\Users\h1981\Desktop\RAG工单一\02-研发\rag_engine.py", line 51, in ingest
+    n = VectorStore.insert(vecs, metas)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\h1981\Desktop\RAG工单一\02-研发\vector_store.py", line 411, in insert
+    return cls._backend().insert(embeddings, metas)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\h1981\Desktop\RAG工单一\02-研发\vector_store.py", line 315, in insert
+    cls._persist()
+  File "C:\Users\h1981\Desktop\RAG工单一\02-研发\vector_store.py", line 289, in _persist
+    faiss.write_index(cls._index, str(cls._INDEX_FILE))
+  File "F:\an\Lib\site-packages\faiss\swigfaiss.py", line 13872, in write_index
+    return _swigfaiss.write_index(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Error in __cdecl faiss::FileIOWriter::FileIOWriter(const char *) at D:\a\faiss\faiss\faiss\impl\io.cpp:10
+4: Error: 'f' failed: could not open C:\Users\h1981\Desktop\RAG工单一\02-研发\data\faiss\index.faiss for writing: No such fi
+le or directory

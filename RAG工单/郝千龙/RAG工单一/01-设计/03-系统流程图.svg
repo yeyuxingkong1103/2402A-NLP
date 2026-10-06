@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 工单编号：人工智能NLP-RAG-基于PDF文档的问答系统 -->
+<!-- 系统流程图 V1.0 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1400" font-family="Microsoft YaHei, Arial, sans-serif">
+  <defs>
+    <style>
+      .title { font-size: 24px; font-weight: bold; fill: #1a237e; }
+      .lane { font-size: 14px; font-weight: bold; fill: #fff; }
+      .step { font-size: 13px; font-weight: bold; fill: #1a237e; }
+      .desc { font-size: 11px; fill: #333; }
+      .arrow { stroke: #3949ab; stroke-width: 2; fill: none; marker-end: url(#arr2); }
+    </style>
+    <marker id="arr2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#3949ab"/>
+    </marker>
+  </defs>
+
+  <text x="500" y="36" text-anchor="middle" class="title">RAG 问答系统端到端流程图</text>
+
+  <!-- 泳道背景 -->
+  <rect x="20" y="60" width="960" height="320" fill="#e3f2fd" stroke="#1565c0" rx="6"/>
+  <rect x="20" y="60" width="120" height="320" fill="#1565c0"/>
+  <text x="80" y="220" text-anchor="middle" class="lane" transform="rotate(-90 80 220)">离线入库流水线</text>
+
+  <rect x="20" y="400" width="960" height="560" fill="#ede7f6" stroke="#5e35b1" rx="6"/>
+  <rect x="20" y="400" width="120" height="560" fill="#5e35b1"/>
+  <text x="80" y="680" text-anchor="middle" class="lane" transform="rotate(-90 80 680)">在线问答流水线</text>
+
+  <rect x="20" y="980" width="960" height="380" fill="#e8f5e9" stroke="#2e7d32" rx="6"/>
+  <rect x="20" y="980" width="120" height="380" fill="#2e7d32"/>
+  <text x="80" y="1170" text-anchor="middle" class="lane" transform="rotate(-90 80 1170)">评估与运维</text>
+
+  <!-- 离线流水线步骤 -->
+  <rect x="160" y="90" width="170" height="60" rx="8" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="245" y="115" text-anchor="middle" class="step">1. PDF 解析</text>
+  <text x="245" y="135" text-anchor="middle" class="desc">PyMuPDF+PDFPlumber</text>
+
+  <rect x="370" y="90" width="170" height="60" rx="8" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="455" y="115" text-anchor="middle" class="step">2. 文本切分</text>
+  <text x="455" y="135" text-anchor="middle" class="desc">chunk=512 overlap=64</text>
+
+  <rect x="580" y="90" width="170" height="60" rx="8" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="665" y="115" text-anchor="middle" class="step">3. 向量化</text>
+  <text x="665" y="135" text-anchor="middle" class="desc">bge-small-zh / CUDA</text>
+
+  <rect x="790" y="90" width="170" height="60" rx="8" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="875" y="115" text-anchor="middle" class="step">4. 入库 Milvus</text>
+  <text x="875" y="135" text-anchor="middle" class="desc">IVF_FLAT + COSINE</text>
+
+  <path d="M 330 120 L 370 120" class="arrow"/>
+  <path d="M 540 120 L 580 120" class="arrow"/>
+  <path d="M 750 120 L 790 120" class="arrow"/>
+
+  <!-- 缓存 -->
+  <rect x="490" y="200" width="220" height="60" rx="8" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="600" y="225" text-anchor="middle" class="step">缓存解析结果 .jsonl</text>
+  <text x="600" y="245" text-anchor="middle" class="desc">支持增量入库</text>
+  <path d="M 245 150 L 245 175 L 490 175 L 490 230" class="arrow"/>
+
+  <!-- 异常分支：扫描页 -->
+  <polygon points="875,200 920,230 875,260 830,230" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="875" y="234" text-anchor="middle" class="step">扫描页?</text>
+  <text x="875" y="250" text-anchor="middle" class="desc">无文字层</text>
+  <path d="M 875 150 L 875 200" class="arrow"/>
+  <path d="M 830 230 L 780 230 L 780 320 L 875 320 L 875 340" class="arrow"/>
+
+  <rect x="820" y="340" width="110" height="40" rx="6" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="875" y="365" text-anchor="middle" class="step">告警日志</text>
+
+  <!-- 在线问答步骤 -->
+  <rect x="160" y="430" width="170" height="60" rx="8" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="245" y="455" text-anchor="middle" class="step">1. 用户提问</text>
+  <text x="245" y="475" text-anchor="middle" class="desc">前端 / API 接收</text>
+
+  <rect x="370" y="430" width="170" height="60" rx="8" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="455" y="455" text-anchor="middle" class="step">2. Query 理解</text>
+  <text x="455" y="475" text-anchor="middle" class="desc">意图/消歧/分解</text>
+
+  <rect x="580" y="430" width="170" height="60" rx="8" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="665" y="455" text-anchor="middle" class="step">3. Query 向量化</text>
+  <text x="665" y="475" text-anchor="middle" class="desc">bge-small-zh</text>
+
+  <rect x="790" y="430" width="170" height="60" rx="8" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="875" y="455" text-anchor="middle" class="step">4. Redis 缓存</text>
+  <text x="875" y="475" text-anchor="middle" class="desc">命中直接返回</text>
+
+  <path d="M 330 460 L 370 460" class="arrow"/>
+  <path d="M 540 460 L 580 460" class="arrow"/>
+  <path d="M 750 460 L 790 460" class="arrow"/>
+
+  <!-- 缓存判断 -->
+  <polygon points="875,540 920,570 875,600 830,570" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="875" y="574" text-anchor="middle" class="step">命中?</text>
+  <path d="M 875 490 L 875 540" class="arrow"/>
+
+  <!-- 命中回退 -->
+  <path d="M 920 570 L 950 570 L 950 850 L 245 850 L 245 760" class="arrow"/>
+  <text x="940" y="720" class="desc" fill="#2e7d32">直接返回缓存答案</text>
+
+  <!-- 未命中继续 -->
+  <path d="M 875 600 L 875 640" class="arrow"/>
+
+  <rect x="790" y="640" width="170" height="60" rx="8" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="875" y="665" text-anchor="middle" class="step">5. Milvus 检索</text>
+  <text x="875" y="685" text-anchor="middle" class="desc">Top-K=5 + COSINE</text>
+
+  <rect x="580" y="640" width="170" height="60" rx="8" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="665" y="665" text-anchor="middle" class="step">6. 上下文组装</text>
+  <text x="665" y="685" text-anchor="middle" class="desc">Prompt 模板</text>
+
+  <rect x="370" y="640" width="170" height="60" rx="8" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="455" y="665" text-anchor="middle" class="step">7. LLM 生成</text>
+  <text x="455" y="685" text-anchor="middle" class="desc">Qwen2.5 / temp=0.3</text>
+
+  <rect x="160" y="640" width="170" height="60" rx="8" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="245" y="665" text-anchor="middle" class="step">8. 答案+引用回写</text>
+  <text x="245" y="685" text-anchor="middle" class="desc">page + latency</text>
+
+  <path d="M 790 670 L 750 670" class="arrow"/>
+  <path d="M 580 670 L 540 670" class="arrow"/>
+  <path d="M 370 670 L 330 670" class="arrow"/>
+
+  <path d="M 875 640 L 875 620 L 665 620 L 665 640" class="arrow"/>
+
+  <!-- 写入缓存 -->
+  <path d="M 245 700 L 245 760" class="arrow"/>
+  <rect x="160" y="760" width="170" height="50" rx="6" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="245" y="790" text-anchor="middle" class="step">写入 Redis 缓存</text>
+
+  <!-- 返回前端 -->
+  <path d="M 245 810 L 245 850" class="arrow"/>
+  <rect x="160" y="850" width="170" height="50" rx="6" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="245" y="880" text-anchor="middle" class="step">返回前端展示</text>
+
+  <!-- 异常处理 -->
+  <polygon points="455,830 500,860 455,890 410,860" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="455" y="864" text-anchor="middle" class="step">超时?</text>
+  <path d="M 455 700 L 455 830" class="arrow"/>
+  <path d="M 500 860 L 600 860 L 600 950 L 160 950 L 160 880" class="arrow"/>
+  <text x="540" y="945" class="desc" fill="#c62828">回退本地缓存答案</text>
+
+  <!-- 评估与运维 -->
+  <rect x="160" y="1010" width="220" height="60" rx="8" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="270" y="1035" text-anchor="middle" class="step">9. RAGAS 评估</text>
+  <text x="270" y="1055" text-anchor="middle" class="desc">faithfulness / relevancy</text>
+
+  <rect x="410" y="1010" width="220" height="60" rx="8" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="520" y="1035" text-anchor="middle" class="step">10. 对比基线</text>
+  <text x="520" y="1055" text-anchor="middle" class="desc">仅 LLM vs RAG</text>
+
+  <rect x="660" y="1010" width="220" height="60" rx="8" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="770" y="1035" text-anchor="middle" class="step">11. 性能监控</text>
+  <text x="770" y="1055" text-anchor="middle" class="desc">latency / 命中率 / QPS</text>
+
+  <rect x="160" y="1100" width="220" height="60" rx="8" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="270" y="1125" text-anchor="middle" class="step">12. 日志收集</text>
+  <text x="270" y="1145" text-anchor="middle" class="desc">问答日志 / 错误堆栈</text>
+
+  <rect x="410" y="1100" width="220" height="60" rx="8" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="520" y="1125" text-anchor="middle" class="step">13. 持续优化</text>
+  <text x="520" y="1145" text-anchor="middle" class="desc">切分 / Top-K / Prompt 迭代</text>
+
+  <rect x="660" y="1100" width="220" height="60" rx="8" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="770" y="1125" text-anchor="middle" class="step">14. 高可用保障</text>
+  <text x="770" y="1145" text-anchor="middle" class="desc">FastAPI 多 worker + 健康检查</text>
+
+  <path d="M 245 880 L 245 1010 L 270 1010" class="arrow"/>
+  <path d="M 270 1070 L 270 1100" class="arrow"/>
+  <path d="M 520 1070 L 520 1100" class="arrow"/>
+  <path d="M 770 1070 L 770 1100" class="arrow"/>
+
+  <!-- 图例 -->
+  <rect x="160" y="1240" width="780" height="100" rx="6" fill="#fafafa" stroke="#999"/>
+  <text x="180" y="1265" class="step">图例：</text>
+  <rect x="180" y="1275" width="20" height="14" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="210" y="1287" class="desc">表现层</text>
+  <rect x="290" y="1275" width="20" height="14" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="320" y="1287" class="desc">业务层</text>
+  <rect x="400" y="1275" width="20" height="14" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="430" y="1287" class="desc">数据/运维层</text>
+  <rect x="530" y="1275" width="20" height="14" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="560" y="1287" class="desc">判断分支</text>
+  <rect x="660" y="1275" width="20" height="14" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="690" y="1287" class="desc">异常处理</text>
+  <text x="180" y="1318" class="desc">工单编号：人工智能NLP-RAG-基于PDF文档的问答系统</text>
+</svg>

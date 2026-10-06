@@ -1,0 +1,53 @@
+# 【金融问答服务编排 · docker-compose.yml】卷持久化 + 端口映射 + 资源限制 + 自定义桥接网络
+# 工单编号：人工智能NLP-RAG-金融问答系统部署
+# 启动： docker compose up -d --build
+# 停止： docker compose down            （保留卷数据）
+# 日志： docker compose logs -f finqa
+
+services:
+  finqa:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # 国内构建可按需切换：https://mirrors.aliyun.com/pypi/simple/
+        PIP_INDEX_URL: https://pypi.tuna.tsinghua.edu.cn/simple
+    image: finqa-service:1.0
+    container_name: finqa-service
+    restart: unless-stopped          # 宿主机重启/异常退出后自动拉起，手动 stop 不重启
+    ports:
+      - "8000:8000"                  # 宿主机 8000 -> 容器 8000
+    volumes:
+      # 语料卷：宿主机 ./data 挂载到容器 /data（PDF 增删后重启容器即自动重建索引）
+      - ./data:/data:ro
+      # 索引卷：宿主机 ./index 持久化 TF-IDF/BM25 索引，换新容器不重建
+      - ./index:/app/index
+    environment:
+      - TZ=Asia/Shanghai
+      - FINQA_TOP_K=3
+      - FINQA_CHUNK_SIZE=450
+    # 资源限制：内存上限 1GB、CPU 2 核（索引稀疏化后常驻内存约 300~500MB）
+    mem_limit: 1024m
+    mem_reservation: 512m
+    cpus: 2.0
+    # 自定义桥接网络：同一网络内的其他容器可用服务名 finqa:8000 直接访问，
+    # 例如未来接入 RTMP/前端等协作容器时，docker network 内容器名互通
+    networks:
+      - finqa-net
+    healthcheck:
+      test: ["CMD", "python", "-c",
+             "import urllib.request,sys; r=urllib.request.urlopen('http://127.0.0.1:8000/health',timeout=4); sys.exit(0 if r.status==200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      start_period: 180s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"              # 单日志文件上限 20MB
+        max-file: "3"                # 最多保留 3 个滚动文件
+
+networks:
+  finqa-net:
+    name: finqa-net
+    driver: bridge

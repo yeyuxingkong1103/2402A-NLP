@@ -1,0 +1,28 @@
+{
+  "embedding": "BAAI/bge-base-zh-v1.5",
+  "chunk_count": 5246,
+  "image_chunk_count": 83,
+  "documents": {
+    "招股说明书1": {
+      "pages": 548,
+      "blocks": 3165,
+      "images_raster": 46,
+      "images_vector": 1,
+      "ocr_available": true
+    },
+    "招股说明书2": {
+      "pages": 350,
+      "blocks": 1947,
+      "images_raster": 32,
+      "images_vector": 4,
+      "ocr_available": true
+    }
+  },
+  "ocr_engine": "paddleocr(PP-OCRv6)",
+  "clip_encoder": "disabled(no_local_cache)",
+  "type_count": {
+    "text": 4792,
+    "table": 371,
+    "image": 83
+  }
+}

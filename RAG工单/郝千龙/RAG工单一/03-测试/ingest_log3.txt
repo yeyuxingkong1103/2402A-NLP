@@ -1,0 +1,31 @@
+﻿warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+[STEP1] 解析 PDF: C:\Users\h1981\Desktop\RAG工单一\招股说明书1.pdf
+[STEP2] 切分文本
+[OK] 切分完成: 共 1612 个文本块
+[STEP3] 向量化 1612 个文本块（BAAI/bge-base-zh-v1.5）
+[INFO] 加载 Embedding 模型: BAAI/bge-base-zh-v1.5 on cpu
+[STEP4] 写入向量库（chroma）
+python : Traceback (most recent call last):
+At line:15 char:2402
++ ... dropped')"; python rag_engine.py ingest *> '..\03-测试\ingest_log3.txt' ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "C:\Users\h1981\Desktop\RAG工单一\02-研发\rag_engine.py", line 299, in <module>
+    ingest()
+  File "C:\Users\h1981\Desktop\RAG工单一\02-研发\rag_engine.py", line 51, in ingest
+    n = VectorStore.insert(vecs, metas)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\h1981\Desktop\RAG工单一\02-研发\vector_store.py", line 266, in insert
+    return cls._backend().insert(embeddings, metas)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\h1981\Desktop\RAG工单一\02-研发\vector_store.py", line 45, in insert
+    col.upsert(
+  File "F:\an\Lib\site-packages\chromadb\api\models\Collection.py", line 530, in upsert
+    self._client._upsert(
+  File "F:\an\Lib\site-packages\chromadb\api\rust.py", line 541, in _upsert
+    return self.bindings.upsert(
+           ^^^^^^^^^^^^^^^^^^^^^
+chromadb.errors.InternalError: Error in compaction: Error constructing hnsw segment reader: Error creating hnsw segment
+ reader: Error loading hnsw index

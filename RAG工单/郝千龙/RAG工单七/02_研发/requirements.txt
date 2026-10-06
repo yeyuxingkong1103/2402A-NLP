@@ -1,0 +1,15 @@
+# RAG工单七 功能测试及评估 —— Python依赖（纯CPU离线环境）
+# 工单编号：人工智能NLP-RAG-功能测试及评估
+# 安装：pip install -r requirements.txt
+pymupdf>=1.24.0
+pdfplumber>=0.11.0
+jieba>=0.42.1
+scikit-learn>=1.3.0
+numpy>=1.24.0
+pandas>=2.0.0
+openpyxl>=3.1.0
+# 说明：RAGAS四项指标默认使用 ragas_evaluator.py 自研离线近似实现，无需安装ragas；
+# 待环境具备LLM API与外网后，可自行安装以下依赖并调用 evaluate_with_official_ragas()：
+# ragas>=0.1.20
+# datasets>=2.18.0
+# langchain>=0.2.0

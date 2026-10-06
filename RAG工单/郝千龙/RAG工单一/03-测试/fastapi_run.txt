@@ -1,0 +1,50 @@
+﻿warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+python : INFO:     Started server process [20496]
+At line:15 char:2277
++ ... ERS_PARALLELISM='false'; python main.py *> '..\03-测试\fastapi_run.txt'
++                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (INFO:     Started server process [20496]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:3519 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:1456 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:1462 - "GET /api/feedback HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6820 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6821 - "POST /api/ask HTTP/1.1" 200 OK
+Building prefix dict from the default dictionary ...
+Loading model from cache C:\Users\h1981\AppData\Local\Temp\jieba.cache
+Loading model cost 0.953 seconds.
+Prefix dict has been built successfully.
+[INFO] 加载 Embedding 模型: BAAI/bge-base-zh-v1.5 on cpu
+INFO:     127.0.0.1:6822 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6824 - "POST /api/ask/baseline HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6826 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6827 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6828 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6829 - "POST /api/evaluate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6830 - "POST /api/feedback HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6831 - "POST /api/feedback HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6832 - "GET /api/feedback HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6833 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6834 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6835 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2591 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2603 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2604 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2605 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2607 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2608 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2609 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2610 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2611 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2612 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2615 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2616 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2613 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2614 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2619 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2618 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:10590 - "POST /api/evaluate HTTP/1.1" 200 OK

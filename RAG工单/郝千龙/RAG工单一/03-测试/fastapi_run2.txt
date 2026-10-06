@@ -1,0 +1,22 @@
+﻿warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+python : INFO:     Started server process [11348]
+At line:15 char:2277
++ ... RS_PARALLELISM='false'; python main.py *> '..\03-测试\fastapi_run2.txt'
++                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (INFO:     Started server process [11348]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[INFO] RAGAS 评估开始，共 1 条，评判模型=deepseek-chat
+[INFO] 加载 Embedding 模型: BAAI/bge-base-zh-v1.5 on cpu
+
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]
+Evaluating:  25%|██▌       | 1/4 [00:02<00:07,  2.46s/it]LLM returned 1 generations instead of requested 3. Proceeding 
+with 1 generations.
+
+Evaluating:  50%|█████     | 2/4 [00:17<00:19,  9.95s/it]
+Evaluating: 100%|██████████| 4/4 [00:20<00:00,  4.53s/it]
+Evaluating: 100%|██████████| 4/4 [00:20<00:00,  5.06s/it]
+INFO:     127.0.0.1:5231 - "POST /api/evaluate HTTP/1.1" 200 OK

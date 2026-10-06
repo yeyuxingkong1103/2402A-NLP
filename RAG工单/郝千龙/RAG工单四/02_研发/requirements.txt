@@ -1,0 +1,19 @@
+# RAG工单四 图像内容解析及检索优化 —— Python依赖
+# 纯CPU离线运行；Embedding/OCR均使用本机已缓存模型，安装后无需联网下载模型
+# Python 3.12（Anaconda）验证通过
+pymupdf>=1.24
+pdfplumber>=0.11
+jieba>=0.42
+scikit-learn>=1.4
+numpy>=1.26
+pandas>=2.0
+openpyxl>=3.1
+streamlit>=1.30
+Pillow>=10.0
+sentence-transformers>=2.2
+# 本地HuggingFace缓存：BAAI/bge-base-zh-v1.5、BAAI/bge-reranker-large（离线）
+transformers>=4.40
+# 离线OCR（可选依赖；模型已缓存于 ~/.paddlex/official_models，PP-OCRv6）
+# 若环境无paddleocr/paddle，系统自动降级为“图注+邻近正文”伪多模态检索，不影响主链路
+paddleocr>=3.0
+paddlepaddle>=3.0

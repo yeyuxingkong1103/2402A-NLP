@@ -1,0 +1,45 @@
+﻿:: initializing oneAPI environment...
+   Initializing Visual Studio command-line environment...
+:: WARNING: Visual Studio was not found in a standard install location:
+     "C:\Program Files\Microsoft Visual Studio\<Year>\<Edition>" or
+     "C:\Program Files (x86)\Microsoft Visual Studio\<Year>\<Edition>"
+   Set the VS2019INSTALLDIR or VS2022INSTALLDIR or VS2026INSTALLDIR environment variable to
+   point to your install location and try again. For example, if you
+   are using the VS 2022 Build Tools, do the following:
+     set "VS2022INSTALLDIR=C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools"
+     "C:\Program Files (x86)\Intel\oneAPI\setvars.bat"
+   Visual Studio command-line environment was not configured.
+:  compiler -- latest
+:  dev-utilities -- latest
+:  dpl -- latest
+:  ipp -- latest
+:  mkl -- latest
+:  ocloc -- latest
+:  tbb -- latest
+:  tcm -- latest
+:  umf -- latest
+:: oneAPI environment initialized ::
+==== 金融问答服务接口冒烟测试 -> http://127.0.0.1:8000 ====
+
+[1/4] GET /health 健康检查
+  status=ok documents=1 chunks=3228 index_built=True load=30.54s
+
+[2/4] GET / 服务说明页
+  HTTP 200，返回 392 字符
+
+[3/4] POST /ask 问题：发行人的注册资本是多少？
+  答案：注册资本为 5,520 万元。
+  证据：第 59 页 | 标题：第五节 发行人基本情况 > 三、发行人报告期内股本和股东变化情况 | 接口耗时：17 ms
+  客户端实测往返：22 ms
+
+[4/4] POST /ask 问题：发行人的法定代表人是谁？
+  答案：法定代表人为 程家明。
+  证据：第 72 页 | 标题：第五节 发行人基本情况 > 二、本次发行流通股 | 接口耗时：22 ms
+  客户端实测往返：25 ms
+
+[5/4] POST /ask 问题：公司主营业务包括哪些产品？
+  答案：在产品具体形态层面，完整的视频指挥系统一般由核心设备和配套设备组成，核心设备主要包括：搭载平台软件的专用服务器、编解码设备、专用终端设备等嵌入式硬件；
+  证据：第 104 页 | 标题：第六节 业务与技术 > 一、发行人主营业务及主要产品 | 接口耗时：24 ms
+  客户端实测往返：28 ms
+
+==== 冒烟测试全部通过（健康检查 + 根路径 + 3 个金融问题）====

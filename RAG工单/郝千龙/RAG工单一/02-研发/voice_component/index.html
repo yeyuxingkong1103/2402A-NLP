@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>Voice Input</title>
+    <!-- 通信层改为下方内联 shim（postMessage 线协议），完全离线、无外部依赖 -->
+    <style>
+        body { margin: 0; font-family: "Microsoft YaHei", sans-serif; }
+        #micBtn {
+            width: 100%; padding: 10px 14px; border: 1px solid #d0d5dd;
+            border-radius: 8px; background: #f9fafb; color: #344054;
+            font-size: 15px; cursor: pointer; transition: all .2s;
+        }
+        #micBtn:hover { border-color: #2e7d32; }
+        #micBtn.recording {
+            background: #d92d20; color: #fff; border-color: #d92d20;
+            animation: pulse 1.2s infinite;
+        }
+        #hint { font-size: 12px; color: #667085; margin-top: 6px; }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(217,45,32,.5); }
+            70% { box-shadow: 0 0 0 10px rgba(217,45,32,0); }
+            100% { box-shadow: 0 0 0 0 rgba(217,45,32,0); }
+        }
+    </style>
+</head>
+<body>
+    <button id="micBtn">🎤 点击开始语音输入</button>
+    <div id="hint">推荐使用 Chrome / Edge 浏览器，首次使用请允许麦克风权限</div>
+
+    <script>
+        // ============================================================
+        // 精简 Streamlit 组件通信 shim（替代 streamlit-component-lib）
+        // 依据官方 postMessage 线协议实现，零外部依赖，支持离线部署
+        // ============================================================
+        (function () {
+            const Streamlit = {
+                API_VERSION: 1,
+                RENDER_EVENT: "streamlit:render",
+                events: new EventTarget(),   // 现代 Chrome/Edge 原生支持
+                _lastHeight: 0,
+
+                // 向宿主 Streamlit 发送消息
+                _send(type, extra) {
+                    window.parent.postMessage(Object.assign(
+                        { isStreamlitMessage: true, type: type }, extra), "*");
+                },
+                // 通知宿主组件已就绪，并开始监听宿主回传消息
+                setComponentReady() {
+                    window.addEventListener("message", (e) => this._onMsg(e));
+                    this._send("streamlit:componentReady",
+                        { apiVersion: this.API_VERSION });
+                },
+                // 上报组件值（触发 Python 侧 rerun），此处均为 JSON 数据
+                setComponentValue(value) {
+                    this._send("streamlit:setComponentValue",
+                        { value: value, dataType: "json" });
+                },
+                // 上报 iframe 期望高度
+                setFrameHeight(height) {
+                    height = (height === undefined)
+                        ? document.body.scrollHeight : height;
+                    if (height === this._lastHeight) return;
+                    this._lastHeight = height;
+                    this._send("streamlit:setFrameHeight", { height: height });
+                },
+                // 处理宿主下发的 render 消息，转为 RENDER_EVENT 事件
+                _onMsg(event) {
+                    const data = event.data;
+                    if (!data || data.type !== this.RENDER_EVENT) return;
+                    const args = data.args || {};
+                    this.events.dispatchEvent(new CustomEvent(this.RENDER_EVENT, {
+                        detail: { args: args, disabled: Boolean(data.disabled),
+                                  theme: data.theme }
+                    }));
+                }
+            };
+            window.Streamlit = Streamlit;
+        })();
+    </script>
+
+    <script>
+        let recognition = null;
+        let recording = false;
+        const btn = document.getElementById('micBtn');
+        const hint = document.getElementById('hint');
+        let lang = 'zh-CN';
+        let label = {start: '🎤 点击开始语音输入', stop: '⏹ 录音中，点击结束'};
+
+        // 初始化浏览器语音识别（Web Speech API）
+        function initRecognition() {
+            const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SR) {
+                btn.disabled = true;
+                btn.innerText = '❌ 当前浏览器不支持语音识别';
+                hint.innerText = '请改用 Chrome / Edge 浏览器';
+                return null;
+            }
+            const rec = new SR();
+            rec.lang = lang;
+            rec.interimResults = false;
+            rec.maxAlternatives = 1;
+            rec.continuous = false;
+
+            rec.onresult = (e) => {
+                const text = e.results[0][0].transcript;
+                Streamlit.setComponentValue({text: text, status: 'done'});
+            };
+            rec.onerror = (e) => {
+                Streamlit.setComponentValue({text: '', status: 'error', error: e.error});
+                if (e.error === 'not-allowed') hint.innerText = '麦克风权限被拒绝，请在浏览器地址栏允许';
+            };
+            rec.onend = () => {
+                recording = false;
+                btn.classList.remove('recording');
+                btn.innerText = label.start;
+            };
+            return rec;
+        }
+
+        // 点击按钮切换录音状态
+        btn.addEventListener('click', () => {
+            if (!recognition) recognition = initRecognition();
+            if (!recognition) return;
+            if (recording) {
+                recognition.stop();
+            } else {
+                recognition.lang = lang;
+                try {
+                    recognition.start();
+                    recording = true;
+                    btn.classList.add('recording');
+                    btn.innerText = label.stop;
+                    Streamlit.setComponentValue({text: '', status: 'recording'});
+                } catch (err) { /* 重复 start 保护 */ }
+            }
+        });
+
+        // 接收 Streamlit 下发的参数（语言/文案）
+        function onRender(event) {
+            const args = event.detail.args;
+            if (args.lang === 'en') {
+                lang = 'en-US';
+                label = {start: '🎤 Click to speak', stop: '⏹ Recording, click to stop'};
+                btn.innerText = recording ? label.stop : label.start;
+                hint.innerText = 'Chrome / Edge recommended; allow microphone access';
+            } else {
+                lang = 'zh-CN';
+                label = {start: '🎤 点击开始语音输入', stop: '⏹ 录音中，点击结束'};
+                btn.innerText = recording ? label.stop : label.start;
+                hint.innerText = '推荐使用 Chrome / Edge 浏览器，首次使用请允许麦克风权限';
+            }
+            Streamlit.setFrameHeight();
+        }
+        Streamlit.events.addEventListener(Streamlit.RENDER_EVENT, onRender);
+        Streamlit.setComponentReady();
+        Streamlit.setFrameHeight();
+    </script>
+</body>
+</html>

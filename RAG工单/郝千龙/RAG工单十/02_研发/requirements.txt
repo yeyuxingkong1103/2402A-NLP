@@ -1,0 +1,13 @@
+# 金融问答系统容器服务 Python 依赖（精简版，纯 CPU 离线路径）
+# 工单编号：人工智能NLP-RAG-金融问答系统部署
+# Web 框架：Flask（较 fastapi+uvicorn+pydantic 依赖更少，镜像更小）
+flask==3.0.3
+# PDF 解析主引擎（文本块提取，自带 manylinux  wheel，无需系统编译依赖）
+pymupdf==1.24.14
+# PDF 表格回退解析（稀疏页/财务表格页）
+pdfplumber==0.11.4
+# 中文分词（BM25 倒排与查询词项分析）
+jieba==0.42.1
+# TF-IDF 稀疏向量与归一化（连带引入 numpy/scipy）
+scikit-learn==1.5.2
+numpy==2.1.3

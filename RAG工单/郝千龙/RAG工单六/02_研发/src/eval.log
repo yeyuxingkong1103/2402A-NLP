@@ -1,0 +1,59 @@
+﻿python : 2026-10-04 18:37:01,021 | INFO | 加载索引：C:\Users\h1981\Desktop\郝千龙\RAG工单六\02_研发\index_store
+At line:15 char:3180
++ ... 1981\Desktop\郝千龙\RAG工单六\02_研发\src"; python -u evaluate.py *> eval.log
++                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026-10-04 18:3..._研发\index_store:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026-10-04 18:37:01,022 | INFO | 本地加载 bge 嵌入模型（离线，不联网下载）: BAAI/bge-base-zh-v1.5
+2026-10-04 18:37:06,911 | INFO | Note: NumExpr detected 22 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe l
+imit of 8.
+2026-10-04 18:37:06,912 | INFO | NumExpr defaulting to 8 threads.
+2026-10-04 18:37:08,035 | INFO | Loading SentenceTransformer model from BAAI/bge-base-zh-v1.5.
+C:\Users\h1981\Desktop\郝千龙\RAG工单六\02_研发\src\embeddings.py:92: FutureWarning: The `get_sentence_embedding_dimension` met
+hod has been renamed to `get_embedding_dimension`.
+  self.dim = self.model.get_sentence_embedding_dimension()
+2026-10-04 18:37:08,825 | INFO | No modules.json found for BAAI/bge-reranker-large, initializing a new CrossEncoder mod
+el.
+2026-10-04 18:37:10,069 | INFO | LLM重排器已离线加载: BAAI/bge-reranker-large
+Building prefix dict from the default dictionary ...
+2026-10-04 18:37:10,075 | DEBUG | Building prefix dict from the default dictionary ...
+Loading model from cache C:\Users\h1981\AppData\Local\Temp\jieba.cache
+2026-10-04 18:37:10,075 | DEBUG | Loading model from cache C:\Users\h1981\AppData\Local\Temp\jieba.cache
+Loading model cost 0.667 seconds.
+2026-10-04 18:37:10,742 | DEBUG | Loading model cost 0.667 seconds.
+Prefix dict has been built successfully.
+2026-10-04 18:37:10,742 | DEBUG | Prefix dict has been built successfully.
+2026-10-04 18:37:16,579 | INFO | gold 相关 chunk 标注完成：20 题，未标注题：[11, 12]
+2026-10-04 18:37:18,289 | INFO | 向量检索+TFIDF重排             P@1=0.25 Recall@10=0.068 平均耗时=0.09s ≤3s=100%
+2026-10-04 18:37:45,990 | INFO | 向量检索+LLM重排               P@1=0.25 Recall@10=0.049 平均耗时=1.39s ≤3s=100%
+2026-10-04 18:37:49,697 | INFO | 全文检索+TFIDF重排             P@1=0.40 Recall@10=0.111 平均耗时=0.18s ≤3s=100%
+2026-10-04 18:38:24,253 | INFO | 全文检索+LLM重排               P@1=0.25 Recall@10=0.092 平均耗时=1.73s ≤3s=100%
+2026-10-04 18:38:30,966 | INFO | 混合+加权平均+TFIDF重排          P@1=0.40 Recall@10=0.102 平均耗时=0.34s ≤3s=100%
+2026-10-04 18:39:06,424 | INFO | 混合+加权平均+LLM重排            P@1=0.30 Recall@10=0.084 平均耗时=1.77s ≤3s=100%
+2026-10-04 18:39:13,669 | INFO | 混合+加权平均+自适应重排            P@1=0.40 Recall@10=0.102 平均耗时=0.36s ≤3s=100%
+2026-10-04 18:39:20,744 | INFO | 混合+投票融合+TFIDF重排          P@1=0.35 Recall@10=0.093 平均耗时=0.35s ≤3s=100%
+2026-10-04 18:39:55,648 | INFO | 混合+投票融合+LLM重排            P@1=0.25 Recall@10=0.086 平均耗时=1.75s ≤3s=100%
+2026-10-04 18:40:02,706 | INFO | 混合+投票融合+自适应重排            P@1=0.35 Recall@10=0.093 平均耗时=0.35s ≤3s=100%
+2026-10-04 18:40:10,261 | INFO | 混合+RRF融合+TFIDF重排         P@1=0.40 Recall@10=0.099 平均耗时=0.38s ≤3s=100%
+2026-10-04 18:40:46,085 | INFO | 混合+RRF融合+LLM重排           P@1=0.25 Recall@10=0.091 平均耗时=1.79s ≤3s=100%
+2026-10-04 18:40:53,232 | INFO | 混合+RRF融合+自适应重排           P@1=0.40 Recall@10=0.099 平均耗时=0.36s ≤3s=100%
+2026-10-04 18:40:53,238 | INFO | No modules.json found for BAAI/bge-reranker-large, initializing a new CrossEncoder mod
+el.
+2026-10-04 18:40:54,501 | INFO | LLM重排器已离线加载: BAAI/bge-reranker-large
+2026-10-04 18:41:09,939 | INFO | 已生成模拟用户反馈 37 条（全部 simulated=true，文件：C:\Users\h1981\Desktop\郝千龙\RAG工单六\03_测试\模拟反馈数据.jso
+nl）
+
+================ 工单六混合检索评测汇总 ================
+问题数：20（兴图新科10 + 力源信息8 + 英文2）
+【最终配置：混合检索 + RRF融合 + LLM重排】
+  检索准确率 P@1 = 25.0%（验收线 ≥90%）
+  答案正确率     = 30.0%
+  Recall@5       = 6.6%
+  Recall@10      = 9.1%（验收线 ≥95%）
+  MRR            = 0.389
+  平均/最大耗时  = 1.791s / 2.505s（验收线 ≤3s）
+  ≤3s 占比       = 100.0%
+自适应重排模拟反馈：MRR 0.523 → 0.607，P@1 40.0% → 55.0%，Recall@10 9.8% → 11.6%
+明细：C:\Users\h1981\Desktop\郝千龙\RAG工单六\03_测试\评测结果.csv
+对比：C:\Users\h1981\Desktop\郝千龙\RAG工单六\03_测试\策略对比表.csv

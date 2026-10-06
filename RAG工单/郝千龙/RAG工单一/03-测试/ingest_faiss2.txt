@@ -1,0 +1,20 @@
+﻿warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+python : Building prefix dict from the default dictionary ...
+At line:15 char:2277
++ ... SM='false'; python rag_engine.py ingest *> '..\03-测试\ingest_faiss2.tx ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Building prefix... dictionary ...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading model from cache C:\Users\h1981\AppData\Local\Temp\jieba.cache
+Loading model cost 0.950 seconds.
+Prefix dict has been built successfully.
+[STEP1] 解析 PDF: C:\Users\h1981\Desktop\RAG工单一\招股说明书1.pdf
+[STEP2] 切分文本
+[OK] 切分完成: 共 1612 个文本块
+[STEP3] 向量化 1612 个文本块（BAAI/bge-base-zh-v1.5）
+[INFO] 加载 Embedding 模型: BAAI/bge-base-zh-v1.5 on cpu
+[STEP4] 写入向量库（faiss）
+[STEP5] 重建 BM25 索引
+[OK] BM25 索引构建完成: 1612 条
+[DONE] 入库完成: 招股说明书1.pdf, 548 页, 1612 块

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 工单编号：人工智能NLP-RAG-基于PDF文档的问答系统 -->
+<!-- 技术架构图 V1.0 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" font-family="Microsoft YaHei, Arial, sans-serif">
+  <defs>
+    <style>
+      .title { font-size: 28px; font-weight: bold; fill: #1a237e; }
+      .subtitle { font-size: 14px; fill: #555; }
+      .layer-title { font-size: 16px; font-weight: bold; fill: #fff; }
+      .box-title { font-size: 14px; font-weight: bold; fill: #1a237e; }
+      .box-desc { font-size: 11px; fill: #333; }
+      .arrow { stroke: #3949ab; stroke-width: 2; fill: none; marker-end: url(#arr); }
+      .layer { rx: 8; }
+    </style>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#3949ab"/>
+    </marker>
+  </defs>
+
+  <!-- 标题 -->
+  <text x="600" y="40" text-anchor="middle" class="title">基于 PDF 文档的 RAG 问答系统 - 技术架构图</text>
+  <text x="600" y="62" text-anchor="middle" class="subtitle">数据源：招股说明书1.pdf（武汉兴图新科电子股份有限公司 招股意向书，548页）</text>
+
+  <!-- 表现层 -->
+  <rect x="40" y="90" width="1120" height="110" class="layer" fill="#e3f2fd" stroke="#1565c0"/>
+  <text x="60" y="118" class="layer-title" fill="#1565c0">表现层 Presentation Layer</text>
+  <rect x="80" y="135" width="220" height="55" rx="6" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="190" y="158" text-anchor="middle" class="box-title">Streamlit 前端</text>
+  <text x="190" y="178" text-anchor="middle" class="box-desc">问题输入 / 答案展示 / RAGAS 评估</text>
+
+  <rect x="330" y="135" width="220" height="55" rx="6" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="440" y="158" text-anchor="middle" class="box-title">FastAPI 后端</text>
+  <text x="440" y="178" text-anchor="middle" class="box-desc">/api/ask  /api/upload  /api/health</text>
+
+  <rect x="580" y="135" width="220" height="55" rx="6" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="690" y="158" text-anchor="middle" class="box-title">对比演示模块</text>
+  <text x="690" y="178" text-anchor="middle" class="box-desc">仅 LLM vs RAG 答案对比</text>
+
+  <rect x="830" y="135" width="280" height="55" rx="6" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="970" y="158" text-anchor="middle" class="box-title">RAGAS 评估模块</text>
+  <text x="970" y="178" text-anchor="middle" class="box-desc">faithfulness / answer_relevancy / context_precision</text>
+
+  <!-- 业务层 -->
+  <rect x="40" y="220" width="1120" height="130" class="layer" fill="#ede7f6" stroke="#5e35b1"/>
+  <text x="60" y="248" class="layer-title" fill="#5e35b1">业务层 Business Layer - RAG Pipeline</text>
+
+  <rect x="80" y="265" width="200" height="70" rx="6" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="180" y="290" text-anchor="middle" class="box-title">Query 理解</text>
+  <text x="180" y="310" text-anchor="middle" class="box-desc">意图识别 / 消歧 / 子问题分解</text>
+
+  <rect x="300" y="265" width="200" height="70" rx="6" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="400" y="290" text-anchor="middle" class="box-title">向量检索</text>
+  <text x="400" y="310" text-anchor="middle" class="box-desc">bge-small-zh 512 维 / Top-K=5</text>
+
+  <rect x="520" y="265" width="200" height="70" rx="6" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="620" y="290" text-anchor="middle" class="box-title">上下文组装</text>
+  <text x="620" y="310" text-anchor="middle" class="box-desc">Prompt 模板 + 引用元数据</text>
+
+  <rect x="740" y="265" width="200" height="70" rx="6" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="840" y="290" text-anchor="middle" class="box-title">LLM 生成</text>
+  <text x="840" y="310" text-anchor="middle" class="box-desc">Qwen2.5 / OpenAI 兼容 / temp=0.3</text>
+
+  <rect x="960" y="265" width="150" height="70" rx="6" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="1035" y="290" text-anchor="middle" class="box-title">答案回写</text>
+  <text x="1035" y="310" text-anchor="middle" class="box-desc">引用 + 延迟统计</text>
+
+  <!-- 数据层 -->
+  <rect x="40" y="370" width="1120" height="120" class="layer" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="60" y="398" class="layer-title" fill="#2e7d32">数据层 Data Layer - 知识库与缓存</text>
+
+  <rect x="80" y="415" width="220" height="60" rx="6" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="190" y="438" text-anchor="middle" class="box-title">Milvus 向量库</text>
+  <text x="190" y="458" text-anchor="middle" class="box-desc">IVF_FLAT + COSINE</text>
+
+  <rect x="320" y="415" width="200" height="60" rx="6" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="420" y="438" text-anchor="middle" class="box-title">Redis 缓存</text>
+  <text x="420" y="458" text-anchor="middle" class="box-desc">Query 向量 / Top-K 命中缓存</text>
+
+  <rect x="540" y="415" width="220" height="60" rx="6" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="650" y="438" text-anchor="middle" class="box-title">原始文本库</text>
+  <text x="650" y="458" text-anchor="middle" class="box-desc">.jsonl 切片 / 页码溯源</text>
+
+  <rect x="780" y="415" width="330" height="60" rx="6" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="945" y="438" text-anchor="middle" class="box-title">原始 PDF 文档库</text>
+  <text x="945" y="458" text-anchor="middle" class="box-desc">招股说明书1.pdf + 后续上传 PDF</text>
+
+  <!-- 离线流水线 -->
+  <rect x="40" y="510" width="1120" height="120" class="layer" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="60" y="538" class="layer-title" fill="#ef6c00">离线流水线 Offline Pipeline - 文档入库</text>
+
+  <rect x="80" y="555" width="240" height="60" rx="6" fill="#ffe0b2" stroke="#ef6c00"/>
+  <text x="200" y="578" text-anchor="middle" class="box-title">PDF 解析（PyMuPDF+PDFPlumber）</text>
+  <text x="200" y="598" text-anchor="middle" class="box-desc">文本 + 表格 + 页码</text>
+
+  <rect x="340" y="555" width="240" height="60" rx="6" fill="#ffe0b2" stroke="#ef6c00"/>
+  <text x="460" y="578" text-anchor="middle" class="box-title">文本切分（LangChain）</text>
+  <text x="460" y="598" text-anchor="middle" class="box-desc">chunk_size=512 overlap=64</text>
+
+  <rect x="600" y="555" width="240" height="60" rx="6" fill="#ffe0b2" stroke="#ef6c00"/>
+  <text x="720" y="578" text-anchor="middle" class="box-title">向量化（bge-small-zh）</text>
+  <text x="720" y="598" text-anchor="middle" class="box-desc">GPU/CUDA 批量编码</text>
+
+  <rect x="860" y="555" width="250" height="60" rx="6" fill="#ffe0b2" stroke="#ef6c00"/>
+  <text x="985" y="578" text-anchor="middle" class="box-title">入库 Milvus</text>
+  <text x="985" y="598" text-anchor="middle" class="box-desc">embedding + text + page</text>
+
+  <!-- 基础设施层 -->
+  <rect x="40" y="650" width="1120" height="150" class="layer" fill="#eceff1" stroke="#455a64"/>
+  <text x="60" y="678" class="layer-title" fill="#455a64">基础设施层 Infrastructure Layer</text>
+
+  <rect x="80" y="695" width="180" height="90" rx="6" fill="#cfd8dc" stroke="#455a64"/>
+  <text x="170" y="720" text-anchor="middle" class="box-title">Python 3.10</text>
+  <text x="170" y="740" text-anchor="middle" class="box-desc">conda 虚拟环境</text>
+  <text x="170" y="760" text-anchor="middle" class="box-desc">rag-py310</text>
+
+  <rect x="280" y="695" width="180" height="90" rx="6" fill="#cfd8dc" stroke="#455a64"/>
+  <text x="370" y="720" text-anchor="middle" class="box-title">CUDA 12.1</text>
+  <text x="370" y="740" text-anchor="middle" class="box-desc">PyTorch 2.1 + cu121</text>
+  <text x="370" y="760" text-anchor="middle" class="box-desc">GPU 加速向量化</text>
+
+  <rect x="480" y="695" width="180" height="90" rx="6" fill="#cfd8dc" stroke="#455a64"/>
+  <text x="570" y="720" text-anchor="middle" class="box-title">Milvus 2.4</text>
+  <text x="570" y="740" text-anchor="middle" class="box-desc">单机 standalone</text>
+  <text x="570" y="760" text-anchor="middle" class="box-desc">docker compose</text>
+
+  <rect x="680" y="695" width="180" height="90" rx="6" fill="#cfd8dc" stroke="#455a64"/>
+  <text x="770" y="720" text-anchor="middle" class="box-title">Redis 7</text>
+  <text x="770" y="740" text-anchor="middle" class="box-desc">LRU 缓存</text>
+  <text x="770" y="760" text-anchor="middle" class="box-desc">docker compose</text>
+
+  <rect x="880" y="695" width="230" height="90" rx="6" fill="#cfd8dc" stroke="#455a64"/>
+  <text x="995" y="720" text-anchor="middle" class="box-title">LLM 推理</text>
+  <text x="995" y="740" text-anchor="middle" class="box-desc">vLLM / OpenAI 兼容 API</text>
+  <text x="995" y="760" text-anchor="middle" class="box-desc">Qwen2.5-7B-Instruct</text>
+
+  <!-- 箭头：表现层 → 业务层 -->
+  <path d="M 190 190 L 190 220 L 180 220 L 180 265" class="arrow"/>
+  <path d="M 440 190 L 440 220 L 400 220 L 400 265" class="arrow"/>
+  <path d="M 690 190 L 690 220 L 840 220 L 840 265" class="arrow"/>
+  <path d="M 970 190 L 970 220 L 1035 220 L 1035 265" class="arrow"/>
+
+  <!-- 业务层内部横向流动 -->
+  <path d="M 280 300 L 300 300" class="arrow"/>
+  <path d="M 500 300 L 520 300" class="arrow"/>
+  <path d="M 720 300 L 740 300" class="arrow"/>
+  <path d="M 940 300 L 960 300" class="arrow"/>
+
+  <!-- 业务层 → 数据层 -->
+  <path d="M 400 335 L 400 370 L 190 370 L 190 415" class="arrow"/>
+  <path d="M 400 335 L 400 370 L 420 370 L 420 415" class="arrow"/>
+  <path d="M 1035 335 L 1035 370 L 945 370 L 945 415" class="arrow"/>
+
+  <!-- 离线流水线 → 数据层 -->
+  <path d="M 200 615 L 200 630 L 650 630 L 650 475" class="arrow"/>
+  <path d="M 985 615 L 985 630 L 190 630 L 190 475" class="arrow"/>
+
+  <!-- 基础设施层向上贯穿（虚线表示支撑） -->
+  <line x1="600" y1="650" x2="600" y2="510" stroke="#90a4ae" stroke-dasharray="6,4" stroke-width="2"/>
+
+  <text x="600" y="800" text-anchor="middle" class="subtitle">-- 完 --</text>
+</svg>

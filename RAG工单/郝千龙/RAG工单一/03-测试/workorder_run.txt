@@ -1,0 +1,98 @@
+﻿   ID |  RAG(ms) | Base(ms) | question
+------------------------------------------------------------------------------------------
+  260 |        0 |     1735 | 报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？
+   95 |        0 |      934 | 武汉兴图新科电子股份有限公司参与制定了哪个技术标准？
+   33 |        0 |      840 | 报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别
+   34 |        0 |      599 | 根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？
+  957 |        0 |      788 | 武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？
+  793 |        0 |      754 | 根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？
+  795 |        0 |      751 | 武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？
+  543 |        0 |      516 | 武汉兴图新科电子股份有限公司注册资本是多少？
+  531 |        1 |      759 | 武汉兴图新科电子股份有限公司法定代表人是谁？
+  207 |        0 |      489 | 武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？
+[INFO] RAGAS 评估开始，共 10 条，评判模型=deepseek-chat
+[INFO] 加载 Embedding 模型: BAAI/bge-base-zh-v1.5 on cpu
+python : 
+At line:15 char:2277
++ ... SM='false'; python -u run_workorder_eval.py *> 'workorder_run.txt'; W ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Evaluating:   0%|          | 0/40 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 
+generations.
+
+Evaluating:   2%|▎         | 1/40 [00:05<03:19,  5.12s/it]LLM returned 1 generations instead of requested 3. Proceeding
+ with 1 generations.
+LLM returned 1 generations instead of requested 3. Proceeding with 1 generations.
+
+Evaluating:   5%|▌         | 2/40 [00:14<04:40,  7.38s/it]LLM returned 1 generations instead of requested 3. Proceeding
+ with 1 generations.
+
+Evaluating:  10%|█         | 4/40 [00:34<05:32,  9.24s/it]
+Evaluating:  12%|█▎        | 5/40 [00:36<04:04,  6.99s/it]
+Evaluating:  15%|█▌        | 6/40 [00:40<03:25,  6.06s/it]Exception raised in Job[14]: BadRequestError(Error code: 400 
+- {'error': {'message': 'Invalid n value (currently only n = 1 is supported) (request_id: b33deef9-6d3a-48b9-99eb-35bdd
+f0aab67)', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}})
+
+Evaluating:  22%|██▎       | 9/40 [00:42<01:34,  3.05s/it]LLM returned 1 generations instead of requested 3. Proceeding
+ with 1 generations.
+
+Evaluating:  25%|██▌       | 10/40 [00:48<01:46,  3.57s/it]
+Evaluating:  28%|██▊       | 11/40 [00:52<01:45,  3.62s/it]LLM returned 1 generations instead of requested 3. Proceedin
+g with 1 generations.
+
+Evaluating:  30%|███       | 12/40 [01:09<03:19,  7.13s/it]
+Evaluating:  38%|███▊      | 15/40 [01:18<02:05,  5.01s/it]Exception raised in Job[25]: BadRequestError(Error code: 400
+ - {'error': {'message': 'Invalid n value (currently only n = 1 is supported) (request_id: 85c0b0fa-67f5-49cf-ac29-a540
+f488ba86)', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}})
+Exception raised in Job[2]: BadRequestError(Error code: 400 - {'error': {'message': 'Invalid n value (currently only n 
+= 1 is supported) (request_id: 34485d9e-1508-44ba-a157-6b9f8dfb77f0)', 'type': 'invalid_request_error', 'param': None, 
+'code': 'invalid_request_error'}})
+
+Evaluating:  50%|█████     | 20/40 [01:19<00:45,  2.26s/it]Exception raised in Job[6]: BadRequestError(Error code: 400 
+- {'error': {'message': 'Invalid n value (currently only n = 1 is supported) (request_id: 3ab069ff-e592-450d-8599-2d071
+9e1ff8c)', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}})
+Exception raised in Job[27]: BadRequestError(Error code: 400 - {'error': {'message': 'Invalid n value (currently only n
+ = 1 is supported) (request_id: 163b3d88-bf7d-4441-a46a-fc3edb1df6b6)', 'type': 'invalid_request_error', 'param': None,
+ 'code': 'invalid_request_error'}})
+Exception raised in Job[32]: BadRequestError(Error code: 400 - {'error': {'message': 'Invalid n value (currently only n
+ = 1 is supported) (request_id: 7b4eb4b7-0d08-4f4d-ac0a-8025562ed6bc)', 'type': 'invalid_request_error', 'param': None,
+ 'code': 'invalid_request_error'}})
+Exception raised in Job[30]: BadRequestError(Error code: 400 - {'error': {'message': 'Invalid n value (currently only n
+ = 1 is supported) (request_id: 1fb12240-13f2-4368-82d9-e784390cc181)', 'type': 'invalid_request_error', 'param': None,
+ 'code': 'invalid_request_error'}})
+Exception raised in Job[31]: BadRequestError(Error code: 400 - {'error': {'message': 'Invalid n value (currently only n
+ = 1 is supported) (request_id: c249069a-0365-4b5b-b320-05abfa40c95d)', 'type': 'invalid_request_error', 'param': None,
+ 'code': 'invalid_request_error'}})
+Exception raised in Job[10]: BadRequestError(Error code: 400 - {'error': {'message': 'Invalid n value (currently only n
+ = 1 is supported) (request_id: 8a3db90e-a241-4bc0-8fd7-735de4d4b8f2)', 'type': 'invalid_request_error', 'param': None,
+ 'code': 'invalid_request_error'}})
+Exception raised in Job[26]: BadRequestError(Error code: 400 - {'error': {'message': 'Invalid n value (currently only n
+ = 1 is supported) (request_id: 434d0a24-28fb-4268-a9f0-22d3785a8f3f)', 'type': 'invalid_request_error', 'param': None,
+ 'code': 'invalid_request_error'}})
+Exception raised in Job[18]: BadRequestError(Error code: 400 - {'error': {'message': 'Invalid n value (currently only n
+ = 1 is supported) (request_id: f8a06aa6-43b5-49b8-9f3b-5160128deea0)', 'type': 'invalid_request_error', 'param': None,
+ 'code': 'invalid_request_error'}})
+Exception raised in Job[33]: BadRequestError(Error code: 400 - {'error': {'message': 'Invalid n value (currently only n
+ = 1 is supported) (request_id: 35d8c4ce-1dc0-4577-b342-b28da945df0e)', 'type': 'invalid_request_error', 'param': None,
+ 'code': 'invalid_request_error'}})
+Exception raised in Job[24]: BadRequestError(Error code: 400 - {'error': {'message': 'Invalid n value (currently only n
+ = 1 is supported) (request_id: d1fa8e87-b2bb-4d32-a5fd-a2a1f884e03a)', 'type': 'invalid_request_error', 'param': None,
+ 'code': 'invalid_request_error'}})
+Exception raised in Job[29]: BadRequestError(Error code: 400 - {'error': {'message': 'Invalid n value (currently only n
+ = 1 is supported) (request_id: 648ec9cd-d9cb-462c-bb4d-abbda0239b40)', 'type': 'invalid_request_error', 'param': None,
+ 'code': 'invalid_request_error'}})
+Exception raised in Job[28]: BadRequestError(Error code: 400 - {'error': {'message': 'Invalid n value (currently only n
+ = 1 is supported) (request_id: 4e21959e-e695-4eba-bab2-a30beb472d9f)', 'type': 'invalid_request_error', 'param': None,
+ 'code': 'invalid_request_error'}})
+Exception raised in Job[36]: BadRequestError(Error code: 400 - {'error': {'message': 'Invalid n value (currently only n
+ = 1 is supported) (request_id: 4f82e43a-3a90-47c4-b131-a411875a269f)', 'type': 'invalid_request_error', 'param': None,
+ 'code': 'invalid_request_error'}})
+Exception raised in Job[37]: BadRequestError(Error code: 400 - {'error': {'message': 'Invalid n value (currently only n
+ = 1 is supported) (request_id: 531827fe-850b-4bcf-9bfe-c1a8ba1c3ae4)', 'type': 'invalid_request_error', 'param': None,
+ 'code': 'invalid_request_error'}})
+Exception raised in Job[22]: BadRequestError(Error code: 400 - {'error': {'message': 'Invalid n value (currently only n
+ = 1 is supported) (request_id: 012e9a30-3a2a-4b81-8d29-fcd934d3d920)', 'type': 'invalid_request_error', 'param': None,
+ 'code': 'invalid_request_error'}})
+

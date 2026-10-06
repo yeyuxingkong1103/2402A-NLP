@@ -1,0 +1,31 @@
+﻿python : 2026-10-04 18:27:16,593 | INFO | ① 双引擎解析 2 份招股书
+At line:15 char:3180
++ ... Desktop\郝千龙\RAG工单六\02_研发\src"; python -u build_index.py *> build2.log
++                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026-10-04 18:2... ① 双引擎解析 2 份招股书:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026-10-04 18:27:44,489 | INFO |   - 招股说明书1：结构化块 3262 个
+2026-10-04 18:27:55,578 | INFO |   - 招股说明书2：结构化块 2042 个
+2026-10-04 18:27:55,579 | INFO | ② 多字段标题感知分块
+2026-10-04 18:27:56,078 | INFO | 生成检索块 5370 个（其中表格块 371 个）
+2026-10-04 18:27:56,078 | INFO | ③ 加载嵌入模型（bge）并编码，本地无缓存自动 TF-IDF 离线降级（不联网）
+2026-10-04 18:27:56,079 | INFO | 本地加载 bge 嵌入模型（离线，不联网下载）: BAAI/bge-base-zh-v1.5
+2026-10-04 18:28:02,424 | INFO | Note: NumExpr detected 22 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe l
+imit of 8.
+2026-10-04 18:28:02,424 | INFO | NumExpr defaulting to 8 threads.
+2026-10-04 18:28:03,453 | INFO | Loading SentenceTransformer model from BAAI/bge-base-zh-v1.5.
+C:\Users\h1981\Desktop\郝千龙\RAG工单六\02_研发\src\embeddings.py:92: FutureWarning: The `get_sentence_embedding_dimension` met
+hod has been renamed to `get_embedding_dimension`.
+  self.dim = self.model.get_sentence_embedding_dimension()
+2026-10-04 18:28:03,996 | INFO | ④ 构建稠密向量库 + 五字段加权 BM25 倒排
+Building prefix dict from the default dictionary ...
+2026-10-04 18:34:51,545 | DEBUG | Building prefix dict from the default dictionary ...
+Loading model from cache C:\Users\h1981\AppData\Local\Temp\jieba.cache
+2026-10-04 18:34:51,545 | DEBUG | Loading model from cache C:\Users\h1981\AppData\Local\Temp\jieba.cache
+Loading model cost 0.738 seconds.
+2026-10-04 18:34:52,283 | DEBUG | Loading model cost 0.738 seconds.
+Prefix dict has been built successfully.
+2026-10-04 18:34:52,283 | DEBUG | Prefix dict has been built successfully.
+2026-10-04 18:34:56,614 | INFO | ⑤ 持久化到：C:\Users\h1981\Desktop\郝千龙\RAG工单六\02_研发\index_store
+2026-10-04 18:34:57,378 | INFO | 建库完成，总耗时 460.79 s，嵌入后端=bge，块数=5370

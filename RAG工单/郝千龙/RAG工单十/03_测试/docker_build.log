@@ -1,0 +1,64 @@
+﻿docker : 2026/10/04 18:03:59 http2: server: error reading preface from client //./pipe/docker_engine: file has already 
+been closed
+At line:15 char:2170
++ ... pgrep\bin'; docker build -t finqa-service:1.0 "c:\Users\h1981\Desktop ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/10/04 18:0...ady been closed:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+#0 building with "default" instance using docker driver
+
+#1 [internal] load .dockerignore
+#1 transferring context:
+#1 transferring context: 416B 2.7s done
+#1 DONE 2.8s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 3.59kB 2.7s done
+#2 DONE 2.8s
+
+#3 [internal] load metadata for docker.io/library/python:3.11-slim
+#3 DONE 21.5s
+
+#4 [1/7] FROM docker.io/library/python:3.11-slim@sha256:bab1b7ef4b450c81002278d035eff85ebe394ae94df904f7a3ba14f7e16e487
+b
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context:
+#5 transferring context: 309B 1.3s done
+#5 DONE 1.3s
+
+#6 [4/7] COPY requirements.txt ./
+#6 CACHED
+
+#7 [5/7] RUN pip install --no-cache-dir       --index-url https://pypi.tuna.tsinghua.edu.cn/simple       --trusted-host
+ pypi.tuna.tsinghua.edu.cn       -r requirements.txt
+#7 CACHED
+
+#8 [2/7] RUN set -eux;     if [ -f /etc/apt/sources.list.d/debian.sources ]; then         sed -i 's|deb.debian.org|mirr
+ors.aliyun.com|g; s|security.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list.d/debian.sources;     fi;     if [ 
+-f /etc/apt/sources.list ]; then         sed -i 's|deb.debian.org|mirrors.aliyun.com|g; s|security.debian.org|mirrors.a
+liyun.com|g' /etc/apt/sources.list;     fi;     apt-get update     && apt-get install -y --no-install-recommends tzdata
+     && ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime     && echo "Asia/Shanghai" > /etc/timezone     && rm 
+-rf /var/lib/apt/lists/*
+#8 CACHED
+
+#9 [3/7] WORKDIR /app
+#9 CACHED
+
+#10 [6/7] COPY app ./app
+#10 CACHED
+
+#11 [7/7] RUN useradd --uid 1000 --create-home --home-dir /home/app --shell /usr/sbin/nologin appuser     && mkdir -p /
+app/index /data     && chown -R appuser:appuser /app /home/app     && chmod 755 /data
+#11 DONE 0.4s
+
+#12 exporting to image
+#12 exporting layers 0.1s done
+#12 writing image sha256:2f6f4fefe04feb51c61f09786f2c2dfd82af4d3efd2e0e0fd9e7f6863789c804 done
+#12 naming to docker.io/library/finqa-service:1.0 done
+#12 DONE 0.1s
+
+What's Next?
+  View a summary of image vulnerabilities and recommendations → docker scout quickview

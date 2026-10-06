@@ -1,0 +1,28 @@
+﻿warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+python : INFO:     Started server process [2824]
+At line:15 char:2277
++ ... RS_PARALLELISM='false'; python main.py *> '..\03-测试\fastapi_run3.txt'
++                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (INFO:     Started server process [2824]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[INFO] RAGAS 评估开始，共 1 条，评判模型=deepseek-chat
+[INFO] 加载 Embedding 模型: BAAI/bge-base-zh-v1.5 on cpu
+
+Evaluating:   0%|          | 0/4 [00:00<?, ?it/s]LLM returned 1 generations instead of requested 3. Proceeding with 1 g
+enerations.
+
+Evaluating:  25%|██▌       | 1/4 [00:07<00:22,  7.48s/it]
+Evaluating:  50%|█████     | 2/4 [00:11<00:10,  5.37s/it]
+Evaluating: 100%|██████████| 4/4 [00:13<00:00,  2.61s/it]
+Evaluating: 100%|██████████| 4/4 [00:13<00:00,  3.33s/it]
+INFO:     127.0.0.1:7909 - "POST /api/evaluate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13736 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13737 - "GET /api/feedback HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13775 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13776 - "GET /api/feedback HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13786 - "GET /api/documents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13788 - "GET /api/feedback HTTP/1.1" 200 OK

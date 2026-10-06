@@ -1,0 +1,20 @@
+# Docker build ignore list (ASCII-only for BuildKit compatibility)
+# Work order: RAG-FinQA-Docker-Deployment
+# Corpus and index are mounted as volumes, never baked into the image
+data/
+index/
+
+# Python caches and virtual environments
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+.venv/
+venv/
+
+# Tests and docs not needed inside image
+test_api.ps1
+*.md
+*.log
+.git/
+.gitignore
+.DS_Store

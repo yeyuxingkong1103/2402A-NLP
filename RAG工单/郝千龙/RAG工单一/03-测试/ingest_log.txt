@@ -1,0 +1,23 @@
+﻿warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+python : C:\Users\h1981\Desktop\RAG工单一\02-研发\embedder.py:31: FutureWarning: The `get_sentence_embedding_dimension` meth
+od has been renamed to `get_embedding_dimension`.
+At line:15 char:3223
++ ... SM='false'; python rag_engine.py ingest *> '..\03-测试\ingest_log.txt'; ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (C:\Users\h1981\...ing_dimension`.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  dim = self._model.get_sentence_embedding_dimension()
+Building prefix dict from the default dictionary ...
+Loading model from cache C:\Users\h1981\AppData\Local\Temp\jieba.cache
+Loading model cost 0.947 seconds.
+Prefix dict has been built successfully.
+[STEP1] 解析 PDF: C:\Users\h1981\Desktop\RAG工单一\招股说明书1.pdf
+[STEP2] 切分文本
+[OK] 切分完成: 共 1612 个文本块
+[STEP3] 向量化 1612 个文本块（BAAI/bge-base-zh-v1.5）
+[INFO] 加载 Embedding 模型: BAAI/bge-base-zh-v1.5 on cpu
+[STEP4] 写入向量库（chroma）
+[STEP5] 重建 BM25 索引
+[OK] BM25 索引构建完成: 1612 条
+[DONE] 入库完成: 招股说明书1.pdf, 548 页, 1612 块

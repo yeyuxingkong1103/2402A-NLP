@@ -1,0 +1,41 @@
+﻿python : 2026-10-04 18:17:37,976 | INFO | ① 双引擎解析 2 份招股书
+At line:15 char:3170
++ ...  $env:TRANSFORMERS_OFFLINE='1'; python -u build_index.py *> build.log
++                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026-10-04 18:1... ① 双引擎解析 2 份招股书:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026-10-04 18:18:06,670 | INFO |   - 招股说明书1：结构化块 3262 个
+2026-10-04 18:18:17,374 | INFO |   - 招股说明书2：结构化块 2042 个
+2026-10-04 18:18:17,374 | INFO | ② 多字段标题感知分块
+2026-10-04 18:18:17,473 | INFO | 生成检索块 5370 个（其中表格块 371 个）
+2026-10-04 18:18:17,473 | INFO | ③ 加载嵌入模型（bge）并编码，本地无缓存自动 TF-IDF 离线降级（不联网）
+2026-10-04 18:18:17,475 | INFO | 本地加载 bge 嵌入模型（离线，不联网下载）: BAAI/bge-base-zh-v1.5
+2026-10-04 18:18:23,473 | INFO | Note: NumExpr detected 22 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe l
+imit of 8.
+2026-10-04 18:18:23,473 | INFO | NumExpr defaulting to 8 threads.
+2026-10-04 18:18:24,630 | INFO | Loading SentenceTransformer model from BAAI/bge-base-zh-v1.5.
+C:\Users\h1981\Desktop\郝千龙\RAG工单六\02_研发\src\embeddings.py:92: FutureWarning: The `get_sentence_embedding_dimension` met
+hod has been renamed to `get_embedding_dimension`.
+  self.dim = self.model.get_sentence_embedding_dimension()
+2026-10-04 18:18:24,950 | INFO | ④ 构建稠密向量库 + 五字段加权 BM25 倒排
+Building prefix dict from the default dictionary ...
+2026-10-04 18:25:17,683 | DEBUG | Building prefix dict from the default dictionary ...
+Loading model from cache C:\Users\h1981\AppData\Local\Temp\jieba.cache
+2026-10-04 18:25:17,683 | DEBUG | Loading model from cache C:\Users\h1981\AppData\Local\Temp\jieba.cache
+Loading model cost 0.773 seconds.
+2026-10-04 18:25:18,456 | DEBUG | Loading model cost 0.773 seconds.
+Prefix dict has been built successfully.
+2026-10-04 18:25:18,456 | DEBUG | Prefix dict has been built successfully.
+2026-10-04 18:25:22,789 | INFO | ⑤ 持久化到：C:\Users\h1981\Desktop\郝千龙\RAG工单六\02_研发\index_store
+Traceback (most recent call last):
+  File "C:\Users\h1981\Desktop\郝千龙\RAG工单六\02_研发\src\build_index.py", line 89, in <module>
+    main()
+  File "C:\Users\h1981\Desktop\郝千龙\RAG工单六\02_研发\src\build_index.py", line 85, in main
+    build(CONFIG.pdf_files, args.index, args.backend)
+  File "C:\Users\h1981\Desktop\郝千龙\RAG工单六\02_研发\src\build_index.py", line 66, in build
+    store.save(index_dir)
+  File "C:\Users\h1981\Desktop\郝千龙\RAG工单六\02_研发\src\vector_store.py", line 388, in save
+    "docs": sorted({c.doc_name for c in chunks}),
+                                        ^^^^^^
+NameError: name 'chunks' is not defined. Did you mean: 'self.chunks'?

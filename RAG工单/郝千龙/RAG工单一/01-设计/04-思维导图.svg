@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 工单编号：人工智能NLP-RAG-基于PDF文档的问答系统 -->
+<!-- 项目思维导图 V1.0 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" font-family="Microsoft YaHei, Arial, sans-serif">
+  <defs>
+    <style>
+      .root { font-size: 18px; font-weight: bold; fill: #fff; }
+      .l1 { font-size: 14px; font-weight: bold; fill: #fff; }
+      .l2 { font-size: 12px; fill: #333; }
+      .l3 { font-size: 11px; fill: #555; }
+      .line { stroke: #90a4ae; stroke-width: 2; fill: none; }
+    </style>
+  </defs>
+
+  <text x="700" y="40" text-anchor="middle" font-size="22" font-weight="bold" fill="#1a237e">RAG 问答系统 - 项目思维导图</text>
+  <text x="700" y="62" text-anchor="middle" font-size="12" fill="#666">工单编号：人工智能NLP-RAG-基于PDF文档的问答系统</text>
+
+  <!-- 中心根节点 -->
+  <ellipse cx="700" cy="500" rx="120" ry="40" fill="#1a237e"/>
+  <text x="700" y="494" text-anchor="middle" class="root">RAG 问答系统</text>
+  <text x="700" y="512" text-anchor="middle" class="root">招股说明书</text>
+
+  <!-- 一级分支1：设计 -->
+  <path d="M 580 500 Q 480 460 380 360" class="line"/>
+  <rect x="280" y="340" width="110" height="34" rx="6" fill="#1565c0"/>
+  <text x="335" y="362" text-anchor="middle" class="l1">1. 设计</text>
+
+  <path d="M 280 357 Q 200 350 130 280" class="line"/>
+  <rect x="40" y="265" width="120" height="26" rx="4" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="100" y="282" text-anchor="middle" class="l2">技术组件</text>
+
+  <path d="M 280 357 Q 180 380 100 360" class="line"/>
+  <rect x="20" y="350" width="130" height="26" rx="4" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="85" y="367" text-anchor="middle" class="l2">技术架构图</text>
+
+  <path d="M 280 357 Q 180 420 100 460" class="line"/>
+  <rect x="20" y="450" width="130" height="26" rx="4" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="85" y="467" text-anchor="middle" class="l2">系统流程图</text>
+
+  <path d="M 280 357 Q 200 480 130 540" class="line"/>
+  <rect x="40" y="530" width="120" height="26" rx="4" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="100" y="547" text-anchor="middle" class="l2">思维导图</text>
+
+  <path d="M 280 357 Q 220 540 160 620" class="line"/>
+  <rect x="70" y="610" width="120" height="26" rx="4" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="130" y="627" text-anchor="middle" class="l2">接口文档</text>
+
+  <!-- 一级分支2：研发 -->
+  <path d="M 700 540 Q 600 620 470 700" class="line"/>
+  <rect x="420" y="700" width="110" height="34" rx="6" fill="#5e35b1"/>
+  <text x="475" y="722" text-anchor="middle" class="l1">2. 研发</text>
+
+  <path d="M 420 717 Q 320 760 230 780" class="line"/>
+  <rect x="120" y="770" width="140" height="26" rx="4" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="190" y="787" text-anchor="middle" class="l2">PDF 解析模块</text>
+
+  <path d="M 420 717 Q 320 800 220 830" class="line"/>
+  <rect x="100" y="820" width="160" height="26" rx="4" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="180" y="837" text-anchor="middle" class="l2">向量化+向量库</text>
+
+  <path d="M 420 717 Q 380 800 350 880" class="line"/>
+  <rect x="270" y="870" width="160" height="26" rx="4" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="350" y="887" text-anchor="middle" class="l2">检索引擎</text>
+
+  <path d="M 470 734 Q 480 800 510 870" class="line"/>
+  <rect x="430" y="870" width="160" height="26" rx="4" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="510" y="887" text-anchor="middle" class="l2">LLM 生成模块</text>
+
+  <path d="M 530 720 Q 600 780 660 800" class="line"/>
+  <rect x="610" y="790" width="140" height="26" rx="4" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="680" y="807" text-anchor="middle" class="l2">FastAPI 后端</text>
+
+  <path d="M 530 720 Q 660 720 770 700" class="line"/>
+  <rect x="740" y="690" width="160" height="26" rx="4" fill="#d1c4e9" stroke="#5e35b1"/>
+  <text x="820" y="707" text-anchor="middle" class="l2">Streamlit 前端</text>
+
+  <!-- 一级分支3：测试 -->
+  <path d="M 820 500 Q 920 460 1020 360" class="line"/>
+  <rect x="1010" y="340" width="110" height="34" rx="6" fill="#ef6c00"/>
+  <text x="1065" y="362" text-anchor="middle" class="l1">3. 测试</text>
+
+  <path d="M 1120 357 Q 1200 350 1280 280" class="line"/>
+  <rect x="1240" y="265" width="140" height="26" rx="4" fill="#ffe0b2" stroke="#ef6c00"/>
+  <text x="1310" y="282" text-anchor="middle" class="l2">单元测试 pytest</text>
+
+  <path d="M 1120 357 Q 1220 380 1300 360" class="line"/>
+  <rect x="1250" y="350" width="140" height="26" rx="4" fill="#ffe0b2" stroke="#ef6c00"/>
+  <text x="1320" y="367" text-anchor="middle" class="l2">接口测试 httpx</text>
+
+  <path d="M 1120 357 Q 1220 420 1300 460" class="line"/>
+  <rect x="1250" y="450" width="140" height="26" rx="4" fill="#ffe0b2" stroke="#ef6c00"/>
+  <text x="1320" y="467" text-anchor="middle" class="l2">10 题问答验证</text>
+
+  <path d="M 1120 357 Q 1200 480 1280 540" class="line"/>
+  <rect x="1230" y="530" width="150" height="26" rx="4" fill="#ffe0b2" stroke="#ef6c00"/>
+  <text x="1305" y="547" text-anchor="middle" class="l2">界面截图（重点）</text>
+
+  <path d="M 1120 357 Q 1180 540 1240 620" class="line"/>
+  <rect x="1180" y="610" width="160" height="26" rx="4" fill="#ffe0b2" stroke="#ef6c00"/>
+  <text x="1260" y="627" text-anchor="middle" class="l2">性能/延迟测试</text>
+
+  <!-- 一级分支4：优化 -->
+  <path d="M 700 460 Q 760 380 830 250" class="line"/>
+  <rect x="780" y="235" width="110" height="34" rx="6" fill="#2e7d32"/>
+  <text x="835" y="257" text-anchor="middle" class="l1">4. 优化</text>
+
+  <path d="M 890 252 Q 980 220 1060 200" class="line"/>
+  <rect x="1040" y="185" width="160" height="26" rx="4" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="1120" y="202" text-anchor="middle" class="l2">切分策略优化</text>
+
+  <path d="M 890 252 Q 1010 230 1100 230" class="line"/>
+  <rect x="1100" y="225" width="160" height="26" rx="4" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="1180" y="242" text-anchor="middle" class="l2">Embedding 微调</text>
+
+  <path d="M 890 252 Q 990 290 1060 310" class="line"/>
+  <rect x="1040" y="295" width="160" height="26" rx="4" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="1120" y="312" text-anchor="middle" class="l2">Rerank 重排</text>
+
+  <!-- 一级分支5：部署 -->
+  <path d="M 580 500 Q 460 480 320 200" class="line"/>
+  <rect x="270" y="185" width="110" height="34" rx="6" fill="#c62828"/>
+  <text x="325" y="207" text-anchor="middle" class="l1">5. 部署</text>
+
+  <path d="M 270 202 Q 180 200 100 180" class="line"/>
+  <rect x="20" y="165" width="180" height="26" rx="4" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="110" y="182" text-anchor="middle" class="l2">安装脚本(conda+cuda)</text>
+
+  <path d="M 270 202 Q 160 220 90 230" class="line"/>
+  <rect x="20" y="215" width="140" height="26" rx="4" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="90" y="232" text-anchor="middle" class="l2">启动脚本</text>
+
+  <path d="M 270 202 Q 160 250 90 280" class="line"/>
+  <rect x="20" y="265" width="140" height="26" rx="4" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="90" y="282" text-anchor="middle" class="l2">停止脚本</text>
+
+  <path d="M 270 202 Q 200 290 160 330" class="line"/>
+  <rect x="40" y="315" width="160" height="26" rx="4" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="120" y="332" text-anchor="middle" class="l2">Docker Compose</text>
+
+  <text x="700" y="980" text-anchor="middle" font-size="12" fill="#666">数据源：招股说明书1.pdf（548页） · 武汉兴图新科电子股份有限公司 招股意向书</text>
+</svg>

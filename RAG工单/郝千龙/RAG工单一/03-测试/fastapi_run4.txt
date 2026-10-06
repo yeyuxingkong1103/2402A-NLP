@@ -1,0 +1,32 @@
+﻿warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+python : INFO:     Started server process [29564]
+At line:15 char:2277
++ ... RS_PARALLELISM='false'; python main.py *> '..\03-测试\fastapi_run4.txt'
++                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (INFO:     Started server process [29564]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:6480 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6492 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6493 - "POST /api/ask/baseline HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6495 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6496 - "POST /api/ask/baseline HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6497 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6498 - "POST /api/ask/baseline HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6499 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6500 - "POST /api/ask/baseline HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6501 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6502 - "POST /api/ask/baseline HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6503 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6504 - "POST /api/ask/baseline HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6505 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6506 - "POST /api/ask/baseline HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6507 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6508 - "POST /api/ask/baseline HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6509 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6511 - "POST /api/ask/baseline HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6512 - "POST /api/ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6513 - "POST /api/ask/baseline HTTP/1.1" 200 OK

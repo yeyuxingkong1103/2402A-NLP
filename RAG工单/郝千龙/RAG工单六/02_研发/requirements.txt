@@ -1,0 +1,14 @@
+# 工单六 混合检索系统依赖（纯CPU/离线可运行）
+# 工单编号：人工智能NLP-RAG-混合检索任务
+# 基础解析与检索（必装）
+pymupdf>=1.24.0
+pdfplumber>=0.11.0
+jieba>=0.42.1
+scikit-learn>=1.3.0
+numpy>=1.24.0
+pandas>=2.0.0
+openpyxl>=3.1.0
+# 交互界面
+streamlit>=1.30.0
+# 多嵌入模型/LLM重排（可选：本地已有 bge/m3e/reranker 缓存时才启用，无缓存自动TF-IDF离线降级，不联网下载）
+sentence-transformers>=2.2.0
