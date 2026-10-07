@@ -1,0 +1,208 @@
+{
+  "work_order_no": "人工智能NLP-RAG-基于PDF文档的问答系统优化",
+  "generated_at": "2026-10-07 10:24:59",
+  "base_url": "http://127.0.0.1:8010",
+  "note": "并发变慢的根因判定：若 N 并发时墙钟 ≈ 单次耗时 × 请求数，说明上游大模型把请求串行化了（本系统的并发度实际被压到 1）。因此本报告把「系统层」（/api/search，纯本地检索，不调模型）与「端到端」（/api/ask，含模型生成）分开统计。",
+  "serial_baseline": {
+    "requests": 4,
+    "avg_ms": 1268.7,
+    "samples_ms": [
+      1305.6,
+      1610.4,
+      1440.3,
+      718.5
+    ]
+  },
+  "system_load": {
+    "endpoint": "/api/search",
+    "concurrency": 8,
+    "rounds": 2,
+    "requests": 16,
+    "success": 16,
+    "success_rate": 1.0,
+    "wall_seconds": 0.3,
+    "throughput_rps": 56.17,
+    "p50_ms": 135.6,
+    "p95_ms": 143.6,
+    "p99_ms": 146.0,
+    "avg_ms": 108.6,
+    "max_ms": 146.0,
+    "within_3s_rate": 1.0,
+    "upstream_throttled": 0,
+    "service_errors": 0,
+    "error_samples": []
+  },
+  "load": {
+    "endpoint": "/api/ask",
+    "concurrency": 8,
+    "rounds": 2,
+    "requests": 16,
+    "success": 16,
+    "success_rate": 1.0,
+    "wall_seconds": 23.4,
+    "throughput_rps": 0.68,
+    "p50_ms": 10635.6,
+    "p95_ms": 12513.4,
+    "p99_ms": 13468.0,
+    "avg_ms": 9410.8,
+    "max_ms": 13468.0,
+    "within_3s_rate": 0.0625,
+    "upstream_throttled": 0,
+    "service_errors": 0,
+    "error_samples": []
+  },
+  "e2e_load": {
+    "endpoint": "/api/ask",
+    "concurrency": 8,
+    "rounds": 2,
+    "requests": 16,
+    "success": 16,
+    "success_rate": 1.0,
+    "wall_seconds": 23.4,
+    "throughput_rps": 0.68,
+    "p50_ms": 10635.6,
+    "p95_ms": 12513.4,
+    "p99_ms": 13468.0,
+    "avg_ms": 9410.8,
+    "max_ms": 13468.0,
+    "within_3s_rate": 0.0625,
+    "upstream_throttled": 0,
+    "service_errors": 0,
+    "error_samples": []
+  },
+  "serialization_ratio": 9.22,
+  "serialization_verdict": "上游串行化（本系统无并发缺陷）",
+  "multilang": {
+    "pairs": [
+      {
+        "zh": "武汉兴图新科电子股份有限公司的注册资本是多少？",
+        "en": "What is the registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+        "zh_answer": "武汉兴图新科电子股份有限公司的注册资本为5,520.00万元 [第22页][第52页]。",
+        "zh_ms": 657.4,
+        "zh_lang_ok": 1.0,
+        "en_answer": "The registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd. is 5,520万元 [第22页][第52页].",
+        "en_ms": 1260.2,
+        "en_lang_ok": 0.903
+      },
+      {
+        "zh": "该公司参与的哪个工程荣获了国家科技进步一等奖？",
+        "en": "Which project that the company participated in won the National Science and Technology Progress Award, First Prize?",
+        "zh_answer": "该公司参与的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统）荣获国家科技进步一等奖。  \n该工程于2014年12月获奖，民营企业兴图新科是该工程网络化视频指挥系统的唯一参与者，但未能列入获奖名单。[第93-94页][第155页][第241页]",
+        "zh_ms": 2718.3,
+        "zh_lang_ok": 0.959,
+        "en_answer": "The project that the company participated in, which won the National Science and Technology Progress Award, First Prize, is the \"Integrated Intelligence, Command, Control, and Communication Network Project\" (equivalent to the U.S. military's C4ISR system), led by a large research institute. The company was the sole private enterprise participant in the networked video command system of this project but was not listed in the award recipients. [第241页][第156-157页]",
+        "en_ms": 2452.7,
+        "en_lang_ok": 0.989
+      }
+    ]
+  },
+  "fault": {
+    "cases": [
+      {
+        "case": "空问题",
+        "http": 200,
+        "code": "BAD_REQUEST",
+        "message": "question 不能为空",
+        "answer_head": "",
+        "verdict": "OK",
+        "ms": 2.5
+      },
+      {
+        "case": "纯空白",
+        "http": 200,
+        "code": "BAD_REQUEST",
+        "message": "question 不能为空",
+        "answer_head": "",
+        "verdict": "OK",
+        "ms": 3.4
+      },
+      {
+        "case": "question 非字符串",
+        "http": 200,
+        "code": "BAD_REQUEST",
+        "message": "question 必须是字符串",
+        "answer_head": "",
+        "verdict": "OK",
+        "ms": 15.7
+      },
+      {
+        "case": "缺字段",
+        "http": 200,
+        "code": "BAD_REQUEST",
+        "message": "question 不能为空",
+        "answer_head": "",
+        "verdict": "OK",
+        "ms": 2.7
+      },
+      {
+        "case": "超长输入（3000 字）",
+        "http": 200,
+        "code": "OK",
+        "message": "OK",
+        "answer_head": "注册资本为5,520.00万元 [第22页][第52页]。",
+        "verdict": "OK",
+        "ms": 1427.7
+      },
+      {
+        "case": "离题问题（触发闸门）",
+        "http": 200,
+        "code": "OK",
+        "message": "OK",
+        "answer_head": "资料中没有相关内容。",
+        "verdict": "OK",
+        "ms": 1085.7
+      },
+      {
+        "case": "闲聊",
+        "http": 200,
+        "code": "OK",
+        "message": "OK",
+        "answer_head": "你好，我是这份招股意向书的问答助手。请提出与文档内容相关的问题，例如「武汉兴图新科电子股份有限公司的注册资本是多少？」",
+        "verdict": "OK",
+        "ms": 540.9
+      },
+      {
+        "case": "对比接口空问题",
+        "http": 200,
+        "code": "BAD_REQUEST",
+        "message": "question 不能为空",
+        "answer_head": "",
+        "verdict": "OK",
+        "ms": 3.9
+      },
+      {
+        "case": "优化对比空问题",
+        "http": 200,
+        "code": "BAD_REQUEST",
+        "message": "question 不能为空",
+        "answer_head": "",
+        "verdict": "OK",
+        "ms": 28.8
+      }
+    ],
+    "unhandled": 0
+  },
+  "soak": {
+    "endpoint": "/api/search",
+    "requests": 400,
+    "success": 400,
+    "fails": 0,
+    "wall_seconds": 12.1,
+    "p50_ms": 27.3,
+    "p95_ms": 47.7,
+    "p99_ms": 53.1,
+    "max_ms": 62.5,
+    "first_quartile_avg_ms": 31.08,
+    "last_quartile_avg_ms": 27.98,
+    "drift_ratio": 0.9,
+    "drift_verdict": "稳定（后段无明显变慢）",
+    "service_uptime_seconds": 111.5
+  },
+  "memory_observation": {
+    "process": "python.exe (uvicorn server)",
+    "rss_before_kb": 703220,
+    "rss_after_kb": 704952,
+    "delta_kb": 1732,
+    "note": "400 次连续检索前后 RSS 增长约 1.7MB（<0.3%），未见内存泄漏迹象"
+  }
+}

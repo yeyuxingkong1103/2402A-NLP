@@ -1,0 +1,1128 @@
+{
+  "work_order_no": "人工智能NLP-RAG-基于PDF文档的问答系统优化",
+  "work_order_short": "工单2",
+  "generated_at": "2026-10-07 10:20:18",
+  "num_questions": 10,
+  "top_k": 8,
+  "metric_note": "关键事实命中率 = 人工标注 must_have 在召回上下文中的覆盖率；gold_pages 由「同时包含全部关键事实的块」反查得到，与任何模型输出无关",
+  "improvement": {
+    "fact_recall_delta": 0.35,
+    "gold_page_hit_delta": 0.4,
+    "mrr_delta": 0.4084,
+    "all_facts_before": 6,
+    "all_facts_after": 10
+  },
+  "layers": [
+    {
+      "layer": "解析层",
+      "item": "行内标题断行",
+      "from": "A0_naive",
+      "to": "A1_parse",
+      "fact_recall_delta": 0.0,
+      "mrr_delta": 0.0
+    },
+    {
+      "layer": "分块层",
+      "item": "标题感知分块（纯向量下）",
+      "from": "A1_parse",
+      "to": "A2_chunk",
+      "fact_recall_delta": -0.2,
+      "mrr_delta": 0.0267
+    },
+    {
+      "layer": "检索层",
+      "item": "BM25 混合",
+      "from": "A2_chunk",
+      "to": "A3_hybrid",
+      "fact_recall_delta": 0.55,
+      "mrr_delta": 0.0968
+    },
+    {
+      "layer": "检索层",
+      "item": "DF 过滤（词级 + 短语级）",
+      "from": "A3_hybrid",
+      "to": "A4_df_filter",
+      "fact_recall_delta": 0.0,
+      "mrr_delta": 0.2849
+    },
+    {
+      "layer": "分块层",
+      "item": "标题感知分块（完整检索下·严格受控）",
+      "from": "A2c_fixed_full",
+      "to": "A4_df_filter",
+      "fact_recall_delta": 0.05,
+      "mrr_delta": 0.0067
+    },
+    {
+      "layer": "检索层",
+      "item": "阈值闸门",
+      "from": "A4_df_filter",
+      "to": "A5_gate",
+      "fact_recall_delta": 0.0,
+      "mrr_delta": 0.0
+    }
+  ],
+  "configs": {
+    "A0_naive": {
+      "key": "A0_naive",
+      "name": "朴素 RAG（优化前）",
+      "layer": "基线",
+      "desc": "朴素解析 + 定长 500 字滑窗 + 纯向量余弦 top-k",
+      "summary": {
+        "fact_recall": 0.65,
+        "all_facts_rate": 0.6,
+        "gold_page_hit_rate": 0.6,
+        "mrr": 0.2983,
+        "avg_top_evidence": 0.7356,
+        "avg_latency_ms": 12.4937
+      },
+      "cases": [
+        {
+          "fact_recall": 0.0,
+          "all_facts": false,
+          "missed": [
+            "6,464.51",
+            "14,414.16",
+            "18,780.67",
+            "4,627.1"
+          ],
+          "gold_page_hit": false,
+          "mrr": 0.0,
+          "gold_rank": null,
+          "top_evidence": 0.7274065017700195,
+          "n_items": 8,
+          "id": 260
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.7202814817428589,
+          "n_items": 8,
+          "id": 95
+        },
+        {
+          "fact_recall": 0.0,
+          "all_facts": false,
+          "missed": [
+            "82.10",
+            "97.31",
+            "94.84",
+            "94.34"
+          ],
+          "gold_page_hit": false,
+          "mrr": 0.0,
+          "gold_rank": null,
+          "top_evidence": 0.7122827768325806,
+          "n_items": 8,
+          "id": 33
+        },
+        {
+          "fact_recall": 0.0,
+          "all_facts": false,
+          "missed": [
+            "电子元器件",
+            "机箱"
+          ],
+          "gold_page_hit": false,
+          "mrr": 0.0,
+          "gold_rank": null,
+          "top_evidence": 0.7218791246414185,
+          "n_items": 8,
+          "id": 34
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.3333333333333333,
+          "gold_rank": 3,
+          "top_evidence": 0.7239515781402588,
+          "n_items": 8,
+          "id": 957
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.2,
+          "gold_rank": 5,
+          "top_evidence": 0.7226395010948181,
+          "n_items": 8,
+          "id": 793
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.25,
+          "gold_rank": 4,
+          "top_evidence": 0.7670272588729858,
+          "n_items": 8,
+          "id": 795
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.2,
+          "gold_rank": 5,
+          "top_evidence": 0.8059160709381104,
+          "n_items": 8,
+          "id": 543
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.7063398957252502,
+          "n_items": 8,
+          "id": 531
+        },
+        {
+          "fact_recall": 0.5,
+          "all_facts": false,
+          "missed": [
+            "15,000.00"
+          ],
+          "gold_page_hit": false,
+          "mrr": 0.0,
+          "gold_rank": null,
+          "top_evidence": 0.7484759092330933,
+          "n_items": 8,
+          "id": 207
+        }
+      ]
+    },
+    "A1_parse": {
+      "key": "A1_parse",
+      "name": "+ 解析层：行内标题断行",
+      "layer": "PDF 解析",
+      "desc": "在 A0 基础上增加「行内标题断行」",
+      "summary": {
+        "fact_recall": 0.65,
+        "all_facts_rate": 0.6,
+        "gold_page_hit_rate": 0.6,
+        "mrr": 0.2983,
+        "avg_top_evidence": 0.7359,
+        "avg_latency_ms": 11.8872
+      },
+      "cases": [
+        {
+          "fact_recall": 0.0,
+          "all_facts": false,
+          "missed": [
+            "6,464.51",
+            "14,414.16",
+            "18,780.67",
+            "4,627.1"
+          ],
+          "gold_page_hit": false,
+          "mrr": 0.0,
+          "gold_rank": null,
+          "top_evidence": 0.7274066209793091,
+          "n_items": 8,
+          "id": 260
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.7202814817428589,
+          "n_items": 8,
+          "id": 95
+        },
+        {
+          "fact_recall": 0.0,
+          "all_facts": false,
+          "missed": [
+            "82.10",
+            "97.31",
+            "94.84",
+            "94.34"
+          ],
+          "gold_page_hit": false,
+          "mrr": 0.0,
+          "gold_rank": null,
+          "top_evidence": 0.7122828960418701,
+          "n_items": 8,
+          "id": 33
+        },
+        {
+          "fact_recall": 0.0,
+          "all_facts": false,
+          "missed": [
+            "电子元器件",
+            "机箱"
+          ],
+          "gold_page_hit": false,
+          "mrr": 0.0,
+          "gold_rank": null,
+          "top_evidence": 0.7246400713920593,
+          "n_items": 8,
+          "id": 34
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.3333333333333333,
+          "gold_rank": 3,
+          "top_evidence": 0.7239515781402588,
+          "n_items": 8,
+          "id": 957
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.2,
+          "gold_rank": 5,
+          "top_evidence": 0.7226395606994629,
+          "n_items": 8,
+          "id": 793
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.25,
+          "gold_rank": 4,
+          "top_evidence": 0.7670272588729858,
+          "n_items": 8,
+          "id": 795
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.2,
+          "gold_rank": 5,
+          "top_evidence": 0.8059160709381104,
+          "n_items": 8,
+          "id": 543
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.7063398957252502,
+          "n_items": 8,
+          "id": 531
+        },
+        {
+          "fact_recall": 0.5,
+          "all_facts": false,
+          "missed": [
+            "15,000.00"
+          ],
+          "gold_page_hit": false,
+          "mrr": 0.0,
+          "gold_rank": null,
+          "top_evidence": 0.7484759092330933,
+          "n_items": 8,
+          "id": 207
+        }
+      ]
+    },
+    "A2_chunk": {
+      "key": "A2_chunk",
+      "name": "+ 分块层（检索仍为纯向量）",
+      "layer": "分块",
+      "desc": "改为标题感知分块 + 表格独立成块，检索保持纯向量",
+      "summary": {
+        "fact_recall": 0.45,
+        "all_facts_rate": 0.4,
+        "gold_page_hit_rate": 0.4,
+        "mrr": 0.325,
+        "avg_top_evidence": 0.7468,
+        "avg_latency_ms": 12.3317
+      },
+      "cases": [
+        {
+          "fact_recall": 0.0,
+          "all_facts": false,
+          "missed": [
+            "6,464.51",
+            "14,414.16",
+            "18,780.67",
+            "4,627.1"
+          ],
+          "gold_page_hit": false,
+          "mrr": 0.0,
+          "gold_rank": null,
+          "top_evidence": 0.7443373203277588,
+          "n_items": 8,
+          "id": 260
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.25,
+          "gold_rank": 4,
+          "top_evidence": 0.7072564363479614,
+          "n_items": 8,
+          "id": 95
+        },
+        {
+          "fact_recall": 0.0,
+          "all_facts": false,
+          "missed": [
+            "82.10",
+            "97.31",
+            "94.84",
+            "94.34"
+          ],
+          "gold_page_hit": false,
+          "mrr": 0.0,
+          "gold_rank": null,
+          "top_evidence": 0.7292060256004333,
+          "n_items": 8,
+          "id": 33
+        },
+        {
+          "fact_recall": 0.0,
+          "all_facts": false,
+          "missed": [
+            "电子元器件",
+            "机箱"
+          ],
+          "gold_page_hit": false,
+          "mrr": 0.0,
+          "gold_rank": null,
+          "top_evidence": 0.7908987998962402,
+          "n_items": 8,
+          "id": 34
+        },
+        {
+          "fact_recall": 0.0,
+          "all_facts": false,
+          "missed": [
+            "重要供应商",
+            "C4ISR"
+          ],
+          "gold_page_hit": false,
+          "mrr": 0.0,
+          "gold_rank": null,
+          "top_evidence": 0.717616617679596,
+          "n_items": 8,
+          "id": 957
+        },
+        {
+          "fact_recall": 0.0,
+          "all_facts": false,
+          "missed": [
+            "政府机关",
+            "军队"
+          ],
+          "gold_page_hit": false,
+          "mrr": 0.0,
+          "gold_rank": null,
+          "top_evidence": 0.7866712808609009,
+          "n_items": 8,
+          "id": 793
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.7346697449684143,
+          "n_items": 8,
+          "id": 795
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.7773764133453369,
+          "n_items": 8,
+          "id": 543
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.7470170855522156,
+          "n_items": 8,
+          "id": 531
+        },
+        {
+          "fact_recall": 0.5,
+          "all_facts": false,
+          "missed": [
+            "15,000.00"
+          ],
+          "gold_page_hit": false,
+          "mrr": 0.0,
+          "gold_rank": null,
+          "top_evidence": 0.7330499291419983,
+          "n_items": 8,
+          "id": 207
+        }
+      ]
+    },
+    "A2b_fixed_hybrid": {
+      "key": "A2b_fixed_hybrid",
+      "name": "受控：定长分块 + BM25 混合",
+      "layer": "对照",
+      "desc": "检索加 BM25，分块仍是定长滑窗 —— 与 A3 配对，隔离分块层（尚无 DF 过滤）",
+      "summary": {
+        "fact_recall": 1.0,
+        "all_facts_rate": 1.0,
+        "gold_page_hit_rate": 1.0,
+        "mrr": 0.4892,
+        "avg_top_evidence": 0.9849,
+        "avg_latency_ms": 136.5017
+      },
+      "cases": [
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.125,
+          "gold_rank": 8,
+          "top_evidence": 0.9582126284763983,
+          "n_items": 8,
+          "id": 260
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.2,
+          "gold_rank": 5,
+          "top_evidence": 0.9454588137704434,
+          "n_items": 8,
+          "id": 95
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.2,
+          "gold_rank": 5,
+          "top_evidence": 0.9526432191596117,
+          "n_items": 8,
+          "id": 33
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.3333333333333333,
+          "gold_rank": 3,
+          "top_evidence": 0.9839762773285223,
+          "n_items": 8,
+          "id": 34
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.9149578094482422,
+          "n_items": 8,
+          "id": 957
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.5,
+          "gold_rank": 2,
+          "top_evidence": 1.0084435807723622,
+          "n_items": 8,
+          "id": 793
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.3333333333333333,
+          "gold_rank": 3,
+          "top_evidence": 1.0009741067886353,
+          "n_items": 8,
+          "id": 795
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 1.0625805908855295,
+          "n_items": 8,
+          "id": 543
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.9949587926827184,
+          "n_items": 8,
+          "id": 531
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.2,
+          "gold_rank": 5,
+          "top_evidence": 1.0272679659838895,
+          "n_items": 8,
+          "id": 207
+        }
+      ]
+    },
+    "A2c_fixed_full": {
+      "key": "A2c_fixed_full",
+      "name": "受控：定长分块 + 完整检索",
+      "layer": "对照",
+      "desc": "检索层与最终版完全一致（BM25+DF），分块仍是定长 —— 与 A4 配对，这是判断「分块层到底有没有用」最严格的一格",
+      "summary": {
+        "fact_recall": 0.95,
+        "all_facts_rate": 0.9,
+        "gold_page_hit_rate": 1.0,
+        "mrr": 0.7,
+        "avg_top_evidence": 0.9362,
+        "avg_latency_ms": 32.9533
+      },
+      "cases": [
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.8872383729080537,
+          "n_items": 8,
+          "id": 260
+        },
+        {
+          "fact_recall": 0.5,
+          "all_facts": false,
+          "missed": [
+            "视频技术规范"
+          ],
+          "gold_page_hit": true,
+          "mrr": 0.16666666666666666,
+          "gold_rank": 6,
+          "top_evidence": 0.8418785810470581,
+          "n_items": 8,
+          "id": 95
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.5,
+          "gold_rank": 2,
+          "top_evidence": 0.9361643034374607,
+          "n_items": 8,
+          "id": 33
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.9870140433311463,
+          "n_items": 8,
+          "id": 34
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.8201510190963746,
+          "n_items": 8,
+          "id": 957
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.9959430575370789,
+          "n_items": 8,
+          "id": 793
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.5,
+          "gold_rank": 2,
+          "top_evidence": 0.9571859121322632,
+          "n_items": 8,
+          "id": 795
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.5,
+          "gold_rank": 2,
+          "top_evidence": 0.9744666788705691,
+          "n_items": 8,
+          "id": 543
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.9858957409858704,
+          "n_items": 8,
+          "id": 531
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.3333333333333333,
+          "gold_rank": 3,
+          "top_evidence": 0.9759719848632813,
+          "n_items": 8,
+          "id": 207
+        }
+      ]
+    },
+    "A3_hybrid": {
+      "key": "A3_hybrid",
+      "name": "+ 检索层：BM25 混合",
+      "layer": "检索",
+      "desc": "标题感知分块 + 余弦与 BM25 加权融合",
+      "summary": {
+        "fact_recall": 1.0,
+        "all_facts_rate": 1.0,
+        "gold_page_hit_rate": 1.0,
+        "mrr": 0.4218,
+        "avg_top_evidence": 0.9995,
+        "avg_latency_ms": 17.2672
+      },
+      "cases": [
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.125,
+          "gold_rank": 8,
+          "top_evidence": 0.9868237056985647,
+          "n_items": 8,
+          "id": 260
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.14285714285714285,
+          "gold_rank": 7,
+          "top_evidence": 0.9483382512289393,
+          "n_items": 8,
+          "id": 95
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.5,
+          "gold_rank": 2,
+          "top_evidence": 0.9385774391906401,
+          "n_items": 8,
+          "id": 33
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.2,
+          "gold_rank": 5,
+          "top_evidence": 1.0358612472756747,
+          "n_items": 8,
+          "id": 34
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.25,
+          "gold_rank": 4,
+          "top_evidence": 0.9476708495960281,
+          "n_items": 8,
+          "id": 957
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.3333333333333333,
+          "gold_rank": 3,
+          "top_evidence": 1.0418084826570921,
+          "n_items": 8,
+          "id": 793
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 1.0346697449684144,
+          "n_items": 8,
+          "id": 795
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.5,
+          "gold_rank": 2,
+          "top_evidence": 1.0538120326435318,
+          "n_items": 8,
+          "id": 543
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 1.0470170855522156,
+          "n_items": 8,
+          "id": 531
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.16666666666666666,
+          "gold_rank": 6,
+          "top_evidence": 0.9607060095877566,
+          "n_items": 8,
+          "id": 207
+        }
+      ]
+    },
+    "A4_df_filter": {
+      "key": "A4_df_filter",
+      "name": "+ 检索层：DF 过滤（词级+短语级）",
+      "layer": "检索",
+      "desc": "在 A3 基础上剔除语料级无区分度成分（公司全称等）",
+      "summary": {
+        "fact_recall": 1.0,
+        "all_facts_rate": 1.0,
+        "gold_page_hit_rate": 1.0,
+        "mrr": 0.7067,
+        "avg_top_evidence": 0.9439,
+        "avg_latency_ms": 47.8938
+      },
+      "cases": [
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.9177715657452579,
+          "n_items": 8,
+          "id": 260
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.3333333333333333,
+          "gold_rank": 3,
+          "top_evidence": 0.8608786626040796,
+          "n_items": 8,
+          "id": 95
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.941482895504115,
+          "n_items": 8,
+          "id": 33
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.9603123445209378,
+          "n_items": 8,
+          "id": 34
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.2,
+          "gold_rank": 5,
+          "top_evidence": 0.8885264512131523,
+          "n_items": 8,
+          "id": 957
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.3333333333333333,
+          "gold_rank": 3,
+          "top_evidence": 0.9779977602059516,
+          "n_items": 8,
+          "id": 793
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.968603593154866,
+          "n_items": 8,
+          "id": 795
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.9551513671875,
+          "n_items": 8,
+          "id": 543
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.9727620834276358,
+          "n_items": 8,
+          "id": 531
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.2,
+          "gold_rank": 5,
+          "top_evidence": 0.9950879096984864,
+          "n_items": 8,
+          "id": 207
+        }
+      ]
+    },
+    "A5_gate": {
+      "key": "A5_gate",
+      "name": "完整优化系统（优化后）",
+      "layer": "检索",
+      "desc": "在 A4 基础上增加依据分阈值闸门",
+      "summary": {
+        "fact_recall": 1.0,
+        "all_facts_rate": 1.0,
+        "gold_page_hit_rate": 1.0,
+        "mrr": 0.7067,
+        "avg_top_evidence": 0.9439,
+        "avg_latency_ms": 15.9751
+      },
+      "cases": [
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.9177715657452579,
+          "n_items": 7,
+          "id": 260
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.3333333333333333,
+          "gold_rank": 3,
+          "top_evidence": 0.8608786626040796,
+          "n_items": 3,
+          "id": 95
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.941482895504115,
+          "n_items": 8,
+          "id": 33
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.9603123445209378,
+          "n_items": 8,
+          "id": 34
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.2,
+          "gold_rank": 5,
+          "top_evidence": 0.8885264512131523,
+          "n_items": 8,
+          "id": 957
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.3333333333333333,
+          "gold_rank": 3,
+          "top_evidence": 0.9779977602059516,
+          "n_items": 8,
+          "id": 793
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.968603593154866,
+          "n_items": 6,
+          "id": 795
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.9551513671875,
+          "n_items": 8,
+          "id": 543
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 1.0,
+          "gold_rank": 1,
+          "top_evidence": 0.9727620834276358,
+          "n_items": 8,
+          "id": 531
+        },
+        {
+          "fact_recall": 1.0,
+          "all_facts": true,
+          "missed": [],
+          "gold_page_hit": true,
+          "mrr": 0.2,
+          "gold_rank": 5,
+          "top_evidence": 0.9950879096984864,
+          "n_items": 8,
+          "id": 207
+        }
+      ]
+    }
+  }
+}
