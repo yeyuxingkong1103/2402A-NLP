@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>RAG系统设计图</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+</script>
+<style>
+body { font-family: 'Microsoft YaHei', sans-serif; margin: 0; padding: 20px; background: #fff; }
+h1 { color: #333; font-size: 20px; text-align: center; margin-bottom: 5px; }
+.diagram-container { margin: 30px 0; page-break-after: always; }
+.diagram-title { font-size: 18px; font-weight: bold; color: #1565C0; margin-bottom: 10px; border-left: 4px solid #1565C0; padding-left: 10px; }
+.mermaid { display: flex; justify-content: center; }
+</style>
+</head>
+<body>
+
+<h1>基于PDF文档的问答系统 - 设计图</h1>
+<p style="text-align:center; color:#666;">工单编号：人工智能NLP-RAG-基于PDF文档的问答系统</p>
+
+<div class="diagram-container">
+<div class="diagram-title">一、数据入库流程</div>
+<div class="mermaid">
+flowchart TD
+    A([用户上传 PDF 文件]) --> B[POST /api/upload]
+    B --> C[保存文件到本地目录]
+    C --> D[POST /api/ingest]
+    D --> E[PyMuPDF 解析 PDF]
+    E --> F{解析成功?}
+    F -- 否 --> F1[返回解析错误]
+    F1 --> F2([流程结束-失败])
+    F -- 是 --> G[文本切分\nchunk_size=500\noverlap=80]
+    G --> H[生成文本块列表]
+    H --> I[bge-m3 向量化\n1024维]
+    I --> J[批量生成向量]
+    J --> K[写入 Milvus 3.0\n含元数据]
+    K --> L{写入成功?}
+    L -- 否 --> L1[返回存储错误]
+    L1 --> L2([流程结束-失败])
+    L -- 是 --> M[jieba 中文分词]
+    M --> N[重建 BM25 倒排索引]
+    N --> O[返回入库成功\n含块数与耗时]
+    O --> P([流程结束-成功])
+    style A fill:#e1f5ff,stroke:#0288d1
+    style P fill:#e8f5e9,stroke:#388e3c
+    style F2 fill:#ffebee,stroke:#c62828
+    style L2 fill:#ffebee,stroke:#c62828
+</div>
+</div>
+
+<div class="diagram-container">
+<div class="diagram-title">二、问答检索流程</div>
+<div class="mermaid">
+flowchart TD
+    A([用户提交问题]) --> B[POST /api/chat]
+    B --> C[接收 query 参数]
+    C --> D[双路召回-并行]
+    D --> D1[bge-m3 编码 query]
+    D --> D2[jieba 分词 query]
+    D1 --> E1[Milvus 向量检索\nTop-10]
+    D2 --> E2[BM25 关键词检索\nTop-10]
+    E1 --> F[RRF 融合去重\nk=60]
+    E2 --> F
+    F --> G[融合候选集 ≤20]
+    G --> H[bge-reranker-large\nCrossEncoder 精排]
+    H --> I[取 Top-K=5]
+    I --> J{候选数>0?}
+    J -- 否 --> J1[返回未检索到内容]
+    J1 --> J2([流程结束-无结果])
+    J -- 是 --> K[组装 Prompt\n系统提示+上下文+问题]
+    K --> L[调用 DeepSeek API]
+    L --> M{调用成功?}
+    M -- 否 --> M1[返回 LLM 错误]
+    M1 --> M2([流程结束-失败])
+    M -- 是 --> N[返回答案+引用+耗时]
+    N --> O([流程结束-成功])
+    style A fill:#e1f5ff,stroke:#0288d1
+    style O fill:#e8f5e9,stroke:#388e3c
+    style J2 fill:#fff3e0,stroke:#f57c00
+    style M2 fill:#ffebee,stroke:#c62828
+</div>
+</div>
+
+<div class="diagram-container">
+<div class="diagram-title">三、系统启动流程</div>
+<div class="mermaid">
+flowchart TD
+    A([系统启动]) --> B[读取 config.py]
+    B --> C[加载 bge-m3 向量模型]
+    C --> D{加载成功?}
+    D -- 否 --> D1[启动失败]
+    D1 --> D2([流程结束-失败])
+    D -- 是 --> E[加载 bge-reranker-large]
+    E --> F{加载成功?}
+    F -- 否 --> F1[启动失败]
+    F1 --> F2([流程结束-失败])
+    F -- 是 --> G[初始化 jieba 分词器]
+    G --> H[连接 Milvus 3.0]
+    H --> I{连接成功?}
+    I -- 否 --> I1[重试3次]
+    I1 --> I2{重试成功?}
+    I2 -- 否 --> I3[启动失败]
+    I3 --> I4([流程结束-失败])
+    I2 -- 是 --> J[加载已存储文档]
+    I -- 是 --> J
+    J --> K[重建 BM25 索引]
+    K --> L[初始化 DeepSeek Client]
+    L --> M{校验通过?}
+    M -- 否 --> M1[启动失败]
+    M1 --> M2([流程结束-失败])
+    M -- 是 --> N[启动 Uvicorn 服务]
+    N --> O[监听端口 8000]
+    O --> P([流程结束-服务就绪])
+    style A fill:#e1f5ff,stroke:#0288d1
+    style P fill:#e8f5e9,stroke:#388e3c
+    style D2 fill:#ffebee,stroke:#c62828
+    style F2 fill:#ffebee,stroke:#c62828
+    style I4 fill:#ffebee,stroke:#c62828
+    style M2 fill:#ffebee,stroke:#c62828
+</div>
+</div>
+
+<div class="diagram-container">
+<div class="diagram-title">四、项目思维导图</div>
+<div class="mermaid">
+mindmap
+  root((RAG问答系统))
+    项目结构
+      数据层
+        pdf_parser.py PDF解析
+        text_splitter.py 文本切分
+        db_milvus.py 向量存储
+      检索层
+        retriever.py 混合检索
+        BM25 + 向量 + RRF + 重排
+      服务层
+        main.py FastAPI入口
+        llm_client.py DeepSeek调用
+      前端
+        index.html 页面
+        app.js 交互逻辑
+      配置与工具
+        config.py 配置
+        logger.py 日志
+    技术栈
+      Web框架
+        FastAPI
+        Uvicorn
+      PDF解析
+        PyMuPDF
+      编排框架
+        LangChain
+      向量模型
+        bge-m3 1024维
+      向量数据库
+        Milvus 3.0
+      关键词检索
+        rank_bm25
+        jieba分词
+      重排模型
+        bge-reranker-large
+      大语言模型
+        DeepSeek API
+    核心流程
+      数据入库
+        PDF上传与解析
+        文本切分与向量化
+        Milvus存储
+        BM25索引重建
+      问答检索
+        双路召回
+        RRF融合
+        CrossEncoder重排
+        LLM生成
+      系统启动
+        模型加载
+        Milvus连接
+        BM25索引重建
+        FastAPI启动
+    接口列表
+      POST /api/upload
+      POST /api/ingest
+      POST /api/chat
+      GET /api/search
+      GET /api/health
+    测试方案
+      10题对比测试
+      RAG vs 纯LLM
+      关键词命中评测
+</div>
+</div>
+
+<div class="diagram-container">
+<div class="diagram-title">五、系统技术架构图</div>
+<div class="mermaid">
+flowchart TB
+    subgraph 前端层
+        UI[index.html + app.js]
+        UI2[聊天界面 / 知识库管理]
+    end
+    subgraph API层
+        API1[POST /api/upload - PDF上传]
+        API2[POST /api/ingest - 入库]
+        API3[POST /api/chat - 问答]
+        API4[GET /api/search - 检索]
+    end
+    subgraph 核心业务层
+        PDF[PyMuPDF 解析]
+        SPLIT[文本切分\n500字/80重叠]
+        EMBED[bge-m3 向量化\n1024维]
+        VEC[Milvus 向量检索]
+        BM25[BM25 关键词检索]
+        RRF[RRF 融合]
+        RERANK[bge-reranker\nCrossEncoder]
+        LLM[DeepSeek API\ndeepseek-chat]
+    end
+    subgraph 数据存储层
+        MIL[(Milvus 3.0\nrag_pdf_qa集合)]
+        REDIS[(Redis\n对话历史)]
+    end
+    UI --> API1
+    UI2 --> API3
+    API1 --> PDF
+    API2 --> PDF
+    PDF --> SPLIT
+    SPLIT --> EMBED
+    EMBED --> MIL
+    API3 --> VEC
+    API3 --> BM25
+    VEC --> RRF
+    BM25 --> RRF
+    RRF --> RERANK
+    RERANK --> LLM
+    API4 --> VEC
+    API4 --> BM25
+    MIL -.-> VEC
+    MIL -.-> EMBED
+    style 前端层 fill:#e3f2fd,stroke:#1565c0
+    style API层 fill:#fff3e0,stroke:#e65100
+    style 核心业务层 fill:#e8f5e9,stroke:#2e7d32
+    style 数据存储层 fill:#fce4ec,stroke:#c62828
+</div>
+</div>
+
+</body>
+</html>
