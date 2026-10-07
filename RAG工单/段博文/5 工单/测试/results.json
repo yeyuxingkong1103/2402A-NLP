@@ -1,0 +1,107 @@
+{
+  "session_id": "test-2523def9",
+  "total_questions": 5,
+  "passed": 5,
+  "accuracy": 100.0,
+  "rewrite_accuracy": 100.0,
+  "keyword_accuracy": 100.0,
+  "avg_response_time": 7.5,
+  "p95_response_time": 8.75,
+  "results": [
+    {
+      "idx": 1,
+      "query": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "rewritten": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "rewritten_by": "none",
+      "query_type": "standalone",
+      "answer": "根据参考资料，报告期内武汉兴图新科电子股份有限公司来自军用领域的收入分别为：\n\n- 6,464.51 万元\n- 14,414.16 万元\n- 18,780.67 万元\n- 4,627.14 万元\n\n对应占主营业务收入比重分别为 82.10%、97.31%、94.84% 和 94.34%。",
+      "rewrite_ok": true,
+      "keywords_hit": [
+        "军用",
+        "收入",
+        "万元"
+      ],
+      "keywords_total": 3,
+      "elapsed": 8.74818730354309,
+      "time_ok": false,
+      "ok": true
+    },
+    {
+      "idx": 2,
+      "query": "他参与的哪个工程荣获了国家科技进步一等奖？",
+      "rewritten": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+      "rewritten_by": "llm",
+      "query_type": "coreference",
+      "answer": "武汉兴图新科电子股份有限公司参与的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统）荣获了国家科技进步一等奖。",
+      "rewrite_ok": true,
+      "keywords_hit": [
+        "工程",
+        "国家科技进步一等奖"
+      ],
+      "keywords_total": 2,
+      "elapsed": 6.3001837730407715,
+      "time_ok": false,
+      "ok": true
+    },
+    {
+      "idx": 3,
+      "query": "这个公司的法定代表人是谁？",
+      "rewritten": "武汉兴图新科电子股份有限公司的法定代表人是谁？",
+      "rewritten_by": "llm",
+      "query_type": "coreference",
+      "answer": "武汉兴图新科电子股份有限公司的法定代表人是程家明。",
+      "rewrite_ok": true,
+      "keywords_hit": [
+        "法定代表人"
+      ],
+      "keywords_total": 1,
+      "elapsed": 6.766768932342529,
+      "time_ok": false,
+      "ok": true
+    },
+    {
+      "idx": 4,
+      "query": "那武汉力源信息技术股份有限公司呢？",
+      "rewritten": "武汉力源信息技术股份有限公司的法定代表人是谁？",
+      "rewritten_by": "llm",
+      "query_type": "switch",
+      "answer": "根据提供的资料，武汉力源信息技术股份有限公司的法定代表人是**赵马克**。\n\n依据资料1（招股说明书第15页）“发行人简介”中“公司概况”部分明确记载：\n- 法定代表人：赵马克\n\n因此，答案为：**赵马克**。",
+      "rewrite_ok": true,
+      "keywords_hit": [
+        "法定代表人"
+      ],
+      "keywords_total": 1,
+      "elapsed": 7.350335121154785,
+      "time_ok": false,
+      "ok": true
+    },
+    {
+      "idx": 5,
+      "query": "武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有哪些销售处？",
+      "rewritten": "武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有哪些销售处？",
+      "rewritten_by": "none",
+      "query_type": "standalone",
+      "answer": "根据提供的资料，武汉力源信息技术股份有限公司组织结构图中，**销售部**下辖的销售处最多。\n\n具体来说，销售部下设4个销售部门：\n- 电话及网络销售部\n- 渠道销售部\n- 大客户销售部\n- 国际贸易部\n\n其中，**电话及网络销售部**下设有6个销售处，是所有销售部门中销售处最多的。这6个销售处分别是：\n\n1. **珠海销售处**\n2. **深圳销售处**\n3. **北京销售处**\n4. **武汉销售处**\n5. **广州销售处**\n6. **成都销售处**\n\n这一信息与资料2中“1个电话及网络销售中心和遍布全国的6家销售处”的表述相互印证。",
+      "rewrite_ok": true,
+      "keywords_hit": [
+        "销售部",
+        "销售处"
+      ],
+      "keywords_total": 2,
+      "elapsed": 8.355250358581543,
+      "time_ok": false,
+      "ok": true
+    },
+    {
+      "idx": "EN",
+      "query": "Who is the legal representative of Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+      "answer": "根据提供的资料，武汉兴图新科电子股份有限公司（Wuhan Xingtu Xinke Electronics Co., Ltd.）的法定代表人是**程家明**。\n\n该信息在资料中多处出现：\n- 资料1的发行人基本情况表中明确列示“法定代表人：程家明”；\n- 表格2中“程家明”对应“实际控制人”一栏（表格结构存在错位，但结合资料3可确认）；\n- 资料3“第五节 发行人基本情况”中明确记载“法定代表人：程家明”。",
+      "keywords_hit": [
+        "法定代表人"
+      ],
+      "keywords_total": 2,
+      "elapsed": 7.9325597286224365,
+      "ok": true
+    }
+  ]
+}
