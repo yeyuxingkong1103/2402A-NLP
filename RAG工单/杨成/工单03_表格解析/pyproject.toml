@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rag-common"
+version = "0.1.0"
+description = "Shared data models and configuration for the RAG project"
+requires-python = ">=3.11"
+dependencies = ["pypdf"]
+
+[project.optional-dependencies]
+image = ["pymupdf", "pytesseract", "Pillow"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
