@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>招股说明书问答系统 · RAG</title>
+<!-- 工单编号：人工智能NLP-RAG-基于PDF文档的问答系统 -->
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --panel: #ffffff;
+    --panel-2: #fafbfc;
+    --border: #e3e6ea;
+    --text: #1c1f23;
+    --text-2: #5b636d;
+    --text-3: #8b949e;
+    --brand: #c0392b;
+    --brand-soft: #fdf0ee;
+    --blue: #1f6feb;
+    --blue-soft: #eaf2fe;
+    --green: #17864a;
+    --green-soft: #e8f6ee;
+    --amber: #a86a00;
+    --amber-soft: #fdf4e3;
+    --grey-soft: #eef1f4;
+    --radius: 10px;
+    --shadow: 0 1px 3px rgba(16,24,40,.06), 0 1px 2px rgba(16,24,40,.04);
+    --mono: ui-monospace, SFMono-Regular, "Cascadia Mono", Consolas, monospace;
+  }
+  /* hidden 必须 !important：UA 的 [hidden]{display:none} 优先级极低，
+     任何 .card{display:flex} 都能压过它，导致隐藏元素关不掉 */
+  [hidden] { display: none !important; }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 14px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+  }
+  button { font-family: inherit; }
+
+  /* ---------------- 顶栏 ---------------- */
+  header {
+    height: 56px; display: flex; align-items: center; gap: 12px;
+    padding: 0 18px; background: var(--panel); border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 20;
+  }
+  .logo { width: 28px; height: 28px; border-radius: 8px; background: var(--brand);
+    color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 13px; }
+  h1 { font-size: 15px; margin: 0; font-weight: 600; }
+  .wo { font-size: 11px; color: var(--text-3); font-family: var(--mono); }
+  .grow { flex: 1; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px;
+    padding: 4px 10px; border-radius: 999px; background: var(--grey-soft); color: var(--text-2); }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-3); }
+  .pill.is-ok .dot { background: var(--green); }
+  .pill.is-ok { background: var(--green-soft); color: var(--green); }
+  .pill.is-degraded .dot { background: var(--amber); }
+  .pill.is-degraded { background: var(--amber-soft); color: var(--amber); }
+  .pill.is-down .dot { background: var(--brand); }
+  .pill.is-down { background: var(--brand-soft); color: var(--brand); }
+
+  /* ---------------- 布局 ---------------- */
+  .layout { display: grid; grid-template-columns: minmax(0,1fr) 372px; gap: 14px;
+    padding: 14px; height: calc(100vh - 56px); }
+  @media (max-width: 1080px) { .layout { grid-template-columns: 1fr; height: auto; } }
+
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius);
+    box-shadow: var(--shadow); display: flex; flex-direction: column; min-height: 0; }
+  .card > .head { padding: 10px 14px; border-bottom: 1px solid var(--border);
+    font-size: 12px; font-weight: 600; color: var(--text-2); display: flex; align-items: center; gap: 8px; }
+  .card > .head .grow { flex: 1; }
+
+  /* ---------------- 对话 ---------------- */
+  #chat-body { flex: 1; overflow-y: auto; padding: 16px; min-height: 0; }
+  .empty { color: var(--text-3); text-align: center; padding: 40px 20px; }
+  .empty b { color: var(--text-2); }
+  .examples { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 14px; }
+  .chip-btn { border: 1px solid var(--border); background: var(--panel-2); color: var(--text-2);
+    border-radius: 999px; padding: 6px 12px; font-size: 12.5px; cursor: pointer; }
+  .chip-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-soft); }
+
+  .turn { margin-bottom: 18px; }
+  .q { display: flex; justify-content: flex-end; }
+  .q .bubble { background: var(--blue-soft); border: 1px solid #d3e3fd; color: #11336b;
+    padding: 9px 13px; border-radius: 12px 12px 3px 12px; max-width: 78%; white-space: pre-wrap;
+    word-break: break-word; }
+  .a { margin-top: 10px; display: flex; gap: 10px; }
+  .avatar { width: 26px; height: 26px; border-radius: 7px; background: var(--brand-soft); color: var(--brand);
+    display: grid; place-items: center; font-size: 12px; font-weight: 700; flex: 0 0 auto; }
+  .a .main { flex: 1; min-width: 0; }
+  .answer { white-space: pre-wrap; word-break: break-word; }
+  .answer h3 { font-size: 14px; margin: 12px 0 6px; }
+  .answer ul { margin: 6px 0; padding-left: 20px; }
+  .answer .pg { color: var(--brand); font-size: 12px; font-family: var(--mono);
+    background: var(--brand-soft); border-radius: 4px; padding: 0 4px; white-space: nowrap; }
+
+  .meta { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; font-size: 11.5px; color: var(--text-3); }
+  .tag { background: var(--grey-soft); border-radius: 5px; padding: 2px 7px; font-family: var(--mono); }
+  .tag.warn { background: var(--amber-soft); color: var(--amber); }
+  .tag.ok { background: var(--green-soft); color: var(--green); }
+
+  .cites { margin-top: 10px; }
+  .cites-title { font-size: 12px; color: var(--text-3); margin-bottom: 6px; }
+  .cite { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 6px; background: var(--panel-2); }
+  .cite > button { width: 100%; text-align: left; background: none; border: 0; padding: 8px 10px;
+    cursor: pointer; font-size: 12.5px; color: var(--text-2); display: flex; gap: 8px; align-items: baseline; }
+  .cite > button:hover { background: var(--blue-soft); }
+  .cite .idx { flex: 0 0 auto; width: 18px; height: 18px; border-radius: 5px; background: var(--brand);
+    color: #fff; font-size: 11px; display: grid; place-items: center; }
+  .cite .pg2 { color: var(--brand); font-family: var(--mono); font-size: 11.5px; }
+  .cite pre { margin: 0; padding: 0 12px 10px 12px; white-space: pre-wrap; word-break: break-word;
+    font-size: 12px; color: var(--text-2); max-height: 240px; overflow: auto; font-family: var(--mono);
+    border-top: 1px dashed var(--border); padding-top: 8px; }
+
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+  @media (max-width: 860px) { .compare { grid-template-columns: 1fr; } }
+  .col { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .col .ch { padding: 6px 10px; font-size: 12px; font-weight: 600; }
+  .col.rag .ch { background: var(--green-soft); color: var(--green); }
+  .col.llm .ch { background: var(--amber-soft); color: var(--amber); }
+  .col .cb { padding: 10px; white-space: pre-wrap; word-break: break-word; font-size: 13px; max-height: 420px; overflow: auto; }
+
+  /* ---------------- 输入区 ---------------- */
+  .composer { border-top: 1px solid var(--border); padding: 10px 12px; background: var(--panel-2); }
+  .row { display: flex; gap: 8px; align-items: flex-end; }
+  textarea { flex: 1; resize: none; border: 1px solid var(--border); border-radius: 9px; padding: 9px 11px;
+    font: inherit; background: #fff; color: var(--text); min-height: 42px; max-height: 140px; }
+  textarea:focus { outline: 2px solid var(--blue-soft); border-color: var(--blue); }
+  .btn { border: 1px solid var(--border); background: #fff; color: var(--text-2); border-radius: 9px;
+    padding: 9px 12px; cursor: pointer; font-size: 13px; white-space: nowrap; }
+  .btn:hover { border-color: var(--blue); color: var(--blue); }
+  .btn.primary { background: var(--brand); border-color: var(--brand); color: #fff; }
+  .btn.primary:hover { background: #a93226; color: #fff; }
+  .btn.rec { background: var(--brand-soft); border-color: #f3c9c3; color: var(--brand); }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .opts { display: flex; gap: 14px; align-items: center; margin-top: 8px; font-size: 12.5px; color: var(--text-2); flex-wrap: wrap; }
+  .opts label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+  select { border: 1px solid var(--border); border-radius: 7px; padding: 3px 6px; background: #fff; color: var(--text); font: inherit; font-size: 12.5px; }
+
+  /* ---------------- 右栏 ---------------- */
+  .side { display: flex; flex-direction: column; gap: 14px; min-height: 0; }
+  .side .card { min-height: 0; }
+  #trace-body { padding: 12px 14px; overflow-y: auto; font-size: 12.5px; flex: 1; }
+  .step { display: flex; gap: 8px; padding: 6px 0; border-bottom: 1px dashed var(--border); }
+  .step:last-child { border-bottom: 0; }
+  .step .nm { flex: 0 0 66px; color: var(--text-2); }
+  .step .ms { margin-left: auto; font-family: var(--mono); color: var(--text-3); font-size: 11.5px; }
+  .kv { display: flex; justify-content: space-between; padding: 3px 0; }
+  .kv span:first-child { color: var(--text-3); }
+  .kv span:last-child { font-family: var(--mono); }
+  .sect { margin: 10px 0 4px; font-size: 11.5px; color: var(--text-3); font-weight: 600; letter-spacing: .4px; }
+  .note { background: var(--amber-soft); color: var(--amber); border-radius: 7px; padding: 8px 10px; margin: 8px 0; font-size: 12px; }
+  .note.ok { background: var(--green-soft); color: var(--green); }
+  .qlist { padding: 8px 10px; max-height: 250px; overflow: auto; }
+  .ql { display: block; width: 100%; text-align: left; border: 0; background: none; cursor: pointer;
+    padding: 6px 8px; border-radius: 6px; font-size: 12.5px; color: var(--text-2); line-height: 1.45; }
+  .ql:hover { background: var(--blue-soft); color: var(--blue); }
+  .ql b { color: var(--text-3); font-family: var(--mono); font-weight: 500; margin-right: 6px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">RAG</div>
+  <div>
+    <h1>招股说明书问答系统</h1>
+    <div class="wo">人工智能NLP-RAG-基于PDF文档的问答系统</div>
+  </div>
+  <div class="grow"></div>
+  <span class="pill is-unknown" id="st-svc"><i class="dot"></i><span>服务</span></span>
+  <span class="pill is-unknown" id="st-idx"><i class="dot"></i><span>索引</span></span>
+  <span class="pill is-unknown" id="st-llm"><i class="dot"></i><span>大模型</span></span>
+</header>
+
+<div class="layout">
+  <!-- ---------------- 左：对话 ---------------- -->
+  <div class="card">
+    <div class="head">
+      <span>问答</span>
+      <div class="grow"></div>
+      <span id="kb-info" class="wo"></span>
+    </div>
+
+    <div id="chat-body">
+      <div class="empty" id="chat-empty">
+        <b>《武汉兴图新科电子股份有限公司首次公开发行股票招股意向书》</b><br />
+        已入库，可直接提问。
+        <div class="examples">
+          <button class="chip-btn qp">武汉兴图新科电子股份有限公司的注册资本是多少？</button>
+          <button class="chip-btn qp">该公司的法定代表人是谁？</button>
+          <button class="chip-btn qp">该公司参与的哪个工程荣获了国家科技进步一等奖？</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="composer">
+      <div class="row">
+        <textarea id="input" rows="1" placeholder="输入问题，回车发送（Shift+回车换行）…"></textarea>
+        <button class="btn rec" id="btn-voice" title="语音输入（需浏览器支持）">🎤 语音</button>
+        <button class="btn primary" id="btn-send">发送</button>
+      </div>
+      <div class="opts">
+        <label>召回条数
+          <select id="topk">
+            <option>3</option><option>5</option><option selected>6</option><option>8</option><option>10</option>
+          </select>
+        </label>
+        <label><input type="checkbox" id="cmp" /> 同时对比「纯 LLM 回答」</label>
+        <span class="grow" style="flex:1"></span>
+        <span id="hint" class="wo"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------------- 右：链路 ---------------- -->
+  <div class="side">
+    <div class="card">
+      <div class="head"><span>检索链路</span><div class="grow"></div><span class="wo" id="trace-total"></span></div>
+      <div id="trace-body"><div class="empty" style="padding:24px 6px">提问后这里显示链路明细</div></div>
+    </div>
+    <div class="card">
+      <div class="head"><span>工单验收问题</span><div class="grow"></div><span class="wo">10 题</span></div>
+      <div class="qlist" id="qlist"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// API_BASE：同源部署用相对路径；被 file:// 直接打开时回落到本机服务
+const API_BASE = /^https?:$/.test(location.protocol) ? '' : 'http://127.0.0.1:8010';
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s == null ? '' : s)
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+/* 统一解析后端信封 {code,message,data,trace_id}
+   注意：系统探针返回的是**裸对象**，不能用「有没有 code 字段」来判定，
+   必须判 payload.code === 'OK'。 */
+function unwrap(payload) {
+  if (payload && payload.code === 'OK') return payload.data;
+  const msg = (payload && payload.message) || '请求失败';
+  const tid = payload && payload.trace_id ? ` (trace_id=${payload.trace_id})` : '';
+  throw new Error(msg + tid);
+}
+
+async function api(path, opt = {}) {
+  const url = API_BASE + path;   // 业务路径统一拼前缀
+  const init = { method: opt.method || 'GET', headers: {} };
+  if (opt.body !== undefined) {
+    init.headers['Content-Type'] = 'application/json';
+    init.body = JSON.stringify(opt.body);
+  }
+  if (opt.form) { init.method = 'POST'; init.body = opt.form; }
+  const res = await fetch(url, init);
+  const text = await res.text();
+  let payload;
+  try { payload = JSON.parse(text); } catch (e) { throw new Error(`${res.status} 非 JSON 响应`); }
+  return unwrap(payload);
+}
+
+/* ------------------------------ 状态探针 ------------------------------ */
+function setPill(el, cls, label) {
+  el.className = 'pill ' + cls;
+  el.querySelector('span:last-child').textContent = label;
+}
+
+async function refreshStatus() {
+  try {
+    const r = await fetch(API_BASE + '/ready');
+    const j = await r.json();
+    const c = j.components || {};
+    setPill($('st-svc'), j.status === 'ok' ? 'is-ok' : 'is-degraded',
+      j.status === 'ok' ? '服务正常' : '服务降级');
+    setPill($('st-idx'), c.index && c.index.status === 'ok' ? 'is-ok' : 'is-down',
+      c.index && c.index.status === 'ok' ? `索引 ${c.index.chunks} 块` : '索引不可用');
+    const lm = c.llm || {};
+    setPill($('st-llm'), lm.status === 'ok' ? 'is-ok' : 'is-down',
+      lm.status === 'ok' ? '模型正常' : '模型异常');
+  } catch (e) {
+    setPill($('st-svc'), 'is-down', '服务不可达');
+    setPill($('st-idx'), 'is-unknown', '索引未知');
+    setPill($('st-llm'), 'is-unknown', '模型未知');
+  }
+  try {
+    const kb = await api('/api/kb/status');
+    if (kb && kb.loaded_chunks) {
+      $('kb-info').textContent = `${kb.source_file || ''} · ${kb.loaded_chunks} 块 · ${kb.embedding_shape ? kb.embedding_shape[1] : ''}维`;
+    }
+  } catch (e) { /* 静默：状态栏已反映 */ }
+}
+
+/* ------------------------------ 工单问题列表 ------------------------------ */
+async function loadQuestions() {
+  try {
+    const qs = await api('/api/questions');
+    if (!qs || !qs.length) return;
+    $('qlist').innerHTML = qs.map((q) =>
+      `<button class="ql qp" data-q="${esc(q.question)}"><b>${esc(q.id)}</b>${esc(q.question)}</button>`
+    ).join('');
+  } catch (e) { /* 没配问题表就不显示 */ }
+}
+
+/* ------------------------------ 渲染 ------------------------------ */
+function highlightPages(text) {
+  return esc(text).replace(/\[第\s*\d+(?:\s*[-–~]\s*\d+)?\s*页\]/g, (m) => `<span class="pg">${m}</span>`);
+}
+
+function renderCitations(list) {
+  if (!list || !list.length) return '';
+  const items = list.map((c) => {
+    const pages = c.page_end && c.page_end !== c.page ? `第${c.page}-${c.page_end}页` : `第${c.page}页`;
+    const kind = c.type === 'table' ? ' · 表格' : '';
+    return `<div class="cite">
+      <button class="ct" type="button">
+        <span class="idx">${c.index}</span>
+        <span class="pg2">${esc(pages)}${kind}</span>
+        <span style="color:var(--text-3)">依据分 ${c.evidence} · 融合分 ${c.score} · ${esc(c.chunk_id)}</span>
+      </button>
+      <pre hidden>${esc(c.text)}</pre>
+    </div>`;
+  }).join('');
+  return `<div class="cites"><div class="cites-title">依据片段（点击展开原文）</div>${items}</div>`;
+}
+
+function renderAnswerBlock(a, opts = {}) {
+  const mode = a.mode === 'rag' ? 'RAG' : (a.mode === 'no_evidence' ? '无依据' : a.mode);
+  const t = a.timing || {};
+  const tags = [];
+  tags.push(`<span class="tag ${a.mode === 'rag' ? 'ok' : 'warn'}">${esc(mode)}</span>`);
+  if (t.total_ms) tags.push(`<span class="tag">总耗时 ${t.total_ms} ms</span>`);
+  if (t.query_understanding_ms) tags.push(`<span class="tag">理解 ${t.query_understanding_ms} ms</span>`);
+  if (t.retrieval_ms) tags.push(`<span class="tag">检索 ${t.retrieval_ms} ms</span>`);
+  if (t.generation_ms) tags.push(`<span class="tag">生成 ${t.generation_ms} ms</span>`);
+  const total = t.total_ms || 0;
+  if (total) tags.push(`<span class="tag ${total <= 3000 ? 'ok' : 'warn'}">${total <= 3000 ? '✓ ≤3s' : '超 3s'}</span>`);
+  return `<div class="answer">${highlightPages(a.answer || '')}</div>
+    <div class="meta">${tags.join('')}</div>
+    ${opts.showCites === false ? '' : renderCitations(a.citations)}`;
+}
+
+function addTurn(question) {
+  const empty = $('chat-empty');
+  if (empty) empty.hidden = true;
+  const el = document.createElement('div');
+  el.className = 'turn';
+  el.innerHTML = `<div class="q"><div class="bubble">${esc(question)}</div></div>
+    <div class="a"><div class="avatar">岩</div><div class="main"><div class="answer">正在检索…</div></div></div>`;
+  $('chat-body').appendChild(el);
+  $('chat-body').scrollTop = $('chat-body').scrollHeight;
+  return el.querySelector('.main');
+}
+
+/* ------------------------------ 检索链路面板 ------------------------------ */
+function renderTrace(qu, rinfo, timing) {
+  const box = $('trace-body');
+  const t = timing || {};
+  $('trace-total').textContent = t.total_ms ? `${t.total_ms} ms` : '';
+  const parts = [];
+
+  parts.push('<div class="sect">① QUERY 理解</div>');
+  if (qu) {
+    parts.push(`<div class="kv"><span>意图</span><span>${esc(qu.intent)}</span></div>`);
+    parts.push(`<div class="kv"><span>耗时</span><span>${qu.ms} ms</span></div>`);
+    parts.push(`<div class="kv"><span>降级</span><span>${qu.degraded ? '是（规则兜底）' : '否'}</span></div>`);
+    if (qu.rewritten) parts.push(`<div style="margin-top:6px"><span style="color:var(--text-3)">改写检索式：</span><br/>${esc(qu.rewritten)}</div>`);
+    if (qu.sub_questions && qu.sub_questions.length > 1) {
+      parts.push(`<div style="margin-top:6px;color:var(--text-3)">子问题：</div>` +
+        qu.sub_questions.map((s) => `<div style="padding-left:8px">· ${esc(s)}</div>`).join(''));
+    }
+  }
+
+  parts.push('<div class="sect">② 检索</div>');
+  if (rinfo && rinfo.trace && rinfo.trace.steps) {
+    rinfo.trace.steps.forEach((s) => {
+      parts.push(`<div class="step"><span class="nm">${esc(s.name)}</span><span style="color:var(--text-3)">${esc(s.note || '')}</span><span class="ms">${s.ms} ms</span></div>`);
+    });
+  }
+  const f = rinfo && rinfo.trace && rinfo.trace.fusion;
+  if (f) {
+    parts.push(`<div class="kv"><span>候选池</span><span>${f.pool_size}</span></div>`);
+    parts.push(`<div class="kv"><span>融合 β / δ</span><span>${f.beta} / ${f.delta}</span></div>`);
+    parts.push(`<div class="kv"><span>依据分区间</span><span>${f.evidence_range[0]} ~ ${f.evidence_range[1]}</span></div>`);
+    parts.push(`<div class="kv"><span>阈值 / 保留</span><span>${f.min_evidence} / ${f.kept}</span></div>`);
+  }
+  if (rinfo && rinfo.gated) {
+    parts.push('<div class="note">检索被阈值闸门拦空：资料中没有达到依据分下限的片段，模型会如实说明依据不足。</div>');
+  } else if (f) {
+    parts.push('<div class="note ok">闸门通过：依据分达到下限，答案将基于上述片段生成。</div>');
+  }
+  if (rinfo && rinfo.used_query) {
+    parts.push(`<div class="sect">③ 实际检索用的 QUERY</div><div style="font-family:var(--mono);font-size:12px;word-break:break-all">${esc(rinfo.used_query)}</div>`);
+  }
+  box.innerHTML = parts.join('');
+}
+
+/* ------------------------------ 发送 ------------------------------ */
+let busy = false;
+
+function setBusy(v) {
+  busy = v;
+  $('btn-send').disabled = v;
+  $('btn-send').textContent = v ? '生成中…' : '发送';
+}
+
+async function send(question) {
+  if (busy || !question.trim()) return;
+  setBusy(true);
+  $('hint').textContent = '';
+  const main = addTurn(question);
+  const answerEl = main.querySelector('.answer');
+  const compare = $('cmp').checked;
+  const topk = parseInt($('topk').value, 10) || 6;
+
+  if (compare) {
+    // 对比模式：一次拿 RAG + 纯 LLM 两份结果并排展示
+    answerEl.textContent = '正在分别跑 RAG 与纯 LLM…';
+    try {
+      const d = await api('/api/compare', { method: 'POST', body: { question, top_k: topk } });
+      main.innerHTML = `
+        <div class="compare">
+          <div class="col rag"><div class="ch">RAG（基于文档）</div><div class="cb">${highlightPages(d.rag.answer)}</div></div>
+          <div class="col llm"><div class="ch">纯 LLM（无检索）</div><div class="cb">${esc(d.llm_only.answer)}</div></div>
+        </div>
+        <div class="meta">
+          <span class="tag ok">RAG ${d.rag.timing.total_ms} ms</span>
+          <span class="tag">纯LLM ${d.llm_only.timing.total_ms} ms</span>
+        </div>
+        ${renderCitations(d.rag.citations)}`;
+      renderTrace(d.rag.understanding, d.rag.retrieval, d.rag.timing);
+    } catch (e) {
+      main.innerHTML = `<div class="answer" style="color:var(--brand)">对比失败：${esc(e.message)}</div>`;
+    } finally {
+      setBusy(false);
+      $('chat-body').scrollTop = $('chat-body').scrollHeight;
+    }
+    return;
+  }
+
+  // 流式模式
+  const meta = { qu: null, rinfo: null, timing: null, cites: [] };
+  let buffer = '';
+  try {
+    const res = await fetch(API_BASE + '/api/ask/stream', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question, top_k: topk }),
+    });
+    if (!res.ok || !res.body) throw new Error('HTTP ' + res.status);
+    const reader = res.body.getReader();
+    const dec = new TextDecoder('utf-8');
+    let sse = '';
+
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      sse += dec.decode(value, { stream: true });
+      const frames = sse.split('\n\n');
+      sse = frames.pop();
+      for (const frame of frames) {
+        const line = frame.split('\n').find((l) => l.startsWith('data:'));
+        if (!line) continue;
+        let ev;
+        try { ev = JSON.parse(line.slice(5).trim()); } catch (e) { continue; }
+        const d = ev.data;
+
+        if (ev.type === 'stage') {
+          if (d.name === 'understand' && d.status === 'done') meta.qu = d.detail;
+          if (d.name === 'retrieve' && d.status === 'done') { meta.rinfo = d.detail; if (d.detail) meta.rinfo.trace = d.detail.trace; }
+          if (d.status === 'running') $('hint').textContent = `正在${d.name === 'generate' ? '生成回答' : d.name === 'retrieve' ? '检索文档' : '理解问题'}…`;
+        } else if (ev.type === 'meta') {
+          if (d.mode === 'no_evidence') answerEl.textContent = '';
+        } else if (ev.type === 'delta') {
+          buffer += d;
+          answerEl.innerHTML = highlightPages(buffer);
+          $('chat-body').scrollTop = $('chat-body').scrollHeight;
+        } else if (ev.type === 'citations') {
+          meta.cites = d;
+        } else if (ev.type === 'done') {
+          meta.timing = d.timing;
+          buffer = d.answer || buffer;
+        } else if (ev.type === 'error') {
+          throw new Error(d);
+        }
+      }
+    }
+
+    main.innerHTML = renderAnswerBlock(
+      { answer: buffer, mode: meta.rinfo && meta.rinfo.gated ? 'no_evidence' : 'rag',
+        timing: meta.timing, citations: meta.cites }
+    );
+    renderTrace(meta.qu, meta.rinfo, meta.timing);
+    $('hint').textContent = '';
+  } catch (e) {
+    answerEl.innerHTML = `<span style="color:var(--brand)">请求失败：${esc(e.message)}</span>`;
+    $('hint').textContent = '';
+  } finally {
+    setBusy(false);
+    $('chat-body').scrollTop = $('chat-body').scrollHeight;
+  }
+}
+
+/* ------------------------------ 语音输入 ------------------------------ */
+function setupVoice() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const btn = $('btn-voice');
+  if (!SR) {
+    btn.disabled = true;
+    btn.title = '当前浏览器不支持语音识别（建议使用 Chrome / Edge）';
+    return;
+  }
+  let rec = null, running = false;
+  btn.addEventListener('click', () => {
+    if (running) { rec && rec.stop(); return; }
+    rec = new SR();
+    rec.lang = 'zh-CN';
+    rec.interimResults = true;
+    rec.continuous = false;
+    let finalText = '';
+    rec.onresult = (e) => {
+      let interim = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        const t = e.results[i][0].transcript;
+        if (e.results[i].isFinal) finalText += t; else interim += t;
+      }
+      $('input').value = finalText + interim;
+    };
+    rec.onerror = (e) => { $('hint').textContent = '语音识别出错：' + e.error; };
+    rec.onend = () => { running = false; btn.textContent = '🎤 语音'; };
+    try {
+      rec.start();
+      running = true;
+      btn.textContent = '⏹ 停止';
+      $('hint').textContent = '正在听…';
+    } catch (e) {
+      $('hint').textContent = '语音启动失败：' + e.message;
+    }
+  });
+}
+
+/* ------------------------------ 事件绑定 ------------------------------ */
+$('btn-send').addEventListener('click', () => {
+  const q = $('input').value.trim();
+  if (!q) return;
+  $('input').value = '';
+  send(q);
+});
+$('input').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    const q = $('input').value.trim();
+    if (!q) return;
+    $('input').value = '';
+    send(q);
+  }
+});
+document.addEventListener('click', (e) => {
+  const chip = e.target.closest('.qp');
+  if (chip) {
+    const q = chip.dataset.q || chip.textContent.trim();
+    send(q);
+    return;
+  }
+  const ct = e.target.closest('.ct');
+  if (ct) {
+    const pre = ct.parentElement.querySelector('pre');
+    if (pre) pre.hidden = !pre.hidden;
+  }
+});
+
+refreshStatus();
+loadQuestions();
+setupVoice();
+setInterval(refreshStatus, 30000);
+</script>
+</body>
+</html>

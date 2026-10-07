@@ -1,0 +1,18 @@
+# RAG 招股说明书问答系统 依赖
+# 工单编号：人工智能NLP-RAG-基于PDF文档的问答系统
+#
+# 说明：本机 D:\roleplay-rag\.venv 已具备下列全部依赖，可直接复用作为解释器。
+# 若需在干净环境重建，执行：
+#   python -m venv .venv && .venv\Scripts\pip install -r requirements.txt
+
+pypdf>=5.0
+pdfplumber>=0.11
+sentence-transformers>=3.0
+torch>=2.2
+numpy>=1.26
+jieba>=0.42
+rank-bm25>=0.2.2
+openai>=1.40
+fastapi>=0.110
+uvicorn>=0.29
+python-dotenv>=1.0
