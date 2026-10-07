@@ -1,0 +1,45 @@
+# 工单编号：人工智能NLP-RAG-基于PDF文档的问答系统
+# 依赖清单：请一次性安装，避免逐个安装导致的版本冲突
+# pip install -r requirements.txt
+
+# --- Web 界面 ---
+streamlit>=1.38.0
+
+# --- LangChain 框架 ---
+langchain>=0.2.0
+langchain-core>=0.2.0
+langchain-community>=0.2.0
+langchain-openai>=0.1.0
+langchain-text-splitters>=0.2.0
+
+# --- 向量库 ---
+pymilvus>=2.4.0
+
+# --- 模型（嵌入 / 重排）---
+FlagEmbedding>=1.2.10
+sentence-transformers>=2.7.0
+transformers>=4.40.0
+
+# --- torch（注意：请先用下面的命令单独安装，再执行本文件其余依赖）---
+# CPU 版可直接 pip install torch；需要 GPU 加速时按显卡驱动选择 CUDA 构建，
+# 建议先查看已有环境中的 torch 版本，换成同版本的 +cuXX 构建，避免牵动
+# torchvision / numpy / transformers 的兼容关系。例如（CUDA 12.6 / Python 3.12）：
+#   pip install torch==2.13.0+cu126 torchvision==0.28.0+cu126 --index-url https://download.pytorch.org/whl/cu126
+#   pip install -r requirements.txt
+torch>=2.1.0
+
+# --- PDF 解析 ---
+pymupdf>=1.24.0
+
+# --- 语音输入（可选，缺失时自动降级为纯文本输入）---
+SpeechRecognition>=3.10.0
+
+# --- 评估 ---
+ragas>=0.1.9
+datasets>=2.19.0
+
+# --- 基础工具 ---
+python-dotenv>=1.0.0
+pandas>=2.0.0
+numpy>=1.26.0
+tqdm>=4.66.0
