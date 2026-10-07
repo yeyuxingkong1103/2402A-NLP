@@ -22,7 +22,7 @@ from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from rag import CHUNKS_PATH, DATA_DIR, INDEX_PATH, LEXICAL_PATH, MODEL_PATH, Chunk
+from rag import CHUNKS_PATH, DATA_DIR, INDEX_PATH, LEXICAL_PATH, MODEL_PATH, Chunk, save_faiss_index
 
 
 PROJECT_DIR = Path(__file__).resolve().parent
@@ -44,6 +44,7 @@ DOCUMENTS = (
     },
 )
 BASE_URL = "https://mineru.net/api/v4"
+MAX_NETWORK_ATTEMPTS = 4
 
 
 class MinerUClient:
@@ -62,6 +63,34 @@ class MinerUClient:
         if payload.get("code") not in (0, None):
             raise RuntimeError(f"MinerU 请求失败：{payload.get('msg', '未知错误')}")
         return payload
+
+    @staticmethod
+    def _can_retry(exc: requests.RequestException) -> bool:
+        if not isinstance(exc, requests.HTTPError):
+            return True
+        status = exc.response.status_code if exc.response is not None else 0
+        return status == 429 or status >= 500
+
+    @staticmethod
+    def _pause(attempt: int, action: str) -> None:
+        seconds = min(2 ** attempt, 8)
+        print(f"{action}连接中断，{seconds} 秒后重试...")
+        time.sleep(seconds)
+
+    def _upload(self, url: str, pdf_path: Path) -> None:
+        last_error = None
+        for attempt in range(1, MAX_NETWORK_ATTEMPTS + 1):
+            try:
+                with pdf_path.open("rb") as stream:
+                    response = self.session.put(url, data=stream, timeout=(30, 180))
+                response.raise_for_status()
+                return
+            except requests.RequestException as exc:
+                last_error = exc
+                if attempt == MAX_NETWORK_ATTEMPTS or not self._can_retry(exc):
+                    break
+                self._pause(attempt, "上传")
+        raise RuntimeError(f"MinerU 上传失败，已重试 {MAX_NETWORK_ATTEMPTS} 次：{last_error}") from last_error
 
     def submit(self, pdf_path: Path, document: str, page_ranges: tuple) -> str:
         files = [
@@ -91,10 +120,8 @@ class MinerUClient:
         if not batch_id or len(urls) != len(files):
             raise RuntimeError("MinerU 未返回完整的上传信息")
         for number, url in enumerate(urls, 1):
-            print(f"上传第 {number}/3 个页码范围...")
-            with pdf_path.open("rb") as stream:
-                upload = self.session.put(url, data=stream, timeout=180)
-            upload.raise_for_status()
+            print(f"上传第 {number}/{len(urls)} 个页码范围...")
+            self._upload(url, pdf_path)
         return batch_id
 
     @staticmethod
@@ -133,6 +160,44 @@ class MinerUClient:
             time.sleep(5)
         raise TimeoutError("MinerU 解析超时")
 
+    def _download_archive(self, url: str, archive: Path) -> None:
+        partial = archive.with_suffix(archive.suffix + ".part")
+        last_error = None
+        for attempt in range(1, MAX_NETWORK_ATTEMPTS + 1):
+            downloaded = partial.stat().st_size if partial.exists() else 0
+            headers = {"Range": f"bytes={downloaded}-"} if downloaded else {}
+            try:
+                with self.session.get(url, headers=headers, stream=True, timeout=(30, 180)) as response:
+                    response.raise_for_status()
+                    resumed = downloaded > 0 and response.status_code == 206
+                    mode = "ab" if resumed else "wb"
+                    if not resumed:
+                        downloaded = 0
+                    expected_total = None
+                    match = re.search(r"/(\d+)$", response.headers.get("Content-Range", ""))
+                    if match:
+                        expected_total = int(match.group(1))
+                    elif response.headers.get("Content-Length"):
+                        expected_total = downloaded + int(response.headers["Content-Length"])
+                    with partial.open(mode) as stream:
+                        for chunk in response.iter_content(1024 * 1024):
+                            if chunk:
+                                stream.write(chunk)
+                actual_size = partial.stat().st_size
+                if expected_total is not None and actual_size != expected_total:
+                    raise requests.exceptions.ChunkedEncodingError(
+                        f"下载不完整：已收到 {actual_size} 字节，应为 {expected_total} 字节"
+                    )
+                partial.replace(archive)
+                return
+            except (requests.RequestException, OSError) as exc:
+                last_error = exc
+                retryable = not isinstance(exc, requests.RequestException) or self._can_retry(exc)
+                if attempt == MAX_NETWORK_ATTEMPTS or not retryable:
+                    break
+                self._pause(attempt, "下载")
+        raise RuntimeError(f"MinerU 结果下载失败，已重试 {MAX_NETWORK_ATTEMPTS} 次：{last_error}") from last_error
+
     def download(self, results: list[dict], document: str) -> list[Path]:
         paths = []
         for number, result in enumerate(results, 1):
@@ -141,14 +206,36 @@ class MinerUClient:
                 raise RuntimeError("MinerU 结果中缺少 full_zip_url")
             part_dir = MINERU_DIR / document / f"part_{number}"
             part_dir.mkdir(parents=True, exist_ok=True)
+            if list(part_dir.rglob("*_content_list.json")):
+                print(f"复用已下载的第 {number}/{len(results)} 个解析结果。")
+                paths.append(part_dir)
+                continue
             archive = MINERU_DIR / document / f"part_{number}.zip"
-            response = self.session.get(url, timeout=180)
-            response.raise_for_status()
-            archive.write_bytes(response.content)
+            if not archive.exists() or not zipfile.is_zipfile(archive):
+                print(f"下载第 {number}/{len(results)} 个解析结果...")
+                self._download_archive(url, archive)
             with zipfile.ZipFile(archive) as package:
                 package.extractall(part_dir)
             paths.append(part_dir)
         return paths
+
+
+def get_or_create_batch(client: MinerUClient, config: dict) -> str:
+    task_path = MINERU_DIR / config["document"] / "task.json"
+    if task_path.exists():
+        try:
+            batch_id = json.loads(task_path.read_text(encoding="utf-8")).get("batch_id")
+        except (OSError, ValueError):
+            batch_id = None
+        if batch_id:
+            print(f"继续 MinerU 任务：{batch_id}")
+            return str(batch_id)
+    batch_id = client.submit(config["pdf_path"], config["document"], config["page_ranges"])
+    task_path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = task_path.with_suffix(".json.tmp")
+    temporary.write_text(json.dumps({"batch_id": batch_id}, ensure_ascii=False, indent=2), encoding="utf-8")
+    temporary.replace(task_path)
+    return batch_id
 
 
 def _item_text(item: dict) -> str:
@@ -343,7 +430,7 @@ def build_index(chunks: list[Chunk]) -> None:
     )
     lexical_matrix = vectorizer.fit_transform(texts)
     DATA_DIR.mkdir(parents=True, exist_ok=True)
-    faiss.write_index(index, str(INDEX_PATH))
+    save_faiss_index(index, INDEX_PATH)
     CHUNKS_PATH.write_text(
         json.dumps([asdict(chunk) for chunk in chunks], ensure_ascii=False, indent=2),
         encoding="utf-8",
@@ -373,9 +460,7 @@ def main() -> None:
             if client is None:
                 client = MinerUClient(os.getenv("MINERU_API_KEY", "").strip())
             print(f"提交 {config['pdf_path'].name} 的 MinerU 解析任务...")
-            batch_id = client.submit(
-                config["pdf_path"], document, config["page_ranges"]
-            )
+            batch_id = get_or_create_batch(client, config)
             results = client.wait(batch_id, len(config["page_ranges"]))
             part_dirs = client.download(results, document)
             document_items = merge_content_lists(

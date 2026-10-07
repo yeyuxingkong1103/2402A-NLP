@@ -28,6 +28,19 @@ MODEL_PATH = Path(
 )
 
 
+def save_faiss_index(index, path: Path) -> None:
+    """让 Python 负责中文路径，避免 Windows FAISS 直接打开文件失败。"""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_bytes(faiss.serialize_index(index).tobytes())
+    temporary.replace(path)
+
+
+def load_faiss_index(path: Path):
+    serialized = np.frombuffer(path.read_bytes(), dtype="uint8").copy()
+    return faiss.deserialize_index(serialized)
+
+
 @dataclass
 class Chunk:
     chunk_id: str
@@ -134,7 +147,7 @@ class LocalIndex:
             raise FileNotFoundError("尚未建立索引，请先运行 prepare.py")
         if not MODEL_PATH.exists():
             raise FileNotFoundError(f"本地 BGE 模型不存在：{MODEL_PATH}")
-        index = faiss.read_index(str(INDEX_PATH))
+        index = load_faiss_index(INDEX_PATH)
         raw = json.loads(CHUNKS_PATH.read_text(encoding="utf-8"))
         chunks = [Chunk(**item) for item in raw]
         if index.ntotal != len(chunks):

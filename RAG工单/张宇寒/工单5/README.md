@@ -24,7 +24,7 @@ cd "C:\Users\lenovo\Desktop\招股说明书RAG-工单5"
 & "C:\Users\lenovo\anaconda3\envs\fastapi_FAQ_chat\python.exe" prepare.py
 ```
 
-MinerU是异步解析，首次会依次处理两份PDF，需要等待。每份解析结果会独立缓存，之后重新建库不会重复解析已有结果。
+MinerU是异步解析，首次会依次处理两份PDF，需要等待。上传、下载遇到临时断线会自动重试，下载支持续传，每份文档的任务编号会保存在对应缓存目录。解析结果会独立缓存，之后重新建库不会重复解析；FAISS索引读写兼容中文项目路径。
 
 ## 3. 启动网页
 

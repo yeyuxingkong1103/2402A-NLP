@@ -22,16 +22,18 @@ cd "C:\Users\lenovo\Desktop\招股说明书RAG-工单3"
 & "C:\Users\lenovo\anaconda3\envs\fastapi_FAQ_chat\python.exe" prepare.py
 ```
 
-MinerU是异步解析，首次会依次处理两份PDF，需要等待。每份解析结果会独立缓存，之后重新建库不会重复解析已有结果。
+MinerU是异步解析，首次会依次处理两份PDF，需要等待。上传或下载遇到临时网络中断时会自动重试4次，结果压缩包支持从已下载的位置继续。任务编号保存在 `data/mineru/对应文档/task.json`，因此程序在解析完成后退出，再次运行会继续查询该任务，而不会重新提交。每份完整解析结果也会独立缓存，之后重新建库不会重复解析已有结果。
+
+> 本次修复前已经完成但未保存任务编号的旧任务无法自动找回，所以修复后的第一次运行仍会重新提交一次；从这次开始即可恢复中断任务。
 
 ## 3. 启动网页
 
 ```powershell
 cd "C:\Users\lenovo\Desktop\招股说明书RAG-工单3"
-& "C:\Users\lenovo\anaconda3\envs\fastapi_FAQ_chat\python.exe" -m uvicorn app:app --host 127.0.0.1 --port 8000
+& "C:\Users\lenovo\anaconda3\envs\fastapi_FAQ_chat\python.exe" -m uvicorn app:app --host 127.0.0.1 --port 8013
 ```
 
-浏览器打开：<http://127.0.0.1:8000>
+浏览器打开：<http://127.0.0.1:8013>
 
 ## 文件说明
 
@@ -40,6 +42,6 @@ cd "C:\Users\lenovo\Desktop\招股说明书RAG-工单3"
 - `app.py`：问答、14题自动评分、分PDF统计、纯LLM对比和反馈接口。
 - `index.html`：用户界面。
 - `questions.json`：PDF1的10题和PDF2的4题，共14题。
-- `test_workorder3.py`：公司路由、双PDF元数据和问题列表测试。
+- `test_workorder3.py`：网络重试、断点续传、任务恢复、公司路由、双PDF元数据和问题列表测试。
 
 > 单次问答在 2.75 秒处主动停止等待 DeepSeek，并降级展示检索原文，从而尽量把总耗时控制在 3 秒内。API 网络状况仍可能影响实际时间，网页会显示每次实测耗时。

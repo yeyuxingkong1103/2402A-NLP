@@ -122,3 +122,12 @@ def feedback(payload: FeedbackRequest):
     _feedback[payload.answer_id] = "helpful" if payload.helpful else "not_helpful"
     return {"saved": True, "count": len(_feedback)}
 
+
+def run_server() -> None:
+    import uvicorn
+
+    uvicorn.run(app, host="127.0.0.1", port=8000)
+
+
+if __name__ == "__main__":
+    run_server()

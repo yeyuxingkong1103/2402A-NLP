@@ -20,7 +20,7 @@ cd "C:\Users\lenovo\Desktop\招股说明书RAG"
 & "C:\Users\lenovo\anaconda3\envs\fastapi_FAQ_chat\python.exe" prepare.py
 ```
 
-MinerU 是异步解析，首次建库需要等待。建好后会复用 `data` 目录，不会每次重新解析。
+MinerU 是异步解析，首次建库需要等待。上传、下载遇到临时断线会自动重试，下载支持续传，任务编号会保存在 `data/mineru/task.json`。建好后会复用 `data` 目录，不会每次重新解析；FAISS 索引读写兼容中文项目路径。
 
 ## 3. 启动网页
 
