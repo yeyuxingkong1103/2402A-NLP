@@ -1,4 +1,5 @@
 import json
+import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -7,7 +8,7 @@ import faiss
 import numpy as np
 
 from prepare import build_chunks, load_figure_chunks
-from rag import Chunk, LocalIndex, understand_query
+from rag import Chunk, LocalIndex, load_faiss_index, save_faiss_index, understand_query
 from conversation import ConversationManager
 from app import AskRequest, ask
 
@@ -21,6 +22,16 @@ class FakeEncoder:
 
 
 class WorkOrder5Tests(unittest.TestCase):
+    def test_faiss_index_round_trips_through_unicode_path(self):
+        index = faiss.IndexFlatIP(2)
+        index.add(np.asarray([[1.0, 0.0]], dtype="float32"))
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "中文目录" / "索引.faiss"
+            path.parent.mkdir()
+            save_faiss_index(index, path)
+            loaded = load_faiss_index(path)
+        self.assertEqual(loaded.ntotal, 1)
+
     def test_query_routes_each_company_to_its_own_document(self):
         self.assertEqual(
             understand_query("武汉力源信息技术股份有限公司本次发行股数是多少？")["document"],
