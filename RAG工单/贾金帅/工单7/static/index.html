@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>招股说明书问答系统 · RAG</title>
+<!-- 工单编号：人工智能NLP-RAG-基于PDF文档的问答系统 -->
+<!-- 工单编号：人工智能NLP-RAG-基于PDF文档的问答系统优化（工单2） -->
+<!-- 工单编号：人工智能NLP-RAG-PDF文档的表格解析及检索优化（工单3） -->
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --panel: #ffffff;
+    --panel-2: #fafbfc;
+    --border: #e3e6ea;
+    --text: #1c1f23;
+    --text-2: #5b636d;
+    --text-3: #8b949e;
+    --brand: #c0392b;
+    --brand-soft: #fdf0ee;
+    --blue: #1f6feb;
+    --blue-soft: #eaf2fe;
+    --green: #17864a;
+    --green-soft: #e8f6ee;
+    --amber: #a86a00;
+    --amber-soft: #fdf4e3;
+    --grey-soft: #eef1f4;
+    --radius: 10px;
+    --shadow: 0 1px 3px rgba(16,24,40,.06), 0 1px 2px rgba(16,24,40,.04);
+    --mono: ui-monospace, SFMono-Regular, "Cascadia Mono", Consolas, monospace;
+  }
+  /* hidden 必须 !important：UA 的 [hidden]{display:none} 优先级极低，
+     任何 .card{display:flex} 都能压过它，导致隐藏元素关不掉 */
+  [hidden] { display: none !important; }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 14px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+  }
+  button { font-family: inherit; }
+
+  /* ---------------- 顶栏 ---------------- */
+  header {
+    height: 56px; display: flex; align-items: center; gap: 12px;
+    padding: 0 18px; background: var(--panel); border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 20;
+  }
+  .logo { width: 28px; height: 28px; border-radius: 8px; background: var(--brand);
+    color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 13px; }
+  h1 { font-size: 15px; margin: 0; font-weight: 600; }
+  .wo { font-size: 11px; color: var(--text-3); font-family: var(--mono); }
+  .grow { flex: 1; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px;
+    padding: 4px 10px; border-radius: 999px; background: var(--grey-soft); color: var(--text-2); }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-3); }
+  .pill.is-ok .dot { background: var(--green); }
+  .pill.is-ok { background: var(--green-soft); color: var(--green); }
+  .pill.is-degraded .dot { background: var(--amber); }
+  .pill.is-degraded { background: var(--amber-soft); color: var(--amber); }
+  .pill.is-down .dot { background: var(--brand); }
+  .pill.is-down { background: var(--brand-soft); color: var(--brand); }
+
+  /* ---------------- 布局 ---------------- */
+  .layout { display: grid; grid-template-columns: minmax(0,1fr) 372px; gap: 14px;
+    padding: 14px; height: calc(100vh - 56px); }
+  @media (max-width: 1080px) { .layout { grid-template-columns: 1fr; height: auto; } }
+
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius);
+    box-shadow: var(--shadow); display: flex; flex-direction: column; min-height: 0; }
+  .card > .head { padding: 10px 14px; border-bottom: 1px solid var(--border);
+    font-size: 12px; font-weight: 600; color: var(--text-2); display: flex; align-items: center; gap: 8px; }
+  .card > .head .grow { flex: 1; }
+
+  /* ---------------- 对话 ---------------- */
+  #chat-body { flex: 1; overflow-y: auto; padding: 16px; min-height: 0; }
+  .empty { color: var(--text-3); text-align: center; padding: 40px 20px; }
+  .empty b { color: var(--text-2); }
+  .examples { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 14px; }
+  .chip-btn { border: 1px solid var(--border); background: var(--panel-2); color: var(--text-2);
+    border-radius: 999px; padding: 6px 12px; font-size: 12.5px; cursor: pointer; }
+  .chip-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-soft); }
+
+  .turn { margin-bottom: 18px; }
+  .q { display: flex; justify-content: flex-end; }
+  .q .bubble { background: var(--blue-soft); border: 1px solid #d3e3fd; color: #11336b;
+    padding: 9px 13px; border-radius: 12px 12px 3px 12px; max-width: 78%; white-space: pre-wrap;
+    word-break: break-word; }
+  .a { margin-top: 10px; display: flex; gap: 10px; }
+  .avatar { width: 26px; height: 26px; border-radius: 7px; background: var(--brand-soft); color: var(--brand);
+    display: grid; place-items: center; font-size: 12px; font-weight: 700; flex: 0 0 auto; }
+  .a .main { flex: 1; min-width: 0; }
+  .answer { white-space: pre-wrap; word-break: break-word; }
+  .answer h3 { font-size: 14px; margin: 12px 0 6px; }
+  .answer ul { margin: 6px 0; padding-left: 20px; }
+  .answer .pg { color: var(--brand); font-size: 12px; font-family: var(--mono);
+    background: var(--brand-soft); border-radius: 4px; padding: 0 4px; white-space: nowrap; }
+
+  .meta { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; font-size: 11.5px; color: var(--text-3); }
+  .tag { background: var(--grey-soft); border-radius: 5px; padding: 2px 7px; font-family: var(--mono); }
+  .tag.warn { background: var(--amber-soft); color: var(--amber); }
+  .tag.ok { background: var(--green-soft); color: var(--green); }
+
+  .cites { margin-top: 10px; }
+  .cites-title { font-size: 12px; color: var(--text-3); margin-bottom: 6px; }
+  .cite { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 6px; background: var(--panel-2); }
+  .cite > button { width: 100%; text-align: left; background: none; border: 0; padding: 8px 10px;
+    cursor: pointer; font-size: 12.5px; color: var(--text-2); display: flex; gap: 8px; align-items: baseline; }
+  .cite > button:hover { background: var(--blue-soft); }
+  .cite .idx { flex: 0 0 auto; width: 18px; height: 18px; border-radius: 5px; background: var(--brand);
+    color: #fff; font-size: 11px; display: grid; place-items: center; }
+  .cite .pg2 { color: var(--brand); font-family: var(--mono); font-size: 11.5px; }
+  .cite pre { margin: 0; padding: 0 12px 10px 12px; white-space: pre-wrap; word-break: break-word;
+    font-size: 12px; color: var(--text-2); max-height: 240px; overflow: auto; font-family: var(--mono);
+    border-top: 1px dashed var(--border); padding-top: 8px; }
+
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+  @media (max-width: 860px) { .compare { grid-template-columns: 1fr; } }
+  .compare.three { grid-template-columns: 1fr 1fr 1fr; }
+  @media (max-width: 1200px) { .compare.three { grid-template-columns: 1fr; } }
+  .col { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .col .ch { padding: 6px 10px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+  .col.rag .ch { background: var(--green-soft); color: var(--green); }
+  .col.llm .ch { background: var(--amber-soft); color: var(--amber); }
+  .col.naive .ch { background: var(--grey-soft); color: var(--text-2); }
+  .col.opt .ch { background: var(--green-soft); color: var(--green); }
+  .col .cb { padding: 10px; white-space: pre-wrap; word-break: break-word; font-size: 13px; max-height: 420px; overflow: auto; }
+
+  /* 关键事实命中条：演示优化前后差异用 */
+  .facts { margin-top: 10px; border: 1px solid var(--border); border-radius: 8px; padding: 9px 11px;
+    background: var(--panel-2); font-size: 12.5px; }
+  .facts .rl { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; margin-bottom: 6px; }
+  .facts .rl:last-child { margin-bottom: 0; }
+  .facts .rl > b { flex: 0 0 86px; font-weight: 600; color: var(--text-2); font-size: 12px; }
+  .fk { font-family: var(--mono); font-size: 11.5px; padding: 1px 6px; border-radius: 4px; }
+  .fk.yes { background: var(--green-soft); color: var(--green); }
+  .fk.no { background: var(--brand-soft); color: var(--brand); text-decoration: line-through; }
+  .fact-rate { font-weight: 700; font-family: var(--mono); margin-left: 4px; }
+  .fact-rate.good { color: var(--green); }
+  .fact-rate.bad { color: var(--brand); }
+
+  /* ---------------- 输入区 ---------------- */
+  .composer { border-top: 1px solid var(--border); padding: 10px 12px; background: var(--panel-2); }
+  .row { display: flex; gap: 8px; align-items: flex-end; }
+  textarea { flex: 1; resize: none; border: 1px solid var(--border); border-radius: 9px; padding: 9px 11px;
+    font: inherit; background: #fff; color: var(--text); min-height: 42px; max-height: 140px; }
+  textarea:focus { outline: 2px solid var(--blue-soft); border-color: var(--blue); }
+  .btn { border: 1px solid var(--border); background: #fff; color: var(--text-2); border-radius: 9px;
+    padding: 9px 12px; cursor: pointer; font-size: 13px; white-space: nowrap; }
+  .btn:hover { border-color: var(--blue); color: var(--blue); }
+  .btn.primary { background: var(--brand); border-color: var(--brand); color: #fff; }
+  .btn.primary:hover { background: #a93226; color: #fff; }
+  .btn.rec { background: var(--brand-soft); border-color: #f3c9c3; color: var(--brand); }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .opts { display: flex; gap: 14px; align-items: center; margin-top: 8px; font-size: 12.5px; color: var(--text-2); flex-wrap: wrap; }
+  .opts label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+  select { border: 1px solid var(--border); border-radius: 7px; padding: 3px 6px; background: #fff; color: var(--text); font: inherit; font-size: 12.5px; }
+
+  /* ---------------- 右栏 ---------------- */
+  .side { display: flex; flex-direction: column; gap: 14px; min-height: 0; }
+  .side .card { min-height: 0; }
+  #trace-body { padding: 12px 14px; overflow-y: auto; font-size: 12.5px; flex: 1; }
+  .step { display: flex; gap: 8px; padding: 6px 0; border-bottom: 1px dashed var(--border); }
+  .step:last-child { border-bottom: 0; }
+  .step .nm { flex: 0 0 66px; color: var(--text-2); }
+  .step .ms { margin-left: auto; font-family: var(--mono); color: var(--text-3); font-size: 11.5px; }
+  .kv { display: flex; justify-content: space-between; padding: 3px 0; }
+  .kv span:first-child { color: var(--text-3); }
+  .kv span:last-child { font-family: var(--mono); }
+  .sect { margin: 10px 0 4px; font-size: 11.5px; color: var(--text-3); font-weight: 600; letter-spacing: .4px; }
+  .note { background: var(--amber-soft); color: var(--amber); border-radius: 7px; padding: 8px 10px; margin: 8px 0; font-size: 12px; }
+  .note.ok { background: var(--green-soft); color: var(--green); }
+  .qlist { padding: 8px 10px; max-height: 250px; overflow: auto; }
+  .ql { display: block; width: 100%; text-align: left; border: 0; background: none; cursor: pointer;
+    padding: 6px 8px; border-radius: 6px; font-size: 12.5px; color: var(--text-2); line-height: 1.45; }
+  .ql:hover { background: var(--blue-soft); color: var(--blue); }
+  .ql b { color: var(--text-3); font-family: var(--mono); font-weight: 500; margin-right: 6px; }
+
+  /* 批量对比结果表 */
+  .btable { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12.5px; }
+  .btable th, .btable td { border: 1px solid var(--border); padding: 6px 8px; text-align: center; vertical-align: middle; }
+  .btable th { background: var(--panel-2); color: var(--text-2); font-weight: 600; font-size: 11.5px; line-height: 1.35; }
+  .btable tbody tr:nth-child(even) { background: #fcfcfd; }
+
+  /* 图像块回显（工单4）：召回里若是图像块，直接把裁剪出的图显示出来，
+     演示时能一眼看到「答案出自哪张图」。 */
+  .figs { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+  .figcard { border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+    background: var(--panel, #fff); max-width: 320px; }
+  .figcard .fh { padding: 5px 8px; font-size: 11.5px; color: var(--text-2);
+    background: var(--panel-2); display: flex; gap: 6px; align-items: center; }
+  .figcard .fh b { color: var(--blue); font-weight: 600; }
+  .figcard .fb { padding: 6px; }
+  .figcard img { width: 100%; max-height: 260px; object-fit: contain; display: block;
+    background: #fff; border: 1px solid var(--border); border-radius: 4px; }
+  .figcard .fc { padding: 0 8px 8px; font-size: 11.5px; color: var(--text-3); line-height: 1.4; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">RAG</div>
+  <div>
+    <h1>招股说明书问答系统</h1>
+    <div class="wo">工单5 · 人工智能NLP-RAG-Query理解优化任务（多轮对话）</div>
+  </div>
+  <div class="grow"></div>
+  <span class="pill is-unknown" id="st-svc"><i class="dot"></i><span>服务</span></span>
+  <span class="pill is-unknown" id="st-idx"><i class="dot"></i><span>索引</span></span>
+  <span class="pill is-unknown" id="st-llm"><i class="dot"></i><span>大模型</span></span>
+</header>
+
+<div class="layout">
+  <!-- ---------------- 左：对话 ---------------- -->
+  <div class="card">
+    <div class="head">
+      <span>问答</span>
+      <div class="grow"></div>
+      <span id="kb-info" class="wo"></span>
+    </div>
+
+    <div id="chat-body">
+      <div class="empty" id="chat-empty">
+        <b>《武汉兴图新科电子股份有限公司招股意向书》</b><br />
+        <b>《武汉力源信息技术股份有限公司招股说明书》</b><br />
+        两份文档已入库（表格结构化 + 图像多模态解析），可直接提问。
+        <div class="examples">
+          <div style="color:var(--text-3);font-size:11.5px;margin:2px 0">
+            工单5 的 5 轮对话（已按原文排好序，点右侧蓝色按钮可自动连播；也可以一个个点，效果一样）
+          </div>
+          <button class="chip-btn qp">报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？</button>
+          <button class="chip-btn qp">他参与的哪个工程荣获了国家科技进步一等奖？</button>
+          <button class="chip-btn qp">这个公司的法定代表人是谁？</button>
+          <button class="chip-btn qp">那武汉力源信息技术股份有限公司呢？</button>
+          <button class="chip-btn qp">武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有哪些销售处？</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="composer">
+      <div class="row">
+        <textarea id="input" rows="1" placeholder="输入问题，回车发送（Shift+回车换行）…"></textarea>
+        <button class="btn rec" id="btn-voice" title="语音输入（需浏览器支持）">🎤 语音</button>
+        <button class="btn primary" id="btn-send">发送</button>
+      </div>
+      <div class="opts">
+        <label>召回条数
+          <select id="topk">
+            <option>3</option><option>5</option><option selected>6</option><option>8</option><option>10</option>
+          </select>
+        </label>
+        <label>对比模式
+          <select id="cmode">
+            <option value="off" selected>关闭（仅本系统）</option>
+            <option value="img">图像解析前后（工单4）</option>
+            <option value="tbl">表格解析前后（工单3）</option>
+            <option value="opt">优化前 vs 优化后（工单2）</option>
+            <option value="llm">本系统 vs 纯 LLM</option>
+            <option value="all">三方对比（优化前/后/纯LLM）</option>
+          </select>
+        </label>
+        <label title="开启后，系统会把前面几轮问过什么记下来，用来消解「他」「这个公司」「那X呢？」这类依赖上文的说法">
+          <input type="checkbox" id="mt-on" checked /> 多轮对话
+        </label>
+        <label title="消解方式：rule+llm=规则优先、规则不确定时让大模型补；rule=纯规则；concat=只拼历史原文；off=不做多轮">
+          消解
+          <select id="mt-mode">
+            <option value="rule+llm" selected>规则+大模型（交付）</option>
+            <option value="rule">纯规则（零大模型成本）</option>
+            <option value="concat">拼接历史原文（朴素）</option>
+            <option value="off">关闭（单轮对照）</option>
+          </select>
+        </label>
+        <span class="grow" style="flex:1"></span>
+        <button class="btn" id="btn-ctx-reset" style="padding:2px 8px;font-size:11.5px" title="清空本会话的上下文">清空上下文</button>
+        <span id="hint" class="wo"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------------- 右：链路 ---------------- -->
+  <div class="side">
+    <div class="card">
+      <div class="head">
+        <span>对话上下文（多轮消解依据）</span>
+        <div class="grow"></div>
+        <span class="wo" id="ctx-session"></span>
+      </div>
+      <div id="ctx-body"><div class="empty" style="padding:18px 6px">开启多轮后，这里逐轮显示系统把每句话的<b>主体</b>与<b>话题</b>理解成了什么 —— 下一轮的「他」「这个公司」「那X呢？」就是从这里补全的</div></div>
+    </div>
+    <div class="card">
+      <div class="head"><span>检索链路</span><div class="grow"></div><span class="wo" id="trace-total"></span></div>
+      <div id="trace-body"><div class="empty" style="padding:24px 6px">提问后这里显示链路明细</div></div>
+    </div>
+    <div class="card">
+      <div class="head">
+        <span>工单验收问题</span>
+        <div class="grow"></div>
+        <button class="btn primary" id="btn-demo5" style="padding:2px 8px;font-size:11.5px">▶ 连播工单5轮对话</button>
+        <button class="btn" id="btn-batch-img" style="padding:2px 8px;font-size:11.5px">一键对比图像前后</button>
+        <button class="btn" id="btn-batch-tbl" style="padding:2px 8px;font-size:11.5px">一键对比表格前后</button>
+        <button class="btn" id="btn-batch" style="padding:2px 8px;font-size:11.5px">一键对比优化前后</button>
+      </div>
+      <div class="qlist" id="qlist"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// API_BASE：同源部署用相对路径；被 file:// 直接打开时回落到本机服务
+const API_BASE = /^https?:$/.test(location.protocol) ? '' : 'http://127.0.0.1:8010';
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s == null ? '' : s)
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+/* 统一解析后端信封 {code,message,data,trace_id}
+   注意：系统探针返回的是**裸对象**，不能用「有没有 code 字段」来判定，
+   必须判 payload.code === 'OK'。 */
+function unwrap(payload) {
+  if (payload && payload.code === 'OK') return payload.data;
+  const msg = (payload && payload.message) || '请求失败';
+  const tid = payload && payload.trace_id ? ` (trace_id=${payload.trace_id})` : '';
+  throw new Error(msg + tid);
+}
+
+async function api(path, opt = {}) {
+  const url = API_BASE + path;   // 业务路径统一拼前缀
+  const init = { method: opt.method || 'GET', headers: {} };
+  if (opt.body !== undefined) {
+    init.headers['Content-Type'] = 'application/json';
+    init.body = JSON.stringify(opt.body);
+  }
+  if (opt.form) { init.method = 'POST'; init.body = opt.form; }
+  const res = await fetch(url, init);
+  const text = await res.text();
+  let payload;
+  try { payload = JSON.parse(text); } catch (e) { throw new Error(`${res.status} 非 JSON 响应`); }
+  return unwrap(payload);
+}
+
+/* ------------------------------ 状态探针 ------------------------------ */
+function setPill(el, cls, label) {
+  el.className = 'pill ' + cls;
+  el.querySelector('span:last-child').textContent = label;
+}
+
+async function refreshStatus() {
+  try {
+    const r = await fetch(API_BASE + '/ready');
+    const j = await r.json();
+    const c = j.components || {};
+    setPill($('st-svc'), j.status === 'ok' ? 'is-ok' : 'is-degraded',
+      j.status === 'ok' ? '服务正常' : '服务降级');
+    setPill($('st-idx'), c.index && c.index.status === 'ok' ? 'is-ok' : 'is-down',
+      c.index && c.index.status === 'ok' ? `索引 ${c.index.chunks} 块` : '索引不可用');
+    const lm = c.llm || {};
+    setPill($('st-llm'), lm.status === 'ok' ? 'is-ok' : 'is-down',
+      lm.status === 'ok' ? '模型正常' : '模型异常');
+  } catch (e) {
+    setPill($('st-svc'), 'is-down', '服务不可达');
+    setPill($('st-idx'), 'is-unknown', '索引未知');
+    setPill($('st-llm'), 'is-unknown', '模型未知');
+  }
+  try {
+    const kb = await api('/api/kb/status');
+    if (kb && kb.loaded_chunks) {
+      $('kb-info').textContent = `${kb.source_file || ''} · ${kb.loaded_chunks} 块 · ${kb.embedding_shape ? kb.embedding_shape[1] : ''}维`;
+    }
+  } catch (e) { /* 静默：状态栏已反映 */ }
+}
+
+/* ------------------------------ 工单问题列表 ------------------------------ */
+async function loadQuestions() {
+  try {
+    const qs = await api('/api/questions');
+    if (!qs || !qs.length) return;
+    $('qlist').innerHTML = qs.map((q) =>
+      `<button class="ql qp" data-q="${esc(q.question)}"><b>${esc(q.id)}</b>${esc(q.question)}</button>`
+    ).join('');
+  } catch (e) { /* 没配问题表就不显示 */ }
+}
+
+/* ------------------------------ 渲染 ------------------------------ */
+function highlightPages(text) {
+  return esc(text).replace(/\[第\s*\d+(?:\s*[-–~]\s*\d+)?\s*页\]/g, (m) => `<span class="pg">${m}</span>`);
+}
+
+function renderCitations(list) {
+  if (!list || !list.length) return '';
+  const items = list.map((c) => {
+    const pages = c.page_end && c.page_end !== c.page ? `第${c.page}-${c.page_end}页` : `第${c.page}页`;
+    const kind = c.type === 'table' ? ' · 表格' : (c.type === 'image' ? ' · 图像' : '');
+    const clip = c.clip_sim ? ` · CLIP ${c.clip_sim}` : '';
+    return `<div class="cite">
+      <button class="ct" type="button">
+        <span class="idx">${c.index}</span>
+        <span class="pg2">${esc(pages)}${kind}</span>
+        <span style="color:var(--text-3)">依据分 ${c.evidence} · 融合分 ${c.score}${clip} · ${esc(c.chunk_id)}</span>
+      </button>
+      <pre hidden>${esc(c.text)}</pre>
+    </div>`;
+  }).join('');
+  return `<div class="cites"><div class="cites-title">依据片段（点击展开原文）</div>${items}</div>`;
+}
+
+/* 图像块回显：把该次召回里的图像块对应的裁剪图直接显示出来。
+   这一步很关键 —— 演示「检索精确度」时，光看召回文本说服力有限，
+   直接把命中的那张图摆出来，「答案确实出自这张图」就一眼可见了。 */
+function renderFigures(images) {
+  if (!images || !images.length) return '';
+  const cards = images.map((f) => `
+    <div class="figcard">
+      <div class="fh"><b>第${f.page}页</b><span>${esc(f.fig_type || '图片')}</span>
+        <span style="margin-left:auto;color:var(--text-3)">依据分 ${f.evidence}${f.clip_sim ? ` · CLIP ${f.clip_sim}` : ''}</span></div>
+      <div class="fb"><a href="${esc(f.image)}" target="_blank"><img src="${esc(f.image)}" loading="lazy"
+        alt="${esc(f.caption || '图片')}" /></a></div>
+      <div class="fc">${f.caption ? `图题：${esc(f.caption)}` : '（该图无图题）'} · <code>${esc(f.doc_key)}</code></div>
+    </div>`).join('');
+  return `<div class="figs-title" style="font-size:12px;color:var(--text-3);margin-top:10px">
+      本次召回命中的图像（点击可看大图）</div><div class="figs">${cards}</div>`;
+}
+
+function renderAnswerBlock(a, opts = {}) {
+  const mode = a.mode === 'rag' ? 'RAG' : (a.mode === 'no_evidence' ? '无依据' : a.mode);
+  const t = a.timing || {};
+  const tags = [];
+  tags.push(`<span class="tag ${a.mode === 'rag' ? 'ok' : 'warn'}">${esc(mode)}</span>`);
+  if (t.total_ms) tags.push(`<span class="tag">总耗时 ${t.total_ms} ms</span>`);
+  if (t.query_understanding_ms) tags.push(`<span class="tag">理解 ${t.query_understanding_ms} ms</span>`);
+  if (t.retrieval_ms) tags.push(`<span class="tag">检索 ${t.retrieval_ms} ms</span>`);
+  if (t.generation_ms) tags.push(`<span class="tag">生成 ${t.generation_ms} ms</span>`);
+  const total = t.total_ms || 0;
+  if (total) tags.push(`<span class="tag ${total <= 3000 ? 'ok' : 'warn'}">${total <= 3000 ? '✓ ≤3s' : '超 3s'}</span>`);
+  return `<div class="answer">${highlightPages(a.answer || '')}</div>
+    <div class="meta">${tags.join('')}</div>
+    ${opts.showCites === false ? '' : renderCitations(a.citations)}`;
+}
+
+/* -------------------------- 优化前后对比（工单2） -------------------------- */
+
+function renderFactHits(fh) {
+  if (!fh || !fh.optimized) return '';
+  const row = (label, obj, cls) => {
+    if (!obj) return `<div class="rl"><b>${label}</b><span style="color:var(--text-3)">（非验收题，不计关键事实）</span></div>`;
+    const chips = obj.must_have.map((k) => {
+      const y = obj.hit.indexOf(k) >= 0;
+      return `<span class="fk ${y ? 'yes' : 'no'}">${esc(k)}</span>`;
+    }).join('');
+    const pct = Math.round(obj.rate * 100);
+    return `<div class="rl"><b>${label}</b>${chips}
+      <span class="fact-rate ${pct === 100 ? 'good' : 'bad'}">${obj.hit.length}/${obj.must_have.length}</span></div>`;
+  };
+  return `<div class="facts">
+    <div style="font-size:12px;color:var(--text-3);margin-bottom:6px">
+      关键事实命中（标红划掉 = 检索上下文里没捞到这条事实，模型不可能答对）</div>
+    ${row('优化前', fh.naive)}
+    ${row('优化后', fh.optimized)}
+  </div>`;
+}
+
+function renderOptCompare(d) {
+  const modes = $('cmode').value;
+  const three = modes === 'all';
+  const cols = [
+    `<div class="col naive"><div class="ch">优化前 · 朴素 RAG</div>
+       <div class="cb">${d.naive ? esc(d.naive.answer) : '<span style="color:var(--text-3)">（优化前基线不可用）</span>'}</div></div>`,
+    `<div class="col opt"><div class="ch">优化后 · 本系统</div>
+       <div class="cb">${highlightPages(d.optimized.answer)}</div></div>`,
+  ];
+  if (three && d.llm_only) {
+    cols.push(`<div class="col llm"><div class="ch">纯 LLM · 无检索</div>
+       <div class="cb">${esc(d.llm_only.answer)}</div></div>`);
+  }
+  const tn = d.naive && d.naive.timing ? d.naive.timing.total_ms : null;
+  const to = d.optimized.timing ? d.optimized.timing.total_ms : null;
+  const tags = [];
+  if (tn) tags.push(`<span class="tag">优化前 ${tn} ms</span>`);
+  if (to) tags.push(`<span class="tag ok">优化后 ${to} ms</span>`);
+  if (d.llm_only) tags.push(`<span class="tag">纯LLM ${d.llm_only.timing.total_ms} ms</span>`);
+  if (d.naive_unavailable_reason) {
+    tags.push(`<span class="tag warn">基线不可用：${esc(d.naive_unavailable_reason)}</span>`);
+  }
+  return `<div class="compare ${three ? 'three' : ''}">${cols.join('')}</div>
+    <div class="meta">${tags.join('')}</div>
+    ${renderFactHits(d.fact_hits)}`;
+}
+
+/* ------------------ 表格解析前后对比（工单3 核心演示） ------------------ */
+
+/* fact_hits 的信封形状是 {table, no_table}，与工单2 的 {optimized, naive} 不同，
+   单独写一个渲染函数，避免复用 renderFactHits 时把两条链路张冠李戴。 */
+function renderFactHitsTable(fh) {
+  if (!fh || (!fh.table && !fh.no_table)) return '';
+  const row = (label, obj) => {
+    if (!obj) return `<div class="rl"><b>${label}</b><span style="color:var(--text-3)">（非验收题，不计关键事实）</span></div>`;
+    const chips = obj.must_have.map((k) => {
+      const y = obj.hit.indexOf(k) >= 0;
+      return `<span class="fk ${y ? 'yes' : 'no'}">${esc(k)}</span>`;
+    }).join('');
+    const pct = Math.round(obj.rate * 100);
+    return `<div class="rl"><b>${label}</b>${chips}
+      <span class="fact-rate ${pct === 100 ? 'good' : 'bad'}">${obj.hit.length}/${obj.must_have.length}</span></div>`;
+  };
+  return `<div class="facts">
+    <div style="font-size:12px;color:var(--text-3);margin-bottom:6px">
+      关键事实命中（标红划掉 = 召回上下文里没捞到这条事实 —— 检索没捞到，模型不可能答对）</div>
+    ${row('表格不结构化', fh.no_table)}
+    ${row('表格结构化', fh.table)}
+  </div>`;
+}
+
+function renderTableCompare(d) {
+  const cols = [
+    `<div class="col naive"><div class="ch">优化前 · 表格不结构化</div>
+       <div class="cb">${d.no_table ? esc(d.no_table.answer) : '<span style="color:var(--text-3)">（对照索引不可用）</span>'}</div></div>`,
+    `<div class="col opt"><div class="ch">优化后 · 表格结构化（本工单）</div>
+       <div class="cb">${highlightPages(d.table.answer)}</div></div>`,
+  ];
+  const tags = [];
+  const tn = d.no_table && d.no_table.timing ? d.no_table.timing.total_ms : null;
+  if (tn) tags.push(`<span class="tag">优化前 ${tn} ms</span>`);
+  if (d.table.timing) tags.push(`<span class="tag ok">优化后 ${d.table.timing.total_ms} ms</span>`);
+  if (d.no_table) tags.push(`<span class="tag">优化前召回 ${d.no_table.citations.length} 条 / 表格块 ${d.no_table.citations.filter((c) => c.type === 'table').length}</span>`);
+  tags.push(`<span class="tag ok">优化后召回 ${d.table.citations.length} 条 / 表格块 ${d.table.citations.filter((c) => c.type === 'table').length}</span>`);
+  if (d.no_table_unavailable_reason) {
+    tags.push(`<span class="tag warn">对照索引不可用：${esc(d.no_table_unavailable_reason)}</span>`);
+  }
+  return `<div class="compare">${cols.join('')}</div>
+    <div class="meta">${tags.join('')}</div>
+    ${renderFactHitsTable(d.fact_hits)}`;
+}
+
+/* ------------------ 图像解析前后对比（工单4 核心演示） ------------------ */
+
+/* fact_hits 的信封形状是 {image, no_image}，单独渲染，
+   避免复用其他对比的渲染函数时把两条链路张冠李戴。
+   图像题会多出一行「层级数量」弱判定 —— 单独标出来，不并入覆盖率。 */
+function renderFactHitsImage(fh) {
+  if (!fh || (!fh.image && !fh.no_image)) return '';
+  const row = (label, obj) => {
+    if (!obj) return `<div class="rl"><b>${label}</b><span style="color:var(--text-3)">（非验收题，不计关键事实）</span></div>`;
+    const chips = obj.must_have.map((k) => {
+      const y = obj.hit.indexOf(k) >= 0;
+      return `<span class="fk ${y ? 'yes' : 'no'}">${esc(k)}</span>`;
+    }).join('');
+    let counts = '';
+    if (obj.counts_expected && obj.counts_expected.length) {
+      counts = obj.counts_expected.map((c) => {
+        const y = (obj.counts_hit || []).indexOf(c) >= 0;
+        return `<span class="fk ${y ? 'yes' : 'no'}" title="层级数量（弱判定：正文里也常出现这两个数字，不计入覆盖率）">数量 ${esc(c)}</span>`;
+      }).join('');
+    }
+    const pct = Math.round(obj.rate * 100);
+    return `<div class="rl"><b>${label}</b>${chips}${counts}
+      <span class="fact-rate ${pct === 100 ? 'good' : 'bad'}">${obj.hit.length}/${obj.must_have.length}</span></div>`;
+  };
+  return `<div class="facts">
+    <div style="font-size:12px;color:var(--text-3);margin-bottom:6px">
+      关键事实命中（标红 = 召回上下文里没捞到这条事实 —— 检索没捞到，模型不可能答对）</div>
+    ${row('图像不解析', fh.no_image)}
+    ${row('图像多模态解析', fh.image)}
+  </div>`;
+}
+
+function renderImageCompare(d) {
+  const cols = [
+    `<div class="col naive"><div class="ch">优化前 · 图像不解析</div>
+       <div class="cb">${d.no_image ? esc(d.no_image.answer) : '<span style="color:var(--text-3)">（对照索引不可用）</span>'}</div>
+       ${d.no_image ? renderFigures(d.no_image.images) : ''}</div>`,
+    `<div class="col opt"><div class="ch">优化后 · 图像多模态解析（本工单）</div>
+       <div class="cb">${highlightPages(d.image.answer)}</div>
+       ${renderFigures(d.image.images)}</div>`,
+  ];
+  const tags = [];
+  const tn = d.no_image && d.no_image.timing ? d.no_image.timing.total_ms : null;
+  if (tn) tags.push(`<span class="tag">优化前 ${tn} ms</span>`);
+  if (d.image.timing) tags.push(`<span class="tag ok">优化后 ${d.image.timing.total_ms} ms</span>`);
+  if (d.no_image) {
+    tags.push(`<span class="tag">优化前召回 ${d.no_image.citations.length} 条 / 图像块 ${(d.no_image.images || []).length}</span>`);
+  }
+  tags.push(`<span class="tag ok">优化后召回 ${d.image.citations.length} 条 / 图像块 ${(d.image.images || []).length}</span>`);
+  const clipHit = (d.image.images || []).filter((f) => f.clip_sim > 0).length;
+  if (clipHit) tags.push(`<span class="tag ok">CLIP 跨模态命中 ${clipHit} 张</span>`);
+  if (d.no_image_unavailable_reason) {
+    tags.push(`<span class="tag warn">对照索引不可用：${esc(d.no_image_unavailable_reason)}</span>`);
+  }
+  return `<div class="compare">${cols.join('')}</div>
+    <div class="meta">${tags.join('')}</div>
+    ${renderFactHitsImage(d.fact_hits)}`;
+}
+
+/* ------------------------------ 多轮会话（工单5） ------------------------------ */
+/*
+  会话 id 只在「开启多轮」时才往下传。
+  为什么要显式开关：不传 session_id 的后端行为与工单1~4 完全一致（单轮），
+  这样界面上可以直接 A/B 对比「同一句话开不开多轮」的差别，
+  也不会悄悄改变既有问答的语义。
+*/
+const SESSION_ID = 'web-' + Math.random().toString(36).slice(2, 10);
+
+function mtPayload(extra) {
+  const on = $('mt-on').checked;
+  if (!on) return extra;
+  return Object.assign({ session_id: SESSION_ID, mode: $('mt-mode').value }, extra);
+}
+
+/* 上下文面板：把「系统把每轮理解成了什么」摊开 —— 这是多轮消解的输入，
+   也是判断「为什么这一轮解错了」时唯一要看的地方。 */
+function renderContext(session) {
+  const box = $('ctx-body');
+  const turns = (session && session.items) || [];
+  $('ctx-session').textContent = session
+    ? `${session.turns} 轮 / 上限 ${session.max_turns}　模式 ${session.mode}`
+    : '';
+  if (!turns.length) {
+    box.innerHTML = '<div class="empty" style="padding:18px 6px">还没有上下文。开启多轮后连续提问，这里会逐轮记录主体与话题。</div>';
+    return;
+  }
+  box.innerHTML = turns.map((t, i) => {
+    const flags = [];
+    if (t.subject) flags.push(`<span class="tag ok">主体 ${esc(t.subject)}</span>`);
+    else flags.push('<span class="tag warn">主体 未识别</span>');
+    if (t.topic) flags.push(`<span class="tag">话题 ${esc(t.topic)}</span>`);
+    else flags.push('<span class="tag warn">话题 未识别</span>');
+    return `<div class="step" style="flex-direction:column;align-items:flex-start;gap:4px">
+      <div><span class="nm">第 ${i + 1} 轮</span>　${flags.join(' ')}</div>
+      <div style="color:var(--text-3);font-size:11.5px">原话：${esc(t.q)}</div>
+      <div style="color:var(--text-3);font-size:11.5px">检索式：${esc(t.resolved)}</div>
+    </div>`;
+  }).join('') +
+    `<div class="note">下一轮出现「他 / 这个公司 / 那X呢」时，系统会用这里记录的<b>最近一个主体</b>与<b>最近一个话题</b>去补全。</div>`;
+}
+
+async function refreshContext() {
+  if (!$('mt-on').checked) { renderContext(null); return; }
+  try {
+    renderContext(await api('/api/session/' + encodeURIComponent(SESSION_ID)));
+  } catch (e) {
+    // 上下文面板挂掉不该影响问答本身
+    $('ctx-body').innerHTML = `<div class="empty" style="padding:18px 6px">上下文读取失败：${esc(e.message)}</div>`;
+  }
+}
+
+/* 工单原文的 5 轮对话：一键连播，用来现场演示「多轮」这件事 */
+const DEMO_5 = [
+  '报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？',
+  '他参与的哪个工程荣获了国家科技进步一等奖？',
+  '这个公司的法定代表人是谁？',
+  '那武汉力源信息技术股份有限公司呢？',
+  '武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有哪些销售处？',
+];
+
+async function runDemo5() {
+  if (busy) return;
+  $('mt-on').checked = true;
+  try { await api('/api/session/reset', { method: 'POST', body: { session_id: SESSION_ID } }); }
+  catch (e) { /* 重置失败不影响演示 */ }
+  renderContext(null);
+  for (const q of DEMO_5) {
+    await send(q);
+    await new Promise((r) => setTimeout(r, 260));
+  }
+}
+
+function addTurn(question) {
+  const empty = $('chat-empty');
+  if (empty) empty.hidden = true;
+  const el = document.createElement('div');
+  el.className = 'turn';
+  el.innerHTML = `<div class="q"><div class="bubble">${esc(question)}</div></div>
+    <div class="a"><div class="avatar">岩</div><div class="main"><div class="answer">正在检索…</div></div></div>`;
+  $('chat-body').appendChild(el);
+  $('chat-body').scrollTop = $('chat-body').scrollHeight;
+  return el.querySelector('.main');
+}
+
+/* ------------------------------ 检索链路面板 ------------------------------ */
+function renderTrace(qu, rinfo, timing) {
+  const box = $('trace-body');
+  const t = timing || {};
+  $('trace-total').textContent = t.total_ms ? `${t.total_ms} ms` : '';
+  const parts = [];
+
+  parts.push('<div class="sect">① QUERY 理解</div>');
+  if (qu) {
+    // 工单5：多轮消解。放在最前面，因为**它决定了后面所有步骤的输入**——
+    // 看不懂「为什么这个检索式不是我打的那句话」时，答案一定是这一节。
+    const dl = qu.dialogue;
+    if (dl) {
+      const flags = [];
+      if (dl.coref) flags.push('指代消解');
+      if (dl.ellipsis) flags.push('省略补全');
+      if (dl.llm_used) flags.push('大模型兜底');
+      if (dl.degraded) flags.push('<span style="color:var(--amber)">降级</span>');
+      parts.push(`<div class="sect" style="color:var(--brand)">· 多轮上下文消解（模式 ${esc(dl.mode)}）</div>`);
+      parts.push(`<div class="kv"><span>动作</span><span>${flags.length ? flags.join(' + ') : '本轮自包含，未消解'}</span></div>`);
+      parts.push(`<div class="kv"><span>主体</span><span>${esc(dl.subject || '未识别')}</span></div>`);
+      parts.push(`<div class="kv"><span>话题</span><span>${esc(dl.topic || '未识别')}</span></div>`);
+      if (dl.inherited_subject) parts.push(`<div class="kv"><span>继承主体</span><span>${esc(dl.inherited_subject)}</span></div>`);
+      if (dl.inherited_topic) parts.push(`<div class="kv"><span>继承话题</span><span>${esc(dl.inherited_topic)}</span></div>`);
+      if (dl.rule_evidence) parts.push(`<div class="kv"><span>规则依据分</span><span>${dl.rule_evidence}</span></div>`);
+      if (dl.reason) parts.push(`<div class="note${dl.degraded ? '' : ' ok'}">${esc(dl.reason)}</div>`);
+      parts.push(`<div style="margin:6px 0"><span style="color:var(--text-3)">你的原话：</span><br/>${esc(dl.question)}</div>`);
+      parts.push(`<div style="margin:6px 0"><span style="color:var(--text-3)">送检索的式子：</span><br/>${esc(dl.resolved)}</div>`);
+    }
+    parts.push(`<div class="kv"><span>意图</span><span>${esc(qu.intent)}</span></div>`);
+    parts.push(`<div class="kv"><span>耗时</span><span>${qu.ms} ms</span></div>`);
+    // 工单2 优化：高置信直通。命中时这一步只花了 ~26ms（试检索），没有 LLM 往返。
+    if (qu.bypassed) {
+      parts.push(`<div class="kv"><span>策略</span><span style="color:var(--green)">高置信直通</span></div>`);
+      parts.push(`<div class="note ok">首条依据分 <b>${qu.bypass_evidence}</b> ≥ 0.88，规则归一化已足够可靠，` +
+        `跳过 LLM 改写，省下约 900ms 的一次往返。</div>`);
+    } else {
+      parts.push(`<div class="kv"><span>策略</span><span>LLM 改写</span></div>`);
+      parts.push(`<div class="kv"><span>降级</span><span>${qu.degraded ? '是（规则兜底）' : '否'}</span></div>`);
+    }
+    const rq = qu.retrieval_query || qu.rewritten;
+    if (rq) parts.push(`<div style="margin-top:6px"><span style="color:var(--text-3)">实际检索式：</span><br/>${esc(rq)}</div>`);
+    if (qu.rewrite_rejected) {
+      parts.push('<div class="note">模型改写把答案写进了检索式（如「…的法定代表人是何伟」），' +
+        '这类改写会让检索只找得到"已知答案"、失去查证意义，已按规则丢弃并回落到原话。</div>');
+    }
+    if (qu.sub_questions && qu.sub_questions.length > 1) {
+      parts.push(`<div style="margin-top:6px;color:var(--text-3)">子问题：</div>` +
+        qu.sub_questions.map((s) => `<div style="padding-left:8px">· ${esc(s)}</div>`).join(''));
+    }
+  }
+
+  parts.push('<div class="sect">② 检索</div>');
+  if (rinfo && rinfo.trace && rinfo.trace.steps) {
+    rinfo.trace.steps.forEach((s) => {
+      parts.push(`<div class="step"><span class="nm">${esc(s.name)}</span><span style="color:var(--text-3)">${esc(s.note || '')}</span><span class="ms">${s.ms} ms</span></div>`);
+    });
+  }
+  const f = rinfo && rinfo.trace && rinfo.trace.fusion;
+  if (f) {
+    parts.push(`<div class="kv"><span>候选池</span><span>${f.pool_size}</span></div>`);
+    parts.push(`<div class="kv"><span>融合 β / δ</span><span>${f.beta} / ${f.delta}</span></div>`);
+    parts.push(`<div class="kv"><span>依据分区间</span><span>${f.evidence_range[0]} ~ ${f.evidence_range[1]}</span></div>`);
+    parts.push(`<div class="kv"><span>阈值 / 保留</span><span>${f.min_evidence} / ${f.kept}</span></div>`);
+  }
+  if (rinfo && rinfo.gated) {
+    parts.push('<div class="note">检索被阈值闸门拦空：资料中没有达到依据分下限的片段，模型会如实说明依据不足。</div>');
+  } else if (f) {
+    parts.push('<div class="note ok">闸门通过：依据分达到下限，答案将基于上述片段生成。</div>');
+  }
+  if (rinfo && rinfo.used_query) {
+    parts.push(`<div class="sect">③ 实际检索用的 QUERY</div><div style="font-family:var(--mono);font-size:12px;word-break:break-all">${esc(rinfo.used_query)}</div>`);
+  }
+  box.innerHTML = parts.join('');
+}
+
+/* ------------------------------ 发送 ------------------------------ */
+let busy = false;
+
+function setBusy(v) {
+  busy = v;
+  $('btn-send').disabled = v;
+  $('btn-send').textContent = v ? '生成中…' : '发送';
+}
+
+async function send(question) {
+  if (busy || !question.trim()) return;
+  setBusy(true);
+  $('hint').textContent = '';
+  const main = addTurn(question);
+  const answerEl = main.querySelector('.answer');
+  const cmode = $('cmode').value;
+  const topk = parseInt($('topk').value, 10) || 6;
+
+  // 对比「本系统 vs 纯 LLM」：走工单1 的对比接口
+  if (cmode === 'llm') {
+    answerEl.textContent = '正在分别跑 RAG 与纯 LLM…';
+    try {
+      const d = await api('/api/compare', { method: 'POST', body: { question, top_k: topk } });
+      main.innerHTML = `
+        <div class="compare">
+          <div class="col rag"><div class="ch">RAG（基于文档）</div><div class="cb">${highlightPages(d.rag.answer)}</div></div>
+          <div class="col llm"><div class="ch">纯 LLM（无检索）</div><div class="cb">${esc(d.llm_only.answer)}</div></div>
+        </div>
+        <div class="meta">
+          <span class="tag ok">RAG ${d.rag.timing.total_ms} ms</span>
+          <span class="tag">纯LLM ${d.llm_only.timing.total_ms} ms</span>
+        </div>
+        ${renderCitations(d.rag.citations)}`;
+      renderTrace(d.rag.understanding, d.rag.retrieval, d.rag.timing);
+    } catch (e) {
+      main.innerHTML = `<div class="answer" style="color:var(--brand)">对比失败：${esc(e.message)}</div>`;
+    } finally {
+      setBusy(false);
+      $('chat-body').scrollTop = $('chat-body').scrollHeight;
+    }
+    return;
+  }
+
+  // 对比「图像不解析 vs 多模态解析」（工单4 核心演示）：走 /api/compare-image
+  if (cmode === 'img') {
+    answerEl.textContent = '正在分别跑「图像不解析（优化前）」与「图像多模态解析（本工单）」…';
+    try {
+      const d = await api('/api/compare-image', {
+        method: 'POST',
+        body: { question, top_k: topk, include_clip: true },
+      });
+      main.innerHTML = renderImageCompare(d) + renderCitations(d.image.citations);
+      renderTrace(null, d.image.steps ? { steps: d.image.steps } : null, d.image.timing);
+    } catch (e) {
+      main.innerHTML = `<div class="answer" style="color:var(--brand)">对比失败：${esc(e.message)}</div>`;
+    } finally {
+      setBusy(false);
+      $('chat-body').scrollTop = $('chat-body').scrollHeight;
+    }
+    return;
+  }
+
+  // 对比「表格不结构化 vs 结构化」（工单3 核心演示）：走 /api/compare-table
+  if (cmode === 'tbl') {
+    answerEl.textContent = '正在分别跑「表格不结构化（优化前）」与「表格结构化（本工单）」…';
+    try {
+      const d = await api('/api/compare-table', {
+        method: 'POST',
+        body: { question, top_k: topk, include_llm: false },
+      });
+      main.innerHTML = renderTableCompare(d) + renderCitations(d.table.citations);
+      renderTrace(d.table.understanding, d.table.retrieval, d.table.timing);
+    } catch (e) {
+      main.innerHTML = `<div class="answer" style="color:var(--brand)">对比失败：${esc(e.message)}</div>`;
+    } finally {
+      setBusy(false);
+      $('chat-body').scrollTop = $('chat-body').scrollHeight;
+    }
+    return;
+  }
+
+  // 对比「优化前 vs 优化后」（工单2 核心演示）：走 /api/compare-opt
+  if (cmode === 'opt' || cmode === 'all') {
+    answerEl.textContent = '正在分别跑「优化前（朴素 RAG）」与「优化后」…';
+    try {
+      const d = await api('/api/compare-opt', {
+        method: 'POST',
+        body: { question, top_k: topk, include_llm: cmode === 'all' },
+      });
+      main.innerHTML = renderOptCompare(d) + renderCitations(d.optimized.citations);
+      renderTrace(d.optimized.understanding, d.optimized.retrieval, d.optimized.timing);
+    } catch (e) {
+      main.innerHTML = `<div class="answer" style="color:var(--brand)">对比失败：${esc(e.message)}</div>`;
+    } finally {
+      setBusy(false);
+      $('chat-body').scrollTop = $('chat-body').scrollHeight;
+    }
+    return;
+  }
+
+  // 流式模式
+  const meta = { qu: null, rinfo: null, timing: null, cites: [] };
+  let buffer = '';
+  try {
+    const res = await fetch(API_BASE + '/api/ask/stream', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(mtPayload({ question, top_k: topk })),
+    });
+    if (!res.ok || !res.body) throw new Error('HTTP ' + res.status);
+    const reader = res.body.getReader();
+    const dec = new TextDecoder('utf-8');
+    let sse = '';
+
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      sse += dec.decode(value, { stream: true });
+      const frames = sse.split('\n\n');
+      sse = frames.pop();
+      for (const frame of frames) {
+        const line = frame.split('\n').find((l) => l.startsWith('data:'));
+        if (!line) continue;
+        let ev;
+        try { ev = JSON.parse(line.slice(5).trim()); } catch (e) { continue; }
+        const d = ev.data;
+
+        if (ev.type === 'stage') {
+          if (d.name === 'understand' && d.status === 'done') meta.qu = d.detail;
+          if (d.name === 'retrieve' && d.status === 'done') { meta.rinfo = d.detail; if (d.detail) meta.rinfo.trace = d.detail.trace; }
+          if (d.status === 'running') $('hint').textContent = `正在${d.name === 'generate' ? '生成回答' : d.name === 'retrieve' ? '检索文档' : '理解问题'}…`;
+        } else if (ev.type === 'meta') {
+          if (d.mode === 'no_evidence') answerEl.textContent = '';
+        } else if (ev.type === 'delta') {
+          buffer += d;
+          answerEl.innerHTML = highlightPages(buffer);
+          $('chat-body').scrollTop = $('chat-body').scrollHeight;
+        } else if (ev.type === 'citations') {
+          meta.cites = d;
+        } else if (ev.type === 'done') {
+          meta.timing = d.timing;
+          buffer = d.answer || buffer;
+        } else if (ev.type === 'error') {
+          throw new Error(d);
+        }
+      }
+    }
+
+    main.innerHTML = renderAnswerBlock(
+      { answer: buffer, mode: meta.rinfo && meta.rinfo.gated ? 'no_evidence' : 'rag',
+        timing: meta.timing, citations: meta.cites }
+    );
+    renderTrace(meta.qu, meta.rinfo, meta.timing);
+    $('hint').textContent = '';
+  } catch (e) {
+    answerEl.innerHTML = `<span style="color:var(--brand)">请求失败：${esc(e.message)}</span>`;
+    $('hint').textContent = '';
+  } finally {
+    await refreshContext();
+    setBusy(false);
+    $('chat-body').scrollTop = $('chat-body').scrollHeight;
+  }
+}
+
+/* ------------------------------ 语音输入 ------------------------------ */
+function setupVoice() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const btn = $('btn-voice');
+  if (!SR) {
+    btn.disabled = true;
+    btn.title = '当前浏览器不支持语音识别（建议使用 Chrome / Edge）';
+    return;
+  }
+  let rec = null, running = false;
+  btn.addEventListener('click', () => {
+    if (running) { rec && rec.stop(); return; }
+    rec = new SR();
+    rec.lang = 'zh-CN';
+    rec.interimResults = true;
+    rec.continuous = false;
+    let finalText = '';
+    rec.onresult = (e) => {
+      let interim = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        const t = e.results[i][0].transcript;
+        if (e.results[i].isFinal) finalText += t; else interim += t;
+      }
+      $('input').value = finalText + interim;
+    };
+    rec.onerror = (e) => { $('hint').textContent = '语音识别出错：' + e.error; };
+    rec.onend = () => { running = false; btn.textContent = '🎤 语音'; };
+    try {
+      rec.start();
+      running = true;
+      btn.textContent = '⏹ 停止';
+      $('hint').textContent = '正在听…';
+    } catch (e) {
+      $('hint').textContent = '语音启动失败：' + e.message;
+    }
+  });
+}
+
+/* --------------------- 一键跑 10 题：优化前后对比总表 --------------------- */
+async function runBatchCompare() {
+  if (busy) return;
+  const btn = $('btn-batch');
+  setBusy(true);
+  btn.disabled = true;
+  $('hint').textContent = `正在批量对比 ${qs.length} 题…`;
+
+  const qs = await api('/api/questions').catch(() => []);
+  if (!qs.length) { setBusy(false); btn.disabled = false; $('hint').textContent = ''; return; }
+
+  const main = addTurn(`一键对比：验收 ${qs.length} 题 × 「优化前 / 优化后」`);
+  const answerEl = main.querySelector('.answer');
+  const rows = [];
+  let i = 0;
+
+  const paint = () => {
+    answerEl.innerHTML = `<div style="color:var(--text-2);margin-bottom:8px">
+      已完成 ${i}/${qs.length}…</div>` + table();
+  };
+  const table = () => {
+    const body = rows.map((r) => {
+      if (r.err) return `<tr><td>${r.id}</td><td colspan="5" style="color:var(--brand)">${esc(r.err)}</td></tr>`;
+      const f = r.fh || {};
+      const cell = (o) => o
+        ? `<span class="fact-rate ${o.hit.length === o.must_have.length ? 'good' : 'bad'}">${o.hit.length}/${o.must_have.length}</span>`
+        : '—';
+      const ms = (o) => (o && o.timing && o.timing.total_ms) ? `${o.timing.total_ms} ms` : '—';
+      return `<tr><td><b>${r.id}</b></td><td>${cell(f.naive)}</td><td>${cell(f.optimized)}</td>
+        <td>${ms(r.naive)}</td><td>${ms(r.optimized)}</td>
+        <td style="text-align:left;color:var(--text-3);font-size:11.5px">${esc(r.q.slice(0, 28))}…</td></tr>`;
+    }).join('');
+    return `<table class="btable"><thead><tr>
+        <th>id</th><th>优化前<br/>关键事实</th><th>优化后<br/>关键事实</th>
+        <th>优化前耗时</th><th>优化后耗时</th><th>问题</th></tr></thead><tbody>${body}</tbody></table>`;
+  };
+
+  paint();
+  for (const q of qs) {
+    try {
+      const topk = parseInt($('topk').value, 10) || 6;
+      const d = await api('/api/compare-opt', { method: 'POST', body: { question: q.question, top_k: topk } });
+      rows.push({ id: q.id, q: q.question, fh: d.fact_hits, naive: d.naive, optimized: d.optimized });
+    } catch (e) {
+      rows.push({ id: q.id, q: q.question, err: e.message });
+    }
+    i++;
+    paint();
+    $('chat-body').scrollTop = $('chat-body').scrollHeight;
+  }
+
+  const full = rows.filter((r) => !r.err);
+  const before = full.filter((r) => r.fh && r.fh.naive && r.fh.naive.hit.length === r.fh.naive.must_have.length).length;
+  const after = full.filter((r) => r.fh && r.fh.optimized && r.fh.optimized.hit.length === r.fh.optimized.must_have.length).length;
+  const avg = (k) => {
+    const v = full.map((r) => r[k] && r[k].timing && r[k].timing.total_ms).filter(Boolean);
+    return v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length) : '—';
+  };
+  answerEl.innerHTML = `<div class="note ok" style="margin-top:0">
+      10 题关键事实全部命中的题目数：<b>优化前 ${before}/10</b> → <b>优化后 ${after}/10</b>；
+      平均响应时间：优化前 ${avg('naive')} ms → 优化后 ${avg('optimized')} ms</div>` + table();
+
+  setBusy(false);
+  btn.disabled = false;
+  $('hint').textContent = '';
+}
+
+/* ------------- 一键跑全部验收题：表格解析前后对比总表（工单3） ------------- */
+async function runBatchTableCompare() {
+  if (busy) return;
+  const btn = $('btn-batch-tbl');
+  setBusy(true);
+  btn.disabled = true;
+  $('hint').textContent = '正在批量对比表格解析前后…';
+
+  const qs = await api('/api/questions').catch(() => []);
+  if (!qs.length) { setBusy(false); btn.disabled = false; $('hint').textContent = ''; return; }
+
+  const main = addTurn(`一键对比：验收 ${qs.length} 题 × 「表格不结构化 / 结构化」`);
+  const answerEl = main.querySelector('.answer');
+  const rows = [];
+  let i = 0;
+
+  const cell = (o) => o
+    ? `<span class="fact-rate ${o.hit.length === o.must_have.length ? 'good' : 'bad'}">${o.hit.length}/${o.must_have.length}</span>`
+    : '—';
+  const table = () => {
+    const body = rows.map((r) => {
+      if (r.err) return `<tr><td>${r.id}</td><td colspan="4" style="color:var(--brand)">${esc(r.err)}</td></tr>`;
+      const f = r.fh || {};
+      const tb = (o) => (o && o.citations) ? o.citations.filter((c) => c.type === 'table').length : '—';
+      const ms = (o) => (o && o.timing && o.timing.total_ms) ? `${o.timing.total_ms} ms` : '—';
+      return `<tr><td><b>${r.id}</b></td><td>${cell(f.no_table)}</td><td>${cell(f.table)}</td>
+        <td>${tb(r.no_table)} / ${tb(r.table)}</td><td>${ms(r.table)}</td>
+        <td style="text-align:left;color:var(--text-3);font-size:11.5px">${esc(r.q.slice(0, 30))}…</td></tr>`;
+    }).join('');
+    return `<table class="btable"><thead><tr>
+        <th>id</th><th>不结构化<br/>关键事实</th><th>结构化<br/>关键事实</th>
+        <th>表格块<br/>前/后</th><th>优化后耗时</th><th>问题</th></tr></thead><tbody>${body}</tbody></table>`;
+  };
+  const paint = () => {
+    answerEl.innerHTML = `<div style="color:var(--text-2);margin-bottom:8px">
+      已完成 ${i}/${qs.length}…</div>` + table();
+  };
+
+  paint();
+  for (const q of qs) {
+    try {
+      const topk = parseInt($('topk').value, 10) || 6;
+      const d = await api('/api/compare-table', { method: 'POST', body: { question: q.question, top_k: topk } });
+      rows.push({ id: q.id, q: q.question, fh: d.fact_hits, no_table: d.no_table, table: d.table });
+    } catch (e) {
+      rows.push({ id: q.id, q: q.question, err: e.message });
+    }
+    i++;
+    paint();
+    $('chat-body').scrollTop = $('chat-body').scrollHeight;
+  }
+
+  const full = rows.filter((r) => !r.err);
+  const before = full.filter((r) => r.fh && r.fh.no_table && r.fh.no_table.hit.length === r.fh.no_table.must_have.length).length;
+  const after = full.filter((r) => r.fh && r.fh.table && r.fh.table.hit.length === r.fh.table.must_have.length).length;
+  answerEl.innerHTML = `<div class="note ok" style="margin-top:0">
+      关键事实全部命中的题目数：<b>表格不结构化 ${before}/${full.length}</b> →
+      <b>表格结构化 ${after}/${full.length}</b>；
+      表格块命中数 = 两条链路各自召回的片段里 type=table 的条数</div>` + table();
+
+  setBusy(false);
+  btn.disabled = false;
+  $('hint').textContent = '';
+}
+
+/* ------------------------------ 事件绑定 ------------------------------ */
+$('btn-send').addEventListener('click', () => {
+  const q = $('input').value.trim();
+  if (!q) return;
+  $('input').value = '';
+  send(q);
+});
+$('input').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    const q = $('input').value.trim();
+    if (!q) return;
+    $('input').value = '';
+    send(q);
+  }
+});
+$('btn-batch').addEventListener('click', runBatchCompare);
+$('btn-batch-tbl').addEventListener('click', runBatchTableCompare);
+$('btn-demo5').addEventListener('click', runDemo5);
+$('btn-ctx-reset').addEventListener('click', async () => {
+  try {
+    await api('/api/session/reset', { method: 'POST', body: { session_id: SESSION_ID } });
+    $('chat-body').innerHTML = '';
+    const empty = $('chat-empty');
+    if (empty) empty.hidden = false;
+    renderContext(null);
+  } catch (e) {
+    $('hint').textContent = '清空失败：' + e.message;
+  }
+});
+$('mt-on').addEventListener('change', () => {
+  renderContext(null);
+  $('hint').textContent = $('mt-on').checked
+    ? '多轮已开启：可以直接问「他」「这个公司」「那力源呢？」'
+    : '多轮已关闭：每句话都按单轮理解';
+});
+document.addEventListener('click', (e) => {
+  const chip = e.target.closest('.qp');
+  if (chip) {
+    const q = chip.dataset.q || chip.textContent.trim();
+    send(q);
+    return;
+  }
+  const ct = e.target.closest('.ct');
+  if (ct) {
+    const pre = ct.parentElement.querySelector('pre');
+    if (pre) pre.hidden = !pre.hidden;
+  }
+});
+
+refreshStatus();
+loadQuestions();
+setupVoice();
+refreshContext();
+setInterval(refreshStatus, 30000);
+</script>
+</body>
+</html>
