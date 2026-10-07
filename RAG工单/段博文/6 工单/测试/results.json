@@ -1,0 +1,40 @@
+{
+  "results": [
+    {
+      "name": "混合检索(hybrid/rrf/cross_encoder)",
+      "accuracy": 100.0,
+      "recall": 100.0,
+      "avg_time": 16.65859866142273
+    },
+    {
+      "name": "向量检索(vector)",
+      "accuracy": 100.0,
+      "recall": 100.0,
+      "avg_time": 6.086240363121033
+    },
+    {
+      "name": "全文检索(fulltext)",
+      "accuracy": 0.0,
+      "recall": 0.0,
+      "avg_time": 8.43375105857849
+    },
+    {
+      "name": "混合(weighted融合)",
+      "accuracy": 100.0,
+      "recall": 100.0,
+      "avg_time": 10.515862782796225
+    },
+    {
+      "name": "混合(voting融合)",
+      "accuracy": 100.0,
+      "recall": 100.0,
+      "avg_time": 8.875643253326416
+    }
+  ],
+  "main": {
+    "name": "混合检索(hybrid/rrf/cross_encoder)",
+    "accuracy": 100.0,
+    "recall": 100.0,
+    "avg_time": 16.65859866142273
+  }
+}

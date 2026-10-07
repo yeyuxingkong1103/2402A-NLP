@@ -1,0 +1,1637 @@
+2026-10-06 21:22:32 | INFO     | __main__:64 | [启动] 开始初始化 RAG-PDF 问答系统（混合检索策略版） ...
+2026-10-06 21:22:36 | INFO     | db_milvus:43 | 向量模型已加载：D:\Projects\Models\bge-m3
+2026-10-06 21:22:36 | INFO     | __main__:68 | [启动] 本地 bge-m3 向量模型就绪
+2026-10-06 21:22:36 | INFO     | db_milvus:72 | Milvus 客户端已连接：http://localhost:19530
+2026-10-06 21:22:36 | INFO     | db_milvus:63 | Milvus 向量存储已连接：http://localhost:19530/rag_pdf_qa_v4
+2026-10-06 21:22:36 | INFO     | __main__:72 | [启动] Milvus 集合连接就绪
+2026-10-06 21:22:42 | INFO     | retriever:151 | 重排模型已加载：D:\Projects\Models\BAAI--bge-reranker-large\bge-reranker-large
+2026-10-06 21:22:42 | INFO     | __main__:76 | [启动] bge-reranker 重排模型就绪
+2026-10-06 21:22:42 | INFO     | retriever:171 | 开始重建全文检索倒排索引（BM25 + 多字段）...
+2026-10-06 21:22:42 | ERROR    | db_milvus:148 | 获取所有文本失败：<MilvusException: (code=1100, message=field page not exist: invalid parameter)>
+2026-10-06 21:22:42 | WARNING  | retriever:175 | 没有可用于索引的文本
+2026-10-06 21:22:42 | INFO     | __main__:82 | [启动] 全文检索倒排索引（BM25多字段）就绪
+2026-10-06 21:22:42 | INFO     | __main__:86 | [启动] 完成！当前检索配置：{'strategy': 'hybrid', 'fusion': 'rrf', 'reranker': 'cross_encoder', 'vector_weight': 0.6, 'fulltext_weight': 0.4, 'rrf_k': 60}
+2026-10-06 21:22:42 | INFO     | __main__:87 | [启动] 打开 http://127.0.0.1:8000/docs 测试
+2026-10-06 21:22:58 | INFO     | retriever:695 | 检索缓存已清空
+2026-10-06 21:22:58 | INFO     | retriever:91 | 检索配置已更新：{'strategy': 'hybrid', 'fusion': 'rrf', 'reranker': 'cross_encoder', 'vector_weight': 0.6, 'fulltext_weight': 0.4, 'rrf_k': 60}
+2026-10-06 21:22:58 | INFO     | __main__:201 | 检索配置已更新为：{'strategy': 'hybrid', 'fusion': 'rrf', 'reranker': 'cross_encoder', 'vector_weight': 0.6, 'fulltext_weight': 0.4, 'rrf_k': 60}
+2026-10-06 21:22:58 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-06 21:22:59 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:22:59 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:22:59 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:22:59 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:23:02 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-06 21:23:02 | INFO     | __main__:354 | 检索：query='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，命中 5 条，耗时 4.419s
+2026-10-06 21:23:02 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-06 21:23:02 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:23:02 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:23:02 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:23:02 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:23:05 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-06 21:23:05 | INFO     | __main__:412 | 问答：session=anon-deb7f0958457，原问题='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，改写后='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'，引用 3 条资料，检索 2.842s，stream=False
+2026-10-06 21:23:07 | INFO     | llm_client:151 | LLM 生成完成：耗时 2.12s，答案长度 518
+2026-10-06 21:23:07 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉兴图新科的法定代表人是谁？...
+2026-10-06 21:23:07 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:23:07 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:23:07 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:23:07 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:23:10 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-06 21:23:10 | INFO     | __main__:354 | 检索：query='武汉兴图新科的法定代表人是谁？'，命中 5 条，耗时 3.207s
+2026-10-06 21:23:10 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉兴图新科的法定代表人是谁？...
+2026-10-06 21:23:10 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:23:10 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:23:10 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:23:10 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:23:13 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-06 21:23:13 | INFO     | __main__:412 | 问答：session=anon-d98f070d9644，原问题='武汉兴图新科的法定代表人是谁？'，改写后='武汉兴图新科的法定代表人是谁？'，引用 3 条资料，检索 3.121s，stream=False
+2026-10-06 21:23:15 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.60s，答案长度 166
+2026-10-06 21:23:15 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-06 21:23:15 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:23:15 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:23:15 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:23:15 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:23:18 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-06 21:23:18 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的法定代表人是谁？'，命中 5 条，耗时 3.068s
+2026-10-06 21:23:18 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-06 21:23:18 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:23:18 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:23:18 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:23:18 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:23:21 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-06 21:23:21 | INFO     | __main__:412 | 问答：session=anon-51b5a523027d，原问题='武汉力源信息技术股份有限公司的法定代表人是谁？'，改写后='武汉力源信息技术股份有限公司的法定代表人是谁？'，引用 3 条资料，检索 2.975s，stream=False
+2026-10-06 21:23:22 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.08s，答案长度 128
+2026-10-06 21:23:22 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？...
+2026-10-06 21:23:22 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:23:22 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:23:22 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:23:22 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:23:26 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-06 21:23:26 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处'，命中 5 条，耗时 4.256s
+2026-10-06 21:23:27 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？...
+2026-10-06 21:23:27 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:23:27 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:23:27 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:23:27 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:23:30 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-06 21:23:30 | INFO     | __main__:412 | 问答：session=anon-3483f580a5ea，原问题='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处'，改写后='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？'，引用 3 条资料，检索 3.934s，stream=False
+2026-10-06 21:23:32 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.54s，答案长度 213
+2026-10-06 21:23:32 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-06 21:23:32 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:23:32 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:23:32 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:23:32 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:23:36 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-06 21:23:36 | INFO     | __main__:354 | 检索：query='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，命中 5 条，耗时 3.784s
+2026-10-06 21:23:36 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-06 21:23:36 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:23:36 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:23:36 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:23:36 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:23:39 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-06 21:23:39 | INFO     | __main__:412 | 问答：session=anon-f605ecfb6e3d，原问题='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，改写后='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，引用 3 条资料，检索 3.326s，stream=False
+2026-10-06 21:23:41 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.44s，答案长度 132
+2026-10-06 21:23:41 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-06 21:23:41 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:23:41 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:23:41 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:23:41 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:23:44 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-06 21:23:44 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的主营业务是什么？'，命中 5 条，耗时 2.913s
+2026-10-06 21:23:44 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-06 21:23:44 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:23:44 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:23:44 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:23:44 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:23:46 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-06 21:23:46 | INFO     | __main__:412 | 问答：session=anon-73631cf7a1a0，原问题='武汉力源信息技术股份有限公司的主营业务是什么？'，改写后='武汉力源信息技术股份有限公司的主营业务是什么？'，引用 3 条资料，检索 2.904s，stream=False
+2026-10-06 21:23:49 | INFO     | llm_client:151 | LLM 生成完成：耗时 2.32s，答案长度 545
+2026-10-06 21:23:49 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：兴图新科的主营业务收入构成是怎样的？...
+2026-10-06 21:23:49 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:23:49 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:23:49 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:23:49 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:23:52 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-06 21:23:52 | INFO     | __main__:354 | 检索：query='兴图新科的主营业务收入构成是怎样的？'，命中 5 条，耗时 2.825s
+2026-10-06 21:23:52 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：兴图新科的主营业务收入构成是怎样的？...
+2026-10-06 21:23:52 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:23:52 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:23:52 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:23:52 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:23:54 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-06 21:23:54 | INFO     | __main__:412 | 问答：session=anon-a1603ef91c11，原问题='兴图新科的主营业务收入构成是怎样的？'，改写后='兴图新科的主营业务收入构成是怎样的？'，引用 3 条资料，检索 2.698s，stream=False
+2026-10-06 21:23:57 | INFO     | llm_client:151 | LLM 生成完成：耗时 2.55s，答案长度 668
+2026-10-06 21:23:57 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：招股说明书中提到的主要风险因素有哪些？...
+2026-10-06 21:23:57 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:23:57 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:23:57 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:23:57 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:24:00 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-06 21:24:00 | INFO     | __main__:354 | 检索：query='招股说明书中提到的主要风险因素有哪些？'，命中 5 条，耗时 2.643s
+2026-10-06 21:24:00 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：招股说明书中提到的主要风险因素有哪些？...
+2026-10-06 21:24:00 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:24:00 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:24:00 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:24:00 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:24:02 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-06 21:24:02 | INFO     | __main__:412 | 问答：session=anon-3b18287a5fe6，原问题='招股说明书中提到的主要风险因素有哪些？'，改写后='招股说明书中提到的主要风险因素有哪些？'，引用 3 条资料，检索 2.593s，stream=False
+2026-10-06 21:24:04 | INFO     | llm_client:151 | LLM 生成完成：耗时 2.00s，答案长度 485
+2026-10-06 21:24:04 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：What was the revenue of Wuhan Xingtu Xinke from mi...
+2026-10-06 21:24:04 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:24:04 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:24:04 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:24:04 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:24:07 | INFO     | retriever:673 | 重排后（cross_encoder）：1 条
+2026-10-06 21:24:07 | INFO     | __main__:354 | 检索：query='What was the revenue of Wuhan '，命中 1 条，耗时 3.145s
+2026-10-06 21:24:07 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：What was the revenue of Wuhan Xingtu Xinke from mi...
+2026-10-06 21:24:07 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:24:07 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:24:07 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:24:07 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:24:10 | INFO     | retriever:673 | 重排后（cross_encoder）：1 条
+2026-10-06 21:24:10 | INFO     | __main__:412 | 问答：session=anon-3aedea291324，原问题='What was the revenue of Wuhan '，改写后='What was the revenue of Wuhan Xingtu Xinke from mi'，引用 1 条资料，检索 2.796s，stream=False
+2026-10-06 21:24:13 | INFO     | llm_client:151 | LLM 生成完成：耗时 2.53s，答案长度 698
+2026-10-06 21:24:13 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-06 21:24:13 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:24:13 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:24:13 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:24:13 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:24:16 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-06 21:24:16 | INFO     | __main__:354 | 检索：query='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，命中 5 条，耗时 3.823s
+2026-10-06 21:24:16 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-06 21:24:17 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:24:17 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:24:17 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:24:17 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:24:20 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-06 21:24:20 | INFO     | __main__:412 | 问答：session=anon-8056b7f934f4，原问题='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，改写后='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，引用 3 条资料，检索 4.042s，stream=False
+2026-10-06 21:24:23 | INFO     | llm_client:151 | LLM 生成完成：耗时 2.79s，答案长度 597
+2026-10-06 21:24:23 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-06 21:24:23 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:24:23 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:24:26 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-06 21:24:26 | INFO     | __main__:354 | 检索：query='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，命中 5 条，耗时 2.772s
+2026-10-06 21:24:26 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-06 21:24:26 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:24:26 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:24:29 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-06 21:24:29 | INFO     | __main__:412 | 问答：session=anon-5a61385ddee7，原问题='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，改写后='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'，引用 3 条资料，检索 2.586s，stream=False
+2026-10-06 21:24:29 | INFO     | llm_client:140 | LLM 缓存命中：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别...
+2026-10-06 21:24:29 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉兴图新科的法定代表人是谁？...
+2026-10-06 21:24:29 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:24:29 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:24:32 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-06 21:24:32 | INFO     | __main__:354 | 检索：query='武汉兴图新科的法定代表人是谁？'，命中 5 条，耗时 3.405s
+2026-10-06 21:24:32 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉兴图新科的法定代表人是谁？...
+2026-10-06 21:24:32 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:24:32 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:24:35 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-06 21:24:35 | INFO     | __main__:412 | 问答：session=anon-cf426095bfaa，原问题='武汉兴图新科的法定代表人是谁？'，改写后='武汉兴图新科的法定代表人是谁？'，引用 3 条资料，检索 3.357s，stream=False
+2026-10-06 21:24:35 | INFO     | llm_client:140 | LLM 缓存命中：武汉兴图新科的法定代表人是谁？...
+2026-10-06 21:24:35 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-06 21:24:36 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:24:36 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:24:38 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-06 21:24:38 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的法定代表人是谁？'，命中 5 条，耗时 2.837s
+2026-10-06 21:24:38 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-06 21:24:38 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:24:38 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:24:41 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-06 21:24:41 | INFO     | __main__:412 | 问答：session=anon-d4699076b726，原问题='武汉力源信息技术股份有限公司的法定代表人是谁？'，改写后='武汉力源信息技术股份有限公司的法定代表人是谁？'，引用 3 条资料，检索 2.856s，stream=False
+2026-10-06 21:24:41 | INFO     | llm_client:140 | LLM 缓存命中：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-06 21:24:41 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？...
+2026-10-06 21:24:41 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:24:41 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:24:45 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-06 21:24:45 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处'，命中 5 条，耗时 4.006s
+2026-10-06 21:24:45 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？...
+2026-10-06 21:24:45 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:24:45 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:24:49 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-06 21:24:49 | INFO     | __main__:412 | 问答：session=anon-df0b9629ef51，原问题='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处'，改写后='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？'，引用 3 条资料，检索 3.961s，stream=False
+2026-10-06 21:24:49 | INFO     | llm_client:140 | LLM 缓存命中：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处...
+2026-10-06 21:24:49 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-06 21:24:49 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:24:49 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:24:52 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-06 21:24:52 | INFO     | __main__:354 | 检索：query='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，命中 5 条，耗时 3.239s
+2026-10-06 21:24:52 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-06 21:24:53 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:24:53 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:24:56 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-06 21:24:56 | INFO     | __main__:412 | 问答：session=anon-05f6641a17fa，原问题='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，改写后='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，引用 3 条资料，检索 3.263s，stream=False
+2026-10-06 21:24:56 | INFO     | llm_client:140 | LLM 缓存命中：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-06 21:24:56 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-06 21:24:56 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:24:56 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:24:58 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-06 21:24:58 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的主营业务是什么？'，命中 5 条，耗时 2.68s
+2026-10-06 21:24:58 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-06 21:24:58 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:24:58 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:01 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-06 21:25:01 | INFO     | __main__:412 | 问答：session=anon-eb7dc2dacc63，原问题='武汉力源信息技术股份有限公司的主营业务是什么？'，改写后='武汉力源信息技术股份有限公司的主营业务是什么？'，引用 3 条资料，检索 2.744s，stream=False
+2026-10-06 21:25:01 | INFO     | llm_client:140 | LLM 缓存命中：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-06 21:25:01 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：兴图新科的主营业务收入构成是怎样的？...
+2026-10-06 21:25:01 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:01 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:04 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-06 21:25:04 | INFO     | __main__:354 | 检索：query='兴图新科的主营业务收入构成是怎样的？'，命中 5 条，耗时 2.445s
+2026-10-06 21:25:04 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：兴图新科的主营业务收入构成是怎样的？...
+2026-10-06 21:25:04 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:04 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:06 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-06 21:25:06 | INFO     | __main__:412 | 问答：session=anon-7ee9e60ac93c，原问题='兴图新科的主营业务收入构成是怎样的？'，改写后='兴图新科的主营业务收入构成是怎样的？'，引用 3 条资料，检索 2.689s，stream=False
+2026-10-06 21:25:06 | INFO     | llm_client:140 | LLM 缓存命中：兴图新科的主营业务收入构成是怎样的？...
+2026-10-06 21:25:06 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：招股说明书中提到的主要风险因素有哪些？...
+2026-10-06 21:25:06 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:06 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:09 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-06 21:25:09 | INFO     | __main__:354 | 检索：query='招股说明书中提到的主要风险因素有哪些？'，命中 5 条，耗时 2.825s
+2026-10-06 21:25:09 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：招股说明书中提到的主要风险因素有哪些？...
+2026-10-06 21:25:09 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:09 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:12 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-06 21:25:12 | INFO     | __main__:412 | 问答：session=anon-9da4e11ae8c7，原问题='招股说明书中提到的主要风险因素有哪些？'，改写后='招股说明书中提到的主要风险因素有哪些？'，引用 3 条资料，检索 2.704s，stream=False
+2026-10-06 21:25:12 | INFO     | llm_client:140 | LLM 缓存命中：招股说明书中提到的主要风险因素有哪些？...
+2026-10-06 21:25:12 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：What was the revenue of Wuhan Xingtu Xinke from mi...
+2026-10-06 21:25:12 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:12 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:15 | INFO     | retriever:673 | 重排后（cross_encoder）：1 条
+2026-10-06 21:25:15 | INFO     | __main__:354 | 检索：query='What was the revenue of Wuhan '，命中 1 条，耗时 3.255s
+2026-10-06 21:25:15 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：What was the revenue of Wuhan Xingtu Xinke from mi...
+2026-10-06 21:25:15 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:15 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:18 | INFO     | retriever:673 | 重排后（cross_encoder）：1 条
+2026-10-06 21:25:18 | INFO     | __main__:412 | 问答：session=anon-5b6e4b8c41c5，原问题='What was the revenue of Wuhan '，改写后='What was the revenue of Wuhan Xingtu Xinke from mi'，引用 1 条资料，检索 2.899s，stream=False
+2026-10-06 21:25:18 | INFO     | llm_client:140 | LLM 缓存命中：What was the revenue of Wuhan ...
+2026-10-06 21:25:18 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-06 21:25:18 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:18 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:22 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-06 21:25:22 | INFO     | __main__:354 | 检索：query='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，命中 5 条，耗时 4.109s
+2026-10-06 21:25:22 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-06 21:25:22 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:22 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-06 21:25:26 | INFO     | __main__:412 | 问答：session=anon-587d01ae5637，原问题='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，改写后='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，引用 3 条资料，检索 3.951s，stream=False
+2026-10-06 21:25:26 | INFO     | llm_client:140 | LLM 缓存命中：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:354 | 检索：query='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，命中 0 条，耗时 0.0s
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:412 | 问答：session=anon-8a498bd209f0，原问题='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，改写后='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'，引用 0 条资料，检索 0.000s，stream=False
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉兴图新科的法定代表人是谁？...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:354 | 检索：query='武汉兴图新科的法定代表人是谁？'，命中 0 条，耗时 0.0s
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉兴图新科的法定代表人是谁？...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:412 | 问答：session=anon-0652c8f8a0d9，原问题='武汉兴图新科的法定代表人是谁？'，改写后='武汉兴图新科的法定代表人是谁？'，引用 0 条资料，检索 0.001s，stream=False
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的法定代表人是谁？'，命中 0 条，耗时 0.001s
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:412 | 问答：session=anon-74a584dfb352，原问题='武汉力源信息技术股份有限公司的法定代表人是谁？'，改写后='武汉力源信息技术股份有限公司的法定代表人是谁？'，引用 0 条资料，检索 0.001s，stream=False
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处'，命中 0 条，耗时 0.0s
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:412 | 问答：session=anon-20b3d31de85b，原问题='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处'，改写后='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？'，引用 0 条资料，检索 0.000s，stream=False
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:354 | 检索：query='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，命中 0 条，耗时 0.001s
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:412 | 问答：session=anon-d59d3422b44f，原问题='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，改写后='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，引用 0 条资料，检索 0.001s，stream=False
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的主营业务是什么？'，命中 0 条，耗时 0.001s
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:412 | 问答：session=anon-79630dbfcc20，原问题='武汉力源信息技术股份有限公司的主营业务是什么？'，改写后='武汉力源信息技术股份有限公司的主营业务是什么？'，引用 0 条资料，检索 0.002s，stream=False
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图新科的主营业务收入构成是怎样的？...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:354 | 检索：query='兴图新科的主营业务收入构成是怎样的？'，命中 0 条，耗时 0.0s
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图新科的主营业务收入构成是怎样的？...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:412 | 问答：session=anon-295f2b2c3d76，原问题='兴图新科的主营业务收入构成是怎样的？'，改写后='兴图新科的主营业务收入构成是怎样的？'，引用 0 条资料，检索 0.001s，stream=False
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：招股说明书中提到的主要风险因素有哪些？...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:354 | 检索：query='招股说明书中提到的主要风险因素有哪些？'，命中 0 条，耗时 0.001s
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：招股说明书中提到的主要风险因素有哪些？...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:412 | 问答：session=anon-eedd79912d5d，原问题='招股说明书中提到的主要风险因素有哪些？'，改写后='招股说明书中提到的主要风险因素有哪些？'，引用 0 条资料，检索 0.001s，stream=False
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：What was the revenue of Wuhan Xingtu Xinke from mi...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:354 | 检索：query='What was the revenue of Wuhan '，命中 0 条，耗时 0.0s
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：What was the revenue of Wuhan Xingtu Xinke from mi...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:412 | 问答：session=anon-8d43014a6ab4，原问题='What was the revenue of Wuhan '，改写后='What was the revenue of Wuhan Xingtu Xinke from mi'，引用 0 条资料，检索 0.001s，stream=False
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:354 | 检索：query='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，命中 0 条，耗时 0.001s
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:26 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:26 | INFO     | __main__:412 | 问答：session=anon-acc6d9aaed13，原问题='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，改写后='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，引用 0 条资料，检索 0.001s，stream=False
+2026-10-06 21:25:26 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=weighted，重排=tfidf）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-06 21:25:26 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:26 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:26 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:26 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:27 | INFO     | retriever:673 | 重排后（tfidf）：5 条
+2026-10-06 21:25:27 | INFO     | __main__:354 | 检索：query='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，命中 5 条，耗时 1.079s
+2026-10-06 21:25:27 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=weighted，重排=tfidf）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-06 21:25:28 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:28 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:28 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:28 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:28 | INFO     | retriever:673 | 重排后（tfidf）：3 条
+2026-10-06 21:25:28 | INFO     | __main__:412 | 问答：session=anon-0db9036d62fc，原问题='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，改写后='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'，引用 3 条资料，检索 0.246s，stream=False
+2026-10-06 21:25:29 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.76s，答案长度 157
+2026-10-06 21:25:29 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=weighted，重排=tfidf）：武汉兴图新科的法定代表人是谁？...
+2026-10-06 21:25:30 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:30 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:30 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:30 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:30 | INFO     | retriever:673 | 重排后（tfidf）：5 条
+2026-10-06 21:25:30 | INFO     | __main__:354 | 检索：query='武汉兴图新科的法定代表人是谁？'，命中 5 条，耗时 0.194s
+2026-10-06 21:25:30 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=weighted，重排=tfidf）：武汉兴图新科的法定代表人是谁？...
+2026-10-06 21:25:30 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:30 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:30 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:30 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:30 | INFO     | retriever:673 | 重排后（tfidf）：3 条
+2026-10-06 21:25:30 | INFO     | __main__:412 | 问答：session=anon-cbda827ef7d7，原问题='武汉兴图新科的法定代表人是谁？'，改写后='武汉兴图新科的法定代表人是谁？'，引用 3 条资料，检索 0.113s，stream=False
+2026-10-06 21:25:31 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.41s，答案长度 180
+2026-10-06 21:25:31 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=weighted，重排=tfidf）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-06 21:25:31 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:31 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:31 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:31 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:31 | INFO     | retriever:673 | 重排后（tfidf）：5 条
+2026-10-06 21:25:31 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的法定代表人是谁？'，命中 5 条，耗时 0.1s
+2026-10-06 21:25:31 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=weighted，重排=tfidf）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-06 21:25:31 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:31 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:31 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:31 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:31 | INFO     | retriever:673 | 重排后（tfidf）：3 条
+2026-10-06 21:25:31 | INFO     | __main__:412 | 问答：session=anon-7dc1c6a22729，原问题='武汉力源信息技术股份有限公司的法定代表人是谁？'，改写后='武汉力源信息技术股份有限公司的法定代表人是谁？'，引用 3 条资料，检索 0.108s，stream=False
+2026-10-06 21:25:33 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.43s，答案长度 132
+2026-10-06 21:25:33 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=voting，重排=tfidf）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-06 21:25:33 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=tfidf）：武汉兴图...
+2026-10-06 21:25:33 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:33 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:33 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:33 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:33 | INFO     | retriever:673 | 重排后（tfidf）：5 条
+2026-10-06 21:25:33 | INFO     | __main__:354 | 检索：query='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，命中 5 条，耗时 0.164s
+2026-10-06 21:25:33 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=voting，重排=tfidf）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-06 21:25:33 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:33 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:33 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:33 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:33 | INFO     | retriever:673 | 重排后（tfidf）：3 条
+2026-10-06 21:25:33 | INFO     | __main__:354 | 检索：query='武汉兴图'，命中 3 条，耗时 0.14s
+2026-10-06 21:25:33 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:33 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:33 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:33 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:33 | INFO     | retriever:673 | 重排后（tfidf）：3 条
+2026-10-06 21:25:33 | INFO     | __main__:412 | 问答：session=anon-642b21215826，原问题='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，改写后='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'，引用 3 条资料，检索 0.194s，stream=False
+2026-10-06 21:25:33 | INFO     | llm_client:140 | LLM 缓存命中：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别...
+2026-10-06 21:25:33 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=voting，重排=tfidf）：武汉兴图新科的法定代表人是谁？...
+2026-10-06 21:25:33 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:33 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:33 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:33 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:33 | INFO     | retriever:673 | 重排后（tfidf）：5 条
+2026-10-06 21:25:33 | INFO     | __main__:354 | 检索：query='武汉兴图新科的法定代表人是谁？'，命中 5 条，耗时 0.104s
+2026-10-06 21:25:33 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=voting，重排=tfidf）：武汉兴图新科的法定代表人是谁？...
+2026-10-06 21:25:33 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:33 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:33 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:33 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:33 | INFO     | retriever:673 | 重排后（tfidf）：3 条
+2026-10-06 21:25:33 | INFO     | __main__:412 | 问答：session=anon-0bac7df64ccf，原问题='武汉兴图新科的法定代表人是谁？'，改写后='武汉兴图新科的法定代表人是谁？'，引用 3 条资料，检索 0.102s，stream=False
+2026-10-06 21:25:33 | INFO     | llm_client:140 | LLM 缓存命中：武汉兴图新科的法定代表人是谁？...
+2026-10-06 21:25:33 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=voting，重排=tfidf）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-06 21:25:33 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:33 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:33 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:33 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:33 | INFO     | retriever:673 | 重排后（tfidf）：5 条
+2026-10-06 21:25:33 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的法定代表人是谁？'，命中 5 条，耗时 0.107s
+2026-10-06 21:25:33 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=voting，重排=tfidf）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-06 21:25:34 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-06 21:25:34 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:34 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:34 | INFO     | retriever:669 | 融合后：6 条
+2026-10-06 21:25:34 | INFO     | retriever:673 | 重排后（tfidf）：3 条
+2026-10-06 21:25:34 | INFO     | __main__:412 | 问答：session=anon-b22edb4d98e7，原问题='武汉力源信息技术股份有限公司的法定代表人是谁？'，改写后='武汉力源信息技术股份有限公司的法定代表人是谁？'，引用 3 条资料，检索 0.137s，stream=False
+2026-10-06 21:25:34 | INFO     | llm_client:140 | LLM 缓存命中：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-06 21:25:34 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉 AND 兴图...
+2026-10-06 21:25:34 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:34 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:34 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:34 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:34 | INFO     | __main__:354 | 检索：query='武汉 AND 兴图'，命中 0 条，耗时 0.001s
+2026-10-06 21:25:34 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图 OR 力源...
+2026-10-06 21:25:34 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:34 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:34 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:34 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:34 | INFO     | __main__:354 | 检索：query='兴图 OR 力源'，命中 0 条，耗时 0.001s
+2026-10-06 21:25:34 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图 NOT 力源...
+2026-10-06 21:25:34 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:34 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:34 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:34 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:34 | INFO     | __main__:354 | 检索：query='兴图 NOT 力源'，命中 0 条，耗时 0.001s
+2026-10-06 21:25:34 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）："法定代表人"...
+2026-10-06 21:25:34 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:34 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:34 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:34 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:34 | INFO     | __main__:354 | 检索：query='"法定代表人"'，命中 0 条，耗时 0.001s
+2026-10-06 21:25:34 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图~...
+2026-10-06 21:25:34 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:25:34 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:25:34 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:25:34 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:25:34 | INFO     | __main__:354 | 检索：query='兴图~'，命中 0 条，耗时 0.0s
+2026-10-06 21:28:03 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉兴图...
+2026-10-06 21:28:03 | WARNING  | retriever:298 | 全文倒排索引未初始化
+2026-10-06 21:28:03 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-06 21:28:03 | INFO     | retriever:669 | 融合后：0 条
+2026-10-06 21:28:03 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-06 21:28:03 | INFO     | __main__:354 | 检索：query='武汉兴图'，命中 0 条，耗时 0.0s
+2026-10-07 08:03:33 | INFO     | __main__:64 | [启动] 开始初始化 RAG-PDF 问答系统（混合检索策略版） ...
+2026-10-07 08:03:37 | INFO     | db_milvus:43 | 向量模型已加载：D:\Projects\Models\bge-m3
+2026-10-07 08:03:37 | INFO     | __main__:68 | [启动] 本地 bge-m3 向量模型就绪
+2026-10-07 08:03:37 | INFO     | db_milvus:72 | Milvus 客户端已连接：http://localhost:19530
+2026-10-07 08:03:37 | INFO     | db_milvus:63 | Milvus 向量存储已连接：http://localhost:19530/rag_pdf_qa_v4
+2026-10-07 08:03:37 | INFO     | __main__:72 | [启动] Milvus 集合连接就绪
+2026-10-07 08:03:44 | INFO     | retriever:151 | 重排模型已加载：D:\Projects\Models\BAAI--bge-reranker-large\bge-reranker-large
+2026-10-07 08:03:44 | INFO     | __main__:76 | [启动] bge-reranker 重排模型就绪
+2026-10-07 08:03:44 | INFO     | retriever:171 | 开始重建全文检索倒排索引（BM25 + 多字段）...
+2026-10-07 08:03:50 | INFO     | retriever:208 | 全文倒排索引重建完成：3448 个文档（多字段加权）
+2026-10-07 08:03:50 | INFO     | __main__:82 | [启动] 全文检索倒排索引（BM25多字段）就绪
+2026-10-07 08:03:50 | INFO     | __main__:86 | [启动] 完成！当前检索配置：{'strategy': 'hybrid', 'fusion': 'rrf', 'reranker': 'cross_encoder', 'vector_weight': 0.6, 'fulltext_weight': 0.4, 'rrf_k': 60}
+2026-10-07 08:03:50 | INFO     | __main__:87 | [启动] 打开 http://127.0.0.1:8000/docs 测试
+2026-10-07 08:03:59 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉兴图...
+2026-10-07 08:03:59 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '兴图'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:04:03 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:04:03 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:04:07 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:04:07 | INFO     | __main__:354 | 检索：query='武汉兴图'，命中 3 条，耗时 7.882s
+2026-10-07 08:04:14 | INFO     | retriever:695 | 检索缓存已清空
+2026-10-07 08:04:14 | INFO     | retriever:91 | 检索配置已更新：{'strategy': 'hybrid', 'fusion': 'rrf', 'reranker': 'cross_encoder', 'vector_weight': 0.6, 'fulltext_weight': 0.4, 'rrf_k': 60}
+2026-10-07 08:04:14 | INFO     | __main__:201 | 检索配置已更新为：{'strategy': 'hybrid', 'fusion': 'rrf', 'reranker': 'cross_encoder', 'vector_weight': 0.6, 'fulltext_weight': 0.4, 'rrf_k': 60}
+2026-10-07 08:04:14 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:04:15 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:04:15 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['报告', '期内', '，', '武汉', '兴图', '新科', '电子', '股份', '有限公司', '来自', '军用', '领域', '的', '收入', '分别', '是', '多少', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:04:19 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:04:19 | INFO     | retriever:669 | 融合后：12 条
+2026-10-07 08:04:25 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:04:25 | INFO     | __main__:354 | 检索：query='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，命中 5 条，耗时 11.01s
+2026-10-07 08:04:25 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:04:25 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:04:25 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['报告', '期内', '，', '武汉', '兴图', '新科', '电子', '股份', '有限公司', '来自', '军用', '领域', '的', '收入', '分别', '是', '多少', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:04:29 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:04:29 | INFO     | retriever:669 | 融合后：12 条
+2026-10-07 08:04:35 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:04:35 | INFO     | __main__:412 | 问答：session=anon-64aeb04428fe，原问题='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，改写后='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'，引用 3 条资料，检索 10.515s，stream=False
+2026-10-07 08:04:37 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.40s，答案长度 139
+2026-10-07 08:04:37 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:04:37 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:04:37 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '兴图', '新科', '的', '法定代表', '人', '是', '谁', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:04:41 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:04:41 | INFO     | retriever:669 | 融合后：8 条
+2026-10-07 08:04:45 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:04:45 | INFO     | __main__:354 | 检索：query='武汉兴图新科的法定代表人是谁？'，命中 5 条，耗时 8.818s
+2026-10-07 08:04:45 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:04:45 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:04:45 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '兴图', '新科', '的', '法定代表', '人', '是', '谁', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:04:50 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:04:50 | INFO     | retriever:669 | 融合后：8 条
+2026-10-07 08:04:54 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:04:54 | INFO     | __main__:412 | 问答：session=anon-ce6df3c5b66f，原问题='武汉兴图新科的法定代表人是谁？'，改写后='武汉兴图新科的法定代表人是谁？'，引用 3 条资料，检索 8.843s，stream=False
+2026-10-07 08:04:55 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.16s，答案长度 166
+2026-10-07 08:04:55 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:04:56 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:04:56 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '力源', '信息技术', '股份', '有限公司', '的', '法定代表', '人', '是', '谁', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:05:00 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:05:00 | INFO     | retriever:669 | 融合后：10 条
+2026-10-07 08:05:04 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:05:04 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的法定代表人是谁？'，命中 5 条，耗时 8.922s
+2026-10-07 08:05:04 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:05:05 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:05:05 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '力源', '信息技术', '股份', '有限公司', '的', '法定代表', '人', '是', '谁', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:05:09 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:05:09 | INFO     | retriever:669 | 融合后：10 条
+2026-10-07 08:05:14 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:05:14 | INFO     | __main__:412 | 问答：session=anon-5578d59d5c2e，原问题='武汉力源信息技术股份有限公司的法定代表人是谁？'，改写后='武汉力源信息技术股份有限公司的法定代表人是谁？'，引用 3 条资料，检索 9.213s，stream=False
+2026-10-07 08:05:15 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.39s，答案长度 73
+2026-10-07 08:05:15 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？...
+2026-10-07 08:05:15 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:05:15 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '力源', '信息技术', '股份', '有限公司', '组织', '结构图', '中', '，', '哪个', '销售部', '的', '销售处', '最', '多', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:05:19 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:05:19 | INFO     | retriever:669 | 融合后：9 条
+2026-10-07 08:05:25 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:05:25 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处'，命中 5 条，耗时 10.084s
+2026-10-07 08:05:25 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？...
+2026-10-07 08:05:25 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:05:25 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '力源', '信息技术', '股份', '有限公司', '组织', '结构图', '中', '，', '哪个', '销售部', '的', '销售处', '最', '多', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:05:29 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:05:29 | INFO     | retriever:669 | 融合后：9 条
+2026-10-07 08:05:34 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:05:34 | INFO     | __main__:412 | 问答：session=anon-38cb2c745ab3，原问题='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处'，改写后='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？'，引用 3 条资料，检索 9.306s，stream=False
+2026-10-07 08:05:36 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.52s，答案长度 215
+2026-10-07 08:05:36 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-07 08:05:36 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:05:36 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图', '新科', '参与', '的', '是', '哪个', '工程', '荣获', '国家', '科技进步', '一等奖', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:05:41 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:05:41 | INFO     | retriever:669 | 融合后：8 条
+2026-10-07 08:05:45 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:05:45 | INFO     | __main__:354 | 检索：query='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，命中 5 条，耗时 9.064s
+2026-10-07 08:05:45 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-07 08:05:45 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:05:45 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图', '新科', '参与', '的', '是', '哪个', '工程', '荣获', '国家', '科技进步', '一等奖', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:05:49 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:05:49 | INFO     | retriever:669 | 融合后：8 条
+2026-10-07 08:05:53 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:05:53 | INFO     | __main__:412 | 问答：session=anon-6abcd23907c5，原问题='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，改写后='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，引用 3 条资料，检索 8.356s，stream=False
+2026-10-07 08:05:54 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.16s，答案长度 93
+2026-10-07 08:05:55 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-07 08:05:55 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:05:55 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '力源', '信息技术', '股份', '有限公司', '的', '主营业务', '是', '什么', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:05:59 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:05:59 | INFO     | retriever:669 | 融合后：9 条
+2026-10-07 08:06:03 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:06:03 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的主营业务是什么？'，命中 5 条，耗时 8.543s
+2026-10-07 08:06:03 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-07 08:06:03 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:06:03 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '力源', '信息技术', '股份', '有限公司', '的', '主营业务', '是', '什么', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:06:08 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:06:08 | INFO     | retriever:669 | 融合后：9 条
+2026-10-07 08:06:11 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:06:11 | INFO     | __main__:412 | 问答：session=anon-ca6853d5e02b，原问题='武汉力源信息技术股份有限公司的主营业务是什么？'，改写后='武汉力源信息技术股份有限公司的主营业务是什么？'，引用 3 条资料，检索 8.318s，stream=False
+2026-10-07 08:06:13 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.75s，答案长度 532
+2026-10-07 08:06:13 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：兴图新科的主营业务收入构成是怎样的？...
+2026-10-07 08:06:13 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:06:13 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图', '新科', '的', '主营业务', '收入', '构成', '是', '怎样', '的', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:06:18 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:06:18 | INFO     | retriever:669 | 融合后：12 条
+2026-10-07 08:06:23 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:06:23 | INFO     | __main__:354 | 检索：query='兴图新科的主营业务收入构成是怎样的？'，命中 5 条，耗时 9.758s
+2026-10-07 08:06:23 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：兴图新科的主营业务收入构成是怎样的？...
+2026-10-07 08:06:23 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:06:23 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图', '新科', '的', '主营业务', '收入', '构成', '是', '怎样', '的', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:06:27 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:06:27 | INFO     | retriever:669 | 融合后：12 条
+2026-10-07 08:06:33 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:06:33 | INFO     | __main__:412 | 问答：session=anon-87e2bb9ab9ec，原问题='兴图新科的主营业务收入构成是怎样的？'，改写后='兴图新科的主营业务收入构成是怎样的？'，引用 3 条资料，检索 9.803s，stream=False
+2026-10-07 08:06:35 | INFO     | llm_client:151 | LLM 生成完成：耗时 2.52s，答案长度 619
+2026-10-07 08:06:35 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：招股说明书中提到的主要风险因素有哪些？...
+2026-10-07 08:06:35 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:06:35 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['招股', '说明书', '中', '提到', '的', '主要', '风险', '因素', '有', '哪些', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:06:40 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:06:40 | INFO     | retriever:669 | 融合后：9 条
+2026-10-07 08:06:45 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:06:45 | INFO     | __main__:354 | 检索：query='招股说明书中提到的主要风险因素有哪些？'，命中 5 条，耗时 9.969s
+2026-10-07 08:06:45 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：招股说明书中提到的主要风险因素有哪些？...
+2026-10-07 08:06:45 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:06:45 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['招股', '说明书', '中', '提到', '的', '主要', '风险', '因素', '有', '哪些', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:06:49 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:06:49 | INFO     | retriever:669 | 融合后：9 条
+2026-10-07 08:06:55 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:06:55 | INFO     | __main__:412 | 问答：session=anon-b51385ad3c0a，原问题='招股说明书中提到的主要风险因素有哪些？'，改写后='招股说明书中提到的主要风险因素有哪些？'，引用 3 条资料，检索 9.784s，stream=False
+2026-10-07 08:06:57 | INFO     | llm_client:151 | LLM 生成完成：耗时 2.47s，答案长度 633
+2026-10-07 08:06:57 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：What was the revenue of Wuhan Xingtu Xinke from mi...
+2026-10-07 08:06:58 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:06:58 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['what', 'was', 'the', 'revenue', 'of', 'wuhan', 'xingtu', 'xinke', 'from', 'military', 'sector?'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:07:02 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:07:02 | INFO     | retriever:669 | 融合后：12 条
+2026-10-07 08:07:09 | INFO     | retriever:673 | 重排后（cross_encoder）：1 条
+2026-10-07 08:07:09 | INFO     | __main__:354 | 检索：query='What was the revenue of Wuhan '，命中 1 条，耗时 11.607s
+2026-10-07 08:07:09 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：What was the revenue of Wuhan Xingtu Xinke from mi...
+2026-10-07 08:07:09 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:07:09 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['what', 'was', 'the', 'revenue', 'of', 'wuhan', 'xingtu', 'xinke', 'from', 'military', 'sector?'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:07:14 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:07:14 | INFO     | retriever:669 | 融合后：12 条
+2026-10-07 08:07:21 | INFO     | retriever:673 | 重排后（cross_encoder）：1 条
+2026-10-07 08:07:21 | INFO     | __main__:412 | 问答：session=anon-38098da5ac66，原问题='What was the revenue of Wuhan '，改写后='What was the revenue of Wuhan Xingtu Xinke from mi'，引用 1 条资料，检索 11.727s，stream=False
+2026-10-07 08:07:24 | INFO     | llm_client:151 | LLM 生成完成：耗时 3.00s，答案长度 894
+2026-10-07 08:07:24 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-07 08:07:24 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:07:24 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '兴图', '新科', '电子', '股份', '有限公司', '的', '组织', '架构', '是', '怎样', '的', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:07:28 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:07:28 | INFO     | retriever:669 | 融合后：12 条
+2026-10-07 08:07:35 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:07:35 | INFO     | __main__:354 | 检索：query='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，命中 5 条，耗时 11.242s
+2026-10-07 08:07:35 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-07 08:07:35 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:07:35 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '兴图', '新科', '电子', '股份', '有限公司', '的', '组织', '架构', '是', '怎样', '的', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:07:39 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:07:39 | INFO     | retriever:669 | 融合后：12 条
+2026-10-07 08:07:47 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:07:47 | INFO     | __main__:412 | 问答：session=anon-baaa02d2a76e，原问题='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，改写后='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，引用 3 条资料，检索 11.392s，stream=False
+2026-10-07 08:07:49 | INFO     | llm_client:151 | LLM 生成完成：耗时 2.36s，答案长度 518
+2026-10-07 08:07:49 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:07:49 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:07:49 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:07:52 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:07:52 | INFO     | __main__:354 | 检索：query='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，命中 5 条，耗时 2.687s
+2026-10-07 08:07:52 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:07:52 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:07:52 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:07:54 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:07:54 | INFO     | __main__:412 | 问答：session=anon-571f59f183cc，原问题='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，改写后='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'，引用 3 条资料，检索 2.618s，stream=False
+2026-10-07 08:07:56 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.55s，答案长度 530
+2026-10-07 08:07:56 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:07:56 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:07:56 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:07:59 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:07:59 | INFO     | __main__:354 | 检索：query='武汉兴图新科的法定代表人是谁？'，命中 5 条，耗时 3.21s
+2026-10-07 08:07:59 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:07:59 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:07:59 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:08:02 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:08:02 | INFO     | __main__:412 | 问答：session=anon-1947c83ddb75，原问题='武汉兴图新科的法定代表人是谁？'，改写后='武汉兴图新科的法定代表人是谁？'，引用 3 条资料，检索 2.933s，stream=False
+2026-10-07 08:08:02 | INFO     | llm_client:140 | LLM 缓存命中：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:08:02 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:08:02 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:08:02 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:08:05 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:08:05 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的法定代表人是谁？'，命中 5 条，耗时 2.689s
+2026-10-07 08:08:05 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:08:05 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:08:05 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:08:07 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:08:07 | INFO     | __main__:412 | 问答：session=anon-4f129e22c94f，原问题='武汉力源信息技术股份有限公司的法定代表人是谁？'，改写后='武汉力源信息技术股份有限公司的法定代表人是谁？'，引用 3 条资料，检索 2.638s，stream=False
+2026-10-07 08:08:07 | INFO     | llm_client:140 | LLM 缓存命中：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:08:07 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？...
+2026-10-07 08:08:07 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:08:07 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:08:11 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:08:11 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处'，命中 5 条，耗时 3.844s
+2026-10-07 08:08:11 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？...
+2026-10-07 08:08:11 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:08:11 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:08:15 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:08:15 | INFO     | __main__:412 | 问答：session=anon-6552a8ff0386，原问题='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处'，改写后='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？'，引用 3 条资料，检索 3.843s，stream=False
+2026-10-07 08:08:15 | INFO     | llm_client:140 | LLM 缓存命中：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处...
+2026-10-07 08:08:15 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-07 08:08:15 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:08:15 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:08:18 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:08:18 | INFO     | __main__:354 | 检索：query='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，命中 5 条，耗时 3.302s
+2026-10-07 08:08:18 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-07 08:08:18 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:08:18 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:08:22 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:08:22 | INFO     | __main__:412 | 问答：session=anon-df03911d64a7，原问题='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，改写后='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，引用 3 条资料，检索 3.248s，stream=False
+2026-10-07 08:08:22 | INFO     | llm_client:140 | LLM 缓存命中：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-07 08:08:22 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-07 08:08:22 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:08:22 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:08:24 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:08:24 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的主营业务是什么？'，命中 5 条，耗时 2.734s
+2026-10-07 08:08:24 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-07 08:08:24 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:08:24 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:08:27 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:08:27 | INFO     | __main__:412 | 问答：session=anon-f3c83f096fa9，原问题='武汉力源信息技术股份有限公司的主营业务是什么？'，改写后='武汉力源信息技术股份有限公司的主营业务是什么？'，引用 3 条资料，检索 2.636s，stream=False
+2026-10-07 08:08:27 | INFO     | llm_client:140 | LLM 缓存命中：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-07 08:08:27 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：兴图新科的主营业务收入构成是怎样的？...
+2026-10-07 08:08:27 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:08:27 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:08:29 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:08:29 | INFO     | __main__:354 | 检索：query='兴图新科的主营业务收入构成是怎样的？'，命中 5 条，耗时 2.511s
+2026-10-07 08:08:29 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：兴图新科的主营业务收入构成是怎样的？...
+2026-10-07 08:08:30 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:08:30 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:08:32 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:08:32 | INFO     | __main__:412 | 问答：session=anon-4e0120f813f9，原问题='兴图新科的主营业务收入构成是怎样的？'，改写后='兴图新科的主营业务收入构成是怎样的？'，引用 3 条资料，检索 2.604s，stream=False
+2026-10-07 08:08:32 | INFO     | llm_client:140 | LLM 缓存命中：兴图新科的主营业务收入构成是怎样的？...
+2026-10-07 08:08:32 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：招股说明书中提到的主要风险因素有哪些？...
+2026-10-07 08:08:32 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:08:32 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:08:35 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:08:35 | INFO     | __main__:354 | 检索：query='招股说明书中提到的主要风险因素有哪些？'，命中 5 条，耗时 2.742s
+2026-10-07 08:08:35 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：招股说明书中提到的主要风险因素有哪些？...
+2026-10-07 08:08:35 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:08:35 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:08:37 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:08:37 | INFO     | __main__:412 | 问答：session=anon-6f5267d17565，原问题='招股说明书中提到的主要风险因素有哪些？'，改写后='招股说明书中提到的主要风险因素有哪些？'，引用 3 条资料，检索 2.625s，stream=False
+2026-10-07 08:08:37 | INFO     | llm_client:140 | LLM 缓存命中：招股说明书中提到的主要风险因素有哪些？...
+2026-10-07 08:08:37 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：What was the revenue of Wuhan Xingtu Xinke from mi...
+2026-10-07 08:08:38 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:08:38 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:08:40 | INFO     | retriever:673 | 重排后（cross_encoder）：1 条
+2026-10-07 08:08:40 | INFO     | __main__:354 | 检索：query='What was the revenue of Wuhan '，命中 1 条，耗时 2.995s
+2026-10-07 08:08:41 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：What was the revenue of Wuhan Xingtu Xinke from mi...
+2026-10-07 08:08:41 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:08:41 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:08:43 | INFO     | retriever:673 | 重排后（cross_encoder）：1 条
+2026-10-07 08:08:43 | INFO     | __main__:412 | 问答：session=anon-33645601e8cc，原问题='What was the revenue of Wuhan '，改写后='What was the revenue of Wuhan Xingtu Xinke from mi'，引用 1 条资料，检索 2.912s，stream=False
+2026-10-07 08:08:43 | INFO     | llm_client:140 | LLM 缓存命中：What was the revenue of Wuhan ...
+2026-10-07 08:08:43 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-07 08:08:44 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:08:44 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:08:47 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:08:47 | INFO     | __main__:354 | 检索：query='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，命中 5 条，耗时 4.042s
+2026-10-07 08:08:47 | INFO     | retriever:649 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-07 08:08:48 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:08:48 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:08:51 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:08:51 | INFO     | __main__:412 | 问答：session=anon-3ca01e0637fa，原问题='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，改写后='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，引用 3 条资料，检索 3.881s，stream=False
+2026-10-07 08:08:51 | INFO     | llm_client:140 | LLM 缓存命中：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-07 08:08:51 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:08:51 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['报告', '期内', '，', '武汉', '兴图', '新科', '电子', '股份', '有限公司', '来自', '军用', '领域', '的', '收入', '分别', '是', '多少', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:08:56 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:08:56 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:08:59 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:08:59 | INFO     | __main__:354 | 检索：query='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，命中 5 条，耗时 7.498s
+2026-10-07 08:08:59 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:08:59 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['报告', '期内', '，', '武汉', '兴图', '新科', '电子', '股份', '有限公司', '来自', '军用', '领域', '的', '收入', '分别', '是', '多少', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:09:03 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:09:03 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:09:06 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:09:06 | INFO     | __main__:412 | 问答：session=anon-6a106166df52，原问题='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，改写后='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'，引用 3 条资料，检索 7.448s，stream=False
+2026-10-07 08:09:06 | INFO     | llm_client:140 | LLM 缓存命中：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别...
+2026-10-07 08:09:06 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:09:06 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '兴图', '新科', '的', '法定代表', '人', '是', '谁', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:09:11 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:09:11 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:09:14 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:09:14 | INFO     | __main__:354 | 检索：query='武汉兴图新科的法定代表人是谁？'，命中 5 条，耗时 7.254s
+2026-10-07 08:09:14 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:09:14 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '兴图', '新科', '的', '法定代表', '人', '是', '谁', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:09:18 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:09:18 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:09:21 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:09:21 | INFO     | __main__:412 | 问答：session=anon-e9f792674164，原问题='武汉兴图新科的法定代表人是谁？'，改写后='武汉兴图新科的法定代表人是谁？'，引用 3 条资料，检索 7.278s，stream=False
+2026-10-07 08:09:21 | INFO     | llm_client:140 | LLM 缓存命中：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:09:21 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:09:21 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '力源', '信息技术', '股份', '有限公司', '的', '法定代表', '人', '是', '谁', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:09:26 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:09:26 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:09:29 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:09:29 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的法定代表人是谁？'，命中 5 条，耗时 7.639s
+2026-10-07 08:09:29 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:09:29 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '力源', '信息技术', '股份', '有限公司', '的', '法定代表', '人', '是', '谁', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:09:33 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:09:33 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:09:36 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:09:36 | INFO     | __main__:412 | 问答：session=anon-ff69210e8468，原问题='武汉力源信息技术股份有限公司的法定代表人是谁？'，改写后='武汉力源信息技术股份有限公司的法定代表人是谁？'，引用 3 条资料，检索 7.608s，stream=False
+2026-10-07 08:09:37 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.21s，答案长度 98
+2026-10-07 08:09:37 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？...
+2026-10-07 08:09:37 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '力源', '信息技术', '股份', '有限公司', '组织', '结构图', '中', '，', '哪个', '销售部', '的', '销售处', '最', '多', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:09:42 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:09:42 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:09:46 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:09:46 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处'，命中 5 条，耗时 8.759s
+2026-10-07 08:09:46 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？...
+2026-10-07 08:09:46 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '力源', '信息技术', '股份', '有限公司', '组织', '结构图', '中', '，', '哪个', '销售部', '的', '销售处', '最', '多', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:09:51 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:09:51 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:09:54 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:09:54 | INFO     | __main__:412 | 问答：session=anon-a4c54ef97bf7，原问题='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处'，改写后='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？'，引用 3 条资料，检索 8.264s，stream=False
+2026-10-07 08:09:54 | INFO     | llm_client:140 | LLM 缓存命中：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处...
+2026-10-07 08:09:54 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-07 08:09:54 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图', '新科', '参与', '的', '是', '哪个', '工程', '荣获', '国家', '科技进步', '一等奖', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:09:59 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:09:59 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:10:02 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:10:02 | INFO     | __main__:354 | 检索：query='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，命中 5 条，耗时 7.291s
+2026-10-07 08:10:02 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-07 08:10:02 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图', '新科', '参与', '的', '是', '哪个', '工程', '荣获', '国家', '科技进步', '一等奖', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:10:06 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:10:06 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:10:09 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:10:09 | INFO     | __main__:412 | 问答：session=anon-b903c2823e2b，原问题='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，改写后='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，引用 3 条资料，检索 7.453s，stream=False
+2026-10-07 08:10:09 | INFO     | llm_client:140 | LLM 缓存命中：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-07 08:10:09 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-07 08:10:09 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '力源', '信息技术', '股份', '有限公司', '的', '主营业务', '是', '什么', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:10:14 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:10:14 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:10:17 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:10:17 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的主营业务是什么？'，命中 5 条，耗时 7.643s
+2026-10-07 08:10:17 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-07 08:10:17 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '力源', '信息技术', '股份', '有限公司', '的', '主营业务', '是', '什么', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:10:22 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:10:22 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:10:24 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:10:24 | INFO     | __main__:412 | 问答：session=anon-22586d6f4e09，原问题='武汉力源信息技术股份有限公司的主营业务是什么？'，改写后='武汉力源信息技术股份有限公司的主营业务是什么？'，引用 3 条资料，检索 7.338s，stream=False
+2026-10-07 08:10:24 | INFO     | llm_client:140 | LLM 缓存命中：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-07 08:10:24 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图新科的主营业务收入构成是怎样的？...
+2026-10-07 08:10:24 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图', '新科', '的', '主营业务', '收入', '构成', '是', '怎样', '的', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:10:29 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:10:29 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:10:31 | INFO     | retriever:673 | 重排后（cross_encoder）：4 条
+2026-10-07 08:10:31 | INFO     | __main__:354 | 检索：query='兴图新科的主营业务收入构成是怎样的？'，命中 4 条，耗时 7.145s
+2026-10-07 08:10:31 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图新科的主营业务收入构成是怎样的？...
+2026-10-07 08:10:31 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图', '新科', '的', '主营业务', '收入', '构成', '是', '怎样', '的', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:10:36 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:10:36 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:10:38 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:10:38 | INFO     | __main__:412 | 问答：session=anon-bba47563f847，原问题='兴图新科的主营业务收入构成是怎样的？'，改写后='兴图新科的主营业务收入构成是怎样的？'，引用 3 条资料，检索 6.966s，stream=False
+2026-10-07 08:10:41 | INFO     | llm_client:151 | LLM 生成完成：耗时 2.31s，答案长度 629
+2026-10-07 08:10:41 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：招股说明书中提到的主要风险因素有哪些？...
+2026-10-07 08:10:41 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['招股', '说明书', '中', '提到', '的', '主要', '风险', '因素', '有', '哪些', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:10:46 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:10:46 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:10:49 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:10:49 | INFO     | __main__:354 | 检索：query='招股说明书中提到的主要风险因素有哪些？'，命中 5 条，耗时 8.794s
+2026-10-07 08:10:49 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：招股说明书中提到的主要风险因素有哪些？...
+2026-10-07 08:10:49 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['招股', '说明书', '中', '提到', '的', '主要', '风险', '因素', '有', '哪些', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:10:54 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:10:54 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:10:58 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:10:58 | INFO     | __main__:412 | 问答：session=anon-0bfad70cb7ae，原问题='招股说明书中提到的主要风险因素有哪些？'，改写后='招股说明书中提到的主要风险因素有哪些？'，引用 3 条资料，检索 8.352s，stream=False
+2026-10-07 08:11:00 | INFO     | llm_client:151 | LLM 生成完成：耗时 2.45s，答案长度 663
+2026-10-07 08:11:00 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：What was the revenue of Wuhan Xingtu Xinke from mi...
+2026-10-07 08:11:00 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['what', 'was', 'the', 'revenue', 'of', 'wuhan', 'xingtu', 'xinke', 'from', 'military', 'sector?'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:11:05 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:11:05 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:11:09 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-07 08:11:09 | INFO     | __main__:354 | 检索：query='What was the revenue of Wuhan '，命中 0 条，耗时 8.914s
+2026-10-07 08:11:09 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：What was the revenue of Wuhan Xingtu Xinke from mi...
+2026-10-07 08:11:09 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['what', 'was', 'the', 'revenue', 'of', 'wuhan', 'xingtu', 'xinke', 'from', 'military', 'sector?'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:11:14 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:11:14 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:11:18 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-07 08:11:18 | INFO     | __main__:412 | 问答：session=anon-ba597baf47ca，原问题='What was the revenue of Wuhan '，改写后='What was the revenue of Wuhan Xingtu Xinke from mi'，引用 0 条资料，检索 8.545s，stream=False
+2026-10-07 08:11:18 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-07 08:11:18 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '兴图', '新科', '电子', '股份', '有限公司', '的', '组织', '架构', '是', '怎样', '的', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:11:22 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:11:22 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:11:26 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:11:26 | INFO     | __main__:354 | 检索：query='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，命中 5 条，耗时 7.759s
+2026-10-07 08:11:26 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-07 08:11:26 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '兴图', '新科', '电子', '股份', '有限公司', '的', '组织', '架构', '是', '怎样', '的', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:11:30 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:11:30 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:11:33 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:11:33 | INFO     | __main__:412 | 问答：session=anon-33a055975d37，原问题='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，改写后='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，引用 3 条资料，检索 7.557s，stream=False
+2026-10-07 08:11:35 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.94s，答案长度 392
+2026-10-07 08:11:35 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=weighted，重排=tfidf）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:11:35 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:11:35 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['报告', '期内', '，', '武汉', '兴图', '新科', '电子', '股份', '有限公司', '来自', '军用', '领域', '的', '收入', '分别', '是', '多少', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:11:40 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:11:40 | INFO     | retriever:446 | 加权融合：w_vector=0.60, w_fulltext=0.40
+2026-10-07 08:11:40 | INFO     | retriever:669 | 融合后：12 条
+2026-10-07 08:11:40 | INFO     | retriever:673 | 重排后（tfidf）：5 条
+2026-10-07 08:11:40 | INFO     | __main__:354 | 检索：query='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，命中 5 条，耗时 5.122s
+2026-10-07 08:11:40 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=weighted，重排=tfidf）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:11:40 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:11:40 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['报告', '期内', '，', '武汉', '兴图', '新科', '电子', '股份', '有限公司', '来自', '军用', '领域', '的', '收入', '分别', '是', '多少', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:11:45 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:11:45 | INFO     | retriever:446 | 加权融合：w_vector=0.60, w_fulltext=0.40
+2026-10-07 08:11:45 | INFO     | retriever:669 | 融合后：12 条
+2026-10-07 08:11:45 | INFO     | retriever:673 | 重排后（tfidf）：3 条
+2026-10-07 08:11:45 | INFO     | __main__:412 | 问答：session=anon-d24144d37cb5，原问题='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，改写后='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'，引用 3 条资料，检索 5.102s，stream=False
+2026-10-07 08:11:47 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.35s，答案长度 139
+2026-10-07 08:11:47 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=weighted，重排=tfidf）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:11:47 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:11:47 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '兴图', '新科', '的', '法定代表', '人', '是', '谁', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:11:51 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:11:51 | INFO     | retriever:446 | 加权融合：w_vector=0.60, w_fulltext=0.40
+2026-10-07 08:11:51 | INFO     | retriever:669 | 融合后：8 条
+2026-10-07 08:11:51 | INFO     | retriever:673 | 重排后（tfidf）：5 条
+2026-10-07 08:11:51 | INFO     | __main__:354 | 检索：query='武汉兴图新科的法定代表人是谁？'，命中 5 条，耗时 4.729s
+2026-10-07 08:11:51 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=weighted，重排=tfidf）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:11:52 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:11:52 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '兴图', '新科', '的', '法定代表', '人', '是', '谁', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:11:56 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:11:56 | INFO     | retriever:446 | 加权融合：w_vector=0.60, w_fulltext=0.40
+2026-10-07 08:11:56 | INFO     | retriever:669 | 融合后：8 条
+2026-10-07 08:11:56 | INFO     | retriever:673 | 重排后（tfidf）：3 条
+2026-10-07 08:11:56 | INFO     | __main__:412 | 问答：session=anon-d9115f180a7e，原问题='武汉兴图新科的法定代表人是谁？'，改写后='武汉兴图新科的法定代表人是谁？'，引用 3 条资料，检索 5.020s，stream=False
+2026-10-07 08:11:58 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.30s，答案长度 199
+2026-10-07 08:11:58 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=weighted，重排=tfidf）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:11:58 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:11:58 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '力源', '信息技术', '股份', '有限公司', '的', '法定代表', '人', '是', '谁', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:12:02 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:12:02 | INFO     | retriever:446 | 加权融合：w_vector=0.60, w_fulltext=0.40
+2026-10-07 08:12:02 | INFO     | retriever:669 | 融合后：10 条
+2026-10-07 08:12:02 | INFO     | retriever:673 | 重排后（tfidf）：5 条
+2026-10-07 08:12:02 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的法定代表人是谁？'，命中 5 条，耗时 4.218s
+2026-10-07 08:12:02 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=weighted，重排=tfidf）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:12:02 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:12:02 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '力源', '信息技术', '股份', '有限公司', '的', '法定代表', '人', '是', '谁', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:12:06 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:12:06 | INFO     | retriever:446 | 加权融合：w_vector=0.60, w_fulltext=0.40
+2026-10-07 08:12:06 | INFO     | retriever:669 | 融合后：10 条
+2026-10-07 08:12:06 | INFO     | retriever:673 | 重排后（tfidf）：3 条
+2026-10-07 08:12:06 | INFO     | __main__:412 | 问答：session=anon-31f49c75a039，原问题='武汉力源信息技术股份有限公司的法定代表人是谁？'，改写后='武汉力源信息技术股份有限公司的法定代表人是谁？'，引用 3 条资料，检索 4.263s，stream=False
+2026-10-07 08:12:07 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.31s，答案长度 304
+2026-10-07 08:12:08 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=voting，重排=tfidf）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:12:08 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:12:08 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['报告', '期内', '，', '武汉', '兴图', '新科', '电子', '股份', '有限公司', '来自', '军用', '领域', '的', '收入', '分别', '是', '多少', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:12:12 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:12:12 | INFO     | retriever:669 | 融合后：12 条
+2026-10-07 08:12:12 | INFO     | retriever:673 | 重排后（tfidf）：5 条
+2026-10-07 08:12:12 | INFO     | __main__:354 | 检索：query='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，命中 5 条，耗时 4.951s
+2026-10-07 08:12:12 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=voting，重排=tfidf）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:12:13 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:12:13 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['报告', '期内', '，', '武汉', '兴图', '新科', '电子', '股份', '有限公司', '来自', '军用', '领域', '的', '收入', '分别', '是', '多少', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:12:18 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:12:18 | INFO     | retriever:669 | 融合后：12 条
+2026-10-07 08:12:18 | INFO     | retriever:673 | 重排后（tfidf）：3 条
+2026-10-07 08:12:18 | INFO     | __main__:412 | 问答：session=anon-a7ec669ed704，原问题='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，改写后='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'，引用 3 条资料，检索 5.254s，stream=False
+2026-10-07 08:12:18 | INFO     | llm_client:140 | LLM 缓存命中：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别...
+2026-10-07 08:12:18 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=voting，重排=tfidf）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:12:18 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:12:18 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '兴图', '新科', '的', '法定代表', '人', '是', '谁', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:12:23 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:12:23 | INFO     | retriever:669 | 融合后：8 条
+2026-10-07 08:12:23 | INFO     | retriever:673 | 重排后（tfidf）：5 条
+2026-10-07 08:12:23 | INFO     | __main__:354 | 检索：query='武汉兴图新科的法定代表人是谁？'，命中 5 条，耗时 4.943s
+2026-10-07 08:12:23 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=voting，重排=tfidf）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:12:23 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:12:23 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '兴图', '新科', '的', '法定代表', '人', '是', '谁', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:12:28 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:12:28 | INFO     | retriever:669 | 融合后：8 条
+2026-10-07 08:12:28 | INFO     | retriever:673 | 重排后（tfidf）：3 条
+2026-10-07 08:12:28 | INFO     | __main__:412 | 问答：session=anon-945d75e0c579，原问题='武汉兴图新科的法定代表人是谁？'，改写后='武汉兴图新科的法定代表人是谁？'，引用 3 条资料，检索 4.855s，stream=False
+2026-10-07 08:12:28 | INFO     | llm_client:140 | LLM 缓存命中：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:12:28 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=voting，重排=tfidf）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:12:28 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:12:28 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '力源', '信息技术', '股份', '有限公司', '的', '法定代表', '人', '是', '谁', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:12:32 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:12:32 | INFO     | retriever:669 | 融合后：10 条
+2026-10-07 08:12:32 | INFO     | retriever:673 | 重排后（tfidf）：5 条
+2026-10-07 08:12:32 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的法定代表人是谁？'，命中 5 条，耗时 4.783s
+2026-10-07 08:12:32 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=voting，重排=tfidf）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:12:33 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:12:33 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '力源', '信息技术', '股份', '有限公司', '的', '法定代表', '人', '是', '谁', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:12:38 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:12:38 | INFO     | retriever:669 | 融合后：10 条
+2026-10-07 08:12:38 | INFO     | retriever:673 | 重排后（tfidf）：3 条
+2026-10-07 08:12:38 | INFO     | __main__:412 | 问答：session=anon-3dd1d2103414，原问题='武汉力源信息技术股份有限公司的法定代表人是谁？'，改写后='武汉力源信息技术股份有限公司的法定代表人是谁？'，引用 3 条资料，检索 5.212s，stream=False
+2026-10-07 08:12:38 | INFO     | llm_client:140 | LLM 缓存命中：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:12:38 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉 AND 兴图...
+2026-10-07 08:12:38 | INFO     | retriever:302 | 全文检索语法解析：{'must': ['兴图'], 'should': ['武汉'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:12:42 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:12:42 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:12:45 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:12:45 | INFO     | __main__:354 | 检索：query='武汉 AND 兴图'，命中 3 条，耗时 7.592s
+2026-10-07 08:12:45 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图 OR 力源...
+2026-10-07 08:12:45 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图', '力源'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:12:50 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:12:50 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:12:53 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:12:53 | INFO     | __main__:354 | 检索：query='兴图 OR 力源'，命中 3 条，耗时 8.0s
+2026-10-07 08:12:53 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图 NOT 力源...
+2026-10-07 08:12:53 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图'], 'must_not': ['力源'], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:12:57 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:12:57 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:13:01 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-07 08:13:01 | INFO     | __main__:354 | 检索：query='兴图 NOT 力源'，命中 0 条，耗时 8.0s
+2026-10-07 08:13:01 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）："法定代表人"...
+2026-10-07 08:13:01 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': [], 'must_not': [], 'phrases': ['法定代表人'], 'fuzzy': []}
+2026-10-07 08:13:06 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-07 08:13:06 | INFO     | retriever:669 | 融合后：0 条
+2026-10-07 08:13:06 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-07 08:13:06 | INFO     | __main__:354 | 检索：query='"法定代表人"'，命中 0 条，耗时 4.52s
+2026-10-07 08:13:06 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图~...
+2026-10-07 08:13:06 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': [], 'must_not': [], 'phrases': [], 'fuzzy': ['兴图']}
+2026-10-07 08:13:06 | INFO     | retriever:319 | 模糊匹配：'兴图~' 命中词表 ['兴图', '任兴图', '兴图天', '创兴图', '由兴图']
+2026-10-07 08:13:11 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:13:11 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:13:14 | INFO     | retriever:673 | 重排后（cross_encoder）：3 条
+2026-10-07 08:13:14 | INFO     | __main__:354 | 检索：query='兴图~'，命中 3 条，耗时 8.203s
+2026-10-07 08:14:04 | INFO     | retriever:649 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的注册地址在哪里？...
+2026-10-07 08:14:04 | INFO     | retriever:657 | 向量召回：6 条
+2026-10-07 08:14:04 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉', '兴图', '新科', '电子', '股份', '有限公司', '的', '注册', '地址', '在', '哪里', '？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:14:09 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:14:09 | INFO     | retriever:669 | 融合后：10 条
+2026-10-07 08:14:15 | INFO     | retriever:673 | 重排后（cross_encoder）：5 条
+2026-10-07 08:14:15 | INFO     | __main__:354 | 检索：query='武汉兴图新科电子股份有限公司的注册地址在哪里？'，命中 5 条，耗时 11.22s
+2026-10-07 08:14:15 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图 NOT 力源...
+2026-10-07 08:14:15 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图'], 'must_not': ['力源'], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:14:19 | INFO     | retriever:660 | 全文召回：6 条
+2026-10-07 08:14:19 | INFO     | retriever:669 | 融合后：6 条
+2026-10-07 08:14:23 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-07 08:14:23 | INFO     | __main__:354 | 检索：query='兴图 NOT 力源'，命中 0 条，耗时 8.053s
+2026-10-07 08:14:23 | INFO     | retriever:649 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）："法定代表人"...
+2026-10-07 08:14:23 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': [], 'must_not': [], 'phrases': ['法定代表人'], 'fuzzy': []}
+2026-10-07 08:14:28 | INFO     | retriever:660 | 全文召回：0 条
+2026-10-07 08:14:28 | INFO     | retriever:669 | 融合后：0 条
+2026-10-07 08:14:28 | INFO     | retriever:673 | 重排后（cross_encoder）：0 条
+2026-10-07 08:14:28 | INFO     | __main__:354 | 检索：query='"法定代表人"'，命中 0 条，耗时 4.712s
+2026-10-07 08:16:05 | INFO     | __main__:64 | [启动] 开始初始化 RAG-PDF 问答系统（混合检索策略版） ...
+2026-10-07 08:16:08 | INFO     | db_milvus:43 | 向量模型已加载：D:\Projects\Models\bge-m3
+2026-10-07 08:16:08 | INFO     | __main__:68 | [启动] 本地 bge-m3 向量模型就绪
+2026-10-07 08:16:08 | INFO     | db_milvus:72 | Milvus 客户端已连接：http://localhost:19530
+2026-10-07 08:16:08 | INFO     | db_milvus:63 | Milvus 向量存储已连接：http://localhost:19530/rag_pdf_qa_v4
+2026-10-07 08:16:08 | INFO     | __main__:72 | [启动] Milvus 集合连接就绪
+2026-10-07 08:16:15 | INFO     | retriever:151 | 重排模型已加载：D:\Projects\Models\BAAI--bge-reranker-large\bge-reranker-large
+2026-10-07 08:16:15 | INFO     | __main__:76 | [启动] bge-reranker 重排模型就绪
+2026-10-07 08:16:15 | INFO     | retriever:171 | 开始重建全文检索倒排索引（BM25 + 多字段）...
+2026-10-07 08:16:20 | INFO     | retriever:208 | 全文倒排索引重建完成：3448 个文档（多字段加权）
+2026-10-07 08:16:20 | INFO     | __main__:82 | [启动] 全文检索倒排索引（BM25多字段）就绪
+2026-10-07 08:16:20 | INFO     | __main__:86 | [启动] 完成！当前检索配置：{'strategy': 'hybrid', 'fusion': 'rrf', 'reranker': 'cross_encoder', 'vector_weight': 0.6, 'fulltext_weight': 0.4, 'rrf_k': 60}
+2026-10-07 08:16:20 | INFO     | __main__:87 | [启动] 打开 http://127.0.0.1:8000/docs 测试
+2026-10-07 08:16:30 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的注册地址在哪里？...
+2026-10-07 08:16:31 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:16:31 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉兴图新科电子股份有限公司的注册地址在哪里？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:16:35 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:16:35 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:16:38 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:16:38 | INFO     | __main__:354 | 检索：query='武汉兴图新科电子股份有限公司的注册地址在哪里？'，命中 5 条，耗时 7.531s
+2026-10-07 08:16:38 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图 NOT 力源...
+2026-10-07 08:16:38 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图'], 'must_not': ['力源'], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:16:41 | INFO     | retriever:669 | 全文召回：6 条
+2026-10-07 08:16:41 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:16:45 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:16:45 | INFO     | __main__:354 | 检索：query='兴图 NOT 力源'，命中 0 条，耗时 7.671s
+2026-10-07 08:16:45 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）："法定代表人"...
+2026-10-07 08:16:45 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': [], 'must_not': [], 'phrases': ['法定代表人'], 'fuzzy': []}
+2026-10-07 08:16:49 | INFO     | retriever:669 | 全文召回：6 条
+2026-10-07 08:16:49 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:16:53 | INFO     | retriever:682 | 重排后（cross_encoder）：1 条
+2026-10-07 08:16:53 | INFO     | __main__:354 | 检索：query='"法定代表人"'，命中 1 条，耗时 7.143s
+2026-10-07 08:17:26 | INFO     | retriever:704 | 检索缓存已清空
+2026-10-07 08:17:26 | INFO     | retriever:91 | 检索配置已更新：{'strategy': 'hybrid', 'fusion': 'rrf', 'reranker': 'cross_encoder', 'vector_weight': 0.6, 'fulltext_weight': 0.4, 'rrf_k': 60}
+2026-10-07 08:17:26 | INFO     | __main__:201 | 检索配置已更新为：{'strategy': 'hybrid', 'fusion': 'rrf', 'reranker': 'cross_encoder', 'vector_weight': 0.6, 'fulltext_weight': 0.4, 'rrf_k': 60}
+2026-10-07 08:17:26 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:17:26 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:17:26 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:17:30 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:17:30 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:17:33 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:17:33 | INFO     | __main__:354 | 检索：query='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，命中 5 条，耗时 7.435s
+2026-10-07 08:17:33 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:17:33 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:17:33 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:17:37 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:17:37 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:17:40 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:17:40 | INFO     | __main__:412 | 问答：session=anon-2008769d9d6b，原问题='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，改写后='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'，引用 3 条资料，检索 6.893s，stream=False
+2026-10-07 08:17:41 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.48s，答案长度 412
+2026-10-07 08:17:41 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:17:42 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:17:42 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉兴图新科的法定代表人是谁？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:17:46 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:17:46 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:17:49 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:17:49 | INFO     | __main__:354 | 检索：query='武汉兴图新科的法定代表人是谁？'，命中 5 条，耗时 7.55s
+2026-10-07 08:17:49 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:17:49 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:17:49 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉兴图新科的法定代表人是谁？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:17:53 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:17:53 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:17:57 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:17:57 | INFO     | __main__:412 | 问答：session=anon-131dea15a93e，原问题='武汉兴图新科的法定代表人是谁？'，改写后='武汉兴图新科的法定代表人是谁？'，引用 3 条资料，检索 7.675s，stream=False
+2026-10-07 08:17:58 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.17s，答案长度 166
+2026-10-07 08:17:58 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:17:58 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:17:58 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉力源信息技术股份有限公司的法定代表人是谁？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:18:02 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:18:02 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:18:05 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:18:05 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的法定代表人是谁？'，命中 5 条，耗时 6.729s
+2026-10-07 08:18:05 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:18:05 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:18:05 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉力源信息技术股份有限公司的法定代表人是谁？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:18:09 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:18:09 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:18:12 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:18:12 | INFO     | __main__:412 | 问答：session=anon-1c987d72fe6d，原问题='武汉力源信息技术股份有限公司的法定代表人是谁？'，改写后='武汉力源信息技术股份有限公司的法定代表人是谁？'，引用 3 条资料，检索 7.285s，stream=False
+2026-10-07 08:18:13 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.28s，答案长度 128
+2026-10-07 08:18:13 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？...
+2026-10-07 08:18:13 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:18:13 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:18:17 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:18:17 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:18:21 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:18:21 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处'，命中 5 条，耗时 7.858s
+2026-10-07 08:18:21 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？...
+2026-10-07 08:18:21 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:18:21 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:18:26 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:18:26 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:18:29 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:18:29 | INFO     | __main__:412 | 问答：session=anon-df51323ecb28，原问题='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处'，改写后='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？'，引用 3 条资料，检索 8.312s，stream=False
+2026-10-07 08:18:31 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.64s，答案长度 340
+2026-10-07 08:18:31 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-07 08:18:31 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:18:31 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图新科参与的是哪个工程荣获国家科技进步一等奖？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:18:35 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:18:35 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:18:39 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:18:39 | INFO     | __main__:354 | 检索：query='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，命中 5 条，耗时 7.547s
+2026-10-07 08:18:39 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-07 08:18:39 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:18:39 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图新科参与的是哪个工程荣获国家科技进步一等奖？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:18:43 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:18:43 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:18:46 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:18:46 | INFO     | __main__:412 | 问答：session=anon-990f3c7543e1，原问题='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，改写后='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，引用 3 条资料，检索 7.768s，stream=False
+2026-10-07 08:18:47 | INFO     | llm_client:151 | LLM 生成完成：耗时 0.85s，答案长度 57
+2026-10-07 08:18:47 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-07 08:18:47 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:18:47 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉力源信息技术股份有限公司的主营业务是什么？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:18:52 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:18:52 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:18:54 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:18:54 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的主营业务是什么？'，命中 5 条，耗时 7.252s
+2026-10-07 08:18:54 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-07 08:18:55 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:18:55 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉力源信息技术股份有限公司的主营业务是什么？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:18:59 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:18:59 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:19:01 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:19:01 | INFO     | __main__:412 | 问答：session=anon-9316c471f245，原问题='武汉力源信息技术股份有限公司的主营业务是什么？'，改写后='武汉力源信息技术股份有限公司的主营业务是什么？'，引用 3 条资料，检索 7.007s，stream=False
+2026-10-07 08:19:03 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.87s，答案长度 522
+2026-10-07 08:19:03 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：兴图新科的主营业务收入构成是怎样的？...
+2026-10-07 08:19:03 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:19:03 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图新科的主营业务收入构成是怎样的？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:19:08 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:19:08 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:19:10 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:19:10 | INFO     | __main__:354 | 检索：query='兴图新科的主营业务收入构成是怎样的？'，命中 5 条，耗时 7.115s
+2026-10-07 08:19:10 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：兴图新科的主营业务收入构成是怎样的？...
+2026-10-07 08:19:11 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:19:11 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图新科的主营业务收入构成是怎样的？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:19:15 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:19:15 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:19:18 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:19:18 | INFO     | __main__:412 | 问答：session=anon-2f71a9aeffde，原问题='兴图新科的主营业务收入构成是怎样的？'，改写后='兴图新科的主营业务收入构成是怎样的？'，引用 3 条资料，检索 7.450s，stream=False
+2026-10-07 08:19:20 | INFO     | llm_client:151 | LLM 生成完成：耗时 2.46s，答案长度 746
+2026-10-07 08:19:20 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：招股说明书中提到的主要风险因素有哪些？...
+2026-10-07 08:19:21 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:19:21 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['招股说明书中提到的主要风险因素有哪些？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:19:25 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:19:25 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:19:27 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:19:27 | INFO     | __main__:354 | 检索：query='招股说明书中提到的主要风险因素有哪些？'，命中 5 条，耗时 7.004s
+2026-10-07 08:19:27 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：招股说明书中提到的主要风险因素有哪些？...
+2026-10-07 08:19:27 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:19:27 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['招股说明书中提到的主要风险因素有哪些？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:19:32 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:19:32 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:19:34 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:19:34 | INFO     | __main__:412 | 问答：session=anon-280835bdaba7，原问题='招股说明书中提到的主要风险因素有哪些？'，改写后='招股说明书中提到的主要风险因素有哪些？'，引用 3 条资料，检索 7.007s，stream=False
+2026-10-07 08:19:37 | INFO     | llm_client:151 | LLM 生成完成：耗时 2.31s，答案长度 757
+2026-10-07 08:19:37 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的注册地址在哪里？...
+2026-10-07 08:19:37 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:19:37 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉兴图新科电子股份有限公司的注册地址在哪里？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:19:41 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:19:41 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:19:44 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:19:44 | INFO     | __main__:354 | 检索：query='武汉兴图新科电子股份有限公司的注册地址在哪里？'，命中 5 条，耗时 6.967s
+2026-10-07 08:19:44 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的注册地址在哪里？...
+2026-10-07 08:19:44 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:19:44 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉兴图新科电子股份有限公司的注册地址在哪里？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:19:48 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:19:48 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:19:51 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:19:51 | INFO     | __main__:412 | 问答：session=anon-d6b0eb362820，原问题='武汉兴图新科电子股份有限公司的注册地址在哪里？'，改写后='武汉兴图新科电子股份有限公司的注册地址在哪里？'，引用 3 条资料，检索 7.088s，stream=False
+2026-10-07 08:19:52 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.63s，答案长度 141
+2026-10-07 08:19:52 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-07 08:19:53 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:19:53 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉兴图新科电子股份有限公司的组织架构是怎样的？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:19:57 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:19:57 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:20:01 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:20:01 | INFO     | __main__:354 | 检索：query='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，命中 5 条，耗时 8.796s
+2026-10-07 08:20:01 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-07 08:20:01 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:20:01 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉兴图新科电子股份有限公司的组织架构是怎样的？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:20:06 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:20:06 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:20:10 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:20:10 | INFO     | __main__:412 | 问答：session=anon-f937908845d6，原问题='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，改写后='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，引用 3 条资料，检索 8.413s，stream=False
+2026-10-07 08:20:12 | INFO     | llm_client:151 | LLM 生成完成：耗时 2.48s，答案长度 618
+2026-10-07 08:20:12 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:20:12 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:20:12 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:20:15 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:20:15 | INFO     | __main__:354 | 检索：query='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，命中 5 条，耗时 2.849s
+2026-10-07 08:20:15 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:20:15 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:20:15 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:20:18 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:20:18 | INFO     | __main__:412 | 问答：session=anon-3d3d507150bb，原问题='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，改写后='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'，引用 3 条资料，检索 2.796s，stream=False
+2026-10-07 08:20:18 | INFO     | llm_client:140 | LLM 缓存命中：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别...
+2026-10-07 08:20:18 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:20:18 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:20:18 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:20:21 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:20:21 | INFO     | __main__:354 | 检索：query='武汉兴图新科的法定代表人是谁？'，命中 5 条，耗时 2.965s
+2026-10-07 08:20:21 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:20:21 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:20:21 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:20:24 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:20:24 | INFO     | __main__:412 | 问答：session=anon-f97c5cefceca，原问题='武汉兴图新科的法定代表人是谁？'，改写后='武汉兴图新科的法定代表人是谁？'，引用 3 条资料，检索 2.973s，stream=False
+2026-10-07 08:20:24 | INFO     | llm_client:140 | LLM 缓存命中：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:20:24 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:20:24 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:20:24 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:20:26 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:20:26 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的法定代表人是谁？'，命中 5 条，耗时 2.646s
+2026-10-07 08:20:26 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:20:27 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:20:27 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:20:29 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:20:29 | INFO     | __main__:412 | 问答：session=anon-fbf7a24cf62b，原问题='武汉力源信息技术股份有限公司的法定代表人是谁？'，改写后='武汉力源信息技术股份有限公司的法定代表人是谁？'，引用 3 条资料，检索 2.753s，stream=False
+2026-10-07 08:20:29 | INFO     | llm_client:140 | LLM 缓存命中：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:20:29 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？...
+2026-10-07 08:20:29 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:20:29 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:20:33 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:20:33 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处'，命中 5 条，耗时 3.808s
+2026-10-07 08:20:33 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？...
+2026-10-07 08:20:33 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:20:33 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:20:37 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:20:37 | INFO     | __main__:412 | 问答：session=anon-36ef80f7e662，原问题='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处'，改写后='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？'，引用 3 条资料，检索 3.983s，stream=False
+2026-10-07 08:20:37 | INFO     | llm_client:140 | LLM 缓存命中：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处...
+2026-10-07 08:20:37 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-07 08:20:37 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:20:37 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:20:40 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:20:40 | INFO     | __main__:354 | 检索：query='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，命中 5 条，耗时 3.333s
+2026-10-07 08:20:40 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-07 08:20:40 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:20:40 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:20:43 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:20:43 | INFO     | __main__:412 | 问答：session=anon-c1c745b6352a，原问题='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，改写后='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，引用 3 条资料，检索 3.153s，stream=False
+2026-10-07 08:20:43 | INFO     | llm_client:140 | LLM 缓存命中：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-07 08:20:44 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-07 08:20:44 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:20:44 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:20:46 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:20:46 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的主营业务是什么？'，命中 5 条，耗时 2.778s
+2026-10-07 08:20:46 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-07 08:20:46 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:20:46 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:20:49 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:20:49 | INFO     | __main__:412 | 问答：session=anon-b60d9ed723e3，原问题='武汉力源信息技术股份有限公司的主营业务是什么？'，改写后='武汉力源信息技术股份有限公司的主营业务是什么？'，引用 3 条资料，检索 2.722s，stream=False
+2026-10-07 08:20:49 | INFO     | llm_client:140 | LLM 缓存命中：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-07 08:20:49 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：兴图新科的主营业务收入构成是怎样的？...
+2026-10-07 08:20:49 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:20:49 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:20:52 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:20:52 | INFO     | __main__:354 | 检索：query='兴图新科的主营业务收入构成是怎样的？'，命中 5 条，耗时 2.557s
+2026-10-07 08:20:52 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：兴图新科的主营业务收入构成是怎样的？...
+2026-10-07 08:20:52 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:20:52 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:20:54 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:20:54 | INFO     | __main__:412 | 问答：session=anon-6b90a3715e56，原问题='兴图新科的主营业务收入构成是怎样的？'，改写后='兴图新科的主营业务收入构成是怎样的？'，引用 3 条资料，检索 2.628s，stream=False
+2026-10-07 08:20:54 | INFO     | llm_client:140 | LLM 缓存命中：兴图新科的主营业务收入构成是怎样的？...
+2026-10-07 08:20:54 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：招股说明书中提到的主要风险因素有哪些？...
+2026-10-07 08:20:54 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:20:54 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:20:57 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:20:57 | INFO     | __main__:354 | 检索：query='招股说明书中提到的主要风险因素有哪些？'，命中 5 条，耗时 2.756s
+2026-10-07 08:20:57 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：招股说明书中提到的主要风险因素有哪些？...
+2026-10-07 08:20:57 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:20:57 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:21:00 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:21:00 | INFO     | __main__:412 | 问答：session=anon-ba052438317a，原问题='招股说明书中提到的主要风险因素有哪些？'，改写后='招股说明书中提到的主要风险因素有哪些？'，引用 3 条资料，检索 2.678s，stream=False
+2026-10-07 08:21:00 | INFO     | llm_client:140 | LLM 缓存命中：招股说明书中提到的主要风险因素有哪些？...
+2026-10-07 08:21:00 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的注册地址在哪里？...
+2026-10-07 08:21:00 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:21:00 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:21:02 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:21:02 | INFO     | __main__:354 | 检索：query='武汉兴图新科电子股份有限公司的注册地址在哪里？'，命中 5 条，耗时 2.686s
+2026-10-07 08:21:02 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的注册地址在哪里？...
+2026-10-07 08:21:03 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:21:03 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:21:05 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:21:05 | INFO     | __main__:412 | 问答：session=anon-e214f16d78e1，原问题='武汉兴图新科电子股份有限公司的注册地址在哪里？'，改写后='武汉兴图新科电子股份有限公司的注册地址在哪里？'，引用 3 条资料，检索 2.651s，stream=False
+2026-10-07 08:21:05 | INFO     | llm_client:140 | LLM 缓存命中：武汉兴图新科电子股份有限公司的注册地址在哪里？...
+2026-10-07 08:21:05 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-07 08:21:05 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:21:05 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:21:09 | INFO     | retriever:682 | 重排后（cross_encoder）：5 条
+2026-10-07 08:21:09 | INFO     | __main__:354 | 检索：query='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，命中 5 条，耗时 3.928s
+2026-10-07 08:21:09 | INFO     | retriever:658 | 开始检索（策略=vector，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-07 08:21:09 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:21:09 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:21:13 | INFO     | retriever:682 | 重排后（cross_encoder）：3 条
+2026-10-07 08:21:13 | INFO     | __main__:412 | 问答：session=anon-f2621e775463，原问题='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，改写后='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，引用 3 条资料，检索 3.962s，stream=False
+2026-10-07 08:21:13 | INFO     | llm_client:140 | LLM 缓存命中：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-07 08:21:13 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:21:13 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:21:17 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:21:17 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:21:17 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:21:17 | INFO     | __main__:354 | 检索：query='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，命中 0 条，耗时 4.135s
+2026-10-07 08:21:17 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:21:17 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:21:21 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:21:21 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:21:21 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:21:21 | INFO     | __main__:412 | 问答：session=anon-7ab3ca31cb15，原问题='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，改写后='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'，引用 0 条资料，检索 4.114s，stream=False
+2026-10-07 08:21:21 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:21:21 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉兴图新科的法定代表人是谁？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:21:26 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:21:26 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:21:26 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:21:26 | INFO     | __main__:354 | 检索：query='武汉兴图新科的法定代表人是谁？'，命中 0 条，耗时 4.253s
+2026-10-07 08:21:26 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:21:26 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉兴图新科的法定代表人是谁？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:21:30 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:21:30 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:21:30 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:21:30 | INFO     | __main__:412 | 问答：session=anon-2fbf1d035c4b，原问题='武汉兴图新科的法定代表人是谁？'，改写后='武汉兴图新科的法定代表人是谁？'，引用 0 条资料，检索 4.319s，stream=False
+2026-10-07 08:21:30 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:21:30 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉力源信息技术股份有限公司的法定代表人是谁？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:21:34 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:21:34 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:21:34 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:21:34 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的法定代表人是谁？'，命中 0 条，耗时 4.282s
+2026-10-07 08:21:34 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:21:34 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉力源信息技术股份有限公司的法定代表人是谁？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:21:39 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:21:39 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:21:39 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:21:39 | INFO     | __main__:412 | 问答：session=anon-541263888ae7，原问题='武汉力源信息技术股份有限公司的法定代表人是谁？'，改写后='武汉力源信息技术股份有限公司的法定代表人是谁？'，引用 0 条资料，检索 4.559s，stream=False
+2026-10-07 08:21:39 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？...
+2026-10-07 08:21:39 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:21:43 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:21:43 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:21:43 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:21:43 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处'，命中 0 条，耗时 4.295s
+2026-10-07 08:21:43 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？...
+2026-10-07 08:21:43 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:21:47 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:21:47 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:21:47 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:21:47 | INFO     | __main__:412 | 问答：session=anon-7f9428c6ccfa，原问题='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处'，改写后='武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？'，引用 0 条资料，检索 4.216s，stream=False
+2026-10-07 08:21:47 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-07 08:21:47 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图新科参与的是哪个工程荣获国家科技进步一等奖？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:21:51 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:21:51 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:21:51 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:21:51 | INFO     | __main__:354 | 检索：query='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，命中 0 条，耗时 4.193s
+2026-10-07 08:21:51 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图新科参与的是哪个工程荣获国家科技进步一等奖？...
+2026-10-07 08:21:51 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图新科参与的是哪个工程荣获国家科技进步一等奖？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:21:55 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:21:55 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:21:55 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:21:55 | INFO     | __main__:412 | 问答：session=anon-d26fac7c5c02，原问题='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，改写后='兴图新科参与的是哪个工程荣获国家科技进步一等奖？'，引用 0 条资料，检索 4.025s，stream=False
+2026-10-07 08:21:55 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-07 08:21:55 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉力源信息技术股份有限公司的主营业务是什么？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:22:00 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:22:00 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:22:00 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:22:00 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的主营业务是什么？'，命中 0 条，耗时 4.327s
+2026-10-07 08:22:00 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉力源信息技术股份有限公司的主营业务是什么？...
+2026-10-07 08:22:00 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉力源信息技术股份有限公司的主营业务是什么？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:22:04 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:22:04 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:22:04 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:22:04 | INFO     | __main__:412 | 问答：session=anon-5f5e655883b2，原问题='武汉力源信息技术股份有限公司的主营业务是什么？'，改写后='武汉力源信息技术股份有限公司的主营业务是什么？'，引用 0 条资料，检索 4.074s，stream=False
+2026-10-07 08:22:04 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图新科的主营业务收入构成是怎样的？...
+2026-10-07 08:22:04 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图新科的主营业务收入构成是怎样的？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:22:08 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:22:08 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:22:08 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:22:08 | INFO     | __main__:354 | 检索：query='兴图新科的主营业务收入构成是怎样的？'，命中 0 条，耗时 4.056s
+2026-10-07 08:22:08 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：兴图新科的主营业务收入构成是怎样的？...
+2026-10-07 08:22:08 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图新科的主营业务收入构成是怎样的？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:22:12 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:22:12 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:22:12 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:22:12 | INFO     | __main__:412 | 问答：session=anon-d6c38ffdbf23，原问题='兴图新科的主营业务收入构成是怎样的？'，改写后='兴图新科的主营业务收入构成是怎样的？'，引用 0 条资料，检索 3.907s，stream=False
+2026-10-07 08:22:12 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：招股说明书中提到的主要风险因素有哪些？...
+2026-10-07 08:22:12 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['招股说明书中提到的主要风险因素有哪些？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:22:16 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:22:16 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:22:16 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:22:16 | INFO     | __main__:354 | 检索：query='招股说明书中提到的主要风险因素有哪些？'，命中 0 条，耗时 4.213s
+2026-10-07 08:22:16 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：招股说明书中提到的主要风险因素有哪些？...
+2026-10-07 08:22:16 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['招股说明书中提到的主要风险因素有哪些？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:22:20 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:22:20 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:22:20 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:22:20 | INFO     | __main__:412 | 问答：session=anon-30b168f80920，原问题='招股说明书中提到的主要风险因素有哪些？'，改写后='招股说明书中提到的主要风险因素有哪些？'，引用 0 条资料，检索 4.038s，stream=False
+2026-10-07 08:22:20 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的注册地址在哪里？...
+2026-10-07 08:22:20 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉兴图新科电子股份有限公司的注册地址在哪里？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:22:24 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:22:24 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:22:24 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:22:24 | INFO     | __main__:354 | 检索：query='武汉兴图新科电子股份有限公司的注册地址在哪里？'，命中 0 条，耗时 4.269s
+2026-10-07 08:22:24 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的注册地址在哪里？...
+2026-10-07 08:22:24 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉兴图新科电子股份有限公司的注册地址在哪里？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:22:29 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:22:29 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:22:29 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:22:29 | INFO     | __main__:412 | 问答：session=anon-e43020d46296，原问题='武汉兴图新科电子股份有限公司的注册地址在哪里？'，改写后='武汉兴图新科电子股份有限公司的注册地址在哪里？'，引用 0 条资料，检索 4.338s，stream=False
+2026-10-07 08:22:29 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-07 08:22:29 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉兴图新科电子股份有限公司的组织架构是怎样的？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:22:33 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:22:33 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:22:33 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:22:33 | INFO     | __main__:354 | 检索：query='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，命中 0 条，耗时 4.055s
+2026-10-07 08:22:33 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=cross_encoder）：武汉兴图新科电子股份有限公司的组织架构是怎样的？...
+2026-10-07 08:22:33 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉兴图新科电子股份有限公司的组织架构是怎样的？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:22:37 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:22:37 | INFO     | retriever:678 | 融合后：0 条
+2026-10-07 08:22:37 | INFO     | retriever:682 | 重排后（cross_encoder）：0 条
+2026-10-07 08:22:37 | INFO     | __main__:412 | 问答：session=anon-0d90fc20e124，原问题='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，改写后='武汉兴图新科电子股份有限公司的组织架构是怎样的？'，引用 0 条资料，检索 4.484s，stream=False
+2026-10-07 08:22:37 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=weighted，重排=tfidf）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:22:38 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:22:38 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:22:42 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:22:42 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:22:42 | INFO     | retriever:682 | 重排后（tfidf）：5 条
+2026-10-07 08:22:42 | INFO     | __main__:354 | 检索：query='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，命中 5 条，耗时 4.649s
+2026-10-07 08:22:42 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=weighted，重排=tfidf）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:22:42 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:22:42 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:22:46 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:22:46 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:22:46 | INFO     | retriever:682 | 重排后（tfidf）：3 条
+2026-10-07 08:22:46 | INFO     | __main__:412 | 问答：session=anon-bdb77cbbb6ec，原问题='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，改写后='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'，引用 3 条资料，检索 4.396s，stream=False
+2026-10-07 08:22:48 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.94s，答案长度 227
+2026-10-07 08:22:48 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=weighted，重排=tfidf）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:22:49 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:22:49 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉兴图新科的法定代表人是谁？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:22:53 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:22:53 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:22:53 | INFO     | retriever:682 | 重排后（tfidf）：5 条
+2026-10-07 08:22:53 | INFO     | __main__:354 | 检索：query='武汉兴图新科的法定代表人是谁？'，命中 5 条，耗时 4.706s
+2026-10-07 08:22:53 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=weighted，重排=tfidf）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:22:53 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:22:53 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉兴图新科的法定代表人是谁？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:22:58 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:22:58 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:22:58 | INFO     | retriever:682 | 重排后（tfidf）：3 条
+2026-10-07 08:22:58 | INFO     | __main__:412 | 问答：session=anon-59554895d499，原问题='武汉兴图新科的法定代表人是谁？'，改写后='武汉兴图新科的法定代表人是谁？'，引用 3 条资料，检索 4.768s，stream=False
+2026-10-07 08:22:59 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.27s，答案长度 196
+2026-10-07 08:22:59 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=weighted，重排=tfidf）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:22:59 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:22:59 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉力源信息技术股份有限公司的法定代表人是谁？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:23:03 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:23:03 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:23:03 | INFO     | retriever:682 | 重排后（tfidf）：5 条
+2026-10-07 08:23:03 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的法定代表人是谁？'，命中 5 条，耗时 4.342s
+2026-10-07 08:23:04 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=weighted，重排=tfidf）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:23:04 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:23:04 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉力源信息技术股份有限公司的法定代表人是谁？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:23:08 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:23:08 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:23:08 | INFO     | retriever:682 | 重排后（tfidf）：3 条
+2026-10-07 08:23:08 | INFO     | __main__:412 | 问答：session=anon-11024c6cbbc0，原问题='武汉力源信息技术股份有限公司的法定代表人是谁？'，改写后='武汉力源信息技术股份有限公司的法定代表人是谁？'，引用 3 条资料，检索 4.308s，stream=False
+2026-10-07 08:23:09 | INFO     | llm_client:151 | LLM 生成完成：耗时 1.06s，答案长度 130
+2026-10-07 08:23:09 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=voting，重排=tfidf）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:23:09 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:23:09 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:23:13 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:23:13 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:23:13 | INFO     | retriever:682 | 重排后（tfidf）：5 条
+2026-10-07 08:23:13 | INFO     | __main__:354 | 检索：query='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，命中 5 条，耗时 4.384s
+2026-10-07 08:23:13 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=voting，重排=tfidf）：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？...
+2026-10-07 08:23:14 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:23:14 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:23:18 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:23:18 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:23:18 | INFO     | retriever:682 | 重排后（tfidf）：3 条
+2026-10-07 08:23:18 | INFO     | __main__:412 | 问答：session=anon-b5affdb65f99，原问题='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别'，改写后='报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？'，引用 3 条资料，检索 4.635s，stream=False
+2026-10-07 08:23:18 | INFO     | llm_client:140 | LLM 缓存命中：报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别...
+2026-10-07 08:23:18 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=voting，重排=tfidf）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:23:18 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:23:18 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉兴图新科的法定代表人是谁？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:23:22 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:23:22 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:23:22 | INFO     | retriever:682 | 重排后（tfidf）：5 条
+2026-10-07 08:23:22 | INFO     | __main__:354 | 检索：query='武汉兴图新科的法定代表人是谁？'，命中 5 条，耗时 4.303s
+2026-10-07 08:23:22 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=voting，重排=tfidf）：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:23:22 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:23:22 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉兴图新科的法定代表人是谁？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:23:27 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:23:27 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:23:27 | INFO     | retriever:682 | 重排后（tfidf）：3 条
+2026-10-07 08:23:27 | INFO     | __main__:412 | 问答：session=anon-4bf9022054d2，原问题='武汉兴图新科的法定代表人是谁？'，改写后='武汉兴图新科的法定代表人是谁？'，引用 3 条资料，检索 4.333s，stream=False
+2026-10-07 08:23:27 | INFO     | llm_client:140 | LLM 缓存命中：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:23:27 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=voting，重排=tfidf）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:23:27 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:23:27 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉力源信息技术股份有限公司的法定代表人是谁？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:23:31 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:23:31 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:23:31 | INFO     | retriever:682 | 重排后（tfidf）：5 条
+2026-10-07 08:23:31 | INFO     | __main__:354 | 检索：query='武汉力源信息技术股份有限公司的法定代表人是谁？'，命中 5 条，耗时 4.475s
+2026-10-07 08:23:31 | INFO     | retriever:658 | 开始检索（策略=hybrid，融合=voting，重排=tfidf）：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:23:31 | INFO     | retriever:666 | 向量召回：6 条
+2026-10-07 08:23:31 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['武汉力源信息技术股份有限公司的法定代表人是谁？'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:23:35 | INFO     | retriever:669 | 全文召回：0 条
+2026-10-07 08:23:35 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:23:35 | INFO     | retriever:682 | 重排后（tfidf）：3 条
+2026-10-07 08:23:35 | INFO     | __main__:412 | 问答：session=anon-4865032b0515，原问题='武汉力源信息技术股份有限公司的法定代表人是谁？'，改写后='武汉力源信息技术股份有限公司的法定代表人是谁？'，引用 3 条资料，检索 4.418s，stream=False
+2026-10-07 08:23:35 | INFO     | llm_client:140 | LLM 缓存命中：武汉力源信息技术股份有限公司的法定代表人是谁？...
+2026-10-07 08:23:36 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=tfidf）：武汉 AND 兴图...
+2026-10-07 08:23:36 | INFO     | retriever:302 | 全文检索语法解析：{'must': ['兴图'], 'should': ['武汉'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:23:40 | INFO     | retriever:669 | 全文召回：6 条
+2026-10-07 08:23:40 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:23:40 | INFO     | retriever:682 | 重排后（tfidf）：3 条
+2026-10-07 08:23:40 | INFO     | __main__:354 | 检索：query='武汉 AND 兴图'，命中 3 条，耗时 4.314s
+2026-10-07 08:23:40 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=tfidf）：兴图 OR 力源...
+2026-10-07 08:23:40 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图', '力源'], 'must_not': [], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:23:44 | INFO     | retriever:669 | 全文召回：6 条
+2026-10-07 08:23:44 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:23:44 | INFO     | retriever:682 | 重排后（tfidf）：3 条
+2026-10-07 08:23:44 | INFO     | __main__:354 | 检索：query='兴图 OR 力源'，命中 3 条，耗时 4.124s
+2026-10-07 08:23:44 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=tfidf）：兴图 NOT 力源...
+2026-10-07 08:23:44 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': ['兴图'], 'must_not': ['力源'], 'phrases': [], 'fuzzy': []}
+2026-10-07 08:23:48 | INFO     | retriever:669 | 全文召回：6 条
+2026-10-07 08:23:48 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:23:48 | INFO     | retriever:682 | 重排后（tfidf）：3 条
+2026-10-07 08:23:48 | INFO     | __main__:354 | 检索：query='兴图 NOT 力源'，命中 3 条，耗时 4.301s
+2026-10-07 08:23:48 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=tfidf）："法定代表人"...
+2026-10-07 08:23:48 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': [], 'must_not': [], 'phrases': ['法定代表人'], 'fuzzy': []}
+2026-10-07 08:23:52 | INFO     | retriever:669 | 全文召回：6 条
+2026-10-07 08:23:52 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:23:52 | INFO     | retriever:682 | 重排后（tfidf）：3 条
+2026-10-07 08:23:52 | INFO     | __main__:354 | 检索：query='"法定代表人"'，命中 3 条，耗时 4.124s
+2026-10-07 08:23:52 | INFO     | retriever:658 | 开始检索（策略=fulltext，融合=rrf，重排=tfidf）：兴图~...
+2026-10-07 08:23:52 | INFO     | retriever:302 | 全文检索语法解析：{'must': [], 'should': [], 'must_not': [], 'phrases': [], 'fuzzy': ['兴图']}
+2026-10-07 08:23:53 | INFO     | retriever:328 | 模糊匹配：'兴图~' 命中词表 ['兴图', '任兴图', '兴图天', '创兴图', '由兴图']
+2026-10-07 08:23:57 | INFO     | retriever:669 | 全文召回：6 条
+2026-10-07 08:23:57 | INFO     | retriever:678 | 融合后：6 条
+2026-10-07 08:23:57 | INFO     | retriever:682 | 重排后（tfidf）：3 条
+2026-10-07 08:23:57 | INFO     | __main__:354 | 检索：query='兴图~'，命中 3 条，耗时 4.421s
+2026-10-07 08:24:48 | INFO     | retriever:655 | 检索缓存命中：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:24:48 | INFO     | __main__:354 | 检索：query='武汉兴图新科的法定代表人是谁？'，命中 5 条，耗时 0.0s
+2026-10-07 08:24:49 | INFO     | query_rewriter:273 | [Rewrite] LLM 改写：'武汉兴图新科的法定代表人是谁？' -> '武汉兴图新科的法定代表人是谁？'
+2026-10-07 08:24:49 | INFO     | __main__:395 | [Query改写] '武汉兴图新科的法定代表人是谁？' -> '武汉兴图新科的法定代表人是谁？' (type=followup, by=llm, 0.997s)
+2026-10-07 08:24:49 | INFO     | retriever:655 | 检索缓存命中：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:24:49 | INFO     | __main__:412 | 问答：session=anon-2a49c0279fbc，原问题='武汉兴图新科的法定代表人是谁？'，改写后='武汉兴图新科的法定代表人是谁？'，引用 5 条资料，检索 0.001s，stream=True
+2026-10-07 08:24:51 | INFO     | llm_client:186 | LLM 流式生成完成：耗时 1.43s
+2026-10-07 08:29:53 | INFO     | retriever:655 | 检索缓存命中：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:29:53 | INFO     | __main__:354 | 检索：query='武汉兴图新科的法定代表人是谁？'，命中 5 条，耗时 0.001s
+2026-10-07 08:29:53 | INFO     | query_rewriter:205 | [Rewrite] 缓存命中：'武汉兴图新科的法定代表人是谁？' -> '武汉兴图新科的法定代表人是谁？'
+2026-10-07 08:29:53 | INFO     | __main__:395 | [Query改写] '武汉兴图新科的法定代表人是谁？' -> '武汉兴图新科的法定代表人是谁？' (type=followup, by=cache, 0.000s)
+2026-10-07 08:29:53 | INFO     | retriever:655 | 检索缓存命中：武汉兴图新科的法定代表人是谁？...
+2026-10-07 08:29:53 | INFO     | __main__:412 | 问答：session=anon-0dbb87baeeb1，原问题='武汉兴图新科的法定代表人是谁？'，改写后='武汉兴图新科的法定代表人是谁？'，引用 5 条资料，检索 0.000s，stream=True
+2026-10-07 08:29:54 | INFO     | llm_client:186 | LLM 流式生成完成：耗时 1.62s
