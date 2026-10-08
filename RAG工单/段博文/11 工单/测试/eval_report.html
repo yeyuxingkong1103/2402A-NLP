@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Embedding 模型微调评估报告</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Microsoft YaHei", sans-serif; background: #f5f7fa; color: #2d3748; padding: 30px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  h1 { text-align: center; color: #1a365d; margin-bottom: 6px; }
+  .subtitle { text-align: center; color: #718096; margin-bottom: 30px; font-size: 14px; }
+  .card { background: #fff; border-radius: 10px; padding: 24px 30px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  h2 { color: #2b6cb0; font-size: 18px; margin-bottom: 16px; border-left: 4px solid #2b6cb0; padding-left: 10px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 12px 14px; text-align: center; border-bottom: 1px solid #e2e8f0; }
+  th { background: #edf2f7; color: #2d3748; font-weight: 600; }
+  .up { color: #2f855a; font-weight: bold; }
+  .stats { display: flex; gap: 16px; flex-wrap: wrap; }
+  .stat-box { flex: 1; min-width: 150px; background: #ebf8ff; border-radius: 8px; padding: 18px; text-align: center; }
+  .stat-box .num { font-size: 28px; font-weight: bold; color: #2b6cb0; }
+  .stat-box .label { font-size: 13px; color: #4a5568; margin-top: 6px; }
+  .conclusion { background: #f0fff4; border: 1px solid #9ae6b4; border-radius: 8px; padding: 18px; color: #22543d; font-size: 15px; line-height: 1.7; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Embedding 模型微调评估报告</h1>
+  <div class="subtitle">工单编号：人工智能NLP-RAG项目-Embedding模型微调任务 ｜ 基线模型：BAAI/bge-base-en-v1.5 ｜ 领域：金融年报</div>
+
+  <div class="card">
+    <h2>一、数据集统计</h2>
+    <div class="stats">
+      <div class="stat-box"><div class="num">9</div><div class="label">金融年报份数</div></div>
+      <div class="stat-box"><div class="num">360</div><div class="label">采样段落</div></div>
+      <div class="stat-box"><div class="num">300</div><div class="label">训练三元组</div></div>
+      <div class="stat-box"><div class="num">60</div><div class="label">评估查询</div></div>
+      <div class="stat-box"><div class="num">358</div><div class="label">候选语料段</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>二、微调前后检索指标对比</h2>
+    <table>
+      <thead>
+        <tr><th>评估指标</th><th>微调前</th><th>微调后</th><th>提升幅度</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Recall@1（Top1 准确率）</td><td>0.4000</td><td>0.5667</td><td class="up">↑ 0.1667</td></tr>
+        <tr><td>Recall@3</td><td>0.5667</td><td>0.8000</td><td class="up">↑ 0.2333</td></tr>
+        <tr><td>Recall@5</td><td>0.6167</td><td>0.8333</td><td class="up">↑ 0.2166</td></tr>
+        <tr><td>Recall@10</td><td>0.7333</td><td>0.8500</td><td class="up">↑ 0.1167</td></tr>
+        <tr><td>MRR@10</td><td>0.4957</td><td>0.6818</td><td class="up">↑ 0.1861</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>三、结论</h2>
+    <div class="conclusion">
+      微调采用 <b>套娃损失 MatryoshkaLoss（多重负例排序损失 MNRL）</b>，结合 BM25 困难负例，在 CPU 环境完成 2 个 epoch 训练。
+      微调后全部检索指标均显著优于微调前：<b>Recall@3 提升 23.3 个百分点（0.567→0.800），MRR@10 提升 18.6 个百分点（0.496→0.682）</b>。
+      验收标准"微调后检索效果优于微调前，有数据指标支撑"已达成。微调模型同时支持 768/512/256/128/64 五种维度截断。
+    </div>
+  </div>
+</div>
+</body>
+</html>

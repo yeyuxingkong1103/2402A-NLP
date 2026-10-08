@@ -1,0 +1,59 @@
+{
+  "base_model": "D:\\Projects\\Models\\BAAI--bge-base-en-v1.5\\models--BAAI--bge-base-en-v1.5\\snapshots\\a5beb1e3e68b9ab74eb54cfd186867f64f240e1a",
+  "config": {
+    "max_seq_length": 256,
+    "epochs": 2,
+    "batch_size": 16,
+    "lr": 2e-05,
+    "matryoshka_dims": [
+      768,
+      512,
+      256,
+      128,
+      64
+    ]
+  },
+  "before": {
+    "Recall@1": 0.4,
+    "Recall@3": 0.5667,
+    "Recall@5": 0.6167,
+    "Recall@10": 0.7333,
+    "MRR@10": 0.4957,
+    "Top1准确率": 0.4
+  },
+  "after": {
+    "Recall@1": 0.5667,
+    "Recall@3": 0.8,
+    "Recall@5": 0.8333,
+    "Recall@10": 0.85,
+    "MRR@10": 0.6818,
+    "Top1准确率": 0.5667
+  },
+  "epoch_history": [
+    {
+      "epoch": 2.0,
+      "steps": 19,
+      "Recall@1": 0.5167,
+      "Recall@3": 0.8,
+      "Recall@5": 0.8333,
+      "Recall@10": 0.85,
+      "MRR@10": 0.6604,
+      "Top1准确率": 0.5167
+    },
+    {
+      "epoch": 3.0,
+      "steps": 38,
+      "Recall@1": 0.5667,
+      "Recall@3": 0.8,
+      "Recall@5": 0.8333,
+      "Recall@10": 0.85,
+      "MRR@10": 0.6818,
+      "Top1准确率": 0.5667
+    }
+  ],
+  "data_stats": {
+    "train": 300,
+    "eval": 60,
+    "corpus": 358
+  }
+}
