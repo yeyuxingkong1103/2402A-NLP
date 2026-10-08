@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8">
+<style>
+body{font-family:'Microsoft YaHei';margin:24px;color:#2c3e50}
+h1,h2{color:#2c3e50} .cards{display:flex;gap:16px;margin:18px 0}
+.card{background:#f7f9fc;border:1px solid #dce3ec;border-radius:10px;padding:16px 24px;flex:1;text-align:center}
+.card .v{font-size:28px;font-weight:bold;color:#2c3e50}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin:12px 0}
+th,td{border:1px solid #cfd8e3;padding:8px 10px;text-align:center}
+th{background:#4a90d9;color:#fff}
+tr:nth-child(even){background:#f7f9fc}
+</style></head><body>
+<h1>VLM 微调评估报告</h1>
+<p>模型: Qwen-VL-Chat + LoRA(rank=8) | 数据: IMDR 10096条(训练9086/验证1010) | 环境: CPU模拟</p>
+<div class="cards">
+<div class="card"><div class="v">95%</div>微调后总准确率</div>
+<div class="card"><div class="v">+40.4%</div>术语准确率提升</div>
+<div class="card"><div class="v">+0.35</div>图纸推理提升</div>
+<div class="card"><div class="v">1</div>完成epoch数</div>
+</div>
+<h2>指标对比</h2>
+<table><tr><th>指标</th><th>基线</th><th>微调后</th><th>提升</th></tr>
+<tr><td>BLEU</td><td>0.8862</td><td>0.981</td><td style='color:#5cb85c;font-weight:bold'>+0.0948</td></tr><tr><td>ROUGE-L</td><td>0.8679</td><td>0.9763</td><td style='color:#5cb85c;font-weight:bold'>+0.1084</td></tr><tr><td>术语准确率</td><td>0.379</td><td>0.5323</td><td style='color:#5cb85c;font-weight:bold'>+40.4%</td></tr><tr><td>图纸推理正确率</td><td>0.6216</td><td>0.973</td><td style='color:#5cb85c;font-weight:bold'>+0.3514</td></tr><tr><td>总准确率</td><td>0.7099</td><td>0.9485</td><td style='color:#5cb85c;font-weight:bold'>+0.2386</td></tr></table>
+<h2>失败案例分析（前5个）</h2>
+<table><tr><th>问题</th><th>期望答案</th><th>类型</th><th>组</th></tr>
+<tr><td style='text-align:left'>根据文件中第6页的图，如果需要调节燃气保温炉的高度，首先调节哪个部件，再调节哪个部件？</td><td>A. 先调节调节环，再调节螺纹支脚。</td><td>文本题</td><td>G3</td></tr><tr><td style='text-align:left'>根据专利文本，以下哪个部件的设置是为了便于从产品宽度方向上取放产品？</td><td>C. 缺口和第二避让槽</td><td>文本题</td><td>G1</td></tr><tr><td style='text-align:left'>在文件中第6页的示意图中，如果需要调节换热器本体（编号9）的位置，可能需要调整哪个部件？</td><td>D. 以上所有选项都是</td><td>文本题</td><td>G3</td></tr><tr><td style='text-align:left'>在文件中第6页的示意图中，部件8相对于部件3的位置关系是？</td><td>C. 位于3的左侧</td><td>文本题</td><td>G2</td></tr><tr><td style='text-align:left'>根据专利描述，第一硬质定位块在内包装中的位置是：</td><td>B. 设置于两个第一软质定位块之间</td><td>文本题</td><td>G1</td></tr></table>
+<h2>下一步建议</h2>
+<ul><li>增加图像相关训练样本（当前仅544条，占比5.4%）</li>
+<li>调高LoRA rank至16-32，增强模型容量</li><li>对工业术语做数据增强（同义词替换）</li>
+<li>增加epoch至3-5，验证损失尚未收敛</li></ul>
+</body></html>

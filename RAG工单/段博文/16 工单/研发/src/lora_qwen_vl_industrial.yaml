@@ -1,0 +1,44 @@
+# LLaMA-Factory LoRA 微调配置 — Qwen-VL 工业文档VLM
+# 使用方法: llamafactory-cli train lora_qwen_vl_industrial.yaml
+# 注意: 本配置面向GPU环境（A100 40G），CPU环境请用 mock_train.py 模拟
+
+# === 模型配置 ===
+model_name_or_path: Qwen/Qwen-VL-Chat
+trust_remote_code: true
+
+# === 微调方法 ===
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 8
+lora_alpha: 16
+lora_dropout: 0.05
+lora_target: c_attn,attn.c_proj,mlp.c_proj
+
+# === 数据集 ===
+dataset: imdr_industrial
+template: qwen
+cutoff_len: 1024
+max_samples: 1000  # CPU调试时减小
+overwrite_cache: true
+
+# === 图像预处理 ===
+image_max_length: 1024
+image_resolution: 448
+
+# === 训练参数 ===
+output_dir: ../../data/lora_output
+num_train_epochs: 1
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 8
+learning_rate: 5.0e-5
+warmup_ratio: 0.1
+lr_scheduler_type: cosine
+logging_steps: 10
+save_steps: 500
+bf16: true  # GPU环境开启，CPU环境改为false
+
+# === 评估 ===
+val_size: 0.1
+eval_strategy: steps
+eval_steps: 200
