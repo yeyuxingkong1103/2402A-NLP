@@ -9,6 +9,7 @@ const state = {
   sessionId: null,
   sessions: [],
   streaming: false,
+  imageData: null, // 待发送的图片 data URL
 };
 
 const $ = (id) => document.getElementById(id);
@@ -211,7 +212,8 @@ async function openSession(sessionId) {
     } else {
       const target = addMessage('assistant', message.content, { citations: message.citations || [] });
       target.wrap.dataset.question = message.question || '';
-      attachEvaluateButton(target.wrap, []);
+      if (message.contexts) target.wrap.dataset.contexts = JSON.stringify(message.contexts);
+      attachEvaluateButton(target.wrap, message.contexts || []);
     }
   });
   renderSessions();
@@ -260,6 +262,12 @@ function addMessage(who, content, options) {
   bubble.className = 'bubble';
   bubble.textContent = content;
   wrap.appendChild(bubble);
+  if (opts.image) {
+    const img = document.createElement('img');
+    img.className = 'msg-img';
+    img.src = opts.image;
+    wrap.appendChild(img);
+  }
   if (opts.citations && opts.citations.length) {
     wrap.appendChild(renderCitations(opts.citations));
   }
@@ -289,7 +297,7 @@ function attachEvaluateButton(wrap, contexts) {
     const question = wrap.dataset.question || '';
     const answer = wrap.querySelector('.bubble').textContent || '';
     let ctxs = contexts;
-    if (!ctxs.length && wrap.dataset.contexts) {
+    if ((!ctxs || !ctxs.length) && wrap.dataset.contexts) {
       try { ctxs = JSON.parse(wrap.dataset.contexts); } catch (e) { ctxs = []; }
     }
     let box = wrap.querySelector('.eval-box');
@@ -298,27 +306,107 @@ function attachEvaluateButton(wrap, contexts) {
       box.className = 'eval-box';
       wrap.appendChild(box);
     }
-    box.innerHTML = '评估中，请稍候…';
+    const refInput = wrap.querySelector('.ref-input');
+    const reference = (refInput && refInput.value.trim()) || '';
+
+    btn.disabled = true;
+    btn.textContent = '评估中…';
+    box.innerHTML = renderEvalLoading();
     try {
-      const data = await api('/api/evaluate', {
-        method: 'POST',
-        body: { question, answer, retrieved_contexts: ctxs },
-      });
-      box.innerHTML = renderScores(data.scores);
+      const body = { question, answer };
+      if (ctxs && ctxs.length) body.retrieved_contexts = ctxs;
+      if (reference) body.reference = reference;
+      const data = await api('/api/evaluate', { method: 'POST', body });
+      box.innerHTML = (data.ok === false) ? renderEvalError(data.message) : renderEvalResult(data);
+      const ref = box.querySelector('.ref-input');
+      if (ref) {
+        ref.value = reference;
+        ref.addEventListener('keydown', (event) => { if (event.key === 'Enter') { event.preventDefault(); btn.click(); } });
+      }
     } catch (err) {
-      box.innerHTML = '评估失败：' + escapeHtml(err.message);
+      box.innerHTML = renderEvalError(err.message);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '重新评估';
     }
   });
   wrap.appendChild(btn);
 }
 
-function renderScores(scores) {
-  const rows = Object.entries(scores || {}).map(([key, value]) => {
-    const label = SCORE_LABELS[key] || key;
-    const val = value == null ? '—' : (typeof value === 'number' ? value.toFixed(3) : value);
-    return '<div class="score-row"><span>' + escapeHtml(label) + '</span><span>' + escapeHtml(String(val)) + '</span></div>';
-  });
-  return '<h4>RAGAS 评分（0~1，越接近 1 越好）</h4>' + rows.join('');
+function scoreColor(value) {
+  if (value == null) return 'na';
+  if (value >= 0.8) return 'good';
+  if (value >= 0.6) return 'mid';
+  return 'bad';
+}
+
+function scoreBar(value) {
+  const pct = (value == null) ? 0 : Math.max(0, Math.min(100, value * 100));
+  return '<div class="bar-track"><div class="bar-fill ' + scoreColor(value)
+    + '" style="width:' + pct.toFixed(0) + '%"></div></div>';
+}
+
+function renderEvalLoading() {
+  return '<div class="eval-loading">正在调用 RAGAS 评估（LLM + 向量模型），首次可能需要几十秒…</div>';
+}
+
+function renderEvalError(message) {
+  return '<div class="eval-error">评估失败：' + escapeHtml(message || '未知错误') + '</div>';
+}
+
+function renderEvalResult(detail) {
+  const d = detail || {};
+  const scores = d.scores || {};
+  const skipped = d.skipped || {};
+  const errors = d.errors || {};
+  const timings = d.timings || {};
+
+  if (d.available === false) {
+    return '<h4>RAGAS 评估结果</h4>'
+      + '<div class="eval-error">' + escapeHtml(errors._ragas || 'ragas 未安装') + '</div>';
+  }
+
+  const parts = ['<h4>RAGAS 评估结果（0~1，越接近 1 越好）</h4>'];
+  const keys = Object.keys(scores);
+  if (keys.length) {
+    keys.forEach((key) => {
+      const label = SCORE_LABELS[key] || key;
+      const v = scores[key];
+      const val = (v == null) ? '—' : (typeof v === 'number' ? v.toFixed(3) : v);
+      parts.push(
+        '<div class="score-row">'
+        + '<span class="score-name">' + escapeHtml(label) + '</span>'
+        + scoreBar(v)
+        + '<span class="score-val ' + scoreColor(v) + '">' + escapeHtml(String(val)) + '</span>'
+        + '</div>'
+      );
+    });
+  } else {
+    parts.push('<div class="eval-empty">无可评估指标（请确认已提供问题 / 答案 / 上下文）</div>');
+  }
+
+  const skipKeys = Object.keys(skipped);
+  if (skipKeys.length) {
+    parts.push('<div class="eval-note">已跳过：'
+      + skipKeys.map((k) => '<span class="skip-chip">' + escapeHtml(SCORE_LABELS[k] || k)
+        + '（' + escapeHtml(skipped[k]) + '）</span>').join(' ')
+      + '</div>');
+  }
+  const errKeys = Object.keys(errors).filter((k) => k.charAt(0) !== '_');
+  if (errKeys.length) {
+    parts.push('<div class="eval-note warn">计算失败：'
+      + errKeys.map((k) => escapeHtml(SCORE_LABELS[k] || k) + '：' + escapeHtml(errors[k])).join('；')
+      + '</div>');
+  }
+  if (timings && timings.total != null) {
+    parts.push('<div class="eval-time">耗时 ' + timings.total + 's</div>');
+  }
+  parts.push(
+    '<div class="eval-ref">'
+    + '<input class="ref-input" type="text" placeholder="参考答案（可选）：填入后可额外评估答案正确性、语义相似度、上下文召回等指标" />'
+    + '</div>'
+  );
+  return parts.join('');
 }
 
 function scrollBottom() {
@@ -330,13 +418,15 @@ function scrollBottom() {
 async function send() {
   if (state.streaming) return;
   const text = $('input').value.trim();
-  if (!text) return;
+  if (!text && !state.imageData) return;
   if (!state.roleId) { alert('请先选择角色'); return; }
   state.streaming = true;
   $('btn-send').disabled = true;
+  const image = state.imageData;
   $('input').value = '';
+  clearImage();
   if ($('chat').querySelector('.welcome')) $('chat').innerHTML = '';
-  addMessage('user', text, {});
+  addMessage('user', text || '（图片）', { image });
   const target = addMessage('assistant', '', {});
   target.wrap.dataset.question = text;
   let buffer = '';
@@ -349,6 +439,7 @@ async function send() {
       role_id: state.roleId,
       session_id: state.sessionId,
       stream: true,
+      image: image || undefined,
     }, {
       meta: (data) => {
         state.sessionId = data.session_id;
@@ -390,6 +481,29 @@ $('btn-send').addEventListener('click', send);
 $('input').addEventListener('keydown', (event) => {
   if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); send(); }
 });
+
+/* ------------------------------------------------------------ 图片上传 */
+function clearImage() {
+  state.imageData = null;
+  $('img-preview').hidden = true;
+  $('img-thumb').src = '';
+  $('file-img').value = '';
+}
+
+$('btn-img').addEventListener('click', () => $('file-img').click());
+$('file-img').addEventListener('change', (event) => {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    state.imageData = reader.result;
+    $('img-thumb').src = reader.result;
+    $('img-preview').hidden = false;
+  };
+  reader.readAsDataURL(file);
+  event.target.value = '';
+});
+$('btn-clear-img').addEventListener('click', clearImage);
 
 /* ------------------------------------------------------------------ 入口 */
 (async function start() {

@@ -24,6 +24,7 @@ from pathlib import Path
 from typing import Any, Sequence
 
 from .data_type import detect, FileInfo
+from .device import resolve_device
 from .store import OfflineStore
 
 logger = logging.getLogger("rag2.pipeline")
@@ -34,6 +35,9 @@ _TEXT_KINDS = {"text", "markdown", "code", "json", "jsonl", "csv", "xml", "html"
 
 def chunk_text(text: str, chunk_size: int = 500, chunk_overlap: int = 0) -> list[str]:
     """把长文本按段落合并切块（约 chunk_size 字符），超长段落按滑窗切分。
+
+    为什么要分块：向量化模型（bge-m3）有输入长度上限；而且检索希望「命中粒度」足够细——
+    若整篇文档压成一个向量，检索只能整篇返回，无法精确定位答案所在的那几行。
 
     参数：
         text:          输入文本。
@@ -57,6 +61,8 @@ def chunk_text(text: str, chunk_size: int = 500, chunk_overlap: int = 0) -> list
             if buf:
                 chunks.append(buf)
             if len(p) > chunk_size:
+                # 超长段落按固定步长滑动切窗：相邻两块重叠 chunk_overlap 个字符，
+                # 避免一句话在块边界被「腰斩」、丢失上下文。
                 step = max(chunk_size - chunk_overlap, 1)
                 chunks.extend(p[i:i + chunk_size] for i in range(0, len(p), step))
                 buf = ""
@@ -75,9 +81,10 @@ class OfflineRAG:
         db_path: str | Path,
         embed_fn: Any = None,
         embed_model: str | None = None,
-        device: str = "cpu",
+        device: str = "auto",
         chunk_size: int = 500,
         chunk_overlap: int = 0,
+        vlm_config: Any = None,
     ) -> None:
         """初始化。
 
@@ -85,9 +92,11 @@ class OfflineRAG:
             db_path:       离线库文件路径（.sqlite）。
             embed_fn:      向量化函数 (texts) -> vectors；优先使用。
             embed_model:   sentence-transformers 模型路径；未提供 embed_fn 时懒加载。
-            device:        embed_model 加载设备（cuda / cpu）。
+            device:        embed_model 加载设备（auto / cuda / cpu；auto 自动探测）。
             chunk_size:    分块字符数。
             chunk_overlap: 超长段落滑窗重叠字符数。
+            vlm_config:    可选，多模态图片描述配置（``config.vlm``，即 VLMConfig）；
+                           启用后 add_file 处理图片时会额外生成一段内容描述入库。
         """
         self.store = OfflineStore(db_path)
         self._embed_fn = embed_fn
@@ -95,6 +104,8 @@ class OfflineRAG:
         self.device = device
         self.chunk_size = int(chunk_size)
         self.chunk_overlap = int(chunk_overlap)
+        self.vlm_config = vlm_config
+        self._describer: Any = None
 
     # ------------------------------------------------------------------ 向量化
     def _ensure_embedder(self) -> None:
@@ -104,16 +115,26 @@ class OfflineRAG:
             raise RuntimeError("未配置 embed_fn 或 embed_model，无法向量化")
         from sentence_transformers import SentenceTransformer
 
-        model = SentenceTransformer(self.embed_model, device=self.device)
+        dev = resolve_device(self.device)
+        model = SentenceTransformer(self.embed_model, device=dev)
         self._embed_fn = lambda texts: [
             v.tolist() for v in model.encode(texts, normalize_embeddings=True, show_progress_bar=False)
         ]
-        logger.info("加载向量化模型：%s（device=%s）", self.embed_model, self.device)
+        logger.info("加载向量化模型：%s（device=%s）", self.embed_model, dev)
 
     def embed(self, texts: Sequence[str]) -> list[list[float]]:
         """批量向量化（懒加载模型）。"""
         self._ensure_embedder()
         return self._embed_fn(list(texts))
+
+    # ------------------------------------------------------------------ 图片描述
+    def get_describer(self) -> Any:
+        """懒加载 VLM 图片描述器；未配置/未启用时返回 None。"""
+        if self._describer is None and self.vlm_config is not None:
+            from .vlm import ImageDescriber
+
+            self._describer = ImageDescriber.from_config(self.vlm_config)
+        return self._describer
 
     # ------------------------------------------------------------------ 入库
     def add_texts(
@@ -206,7 +227,18 @@ class OfflineRAG:
 
     def _image_to_text(self, path: Path) -> str:
         from .ocr import ocr_image
-        return ocr_image(path, save_txt=False).text
+
+        text = ocr_image(path, save_txt=False).text
+        describer = self.get_describer()
+        if describer is not None:
+            try:
+                desc = (describer.describe(path) or "").strip()
+            except Exception as exc:  # noqa: BLE001 - VLM 失败不阻断入库
+                logger.warning("VLM 描述失败（跳过）：%s", exc)
+                desc = ""
+            if desc:
+                text = f"{text.strip()}\n\n【图片内容描述】\n{desc}".strip()
+        return text
 
     @staticmethod
     def _read_text(path: Path, encoding: str | None = None) -> str:

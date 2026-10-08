@@ -264,7 +264,9 @@ class MineruParser:
                     pdf.name, tier, fmt, pages or "all")
         logger.debug("执行命令：%s", " ".join(cmd))
 
-        # MinerU 进度写入 stderr，合并捕获；即使成功也可能返回非零退出码
+        # 这里并不直接 import MinerU（它装在独立的 mineru 环境里），
+        # 而是像在命令行敲命令一样，用 subprocess 调用 mineru-kit.exe 这个外部程序。
+        # MinerU 进度写入 stderr，合并捕获；即使成功也可能返回非零退出码。
         proc = subprocess.run(
             cmd,
             stdout=subprocess.PIPE,

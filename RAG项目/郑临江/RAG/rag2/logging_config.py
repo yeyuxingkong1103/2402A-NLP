@@ -74,6 +74,8 @@ def setup_logging(
         handler.setFormatter(formatter)
         root.addHandler(handler)
 
+    # RotatingFileHandler：日志文件超过 max_bytes 自动「滚动」——把旧日志改名备份（.1/.2…），
+    # 最多保留 backup_count 份，避免日志无限增长占满磁盘。
     if log_file != "-":
         path = Path(log_file) if log_file else (Path(log_dir) / "rag2.log")
         try:

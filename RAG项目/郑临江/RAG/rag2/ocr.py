@@ -146,6 +146,8 @@ _MD_TABLE_SEP = re.compile(r"^\s*\|?[\s:|-]+\|?\s*$", re.M)
 
 def _markdown_to_plain(md: str) -> str:
     """把 Markdown 文本粗略转成纯文本（去掉图片/链接/代码围栏/强调/标题号/表格分隔行）。"""
+    # 逐条正则规则剥掉 Markdown 语法标记（图片/链接/加粗/斜体/标题号/表格分隔线…），
+    # 让入库文本只剩可检索的「正文」，避免一堆 ** 和 # 号干扰分词与检索。
     text = md
     text = _MD_IMAGE.sub("", text)
     text = _MD_LINK.sub(r"\1", text)
@@ -345,7 +347,7 @@ def ocr_image(
     *,
     plain: bool = False,
     save_txt: bool = True,
-    save_markdown: bool = False,
+    save_markdown: bool = True,
     save_json: bool = False,
     **pipeline_kwargs: Any,
 ) -> OCRResult:
@@ -392,15 +394,15 @@ __all__ = [
 if __name__ == "__main__":  # pragma: no cover - 需 ocr_ 环境与真实模型
     import sys
 
-    # 无参数时打印用法；有参数时识别传入的图片并保存 txt
-    if len(sys.argv) < 2:
-        print("用法：D:/an/envs/ocr_/python.exe ocr.py <图片路径> [输出目录]")
-        print("示例：D:/an/envs/ocr_/python.exe ocr.py D:/下载/paddleocr_vl_demo.png out_txt")
-        sys.exit(0)
+    # 默认示例：识别 data/img/paddleocr_vl_demo.png，输出 txt 到 data/ 目录。
+    # 命令行可覆盖：D:/an/envs/ocr_/python.exe ocr.py <图片路径> [输出目录]
+    DEFAULT_IMG = r"D:\桌面D\专高\专高六\项目\RAG_2\data\img\paddleocr_vl_demo.png"
+    DEFAULT_OUT = r"D:\桌面D\专高\专高六\项目\RAG_2\data"
 
-    img = sys.argv[1]
-    out = sys.argv[2] if len(sys.argv) > 2 else None
+    img = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_IMG
+    out = sys.argv[2] if len(sys.argv) > 2 else DEFAULT_OUT
     r = ocr_image(img, output_dir=out)
+    print("=== 输入图片 ===", img)
     print("=== 识别文本 ===")
     print(r.text)
     print("=== 保存位置 ===", r.txt_path)

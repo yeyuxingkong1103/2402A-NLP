@@ -60,6 +60,8 @@ class LLMClient:
             "temperature": self.temperature if temperature is None else temperature,
             "max_tokens": self.max_tokens if max_tokens is None else max_tokens,
         }
+        # reasoning_effort="none" 关闭思考模型的「思考链」，让它直接给答案：
+        # 否则 Qwen3.5 等模型会先输出一大段思考过程，可能挤占 max_tokens 导致正文被截断。
         effort = self.reasoning_effort if reasoning_effort is None else reasoning_effort
         if effort:
             params["reasoning_effort"] = effort
@@ -94,6 +96,8 @@ class LLMClient:
     ) -> Iterator[str]:
         """流式生成，逐段产出文本增量。"""
         params = self._build(messages, temperature, max_tokens, reasoning_effort, kwargs)
+        # stream=True 后接口不再一次性返回全文，而是以「增量(delta)」形式逐段吐出 token，
+        # 用 yield 把它们持续返回给调用方（配合前端 SSE，实现一个字一个字蹦出来的效果）。
         params["stream"] = True
         stream = self.client.chat.completions.create(**params)
         for chunk in stream:

@@ -18,6 +18,8 @@ from rag2.logging_config import get_logger, setup_logging
 
 def main() -> None:
     logger = get_logger("run")
+    # 监督循环：uvicorn 退出后检查是否要「带新配置重启」，
+    # 实现管理员在网页后台改端口/地址后一键自动重启。
     while True:
         cfg = load_config()
         setup_logging(level=cfg.app.log_level, log_dir=cfg.app.log_dir)

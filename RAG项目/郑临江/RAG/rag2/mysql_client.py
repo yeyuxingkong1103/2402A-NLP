@@ -201,6 +201,11 @@ class MySQLClient:
     # ------------------------------------------------------------------ 查询
     @staticmethod
     def _params(params: Any) -> tuple:
+        """把参数统一成元组，交给 pymysql 做参数化查询。
+
+        SQL 里的 ``%s`` 占位符由 pymysql 自动转义，能防 SQL 注入——
+        所以永远不要把用户输入直接拼进 SQL 字符串，而是走这里。
+        """
         if params is None:
             return ()
         if isinstance(params, (list, tuple)):

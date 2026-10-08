@@ -46,6 +46,7 @@ class ChatRequest(BaseModel):
     mode: str | None = None
     rerank: bool | None = None
     stream: bool = True
+    image: str | None = None   # 图片：base64 data URL（data:image/...;base64,...），可选
 
 
 class SessionCreate(BaseModel):
@@ -71,7 +72,11 @@ class RolePayload(BaseModel):
 
 
 def _sse(event: str, data: Any) -> str:
-    """SSE 帧：event + data(JSON)。"""
+    """SSE（Server-Sent Events）帧：event + data(JSON)。
+
+    SSE 是「服务端单向持续推送」的协议：HTTP 响应不结束，服务器把事件一帧帧发出去，
+    浏览器用 EventSource 逐条接收——正好适配聊天里「一个字一个字蹦出来」的流式效果。
+    """
     payload = json.dumps(data, ensure_ascii=False, default=str)
     return f"event: {event}\ndata: {payload}\n\n"
 
@@ -138,6 +143,21 @@ def consume_restart() -> bool:
     return flag
 
 
+def _build_evaluator(cfg: RAG2Config) -> Any:
+    """按当前配置构建 RAGAS 评估器（懒导入 ragas，避免 import rag2 强依赖 ragas）。"""
+    from .ragas_eval import RagasEvaluator
+
+    return RagasEvaluator(
+        llm_model=cfg.llm.model,
+        llm_base_url=cfg.llm.base_url,
+        llm_api_key=cfg.llm.api_key,
+        embed_model=cfg.milvus.embed_model,
+        device=cfg.milvus.device,
+        reasoning_effort=cfg.llm.reasoning_effort,
+        timeout=cfg.llm.timeout,
+    )
+
+
 def create_app(config: RAG2Config | None = None) -> FastAPI:
     """构建 FastAPI 应用（懒连接 Redis / Milvus / Ollama）。"""
     cfg = config or load_config()
@@ -157,9 +177,13 @@ def create_app(config: RAG2Config | None = None) -> FastAPI:
         version="1.0.0",
         lifespan=lifespan,
     )
+    # 把共享组件挂到 app.state 上：各路由通过 request.app.state.xxx 取用，
+    # 保证整个进程只创建一份 retriever / memory / llm，避免每个请求都重复初始化重资源。
     app.state.chat = chat
     app.state.cfg = cfg
     app.state.roles = roles
+    app.state.evaluator = None  # RAGAS 评估器缓存（懒构建，跨请求复用 LLM 客户端 + 向量模型）
+    app.state.eval_key = None
 
     app.add_middleware(
         CORSMiddleware,
@@ -244,6 +268,34 @@ def create_app(config: RAG2Config | None = None) -> FastAPI:
     # ------------------------------------------------------------------ 问答
     @app.post("/api/chat")
     def chat_endpoint(payload: ChatRequest, user: str = Depends(current_user)):
+        # 带图片 → 走多模态看图问答（图片 + 问题 → 视觉模型 + 可选知识库检索）
+        if payload.image:
+            if not payload.stream:
+                result = chat.answer_with_image(
+                    payload.question, payload.image, user_id=user, role_id=payload.role_id,
+                    session_id=payload.session_id, top_k=payload.top_k,
+                    mode=payload.mode, rerank=payload.rerank,
+                )
+                return {"ok": True, "result": result}
+
+            def image_event_stream() -> Iterator[str]:
+                try:
+                    for event in chat.stream_answer_with_image(
+                        payload.question, payload.image, user_id=user, role_id=payload.role_id,
+                        session_id=payload.session_id, top_k=payload.top_k,
+                        mode=payload.mode, rerank=payload.rerank,
+                    ):
+                        yield _sse(str(event.get("type", "message")), event)
+                except Exception as exc:  # noqa: BLE001 - 安全网
+                    logger.exception("SSE 视觉流异常")
+                    yield _sse("error", {"message": str(exc)})
+
+            return StreamingResponse(
+                image_event_stream(),
+                media_type="text/event-stream",
+                headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no", "Connection": "keep-alive"},
+            )
+
         if not payload.stream:
             result = chat.answer(
                 payload.question, user_id=user, role_id=payload.role_id,
@@ -312,27 +364,35 @@ def create_app(config: RAG2Config | None = None) -> FastAPI:
     # ------------------------------------------------------------------ 评估
     @app.post("/api/evaluate")
     def evaluate(payload: EvaluateRequest, user: str = Depends(current_user)) -> dict[str, Any]:
+        # 未显式给上下文时，用当前配置现场检索兜底（历史消息无存上下文的场景也走这里）
         contexts = payload.retrieved_contexts
-        if contexts is None:
+        if not contexts:
             hits = chat.retrieve(payload.question)
             contexts = [hit.text for hit in hits]
-        from .ragas_eval import RagasEvaluator  # 懒加载，避免 import rag2 强依赖 ragas
 
-        evaluator = RagasEvaluator(
-            llm_model=cfg.llm.model,
-            llm_base_url=cfg.llm.base_url,
-            llm_api_key=cfg.llm.api_key,
-            embed_model=cfg.milvus.embed_model,
-            device=cfg.milvus.device,
+        # 评估器按配置缓存：LLM 客户端 + 向量模型（bge-m3）只构建/加载一次，
+        # 配置（LLM/向量模型/设备）变化时自动重建。
+        key = (
+            cfg.llm.model, cfg.llm.base_url, cfg.llm.api_key,
+            cfg.milvus.embed_model, cfg.milvus.device,
         )
-        scores = evaluator.evaluate(
-            question=payload.question,
-            answer=payload.answer,
-            retrieved_contexts=contexts,
-            reference=payload.reference,
-            metrics=payload.metrics,
-        )
-        return {"ok": True, "scores": scores}
+        if app.state.eval_key != key:
+            app.state.evaluator = _build_evaluator(cfg)
+            app.state.eval_key = key
+        evaluator = app.state.evaluator
+
+        try:
+            detail = evaluator.evaluate_detail(
+                question=payload.question,
+                answer=payload.answer,
+                retrieved_contexts=contexts,
+                reference=payload.reference,
+                metrics=payload.metrics,
+            )
+        except Exception as exc:  # noqa: BLE001 - 评估失败应回友好信息而非 500
+            logger.exception("评估失败")
+            return {"ok": False, "message": f"{type(exc).__name__}: {exc}"}
+        return {"ok": True, **detail}
 
     # ------------------------------------------------------------------ 知识库
     @app.get("/api/kb/status")

@@ -55,10 +55,14 @@ CREATE INDEX IF NOT EXISTS idx_chunks_doc ON chunks(doc_id);
 
 
 def _normalize(vec: Sequence[float]) -> list[float]:
-    """向量 L2 归一化（零向量返回原样，避免除零）。"""
+    """向量 L2 归一化（零向量返回原样，避免除零）。
+
+    归一化后每个向量的模长（长度）都为 1，此时两个向量的「点积」恰好等于它们的
+    「余弦相似度」（值域 [-1,1]）。这样检索只比较方向（语义），不受文本长短影响。
+    """
     v = [float(x) for x in vec]
-    n = math.sqrt(sum(x * x for x in v)) or 1.0
-    return [x / n for x in v]
+    n = math.sqrt(sum(x * x for x in v)) or 1.0  # 模长 = sqrt(各分量平方和)，0 向量兜底为 1
+    return [x / n for x in v]                     # 每个分量除以模长 → 模长变为 1
 
 
 def _pack(vec: Sequence[float]) -> bytes:
@@ -191,6 +195,7 @@ class OfflineStore:
         scored: list[tuple[float, sqlite3.Row]] = []
         for r in rows:
             emb = _unpack(r["embedding"])
+            # 查询向量与库中向量都已归一化，点积（逐分量相乘再求和）即余弦相似度，越大越相似
             sim = sum(a * b for a, b in zip(vector, emb))
             scored.append((sim, r))
         scored.sort(key=lambda t: -t[0])

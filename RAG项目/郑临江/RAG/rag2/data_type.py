@@ -43,7 +43,9 @@ logger = logging.getLogger("rag2.data_type")
 # 分析时最多读取的字节数（足够魔数与文本嗅探，避免大文件整读）
 _MAX_READ = 8 * 1024 * 1024
 
-# 魔数签名表：(前缀字节, 类别, MIME)。RIFF 单独处理（WebP/WAV）。
+# 魔数签名表：(文件头几个固定字节, 类别, MIME)。RIFF 单独处理（WebP/WAV）。
+# 大多数文件格式在开头都有固定「签名」——例如 PDF 以 "%PDF-" 开头、PNG 以 0x89 PNG 开头。
+# 直接读文件头比对签名，就能可靠判断真实类型，不依赖（可能造假的）扩展名。
 _MAGIC: list[tuple[bytes, str, str]] = [
     (b"%PDF-", "pdf", "application/pdf"),
     (b"\x89PNG\r\n\x1a\n", "image", "image/png"),

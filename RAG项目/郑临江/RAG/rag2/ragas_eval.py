@@ -39,7 +39,11 @@ from __future__ import annotations
 
 import logging
 import os
+import threading
+import time
 from typing import Any, Iterable, Sequence
+
+from .device import resolve_device
 
 logger = logging.getLogger("rag2.ragas_eval")
 
@@ -49,7 +53,9 @@ DEFAULT_LLM_BASE_URL = os.environ.get("RAGAS_LLM_BASE_URL", "http://localhost:11
 DEFAULT_LLM_API_KEY = os.environ.get("RAGAS_LLM_API_KEY", "ollama")
 DEFAULT_EMBED_MODEL = os.environ.get("RAGAS_EMBED_MODEL", "D:/modelscope/bge-m3")
 
-# 指标规格：name -> (构造名, 所需输入字段, 需要 LLM, 需要向量)
+# 指标规格：name -> {所需输入字段, 是否需 LLM, 是否需向量模型}。
+# fields 用的是 ragas 的内部字段名：user_input=问题、response=答案、
+# retrieved_contexts=检索到的上下文、reference=参考答案。缺字段的指标会被自动跳过。
 _METRIC_SPECS: dict[str, dict[str, Any]] = {
     "faithfulness":          {"fields": ("user_input", "response", "retrieved_contexts"), "llm": True,  "emb": False},
     "answer_relevancy":      {"fields": ("user_input", "response"),                      "llm": True,  "emb": True},
@@ -67,6 +73,14 @@ METRIC_GROUPS: dict[str, list[str]] = {
     "generation":   ["faithfulness", "answer_relevancy", "answer_correctness", "semantic_similarity"],
     "retrieval":    ["context_precision", "context_recall", "context_relevance", "context_entity_recall"],
     "no_reference": ["faithfulness", "answer_relevancy", "context_relevance"],  # 无需 ground truth
+}
+
+# ragas 内部字段名 -> 中文名（用于「跳过原因」的可读提示）
+_FIELD_LABELS: dict[str, str] = {
+    "user_input": "问题",
+    "response": "答案",
+    "retrieved_contexts": "检索上下文",
+    "reference": "参考答案",
 }
 
 
@@ -112,7 +126,7 @@ class RagasEvaluator:
         llm_provider:     传给 ragas.llms.llm_factory 的 provider，默认 "openai"。
         embed_model:      sentence-transformers 向量模型路径（本地 bge-m3）；
                           为 None 且未提供 embeddings 时，跳过向量类指标。
-        device:           embed_model 加载设备（cuda / cpu）。
+        device:           embed_model 加载设备（auto / cuda / cpu；auto 自动探测）。
         embeddings:       预构建的 ragas BaseRagasEmbedding，优先于 embed_model。
         llm:              预构建的 ragas BaseRagasLLM，优先于 llm_* 自动构建。
         temperature:      生成温度。
@@ -130,7 +144,7 @@ class RagasEvaluator:
         llm_api_key: str | None = None,
         llm_provider: str = "openai",
         embed_model: str | None = DEFAULT_EMBED_MODEL,
-        device: str = "cpu",
+        device: str = "auto",
         embeddings: Any = None,
         llm: Any = None,
         temperature: float = 0.0,
@@ -154,6 +168,7 @@ class RagasEvaluator:
         # 预构建对象（优先级高于自动构建）
         self._llm = llm
         self._embeddings = embeddings
+        self._emb_lock = threading.Lock()  # 保护向量模型懒加载，避免并发重复加载
 
     # ------------------------------------------------------------------ 后端构建
     def _build_llm(self) -> Any:
@@ -176,18 +191,22 @@ class RagasEvaluator:
         return llm_factory(self.llm_model, client=client, provider=self.llm_provider, **kwargs)
 
     def _ensure_embeddings(self) -> Any | None:
-        """懒加载向量模型（可跨多次调用复用，无事件循环绑定）。"""
+        """懒加载向量模型（跨多次调用复用，无事件循环绑定；加锁防并发重复加载）。"""
         if self._embeddings is not None:
             return self._embeddings
         if not self.embed_model:
             return None
-        from ragas.embeddings import HuggingFaceEmbeddings
+        with self._emb_lock:
+            if self._embeddings is not None:  # 双重检查：拿到锁后可能已被其它线程加载
+                return self._embeddings
+            from ragas.embeddings import HuggingFaceEmbeddings
 
-        self._embeddings = HuggingFaceEmbeddings(
-            model=self.embed_model, device=self.device, normalize_embeddings=True
-        )
-        logger.info("加载评估向量模型：%s（device=%s）", self.embed_model, self.device)
-        return self._embeddings
+            dev = resolve_device(self.device)
+            self._embeddings = HuggingFaceEmbeddings(
+                model=self.embed_model, device=dev, normalize_embeddings=True
+            )
+            logger.info("加载评估向量模型：%s（device=%s）", self.embed_model, dev)
+            return self._embeddings
 
     def _instantiate(self, name: str, llm: Any, emb: Any | None):
         """按名构造单个指标实例。"""
@@ -225,30 +244,69 @@ class RagasEvaluator:
     ) -> dict[str, float | None]:
         """评估单条 RAG 结果，返回 ``{指标名: 得分}``（无法计算的指标为 None）。
 
-        参数：
-            question:           用户问题。
-            answer:             生成答案（缺省则跳过需要答案的指标）。
-            retrieved_contexts: 检索到的上下文列表。
-            reference:          参考答案 / ground truth（缺省则跳过需要参考答案的指标）。
-            metrics:            指标名或分组名（"all"/"generation"/"retrieval"/"no_reference"）
-                                或它们的列表；默认全部。
+        等价于 ``evaluate_detail(...)["scores"]``；需要跳过原因 / 错误 / 耗时等详情时
+        请改用 :meth:`evaluate_detail`。
         """
-        row = self._make_row(question, answer, retrieved_contexts, reference)
-        names = _resolve_metric_names(metrics)
-        available = {"user_input", "response", "retrieved_contexts", "reference"} & {
-            k for k, v in row.items() if v is not None and v != ""
+        return self.evaluate_detail(
+            question, answer, retrieved_contexts, reference, metrics
+        )["scores"]
+
+    def evaluate_detail(
+        self,
+        question: str,
+        answer: str | None = None,
+        retrieved_contexts: Sequence[str] | None = None,
+        reference: str | None = None,
+        metrics: str | Iterable[str] | None = None,
+    ) -> dict[str, Any]:
+        """评估单条 RAG 结果，返回完整详情。
+
+        返回结构：
+
+            available:  bool        ragas 及依赖是否可导入
+            scores:     {名: 得分}  可算出的指标得分（0~1；出错/跳过的不在此列）
+            skipped:    {名: 原因}  因缺字段或缺向量模型而跳过的指标（中文原因）
+            errors:     {名: 报错}  计算出错的指标（含 ``_ragas``/``_evaluate`` 兜底键）
+            metrics:    [名]        本次实际尝试计算的指标名列表
+            timings:    {"total": 秒}
+        """
+        started = time.perf_counter()
+        detail: dict[str, Any] = {
+            "available": ragas_available(),
+            "scores": {},
+            "skipped": {},
+            "errors": {},
+            "metrics": [],
+            "timings": {},
         }
-        llm = self._build_llm()
-        # 只为「实际会运行且依赖向量」的指标加载向量模型
-        need_emb = any(
-            _METRIC_SPECS[n]["emb"] and all(f in available for f in _METRIC_SPECS[n]["fields"])
-            for n in names
-        )
-        emb = self._ensure_embeddings() if need_emb else None
-        metrics_objs = self._collect_metrics(names, llm, emb, available)
-        if not metrics_objs:
-            return {}
-        return self._score(metrics_objs, row)[0]
+        if not detail["available"]:
+            detail["errors"]["_ragas"] = "ragas / openai 未安装，无法评估（pip install ragas openai）"
+            detail["timings"]["total"] = round(time.perf_counter() - started, 3)
+            return detail
+
+        try:
+            row = self._make_row(question, answer, retrieved_contexts, reference)
+            names = _resolve_metric_names(metrics)
+            available = {"user_input", "response", "retrieved_contexts", "reference"} & {
+                k for k, v in row.items() if v is not None and v != ""
+            }
+            llm = self._build_llm()
+            # 只为「实际会运行且依赖向量」的指标加载向量模型
+            need_emb = any(
+                _METRIC_SPECS[n]["emb"] and all(f in available for f in _METRIC_SPECS[n]["fields"])
+                for n in names
+            )
+            emb = self._ensure_embeddings() if need_emb else None
+            metrics_objs, skipped = self._collect_metrics(names, llm, emb, available)
+            detail["skipped"] = skipped
+            detail["metrics"] = [m.name for m in metrics_objs]
+            if metrics_objs:
+                detail["scores"], detail["errors"] = self._score(metrics_objs, row)
+        except Exception as exc:  # noqa: BLE001 - 评估失败不应击穿调用方
+            logger.exception("评估失败")
+            detail["errors"]["_evaluate"] = f"{type(exc).__name__}: {exc}"
+        detail["timings"]["total"] = round(time.perf_counter() - started, 3)
+        return detail
 
     def evaluate_batch(
         self,
@@ -286,7 +344,7 @@ class RagasEvaluator:
         )
         llm = self._build_llm()
         emb = self._ensure_embeddings() if need_emb else None
-        metrics_objs = self._collect_metrics(names, llm, emb, union)
+        metrics_objs, _skipped = self._collect_metrics(names, llm, emb, union)
 
         # 单次事件循环内并跑「行 × 指标」，规避 AsyncOpenAI 跨事件循环复用问题
         import asyncio
@@ -349,20 +407,24 @@ class RagasEvaluator:
         llm: Any,
         emb: Any | None,
         available_fields: set[str],
-    ) -> list[Any]:
-        """按可用字段与后端，过滤并实例化可计算的指标。"""
+    ) -> tuple[list[Any], dict[str, str]]:
+        """按可用字段与后端过滤并实例化指标，返回 (指标实例列表, 跳过原因)。"""
         metrics_objs: list[Any] = []
+        skipped: dict[str, str] = {}
         for name in names:
             spec = _METRIC_SPECS[name]
             missing = [f for f in spec["fields"] if f not in available_fields]
             if missing:
-                logger.info("跳过 %s：缺少字段 %s", name, missing)
+                reason = "缺少" + "、".join(_FIELD_LABELS.get(f, f) for f in missing)
+                skipped[name] = reason
+                logger.info("跳过 %s：%s", name, reason)
                 continue
             if spec["emb"] and emb is None:
+                skipped[name] = "未配置向量模型"
                 logger.info("跳过 %s：未配置向量模型", name)
                 continue
             metrics_objs.append(self._instantiate(name, llm, emb))
-        return metrics_objs
+        return metrics_objs, skipped
 
     @staticmethod
     def _score(metrics_objs: list[Any], row: dict[str, Any]) -> tuple[dict[str, float | None], dict[str, str]]:
@@ -408,6 +470,33 @@ def evaluate(
         reference=reference,
         metrics=metrics,
     )
+
+
+# 进程级评估器单例：跨请求复用（服务端 / 离线脚本均可受益），
+# 避免每次评估都重建 LLM 客户端、重载向量模型（本地 bge-m3 加载代价高）。
+_evaluator_lock = threading.Lock()
+_evaluator_cache: "RagasEvaluator | None" = None
+
+
+def get_evaluator(**kwargs: Any) -> "RagasEvaluator":
+    """返回进程内共享的评估器单例（懒构建）。
+
+    首次调用按 kwargs 构建并缓存；后续调用忽略 kwargs 直接复用同一实例。
+    需要按新参数重建时，先调用 :func:`clear_evaluator_cache`。
+    """
+    global _evaluator_cache
+    if _evaluator_cache is None:
+        with _evaluator_lock:
+            if _evaluator_cache is None:
+                _evaluator_cache = RagasEvaluator(**kwargs)
+    return _evaluator_cache
+
+
+def clear_evaluator_cache() -> None:
+    """清空评估器单例（LLM / 向量模型配置变更后调用，下次 get_evaluator 重建）。"""
+    global _evaluator_cache
+    with _evaluator_lock:
+        _evaluator_cache = None
 
 
 def evaluate_rag(

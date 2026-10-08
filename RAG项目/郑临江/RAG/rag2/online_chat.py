@@ -11,7 +11,7 @@
     from rag2 import RAGChat
 
     chat = RAGChat()
-    for event in chat.stream_answer("小麦常见病虫害有哪些？", user_id="alice", role_id="agriculture_expert"):
+    for event in chat.stream_answer("养猪的饲养管理有哪些要点？", user_id="alice", role_id="agriculture_expert"):
         print(event["type"], event.get("text") or event.get("answer"))
 """
 
@@ -55,6 +55,7 @@ class RAGChat:
         self._roles = list(roles) if roles is not None else load_roles(self.config.roles_file())
         self._retriever = retriever
         self._llm = llm
+        self._vlm = None
         self._memory = memory
         self._embed_fn = embed_fn
 
@@ -88,15 +89,28 @@ class RAGChat:
                 embed_fn=self._embed_fn,
                 embed_model=mc.embed_model,
                 device=mc.device,
+                analyzer=mc.analyzer,
+                sparse_field=mc.sparse_field,
                 rerank_model=mc.rerank_model,
             )
             logger.info("初始化混合检索器：%s / %s", mc.uri, mc.collection)
-            try:
-                # 从已存在的集合重建 BM25 索引（hybrid 模式的关键词路）
-                self._retriever.rebuild_from_milvus()
-            except Exception as exc:  # noqa: BLE001 - BM25 构建失败不影响稠密路
-                logger.warning("BM25 索引构建失败（仅剩稠密路）：%s", exc)
         return self._retriever
+
+    def vlm_enabled(self) -> bool:
+        """多模态图片理解是否启用。"""
+        return bool(getattr(self.config.vlm, "enabled", False))
+
+    def get_vlm(self) -> LLMClient:
+        """视觉语言模型客户端（看图问答用，复用 LLMClient，reasoning_effort 置 None）。"""
+        if self._vlm is None:
+            vc = self.config.vlm
+            self._vlm = LLMClient(
+                base_url=vc.base_url, api_key=vc.api_key, model=vc.model,
+                temperature=vc.temperature, max_tokens=vc.max_tokens,
+                reasoning_effort=None, timeout=self.config.llm.timeout,
+            )
+            logger.info("初始化 VLM：%s @ %s", vc.model, vc.base_url)
+        return self._vlm
 
     # ------------------------------------------------------------------ 角色
     def get_role(self, role_id: str) -> Role:
@@ -118,6 +132,7 @@ class RAGChat:
         if config is not None:
             self.config = config
         self._llm = None  # LLM 地址/模型/温度等变化 → 下次 get_llm() 重建
+        self._vlm = None  # VLM 模型变化 → 下次 get_vlm() 重建
         if self._memory is not None:
             self._memory.history_ttl = self.config.redis.history_ttl
             self._memory.token_ttl = self.config.redis.token_ttl
@@ -157,12 +172,31 @@ class RAGChat:
             kwargs["rerank_top_k"] = rc.rerank_top_k
         return self.get_retriever().search(question, **kwargs)
 
+    def _prepare(
+        self,
+        question: str,
+        user_id: str,
+        role_id: str,
+        session_id: str | None,
+        top_k: int | None,
+        mode: str | None,
+        rerank: bool | None,
+    ) -> tuple[Role, str, list[dict[str, Any]], list[Hit]]:
+        """问答前的公共准备：角色 → 会话归属 → 历史 → 检索，返回 (role, session_id, history, hits)。"""
+        role = self.get_role(role_id)
+        session_id = self.ensure_session(user_id, role_id, session_id)
+        history = self.get_memory().recent_context(session_id, self.config.memory.short_term_turns)
+        hits = self.retrieve(question, top_k=top_k, mode=mode, rerank=rerank) if question else []
+        return role, session_id, history, hits
+
     # ------------------------------------------------------------------ 提示词
     @staticmethod
     def _format_contexts(hits: Sequence[Hit]) -> str:
         if not hits:
             return "（本轮没有检索到相关知识片段）"
         blocks: list[str] = []
+        # 给每个知识片段编一个 [n] 序号：这样提示词里的 CITATION_RULES 才能要求模型
+        # 在回答里标注「来源 [n]」，前端据此展示引用的原文出处。
         for index, hit in enumerate(hits, start=1):
             source = hit.source or hit.doc_id or "未命名文档"
             text = (hit.text or "").strip()
@@ -172,14 +206,11 @@ class RAGChat:
             blocks.append(f"{header}\n{text}")
         return "\n\n".join(blocks)
 
-    def _build_messages(
-        self,
-        role: Role,
-        question: str,
-        hits: Sequence[Hit],
-        history: Sequence[dict[str, Any]],
-    ) -> list[dict[str, str]]:
-        messages: list[dict[str, str]] = [
+    def _build_history(
+        self, role: Role, history: Sequence[dict[str, Any]]
+    ) -> list[dict[str, Any]]:
+        """组装 system（人设+红线）与最近 N 轮历史消息（_build_messages / _build_vision_messages 复用）。"""
+        messages: list[dict[str, Any]] = [
             {"role": "system", "content": f"{role.system_prompt}\n\n{CITATION_RULES}"}
         ]
         recent = list(history)[-(self.config.memory.short_term_turns * 2):]
@@ -188,6 +219,17 @@ class RAGChat:
             content = str(item.get("content", "")).strip()
             if content:
                 messages.append({"role": who, "content": content[:1500]})
+        return messages
+
+    def _build_messages(
+        self,
+        role: Role,
+        question: str,
+        hits: Sequence[Hit],
+        history: Sequence[dict[str, Any]],
+    ) -> list[dict[str, str]]:
+        # system + 历史 → 用户（知识片段 + 问题），即 RAG「检索增强生成」的关键一步。
+        messages = self._build_history(role, history)
         user_content = (
             "# 知识片段\n"
             f"{self._format_contexts(hits)}\n\n"
@@ -196,6 +238,35 @@ class RAGChat:
             "请依据上面的知识片段回答，并在句末标注来源编号。"
         )
         messages.append({"role": "user", "content": user_content})
+        return messages
+
+    def _build_vision_messages(
+        self,
+        role: Role,
+        question: str,
+        hits: Sequence[Hit],
+        history: Sequence[dict[str, Any]],
+        image: str,
+    ) -> list[dict[str, Any]]:
+        # 与 _build_messages 同构，仅末条 user 消息为「文本 + 图片」列表（图片 base64 内联）。
+        from .vlm import image_content_part
+
+        messages = self._build_history(role, history)
+        q = (question or "").strip()
+        if hits:
+            user_text = (
+                "# 知识片段\n"
+                f"{self._format_contexts(hits)}\n\n"
+                "# 用户问题（附带图片）\n"
+                f"{q or '请描述这张图片的内容。'}\n\n"
+                "请结合图片与上面的知识片段回答，并在句末标注来源编号。"
+            )
+        else:
+            user_text = q or "请详细描述这张图片的内容。"
+        messages.append({"role": "user", "content": [
+            {"type": "text", "text": user_text},
+            image_content_part(image),
+        ]})
         return messages
 
     # ------------------------------------------------------------------ 引用
@@ -238,6 +309,7 @@ class RAGChat:
                     "content": answer,
                     "role_id": role_id,
                     "citations": self._citations(hits),
+                    "contexts": self._context_texts(hits),  # 存原文，供「评估本条」离线复用
                 },
             )
             meta = memory.session_meta(session_id) or {}
@@ -264,11 +336,7 @@ class RAGChat:
         question = (question or "").strip()
         if not question:
             raise ValueError("问题不能为空")
-        role = self.get_role(role_id)
-        session_id = self.ensure_session(user_id, role_id, session_id)
-        memory = self.get_memory()
-        history = memory.recent_context(session_id, self.config.memory.short_term_turns)
-        hits = self.retrieve(question, top_k=top_k, mode=mode, rerank=rerank)
+        role, session_id, history, hits = self._prepare(question, user_id, role_id, session_id, top_k, mode, rerank)
         messages = self._build_messages(role, question, hits, history)
         answer_text = self.get_llm().chat(messages)
         self._persist(user_id, role_id, session_id, question, answer_text, hits)
@@ -280,6 +348,46 @@ class RAGChat:
             "answer": answer_text,
             "citations": self._citations(hits),
             "contexts": self._context_texts(hits),
+        }
+
+    def _stream_emit(
+        self,
+        role: Role,
+        session_id: str,
+        role_id: str,
+        user_id: str,
+        hits: Sequence[Hit],
+        messages: Sequence[dict[str, Any]],
+        stream_fn: Any,
+        persist_question: str,
+        meta_question: str,
+    ) -> Iterator[dict[str, Any]]:
+        """产出 meta → delta → done 事件流（两个 stream 方法共用）。"""
+        citations = self._citations(hits)
+        yield {
+            "type": "meta",
+            "session_id": session_id,
+            "role_id": role_id,
+            "role_name": role.name,
+            "question": meta_question,
+            "citations": citations,
+            "contexts": self._context_texts(hits),
+        }
+        collected: list[str] = []
+        started = time.perf_counter()
+        for piece in stream_fn(messages):
+            collected.append(piece)
+            yield {"type": "delta", "text": piece}
+        answer_text = "".join(collected).strip()
+        if not answer_text:
+            answer_text = "（模型没有返回内容，请重试或换一个问法。）"
+        self._persist(user_id, role_id, session_id, persist_question, answer_text, hits)
+        yield {
+            "type": "done",
+            "answer": answer_text,
+            "citations": citations,
+            "session_id": session_id,
+            "timings": {"generation": round(time.perf_counter() - started, 3)},
         }
 
     def stream_answer(
@@ -298,41 +406,69 @@ class RAGChat:
             yield {"type": "error", "message": "问题不能为空"}
             return
         try:
-            role = self.get_role(role_id)
-            session_id = self.ensure_session(user_id, role_id, session_id)
-            memory = self.get_memory()
-            history = memory.recent_context(session_id, self.config.memory.short_term_turns)
-            hits = self.retrieve(question, top_k=top_k, mode=mode, rerank=rerank)
-            citations = self._citations(hits)
+            role, session_id, history, hits = self._prepare(question, user_id, role_id, session_id, top_k, mode, rerank)
             messages = self._build_messages(role, question, hits, history)
-
-            yield {
-                "type": "meta",
-                "session_id": session_id,
-                "role_id": role_id,
-                "role_name": role.name,
-                "question": question,
-                "citations": citations,
-                "contexts": self._context_texts(hits),
-            }
-
-            collected: list[str] = []
-            started = time.perf_counter()
-            for piece in self.get_llm().stream(messages):
-                collected.append(piece)
-                yield {"type": "delta", "text": piece}
-
-            answer_text = "".join(collected).strip()
-            if not answer_text:
-                answer_text = "（模型没有返回内容，请重试或换一个问法。）"
-            self._persist(user_id, role_id, session_id, question, answer_text, hits)
-            yield {
-                "type": "done",
-                "answer": answer_text,
-                "citations": citations,
-                "session_id": session_id,
-                "timings": {"generation": round(time.perf_counter() - started, 3)},
-            }
+            yield from self._stream_emit(role, session_id, role_id, user_id, hits, messages,
+                                         self.get_llm().stream, question, question)
         except Exception as exc:  # noqa: BLE001 - 生成异常
             logger.exception("流式生成失败")
+            yield {"type": "error", "message": str(exc)}
+
+    # ------------------------------------------------------------------ 看图问答
+    def answer_with_image(
+        self,
+        question: str,
+        image: str,
+        user_id: str,
+        role_id: str,
+        session_id: str | None = None,
+        top_k: int | None = None,
+        mode: str | None = None,
+        rerank: bool | None = None,
+    ) -> dict[str, Any]:
+        """非流式看图问答：图片（data URL 或本地路径）+ 问题 → 视觉模型回答。
+
+        与 answer 的流程一致，仅「生成」一步改用视觉模型、并把图片内联进消息；
+        question 可留空（留空则直接描述图片，不检索知识库）。
+        """
+        if not self.vlm_enabled():
+            raise RuntimeError("多模态图片理解未启用（config.vlm.enabled=false）")
+        question = (question or "").strip()
+        role, session_id, history, hits = self._prepare(question, user_id, role_id, session_id, top_k, mode, rerank)
+        messages = self._build_vision_messages(role, question, hits, history, image)
+        answer_text = self.get_vlm().chat(messages)
+        self._persist(user_id, role_id, session_id, question or "（图片问答）", answer_text, hits)
+        return {
+            "session_id": session_id,
+            "user_id": user_id,
+            "role_id": role_id,
+            "question": question,
+            "answer": answer_text,
+            "citations": self._citations(hits),
+            "contexts": self._context_texts(hits),
+        }
+
+    def stream_answer_with_image(
+        self,
+        question: str,
+        image: str,
+        user_id: str,
+        role_id: str,
+        session_id: str | None = None,
+        top_k: int | None = None,
+        mode: str | None = None,
+        rerank: bool | None = None,
+    ) -> Iterator[dict[str, Any]]:
+        """流式看图问答：产出事件流（meta / delta / done / error）。"""
+        if not self.vlm_enabled():
+            yield {"type": "error", "message": "多模态图片理解未启用（config.vlm.enabled=false）"}
+            return
+        question = (question or "").strip()
+        try:
+            role, session_id, history, hits = self._prepare(question, user_id, role_id, session_id, top_k, mode, rerank)
+            messages = self._build_vision_messages(role, question, hits, history, image)
+            yield from self._stream_emit(role, session_id, role_id, user_id, hits, messages,
+                                         self.get_vlm().stream, question or "（图片问答）", question or "图片问答")
+        except Exception as exc:  # noqa: BLE001 - 生成异常
+            logger.exception("视觉流式生成失败")
             yield {"type": "error", "message": str(exc)}

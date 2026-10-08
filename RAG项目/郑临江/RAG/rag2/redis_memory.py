@@ -65,6 +65,8 @@ class RedisMemory:
         if self._client is None:
             import redis  # 懒加载
 
+            # decode_responses=True：读写字符串自动按 UTF-8 编解码，拿到的是 str 而非 bytes，
+            # 省去到处 .decode() 的麻烦。Redis 是内存数据库，读写极快，适合做会话这类短期状态。
             self._client = redis.Redis(
                 host=self.host,
                 port=self.port,

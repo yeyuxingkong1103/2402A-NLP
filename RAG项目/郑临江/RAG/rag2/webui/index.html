@@ -45,8 +45,18 @@
     </header>
     <section class="chat" id="chat"></section>
     <footer class="composer">
-      <textarea id="input" rows="2" placeholder="输入问题，Enter 发送，Shift+Enter 换行"></textarea>
-      <button id="btn-send">发送</button>
+      <div class="composer-inner">
+        <div class="img-preview" id="img-preview" hidden>
+          <img id="img-thumb" alt="图片预览" />
+          <button class="img-remove" id="btn-clear-img" title="移除图片">×</button>
+        </div>
+        <div class="composer-row">
+          <button id="btn-img" class="btn-img" title="上传图片">🖼</button>
+          <textarea id="input" rows="2" placeholder="输入问题，Enter 发送，Shift+Enter 换行；可附带图片提问"></textarea>
+          <button id="btn-send">发送</button>
+        </div>
+      </div>
+      <input id="file-img" type="file" accept="image/*" hidden />
     </footer>
   </main>
 </div>

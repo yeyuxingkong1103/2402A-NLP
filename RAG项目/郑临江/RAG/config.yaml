@@ -20,20 +20,31 @@ llm:
   reasoning_effort: none   # 关闭 Qwen 思考链，避免结构化输出被截断
   timeout: 300
 
+vlm:
+  enabled: true            # 是否启用多模态图片理解（入库描述 + 在线看图问答）
+  base_url: http://localhost:11434/v1
+  api_key: ollama
+  model: qwen2.5vl:7b      # 本地视觉语言模型（需 ollama pull 后存在）
+  prompt: "请详细描述这张图片的内容：主体、场景、关键细节，以及它可能传达的信息或类别。用简体中文分点说明。"
+  temperature: 0.2
+  max_tokens: 512
+
 milvus:
   uri: http://localhost:19530
   collection: agriculture_knowledge   # 已入库的知识集合
   dim: 1024
   embed_model: D:/modelscope/bge-m3
   rerank_model: D:/modelscope/bge-reranker-v2-m3
-  device: cpu
+  device: auto           # 向量化/重排模型设备：auto（有 GPU 自动用 GPU）/ cuda / cpu
+  analyzer: chinese      # BM25 文本分析器（Milvus 内置：chinese / english / standard）
+  sparse_field: sparse   # 原生 BM25 稀疏向量字段名（与稠密向量同集合）
 
 redis:
   host: 127.0.0.1
   port: 6379
   db: 0
   password: ""             # 本机 Redis 无密码
-  prefix: "rag2:"          # 所有 key 的统一前缀（便于隔离与清理）
+  prefix: "rag:"          # 所有 key 的统一前缀（便于隔离与清理）
   history_ttl: 86400       # 会话/消息短期记忆过期时间（秒，24h）
   token_ttl: 43200         # 登录令牌有效期（秒，12h）
 

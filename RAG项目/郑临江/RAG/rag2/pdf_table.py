@@ -45,7 +45,8 @@ from typing import Any
 
 logger = logging.getLogger("rag2.pdf_table")
 
-# 表格抽取策略 → pdfplumber 的 vertical/horizontal 参数组合
+# 表格抽取策略 → pdfplumber 的 vertical/horizontal 参数组合。
+# "lines" 靠表格框线（实线）找边界，最准；"text" 靠文字对齐推断，用于没有框线的表格。
 _STRATEGIES: dict[str, dict[str, str]] = {
     "lines": {"vertical_strategy": "lines", "horizontal_strategy": "lines"},
     "lines_strict": {"vertical_strategy": "lines_strict", "horizontal_strategy": "lines_strict"},

@@ -11,9 +11,14 @@ import rag2
 
 
 def embed(texts):
+    """向量化函数：把一段文本变成一串数字（向量），语义相近的文本其向量也相近。
+
+    这是整个 RAG 的「语义引擎」——检索时把问题也变成向量，再在库里找最接近的向量。
+    """
     from sentence_transformers import SentenceTransformer
 
-    model = SentenceTransformer("D:/modelscope/bge-m3", device="cuda")
+    model = SentenceTransformer("D:/modelscope/bge-m3", device=rag2.resolve_device())
+    # normalize_embeddings=True：向量归一化，使点积=余弦相似度（与库里存储方式保持一致）
     return [v.tolist() for v in model.encode(texts, normalize_embeddings=True)]
 
 
@@ -21,7 +26,7 @@ def embed(texts):
 retriever = rag2.HybridRetriever(
     uri="http://localhost:19530", collection="my_kb",
     dim=1024, embed_fn=embed,
-    rerank_model=rag2.DEFAULT_RERANK_MODEL, device="cuda",
+    rerank_model=rag2.DEFAULT_RERANK_MODEL, device="auto",
 )
 retriever.ingest(texts=["……", "……"], metadatas=[{"source": "a.pdf", "page": 1}, {}])
 for h in retriever.search("问题", top_k=3, mode="hybrid", rerank=True):

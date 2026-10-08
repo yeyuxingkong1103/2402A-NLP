@@ -48,13 +48,29 @@ class LLMConfig:
 
 
 @dataclass
+class VLMConfig:
+    enabled: bool = False               # 是否启用多模态图片理解（VLM）
+    base_url: str = "http://localhost:11434/v1"
+    api_key: str = "ollama"
+    model: str = "qwen2.5vl:7b"         # 视觉语言模型（Ollama，需具备 vision 能力）
+    prompt: str = (
+        "请详细描述这张图片的内容：主体、场景、关键细节，以及它可能传达的信息或类别。"
+        "用简体中文分点说明。"
+    )
+    temperature: float = 0.2
+    max_tokens: int = 512
+
+
+@dataclass
 class MilvusConfig:
     uri: str = "http://localhost:19530"
     collection: str = "agriculture_knowledge"
     dim: int = 1024
     embed_model: str = "D:/modelscope/bge-m3"
     rerank_model: str = "D:/modelscope/bge-reranker-v2-m3"
-    device: str = "cpu"
+    device: str = "auto"  # 向量化/重排模型加载设备：auto（自动探测）/ cuda / cpu
+    analyzer: str = "chinese"  # BM25 文本分析器（Milvus 内置："chinese"/"english"/"standard"）
+    sparse_field: str = "sparse"  # 原生 BM25 稀疏向量字段名（SPARSE_FLOAT_VECTOR）
 
 
 @dataclass
@@ -90,6 +106,7 @@ class AdminConfig:
 class RAG2Config:
     app: AppConfig = field(default_factory=AppConfig)
     llm: LLMConfig = field(default_factory=LLMConfig)
+    vlm: VLMConfig = field(default_factory=VLMConfig)
     milvus: MilvusConfig = field(default_factory=MilvusConfig)
     redis: RedisConfig = field(default_factory=RedisConfig)
     retrieval: RetrievalConfig = field(default_factory=RetrievalConfig)
@@ -176,12 +193,21 @@ _ENV_MAP: dict[str, tuple[str | None, str, Any]] = {
     "RAG2_LLM_MODEL": ("llm", "model", str),
     "RAG2_LLM_TEMPERATURE": ("llm", "temperature", float),
     "RAG2_LLM_MAX_TOKENS": ("llm", "max_tokens", int),
+    "RAG2_VLM_ENABLED": ("vlm", "enabled", _as_bool),
+    "RAG2_VLM_BASE_URL": ("vlm", "base_url", str),
+    "RAG2_VLM_API_KEY": ("vlm", "api_key", str),
+    "RAG2_VLM_MODEL": ("vlm", "model", str),
+    "RAG2_VLM_PROMPT": ("vlm", "prompt", str),
+    "RAG2_VLM_TEMPERATURE": ("vlm", "temperature", float),
+    "RAG2_VLM_MAX_TOKENS": ("vlm", "max_tokens", int),
     "RAG2_MILVUS_URI": ("milvus", "uri", str),
     "RAG2_MILVUS_COLLECTION": ("milvus", "collection", str),
     "RAG2_MILVUS_DIM": ("milvus", "dim", int),
     "RAG2_MILVUS_EMBED_MODEL": ("milvus", "embed_model", str),
     "RAG2_MILVUS_RERANK_MODEL": ("milvus", "rerank_model", str),
     "RAG2_MILVUS_DEVICE": ("milvus", "device", str),
+    "RAG2_MILVUS_ANALYZER": ("milvus", "analyzer", str),
+    "RAG2_MILVUS_SPARSE_FIELD": ("milvus", "sparse_field", str),
     "RAG2_REDIS_HOST": ("redis", "host", str),
     "RAG2_REDIS_PORT": ("redis", "port", int),
     "RAG2_REDIS_DB": ("redis", "db", int),
@@ -246,6 +272,7 @@ def load_config(path: str | Path | None = None) -> RAG2Config:
 EDITABLE_FIELDS: dict[str, set[str]] = {
     "app": {"host", "port"},
     "llm": {"base_url", "api_key", "model", "temperature", "max_tokens"},
+    "vlm": {"enabled", "base_url", "api_key", "model", "prompt", "temperature", "max_tokens"},
     "retrieval": {"top_k", "mode", "rerank", "rerank_top_k"},
     "memory": {"short_term_turns"},
     "redis": {"history_ttl", "token_ttl"},
@@ -253,7 +280,7 @@ EDITABLE_FIELDS: dict[str, set[str]] = {
 }
 
 _RETRIEVAL_MODES = {"dense", "bm25", "hybrid"}
-_POSITIVE_INT_FIELDS = {"top_k", "rerank_top_k", "short_term_turns", "history_ttl", "token_ttl"}
+_POSITIVE_INT_FIELDS = {"top_k", "rerank_top_k", "short_term_turns", "history_ttl", "token_ttl", "max_tokens"}
 
 
 def validate_updates(updates: dict[str, Any]) -> list[str]:
@@ -347,6 +374,7 @@ _config: RAG2Config | None = None
 def get_config(reload: bool = False) -> RAG2Config:
     """获取全局配置单例。"""
     global _config
+    # 单例 + 线程锁：整个进程只解析一次 YAML，避免每个请求都重复读盘；reload=True 强制刷新
     with _lock:
         if _config is None or reload:
             _config = load_config()

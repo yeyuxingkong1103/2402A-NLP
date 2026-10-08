@@ -27,12 +27,12 @@ logger = get_logger("roles")
 class Role:
     """单个角色定义。"""
 
-    role_id: str
-    name: str
-    system_prompt: str
-    description: str = ""
-    avatar: str = "🙂"
-    followups: list[str] = field(default_factory=list)
+    role_id: str         # 角色唯一标识（如 agriculture_expert）
+    name: str            # 显示名（如「农业专家」）
+    system_prompt: str   # 注入 LLM 的「人设+红线」，决定回答风格与约束（角色的核心）
+    description: str = ""          # 一句话说明，给用户看
+    avatar: str = "🙂"            # 前端头像 emoji
+    followups: list[str] = field(default_factory=list)  # 前端「推荐问题」按钮
 
     def to_public_dict(self) -> dict[str, Any]:
         return {
@@ -55,29 +55,58 @@ class Role:
         }
 
 
-# 内置兜底角色：roles.yaml 缺失/损坏时仍可启动
+# 内置兜底角色：roles.yaml 缺失/损坏时仍可启动。
+# 与 roles.yaml 保持一致——角色对齐知识库数据（农业·畜牧 / 法律 / 财经）+ 通用助手。
 DEFAULT_ROLES: list[Role] = [
     Role(
         role_id="agriculture_expert",
-        name="农业专家",
-        avatar="🌾",
-        description="解答农作物种植、病虫害防治、施肥管理等农业问题",
+        name="农业·畜牧专家",
+        avatar="🐄",
+        description="解答畜牧养殖（牛/猪/羊/禽/鱼/蜂）与家畜疾病防治等农业问题",
         system_prompt=(
-            "你是一名经验丰富的农业技术专家，熟悉作物种植、病虫害防治、土壤肥料、"
-            "畜牧养殖等农业知识。你的回答要专业、准确、接地气，优先给出可操作的建议。"
+            "你是一名经验丰富的农业畜牧专家，熟悉牛、猪、羊、马、禽、兔、鱼、蜂等"
+            "家畜家禽的繁殖、饲养管理与常见疾病防治。回答专业、准确、接地气，"
+            "优先给出可操作的建议。"
         ),
-        followups=["小麦常见病虫害有哪些？", "如何科学施肥提高产量？", "水稻种植的关键环节是什么？"],
+        followups=[
+            "养猪的饲养管理有哪些要点？",
+            "养牛有哪些关键环节？",
+            "家禽的繁殖与管理要注意什么？",
+            "常见家畜疾病如何防治？",
+        ],
     ),
     Role(
-        role_id="tech_support",
-        name="技术支持",
-        avatar="🔧",
-        description="解答软件、系统、设备使用与故障排查问题",
+        role_id="legal_advisor",
+        name="法律顾问",
+        avatar="⚖️",
+        description="依据《中华人民共和国民法典》解答婚姻家庭、合同、物权、继承、侵权责任等法律问题",
         system_prompt=(
-            "你是一名耐心的技术支持工程师，擅长排查系统、软件与设备使用问题，"
-            "能够把复杂的操作步骤讲清楚。回答要条理清晰、步骤明确、可执行。"
+            "你是一名严谨的法律顾问，熟悉《中华人民共和国民法典》的总则、物权、合同、"
+            "人格权、婚姻家庭、继承、侵权责任等各编规定。回答应准确引用法律条文、条理清晰，"
+            "并提示「仅供参考、不构成正式法律意见」。"
         ),
-        followups=["如何排查服务无法启动的问题？", "Redis 连接失败怎么办？", "如何查看系统日志？"],
+        followups=[
+            "民法典确立了哪些基本原则？",
+            "民事行为能力如何划分？",
+            "遗嘱继承和法定继承有什么区别？",
+            "民法典对侵权责任有哪些规定？",
+        ],
+    ),
+    Role(
+        role_id="finance_analyst",
+        name="财经分析师",
+        avatar="📈",
+        description="解读华尔街日报等财经资讯，分析美股、宏观经济、大宗商品等市场动态",
+        system_prompt=(
+            "你是一名专业的财经分析师，熟悉美股指数、宏观经济、货币政策、大宗商品等财经领域，"
+            "能够用通俗语言解读新闻资讯并给出客观分析。回答应基于事实数据，不提供投资建议。"
+        ),
+        followups=[
+            "美国制造业为何持续衰退？",
+            "本期华尔街日报有哪些重要财经新闻？",
+            "美股主要指数近期表现如何？",
+            "黄金和原油价格走势如何？",
+        ],
     ),
     Role(
         role_id="general",
@@ -86,17 +115,6 @@ DEFAULT_ROLES: list[Role] = [
         description="通用知识问答助手",
         system_prompt="你是一名乐于助人的智能助手，能回答各类知识性问题。回答要准确、简洁、友好。",
         followups=["什么是 RAG？", "如何理解向量检索？"],
-    ),
-    Role(
-        role_id="customer_service",
-        name="客服",
-        avatar="💬",
-        description="面向用户的咨询与售后支持",
-        system_prompt=(
-            "你是一名专业的客服人员，态度亲切、有耐心，善于理解用户诉求并提供解决方案。"
-            "回答要礼貌、周到、以用户为中心。"
-        ),
-        followups=["我想了解产品的使用方法", "遇到问题该如何反馈？"],
     ),
 ]
 

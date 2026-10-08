@@ -41,9 +41,11 @@ __version__ = "1.0.0"
 # 子模块（可直接 rag2.data_type.detect(...) 访问）
 from . import (  # noqa: F401
     data_type,
+    device,
     mineru_parser,
     pdf_table,
     ocr,
+    vlm,
     hybrid_retriever,
     mysql_client,
     store,
@@ -69,6 +71,17 @@ from .pdf_table import (
 
 # ---- OCR ----
 from .ocr import OCRResult, ImageOCR, ocr_image, ocr_images, ocr_directory, get_pipeline
+
+# ---- 多模态视觉语言模型（VLM）----
+from .vlm import (
+    ImageDescriber,
+    describe_image,
+    answer_image,
+    encode_image_data_url,
+    resolve_image_data_url,
+    image_content_part,
+    DEFAULT_PROMPT,
+)
 
 # ---- 混合检索（在线）----
 from .hybrid_retriever import (
@@ -101,6 +114,8 @@ from .ragas_eval import (
     RagasEvaluator,
     evaluate,
     evaluate_rag,
+    get_evaluator,
+    clear_evaluator_cache,
     ragas_available,
     available_metrics,
     METRIC_GROUPS,
@@ -108,6 +123,9 @@ from .ragas_eval import (
     DEFAULT_LLM_BASE_URL,
     DEFAULT_EMBED_MODEL,
 )
+
+# ---- 设备解析 ----
+from .device import resolve_device, cuda_available
 
 # ---- 统一日志 ----
 from .logging_config import setup_logging, get_logger
@@ -136,6 +154,7 @@ from .redis_memory import RedisMemory
 # ---- 在线问答编排器 ----
 from .online_chat import RAGChat
 
+# __all__ 决定 `from rag2 import *` 会导入哪些名字；这里显式列出公开 API，避免误导出内部函数。
 __all__ = [
     "__version__",
     # data_type
@@ -147,6 +166,9 @@ __all__ = [
     "tables_to_csv", "tables_to_json",
     # ocr
     "OCRResult", "ImageOCR", "ocr_image", "ocr_images", "ocr_directory", "get_pipeline",
+    # vlm
+    "ImageDescriber", "describe_image", "answer_image", "encode_image_data_url",
+    "resolve_image_data_url", "image_content_part", "DEFAULT_PROMPT",
     # hybrid_retriever
     "Hit", "FusedItem", "BM25Index", "HybridRetriever", "tokenize", "weighted_rrf",
     "DEFAULT_RERANK_MODEL",
@@ -155,9 +177,11 @@ __all__ = [
     # store / pipeline
     "OfflineStore", "OfflineRAG", "chunk_text",
     # ragas_eval
-    "RagasEvaluator", "evaluate", "evaluate_rag", "ragas_available",
-    "available_metrics", "METRIC_GROUPS",
+    "RagasEvaluator", "evaluate", "evaluate_rag", "get_evaluator", "clear_evaluator_cache",
+    "ragas_available", "available_metrics", "METRIC_GROUPS",
     "DEFAULT_LLM_MODEL", "DEFAULT_LLM_BASE_URL", "DEFAULT_EMBED_MODEL",
+    # device
+    "resolve_device", "cuda_available",
     # logging
     "setup_logging", "get_logger",
     # config
