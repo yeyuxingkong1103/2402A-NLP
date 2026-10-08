@@ -1,0 +1,248 @@
+{
+ "accuracy": 100.0,
+ "correct": 6,
+ "total": 6,
+ "avg_sec": 0.212,
+ "max_sec": 0.334,
+ "all_under_5s": true,
+ "method": "本地bge-m3 + 跨模态查询理解 + RRF融合 + 重排 + 规则抽取（零API费用）",
+ "baseline": [
+  {
+   "top1_type": "text",
+   "top1_score": 0.746,
+   "has_fig3": false,
+   "elapsed": 0.11
+  },
+  {
+   "top1_type": "text",
+   "top1_score": 0.813,
+   "has_fig3": false,
+   "elapsed": 0.109
+  },
+  {
+   "top1_type": "image_description",
+   "top1_score": 0.571,
+   "has_fig3": true,
+   "elapsed": 0.149
+  },
+  {
+   "top1_type": "image_description",
+   "top1_score": 0.577,
+   "has_fig3": true,
+   "elapsed": 0.116
+  },
+  {
+   "top1_type": "image_description",
+   "top1_score": 0.656,
+   "has_fig3": true,
+   "elapsed": 0.164
+  },
+  {
+   "top1_type": "text",
+   "top1_score": 0.636,
+   "has_fig3": false,
+   "elapsed": 0.12
+  }
+ ],
+ "results": [
+  {
+   "id": 1,
+   "type": "text",
+   "group": 1,
+   "question": "根据专利文本，本发明主要涉及哪种物料的分配装置？",
+   "expected": "块状散料",
+   "predicted": "块状散料",
+   "correct": true,
+   "elapsed": 0.103,
+   "top1_type": "text",
+   "top1_source": "专利正文",
+   "has_visual_ref": false,
+   "component_ids": [],
+   "top1_has_fig3": false,
+   "rerank_top3": [
+    {
+     "source": "专利正文",
+     "type": "text",
+     "score": 0.016
+    },
+    {
+     "source": "专利正文",
+     "type": "text",
+     "score": 0.016
+    },
+    {
+     "source": "专利正文",
+     "type": "text",
+     "score": 0.016
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "type": "text",
+   "group": 1,
+   "question": "根据专利文本，本发明的分散装置包含以下哪个组件？",
+   "expected": "链条",
+   "predicted": "链条",
+   "correct": true,
+   "elapsed": 0.092,
+   "top1_type": "text",
+   "top1_source": "专利正文",
+   "has_visual_ref": false,
+   "component_ids": [],
+   "top1_has_fig3": false,
+   "rerank_top3": [
+    {
+     "source": "专利正文",
+     "type": "text",
+     "score": 0.016
+    },
+    {
+     "source": "专利正文",
+     "type": "text",
+     "score": 0.016
+    },
+    {
+     "source": "专利正文",
+     "type": "text",
+     "score": 0.016
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "type": "image",
+   "group": 2,
+   "question": "在文件中第11页图3中，编号13的部件相对于编号12的部件的位置关系是？",
+   "expected": "位于编号12的部件之内",
+   "predicted": "位于编号12的部件之内",
+   "correct": true,
+   "elapsed": 0.334,
+   "top1_type": "image_description",
+   "top1_source": "图3具体实施方式",
+   "has_visual_ref": true,
+   "component_ids": [
+    13,
+    12
+   ],
+   "top1_has_fig3": true,
+   "rerank_top3": [
+    {
+     "source": "图3具体实施方式",
+     "type": "image_description",
+     "score": 0.683
+    },
+    {
+     "source": "专利正文",
+     "type": "text",
+     "score": 0.231
+    },
+    {
+     "source": "专利正文",
+     "type": "text",
+     "score": 0.132
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "type": "image",
+   "group": 2,
+   "question": "在文件中第11页图3中，编号14的部件位于整个装置的哪个位置？",
+   "expected": "顶部",
+   "predicted": "顶部",
+   "correct": true,
+   "elapsed": 0.275,
+   "top1_type": "image_description",
+   "top1_source": "图3具体实施方式",
+   "has_visual_ref": true,
+   "component_ids": [
+    14
+   ],
+   "top1_has_fig3": true,
+   "rerank_top3": [
+    {
+     "source": "图3具体实施方式",
+     "type": "image_description",
+     "score": 0.583
+    },
+    {
+     "source": "专利正文",
+     "type": "text",
+     "score": 0.116
+    },
+    {
+     "source": "专利正文",
+     "type": "text",
+     "score": 0.032
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "type": "image",
+   "group": 3,
+   "question": "根据文件中第11页图3，散料从部件14进入后，下一步会经过哪个部件？",
+   "expected": "部件13",
+   "predicted": "部件13",
+   "correct": true,
+   "elapsed": 0.255,
+   "top1_type": "image_description",
+   "top1_source": "图3具体实施方式",
+   "has_visual_ref": true,
+   "component_ids": [
+    14
+   ],
+   "top1_has_fig3": true,
+   "rerank_top3": [
+    {
+     "source": "图3具体实施方式",
+     "type": "image_description",
+     "score": 0.583
+    },
+    {
+     "source": "图2具体实施方式",
+     "type": "image_description",
+     "score": 0.165
+    },
+    {
+     "source": "专利正文",
+     "type": "text",
+     "score": 0.132
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "type": "image",
+   "group": 3,
+   "question": "在文件中第11页图3的装置中，如果需要调整链条的位置，需要操作哪个部件?",
+   "expected": "部件11",
+   "predicted": "部件11",
+   "correct": true,
+   "elapsed": 0.215,
+   "top1_type": "image_description",
+   "top1_source": "图3具体实施方式",
+   "has_visual_ref": true,
+   "component_ids": [],
+   "top1_has_fig3": true,
+   "rerank_top3": [
+    {
+     "source": "图3具体实施方式",
+     "type": "image_description",
+     "score": 0.482
+    },
+    {
+     "source": "专利正文",
+     "type": "text",
+     "score": 0.033
+    },
+    {
+     "source": "专利正文",
+     "type": "text",
+     "score": 0.032
+    }
+   ]
+  }
+ ]
+}

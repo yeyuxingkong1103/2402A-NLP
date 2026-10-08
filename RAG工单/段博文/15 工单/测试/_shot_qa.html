@@ -1,0 +1,18 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'><style>body{background:#1e1e1e;margin:0;padding:18px;font-family:Consolas,monospace}.term{background:#0c0c0c;border:1px solid #444;border-radius:8px;padding:16px 20px;color:#d4d4d4;font-size:14px;line-height:1.6;white-space:pre-wrap}.title{color:#4ec9b0;font-weight:bold;margin-bottom:8px}</style></head><body><div class='term'><div class='title'>$ python crossmodal_rag.py（跨模态检索优化问答）</div>===== 基线测试（纯文本检索，无跨模态优化）=====
+  Q1: top1=text, score=0.746, 图3=否, 0.11s
+  Q2: top1=text, score=0.813, 图3=否, 0.109s
+  Q3: top1=image_description, score=0.571, 图3=是, 0.149s
+  Q4: top1=image_description, score=0.577, 图3=是, 0.116s
+  Q5: top1=image_description, score=0.656, 图3=是, 0.164s
+  Q6: top1=text, score=0.636, 图3=否, 0.12s
+
+===== 优化后测试（跨模态检索优化）=====
+  Q1(对) 根据专利文本，本发明主要涉及哪种物料的分配装置？... top1=text/专利正文 0.103s
+  Q2(对) 根据专利文本，本发明的分散装置包含以下哪个组件？... top1=text/专利正文 0.092s
+  Q3(对) 在文件中第11页图3中，编号13的部件相对于编号... top1=image_description/图3具体实施方式 0.334s
+  Q4(对) 在文件中第11页图3中，编号14的部件位于整个装... top1=image_description/图3具体实施方式 0.275s
+  Q5(对) 根据文件中第11页图3，散料从部件14进入后，下... top1=image_description/图3具体实施方式 0.255s
+  Q6(对) 在文件中第11页图3的装置中，如果需要调整链条的... top1=image_description/图3具体实施方式 0.215s
+
+准确率: 6/6 = 100%
+平均耗时: 0.212s  最大: 0.334s  全部&lt;5s: True</div></body></html>

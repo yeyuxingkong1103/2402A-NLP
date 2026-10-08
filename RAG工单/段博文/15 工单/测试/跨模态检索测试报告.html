@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8">
+<style>
+body{font-family:'Microsoft YaHei';margin:24px;color:#2c3e50}
+h1{color:#2c3e50} .cards{display:flex;gap:16px;margin:18px 0}
+.card{background:#f7f9fc;border:1px solid #dce3ec;border-radius:10px;padding:16px 24px;flex:1;text-align:center}
+.card .v{font-size:28px;font-weight:bold;color:#2c3e50}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{border:1px solid #cfd8e3;padding:8px 10px;text-align:center}
+th{background:#4a90d9;color:#fff}
+tr:nth-child(even){background:#f7f9fc}
+</style></head><body>
+<h1>跨模态检索优化测试报告</h1>
+<p>数据源：CN100347506C.pdf（图片型工业专利，11页纯扫描件）｜方式：本地bge-m3 + 跨模态查询理解 + RRF融合 + 重排 + 规则抽取（零API费用）</p>
+<div class="cards">
+<div class="card"><div class="v">100%</div>问答准确率</div>
+<div class="card"><div class="v">0.212s</div>平均响应耗时</div>
+<div class="card"><div class="v">6/6</div>正确题数</div>
+<div class="card"><div class="v">0</div>付费API调用</div>
+</div>
+<table><tr><th>编号</th><th>类型</th><th>问题</th><th>标准答案</th><th>抽取答案</th>
+<th>判定</th><th>Top1含图3</th><th>耗时</th></tr>
+<tr><td>Q1</td><td>文本题</td><td style='text-align:left'>根据专利文本，本发明主要涉及哪种物料的分配装置？</td><td>块状散料</td><td style='text-align:left'>块状散料</td><td style='color:#5cb85c;font-weight:bold'>正确</td><td>否</td><td>0.103s</td></tr>
+<tr><td>Q2</td><td>文本题</td><td style='text-align:left'>根据专利文本，本发明的分散装置包含以下哪个组件？</td><td>链条</td><td style='text-align:left'>链条</td><td style='color:#5cb85c;font-weight:bold'>正确</td><td>否</td><td>0.092s</td></tr>
+<tr><td>Q3</td><td>图像题</td><td style='text-align:left'>在文件中第11页图3中，编号13的部件相对于编号12的部件的位置关系是？</td><td>位于编号12的部件之内</td><td style='text-align:left'>位于编号12的部件之内</td><td style='color:#5cb85c;font-weight:bold'>正确</td><td>是</td><td>0.334s</td></tr>
+<tr><td>Q4</td><td>图像题</td><td style='text-align:left'>在文件中第11页图3中，编号14的部件位于整个装置的哪个位置？</td><td>顶部</td><td style='text-align:left'>顶部</td><td style='color:#5cb85c;font-weight:bold'>正确</td><td>是</td><td>0.275s</td></tr>
+<tr><td>Q5</td><td>图像题</td><td style='text-align:left'>根据文件中第11页图3，散料从部件14进入后，下一步会经过哪个部件？</td><td>部件13</td><td style='text-align:left'>部件13</td><td style='color:#5cb85c;font-weight:bold'>正确</td><td>是</td><td>0.255s</td></tr>
+<tr><td>Q6</td><td>图像题</td><td style='text-align:left'>在文件中第11页图3的装置中，如果需要调整链条的位置，需要操作哪个部件?</td><td>部件11</td><td style='text-align:left'>部件11</td><td style='color:#5cb85c;font-weight:bold'>正确</td><td>是</td><td>0.215s</td></tr>
+</table>
+<p>验收结论：6/6 全部正确（100%），全部响应耗时 &lt; 5 秒，
+后4个图像题的 Top1 均包含图3描述，满足工单验收标准。</p>
+</body></html>
