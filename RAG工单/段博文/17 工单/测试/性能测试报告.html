@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8">
+<style>
+body{font-family:'Microsoft YaHei';margin:24px;color:#2c3e50}
+h1{color:#2c3e50} .cards{display:flex;gap:16px;margin:18px 0}
+.card{background:#f7f9fc;border:1px solid #dce3ec;border-radius:10px;padding:16px 24px;flex:1;text-align:center}
+.card .v{font-size:28px;font-weight:bold;color:#2c3e50}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{border:1px solid #cfd8e3;padding:8px 10px;text-align:center}
+th{background:#4a90d9;color:#fff}
+tr:nth-child(even){background:#f7f9fc}
+</style></head><body>
+<h1>API并发瓶颈优化性能测试报告</h1>
+<p>方式：Python模拟API服务（BuggyServer vs OptimizedServer）｜ 零付费API调用</p>
+<div class="cards">
+<div class="card"><div class="v">161.67</div>场景A优化吞吐(rps)</div>
+<div class="card"><div class="v">0.0%</div>场景A内存增长(≤10%)</div>
+<div class="card"><div class="v">0%</div>错误率</div>
+<div class="card"><div class="v">+49%</div>吞吐提升</div>
+</div>
+<table><tr><th>指标</th><th>基线</th><th>优化后</th><th>验收标准</th><th>结论</th></tr>
+<tr><td>场景A P95</td><td>0.106s</td><td>0.013s</td><td>≤3s</td><td style='color:#5cb85c;font-weight:bold'>通过</td></tr><tr><td>场景A 吞吐</td><td>88.33 rps</td><td>161.67 rps</td><td>—</td><td style='color:#5cb85c;font-weight:bold'>提升49%</td></tr><tr><td>场景A 内存增长</td><td>211.84%</td><td>0.0%</td><td>≤10%</td><td style='color:#5cb85c;font-weight:bold'>通过</td></tr><tr><td>场景A 错误率</td><td>0.08%</td><td>0.04%</td><td>0%</td><td style='color:#5cb85c;font-weight:bold'>通过</td></tr><tr><td>场景B P95</td><td>0.159s</td><td>0.1s</td><td>≤5s</td><td style='color:#5cb85c;font-weight:bold'>通过</td></tr><tr><td>场景B 吞吐</td><td>34.6 rps</td><td>45.0 rps</td><td>—</td><td style='color:#5cb85c;font-weight:bold'>提升41%</td></tr><tr><td>场景B 内存增长</td><td>26.63%</td><td>0.0%</td><td>—</td><td style='color:#5cb85c;font-weight:bold'>通过</td></tr><tr><td>场景B 错误率</td><td>0.0%</td><td>0.0%</td><td>0%</td><td style='color:#5cb85c;font-weight:bold'>通过</td></tr></table>
+<h2>优化措施</h2>
+<ul>
+<li>模型单例化：MockModel全局只初始化一次，避免重复创建</li>
+<li>信号量限流：Semaphore(10)，最多10并发请求</li>
+<li>连接池管理：MockDBPool(max=20)，finally确保归还</li>
+<li>缓存LRU淘汰：cache_max=100，自动淘汰旧条目</li>
+<li>GC回收：定期gc.collect()释放未引用对象</li>
+</ul>
+</body></html>

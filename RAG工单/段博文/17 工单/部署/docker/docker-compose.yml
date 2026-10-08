@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  # 基线服务（有Bug：模型重复初始化、无限流、内存泄漏）
+  api-buggy:
+    build:
+      context: ../..
+      dockerfile: 部署/docker/Dockerfile
+    command: ["python", "/app/api_server.py", "buggy", "8080"]
+    ports:
+      - "8181:8080"
+    mem_limit: 512m
+    cpus: 2.0
+
+  # 优化后服务（单例模型、信号量限流、连接池、LRU缓存、GC）
+  api-optimized:
+    build:
+      context: ../..
+      dockerfile: 部署/docker/Dockerfile
+    command: ["python", "/app/api_server.py", "optimized", "8080"]
+    ports:
+      - "8281:8080"
+    mem_limit: 512m
+    cpus: 2.0

@@ -1,0 +1,382 @@
+{
+ "buggy": {
+  "scenario_a": {
+   "scenario": "A",
+   "concurrency": 20,
+   "duration_sec": 15,
+   "total_requests": 1464,
+   "successful": 1464,
+   "errors": 0,
+   "error_rate": 0.0,
+   "latency_avg": 0.1071,
+   "latency_p50": 0.1005,
+   "latency_p95": 0.1214,
+   "latency_p99": 0.1558,
+   "throughput_rps": 97.6,
+   "mem_start_mb": 50.0,
+   "mem_end_mb": 158.56,
+   "mem_growth_pct": 217.12,
+   "mem_samples": [
+    {
+     "time": 792019.5,
+     "mem_mb": 50.0,
+     "requests": 0
+    },
+    {
+     "time": 792020.5,
+     "mem_mb": 57.36,
+     "requests": 90
+    },
+    {
+     "time": 792021.5,
+     "mem_mb": 65.2,
+     "requests": 189
+    },
+    {
+     "time": 792022.5,
+     "mem_mb": 73.2,
+     "requests": 289
+    },
+    {
+     "time": 792023.5,
+     "mem_mb": 81.12,
+     "requests": 389
+    },
+    {
+     "time": 792024.5,
+     "mem_mb": 88.72,
+     "requests": 482
+    },
+    {
+     "time": 792025.5,
+     "mem_mb": 95.6,
+     "requests": 568
+    },
+    {
+     "time": 792026.5,
+     "mem_mb": 103.6,
+     "requests": 669
+    },
+    {
+     "time": 792027.5,
+     "mem_mb": 111.52,
+     "requests": 766
+    },
+    {
+     "time": 792028.5,
+     "mem_mb": 119.28,
+     "requests": 865
+    },
+    {
+     "time": 792029.5,
+     "mem_mb": 127.2,
+     "requests": 963
+    },
+    {
+     "time": 792030.5,
+     "mem_mb": 135.04,
+     "requests": 1063
+    },
+    {
+     "time": 792031.51,
+     "mem_mb": 142.96,
+     "requests": 1160
+    },
+    {
+     "time": 792032.51,
+     "mem_mb": 150.8,
+     "requests": 1253
+    },
+    {
+     "time": 792033.51,
+     "mem_mb": 158.56,
+     "requests": 1351
+    }
+   ]
+  },
+  "scenario_b": {
+   "scenario": "B",
+   "concurrency": 10,
+   "duration_sec": 15,
+   "total_requests": 664,
+   "successful": 664,
+   "errors": 0,
+   "error_rate": 0.0,
+   "latency_avg": 0.1271,
+   "latency_p50": 0.1159,
+   "latency_p95": 0.1727,
+   "latency_p99": 0.1793,
+   "throughput_rps": 44.27,
+   "mem_start_mb": 167.12,
+   "mem_end_mb": 216.32,
+   "mem_growth_pct": 29.44,
+   "mem_samples": [
+    {
+     "time": 792035.7,
+     "mem_mb": 167.12,
+     "requests": 1464
+    },
+    {
+     "time": 792036.7,
+     "mem_mb": 170.56,
+     "requests": 1489
+    },
+    {
+     "time": 792037.7,
+     "mem_mb": 174.16,
+     "requests": 1514
+    },
+    {
+     "time": 792038.7,
+     "mem_mb": 177.44,
+     "requests": 1539
+    },
+    {
+     "time": 792039.7,
+     "mem_mb": 180.96,
+     "requests": 1564
+    },
+    {
+     "time": 792040.7,
+     "mem_mb": 184.56,
+     "requests": 1589
+    },
+    {
+     "time": 792041.7,
+     "mem_mb": 188.16,
+     "requests": 1614
+    },
+    {
+     "time": 792042.7,
+     "mem_mb": 191.76,
+     "requests": 1639
+    },
+    {
+     "time": 792043.7,
+     "mem_mb": 195.36,
+     "requests": 1664
+    },
+    {
+     "time": 792044.7,
+     "mem_mb": 198.88,
+     "requests": 1687
+    },
+    {
+     "time": 792045.7,
+     "mem_mb": 202.08,
+     "requests": 1712
+    },
+    {
+     "time": 792046.7,
+     "mem_mb": 205.68,
+     "requests": 1737
+    },
+    {
+     "time": 792047.7,
+     "mem_mb": 209.28,
+     "requests": 1762
+    },
+    {
+     "time": 792048.71,
+     "mem_mb": 212.88,
+     "requests": 1786
+    },
+    {
+     "time": 792049.71,
+     "mem_mb": 216.32,
+     "requests": 1811
+    }
+   ]
+  }
+ },
+ "optimized": {
+  "scenario_a": {
+   "scenario": "A",
+   "concurrency": 20,
+   "duration_sec": 15,
+   "total_requests": 2182,
+   "successful": 2182,
+   "errors": 0,
+   "error_rate": 0.0,
+   "latency_avg": 0.039,
+   "latency_p50": 0.0309,
+   "latency_p95": 0.0548,
+   "latency_p99": 0.1722,
+   "throughput_rps": 145.47,
+   "mem_start_mb": 10.004,
+   "mem_end_mb": 10.1,
+   "mem_growth_pct": 0.96,
+   "mem_samples": [
+    {
+     "time": 792052.29,
+     "mem_mb": 10.004,
+     "requests": 4
+    },
+    {
+     "time": 792053.43,
+     "mem_mb": 10.1,
+     "requests": 145
+    },
+    {
+     "time": 792054.43,
+     "mem_mb": 10.1,
+     "requests": 296
+    },
+    {
+     "time": 792055.44,
+     "mem_mb": 10.1,
+     "requests": 445
+    },
+    {
+     "time": 792056.45,
+     "mem_mb": 10.1,
+     "requests": 595
+    },
+    {
+     "time": 792057.45,
+     "mem_mb": 10.1,
+     "requests": 746
+    },
+    {
+     "time": 792058.45,
+     "mem_mb": 10.1,
+     "requests": 901
+    },
+    {
+     "time": 792059.46,
+     "mem_mb": 10.1,
+     "requests": 1046
+    },
+    {
+     "time": 792060.47,
+     "mem_mb": 10.1,
+     "requests": 1191
+    },
+    {
+     "time": 792061.48,
+     "mem_mb": 10.1,
+     "requests": 1328
+    },
+    {
+     "time": 792062.49,
+     "mem_mb": 10.1,
+     "requests": 1464
+    },
+    {
+     "time": 792063.49,
+     "mem_mb": 10.1,
+     "requests": 1604
+    },
+    {
+     "time": 792064.51,
+     "mem_mb": 10.1,
+     "requests": 1755
+    },
+    {
+     "time": 792065.51,
+     "mem_mb": 10.1,
+     "requests": 1900
+    },
+    {
+     "time": 792066.52,
+     "mem_mb": 10.1,
+     "requests": 2047
+    }
+   ]
+  },
+  "scenario_b": {
+   "scenario": "B",
+   "concurrency": 10,
+   "duration_sec": 15,
+   "total_requests": 935,
+   "successful": 935,
+   "errors": 0,
+   "error_rate": 0.0,
+   "latency_avg": 0.061,
+   "latency_p50": 0.045,
+   "latency_p95": 0.1133,
+   "latency_p99": 0.1191,
+   "throughput_rps": 62.33,
+   "mem_start_mb": 10.1,
+   "mem_end_mb": 10.1,
+   "mem_growth_pct": 0.0,
+   "mem_samples": [
+    {
+     "time": 792068.58,
+     "mem_mb": 10.1,
+     "requests": 2182
+    },
+    {
+     "time": 792069.58,
+     "mem_mb": 10.1,
+     "requests": 2247
+    },
+    {
+     "time": 792070.59,
+     "mem_mb": 10.1,
+     "requests": 2307
+    },
+    {
+     "time": 792071.59,
+     "mem_mb": 10.1,
+     "requests": 2368
+    },
+    {
+     "time": 792072.6,
+     "mem_mb": 10.1,
+     "requests": 2431
+    },
+    {
+     "time": 792073.6,
+     "mem_mb": 10.1,
+     "requests": 2492
+    },
+    {
+     "time": 792074.61,
+     "mem_mb": 10.1,
+     "requests": 2553
+    },
+    {
+     "time": 792075.61,
+     "mem_mb": 10.1,
+     "requests": 2616
+    },
+    {
+     "time": 792076.62,
+     "mem_mb": 10.1,
+     "requests": 2678
+    },
+    {
+     "time": 792077.62,
+     "mem_mb": 10.1,
+     "requests": 2742
+    },
+    {
+     "time": 792078.62,
+     "mem_mb": 10.1,
+     "requests": 2804
+    },
+    {
+     "time": 792079.63,
+     "mem_mb": 10.1,
+     "requests": 2866
+    },
+    {
+     "time": 792080.63,
+     "mem_mb": 10.1,
+     "requests": 2929
+    },
+    {
+     "time": 792081.63,
+     "mem_mb": 10.1,
+     "requests": 2994
+    },
+    {
+     "time": 792082.64,
+     "mem_mb": 10.1,
+     "requests": 3055
+    }
+   ]
+  }
+ }
+}

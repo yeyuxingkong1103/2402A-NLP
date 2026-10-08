@@ -1,0 +1,98 @@
+{
+ "buggy": {
+  "scenario_a": {
+   "label": "buggy_a",
+   "scenario": "A",
+   "threads": 20,
+   "duration": 15,
+   "raw_lines": [
+    "Creating summariser <summary>",
+    "summary =   1325 in 00:00:15 =   87.7/s Avg:    98 Min:     6 Max:   193 Err:     1 (0.08%)"
+   ],
+   "count": 1325,
+   "avg_ms": 98.0,
+   "p50_ms": 96,
+   "p95_ms": 106,
+   "p99_ms": 160,
+   "throughput_rps": 88.33,
+   "error_count": 1,
+   "error_rate": 0.08,
+   "jmeter_output": "to locate plugins is deprecated and will be removed in a future release\nCreating summariser <summary>\nCreated the tree successfully using D:\\作业\\6-专高NLP 作业\\成品\\17\\研发\\src\\scenario_a.jmx\nStarting standalone test @ 2026 Oct 8 11:41:38 CST (1791430898770)\nWaiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445\nsummary =   1325 in 00:00:15 =   87.7/s Avg:    98 Min:     6 Max:   193 Err:     1 (0.08%)\nTidying up ...    @ 2026 Oct 8 11:41:53 CST (1791430913988)\n... end of run\n",
+   "mem_start_mb": 50.0,
+   "mem_end_mb": 155.92,
+   "mem_growth_pct": 211.84
+  },
+  "scenario_b": {
+   "label": "buggy_b",
+   "scenario": "B",
+   "threads": 10,
+   "duration": 15,
+   "raw_lines": [
+    "Creating summariser <summary>",
+    "summary +     21 in 00:00:02 =   11.8/s Avg:   156 Min:   153 Max:   181 Err:     0 (0.00%) Active: 6 Started: 6 Finished: 0",
+    "summary +    498 in 00:00:13 =   37.1/s Avg:   155 Min:   152 Max:   176 Err:     0 (0.00%) Active: 0 Started: 10 Finished: 10",
+    "summary =    519 in 00:00:15 =   34.2/s Avg:   155 Min:   152 Max:   181 Err:     0 (0.00%)"
+   ],
+   "count": 519,
+   "avg_ms": 155.7,
+   "p50_ms": 155,
+   "p95_ms": 159,
+   "p99_ms": 163,
+   "throughput_rps": 34.6,
+   "error_count": 0,
+   "error_rate": 0.0,
+   "jmeter_output": "iting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445\nsummary +     21 in 00:00:02 =   11.8/s Avg:   156 Min:   153 Max:   181 Err:     0 (0.00%) Active: 6 Started: 6 Finished: 0\nsummary +    498 in 00:00:13 =   37.1/s Avg:   155 Min:   152 Max:   176 Err:     0 (0.00%) Active: 0 Started: 10 Finished: 10\nsummary =    519 in 00:00:15 =   34.2/s Avg:   155 Min:   152 Max:   181 Err:     0 (0.00%)\nTidying up ...    @ 2026 Oct 8 11:42:13 CST (1791430933426)\n... end of run\n",
+   "mem_start_mb": 155.92,
+   "mem_end_mb": 197.44,
+   "mem_growth_pct": 26.63
+  }
+ },
+ "optimized": {
+  "scenario_a": {
+   "label": "optimized_a",
+   "scenario": "A",
+   "threads": 20,
+   "duration": 15,
+   "raw_lines": [
+    "Creating summariser <summary>",
+    "summary +   1780 in 00:00:11 =  155.9/s Avg:     5 Min:     1 Max:    62 Err:     1 (0.06%) Active: 20 Started: 20 Finished: 0",
+    "summary +    645 in 00:00:04 =  178.7/s Avg:     6 Min:     1 Max:    18 Err:     0 (0.00%) Active: 0 Started: 20 Finished: 20",
+    "summary =   2425 in 00:00:15 =  161.4/s Avg:     5 Min:     1 Max:    62 Err:     1 (0.04%)"
+   ],
+   "count": 2425,
+   "avg_ms": 5.8,
+   "p50_ms": 5,
+   "p95_ms": 13,
+   "p99_ms": 17,
+   "throughput_rps": 161.67,
+   "error_count": 1,
+   "error_rate": 0.04,
+   "jmeter_output": "ing for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445\nsummary +   1780 in 00:00:11 =  155.9/s Avg:     5 Min:     1 Max:    62 Err:     1 (0.06%) Active: 20 Started: 20 Finished: 0\nsummary +    645 in 00:00:04 =  178.7/s Avg:     6 Min:     1 Max:    18 Err:     0 (0.00%) Active: 0 Started: 20 Finished: 20\nsummary =   2425 in 00:00:15 =  161.4/s Avg:     5 Min:     1 Max:    62 Err:     1 (0.04%)\nTidying up ...    @ 2026 Oct 8 11:42:33 CST (1791430953616)\n... end of run\n",
+   "mem_start_mb": 10.0,
+   "mem_end_mb": 10.0,
+   "mem_growth_pct": 0.0
+  },
+  "scenario_b": {
+   "label": "optimized_b",
+   "scenario": "B",
+   "threads": 10,
+   "duration": 15,
+   "raw_lines": [
+    "Creating summariser <summary>",
+    "summary =    675 in 00:00:15 =   44.7/s Avg:    95 Min:    92 Max:   124 Err:     0 (0.00%)"
+   ],
+   "count": 675,
+   "avg_ms": 95.1,
+   "p50_ms": 94,
+   "p95_ms": 100,
+   "p99_ms": 103,
+   "throughput_rps": 45.0,
+   "error_count": 0,
+   "error_rate": 0.0,
+   "jmeter_output": "to locate plugins is deprecated and will be removed in a future release\nCreating summariser <summary>\nCreated the tree successfully using D:\\作业\\6-专高NLP 作业\\成品\\17\\研发\\src\\scenario_b.jmx\nStarting standalone test @ 2026 Oct 8 11:42:37 CST (1791430957853)\nWaiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445\nsummary =    675 in 00:00:15 =   44.7/s Avg:    95 Min:    92 Max:   124 Err:     0 (0.00%)\nTidying up ...    @ 2026 Oct 8 11:42:53 CST (1791430973064)\n... end of run\n",
+   "mem_start_mb": 10.0,
+   "mem_end_mb": 10.0,
+   "mem_growth_pct": 0.0
+  }
+ }
+}

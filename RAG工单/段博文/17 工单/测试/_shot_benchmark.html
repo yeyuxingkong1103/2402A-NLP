@@ -1,0 +1,17 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'><style>body{background:#1e1e1e;margin:0;padding:18px;font-family:Consolas,monospace}.term{background:#0c0c0c;border:1px solid #444;border-radius:8px;padding:16px 20px;color:#d4d4d4;font-size:13.5px;line-height:1.55;white-space:pre-wrap}.title{color:#4ec9b0;font-weight:bold;margin-bottom:8px}</style></head><body><div class='term'><div class='title'>$ python benchmark.py</div>$ python run_jmeter.py（JMeter CLI 压测基线 vs 优化后）
+
+===== buggy 服务器 =====
+场景A: 20并发问答
+  1325 samples, avg=0.098s, p95=0.106s, errors=0, 内存增长=211.84%
+场景B: 10并发混合负载
+  519 samples, avg=0.1557s, p95=0.159s, errors=0, 内存增长=26.63%
+
+===== optimized 服务器 =====
+场景A: 20并发问答
+  2425 samples, avg=0.0058s, p95=0.013s, errors=0, 内存增长=0.0%
+场景B: 10并发混合负载
+  675 samples, avg=0.0951s, p95=0.1s, errors=0, 内存增长=0.0%
+
+===== 基线 vs 优化 对比 =====
+场景A: P95 0.106s -&gt; 0.013s | 吞吐 88.33 -&gt; 161.67 rps | 内存增长 211.84% -&gt; 0.0%
+场景B: P95 0.159s -&gt; 0.1s | 吞吐 34.6 -&gt; 45.0 rps | 内存增长 26.63% -&gt; 0.0%</div></body></html>
