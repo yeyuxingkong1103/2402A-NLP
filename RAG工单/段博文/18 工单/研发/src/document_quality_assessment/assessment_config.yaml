@@ -1,0 +1,61 @@
+# ============================================================
+# 文档质量评估 Skill 配置文件（所有阈值均配置化，禁止硬编码）
+# DocumentQualityAssessmentSkill - assessment_config.yaml
+# ============================================================
+
+# ---------- 扫描范围 ----------
+scan:
+  recursive: true                 # 是否递归子目录
+  extensions:                     # 纳入评估的后缀（小写，含点）
+    - .pdf
+    - .docx
+    - .doc
+    - .md
+    - .txt
+  follow_symlinks: false
+
+# ---------- PDF 页面类型识别（启发式分流）----------
+pdf:
+  text_char_threshold: 100        # 单页提取字符数（去空白后）低于此值 -> 判为扫描页
+  scanned_file_ratio: 0.7         # 扫描页占比 > 70% -> 整个文件标记为扫描型 Scan_PDF
+  mixed_min_ratio: 0.1            # 扫描页占比 > 10% 且 <= 70% -> 混合型 Hybrid_PDF；<=10% 为文字型 Text_PDF
+  inspect_pdf_open: true          # 是否统计文档是否可正常打开（损坏检测）
+
+# ---------- 文档长度分布 ----------
+length:
+  percentiles: [25, 50, 75, 90, 99]   # 输出分位数
+  bins: [500, 2000, 10000, 50000, 200000]  # 区间边界（N个边界划分N+1段）
+  bin_labels: ["极短(<500)", "短(500-2k)", "中(2k-1w)", "长(1w-5w)", "很长(5w-20w)", "超长(>20w)"]
+  empty_threshold: 10             # 字符数 <= 10 标记 Empty_Doc
+
+# ---------- 重复检测 ----------
+duplicate:
+  md5: true                       # MD5 精确重复检测
+  simhash: true                   # SimHash 高相似度检测（输出待确认列表）
+  simhash_bits: 64
+  hamming_distance: 3             # 汉明距离 <= 此值 -> 疑似版本冲突
+  ngram: 4                        # SimHash 特征切分：4-gram（中文4字短语区分度高，可抑制专利文体套话）
+  max_chars_per_doc: 200000       # 单文档参与 simhash 的最大字符数（头部采样，控制耗时）
+  length_filter_ratio: 0.2        # 两两比较前的长度粗筛：长度差超过20%直接跳过
+
+# ---------- 敏感信息检测 ----------
+sensitive:
+  phone: true                     # 手机号
+  email: true                     # 邮箱
+  idcard: true                    # 身份证（含校验位验证）
+  bankcard: false                 # 银行卡默认关闭（误报率高），置 true 可开启（含 Luhn 校验）
+  context_chars: 40               # 每条命中附带的上下文半径（字符）
+  max_findings_per_type: 50       # 单文件单类型最多保留条数，防止刷屏
+  mask_in_html: true              # HTML 报告中是否打码
+
+# ---------- 分类标签体系开关 ----------
+tags:
+  enable_length_tags: true
+  enable_risk_tags: true
+
+# ---------- 性能与中断恢复 ----------
+performance:
+  progress_every: 50              # 每处理 N 个文件打印一次进度
+  checkpoint: true                # 写 checkpoint，支持中断恢复
+  checkpoint_file: "quality_checkpoint.json"
+  max_workers: 1                  # 单线程（pymupdf + 磁盘 IO，稳定优先）

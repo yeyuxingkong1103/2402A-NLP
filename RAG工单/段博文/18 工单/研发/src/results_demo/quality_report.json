@@ -1,0 +1,317 @@
+{
+ "skill": "document-quality-assessment",
+ "version": "1.0.0",
+ "generated_at": "2026-10-08 14:15:39",
+ "target": "(文件列表模式)",
+ "config_used": {
+  "scan": {
+   "recursive": true,
+   "extensions": [
+    ".pdf",
+    ".docx",
+    ".doc",
+    ".md",
+    ".txt"
+   ],
+   "follow_symlinks": false
+  },
+  "pdf": {
+   "text_char_threshold": 100,
+   "scanned_file_ratio": 0.7,
+   "mixed_min_ratio": 0.1,
+   "inspect_pdf_open": true
+  },
+  "length": {
+   "percentiles": [
+    25,
+    50,
+    75,
+    90,
+    99
+   ],
+   "bins": [
+    500,
+    2000,
+    10000,
+    50000,
+    200000
+   ],
+   "bin_labels": [
+    "极短(<500)",
+    "短(500-2k)",
+    "中(2k-1w)",
+    "长(1w-5w)",
+    "很长(5w-20w)",
+    "超长(>20w)"
+   ],
+   "empty_threshold": 10
+  },
+  "duplicate": {
+   "md5": true,
+   "simhash": true,
+   "simhash_bits": 64,
+   "hamming_distance": 3,
+   "ngram": 4,
+   "max_chars_per_doc": 200000,
+   "length_filter_ratio": 0.2
+  },
+  "sensitive": {
+   "phone": true,
+   "email": true,
+   "idcard": true,
+   "bankcard": false,
+   "context_chars": 40,
+   "max_findings_per_type": 50,
+   "mask_in_html": true
+  },
+  "tags": {
+   "enable_length_tags": true,
+   "enable_risk_tags": true
+  },
+  "performance": {
+   "progress_every": 50,
+   "checkpoint": true,
+   "checkpoint_file": "quality_checkpoint.json",
+   "max_workers": 1
+  }
+ },
+ "summary": {
+  "total_files": 5,
+  "total_size_mb": 3.1,
+  "pdf_type_counts": {
+   "Scan_PDF": 3,
+   "Hybrid_PDF": 2
+  },
+  "md5_duplicate_groups": 0,
+  "md5_duplicate_files": 0,
+  "simhash_pending_pairs": 0,
+  "sensitive_pending_items": 1,
+  "sensitive_by_type": {
+   "手机号": 1
+  },
+  "routing_counts": {
+   "OCRParser": 3,
+   "SecurityReviewNode": 1,
+   "HybridParser": 1
+  }
+ },
+ "format": {
+  "total_files": 5,
+  "by_format": [
+   {
+    "format": ".pdf",
+    "count": 5,
+    "ratio": 1.0
+   }
+  ]
+ },
+ "length": {
+  "total_docs": 5,
+  "empty_docs": 3,
+  "mean_chars": 4080,
+  "percentiles": {
+   "P25": 7166,
+   "P50": 10201,
+   "P75": 13236,
+   "P90": 15057,
+   "P99": 16150
+  },
+  "bins_distribution": [
+   {
+    "range": "极短(<500)",
+    "count": 3,
+    "ratio": 0.6
+   },
+   {
+    "range": "短(500-2k)",
+    "count": 0,
+    "ratio": 0.0
+   },
+   {
+    "range": "中(2k-1w)",
+    "count": 1,
+    "ratio": 0.2
+   },
+   {
+    "range": "长(1w-5w)",
+    "count": 1,
+    "ratio": 0.2
+   },
+   {
+    "range": "很长(5w-20w)",
+    "count": 0,
+    "ratio": 0.0
+   },
+   {
+    "range": "超长(>20w)",
+    "count": 0,
+    "ratio": 0.0
+   }
+  ]
+ },
+ "pdf_pending_confirm": [],
+ "duplicates": {
+  "md5_groups": [],
+  "simhash_pairs": []
+ },
+ "sensitive_review": [
+  {
+   "file": "D:\\作业\\6-专高NLP 作业\\RAG 工单\\14-17附件\\original_problems\\documents\\CN106794760B.pdf",
+   "type": "手机号",
+   "match": "14595012014",
+   "offset": 162,
+   "context": "...794760 A (43)申请公布日 2017.05.31 (30)优先权数据 1459501 2014.10.03 FR (85)PCT国际申请进入国家阶段日 2017.04.05...",
+   "status": "待审核"
+  }
+ ],
+ "unsupported_files": [],
+ "action_lists": {
+  "scan_pdf_for_ocr": [
+   "D:\\作业\\6-专高NLP 作业\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100342976C.pdf",
+   "D:\\作业\\6-专高NLP 作业\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100347506C.pdf",
+   "D:\\作业\\6-专高NLP 作业\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100364694C.pdf"
+  ],
+  "corrupt_files": [],
+  "empty_files": [
+   "D:\\作业\\6-专高NLP 作业\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100342976C.pdf",
+   "D:\\作业\\6-专高NLP 作业\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100347506C.pdf",
+   "D:\\作业\\6-专高NLP 作业\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100364694C.pdf"
+  ],
+  "pending_pdf_boundary": [],
+  "pending_version_conflicts": [],
+  "pending_sensitive_review": [
+   {
+    "file": "D:\\作业\\6-专高NLP 作业\\RAG 工单\\14-17附件\\original_problems\\documents\\CN106794760B.pdf",
+    "type": "手机号",
+    "match": "14595012014",
+    "offset": 162,
+    "context": "...794760 A (43)申请公布日 2017.05.31 (30)优先权数据 1459501 2014.10.03 FR (85)PCT国际申请进入国家阶段日 2017.04.05...",
+    "status": "待审核"
+   }
+  ]
+ },
+ "records": [
+  {
+   "path": "D:\\作业\\6-专高NLP 作业\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100342976C.pdf",
+   "name": "CN100342976C.pdf",
+   "size_bytes": 407591,
+   "md5": "51ac11ccb34c3fd1bd95aa690f585fcc",
+   "char_count": 0,
+   "pdf": {
+    "type": "Scan_PDF",
+    "page_count": 8,
+    "scanned_pages": 8,
+    "scanned_ratio": 1.0,
+    "near_boundary": false,
+    "text_pages": 0
+   },
+   "tags": [
+    "Scan_PDF"
+   ],
+   "sensitive_findings": [],
+   "simhash": 0,
+   "route": "OCRParser",
+   "read_error": null
+  },
+  {
+   "path": "D:\\作业\\6-专高NLP 作业\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100347506C.pdf",
+   "name": "CN100347506C.pdf",
+   "size_bytes": 549413,
+   "md5": "c99ba335d668cf63c786ce4cd7f85fd3",
+   "char_count": 0,
+   "pdf": {
+    "type": "Scan_PDF",
+    "page_count": 11,
+    "scanned_pages": 11,
+    "scanned_ratio": 1.0,
+    "near_boundary": false,
+    "text_pages": 0
+   },
+   "tags": [
+    "Scan_PDF"
+   ],
+   "sensitive_findings": [],
+   "simhash": 0,
+   "route": "OCRParser",
+   "read_error": null
+  },
+  {
+   "path": "D:\\作业\\6-专高NLP 作业\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100364694C.pdf",
+   "name": "CN100364694C.pdf",
+   "size_bytes": 1001314,
+   "md5": "de6d4d9c600ef9a43696deb59a15d379",
+   "char_count": 0,
+   "pdf": {
+    "type": "Scan_PDF",
+    "page_count": 19,
+    "scanned_pages": 19,
+    "scanned_ratio": 1.0,
+    "near_boundary": false,
+    "text_pages": 0
+   },
+   "tags": [
+    "Scan_PDF"
+   ],
+   "sensitive_findings": [],
+   "simhash": 0,
+   "route": "OCRParser",
+   "read_error": null
+  },
+  {
+   "path": "D:\\作业\\6-专高NLP 作业\\RAG 工单\\14-17附件\\original_problems\\documents\\CN106794760B.pdf",
+   "name": "CN106794760B.pdf",
+   "size_bytes": 644045,
+   "md5": "e3d2c1b1700ba1865b3de1db3b944b02",
+   "char_count": 16272,
+   "pdf": {
+    "type": "Hybrid_PDF",
+    "page_count": 15,
+    "scanned_pages": 2,
+    "scanned_ratio": 0.1333,
+    "near_boundary": false,
+    "text_pages": 13
+   },
+   "tags": [
+    "Hybrid_PDF",
+    "Long_Doc",
+    "Sensitive_Info"
+   ],
+   "sensitive_findings": [
+    {
+     "type": "手机号",
+     "match": "14595012014",
+     "offset": 162,
+     "context": "...794760 A (43)申请公布日 2017.05.31 (30)优先权数据 1459501 2014.10.03 FR (85)PCT国际申请进入国家阶段日 2017.04.05...",
+     "status": "待审核"
+    }
+   ],
+   "simhash": 48874858739,
+   "route": "SecurityReviewNode",
+   "read_error": null
+  },
+  {
+   "path": "D:\\作业\\6-专高NLP 作业\\RAG 工单\\14-17附件\\original_problems\\documents\\CN110758510A.pdf",
+   "name": "CN110758510A.pdf",
+   "size_bytes": 649605,
+   "md5": "c95908c53f62084cf655b36bc96419b3",
+   "char_count": 4131,
+   "pdf": {
+    "type": "Hybrid_PDF",
+    "page_count": 7,
+    "scanned_pages": 2,
+    "scanned_ratio": 0.2857,
+    "near_boundary": false,
+    "text_pages": 5
+   },
+   "tags": [
+    "Hybrid_PDF",
+    "Short_Doc"
+   ],
+   "sensitive_findings": [],
+   "simhash": 66458985305,
+   "route": "HybridParser",
+   "read_error": null
+  }
+ ],
+ "elapsed_seconds": 0.0
+}

@@ -1,0 +1,14 @@
+$ 启动服务: python api_server.py 1633
+[api] 质检 API 服务已启动: http://127.0.0.1:1633
+
+POST /v1/document/quality-inspection（JSON，5个文件）
+  HTTP 200，6337 字节，耗时 0.49s
+  summary: 文件5 | PDF类型 {'Scan_PDF': 3, 'Hybrid_PDF': 2}
+  待OCR 3 | 版本冲突 0 | 敏感信息 1
+  action_lists 键: scan_pdf_for_ocr, corrupt_files, empty_files, pending_pdf_boundary, pending_version_conflicts, pending_sensitive_review
+
+POST /v1/document/quality-inspection（HTML 简报）
+  HTTP 200，4470 字节 HTML，耗时 0.03s
+  含区块: True, 打码: True
+
+✓ API 端点验证通过：接收文件列表 -> 触发质检 Skill -> 返回 JSON / HTML 结构化报告

@@ -1,0 +1,33 @@
+$ 执行 document_ingestion_workflow（质检驱动的自动路由演示）
+
+文件: CN100342976C.pdf
+  标签: Scan_PDF
+  [TriggerNode] 触发文档入库工作流
+  [DocumentQualityAssessmentSkill] 读取质检标签
+  [DecisionNode] 按标签路由 -> OCRParser
+  [OCRParser] {'parser': 'OCR 解析', 'ocr_pages': 8, 'steps': ['pdfium 渲染页面', '方向检测/旋转矫正', 'OCR 识别', '版面还原'], 'status': 'OCR完成并入库'}
+  => 最终状态: OCR完成并入库
+
+文件: CN108479256B.pdf
+  标签: Text_PDF, Long_Doc
+  [TriggerNode] 触发文档入库工作流
+  [DocumentQualityAssessmentSkill] 读取质检标签
+  [DecisionNode] 按标签路由 -> DirectParser
+  [DirectParser] {'parser': '直接文本解析', 'chars': 19204, 'status': '已入库'}
+  => 最终状态: 已入库
+
+文件: CN106794760B.pdf
+  标签: Hybrid_PDF, Long_Doc, Sensitive_Info
+  [TriggerNode] 触发文档入库工作流
+  [DocumentQualityAssessmentSkill] 读取质检标签
+  [DecisionNode] 按标签路由 -> SecurityReviewNode
+  [SecurityReviewNode] {'action': '敏感信息安全审核', 'pending_items': 1, 'status': '挂起，等待审核'}
+  => 最终状态: 挂起，等待审核
+
+文件: CN110758510A.pdf
+  标签: Hybrid_PDF, Short_Doc, Near_Duplicate
+  [TriggerNode] 触发文档入库工作流
+  [DocumentQualityAssessmentSkill] 读取质检标签
+  [DecisionNode] 按标签路由 -> VersionReviewNode
+  [VersionReviewNode] {'action': '版本冲突人工确认', 'status': '挂起，等待确认'}
+  => 最终状态: 挂起，等待确认
