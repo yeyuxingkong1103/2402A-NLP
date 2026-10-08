@@ -1,0 +1,27 @@
+# 工单编号：人工智能NLP-RAG-金融问答系统部署
+# .dockerignore —— 工单十 精简构建上下文（密钥/大文件/缓存不进镜像）
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.git/
+
+# 工单十：原始 PDF 附件（138M）不入镜像，运行期不依赖
+附件/
+out/
+
+# 工单十：运行期状态目录由 named volume rag-data 承载，不打入镜像
+data/logs/
+data/pids/
+data/feedback_v6/
+data/test_runs/
+
+# 工单十：文档截图与本地评估中间产物与运行无关
+docs/screenshots/
+docs/diagrams/
+*.log
+_tmp_*
+Dockerfile
+docker-compose.yml
+.dockerignore

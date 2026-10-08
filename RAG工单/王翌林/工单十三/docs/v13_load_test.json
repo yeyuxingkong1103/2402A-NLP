@@ -1,0 +1,248 @@
+{
+  "load_before": {
+    "work_order": "人工智能NLP-RAG-RAG性能瓶颈识别与优化",
+    "phase": "load_before",
+    "config": "优化前(召回24+24,重排截断1500,无嵌入缓存)",
+    "concurrency": 4,
+    "requests": 36,
+    "total_s": 89.8,
+    "throughput_rps": 0.4,
+    "e2e": {
+      "mean": 9894.2,
+      "p50": 3306.8,
+      "p95": 65358.2,
+      "max": 66448.0,
+      "n": 36
+    },
+    "retrieval_wall": {
+      "mean": 8646.7,
+      "p50": 2211.0,
+      "p95": 62924.7,
+      "max": 63981.1,
+      "n": 36
+    },
+    "stages": {
+      "query_routing": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.1,
+        "max": 0.4,
+        "n": 36
+      },
+      "vector_embed": {
+        "mean": 3197.6,
+        "p50": 718.5,
+        "p95": 22429.0,
+        "max": 22430.3,
+        "n": 36
+      },
+      "vector_milvus": {
+        "mean": 35.1,
+        "p50": 8.8,
+        "p95": 240.1,
+        "max": 424.9,
+        "n": 36
+      },
+      "vector_recall_wall": {
+        "mean": 3227.1,
+        "p50": 737.5,
+        "p95": 22440.2,
+        "max": 22441.3,
+        "n": 36
+      },
+      "fulltext_recall_wall": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "max": 0.0,
+        "n": 36
+      },
+      "fusion": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.1,
+        "max": 0.1,
+        "n": 36
+      },
+      "rerank": {
+        "mean": 5266.5,
+        "p50": 1458.1,
+        "p95": 40313.8,
+        "max": 41372.6,
+        "n": 36
+      },
+      "retrieval_text": {
+        "mean": 8499.8,
+        "p50": 2206.2,
+        "p95": 62765.3,
+        "max": 63819.8,
+        "n": 36
+      },
+      "retrieval_table": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "max": 0.0,
+        "n": 36
+      },
+      "retrieval_image": {
+        "mean": 1403.2,
+        "p50": 0.0,
+        "p95": 4209.6,
+        "max": 4209.6,
+        "n": 3
+      },
+      "merge_sources": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "max": 0.1,
+        "n": 36
+      },
+      "context_assembly": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.1,
+        "max": 0.1,
+        "n": 36
+      },
+      "llm_generation": {
+        "mean": 1246.2,
+        "p50": 1085.1,
+        "p95": 2466.0,
+        "max": 3385.8,
+        "n": 36
+      },
+      "post_processing": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "max": 0.1,
+        "n": 36
+      }
+    }
+  },
+  "load_after": {
+    "work_order": "人工智能NLP-RAG-RAG性能瓶颈识别与优化",
+    "phase": "load_after",
+    "config": "优化后(召回12+12,重排截断512,嵌入缓存)",
+    "concurrency": 4,
+    "requests": 36,
+    "total_s": 17.6,
+    "throughput_rps": 2.04,
+    "e2e": {
+      "mean": 1900.9,
+      "p50": 1529.2,
+      "p95": 4925.7,
+      "max": 5355.4,
+      "n": 36
+    },
+    "retrieval_wall": {
+      "mean": 498.8,
+      "p50": 304.3,
+      "p95": 1489.8,
+      "max": 3358.8,
+      "n": 36
+    },
+    "stages": {
+      "query_routing": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.1,
+        "max": 0.3,
+        "n": 36
+      },
+      "vector_embed": {
+        "mean": 86.4,
+        "p50": 0.1,
+        "p95": 577.6,
+        "max": 583.9,
+        "n": 36
+      },
+      "vector_milvus": {
+        "mean": 19.2,
+        "p50": 11.4,
+        "p95": 79.3,
+        "max": 92.1,
+        "n": 36
+      },
+      "vector_recall_wall": {
+        "mean": 107.2,
+        "p50": 27.7,
+        "p95": 634.1,
+        "max": 676.2,
+        "n": 36
+      },
+      "fulltext_recall_wall": {
+        "mean": 0.5,
+        "p50": 0.0,
+        "p95": 9.6,
+        "max": 10.0,
+        "n": 36
+      },
+      "fusion": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.1,
+        "max": 0.1,
+        "n": 36
+      },
+      "rerank": {
+        "mean": 373.0,
+        "p50": 240.1,
+        "p95": 790.7,
+        "max": 2666.3,
+        "n": 36
+      },
+      "retrieval_text": {
+        "mean": 484.6,
+        "p50": 277.6,
+        "p95": 1468.3,
+        "max": 3281.2,
+        "n": 36
+      },
+      "retrieval_table": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "max": 0.0,
+        "n": 36
+      },
+      "merge_sources": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "max": 0.1,
+        "n": 36
+      },
+      "context_assembly": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "max": 0.0,
+        "n": 36
+      },
+      "retrieval_image": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "max": 0.0,
+        "n": 3
+      },
+      "llm_generation": {
+        "mean": 1401.6,
+        "p50": 1186.2,
+        "p95": 3071.4,
+        "max": 3435.5,
+        "n": 36
+      },
+      "post_processing": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "max": 0.1,
+        "n": 36
+      }
+    }
+  }
+}

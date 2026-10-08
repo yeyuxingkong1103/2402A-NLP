@@ -1,0 +1,83 @@
+# 工单编号：人工智能NLP-RAG-金融问答系统部署
+# docker-compose.yml —— 工单十 金融问答系统容器编排
+# 服务：rag-api（FastAPI v6, 8006）+ rag-ui（Streamlit v6, 8506）
+# 验收对照：
+#   ① docker compose up 一键启动，指定端口对外服务，日志无异常
+#   ② named volume rag-data 持久化关键数据（日志/反馈/缓存），
+#      api 与 ui 同时挂载实现容器间数据共享
+#   ③ 自定义 bridge 网络 rag-net 保证容器互访；
+#      extra_hosts host-gateway 使容器可访问宿主机 Milvus(19530)/DeepSeek(外网)
+name: rag-v10
+
+services:
+  rag-api:
+    build: .
+    image: rag-v10:latest
+    container_name: rag-v10-api
+    # 工单十：显式注入环境变量（.env 仅宿主机使用，不打入镜像）
+    env_file: .env
+    environment:
+      # 工单十：容器内通过 host.docker.internal 访问宿主机 Milvus
+      MILVUS_HOST: host.docker.internal
+      MILVUS_PORT: "19530"
+      RAG_EMBED_DEVICE: cpu
+      HF_HUB_OFFLINE: "1"
+    ports:
+      - "8006:8006"
+    volumes:
+      # 工单十：模型权重只读挂载，复用宿主机已下载的 bge-m3 / bge-reranker / CLIP
+      - /home/dabaie/models:/home/dabaie/models:ro
+      # 工单十：named volume 持久化关键数据（反馈/日志/检索缓存）
+      - rag-data:/app/data
+    networks:
+      - rag-net
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests;requests.get('http://localhost:8006/api/v6/health',timeout=5).raise_for_status()"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s   # 工单十：首次需加载模型，放宽启动期
+
+  rag-ui:
+    image: rag-v10:latest
+    container_name: rag-v10-ui
+    depends_on:
+      rag-api:
+        condition: service_started
+    env_file: .env
+    environment:
+      MILVUS_HOST: host.docker.internal
+      MILVUS_PORT: "19530"
+      RAG_EMBED_DEVICE: cpu
+      HF_HUB_OFFLINE: "1"
+      # 工单十：UI 可通过容器网络访问 API（streamlit_app_v6 默认进程内引擎，
+      #         该变量供需要 HTTP 模式的场景与网络连通性验证使用）
+      API_BASE_URL: http://rag-api:8006
+    ports:
+      - "8506:8506"
+    volumes:
+      - /home/dabaie/models:/home/dabaie/models:ro
+      # 工单十：与 rag-api 共享同一数据卷 → 容器间数据共享（反馈/日志互通）
+      - rag-data:/app/data
+    networks:
+      - rag-net
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    command: >
+      python -m streamlit run app/streamlit_app_v6.py
+      --server.port 8506 --server.headless true --server.address 0.0.0.0
+
+# 工单十：named volume —— 容器删除/重建后数据不丢失（验收②）
+volumes:
+  rag-data:
+    name: rag-v10-data
+
+# 工单十：自定义 bridge 网络 —— 容器间按服务名互访（验收③）
+networks:
+  rag-net:
+    name: rag-v10-net
+    driver: bridge

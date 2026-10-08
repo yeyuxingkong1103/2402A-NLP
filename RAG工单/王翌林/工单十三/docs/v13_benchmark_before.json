@@ -1,0 +1,565 @@
+{
+  "work_order": "人工智能NLP-RAG-RAG性能瓶颈识别与优化",
+  "phase": "before",
+  "config": "优化前(召回24+24,重排截断1500,无嵌入缓存)",
+  "questions": 12,
+  "rounds": 2,
+  "cold_start_ms": 25556.6,
+  "e2e": {
+    "mean": 1992.3,
+    "p50": 1914.5,
+    "p95": 2720.5,
+    "max": 2720.5,
+    "n": 24
+  },
+  "retrieval_wall": {
+    "mean": 849.4,
+    "p50": 808.6,
+    "p95": 1491.7,
+    "max": 1491.7,
+    "n": 24
+  },
+  "llm": {
+    "mean": 1142.4,
+    "p50": 1123.8,
+    "p95": 1671.8,
+    "max": 1671.8,
+    "n": 24
+  },
+  "stages": {
+    "query_routing": {
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.1,
+      "max": 0.1,
+      "n": 25
+    },
+    "vector_embed": {
+      "mean": 782.2,
+      "p50": 70.0,
+      "p95": 17820.0,
+      "max": 17820.0,
+      "n": 25
+    },
+    "vector_milvus": {
+      "mean": 16.8,
+      "p50": 4.5,
+      "p95": 186.9,
+      "max": 186.9,
+      "n": 25
+    },
+    "vector_recall_wall": {
+      "mean": 791.8,
+      "p50": 70.7,
+      "p95": 17881.4,
+      "max": 17881.4,
+      "n": 25
+    },
+    "fulltext_recall_wall": {
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0,
+      "max": 0.0,
+      "n": 25
+    },
+    "fusion": {
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.2,
+      "max": 0.2,
+      "n": 25
+    },
+    "rerank": {
+      "mean": 925.8,
+      "p50": 721.3,
+      "p95": 5585.7,
+      "max": 5585.7,
+      "n": 25
+    },
+    "retrieval_text": {
+      "mean": 1720.5,
+      "p50": 800.9,
+      "p95": 23478.1,
+      "max": 23478.1,
+      "n": 25
+    },
+    "retrieval_table": {
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0,
+      "max": 0.0,
+      "n": 25
+    },
+    "merge_sources": {
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.1,
+      "max": 0.1,
+      "n": 25
+    },
+    "context_assembly": {
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0,
+      "max": 0.0,
+      "n": 25
+    },
+    "llm_generation": {
+      "mean": 1173.8,
+      "p50": 1123.8,
+      "p95": 1927.1,
+      "max": 1927.1,
+      "n": 25
+    },
+    "post_processing": {
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0,
+      "max": 0.0,
+      "n": 25
+    },
+    "retrieval_image": {
+      "mean": 312.3,
+      "p50": 624.6,
+      "p95": 624.6,
+      "max": 624.6,
+      "n": 2
+    }
+  },
+  "per_question": [
+    {
+      "qid": 1,
+      "round": 1,
+      "query": "武汉力源信息技术股份有限公司本次发行股数是多少，占发行后总股本的比例是多少？",
+      "latency_ms": 2267.1,
+      "retrieve_ms": 970.7,
+      "llm_ms": 1294.7,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 951.9,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 1294.7,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 969.7
+    },
+    {
+      "qid": 1,
+      "round": 2,
+      "query": "武汉力源信息技术股份有限公司本次发行股数是多少，占发行后总股本的比例是多少？",
+      "latency_ms": 2460.3,
+      "retrieve_ms": 793.0,
+      "llm_ms": 1667.0,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 791.3,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 1667.0,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 791.7
+    },
+    {
+      "qid": 2,
+      "round": 1,
+      "query": "武汉力源信息技术股份有限公司本次募集资金拟投资哪些项目？",
+      "latency_ms": 2442.1,
+      "retrieve_ms": 769.9,
+      "llm_ms": 1671.8,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 768.3,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 1671.8,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 768.8
+    },
+    {
+      "qid": 2,
+      "round": 2,
+      "query": "武汉力源信息技术股份有限公司本次募集资金拟投资哪些项目？",
+      "latency_ms": 2239.4,
+      "retrieve_ms": 790.8,
+      "llm_ms": 1448.1,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 789.0,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 1448.1,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 789.6
+    },
+    {
+      "qid": 3,
+      "round": 1,
+      "query": "与武汉力源信息技术股份有限公司存在控制关系的关联方是谁，持股比例是多少？",
+      "latency_ms": 1975.0,
+      "retrieve_ms": 773.2,
+      "llm_ms": 1201.4,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 771.7,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 1201.4,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 772.1
+    },
+    {
+      "qid": 3,
+      "round": 2,
+      "query": "与武汉力源信息技术股份有限公司存在控制关系的关联方是谁，持股比例是多少？",
+      "latency_ms": 1737.7,
+      "retrieve_ms": 794.3,
+      "llm_ms": 943.1,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 792.7,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 943.1,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 793.2
+    },
+    {
+      "qid": 4,
+      "round": 1,
+      "query": "武汉力源信息技术股份有限公司组织结构中销售部由几个部门构成？",
+      "latency_ms": 2720.5,
+      "retrieve_ms": 1491.7,
+      "llm_ms": 1228.5,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 838.8,
+        "retrieval_table": 0.0,
+        "retrieval_image": 624.6,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 1228.5,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 864.1
+    },
+    {
+      "qid": 4,
+      "round": 2,
+      "query": "武汉力源信息技术股份有限公司组织结构中销售部由几个部门构成？",
+      "latency_ms": 2380.4,
+      "retrieve_ms": 890.1,
+      "llm_ms": 1488.8,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 876.6,
+        "retrieval_table": 0.0,
+        "retrieval_image": 0.0,
+        "merge_sources": 0.1,
+        "context_assembly": 0.0,
+        "llm_generation": 1488.8,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 888.8
+    },
+    {
+      "qid": 5,
+      "round": 1,
+      "query": "武汉兴图新科电子股份有限公司的法定代表人是谁？",
+      "latency_ms": 1661.9,
+      "retrieve_ms": 783.7,
+      "llm_ms": 877.9,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 764.6,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 877.9,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 782.3
+    },
+    {
+      "qid": 5,
+      "round": 2,
+      "query": "武汉兴图新科电子股份有限公司的法定代表人是谁？",
+      "latency_ms": 1771.1,
+      "retrieve_ms": 782.3,
+      "llm_ms": 988.4,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 780.6,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 988.4,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 781.1
+    },
+    {
+      "qid": 6,
+      "round": 1,
+      "query": "武汉兴图新科电子股份有限公司注册资本是多少？",
+      "latency_ms": 1609.0,
+      "retrieve_ms": 783.0,
+      "llm_ms": 824.3,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 781.3,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 824.3,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 781.8
+    },
+    {
+      "qid": 6,
+      "round": 2,
+      "query": "武汉兴图新科电子股份有限公司注册资本是多少？",
+      "latency_ms": 1769.8,
+      "retrieve_ms": 802.7,
+      "llm_ms": 966.7,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 800.9,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 966.7,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 801.2
+    },
+    {
+      "qid": 7,
+      "round": 1,
+      "query": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "latency_ms": 1773.2,
+      "retrieve_ms": 824.9,
+      "llm_ms": 947.9,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 823.1,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 947.9,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 823.6
+    },
+    {
+      "qid": 7,
+      "round": 2,
+      "query": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "latency_ms": 2202.9,
+      "retrieve_ms": 795.9,
+      "llm_ms": 1406.6,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 770.6,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 1406.6,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 794.7
+    },
+    {
+      "qid": 8,
+      "round": 1,
+      "query": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+      "latency_ms": 1858.5,
+      "retrieve_ms": 943.0,
+      "llm_ms": 915.1,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 941.1,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 915.1,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 941.8
+    },
+    {
+      "qid": 8,
+      "round": 2,
+      "query": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+      "latency_ms": 1786.0,
+      "retrieve_ms": 857.3,
+      "llm_ms": 928.3,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 855.4,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 928.3,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 856.1
+    },
+    {
+      "qid": 9,
+      "round": 1,
+      "query": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+      "latency_ms": 2089.7,
+      "retrieve_ms": 813.6,
+      "llm_ms": 1275.6,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 812.1,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 1275.6,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 812.5
+    },
+    {
+      "qid": 9,
+      "round": 2,
+      "query": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+      "latency_ms": 2226.2,
+      "retrieve_ms": 888.4,
+      "llm_ms": 1337.4,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 870.4,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 1337.4,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 887.2
+    },
+    {
+      "qid": 10,
+      "round": 1,
+      "query": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+      "latency_ms": 1628.9,
+      "retrieve_ms": 824.2,
+      "llm_ms": 804.3,
+      "stages_ms": {
+        "query_routing": 0.1,
+        "retrieval_text": 801.0,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 804.3,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 823.1
+    },
+    {
+      "qid": 10,
+      "round": 2,
+      "query": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+      "latency_ms": 1947.0,
+      "retrieve_ms": 811.8,
+      "llm_ms": 1134.7,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 783.3,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 1134.7,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 810.7
+    },
+    {
+      "qid": 11,
+      "round": 1,
+      "query": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+      "latency_ms": 1914.5,
+      "retrieve_ms": 790.3,
+      "llm_ms": 1123.8,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 788.4,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 1123.8,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 789.2
+    },
+    {
+      "qid": 11,
+      "round": 2,
+      "query": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+      "latency_ms": 1799.5,
+      "retrieve_ms": 808.6,
+      "llm_ms": 990.5,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 807.1,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 990.5,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 807.5
+    },
+    {
+      "qid": 12,
+      "round": 1,
+      "query": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+      "latency_ms": 1789.9,
+      "retrieve_ms": 788.5,
+      "llm_ms": 1001.0,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 770.3,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 1001.0,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 787.4
+    },
+    {
+      "qid": 12,
+      "round": 2,
+      "query": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+      "latency_ms": 1764.7,
+      "retrieve_ms": 813.0,
+      "llm_ms": 951.3,
+      "stages_ms": {
+        "query_routing": 0.0,
+        "retrieval_text": 804.0,
+        "retrieval_table": 0.0,
+        "merge_sources": 0.0,
+        "context_assembly": 0.0,
+        "llm_generation": 951.3,
+        "post_processing": 0.0
+      },
+      "retrieval_elapsed_ms": 804.5
+    }
+  ]
+}

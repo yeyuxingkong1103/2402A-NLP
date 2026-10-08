@@ -1,0 +1,156 @@
+{
+ "work_order": "人工智能NLP-RAG-Embedding模型微调任务",
+ "base_model": "/home/dabaie/models/bge-m3",
+ "device": "cuda",
+ "freeze_bottom_layers": 12,
+ "train_params": {
+  "epochs": 2,
+  "batch_size": 8,
+  "lr": 2e-05,
+  "max_seq": 256,
+  "loss": "MultipleNegativesRankingLoss(对比损失,批内负例)"
+ },
+ "data": {
+  "train": 388,
+  "dev": 44,
+  "corpus": 1016,
+  "eval_queries": 54
+ },
+ "before": {
+  "accuracy@1": 0.6296,
+  "accuracy@3": 0.7593,
+  "accuracy@5": 0.8148,
+  "accuracy@10": 0.8704,
+  "ndcg@10": 0.7363,
+  "mrr@10": 0.7055,
+  "map@100": 0.6204
+ },
+ "eval_before_seconds": 25.3,
+ "train": {
+  "seconds": 19.4,
+  "training_loss": 0.0748,
+  "trainable_params_M": 152.2,
+  "log_history": [
+   {
+    "loss": 0.25062084197998047,
+    "grad_norm": 5.220489025115967,
+    "learning_rate": 1.8e-05,
+    "epoch": 0.20408163265306123,
+    "step": 10
+   },
+   {
+    "loss": 0.14281781911849975,
+    "grad_norm": 0.5152289867401123,
+    "learning_rate": 1.7954545454545454e-05,
+    "epoch": 0.40816326530612246,
+    "step": 20
+   },
+   {
+    "loss": 0.06003268361091614,
+    "grad_norm": 5.346533298492432,
+    "learning_rate": 1.5681818181818182e-05,
+    "epoch": 0.6122448979591837,
+    "step": 30
+   },
+   {
+    "loss": 0.07452978491783142,
+    "grad_norm": 7.167776584625244,
+    "learning_rate": 1.3409090909090909e-05,
+    "epoch": 0.8163265306122449,
+    "step": 40
+   },
+   {
+    "loss": 0.05392863154411316,
+    "grad_norm": 0.16804900765419006,
+    "learning_rate": 1.1136363636363637e-05,
+    "epoch": 1.0204081632653061,
+    "step": 50
+   },
+   {
+    "loss": 0.027509814500808714,
+    "grad_norm": 7.249140739440918,
+    "learning_rate": 8.863636363636365e-06,
+    "epoch": 1.2244897959183674,
+    "step": 60
+   },
+   {
+    "loss": 0.03558337688446045,
+    "grad_norm": 0.259195476770401,
+    "learning_rate": 6.590909090909091e-06,
+    "epoch": 1.4285714285714286,
+    "step": 70
+   },
+   {
+    "loss": 0.020411193370819092,
+    "grad_norm": 3.113662004470825,
+    "learning_rate": 4.3181818181818185e-06,
+    "epoch": 1.6326530612244898,
+    "step": 80
+   },
+   {
+    "loss": 0.04413106441497803,
+    "grad_norm": 0.2644933760166168,
+    "learning_rate": 2.0454545454545457e-06,
+    "epoch": 1.836734693877551,
+    "step": 90
+   }
+  ]
+ },
+ "ft_model_dir": "models/bge-m3-ft-v11",
+ "after": {
+  "accuracy@1": 0.6852,
+  "accuracy@3": 0.8519,
+  "accuracy@5": 0.9259,
+  "accuracy@10": 0.963,
+  "ndcg@10": 0.8015,
+  "mrr@10": 0.7798,
+  "map@100": 0.6989
+ },
+ "eval_after_seconds": 7.0,
+ "compare": [
+  {
+   "metric": "mrr@10",
+   "before": 0.7055,
+   "after": 0.7798,
+   "delta": 0.0743
+  },
+  {
+   "metric": "ndcg@10",
+   "before": 0.7363,
+   "after": 0.8015,
+   "delta": 0.0652
+  },
+  {
+   "metric": "map@100",
+   "before": 0.6204,
+   "after": 0.6989,
+   "delta": 0.0785
+  },
+  {
+   "metric": "accuracy@1",
+   "before": 0.6296,
+   "after": 0.6852,
+   "delta": 0.0556
+  },
+  {
+   "metric": "accuracy@3",
+   "before": 0.7593,
+   "after": 0.8519,
+   "delta": 0.0926
+  },
+  {
+   "metric": "accuracy@5",
+   "before": 0.8148,
+   "after": 0.9259,
+   "delta": 0.1111
+  },
+  {
+   "metric": "accuracy@10",
+   "before": 0.8704,
+   "after": 0.963,
+   "delta": 0.0926
+  }
+ ],
+ "verdict": "7/7 项指标提升，微调后检索效果优于微调前",
+ "elapsed_min": 1.3
+}
