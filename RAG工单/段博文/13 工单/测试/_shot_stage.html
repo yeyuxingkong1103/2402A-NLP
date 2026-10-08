@@ -1,0 +1,20 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8">
+<style>
+body{background:#1e1e1e;margin:0;padding:18px;font-family:Consolas,'Courier New',monospace}
+.term{background:#0c0c0c;border:1px solid #444;border-radius:8px;padding:16px 20px;
+color:#d4d4d4;font-size:14px;line-height:1.55;white-space:pre-wrap;word-break:break-all}
+.title{color:#4ec9b0;font-weight:bold;margin-bottom:8px;font-size:15px}
+.ok{color:#6a9955} .hl{color:#dcdcaa}
+</style></head><body><div class="term"><div class="title">$ python stage_summary.py</div>== baseline == 平均候选数 16.2  总耗时 9.130s
+  t_rerank               9.055s  ( 99.2%)
+  t_embed                0.065s  (  0.7%)
+  t_vector               0.007s  (  0.1%)
+  t_bm25                 0.003s  (  0.0%)
+  t_post                 0.000s  (  0.0%)
+  t_rrf                  0.000s  (  0.0%)
+== optimized == 平均候选数 6.0  总耗时 1.712s
+  t_rerank               1.648s  ( 96.2%)
+  t_embed                0.058s  (  3.4%)
+  t_recall_parallel      0.006s  (  0.4%)
+  t_rrf                  0.000s  (  0.0%)
+  t_post                 0.000s  (  0.0%)</div></body></html>

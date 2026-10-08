@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8">
+<style>
+body{background:#1e1e1e;margin:0;padding:18px;font-family:Consolas,'Courier New',monospace}
+.term{background:#0c0c0c;border:1px solid #444;border-radius:8px;padding:16px 20px;
+color:#d4d4d4;font-size:14px;line-height:1.55;white-space:pre-wrap;word-break:break-all}
+.title{color:#4ec9b0;font-weight:bold;margin-bottom:8px;font-size:15px}
+.ok{color:#6a9955} .hl{color:#dcdcaa}
+</style></head><body><div class="term"><div class="title">$ python benchmark.py --profile --repeat 2</div>Prefix dict has been built successfully.
+2026-10-07 19:35:59 [INFO] [perf_pipeline] [预热] 集合 rag_legal：BM25 语料 1076 条，总耗时 16.49s
+2026-10-07 19:36:20 [INFO] [__main__] cProfile 结果已保存 results/cprofile_baseline.txt
+2026-10-07 19:36:26 [INFO] [__main__] [baseline] rep0 &#x27;劳动合同中试用期最长可以约定...&#x27; 总耗时 6.624s
+2026-10-07 19:36:28 [INFO] [__main__] [optimized] rep0 &#x27;劳动合同中试用期最长可以约定...&#x27; 总耗时 1.612s
+2026-10-07 19:36:34 [INFO] [__main__] [baseline] rep1 &#x27;劳动合同中试用期最长可以约定...&#x27; 总耗时 6.381s
+2026-10-07 19:36:34 [INFO] [__main__] [optimized] rep1 &#x27;劳动合同中试用期最长可以约定...&#x27; 总耗时 0.001s
+2026-10-07 19:36:41 [INFO] [__main__] [baseline] rep0 &#x27;交通事故造成他人受伤需要赔偿...&#x27; 总耗时 6.697s
+2026-10-07 19:36:43 [INFO] [__main__] [optimized] rep0 &#x27;交通事故造成他人受伤需要赔偿...&#x27; 总耗时 1.743s
+2026-10-07 19:36:49 [INFO] [__main__] [baseline] rep1 &#x27;交通事故造成他人受伤需要赔偿...&#x27; 总耗时 6.693s
+2026-10-07 19:36:49 [INFO] [__main__] [optimized] rep1 &#x27;交通事故造成他人受伤需要赔偿...&#x27; 总耗时 0.001s
+2026-10-07 19:36:58 [INFO] [__main__] [baseline] rep0 &#x27;公司拖欠工资劳动者可以申请劳...&#x27; 总耗时 8.249s
+2026-10-07 19:36:59 [INFO] [__main__] [optimized] rep0 &#x27;公司拖欠工资劳动者可以申请劳...&#x27; 总耗时 1.612s
+2026-10-07 19:37:08 [INFO] [__main__] [baseline] rep1 &#x27;公司拖欠工资劳动者可以申请劳...&#x27; 总耗时 8.521s
+2026-10-07 19:37:08 [INFO] [__main__] [optimized] rep1 &#x27;公司拖欠工资劳动者可以申请劳...&#x27; 总耗时 0.001s
+2026-10-07 19:37:16 [INFO] [__main__] [baseline] rep0 &#x27;离婚时夫妻共同债务如何认定和...&#x27; 总耗时 8.566s
+2026-10-07 19:37:18 [INFO] [__main__] [optimized] rep0 &#x27;离婚时夫妻共同债务如何认定和...&#x27; 总耗时 1.705s
+2026-10-07 19:37:26 [INFO] [__main__] [baseline] rep1 &#x27;离婚时夫妻共同债务如何认定和...&#x27; 总耗时 8.472s
+2026-10-07 19:37:26 [INFO] [__main__] [optimized] rep1 &#x27;离婚时夫妻共同债务如何认定和...&#x27; 总耗时 0.001s
+2026-10-07 19:37:35 [INFO] [__main__] [baseline] rep0 &#x27;遗嘱继承和法定继承哪个效力优...&#x27; 总耗时 8.921s
+2026-10-07 19:37:37 [INFO] [__main__] [optimized] rep0 &#x27;遗嘱继承和法定继承哪个效力优...&#x27; 总耗时 1.828s
+2026-10-07 19:37:46 [INFO] [__main__] [baseline] rep1 &#x27;遗嘱继承和法定继承哪个效力优...&#x27; 总耗时 8.973s
+2026-10-07 19:37:46 [INFO] [__main__] [optimized] rep1 &#x27;遗嘱继承和法定继承哪个效力优...&#x27; 总耗时 0.001s
+2026-10-07 19:37:56 [INFO] [__main__] [baseline] rep0 &#x27;合同违约后守约方可以主张哪些...&#x27; 总耗时 10.119s
+2026-10-07 19:37:58 [INFO] [__main__] [optimized] rep0 &#x27;合同违约后守约方可以主张哪些...&#x27; 总耗时 1.730s
+2026-10-07 19:38:08 [INFO] [__main__] [baseline] rep1 &#x27;合同违约后守约方可以主张哪些...&#x27; 总耗时 9.603s
+2026-10-07 19:38:08 [INFO] [__main__] [optimized] rep1 &#x27;合同违约后守约方可以主张哪些...&#x27; 总耗时 0.001s
+2026-10-07 19:38:19 [INFO] [__main__] [baseline] rep0 &#x27;工伤认定的申请时限是多久...&#x27; 总耗时 11.751s
+2026-10-07 19:38:21 [INFO] [__main__] [optimized] rep0 &#x27;工伤认定的申请时限是多久...&#x27; 总耗时 1.648s
+2026-10-07 19:38:32 [INFO] [__main__] [baseline] rep1 &#x27;工伤认定的申请时限是多久...&#x27; 总耗时 11.346s
+2026-10-07 19:38:32 [INFO] [__main__] [optimized] rep1 &#x27;工伤认定的申请时限是多久...&#x27; 总耗时 0.001s
+2026-10-07 19:38:42 [INFO] [__main__] [baseline] rep0 &#x27;民间借贷的利率超过多少不受法...&#x27; 总耗时 10.158s
+2026-10-07 19:38:44 [INFO] [__main__] [optimized] rep0 &#x27;民间借贷的利率超过多少不受法...&#x27; 总耗时 1.676s
+2026-10-07 19:38:55 [INFO] [__main__] [baseline] rep1 &#x27;民间借贷的利率超过多少不受法...&#x27; 总耗时 10.370s
+2026-10-07 19:38:55 [INFO] [__main__] [optimized] rep1 &#x27;民间借贷的利率超过多少不受法...&#x27; 总耗时 0.001s
+2026-10-07 19:39:05 [INFO] [__main__] [baseline] rep0 &#x27;消费者购买到假冒伪劣商品如何...&#x27; 总耗时 10.947s
+2026-10-07 19:39:07 [INFO] [__main__] [optimized] rep0 &#x27;消费者购买到假冒伪劣商品如何...&#x27; 总耗时 1.793s
+2026-10-07 19:39:18 [INFO] [__main__] [baseline] rep1 &#x27;消费者购买到假冒伪劣商品如何...&#x27; 总耗时 11.062s
+2026-10-07 19:39:18 [INFO] [__main__] [optimized] rep1 &#x27;消费者购买到假冒伪劣商品如何...&#x27; 总耗时 0.001s
+2026-10-07 19:39:28 [INFO] [__main__] [baseline] rep0 &#x27;房屋买卖合同中没有约定违约金...&#x27; 总耗时 9.267s
+2026-10-07 19:39:29 [INFO] [__main__] [optimized] rep0 &#x27;房屋买卖合同中没有约定违约金...&#x27; 总耗时 1.776s
+2026-10-07 19:39:39 [INFO] [__main__] [baseline] rep1 &#x27;房屋买卖合同中没有约定违约金...&#x27; 总耗时 9.185s
+2026-10-07 19:39:39 [INFO] [__main__] [optimized] rep1 &#x27;房屋买卖合同中没有约定违约金...&#x27; 总耗时 0.001s
+2026-10-07 19:39:39 [INFO] [__main__] 结果已保存：D:\作业\6-专高NLP 作业\成品\13\研发\src\results\benchmark_results.json
+  baseline: 平均 9.130s  P95 10.947s  最大 11.751s  全部&lt;3S: False
+ optimized: 平均 1.712s  P95 1.793s  最大 1.828s  全部&lt;3S: True</div></body></html>

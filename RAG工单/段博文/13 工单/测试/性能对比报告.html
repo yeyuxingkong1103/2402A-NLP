@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8">
+<title>RAG 性能瓶颈识别与优化 — 对比报告</title>
+<style>
+body{font-family:'Microsoft YaHei',sans-serif;max-width:1100px;margin:24px auto;padding:0 16px;color:#2c3e50}
+h1{border-bottom:3px solid #3498db;padding-bottom:8px}
+table{border-collapse:collapse;width:100%;margin:12px 0}
+th,td{border:1px solid #bdc3c7;padding:7px 10px;text-align:left;font-size:14px}
+th{background:#3498db;color:#fff}
+.ok{color:#27ae60;font-weight:bold}
+.bad{color:#e74c3c;font-weight:bold}
+.card{background:#f8f9fa;border-left:4px solid #3498db;padding:10px 16px;margin:10px 0}
+</style></head><body>
+<h1>RAG 性能瓶颈识别与优化 — 测试对比报告</h1>
+<p>测试时间：2026-10-07 19:18:23 ｜ 知识库：rag_legal ｜ 查询数：10 ｜ 环境：Windows 纯 CPU，bge-m3 + bge-reranker-large</p>
+
+<h2>一、总体指标</h2>
+<table><tr><th>链路</th><th>平均耗时</th><th>P95</th><th>最大</th><th>重排候选数</th><th>是否全部 &lt; 3S</th></tr>
+<tr><td>优化前（基线）</td><td class="bad">8.94s</td><td>11.28s</td><td>12.07s</td><td>16.2</td><td class="bad">否</td></tr>
+<tr><td>优化后</td><td class="ok">1.71s</td><td>1.84s</td><td>1.95s</td><td>6.0</td><td class="ok">是 ✓</td></tr>
+<tr><td>缓存命中（重复查询）</td><td class="ok" colspan="4">0.001s</td><td class="ok">是 ✓</td></tr></table>
+<p><b>提速 5.2 倍</b>，验收标准「检索结果 3S 以内」达成。</p>
+
+<h2>二、瓶颈定位（分阶段耗时，基线）</h2>
+<div class="card">CrossEncoder 重排占基线总耗时 <b>99.2%</b>（平均 8.87s / 8.94s，16.2 个候选 × 全文 500 字 × CPU 前向推理）；查询编码 0.06s、向量召回 0.01s、BM25 0.003s、RRF 与组装 &lt;1ms，均非瓶颈。cProfile 进一步确认耗时集中在 XLMRoberta 前向（torch linear 5.4s/6.3s）。</div>
+
+<h2>三、逐查询明细</h2>
+<table><tr><th>查询</th><th>基线·重排</th><th>基线·总耗时</th><th>优化·重排</th><th>优化·总耗时</th><th>提速</th></tr>
+<tr><td>劳动合同中试用期最长可以约定多久</td><td>6.20s</td><td>6.27s</td><td>1.48s</td><td class='ok'>1.55s</td><td>4.0×</td></tr><tr><td>交通事故造成他人受伤需要赔偿哪些费用</td><td>6.45s</td><td>6.52s</td><td>1.65s</td><td class='ok'>1.72s</td><td>3.8×</td></tr><tr><td>公司拖欠工资劳动者可以申请劳动仲裁吗</td><td>7.69s</td><td>7.76s</td><td>1.51s</td><td class='ok'>1.57s</td><td>4.9×</td></tr><tr><td>离婚时夫妻共同债务如何认定和分割</td><td>8.25s</td><td>8.32s</td><td>1.55s</td><td class='ok'>1.61s</td><td>5.2×</td></tr><tr><td>遗嘱继承和法定继承哪个效力优先</td><td>8.61s</td><td>8.68s</td><td>1.78s</td><td class='ok'>1.84s</td><td>4.7×</td></tr><tr><td>合同违约后守约方可以主张哪些违约责任</td><td>9.14s</td><td>9.21s</td><td>1.58s</td><td class='ok'>1.65s</td><td>5.6×</td></tr><tr><td>工伤认定的申请时限是多久</td><td>11.21s</td><td>11.28s</td><td>1.65s</td><td class='ok'>1.72s</td><td>6.6×</td></tr><tr><td>民间借贷的利率超过多少不受法律保护</td><td>10.20s</td><td>10.27s</td><td>1.65s</td><td class='ok'>1.71s</td><td>6.0×</td></tr><tr><td>消费者购买到假冒伪劣商品如何维权</td><td>11.99s</td><td>12.07s</td><td>1.88s</td><td class='ok'>1.95s</td><td>6.2×</td></tr><tr><td>房屋买卖合同中没有约定违约金怎么办</td><td>8.95s</td><td>9.02s</td><td>1.68s</td><td class='ok'>1.74s</td><td>5.2×</td></tr></table>
+
+<h2>四、优化措施</h2>
+<div class="card">O1 查询向量单次编码、多路复用；O2 向量/BM25 双路并行召回；O3 RRF 去重后重排候选 16→6；O4 重排输入 500→256 字截断；O5 精确匹配查询缓存（重复提问 0.001s）。</div>
+</body></html>

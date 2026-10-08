@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8">
+<style>
+body{background:#1e1e1e;margin:0;padding:18px;font-family:Consolas,'Courier New',monospace}
+.term{background:#0c0c0c;border:1px solid #444;border-radius:8px;padding:16px 20px;
+color:#d4d4d4;font-size:14px;line-height:1.55;white-space:pre-wrap;word-break:break-all}
+.title{color:#4ec9b0;font-weight:bold;margin-bottom:8px;font-size:15px}
+.ok{color:#6a9955} .hl{color:#dcdcaa}
+</style></head><body><div class="term"><div class="title">$ cProfile 基线单查询性能分析（Top 20 函数）</div>         86869 function calls (81285 primitive calls) in 7.036 seconds
+
+   Ordered by: cumulative time
+   List reduced from 606 to 25 due to restriction &lt;25&gt;
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        2    0.000    0.000    6.933    3.466 D:\an\Lib\site-packages\torch\utils\_contextlib.py:120(decorate_context)
+        2    0.000    0.000    6.933    3.466 D:\an\Lib\site-packages\torch\autograd\grad_mode.py:294(__exit__)
+        2    0.000    0.000    6.933    3.466 D:\an\Lib\site-packages\sentence_transformers\util\decorators.py:34(wrapper)
+    846/3    0.003    0.000    6.902    2.301 D:\an\Lib\site-packages\torch\nn\modules\module.py:1779(_wrapped_call_impl)
+    846/3    0.012    0.000    6.902    2.301 D:\an\Lib\site-packages\torch\nn\modules\module.py:1787(_call_impl)
+        2    0.000    0.000    6.902    3.451 D:\an\Lib\site-packages\sentence_transformers\base\model.py:554(forward)
+        2    0.000    0.000    6.902    3.451 D:\an\Lib\site-packages\sentence_transformers\base\modules\transformer.py:1594(forward)
+        2    0.000    0.000    6.901    3.451 D:\an\Lib\site-packages\transformers\utils\generic.py:1006(wrapper)
+        2    0.001    0.000    6.901    3.451 D:\an\Lib\site-packages\transformers\utils\output_capturing.py:249(wrapper)
+        2    0.000    0.000    6.893    3.446 D:\an\Lib\site-packages\transformers\models\xlm_roberta\modeling_xlm_roberta.py:588(forward)
+       48    0.000    0.000    6.889    0.144 D:\an\Lib\site-packages\transformers\modeling_layers.py:80(__call__)
+        1    0.000    0.000    6.863    6.863 D:\an\Lib\site-packages\langchain_community\cross_encoders\huggingface.py:50(score)
+        1    0.000    0.000    6.862    6.862 D:\an\Lib\site-packages\sentence_transformers\util\decorators.py:185(wrapper)
+        1    0.000    0.000    6.844    6.844 D:\an\Lib\site-packages\sentence_transformers\cross_encoder\model.py:566(predict)
+        1    0.000    0.000    6.843    6.843 D:\an\Lib\site-packages\transformers\utils\generic.py:933(wrapper)
+        1    0.000    0.000    6.843    6.843 D:\an\Lib\site-packages\transformers\models\xlm_roberta\modeling_xlm_roberta.py:927(forward)
+       48    0.000    0.000    6.777    0.141 D:\an\Lib\site-packages\transformers\models\xlm_roberta\modeling_xlm_roberta.py:421(forward)
+      291    0.001    0.000    5.889    0.020 D:\an\Lib\site-packages\torch\nn\modules\linear.py:130(forward)
+      291    5.888    0.020    5.888    0.020 {built-in method torch._C._nn.linear}
+       48    0.000    0.000    4.384    0.091 D:\an\Lib\site-packages\transformers\pytorch_utils.py:124(apply_chunking_to_forward)
+       48    0.094    0.002    4.379    0.091 D:\an\Lib\site-packages\transformers\models\xlm_roberta\modeling_xlm_roberta.py:460(feed_forward_chunk)
+       48    0.000    0.000    2.502    0.052 D:\an\Lib\site-packages\transformers\models\xlm_roberta\modeling_xlm_roberta.py:351(forward)
+       48    0.166    0.003    2.202    0.046 D:\an\Lib\site-packages\transformers\models\xlm_roberta\modeling_xlm_roberta.py:381(forward)
+       48    0.091    0.002    2.082    0.043 D:\an\Lib\site-packages\transformers\models\xlm_roberta\modeling_xlm_roberta.py:394(forward)
+       48    0.003    0.000    1.924    0.040 D:\an\Lib\site-packages\transformers\models\xlm_roberta\modeling_xlm_roberta.py:211(forward)</div></body></html>

@@ -1,0 +1,75 @@
+﻿python.exe : 2026-10-07 19:35:42 [INFO] [__main__] 测试集合：rag_legal，查询数：10
+At line:15 char:2268
++ ... 13\研发\src"; & D:\an\python.exe benchmark.py --profile --repeat 2 *>&1 ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026-10-07 19:3...ag_legal，查询数：10:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 391/391 [00:00<00:00, 33617.02it/s]
+2026-10-07 19:35:52 [INFO] [db_milvus] 向量模型已加载：D:\Projects\Models\bge-m3
+2026-10-07 19:35:52 [INFO] [db_milvus] Milvus 向量存储已连接：http://localhost:19530/rag_legal
+
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]
+Loading weights:   4%|▍         | 15/393 [00:00<00:02, 144.56it/s]
+Loading weights:   8%|▊         | 31/393 [00:00<00:02, 145.43it/s]
+Loading weights:  13%|█▎        | 53/393 [00:00<00:01, 177.42it/s]
+Loading weights:  19%|█▉        | 76/393 [00:00<00:01, 190.28it/s]
+Loading weights:  24%|██▍       | 96/393 [00:00<00:01, 170.99it/s]
+Loading weights:  29%|██▉       | 114/393 [00:00<00:01, 143.89it/s]
+Loading weights:  33%|███▎      | 130/393 [00:00<00:01, 147.96it/s]
+Loading weights:  39%|███▉      | 155/393 [00:00<00:01, 167.61it/s]
+Loading weights:  44%|████▍     | 173/393 [00:01<00:01, 124.85it/s]
+Loading weights: 100%|██████████| 393/393 [00:01<00:00, 324.77it/s]
+2026-10-07 19:35:57 [INFO] [db_milvus] Milvus 原生客户端已连接：http://localhost:19530
+2026-10-07 19:35:57 [INFO] [db_milvus] 从 Milvus 集合 rag_legal 拉取 1076 条文档
+Building prefix dict from the default dictionary ...
+Loading model from cache C:\Users\duan\AppData\Local\Temp\jieba.cache
+Loading model cost 0.463 seconds.
+Prefix dict has been built successfully.
+2026-10-07 19:35:59 [INFO] [perf_pipeline] [预热] 集合 rag_legal：BM25 语料 1076 条，总耗时 16.49s
+2026-10-07 19:36:20 [INFO] [__main__] cProfile 结果已保存 results/cprofile_baseline.txt
+2026-10-07 19:36:26 [INFO] [__main__] [baseline] rep0 '劳动合同中试用期最长可以约定...' 总耗时 6.624s
+2026-10-07 19:36:28 [INFO] [__main__] [optimized] rep0 '劳动合同中试用期最长可以约定...' 总耗时 1.612s
+2026-10-07 19:36:34 [INFO] [__main__] [baseline] rep1 '劳动合同中试用期最长可以约定...' 总耗时 6.381s
+2026-10-07 19:36:34 [INFO] [__main__] [optimized] rep1 '劳动合同中试用期最长可以约定...' 总耗时 0.001s
+2026-10-07 19:36:41 [INFO] [__main__] [baseline] rep0 '交通事故造成他人受伤需要赔偿...' 总耗时 6.697s
+2026-10-07 19:36:43 [INFO] [__main__] [optimized] rep0 '交通事故造成他人受伤需要赔偿...' 总耗时 1.743s
+2026-10-07 19:36:49 [INFO] [__main__] [baseline] rep1 '交通事故造成他人受伤需要赔偿...' 总耗时 6.693s
+2026-10-07 19:36:49 [INFO] [__main__] [optimized] rep1 '交通事故造成他人受伤需要赔偿...' 总耗时 0.001s
+2026-10-07 19:36:58 [INFO] [__main__] [baseline] rep0 '公司拖欠工资劳动者可以申请劳...' 总耗时 8.249s
+2026-10-07 19:36:59 [INFO] [__main__] [optimized] rep0 '公司拖欠工资劳动者可以申请劳...' 总耗时 1.612s
+2026-10-07 19:37:08 [INFO] [__main__] [baseline] rep1 '公司拖欠工资劳动者可以申请劳...' 总耗时 8.521s
+2026-10-07 19:37:08 [INFO] [__main__] [optimized] rep1 '公司拖欠工资劳动者可以申请劳...' 总耗时 0.001s
+2026-10-07 19:37:16 [INFO] [__main__] [baseline] rep0 '离婚时夫妻共同债务如何认定和...' 总耗时 8.566s
+2026-10-07 19:37:18 [INFO] [__main__] [optimized] rep0 '离婚时夫妻共同债务如何认定和...' 总耗时 1.705s
+2026-10-07 19:37:26 [INFO] [__main__] [baseline] rep1 '离婚时夫妻共同债务如何认定和...' 总耗时 8.472s
+2026-10-07 19:37:26 [INFO] [__main__] [optimized] rep1 '离婚时夫妻共同债务如何认定和...' 总耗时 0.001s
+2026-10-07 19:37:35 [INFO] [__main__] [baseline] rep0 '遗嘱继承和法定继承哪个效力优...' 总耗时 8.921s
+2026-10-07 19:37:37 [INFO] [__main__] [optimized] rep0 '遗嘱继承和法定继承哪个效力优...' 总耗时 1.828s
+2026-10-07 19:37:46 [INFO] [__main__] [baseline] rep1 '遗嘱继承和法定继承哪个效力优...' 总耗时 8.973s
+2026-10-07 19:37:46 [INFO] [__main__] [optimized] rep1 '遗嘱继承和法定继承哪个效力优...' 总耗时 0.001s
+2026-10-07 19:37:56 [INFO] [__main__] [baseline] rep0 '合同违约后守约方可以主张哪些...' 总耗时 10.119s
+2026-10-07 19:37:58 [INFO] [__main__] [optimized] rep0 '合同违约后守约方可以主张哪些...' 总耗时 1.730s
+2026-10-07 19:38:08 [INFO] [__main__] [baseline] rep1 '合同违约后守约方可以主张哪些...' 总耗时 9.603s
+2026-10-07 19:38:08 [INFO] [__main__] [optimized] rep1 '合同违约后守约方可以主张哪些...' 总耗时 0.001s
+2026-10-07 19:38:19 [INFO] [__main__] [baseline] rep0 '工伤认定的申请时限是多久...' 总耗时 11.751s
+2026-10-07 19:38:21 [INFO] [__main__] [optimized] rep0 '工伤认定的申请时限是多久...' 总耗时 1.648s
+2026-10-07 19:38:32 [INFO] [__main__] [baseline] rep1 '工伤认定的申请时限是多久...' 总耗时 11.346s
+2026-10-07 19:38:32 [INFO] [__main__] [optimized] rep1 '工伤认定的申请时限是多久...' 总耗时 0.001s
+2026-10-07 19:38:42 [INFO] [__main__] [baseline] rep0 '民间借贷的利率超过多少不受法...' 总耗时 10.158s
+2026-10-07 19:38:44 [INFO] [__main__] [optimized] rep0 '民间借贷的利率超过多少不受法...' 总耗时 1.676s
+2026-10-07 19:38:55 [INFO] [__main__] [baseline] rep1 '民间借贷的利率超过多少不受法...' 总耗时 10.370s
+2026-10-07 19:38:55 [INFO] [__main__] [optimized] rep1 '民间借贷的利率超过多少不受法...' 总耗时 0.001s
+2026-10-07 19:39:05 [INFO] [__main__] [baseline] rep0 '消费者购买到假冒伪劣商品如何...' 总耗时 10.947s
+2026-10-07 19:39:07 [INFO] [__main__] [optimized] rep0 '消费者购买到假冒伪劣商品如何...' 总耗时 1.793s
+2026-10-07 19:39:18 [INFO] [__main__] [baseline] rep1 '消费者购买到假冒伪劣商品如何...' 总耗时 11.062s
+2026-10-07 19:39:18 [INFO] [__main__] [optimized] rep1 '消费者购买到假冒伪劣商品如何...' 总耗时 0.001s
+2026-10-07 19:39:28 [INFO] [__main__] [baseline] rep0 '房屋买卖合同中没有约定违约金...' 总耗时 9.267s
+2026-10-07 19:39:29 [INFO] [__main__] [optimized] rep0 '房屋买卖合同中没有约定违约金...' 总耗时 1.776s
+2026-10-07 19:39:39 [INFO] [__main__] [baseline] rep1 '房屋买卖合同中没有约定违约金...' 总耗时 9.185s
+2026-10-07 19:39:39 [INFO] [__main__] [optimized] rep1 '房屋买卖合同中没有约定违约金...' 总耗时 0.001s
+2026-10-07 19:39:39 [INFO] [__main__] 结果已保存：D:\作业\6-专高NLP 作业\成品\13\研发\src\results\benchmark_results.json
+  baseline: 平均 9.130s  P95 10.947s  最大 11.751s  全部<3S: False
+ optimized: 平均 1.712s  P95 1.793s  最大 1.828s  全部<3S: True
