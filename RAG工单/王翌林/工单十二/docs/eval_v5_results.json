@@ -1,0 +1,112 @@
+{
+ "work_order": "人工智能NLP-RAG-Query 理解优化任务",
+ "ts": "2026-10-06 17:30:12",
+ "dialog_turns": 5,
+ "rows": [
+  {
+   "turn": 1,
+   "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+   "resolved_query": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+   "entity": "武汉兴图新科电子股份有限公司",
+   "doc_id": "招股说明书1",
+   "strategy": "direct",
+   "answer": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别为：\n\n- 2016年度：6,464.51万元，占主营业务收入比例82.10%[资料4]\n- 2017年度：14,414.16万元，占主营业务收入比例97.31%[资料4]\n- 2018年度：18,780.67万元，占主营业务收入比例94.84%[资料4]\n\n注：资料中“军用领域”与“国防领域”为同一客户群体口径，2016—2018年占比分别为82.10%、97.31%、94.84%[资料1][资料4]。",
+   "accuracy": 1.0,
+   "hit_keywords": [
+    "万元",
+    "军用"
+   ],
+   "entity_ok": true,
+   "doc_ok": true,
+   "strategy_ok": true,
+   "coref_ok": true,
+   "latency_ms": 2553.1,
+   "latency_ok": true
+  },
+  {
+   "turn": 2,
+   "question": "他参与的哪个工程荣获了国家科技进步一等奖？",
+   "resolved_query": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+   "entity": "武汉兴图新科电子股份有限公司",
+   "doc_id": "招股说明书1",
+   "strategy": "pronoun_resolution",
+   "answer": "武汉兴图新科电子股份有限公司参与的是由我国某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统），公司在该工程中独立承担了视频指挥分系统的设计、开发、研制、部署工作，该工程整体获得了国家科技进步一等奖[资料1][资料2][资料3][资料4]。",
+   "accuracy": 1.0,
+   "hit_keywords": [
+    "科技进步",
+    "工程"
+   ],
+   "entity_ok": true,
+   "doc_ok": true,
+   "strategy_ok": true,
+   "coref_ok": true,
+   "latency_ms": 2050.1,
+   "latency_ok": true
+  },
+  {
+   "turn": 3,
+   "question": "这个公司的法定代表人是谁？",
+   "resolved_query": "武汉兴图新科电子股份有限公司的法定代表人是谁？",
+   "entity": "武汉兴图新科电子股份有限公司",
+   "doc_id": "招股说明书1",
+   "strategy": "pronoun_resolution",
+   "answer": "武汉兴图新科电子股份有限公司的法定代表人是程家明【资料1】【资料4】。",
+   "accuracy": 1.0,
+   "hit_keywords": [
+    "法定代表人"
+   ],
+   "entity_ok": true,
+   "doc_ok": true,
+   "strategy_ok": true,
+   "coref_ok": true,
+   "latency_ms": 1741.6,
+   "latency_ok": true
+  },
+  {
+   "turn": 4,
+   "question": "那武汉力源信息技术股份有限公司呢？",
+   "resolved_query": "武汉力源信息技术股份有限公司法定代表人是谁",
+   "entity": "武汉力源信息技术股份有限公司",
+   "doc_id": "招股说明书2",
+   "strategy": "switch_entity_reuse_intent",
+   "answer": "武汉力源信息技术股份有限公司的法定代表人是赵马克【资料1】【资料2】【资料4】。",
+   "accuracy": 1.0,
+   "hit_keywords": [
+    "法定代表人"
+   ],
+   "entity_ok": true,
+   "doc_ok": true,
+   "strategy_ok": true,
+   "coref_ok": true,
+   "latency_ms": 2126.4,
+   "latency_ok": true
+  },
+  {
+   "turn": 5,
+   "question": "武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有哪些销售处？",
+   "resolved_query": "武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有哪些销售处？",
+   "entity": "武汉力源信息技术股份有限公司",
+   "doc_id": "招股说明书2",
+   "strategy": "direct",
+   "answer": "根据组织结构图，销售部下的**大客户销售部**所设的销售处最多。\n\n具体包括以下6个销售处[图1][资料2]：\n1. 北京销售处\n2. 广州销售处\n3. 成都销售处\n4. 深圳销售处\n5. 武汉销售处\n6. 珠海销售处\n\n依据说明：图1的VQA枚举中，销售部向下连接了电话及网络销售部、渠道销售部、大客户销售部、国际贸易部共4个平级子部门；图内文字OCR中，销售处相关条目为广州销售处、成都销售处、珠海销售处、深圳销售处、北京销售处、武汉销售处，共6个，交叉核对去重后取并集仍为这6个。资料2亦明确记载“公司目前在上海设立有1家分公司，在北京、广州、成都、深圳、武汉、珠海各设有1家销售处”，与图1一",
+   "accuracy": 1.0,
+   "hit_keywords": [
+    "销售处",
+    "销售部"
+   ],
+   "entity_ok": true,
+   "doc_ok": true,
+   "strategy_ok": true,
+   "coref_ok": true,
+   "latency_ms": 2891.0,
+   "latency_ok": true
+  }
+ ],
+ "summary": {
+  "accuracy": 1.0,
+  "coref_resolution_rate": 1.0,
+  "avg_latency_ms": 2272.4,
+  "latency_ok_rate": 1.0,
+  "all_pass": true
+ }
+}

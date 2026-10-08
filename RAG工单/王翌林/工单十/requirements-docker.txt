@@ -1,0 +1,39 @@
+# 工单编号：人工智能NLP-RAG-金融问答系统部署
+# requirements-docker.txt —— 工单十 Docker 镜像精简 CPU 依赖（仅运行期服务所需）
+# 说明：相比工单七 requirements.txt，移除 CUDA 版 torch/torchvision/torchaudio、
+#       paddleocr/camelot（代码中均为 try/except 可选依赖）、MySQL/langchain 全家桶
+#       等入库期依赖，显著缩小镜像体积；torch 使用 CPU 版 wheel（见 Dockerfile 的
+#       --extra-index-url https://download.pytorch.org/whl/cpu）。
+
+# ---- 深度学习 / 嵌入（CPU 版）----
+torch==2.11.0
+transformers==5.17.0
+sentence-transformers==6.0.1
+FlagEmbedding==1.4.2
+
+# ---- 向量库 / 检索 ----
+pymilvus==3.0.1
+rank-bm25==0.2.2
+scikit-learn==1.7.2
+jieba==0.42.1
+diskcache==5.6.3
+
+# ---- Web 服务 ----
+fastapi==0.141.1
+uvicorn==0.53.0
+streamlit==1.64.0
+pydantic==2.13.5
+
+# ---- 数据处理 ----
+numpy==2.2.6
+pandas==2.3.3
+pymupdf==1.28.2
+pillow==12.3.0
+langchain-text-splitters==1.1.2
+SQLAlchemy==2.0.53
+
+# ---- 工具 ----
+loguru==0.7.3
+python-dotenv==1.2.3
+openai==1.109.1
+requests==2.34.2

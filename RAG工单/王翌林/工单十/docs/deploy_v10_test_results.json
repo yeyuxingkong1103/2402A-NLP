@@ -1,0 +1,121 @@
+{
+ "work_order": "人工智能NLP-RAG-金融问答系统部署",
+ "ts": "2026-10-07T10:32:48.218131",
+ "checks": [
+  {
+   "name": "health_check",
+   "ok": true,
+   "detail": "status=200 body={\"status\":\"ok\",\"engine\":\"rag_v6\",\"milvus_images_rows\":3,\"fulltext_docs\":9019,\"work_order\":\"人工智能NLP-RAG-混合检索任务\"}"
+  },
+  {
+   "name": "qa[邮储银行2019年报]",
+   "ok": true,
+   "detail": "44326ms 命中关键词 ['2768.09', '6.06']/['2768.09', '6.06'] 引用 5 条"
+  },
+  {
+   "name": "qa[中信证券2020年报]",
+   "ok": true,
+   "detail": "35029ms 命中关键词 ['543.83', '149.02']/['543.83', '149.02'] 引用 5 条"
+  },
+  {
+   "name": "qa[招股说明书1]",
+   "ok": true,
+   "detail": "55675ms 命中关键词 []/[] 引用 8 条"
+  },
+  {
+   "name": "ui_reachable",
+   "ok": true,
+   "detail": "status=200"
+  },
+  {
+   "name": "containers_running",
+   "ok": true,
+   "detail": "2 个容器运行中"
+  },
+  {
+   "name": "logs_clean[rag-v10-api]",
+   "ok": true,
+   "detail": "异常行数=0"
+  },
+  {
+   "name": "logs_clean[rag-v10-ui]",
+   "ok": true,
+   "detail": "异常行数=0"
+  },
+  {
+   "name": "volume_write",
+   "ok": true,
+   "detail": "写入标记 v10-persist-1791340503"
+  },
+  {
+   "name": "volume_shared_between_containers",
+   "ok": true,
+   "detail": "rag-ui 读取到: v10-persist-1791340503"
+  },
+  {
+   "name": "service_recover_after_recreate",
+   "ok": true,
+   "detail": "等待 15s 内恢复"
+  },
+  {
+   "name": "volume_persistent_after_recreate",
+   "ok": true,
+   "detail": "重建后读取到: v10-persist-1791340503"
+  },
+  {
+   "name": "network_ui_to_api",
+   "ok": true,
+   "detail": "rag-ui → rag-api:8006 status=200"
+  },
+  {
+   "name": "network_api_to_host_milvus",
+   "ok": true,
+   "detail": "rag-api → 宿主机 Milvus: milvus-ok"
+  }
+ ],
+ "passed": true,
+ "qa": [
+  {
+   "question": "邮储银行2019年实现的营业收入是多少亿元？同比增长多少？",
+   "doc_id": "邮储银行2019年报",
+   "latency_ms": 44326.2,
+   "keywords": [
+    "2768.09",
+    "6.06"
+   ],
+   "keywords_hit": [
+    "2768.09",
+    "6.06"
+   ],
+   "n_references": 5,
+   "answer_preview": "邮储银行2019年实现营业收入2768.09亿元，同比增长6.06%[资料1]。",
+   "ok": true
+  },
+  {
+   "question": "中信证券2020年全年实现的营业收入和归属于公司股东的净利润分别是多少亿元？",
+   "doc_id": "中信证券2020年报",
+   "latency_ms": 35029.4,
+   "keywords": [
+    "543.83",
+    "149.02"
+   ],
+   "keywords_hit": [
+    "543.83",
+    "149.02"
+   ],
+   "n_references": 5,
+   "answer_preview": "中信证券2020年全年实现营业收入543.83亿元，归属于公司股东的净利润149.02亿元[资料2][资料3]。",
+   "ok": true
+  },
+  {
+   "question": "本次发行前公司总股本是多少？",
+   "doc_id": "招股说明书1",
+   "latency_ms": 55674.6,
+   "keywords": [],
+   "keywords_hit": [],
+   "n_references": 8,
+   "answer_preview": "本次发行前公司总股本为5520.00万股[资料1]。",
+   "ok": true
+  }
+ ]
+}
