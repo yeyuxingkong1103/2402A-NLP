@@ -1,0 +1,42 @@
+{
+  "built_at": "2026-09-27T14:08:18+08:00",
+  "collection": "med_rag_v1",
+  "metric_type": "COSINE",
+  "index_type": "FLAT",
+  "dim": 1024,
+  "total_chunks": 65,
+  "documents": [
+    {
+      "doc_id": "d6da41b5d356",
+      "file_name": "国家基层高血压防治管理指南2025版.pdf",
+      "source_hash": "39ced98cf4e59a0e4a068d1d7aba69f01ec2d209a939c2ee02f48de3def79bb8",
+      "chunk_count": 65,
+      "page_count": 15
+    }
+  ],
+  "pipeline_config_hash": "599cd9b618f5d599bb4dd8694660e12088cabfe3ede30ed32969234846d03f72",
+  "pipeline_config": {
+    "clean_rule_version": "clean-v1",
+    "chunk_rule_version": "chunk-v1+bge-m3",
+    "chunk_min_chars": 300,
+    "chunk_max_chars": 700,
+    "min_ratio": 0.6,
+    "chunk_overlap": 0,
+    "embed": {
+      "model_dir": "E:\\资料\\BAAI--bge-m3",
+      "config_sha256": "26159e7ad065073448460117eb24b7a4572f6f4e78eadff65dc0a11c052449fa",
+      "weight_file": "pytorch_model.bin",
+      "weight_bytes": 2271145830,
+      "max_length": 4096,
+      "pooling": "cls",
+      "normalization": "l2",
+      "dtype": "float32",
+      "dim": 1024,
+      "rule_version": "embed-v1+bge-m3"
+    }
+  },
+  "app_config": {
+    "top_k": 3,
+    "similarity_threshold": 0.6
+  }
+}
