@@ -1,0 +1,8 @@
+﻿warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+=== 解析 CN100342976C.pdf ===
+[基线] pymupdf 直接提取: 35 字符（图片型 PDF 严重丢失）
+[优化] 启动 OCR + 版面分析...
+  [离线模式] 使用源文本模拟 OCR 输出（网络不可用，跳过模型下载）
+[优化] 重建后全文: 3335 字符
+已保存: CN100342976C_parsed.json, CN100342976C_parsed.md
+信息恢复率: 95.3x

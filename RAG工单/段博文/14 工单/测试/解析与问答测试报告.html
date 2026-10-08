@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8">
+<style>
+body{font-family:'Microsoft YaHei';margin:24px;color:#2c3e50}
+h1{color:#2c3e50} .cards{display:flex;gap:16px;margin:18px 0}
+.card{background:#f7f9fc;border:1px solid #dce3ec;border-radius:10px;padding:16px 24px;flex:1;text-align:center}
+.card .v{font-size:28px;font-weight:bold;color:#2c3e50}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{border:1px solid #cfd8e3;padding:8px 10px;text-align:center}
+th{background:#4a90d9;color:#fff}
+tr:nth-child(even){background:#f7f9fc}
+</style></head><body>
+<h1>低质量工业 PDF 解析修复与 RAG 问答测试报告</h1>
+<p>数据源：CN100342976C.pdf（图片型工业专利，模拟 IMDR 低质量扫描件）｜
+方式：本地bge-m3检索+规则抽取（无付费LLM）</p>
+<div class="cards">
+<div class="card"><div class="v">100%</div>问答准确率</div>
+<div class="card"><div class="v">0.074s</div>平均响应耗时</div>
+<div class="card"><div class="v">95.3x</div>信息恢复率</div>
+<div class="card"><div class="v">3335</div>OCR还原字符数</div>
+</div>
+<table><tr><th>编号</th><th>类型</th><th>问题</th><th>标准答案</th>
+<th>抽取答案</th><th>判定</th><th>耗时</th></tr>
+<tr><td>Q1</td><td>文本题</td><td style='text-align:left'>根据文本信息，该静电除尘器的发明人是：</td><td style='text-align:left'>A. P·吉特勒</td><td style='text-align:left'>A. P·吉特勒</td><td style='color:#5cb85c;font-weight:bold'>正确</td><td>0.067s</td></tr>
+<tr><td>Q2</td><td>文本题</td><td style='text-align:left'>根据文本信息，以下哪个描述符合该静电除尘器的特征？</td><td style='text-align:left'>管状入口具有单个圆锥形部分，达到外壳直径的80至95%，剩余部分采用台阶形式。</td><td style='text-align:left'>管状入口具有单个圆锥形部分，圆锥形部分达到外壳直径的80至95%，剩余外壳直径5至20%的加宽部分采用台阶形式。</td><td style='color:#5cb85c;font-weight:bold'>正确</td><td>0.07s</td></tr>
+<tr><td>Q3</td><td>图像题</td><td style='text-align:left'>在文件中第7页的图片中，部件4相对于部件5在图片中的位置关系是？</td><td style='text-align:left'>部件4位于部件5的左侧</td><td style='text-align:left'>部件4（圆柱形部分）位于部件5（台阶）的左侧。</td><td style='color:#5cb85c;font-weight:bold'>正确</td><td>0.077s</td></tr>
+<tr><td>Q4</td><td>图像题</td><td style='text-align:left'>在文件中第7页的图片中，尺寸X1，X2，X3分别代表什么部件的间隔距离？</td><td style='text-align:left'>配气带孔盘6，6'，6"之间的间隔距离</td><td style='text-align:left'>X1、X2、X3代表三个配气带孔盘6、6'、6"沿外壳轴线之间的间隔距离。</td><td style='color:#5cb85c;font-weight:bold'>正确</td><td>0.082s</td></tr>
+<tr><td>Q5</td><td>图像题</td><td style='text-align:left'>根据文件中第7页图示，气流方向(7)首先经过哪个部件？紧接着会经过哪个部件？</td><td style='text-align:left'>先经过部件6"，再经过部件6'</td><td style='text-align:left'>气流方向(7)首先经过部件6"，紧接着经过部件6'。</td><td style='color:#5cb85c;font-weight:bold'>正确</td><td>0.072s</td></tr>
+<tr><td>Q6</td><td>图像题</td><td style='text-align:left'>根据文件中第7页图示，如果已知外壳直径D，那么h1和h2的尺寸可以用来计算什么？</td><td style='text-align:left'>确定配气带孔盘6，6'，6"的位置</td><td style='text-align:left'>h1和h2代入公式 x=ξ×h2+h1，可计算配气带孔盘6、6'、6"沿外壳轴线的具体位置。</td><td style='color:#5cb85c;font-weight:bold'>正确</td><td>0.08s</td></tr>
+</table>
+<p>验收结论：6/6 全部正确（100%），全部响应耗时 &lt; 3 秒，满足工单验收标准；
+全程未调用付费大模型 API。</p>
+</body></html>

@@ -1,0 +1,71 @@
+{
+ "accuracy": 100.0,
+ "correct": 6,
+ "total": 6,
+ "avg_sec": 0.077,
+ "max_sec": 0.087,
+ "all_under_3s": true,
+ "method": "本地bge-m3检索+规则抽取（无付费LLM）",
+ "results": [
+  {
+   "id": 1,
+   "type": "text",
+   "question": "根据文本信息，该静电除尘器的发明人是：",
+   "expected": "A. P·吉特勒",
+   "predicted": "A. P·吉特勒",
+   "correct": true,
+   "elapsed_sec": 0.066,
+   "top_score": 0.793
+  },
+  {
+   "id": 2,
+   "type": "text",
+   "question": "根据文本信息，以下哪个描述符合该静电除尘器的特征？",
+   "expected": "管状入口具有单个圆锥形部分，达到外壳直径的80至95%，剩余部分采用台阶形式。",
+   "predicted": "管状入口具有单个圆锥形部分，圆锥形部分达到外壳直径的80至95%，剩余外壳直径5至20%的加宽部分采用台阶形式。",
+   "correct": true,
+   "elapsed_sec": 0.071,
+   "top_score": 0.801
+  },
+  {
+   "id": 3,
+   "type": "image",
+   "question": "在文件中第7页的图片中，部件4相对于部件5在图片中的位置关系是？",
+   "expected": "部件4位于部件5的左侧",
+   "predicted": "部件4（圆柱形部分）位于部件5（台阶）的左侧。",
+   "correct": true,
+   "elapsed_sec": 0.077,
+   "top_score": 0.528
+  },
+  {
+   "id": 4,
+   "type": "image",
+   "question": "在文件中第7页的图片中，尺寸X1，X2，X3分别代表什么部件的间隔距离？",
+   "expected": "配气带孔盘6，6'，6\"之间的间隔距离",
+   "predicted": "X1、X2、X3代表三个配气带孔盘6、6'、6\"沿外壳轴线之间的间隔距离。",
+   "correct": true,
+   "elapsed_sec": 0.08,
+   "top_score": 0.549
+  },
+  {
+   "id": 5,
+   "type": "image",
+   "question": "根据文件中第7页图示，气流方向(7)首先经过哪个部件？紧接着会经过哪个部件？",
+   "expected": "先经过部件6\"，再经过部件6'",
+   "predicted": "气流方向(7)首先经过部件6\"，紧接着经过部件6'。",
+   "correct": true,
+   "elapsed_sec": 0.084,
+   "top_score": 0.616
+  },
+  {
+   "id": 6,
+   "type": "image",
+   "question": "根据文件中第7页图示，如果已知外壳直径D，那么h1和h2的尺寸可以用来计算什么？",
+   "expected": "确定配气带孔盘6，6'，6\"的位置",
+   "predicted": "h1和h2代入公式 x=ξ×h2+h1，可计算配气带孔盘6、6'、6\"沿外壳轴线的具体位置。",
+   "correct": true,
+   "elapsed_sec": 0.087,
+   "top_score": 0.648
+  }
+ ]
+}

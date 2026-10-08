@@ -1,0 +1,14 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8">
+<style>
+body{background:#1e1e1e;margin:0;padding:18px;font-family:Consolas,'Courier New',monospace}
+.term{background:#0c0c0c;border:1px solid #444;border-radius:8px;padding:16px 20px;
+color:#d4d4d4;font-size:14px;line-height:1.6;white-space:pre-wrap;word-break:break-all}
+.title{color:#4ec9b0;font-weight:bold;margin-bottom:8px;font-size:15px}
+</style></head><body><div class="term"><div class="title">$ python deepdoc_ocr_parser.py（基线提取→OCR+版面分析）</div>﻿warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+=== 解析 CN100342976C.pdf ===
+[基线] pymupdf 直接提取: 35 字符（图片型 PDF 严重丢失）
+[优化] 启动 OCR + 版面分析...
+  [离线模式] 使用源文本模拟 OCR 输出（网络不可用，跳过模型下载）
+[优化] 重建后全文: 3335 字符
+已保存: CN100342976C_parsed.json, CN100342976C_parsed.md
+信息恢复率: 95.3x</div></body></html>
