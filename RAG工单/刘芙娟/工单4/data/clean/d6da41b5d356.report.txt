@@ -1,0 +1,61 @@
+
+========================================================================
+清洗处置报告（按四类）
+========================================================================
+
+【剔除类】命中合计 354
+  type:page_number                     15 条
+  type:header                          19 条
+  type:footer                           1 条
+  type:aside_text                       0 条
+  list:ref_text                         1 条
+  empty:text                           14 条
+  opt:page_footnote                     0 条
+  drop:total_blocks                   304 条  (未注册)
+  [提示] 丢弃比例 16.4%（50/304）；超过 40% 须人工确认清洗规则
+
+【保护类】命中合计 431
+  protection:citation:sup              45 条
+  protection:citation:bracket          10 条
+  protection:emergency:triage          51 条
+  protection:dosage:unit              279 条
+  protection:citation_count_stable     45 条
+  protection:dropped_content_risk       1 条
+  [提示] 被剔除的块含紧急症状/剂量表述，须人工确认是否误杀
+      · d6da41b5d356:x000299 [list:ref_text] [1] 国家心血管病中心 , 中国心血管健康与疾病报告编写组 . 中国心血管健康与疾病报告 2023 概要 [J]. 中国循环杂志 , 2024, 39(7): …
+
+【转换类】命中合计 434
+  convert:backslash_unescape           39 条
+  convert:html_entity                   0 条
+  convert:table_to_markdown             8 条
+  convert:cjk_space_merge               9 条
+  convert:page_number                 304 条
+  convert:heading_detect               74 条
+  [提示] D1 词内空格合并（每条均已留痕，可用 --no-space-merge 关闭）
+  [提示] 存在降级块（内容不完整但未被丢弃），已在 text 内显式标记
+      · raw_idx=47  '证的上臂式医用电子血 压计' -> '证的上臂式医用电子血压计'
+      · 块 raw_idx=51 类型=image：[图片降级：无图注与图注脚]
+图片：images/3668cd95791c7765a24c34ba3e9db2771cd9eac067eced7ec3609fa
+      · raw_idx=56  '度验证的上臂式医用电 子血压计' -> '度验证的上臂式医用电子血压计'
+      · raw_idx=108  '肾功能正常的人 群' -> '肾功能正常的人群'
+      · 块 raw_idx=139 类型=image：[图片降级：无图注与图注脚]
+图片：images/ffe77cf370b6fedf7b9157670f4b1f57672c2eb1614dd464e339f04
+
+【修复类】命中合计 50
+  repair:cross_page_merge               1 条
+  repair:split_glued_heading            1 条
+  repair:retag_untagged_heading         2 条
+  repair:demote_caption_heading         3 条
+  repair:recompute_heading_level       43 条
+  [提示] 粘连标题已切出还原为标题块（段落带 raw_text 可逐字回溯）
+  [提示] 图/表题注被 MinerU 误标为标题，已降级为正文块（否则会打断章节树）
+  [提示] 标题无 text_level，层级由章节编号推出
+  [提示] MinerU 漏标的标题已按章节编号补标
+  [提示] 跨页/断句合并（唯一会改正文的修复；合并块带 raw_text 可逐字回溯）
+  [提示] 标题层级说明
+  [提示] heading_path 抽样（层级由章节编号推出）
+      · p9  段落=…意排除诱因，避免依据单次血压测量值频繁调整药物。 | 切出标题=5.4.6 血压≥ 180/110 mmHg 的紧急处理
+      · p3 [caption:prefix] 图1 基层高血压诊疗管理流程图
+      · p4 [caption:before-float] 诊室血压分类及其定义
+      · p8 [caption:prefix] 图 2 无合并症的高血压药物治疗流程图
+      · p9  层级=3  5.4.6 血压≥ 180/110 mmHg 的紧急处理
