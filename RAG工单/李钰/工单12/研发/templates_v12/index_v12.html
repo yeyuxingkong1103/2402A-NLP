@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>LightRAG V12 - 双层检索 vs 传统 RAG</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; background: #f5f7fa; color: #333; }
+  h1 { text-align: center; color: #1a73e8; margin-bottom: 6px; font-size: 24px; }
+  .subtitle { text-align: center; color: #666; margin-bottom: 24px; font-size: 14px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  .input-area { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,.08); margin-bottom: 20px; }
+  textarea { width: 100%; height: 80px; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; resize: vertical; }
+  .btn-row { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  button { padding: 10px 24px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500; transition: .2s; }
+  .btn-compare { background: #1a73e8; color: white; }
+  .btn-compare:hover { background: #1557b0; }
+  .btn-rag { background: #ff9800; color: white; }
+  .btn-lightrag { background: #4caf50; color: white; }
+  .btn-eval { background: #9c27b0; color: white; }
+
+  .results { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+  .card h3 { margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+  .badge { padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .badge-rag { background: #fff3e0; color: #e65100; }
+  .badge-light { background: #e8f5e9; color: #2e7d32; }
+
+  .answer-box { background: #f8f9fa; padding: 12px; border-radius: 6px; margin-bottom: 14px; border-left: 3px solid #1a73e8; font-size: 14px; white-space: pre-wrap; }
+  .context-box { background: #fafafa; border: 1px solid #eee; border-radius: 6px; padding: 10px; margin-bottom: 8px; font-size: 13px; line-height: 1.5; }
+  .context-tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 11px; margin-right: 6px; }
+  .tag-local { background: #e3f2fd; color: #1565c0; }
+  .tag-global { background: #fce4ec; color: #c62828; }
+
+  .kws-row { margin-bottom: 12px; }
+  .kw-chip { display: inline-block; padding: 4px 10px; border-radius: 15px; margin: 3px; font-size: 12px; }
+  .kw-local { background: #e3f2fd; color: #1565c0; }
+  .kw-global { background: #fce4ec; color: #c62828; }
+
+  .eval-summary { background: white; border-radius: 10px; padding: 20px; margin-top: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+  .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 10px; }
+  .metric { background: #f5f7fa; padding: 14px; border-radius: 8px; text-align: center; }
+  .metric .val { font-size: 24px; font-weight: 700; color: #1a73e8; }
+  .metric .label { font-size: 12px; color: #666; margin-top: 4px; }
+  .metric .improve { color: #4caf50; }
+
+  .progress { background: #e0e0e0; border-radius: 4px; height: 8px; overflow: hidden; }
+  .progress-bar { height: 100%; transition: .3s; }
+  .pb-rag { background: #ff9800; }
+  .pb-light { background: #4caf50; }
+
+  .preset-questions { margin-top: 12px; }
+  .q-chip { display: inline-block; padding: 4px 10px; margin: 3px; background: #e8f5e9; border-radius: 12px; font-size: 12px; cursor: pointer; border: 1px solid #c8e6c9; }
+  .q-chip:hover { background: #c8e6c9; }
+
+  .hidden { display: none; }
+  .loading { text-align: center; padding: 40px; color: #999; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>LightRAG V12 双层检索 vs 传统 RAG</h1>
+  <div class="subtitle">LightRAG (实体/图谱+向量 + 局部/全局 双层检索) vs 传统 RAG (扁平向量检索) · 工单12</div>
+
+  <!-- 输入区 -->
+  <div class="input-area">
+    <textarea id="question" placeholder="输入问题, 例如: 武汉力源的控股股东是谁?"></textarea>
+    <div class="preset-questions">
+      <span style="font-size:12px;color:#666;">预设问题:</span>
+      <span class="q-chip" onclick="fillQ(5)">Q5 销售部组织结构</span>
+      <span class="q-chip" onclick="fillQ(6)">Q6 IC 行业增长</span>
+      <span class="q-chip" onclick="fillQ(1)">Q1 发行股数</span>
+      <span class="q-chip" onclick="fillQ(2)">Q2 募集资金</span>
+      <span class="q-chip" onclick="fillQ(3)">Q3 控股股东</span>
+      <span class="q-chip" onclick="fillQ(260)">Q260 军用收入</span>
+      <span class="q-chip" onclick="fillQ(95)">Q95 AVS 标准</span>
+      <span class="q-chip" onclick="fillQ(543)">Q543 注册资本</span>
+    </div>
+    <div class="btn-row">
+      <button class="btn-compare" onclick="runCompare()">🔍 对比检索</button>
+      <button class="btn-rag" onclick="runMode('rag')">仅 RAG</button>
+      <button class="btn-lightrag" onclick="runMode('lightrag')">仅 LightRAG</button>
+      <button class="btn-eval" onclick="runEval()">📊 RAGAS 评估全部 16 题</button>
+    </div>
+  </div>
+
+  <!-- 结果区 -->
+  <div id="results" class="hidden">
+    <div class="results">
+      <!-- RAG -->
+      <div class="card">
+        <h3><span class="badge badge-rag">RAG</span> 传统扁平检索</h3>
+        <div id="rag-answer" class="answer-box"></div>
+        <h4 style="font-size:13px;color:#666;margin-bottom:8px;">检索到的文本块:</h4>
+        <div id="rag-contexts"></div>
+      </div>
+      <!-- LightRAG -->
+      <div class="card">
+        <h3><span class="badge badge-light">LightRAG</span> 双层检索 (局部 + 全局)</h3>
+        <div id="light-kws" class="kws-row hidden"></div>
+        <div id="light-answer" class="answer-box"></div>
+        <h4 style="font-size:13px;color:#666;margin-bottom:8px;">检索到的上下文:</h4>
+        <div id="light-contexts"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RAGAS 评估汇总 -->
+  <div id="eval-card" class="eval-summary hidden">
+    <h3>📊 RAGAS 风格评估汇总</h3>
+    <div id="eval-summary"></div>
+    <div id="eval-details"></div>
+  </div>
+</div>
+
+<script>
+function fillQ(id) {
+  const qmap = {
+    5: "武汉力源信息技术股份有限公司组织结构图中,销售部有几个部门构成,其中大客户销售部有几个销售处构成?",
+    6: "武汉力源信息技术股份有限公司招股意向书中,从 2008 年中国 IC 市场应用结构与增长图中可以看出,增长率最快的是哪个行业?负增长的是哪个行业?",
+    1: "武汉力源信息技术股份有限公司本次发行股数是多少,占发行后总股本的比例是多少?",
+    2: "武汉力源信息技术股份有限公司本次募集资金拟投资哪些项目?",
+    3: "与武汉力源信息技术股份有限公司存在控制关系的关联方是谁,持股比例和本公司关系是什么?",
+    260: "报告期内,武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少?",
+    95: "武汉兴图新科电子股份有限公司参与制定了哪个技术标准?",
+    543: "武汉兴图新科电子股份有限公司注册资本是多少?",
+  };
+  document.getElementById("question").value = qmap[id] || "";
+}
+
+async function runCompare() { await run("both"); }
+async function runMode(mode) { await run(mode); }
+
+async function run(mode) {
+  const q = document.getElementById("question").value.trim();
+  if (!q) { alert("请输入问题"); return; }
+
+  document.getElementById("eval-card").classList.add("hidden");
+  document.getElementById("results").classList.remove("hidden");
+  document.getElementById("rag-answer").innerText = "检索中...";
+  document.getElementById("light-answer").innerText = "检索中...";
+
+  try {
+    const resp = await fetch("/api/compare", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({question: q, mode: mode})
+    });
+    const data = await resp.json();
+
+    // RAG
+    if (data.rag) {
+      document.getElementById("rag-answer").innerText = data.rag.answer || "(无回答)";
+      document.getElementById("rag-contexts").innerHTML = (data.rag.contexts || [])
+        .map(c => `<div class="context-box">${c}</div>`).join("") || '<div style="color:#999;font-size:13px;">(无检索到的上下文)</div>';
+    } else {
+      document.getElementById("rag-answer").innerText = "(未请求)";
+      document.getElementById("rag-contexts").innerHTML = "";
+    }
+
+    // LightRAG
+    if (data.lightrag) {
+      // 关键词
+      const lk = (data.lightrag.local_kws || []).map(k => `<span class="kw-chip kw-local">📍 ${k}</span>`).join("");
+      const gk = (data.lightrag.global_kws || []).map(k => `<span class="kw-chip kw-global">🌐 ${k}</span>`).join("");
+      document.getElementById("light-kws").innerHTML = (lk + gk) || "";
+      document.getElementById("light-kws").classList.toggle("hidden", !lk && !gk);
+
+      document.getElementById("light-answer").innerText = data.lightrag.answer || "(无回答)";
+      document.getElementById("light-contexts").innerHTML = (data.lightrag.contexts || [])
+        .map(c => {
+          const isLocal = c.includes("局部");
+          return `<div class="context-box">${c}</div>`;
+        }).join("") || '<div style="color:#999;font-size:13px;">(无检索到的上下文)</div>';
+    } else {
+      document.getElementById("light-answer").innerText = "(未请求)";
+      document.getElementById("light-contexts").innerHTML = "";
+    }
+  } catch (e) {
+    alert("请求失败: " + e.message);
+  }
+}
+
+async function runEval() {
+  document.getElementById("eval-card").classList.remove("hidden");
+  document.getElementById("eval-summary").innerHTML = '<div class="loading">评估进行中...</div>';
+  document.getElementById("eval-details").innerHTML = "";
+
+  try {
+    const resp = await fetch("/api/eval");
+    const data = await resp.json();
+    const s = data.summary;
+
+    const improvement = ((s.lightrag_avg - s.rag_avg) / s.rag_avg * 100).toFixed(1);
+
+    document.getElementById("eval-summary").innerHTML = `
+      <div class="metric-grid">
+        <div class="metric"><div class="val">${s.num_questions}</div><div class="label">评估问题数</div></div>
+        <div class="metric"><div class="val" style="color:#ff9800">${(s.rag_avg*100).toFixed(1)}</div><div class="label">RAG 平均分 (0-100)</div></div>
+        <div class="metric"><div class="val" style="color:#4caf50">${(s.lightrag_avg*100).toFixed(1)}</div><div class="label">LightRAG 平均分 (0-100)</div></div>
+        <div class="metric improve"><div class="val">+${improvement}%</div><div class="label">LightRAG 提升</div></div>
+      </div>
+    `;
+
+    // 明细表格
+    let rows = "";
+    for (const r of data.results) {
+      rows += `
+        <tr>
+          <td>${r.id}</td>
+          <td style="text-align:left;font-size:12px;">${r.question.substring(0, 55)}${r.question.length > 55 ? '...' : ''}</td>
+          <td style="color:#ff9800">${(r.rag.score.score*100).toFixed(1)}</td>
+          <td style="color:#4caf50">${(r.light_rag.score.score*100).toFixed(1)}</td>
+          <td style="color:${r.improvement >= 0 ? '#4caf50' : '#f44336'}">${(r.improvement*100).toFixed(1)}</td>
+        </tr>
+      `;
+    }
+    document.getElementById("eval-details").innerHTML = `
+      <table style="width:100%;margin-top:16px;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:#f5f7fa;">
+            <th style="padding:8px;text-align:left;">ID</th>
+            <th style="padding:8px;text-align:left;">问题</th>
+            <th style="padding:8px;">RAG</th>
+            <th style="padding:8px;">LightRAG</th>
+            <th style="padding:8px;">提升</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    `;
+  } catch (e) {
+    document.getElementById("eval-summary").innerHTML = '评估失败: ' + e.message;
+  }
+}
+</script>
+</body>
+</html>
