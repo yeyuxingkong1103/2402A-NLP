@@ -1,0 +1,16 @@
+# Embedding 微调依赖
+# 工单编号: 人工智能 NLP-RAG 项目-Embedding 模型微调任务
+
+# === 基础 ===
+numpy>=1.20
+scikit-learn>=1.0
+jieba>=0.42
+
+# === Embedding (可选, 微调必需) ===
+# sentence-transformers>=2.2.0
+# torch>=2.0
+
+# === 可选 ===
+# transformers>=4.30
+# peft>=0.7          # LoRA
+# accelerate>=0.20   # 分布式训练
