@@ -1,0 +1,29 @@
+paths:
+  data_root: /root/autodl-tmp/rag_project/data/IMDR/documents
+  output_dir: /root/autodl-tmp/rag_project/outputs
+  checkpoint_file: /root/autodl-tmp/rag_project/outputs/.assessment_checkpoint.json
+scan_pdf:
+  char_threshold_per_page: 50
+  scan_page_ratio_threshold: 0.7
+length:
+  quantiles: [0.25, 0.5, 0.75, 0.9, 0.99]
+  bins: [0, 500, 2000, 10000, 50000, 100000, 999999999]
+duplicate:
+  enable_md5: true
+  enable_simhash: true
+  simhash_threshold: 3
+  simhash_shingle_size: 4
+sensitive:
+  enable_phone: true
+  enable_email: true
+  enable_id_card: true
+  enable_bank_card: false
+  context_chars: 30
+classification:
+  table_heavy_ratio: 0.3
+  image_heavy_ratio: 0.5
+  parse_failed_min_chars: 20
+performance:
+  max_workers: 8
+  enable_resume: true
+  progress_interval: 50
