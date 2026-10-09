@@ -1,0 +1,60 @@
+# 工单编号：人工智能NLP-RAG项目-LightRAG优化
+# Python 3.11 + CUDA 12.6（RTX 3060 Laptop / 驱动 566.36）
+#
+# 工单7 未引入任何新依赖：测试与评估脚本只用到已装的 requests + 标准库。
+# 被测系统（01-06）的依赖与工单6 完全一致。
+#
+# 安装步骤：
+#   1) conda create -n rag_gd python=3.11 -y && conda activate rag_gd
+#   2) pip install -r requirements.txt
+#   3) pip install torch --index-url https://download.pytorch.org/whl/cu126
+#
+# 或直接执行：bash 部署/install.sh
+#
+# ⚠️ 不要用 pip install --user。conda 环境的 sys.path 里用户级 site-packages
+#    排在环境目录【前面】，--user 装的包会覆盖环境里的版本，导致环境修不好。
+
+# ---------- PDF 解析 ----------
+PyMuPDF==1.24.14
+pdfplumber==0.11.4
+
+# ---------- 向量模型 ----------
+# FlagEmbedding 1.3.3 在元数据里硬锁了 transformers==4.44.2 和 datasets==2.19.0，
+# 这两个版本不能动，否则装不上。
+FlagEmbedding==1.3.3
+transformers==4.44.2
+datasets==2.19.0
+# 必须 <0.26：huggingface-hub 0.26 删除了 HfFolder，gradio 4.x 会 ImportError。
+huggingface-hub==0.25.2
+
+# ---------- 数值 / 网络 ----------
+numpy==1.26.4
+requests==2.32.3
+
+# ---------- 界面 ----------
+gradio==4.44.1
+# ⚠️ 下面三个必须锁死。
+#   starlette>=0.46 删除了旧的 TemplateResponse(name, context) 签名，而 gradio
+#   4.44.1 仍在用旧签名调用；
+#   pydantic>=2.10 会把 Dict[str, Any] 生成成 "additionalProperties": true（布尔），
+#   而 gradio_client 1.3.0 的 get_type() 会执行 `"const" in schema`，对布尔值抛
+#   TypeError。
+# 两者最终都会表现为同一句误导性报错：
+#   ValueError: When localhost is not accessible ...（与代理设置无关）
+fastapi==0.115.6
+starlette==0.41.3
+pydantic==2.9.2
+
+# ---------- 语音输入 ----------
+faster-whisper==1.2.1
+
+# ---------- 深度学习框架 ----------
+# CUDA 版必须从 PyTorch 官方源单独安装（PyPI 上 Windows 轮子是 CPU 版）：
+#   pip install torch --index-url https://download.pytorch.org/whl/cu126
+# 驱动 566.36 最高支持 CUDA 12.7，不要用 cu128（那需要驱动 >= 570）。
+# 这里不写死版本，是因为 "+cu126" 这种本地版本号在 PyPI 镜像上不存在，
+# 写进来会让 pip install -r requirements.txt 直接失败。
+
+# ---------- 说明 ----------
+# tqdm 由 transformers/datasets 自动带入，无需显式声明。
+# 未引入 ragas / langchain：评估模块已用 LLM-as-Judge 自行实现，无需额外框架。

@@ -1,0 +1,39 @@
+# 工单编号：人工智能NLP-RAG项目-RAG性能瓶颈识别与优化
+# Python 3.11 + CUDA 12.6（RTX 3060 Laptop / 驱动 566.36）
+#
+# ⚠️ 本工单**沿用 `rag_gd` 环境**（工单 01-07 那套依赖），不新建环境。
+#    那个环境的版本组合是被上游硬锁的（FlagEmbedding 锁 transformers==4.44.2
+#    与 datasets==2.19.0，gradio 4.44.1 要求 huggingface-hub<1.0），
+#    **不要在这里升级既有包** —— 之前踩过，升级会把整条链路弄废。
+#
+# 本工单只新增两个纯增量的小工具，装之前先 `pip freeze > 快照`，
+# 装完 diff 确认「只多出来、没改动」（实测 113 -> 116 个包，原有包零变动）：
+#
+#   pip install -r requirements.txt
+#
+# 或直接执行：bash 部署/install.sh
+
+# ---------- 性能分析（本工单新增，纯增量）----------
+# cProfile 是标准库自带的，snakeviz 只是把它的 .pstats 渲染成可交互的
+# 火焰图页面 —— 用来出交付截图。
+snakeviz==2.2.2
+# 采样型 profiler。相比 cProfile 的关键优势：**开销极低**，
+# 而且能 attach 到已经在跑的进程上采（本项目用它压测中采样）。
+# 单文件二进制轮子，不带任何依赖。
+py-spy==0.4.2
+# snakeviz 的依赖，gradio 那套里本来没有
+tornado==6.5.10
+
+# ---------- 压测接口 ----------
+# fastapi / uvicorn / starlette / pydantic **环境里本来就有**
+# （gradio 4.44.1 依赖它们），所以 `研发/api.py` 是零新增依赖：
+#   fastapi==0.115.6
+#   uvicorn==0.54.0
+# ⚠️ 这三个版本连同 pydantic==2.9.2 一起被锁死，升级会让 gradio 起不来
+#    （报一句误导性的 "localhost is not accessible"，与代理无关）。
+#    详见工单 07 的 requirements.txt。
+
+# ---------- 负载测试工具（不在 conda 环境里）----------
+# JMeter 是独立的 Java 程序，本机已装在 D:\apache-jmeter-5.6.3，
+# 需要 Java 17（已验证可用）。它不需要 pip 安装，这里记一笔是为了完整：
+#   D:\apache-jmeter-5.6.3\bin\jmeter -n -t 测试/jmeter/rag_bench.jmx ...

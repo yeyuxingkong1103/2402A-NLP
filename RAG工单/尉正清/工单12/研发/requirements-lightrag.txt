@@ -1,0 +1,45 @@
+# 工单编号：人工智能NLP-RAG项目-LightRAG优化
+# LightRAG 那一路的依赖 —— 装在**独立环境 rag_gd1** 里
+#
+# ⚠️ 为什么必须独立环境（详见 优化/过程问题记录.md 问题 2）：
+#   这些包会把 huggingface-hub 升到 2.x，而 RAG 基座那个环境 rag_gd 里的
+#   FlagEmbedding 1.3.3 硬锁 transformers==4.44.2 / datasets==2.19.0，
+#   gradio 4.44.1 又要求 huggingface-hub<1.0 —— 装到一起整条链路全废。
+#
+# 安装步骤：
+#   1) conda create -n rag_gd1 python=3.11 -y && conda activate rag_gd1
+#   2) pip install -r requirements-lightrag.txt
+#   3) pip install "langchain-community<0.4"      ← 必须，见下
+#   4) pip install torch --index-url https://download.pytorch.org/whl/cu126
+#
+# 或直接执行：bash 部署/install.sh
+
+# ---------- 知识图谱 ----------
+lightrag-hku==1.5.7
+neo4j==6.4.0
+
+# ---------- RAGAS 评估 ----------
+ragas==0.4.3
+# ⚠️ 必须 <0.4。ragas 0.4.3 在 `ragas/llms/base.py` 里硬导入
+#    `langchain_community.chat_models.vertexai`，而 langchain-community 0.4
+#    把这个模块删了（VertexAI 迁到独立的 langchain-google-vertexai 包），
+#    于是 `import ragas` 直接 ModuleNotFoundError。
+#    这跟 DeepSeek、跟本工单都无关，纯粹是 ragas 的依赖声明没跟上。
+#    详见 优化/过程问题记录.md 问题 3。
+langchain-community==0.3.31
+
+# ---------- 嵌入与解析 ----------
+# 嵌入沿用 bge-m3。这里走 sentence-transformers 而不是 FlagEmbedding ——
+# LightRAG 只需要稠密向量，不需要稀疏那一路，少一层依赖少一处冲突。
+sentence-transformers==6.1.0
+pymupdf==1.28.2
+pdfplumber==0.11.10
+
+# ---------- 数值 / 网络 ----------
+numpy==2.4.6
+requests==2.34.2
+
+# ---------- 说明 ----------
+# torch 不写死版本：CUDA 版必须从 PyTorch 官方源单独装，而 "+cu126" 这种
+# 本地版本号在 PyPI 镜像上不存在，写进来会让 pip install -r 直接失败。
+# openai / pydantic / langchain-core 等由 ragas 与 lightrag-hku 自动带入。

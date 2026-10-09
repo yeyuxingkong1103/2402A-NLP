@@ -1,0 +1,1385 @@
+{
+  "tag": "finetuned",
+  "model_path": "D:\\Pycharm\\yzq\\zg6\\工单11\\研发\\output\\bge-base-en-v1.5-fiqa",
+  "n_eval_queries": 195,
+  "corpus_size": 57638,
+  "top_k": 100,
+  "metrics": {
+    "nDCG@1": 0.31794871794871793,
+    "nDCG@5": 0.3067147620064228,
+    "nDCG@10": 0.33984316537416503,
+    "Recall@1": 0.16596662596662595,
+    "Recall@5": 0.3182175801406571,
+    "Recall@10": 0.41485594177901874,
+    "MRR@1": 0.31794871794871793,
+    "MRR@5": 0.39076923076923076,
+    "MRR@10": 0.404043549043549
+  },
+  "per_query": [
+    {
+      "query_id": "10034",
+      "query": "Tax implications of holding EWU (or other such UK ETFs) as a US citizen?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 4
+    },
+    {
+      "query_id": "10122",
+      "query": "Why diversify stocks/investments?",
+      "n_gold": 4,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "10152",
+      "query": "What does a high operating margin but a small but positive ROE imply about a company?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "10246",
+      "query": "Understanding the T + 3 settlement days rule",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "10267",
+      "query": "How should I prepare for the next financial crisis?",
+      "n_gold": 5,
+      "hit@10": 0,
+      "first_rank": 60
+    },
+    {
+      "query_id": "104",
+      "query": "Investing/business with other people's money: How does it work?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 2
+    },
+    {
+      "query_id": "10645",
+      "query": "Explain the details and benefits of rebalancing a retirement portfolio?",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": 13
+    },
+    {
+      "query_id": "10710",
+      "query": "Probablity of touching In the money vs expiring in the money for an american option",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 2
+    },
+    {
+      "query_id": "1074",
+      "query": "How common is “pass-through” health insurance?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "10792",
+      "query": "How can I calculate a “running” return using XIRR in a spreadsheet?",
+      "n_gold": 2,
+      "hit@10": 2,
+      "first_rank": 1
+    },
+    {
+      "query_id": "10809",
+      "query": "Definitions of leverage and of leverage factor",
+      "n_gold": 3,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "10845",
+      "query": "Rationale behind using 12, 26 and 9 to calculate MACD",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "10932",
+      "query": "Transferring money from 403B to 401K?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "10994",
+      "query": "Net loss not distributed by mutual funds to their shareholders?",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": 32
+    },
+    {
+      "query_id": "11039",
+      "query": "Pay off credit card debt or earn employer 401(k) match?",
+      "n_gold": 8,
+      "hit@10": 2,
+      "first_rank": 3
+    },
+    {
+      "query_id": "11088",
+      "query": "Am I required to have a lawyer create / oversee creation of my will?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "1157",
+      "query": "Personal taxes for Shopify / Paypal shop?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "1310",
+      "query": "Is is possible to take a mortgage using Bitcoin as collateral?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "1393",
+      "query": "Which is better when working as a contractor, 1099 or incorporating?",
+      "n_gold": 6,
+      "hit@10": 3,
+      "first_rank": 1
+    },
+    {
+      "query_id": "1441",
+      "query": "What's the difference between Market Cap and NAV?",
+      "n_gold": 4,
+      "hit@10": 4,
+      "first_rank": 1
+    },
+    {
+      "query_id": "1451",
+      "query": "How do you find an ethical, honest independent insurance broker in Canada?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 3
+    },
+    {
+      "query_id": "15",
+      "query": "Can I send a money order from USPS as a business?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "1736",
+      "query": "How can people have such high credit card debts?",
+      "n_gold": 5,
+      "hit@10": 1,
+      "first_rank": 10
+    },
+    {
+      "query_id": "1783",
+      "query": "Freelancing Tax implication",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "1832",
+      "query": "Warren Buffett and Charles Munger advice for small investors?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": 44
+    },
+    {
+      "query_id": "1871",
+      "query": "Is there any US bank that does not charge for incoming wire transfers?",
+      "n_gold": 4,
+      "hit@10": 2,
+      "first_rank": 1
+    },
+    {
+      "query_id": "1915",
+      "query": "Should I pay a company who failed to collect VAT from me over 6 months ago?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 8
+    },
+    {
+      "query_id": "2010",
+      "query": "Paypal website donations without being a charity",
+      "n_gold": 3,
+      "hit@10": 2,
+      "first_rank": 1
+    },
+    {
+      "query_id": "2076",
+      "query": "Can vet / veterinary bills be considered deductions (tax-deductible) for Income Tax purposes [Canada]?",
+      "n_gold": 2,
+      "hit@10": 2,
+      "first_rank": 1
+    },
+    {
+      "query_id": "2088",
+      "query": "How would I go about selling the stock of a privately held company?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 8
+    },
+    {
+      "query_id": "2108",
+      "query": "Can I pay taxes using bill pay from my on-line checking account?",
+      "n_gold": 3,
+      "hit@10": 1,
+      "first_rank": 9
+    },
+    {
+      "query_id": "2183",
+      "query": "Why are there many small banks and more banks in the U.S.?",
+      "n_gold": 6,
+      "hit@10": 3,
+      "first_rank": 2
+    },
+    {
+      "query_id": "2296",
+      "query": "How does a bank make money on an interest free secured loan?",
+      "n_gold": 9,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "2306",
+      "query": "To whom should I report fraud on both of my credit cards?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 2
+    },
+    {
+      "query_id": "2316",
+      "query": "What exchange rate does El Al use when converting final payment amount to shekels?",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": 17
+    },
+    {
+      "query_id": "2348",
+      "query": "Why can't you just have someone invest for you and split the profits (and losses) with him?",
+      "n_gold": 15,
+      "hit@10": 2,
+      "first_rank": 1
+    },
+    {
+      "query_id": "2385",
+      "query": "As director, can I invoice my self-owned company?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "2395",
+      "query": "Freelance site with lowest commission fees?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 9
+    },
+    {
+      "query_id": "2398",
+      "query": "Frustrated Landlord",
+      "n_gold": 5,
+      "hit@10": 0,
+      "first_rank": 41
+    },
+    {
+      "query_id": "2400",
+      "query": "Will I be paid dividends if I own shares?",
+      "n_gold": 3,
+      "hit@10": 1,
+      "first_rank": 4
+    },
+    {
+      "query_id": "2445",
+      "query": "How do I notify the IRS of a new member to an LLC?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "2460",
+      "query": "What are the consequences of not respecting a notice period when leaving a job?",
+      "n_gold": 3,
+      "hit@10": 3,
+      "first_rank": 1
+    },
+    {
+      "query_id": "2486",
+      "query": "Is working on a W2 basis, with benefits paid to me, a good idea?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": 60
+    },
+    {
+      "query_id": "2498",
+      "query": "How do I calculate tax liability on the turnover of a small vendor?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "2587",
+      "query": "Typically how many digits are in a cheque number?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 8
+    },
+    {
+      "query_id": "2648",
+      "query": "How does unemployment insurance work?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "2676",
+      "query": "Tax question about selling a car",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 4
+    },
+    {
+      "query_id": "2724",
+      "query": "How do you determine the dividend payout date for Mutual Funds?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 5
+    },
+    {
+      "query_id": "2891",
+      "query": "May I claim money earned but not received in 2012",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "2895",
+      "query": "Where should a young student put their money?",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "2923",
+      "query": "Should I give to charity by check or credit card?",
+      "n_gold": 5,
+      "hit@10": 4,
+      "first_rank": 1
+    },
+    {
+      "query_id": "2968",
+      "query": "Should I prioritize retirement savings inside of my HSA?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "3006",
+      "query": "Strategies for putting away money for a child's future (college, etc.)?",
+      "n_gold": 6,
+      "hit@10": 1,
+      "first_rank": 8
+    },
+    {
+      "query_id": "3014",
+      "query": "What investments are positively related to the housing market decline?",
+      "n_gold": 2,
+      "hit@10": 2,
+      "first_rank": 2
+    },
+    {
+      "query_id": "3033",
+      "query": "Tax consequences of changing state residency?",
+      "n_gold": 2,
+      "hit@10": 2,
+      "first_rank": 6
+    },
+    {
+      "query_id": "3039",
+      "query": "Can increasing my tax withholding from my full-time job cover FICA taxes for my freelance work?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 10
+    },
+    {
+      "query_id": "3103",
+      "query": "AVS Address Verification System of BOTH Credit and Debit Cards - WHERE, HOW?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "3125",
+      "query": "Claiming mileage allowances, what are the rules/guidelines?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "3254",
+      "query": "Why do people buy US dollars on the black market?",
+      "n_gold": 3,
+      "hit@10": 2,
+      "first_rank": 1
+    },
+    {
+      "query_id": "3369",
+      "query": "Why should one only contribute up to the employer's match in a 401(k)?",
+      "n_gold": 6,
+      "hit@10": 0,
+      "first_rank": 16
+    },
+    {
+      "query_id": "3451",
+      "query": "Should you keep your stocks if you are too late to sell?",
+      "n_gold": 7,
+      "hit@10": 0,
+      "first_rank": 42
+    },
+    {
+      "query_id": "3503",
+      "query": "Is there any instance where less leverage will get you a better return on a rental property?",
+      "n_gold": 7,
+      "hit@10": 5,
+      "first_rank": 1
+    },
+    {
+      "query_id": "3594",
+      "query": "If I were to get into a life situation where I would not be able to make regular payments, do lenders typically provide options other than default?",
+      "n_gold": 4,
+      "hit@10": 3,
+      "first_rank": 1
+    },
+    {
+      "query_id": "3612",
+      "query": "How can I buy and sell the same stock on the same day?",
+      "n_gold": 4,
+      "hit@10": 0,
+      "first_rank": 16
+    },
+    {
+      "query_id": "3771",
+      "query": "Best way to buy Japanese yen for travel?",
+      "n_gold": 6,
+      "hit@10": 2,
+      "first_rank": 1
+    },
+    {
+      "query_id": "3789",
+      "query": "How to work around the Owner Occupancy Affidavit to buy another home in less than a year?",
+      "n_gold": 4,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "3791",
+      "query": "\"When people say 'Interest rates are at all time low!\"\" … Which interest rate are they actually referring to?\"",
+      "n_gold": 3,
+      "hit@10": 3,
+      "first_rank": 7
+    },
+    {
+      "query_id": "3829",
+      "query": "Are all VISA cards connected with bank accounts?",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": 20
+    },
+    {
+      "query_id": "3859",
+      "query": "Buying an investment property in Australia - what are the advantages and disadvantages of building a house vs buying an existing one?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": 25
+    },
+    {
+      "query_id": "3875",
+      "query": "Does freedom to provide services allow me contracting in Germany without paying taxes there (but in my home EU country)?",
+      "n_gold": 2,
+      "hit@10": 2,
+      "first_rank": 1
+    },
+    {
+      "query_id": "3888",
+      "query": "Why I can't view my debit card pre-authorized amounts?",
+      "n_gold": 3,
+      "hit@10": 1,
+      "first_rank": 2
+    },
+    {
+      "query_id": "3934",
+      "query": "Should market based health insurance premiums be factored into 6 months emergency fund savings?",
+      "n_gold": 4,
+      "hit@10": 2,
+      "first_rank": 1
+    },
+    {
+      "query_id": "4011",
+      "query": "How can I deal with a spouse who compulsively spends?",
+      "n_gold": 3,
+      "hit@10": 2,
+      "first_rank": 1
+    },
+    {
+      "query_id": "4031",
+      "query": "28 years old and just inherited large amount of money and real estate - unsure what to do with it",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "4037",
+      "query": "How separate individual expenses from family expenses in Gnucash?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 10
+    },
+    {
+      "query_id": "4102",
+      "query": "How can I determine if my rate of return is “good” for the market I am in?",
+      "n_gold": 4,
+      "hit@10": 2,
+      "first_rank": 1
+    },
+    {
+      "query_id": "4142",
+      "query": "Relation between inflation rates and interest rates",
+      "n_gold": 4,
+      "hit@10": 1,
+      "first_rank": 9
+    },
+    {
+      "query_id": "4205",
+      "query": "How and why does the exchange rate of a currency change almost everyday?",
+      "n_gold": 3,
+      "hit@10": 1,
+      "first_rank": 4
+    },
+    {
+      "query_id": "4265",
+      "query": "Does it make any sense to directly contribute to reducing the US national debt?",
+      "n_gold": 6,
+      "hit@10": 6,
+      "first_rank": 1
+    },
+    {
+      "query_id": "4289",
+      "query": "Does the currency exchange rate contain any additional information at all?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 2
+    },
+    {
+      "query_id": "4394",
+      "query": "Transfer $50k to another person's account (in California, USA)",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "4464",
+      "query": "Are Australian mutual fund fees large compared to US?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": 47
+    },
+    {
+      "query_id": "4504",
+      "query": "what is the best way of investment which gives returns forever?",
+      "n_gold": 2,
+      "hit@10": 2,
+      "first_rank": 1
+    },
+    {
+      "query_id": "4514",
+      "query": "What intrinsic, non-monetary value does gold have as a commodity?",
+      "n_gold": 6,
+      "hit@10": 3,
+      "first_rank": 2
+    },
+    {
+      "query_id": "4523",
+      "query": "What should I do with my $25k to invest as a 20 years old?",
+      "n_gold": 5,
+      "hit@10": 0,
+      "first_rank": 33
+    },
+    {
+      "query_id": "4539",
+      "query": "How should I save money if the real interest rate (after inflation) is negative?",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": 23
+    },
+    {
+      "query_id": "4571",
+      "query": "HSBC Hong Kong's “Deposit Plus” Product: What is it, and what strategies to employ?",
+      "n_gold": 3,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "4600",
+      "query": "Why government bonds fluctuate so much, even though interest rates don't change that often?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 2
+    },
+    {
+      "query_id": "4615",
+      "query": "Are solar cell panels and wind mills worth the money?",
+      "n_gold": 6,
+      "hit@10": 3,
+      "first_rank": 1
+    },
+    {
+      "query_id": "4700",
+      "query": "Better to get loan from finance company or bank considering the drop of credit score?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 2
+    },
+    {
+      "query_id": "4756",
+      "query": "What is the formula for the Tesla Finance calculation?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 6
+    },
+    {
+      "query_id": "4813",
+      "query": "Dealer Financing Fell Through on vehicle purchase: Scam?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 4
+    },
+    {
+      "query_id": "4846",
+      "query": "Is there anything comparable to/resembling CNN's Fear and Greed Index?",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "4942",
+      "query": "find stock composition of a publicly traded fund",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "4981",
+      "query": "Where can I find open source portfolio management software?",
+      "n_gold": 3,
+      "hit@10": 2,
+      "first_rank": 3
+    },
+    {
+      "query_id": "504",
+      "query": "Have plenty of cash flow but bad credit",
+      "n_gold": 3,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "5134",
+      "query": "Why does Yahoo Finance's data for a Vanguard fund's dividend per share not match the info from Vanguard?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 2
+    },
+    {
+      "query_id": "515",
+      "query": "financial institution wants share member break down for single member LLC",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "5228",
+      "query": "How does the bank/IRS know whether a bank transfer over $14k is a gift or loan repayment?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": 19
+    },
+    {
+      "query_id": "5231",
+      "query": "Where to find CSV or JSON data for publicly traded companies listed with their IPO date?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "5271",
+      "query": "Why are auto leases stubbornly strict about visa status and how to work around that?",
+      "n_gold": 3,
+      "hit@10": 1,
+      "first_rank": 6
+    },
+    {
+      "query_id": "5369",
+      "query": "Paying for things on credit and immediately paying them off: any help for credit rating?",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "5374",
+      "query": "What were the main causes of the spike and drop of DRYS's stock price?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "5422",
+      "query": "What are some good books for learning stocks, bonds, derivatives e.t.c for beginner with a math background?",
+      "n_gold": 4,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "547",
+      "query": "What percentage of my company should I have if I only put money?",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "549",
+      "query": "Where to request ACH Direct DEBIT of funds from MY OWN personal bank account?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": 25
+    },
+    {
+      "query_id": "5616",
+      "query": "How and where do companies publish financial reports?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": 19
+    },
+    {
+      "query_id": "5646",
+      "query": "Do I need multiple credit monitoring services?",
+      "n_gold": 3,
+      "hit@10": 2,
+      "first_rank": 1
+    },
+    {
+      "query_id": "5683",
+      "query": "What is the PEG ratio? How is the PEG ratio calculated? How is the PEG ratio useful for stock investing?",
+      "n_gold": 2,
+      "hit@10": 2,
+      "first_rank": 1
+    },
+    {
+      "query_id": "5741",
+      "query": "Learning investing and the stock market",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "5790",
+      "query": "FX losses on non-UK mortgage for UK property - tax deductable?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": 14
+    },
+    {
+      "query_id": "5808",
+      "query": "How do you calculate return on investment for a share of stock?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": 73
+    },
+    {
+      "query_id": "5888",
+      "query": "Interest charges on balance transfer when purchases are involved",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": 16
+    },
+    {
+      "query_id": "594",
+      "query": "Should a retail trader bother about reading SEC filings",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "5981",
+      "query": "Is it a good investment for a foreigner to purchase a flat/apartment in China?",
+      "n_gold": 5,
+      "hit@10": 5,
+      "first_rank": 1
+    },
+    {
+      "query_id": "5993",
+      "query": "Why would anyone want to pay off their debts in a way other than “highest interest” first?",
+      "n_gold": 15,
+      "hit@10": 3,
+      "first_rank": 3
+    },
+    {
+      "query_id": "6002",
+      "query": "15 year mortgage vs 30 year paid off in 15",
+      "n_gold": 11,
+      "hit@10": 4,
+      "first_rank": 3
+    },
+    {
+      "query_id": "6004",
+      "query": "Put-Call parity - what is the difference between the two representations?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "6005",
+      "query": "Why might it be advisable to keep student debt vs. paying it off quickly?",
+      "n_gold": 13,
+      "hit@10": 1,
+      "first_rank": 3
+    },
+    {
+      "query_id": "603",
+      "query": "Will one’s education loan application be rejected if one doesn't have a payslip providing collateral?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 3
+    },
+    {
+      "query_id": "6041",
+      "query": "Most effective Fundamental Analysis indicators for market entry",
+      "n_gold": 4,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "6219",
+      "query": "Are there Investable Real Estate Indices which track Geographical Locations?",
+      "n_gold": 2,
+      "hit@10": 2,
+      "first_rank": 2
+    },
+    {
+      "query_id": "6252",
+      "query": "Is this mortgage advice good, or is it hooey?",
+      "n_gold": 7,
+      "hit@10": 0,
+      "first_rank": 63
+    },
+    {
+      "query_id": "6278",
+      "query": "What is the best way to help my dad consolidate his credit card debt at a lower rate?",
+      "n_gold": 2,
+      "hit@10": 2,
+      "first_rank": 2
+    },
+    {
+      "query_id": "6420",
+      "query": "Does the bid/ask concept exist in dealer markets?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "6479",
+      "query": "Trading on exchanges or via brokerage companies?",
+      "n_gold": 2,
+      "hit@10": 2,
+      "first_rank": 1
+    },
+    {
+      "query_id": "6629",
+      "query": "Tax treatment of a boxed trade?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "6668",
+      "query": "Approximate IT company valuation (to proximate stock options value)",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "6713",
+      "query": "Will my father still be eligible for SNAP if I claim him as my dependent?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "68",
+      "query": "Intentions of Deductible Amount for Small Business",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "684",
+      "query": "Beyond RRSP deductions, how does a high income earner save on taxes?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "6849",
+      "query": "What do the points in a stock market index epresent?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": 11
+    },
+    {
+      "query_id": "687",
+      "query": "Online tool to connect to my bank account and tell me what I spend in different categories?",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": 16
+    },
+    {
+      "query_id": "6959",
+      "query": "What is the term for the quantity (high price minus low price) for a stock?",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": 24
+    },
+    {
+      "query_id": "6985",
+      "query": "Bed and Breakfast, Same Day Capital Gains UK",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "7068",
+      "query": "Making money through CFD",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": 17
+    },
+    {
+      "query_id": "7105",
+      "query": "What is the difference between fixed-income duration and equity duration?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": 29
+    },
+    {
+      "query_id": "7109",
+      "query": "How do I analyse moving averages?",
+      "n_gold": 3,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "7145",
+      "query": "Are there “buy and hold” passively managed funds?",
+      "n_gold": 3,
+      "hit@10": 2,
+      "first_rank": 3
+    },
+    {
+      "query_id": "7178",
+      "query": "Should an ADR that is being delisted be sold off?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 4
+    },
+    {
+      "query_id": "721",
+      "query": "What are “upstream investments” and “downstream investments” in this context?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "7295",
+      "query": "Selling non-dividend for dividend stocks",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "7529",
+      "query": "Does the expense ratio of a fund-of-funds include the expense ratios of its holdings?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 2
+    },
+    {
+      "query_id": "753",
+      "query": "Taxes due for hobbyist Group Buy",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "7622",
+      "query": "Best way to pay off debt?",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "7633",
+      "query": "Can a trade happen “in between” the bid and ask price?",
+      "n_gold": 4,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "7705",
+      "query": "Why would I pick a specific ETF over an equivalent Mutual Fund?",
+      "n_gold": 3,
+      "hit@10": 0,
+      "first_rank": 51
+    },
+    {
+      "query_id": "7734",
+      "query": "Can PE ratio of stocks be compared to other investments?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 5
+    },
+    {
+      "query_id": "7758",
+      "query": "Bid/ask spreads for index funds",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "8005",
+      "query": "Difference between Vanguard sp500 UCITS and Vanguard sp500",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "8034",
+      "query": "What is the average cost of a portfolio on a trading site?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "810",
+      "query": "Can I open a bank account in the US remotely? Will I pay taxes for the money on it?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": 25
+    },
+    {
+      "query_id": "8121",
+      "query": "Can I calculate stock value with Williams%R if I know the last set?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": 91
+    },
+    {
+      "query_id": "8230",
+      "query": "Why would this kind of penny stock increase so much in value?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 5
+    },
+    {
+      "query_id": "8247",
+      "query": "Tax on Stocks or ETF's",
+      "n_gold": 4,
+      "hit@10": 0,
+      "first_rank": 65
+    },
+    {
+      "query_id": "8475",
+      "query": "Why I cannot find a “Pure Cash” option in 401k investments?",
+      "n_gold": 7,
+      "hit@10": 5,
+      "first_rank": 1
+    },
+    {
+      "query_id": "8507",
+      "query": "When to sell a stock?",
+      "n_gold": 3,
+      "hit@10": 1,
+      "first_rank": 9
+    },
+    {
+      "query_id": "8532",
+      "query": "What do these options trading terms mean?",
+      "n_gold": 3,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "8539",
+      "query": "Can the risk of investing in an asset be different for different investors?",
+      "n_gold": 4,
+      "hit@10": 1,
+      "first_rank": 5
+    },
+    {
+      "query_id": "8544",
+      "query": "Strategies to recover from a bad short-term call options purchase where the underlying dropped instead?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "858",
+      "query": "Is it bad practice to invest in stocks that fluctuate by single points throughout the day?",
+      "n_gold": 4,
+      "hit@10": 0,
+      "first_rank": 18
+    },
+    {
+      "query_id": "859",
+      "query": "Any reason to keep around my account with my old, 'big' bank?",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "8592",
+      "query": "Tax implications of exercising ISOs and using proceeds to exercise more ISOs",
+      "n_gold": 3,
+      "hit@10": 2,
+      "first_rank": 7
+    },
+    {
+      "query_id": "864",
+      "query": "Why use accounting software like Quickbooks instead of Excel spreadsheets?",
+      "n_gold": 6,
+      "hit@10": 3,
+      "first_rank": 1
+    },
+    {
+      "query_id": "8702",
+      "query": "Why is early exercise generally not recommended for an in-the-money option?",
+      "n_gold": 3,
+      "hit@10": 2,
+      "first_rank": 3
+    },
+    {
+      "query_id": "8779",
+      "query": "How does a defined contribution plan work",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "8795",
+      "query": "Stock exchanges using open outcry",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "8874",
+      "query": "When can you adjust for (and re-allow) a disallowed year-end (December) wash-sale loss?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "89",
+      "query": "How can I deposit a check made out to my business into my personal account?",
+      "n_gold": 6,
+      "hit@10": 2,
+      "first_rank": 4
+    },
+    {
+      "query_id": "8937",
+      "query": "“In-the-Money” vs “Out-of-the-Money” Call Options",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 6
+    },
+    {
+      "query_id": "8970",
+      "query": "What's the difference, if any, between stock appreciation and compound interest?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 2
+    },
+    {
+      "query_id": "9088",
+      "query": "Brokerage account for charity",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": 37
+    },
+    {
+      "query_id": "9108",
+      "query": "Starting an investment portfolio with Rs 5,000/-",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": 13
+    },
+    {
+      "query_id": "9115",
+      "query": "Why does the calculation for percentage profit vary based on whether a position is short vs. long?",
+      "n_gold": 3,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "9188",
+      "query": "Selling mutual fund and buying equivalent ETF: Can I 1031 exchange?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "9245",
+      "query": "Stock Options for a company bought out in cash and stock",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "928",
+      "query": "How can I determine if a FHA loan refinance offer is from a reputable lender",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 10
+    },
+    {
+      "query_id": "932",
+      "query": "Is freelance income earned by a U.S. citizen while living abroad subject to state income tax?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 5
+    },
+    {
+      "query_id": "939",
+      "query": "How to correct a tax return filed electronically and already approved?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 5
+    },
+    {
+      "query_id": "9391",
+      "query": "Should I replace bonds in a passive investment strategy",
+      "n_gold": 4,
+      "hit@10": 0,
+      "first_rank": 16
+    },
+    {
+      "query_id": "94",
+      "query": "Using credit card points to pay for tax deductible business expenses",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "9403",
+      "query": "Abundance of Cash - What should I do?",
+      "n_gold": 3,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "945",
+      "query": "Paid by an American company but working from France: where should I pay taxes?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "9487",
+      "query": "Is a public company allowed to issue new shares below market price without consulting shareholders?",
+      "n_gold": 1,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "9617",
+      "query": "What differentiates index funds and ETFs?",
+      "n_gold": 3,
+      "hit@10": 2,
+      "first_rank": 6
+    },
+    {
+      "query_id": "9644",
+      "query": "If early exercise is a bad idea, why American option is more expensive than European [duplicate]",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 8
+    },
+    {
+      "query_id": "9668",
+      "query": "Do stock option prices predicate the underlying stock's movement?",
+      "n_gold": 3,
+      "hit@10": 0,
+      "first_rank": 75
+    },
+    {
+      "query_id": "9737",
+      "query": "Long(100%)-Short(-100%) investment explanation",
+      "n_gold": 3,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "9771",
+      "query": "Is there any emprical research done on 'adding to a loser'",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "9824",
+      "query": "Where can end-of-day data be downloaded for corporate bonds?",
+      "n_gold": 1,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "9871",
+      "query": "What should I do with the 50k I have sitting in a European bank?",
+      "n_gold": 4,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "988",
+      "query": "Where should I invest my savings?",
+      "n_gold": 2,
+      "hit@10": 0,
+      "first_rank": null
+    },
+    {
+      "query_id": "9925",
+      "query": "What does Chapter 11 Bankruptcy mean to an investor holding shares of a Chapter 11 Company?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 1
+    },
+    {
+      "query_id": "9929",
+      "query": "Investing in commodities, pros and cons?",
+      "n_gold": 2,
+      "hit@10": 1,
+      "first_rank": 4
+    },
+    {
+      "query_id": "9979",
+      "query": "What is the best way to invest in gold as a hedge against inflation without having to hold physical gold?",
+      "n_gold": 4,
+      "hit@10": 2,
+      "first_rank": 2
+    }
+  ]
+}

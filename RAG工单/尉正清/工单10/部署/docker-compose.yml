@@ -1,0 +1,142 @@
+# 工单编号：人工智能NLP-RAG-金融问答系统部署
+#
+# 金融问答系统编排。四个服务，按用途分三组：
+#
+#   常驻：rag-app       金融问答服务（Gradio，GPU 推理 BGE-M3）
+#         rtmp-server   流媒体服务，用于验证「容器网络能与其他服务通信」
+#   工具：kb-builder    在共享卷里重建知识库（profiles: tools，按需启动）
+#         model-init    把宿主机模型灌进数据卷（profiles: init，只跑一次）
+#
+# 关键设计：模型和知识库都放在**命名卷**里，不放镜像、也不直接挂宿主机目录。
+#   · 满足验收项「通过 Docker 卷持久化存储关键数据，确保数据不丢失」
+#   · 满足验收项「支持容器间数据共享」—— kb-builder 与 rag-app 共用同一个卷
+#   · Docker Desktop 走 virtiofs 读 Windows 目录很慢，卷落在引擎原生文件系统上，
+#     模型加载速度不受影响
+#
+# 启动：
+#   docker compose -f 部署/docker-compose.yml --profile init up model-init   # 首次灌模型
+#   docker compose -f 部署/docker-compose.yml up -d                          # 起服务
+#
+# 宿主机路径在 部署/.env 里配（参考 .env.example）。
+
+name: rag-finance
+
+services:
+  # ---------- 金融问答服务 ----------
+  rag-app:
+    build:
+      context: ..
+      dockerfile: 部署/Dockerfile
+    image: rag-finance:1.0
+    container_name: rag-app
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-7860}:7860"
+    volumes:
+      - model-data:/models:ro          # 模型：只读挂载，容器不会改它
+      - kb-data:/kb                    # 知识库 + 反馈日志：可写，持久化
+    environment:
+      BGE_M3_PATH: /models/bge-m3
+      KB_CACHE_DIR: /kb
+      PORT: "7860"
+      DEEPSEEK_BASE_URL: ${DEEPSEEK_BASE_URL:?请在 .env 里配置 DEEPSEEK_BASE_URL}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:?请在 .env 里配置 DEEPSEEK_API_KEY}
+    networks:
+      - rag-net
+    # GPU 透传。Docker Desktop 的 WSL2 后端开箱即用；
+    # 真服务器上需要先装 nvidia-container-toolkit，见部署文档。
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  # ---------- 流媒体服务（网络连通性验证的对端）----------
+  # 验收标准要求「容器网络配置正确，能够与其他服务（如 RTMP 服务器）正常通信」。
+  # 这里起一个真实的 RTMP 服务，和 rag-app 挂在同一个自定义网络上，
+  # 部署测试用它验证容器间网络可达（见 测试/验收报告.md）。
+  #
+  # 自己构建而不是拉 alfg/nginx-rtmp 之类的现成镜像：本机 registry 加速器
+  # 对那几个镜像一律 403，而 Alpine 源里有 nginx-mod-rtmp 包，自己装只要十几 MB，
+  # 部署到目标服务器时也不依赖任何第三方镜像。
+  rtmp-server:
+    build:
+      context: ./rtmp
+      dockerfile: Dockerfile
+    image: rag-rtmp:1.0
+    container_name: rtmp-server
+    restart: unless-stopped
+    ports:
+      - "${RTMP_PORT:-1935}:1935"      # RTMP 推流端口
+      - "${RTMP_HTTP_PORT:-8080}:80"   # 状态页 / 健康检查
+    networks:
+      - rag-net
+
+  # ---------- 工具：在共享卷里重建知识库 ----------
+  # 与 rag-app 挂同一个 kb-data 卷：rag-app 读、本容器写。
+  # 这就是验收项「容器间数据共享」的实际用法 —— 换语料重建知识库时不必动主服务。
+  # 语料由 CORPUS_DIR 指定，那一层需含 pdf/ 与 txt/ 两个子目录。
+  kb-builder:
+    image: rag-finance:1.0
+    profiles: ["tools"]
+    volumes:
+      - model-data:/models:ro
+      - kb-data:/kb
+      - ${CORPUS_DIR:-D:/BW/RAG 工单/附件/ccf_competition}:/corpus:ro
+    environment:
+      BGE_M3_PATH: /models/bge-m3
+      KB_CACHE_DIR: /kb
+      CORPUS_DIR: /corpus
+    entrypoint: ["/bin/bash", "-c"]
+    command: ["python -u build_kb.py --no-cache"]
+    working_dir: /app
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    networks:
+      - rag-net
+
+  # ---------- 工具：把宿主机模型灌进数据卷（只跑一次）----------
+  # 用 alpine 而不是应用镜像：这一步只是复制文件，不需要 CUDA 和 Python，
+  # 拉一个 12MB 的镜像比启动 5GB 的应用镜像快得多。
+  # 排除 onnx/ ：那是给 onnxruntime 用的，FlagEmbedding 走 pytorch 权重，
+  # 留着白白多复制 2.2GB。
+  model-init:
+    image: alpine:3.20
+    profiles: ["init"]
+    volumes:
+      - ${MODELS_DIR:-D:/Pycharm/yzq/models}:/src:ro
+      - model-data:/dst
+    command:
+      - sh
+      - -c
+      - |
+        set -e
+        if [ -f /dst/bge-m3/pytorch_model.bin ]; then
+          echo "数据卷里已有模型，跳过"
+          exit 0
+        fi
+        echo "复制 BGE-M3 到数据卷（排除 onnx/ 与示例图）..."
+        mkdir -p /dst/bge-m3
+        for f in /src/bge-m3/*; do
+          base=$$(basename "$$f")
+          case "$$base" in
+            onnx|imgs|.cache|long.jpg) echo "  跳过 $$base"; continue ;;
+          esac
+          cp -a "$$f" /dst/bge-m3/
+        done
+        echo "完成，体积：$$(du -sh /dst/bge-m3 | cut -f1)"
+
+volumes:
+  model-data:
+  kb-data:
+
+networks:
+  rag-net:
+    driver: bridge
