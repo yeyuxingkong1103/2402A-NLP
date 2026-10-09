@@ -1,0 +1,119 @@
+{
+  "acceptance_target_ms": 3000,
+  "baseline": {
+    "avg_ms": 6102.4,
+    "max_ms": 6103.25,
+    "pass": false
+  },
+  "optimized": {
+    "avg_ms": 1951.65,
+    "max_ms": 1951.98,
+    "pass": true
+  },
+  "improvement_pct": 68.02,
+  "bottlenecks": [
+    {
+      "stage": "llm_generate",
+      "type": "D",
+      "severity": "🟡 中等",
+      "mean_ms": 2250.4841,
+      "threshold_ms": 1000,
+      "recommendation": [
+        "small_model",
+        "llm_cache",
+        "reduce_tokens"
+      ],
+      "improvement_potential": 55.6
+    },
+    {
+      "stage": "retrieve",
+      "type": "B",
+      "severity": "🟡 中等",
+      "mean_ms": 900.3752,
+      "threshold_ms": 500,
+      "recommendation": [
+        "index_cache",
+        "topk_prune"
+      ],
+      "improvement_potential": 44.5
+    },
+    {
+      "stage": "query_process",
+      "type": "A",
+      "severity": "🟡 中等",
+      "mean_ms": 400.1869,
+      "threshold_ms": 200,
+      "recommendation": [
+        "query_skip",
+        "query_cache"
+      ],
+      "improvement_potential": 50.0
+    },
+    {
+      "stage": "context_assemble",
+      "type": "C",
+      "severity": "🟡 中等",
+      "mean_ms": 300.4253,
+      "threshold_ms": 200,
+      "recommendation": [
+        "context_prune",
+        "dedup_hash"
+      ],
+      "improvement_potential": 33.4
+    },
+    {
+      "stage": "post_process",
+      "type": "E",
+      "severity": "🟡 中等",
+      "mean_ms": 175.5442,
+      "threshold_ms": 100,
+      "recommendation": [
+        "async_post",
+        "post_cache"
+      ],
+      "improvement_potential": 43.0
+    }
+  ],
+  "per_query": [
+    {
+      "query": "武汉力源的控股股东是谁?",
+      "baseline_ms": 6102.07,
+      "optimized_ms": 1951.44
+    },
+    {
+      "query": "武汉力源的销售部有几个部门?",
+      "baseline_ms": 6102.63,
+      "optimized_ms": 1951.46
+    },
+    {
+      "query": "武汉力源的募集资金投资哪些项目?",
+      "baseline_ms": 6103.2,
+      "optimized_ms": 1951.76
+    },
+    {
+      "query": "武汉兴图新科的注册资本是多少?",
+      "baseline_ms": 6101.7,
+      "optimized_ms": 1951.46
+    },
+    {
+      "query": "武汉兴图新科参与制定了什么技术标准?",
+      "baseline_ms": 6103.25,
+      "optimized_ms": 1951.92
+    },
+    {
+      "query": "军用领域收入分别是多少?",
+      "baseline_ms": 6102.74,
+      "optimized_ms": 1951.54
+    },
+    {
+      "query": "IC 市场增长最快的行业?",
+      "baseline_ms": 6101.98,
+      "optimized_ms": 1951.62
+    },
+    {
+      "query": "武汉力源发行股数是多少?",
+      "baseline_ms": 6101.66,
+      "optimized_ms": 1951.98
+    }
+  ]
+}

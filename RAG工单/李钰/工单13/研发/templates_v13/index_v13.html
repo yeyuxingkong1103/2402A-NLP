@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>RAG V13 性能瓶颈识别与优化</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; background: #f5f7fa; color: #333; }
+  h1 { text-align: center; color: #d32f2f; margin-bottom: 4px; font-size: 22px; }
+  .subtitle { text-align: center; color: #666; font-size: 13px; margin-bottom: 20px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .acceptance { background: linear-gradient(135deg, #ff6b6b, #ee5a5a); color: white; padding: 10px 20px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
+  .acceptance.pass { background: linear-gradient(135deg, #56ab2f, #a8e063); }
+
+  .card { background: white; border-radius: 10px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+  .card h3 { margin: 0 0 14px 0; font-size: 15px; color: #333; }
+
+  textarea { width: 100%; height: 70px; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; resize: vertical; font-size: 14px; }
+  .btn { padding: 9px 22px; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500; transition: .2s; margin-right: 8px; }
+  .btn-primary { background: #d32f2f; color: white; }
+  .btn-primary:hover { background: #b71c1c; }
+  .btn-optimized { background: #4caf50; color: white; }
+  .btn-compare { background: #1976d2; color: white; }
+  .btn-baseline { background: #ff9800; color: white; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .latency-big { font-size: 36px; font-weight: 700; text-align: center; }
+  .latency-ms { font-size: 14px; color: #666; }
+  .acceptance-badge { text-align: center; padding: 8px; border-radius: 6px; margin-top: 10px; font-weight: 600; font-size: 13px; }
+  .badge-pass { background: #e8f5e9; color: #2e7d32; }
+  .badge-fail { background: #ffebee; color: #c62828; }
+
+  .stage-row { display: flex; align-items: center; padding: 6px 0; border-bottom: 1px solid #eee; font-size: 13px; }
+  .stage-row:last-child { border-bottom: none; }
+  .stage-name { width: 130px; color: #555; }
+  .stage-bar-wrap { flex: 1; height: 18px; background: #f0f0f0; border-radius: 4px; overflow: hidden; margin: 0 10px; }
+  .stage-bar { height: 100%; transition: .3s; }
+  .stage-bar.base { background: #ff9800; }
+  .stage-bar.opt { background: #4caf50; }
+  .stage-val { width: 70px; text-align: right; font-variant-numeric: tabular-nums; color: #333; }
+
+  .bottleneck-card { border-left: 4px solid #d32f2f; background: #fff5f5; padding: 10px 14px; margin-bottom: 8px; border-radius: 4px; font-size: 13px; }
+  .bottleneck-card.severe { border-left-color: #d32f2f; background: #ffebee; }
+  .bottleneck-card.medium { border-left-color: #f9a825; background: #fffde7; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
+  th, td { padding: 8px; text-align: left; border-bottom: 1px solid #eee; }
+  th { background: #f5f7fa; font-weight: 600; color: #555; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .improve-pos { color: #2e7d32; font-weight: 600; }
+  .improve-neg { color: #c62828; font-weight: 600; }
+
+  .preset-q { display: inline-block; padding: 4px 10px; margin: 3px; background: #e3f2fd; border-radius: 12px; font-size: 12px; cursor: pointer; }
+  .preset-q:hover { background: #bbdefb; }
+
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🔧 RAG V13 性能瓶颈识别与优化</h1>
+  <div class="subtitle">目标: 检索返回时间 <b>&lt; 3 秒</b> · 工单13</div>
+
+  <!-- 验收条 -->
+  <div id="acceptance-bar" class="acceptance">
+    <span>📊 验收状态: 未运行测试</span>
+    <span id="acc-detail"></span>
+  </div>
+
+  <!-- 输入区 -->
+  <div class="card">
+    <h3>🚀 运行测试</h3>
+    <textarea id="question" placeholder="输入问题, 例如: 武汉力源的控股股东是谁?"></textarea>
+    <div style="margin-top:10px;">
+      <span class="preset-q" onclick="fillQ('武汉力源的控股股东是谁?')">控股股东</span>
+      <span class="preset-q" onclick="fillQ('武汉力源的销售部有几个部门?')">销售部</span>
+      <span class="preset-q" onclick="fillQ('武汉兴图新科的注册资本是多少?')">注册资本</span>
+      <span class="preset-q" onclick="fillQ('军用领域收入分别是多少?')">军用收入</span>
+      <span class="preset-q" onclick="fillQ('IC市场增长最快的行业?')">IC行业</span>
+    </div>
+    <div style="margin-top:12px;">
+      <button class="btn btn-compare" onclick="run('both')">⚡ 对比 (基线 vs 优化)</button>
+      <button class="btn btn-baseline" onclick="run('baseline')">🐢 仅基线 (慢)</button>
+      <button class="btn btn-optimized" onclick="run('optimized')">🚀 仅优化 (快)</button>
+      <button class="btn btn-primary" onclick="loadMetrics()">📊 查看瓶颈分析</button>
+    </div>
+  </div>
+
+  <!-- 对比结果 -->
+  <div id="compare-card" class="hidden">
+    <div class="grid-2">
+      <div class="card">
+        <h3>🐢 Baseline RAG (未优化)</h3>
+        <div class="latency-big" id="base-latency">-</div>
+        <div class="latency-ms">毫秒</div>
+        <div id="base-badge" class="acceptance-badge"></div>
+        <table id="base-stages"></table>
+        <div style="margin-top:10px;font-size:12px;color:#666;">回答: <span id="base-answer"></span></div>
+      </div>
+      <div class="card">
+        <h3>🚀 Optimized FastRAG (6 大优化)</h3>
+        <div class="latency-big" id="opt-latency">-</div>
+        <div class="latency-ms">毫秒</div>
+        <div id="opt-badge" class="acceptance-badge"></div>
+        <table id="opt-stages"></table>
+        <div style="margin-top:10px;font-size:12px;color:#666;">回答: <span id="opt-answer"></span></div>
+      </div>
+    </div>
+
+    <!-- 提升总结 -->
+    <div class="card" id="improve-card">
+      <h3>📈 优化效果对比</h3>
+      <div id="improve-summary"></div>
+    </div>
+  </div>
+
+  <!-- 瓶颈分析 -->
+  <div id="metrics-card" class="hidden card">
+    <h3>🔍 瓶颈诊断</h3>
+    <div id="bottlenecks"></div>
+    <h3 style="margin-top:20px;">📊 历史指标</h3>
+    <table id="metrics-table"></table>
+  </div>
+</div>
+
+<script>
+function fillQ(q) { document.getElementById("question").value = q; }
+
+async function run(mode) {
+  const q = document.getElementById("question").value.trim();
+  if (!q) { alert("请输入问题"); return; }
+
+  document.getElementById("compare-card").classList.remove("hidden");
+  document.getElementById("base-latency").innerText = "运行中...";
+  document.getElementById("opt-latency").innerText = "运行中...";
+
+  const resp = await fetch("/api/query", {
+    method: "POST", headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({question: q, mode: mode})
+  });
+  const data = await resp.json();
+
+  // Baseline
+  if (data.baseline) {
+    showLatency("base", data.baseline.total_ms);
+    showStages("base", data.baseline.stages.stages || []);
+    document.getElementById("base-answer").innerText = data.baseline.answer;
+  }
+  // Optimized
+  if (data.optimized) {
+    showLatency("opt", data.optimized.total_ms);
+    showStages("opt", data.optimized.stages.stages || []);
+    document.getElementById("opt-answer").innerText = data.optimized.answer +
+      (data.optimized.cache_hit ? " ⚡[缓存命中]" : "");
+  }
+
+  // 提升
+  if (data.baseline && data.optimized) {
+    const b = data.baseline.total_ms, o = data.optimized.total_ms;
+    const imp = ((b - o) / b * 100).toFixed(1);
+    document.getElementById("improve-summary").innerHTML = `
+      <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+        <div style="text-align:center;"><div style="font-size:28px;font-weight:700;color:#ff9800">${b.toFixed(0)}</div><div style="font-size:12px;color:#666">基线 (ms)</div></div>
+        <div style="font-size:28px;color:#999">→</div>
+        <div style="text-align:center;"><div style="font-size:28px;font-weight:700;color:#4caf50">${o.toFixed(0)}</div><div style="font-size:12px;color:#666">优化后 (ms)</div></div>
+        <div style="text-align:center;"><div style="font-size:28px;font-weight:700;color:#2e7d32">↓ ${imp}%</div><div style="font-size:12px;color:#666">延迟降低</div></div>
+      </div>
+    `;
+    updateAcceptance(o);
+  }
+}
+
+function showLatency(prefix, ms) {
+  const el = document.getElementById(prefix + "-latency");
+  el.innerText = ms.toFixed(0);
+  const badge = document.getElementById(prefix + "-badge");
+  if (ms < 3000) {
+    badge.innerHTML = "✅ < 3000ms 验收通过";
+    badge.className = "acceptance-badge badge-pass";
+  } else {
+    badge.innerHTML = "❌ >= 3000ms 未通过";
+    badge.className = "acceptance-badge badge-fail";
+  }
+}
+
+function showStages(prefix, stages) {
+  const tbody = stages.map(s => {
+    const cls = prefix === "base" ? "base" : "opt";
+    return `<tr><td class="stage-name">${s.name}</td><td class="stage-bar-wrap"><div class="stage-bar ${cls}" style="width:${Math.min(s.elapsed_ms/30, 100)}%"></div></td><td class="stage-val">${s.elapsed_ms.toFixed(1)} ms</td></tr>`;
+  }).join("");
+  document.getElementById(prefix + "-stages").innerHTML = `<tbody>${tbody}</tbody>`;
+}
+
+function updateAcceptance(optMs) {
+  const bar = document.getElementById("acceptance-bar");
+  if (optMs < 3000) {
+    bar.classList.add("pass");
+    bar.innerHTML = `✅ 验收通过! 优化后 ${optMs.toFixed(0)}ms < 3000ms`;
+  } else {
+    bar.classList.remove("pass");
+    bar.innerHTML = `❌ 未通过: 优化后 ${optMs.toFixed(0)}ms >= 3000ms`;
+  }
+}
+
+async function loadMetrics() {
+  const resp = await fetch("/api/metrics");
+  const data = await resp.json();
+
+  document.getElementById("metrics-card").classList.remove("hidden");
+
+  // 瓶颈
+  const bn = data.bottlenecks || [];
+  if (bn.length === 0) {
+    document.getElementById("bottlenecks").innerHTML = `<div style="color:#2e7d32;padding:10px;">✅ 所有阶段都在阈值以内, 无明显瓶颈</div>`;
+  } else {
+    document.getElementById("bottlenecks").innerHTML = bn.map(b => `
+      <div class="bottleneck-card ${b.type === 'D' ? 'severe' : 'medium'}">
+        <b>${b.severity} 瓶颈 ${b.type}:</b> ${b.stage}
+        <span style="float:right;">平均 ${b.mean_ms.toFixed(0)}ms / 阈值 ${b.threshold_ms}ms</span><br>
+        优化建议: <code>${b.recommendation.join(", ")}</code>
+      </div>
+    `).join("");
+  }
+
+  // 汇总表
+  const rows = Object.entries(data.summary).map(([name, s]) => {
+    const n = name.replace("stage.", "");
+    return `<tr><td>${n}</td><td class="num">${s.count}</td><td class="num">${s.mean.toFixed(1)}</td><td class="num">${s.median.toFixed(1)}</td><td class="num">${s.max.toFixed(1)}</td></tr>`;
+  }).join("");
+  document.getElementById("metrics-table").innerHTML = `<thead><tr><th>指标</th><th class="num">count</th><th class="num">mean(ms)</th><th class="num">median(ms)</th><th class="num">max(ms)</th></tr></thead><tbody>${rows}</tbody>`;
+
+  // 验收条
+  const acc = data.acceptance;
+  const bar = document.getElementById("acceptance-bar");
+  if (acc.pass) {
+    bar.classList.add("pass");
+    bar.innerHTML = `✅ 验收通过! 优化后平均 ${acc.optimized_avg_ms.toFixed(0)}ms < 3000ms (↓${acc.improvement_pct}%)`;
+  } else if (acc.optimized_avg_ms === 0) {
+    bar.classList.remove("pass");
+    bar.innerHTML = `⚠️ 暂无数据, 请先运行对比测试`;
+  } else {
+    bar.classList.remove("pass");
+    bar.innerHTML = `❌ 未通过: ${acc.optimized_avg_ms.toFixed(0)}ms >= 3000ms`;
+  }
+}
+</script>
+</body>
+</html>
