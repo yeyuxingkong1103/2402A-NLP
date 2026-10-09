@@ -1,0 +1,185 @@
+{
+  "summary": {
+    "folder": "/root/autodl-tmp/rag_project/data/IMDR/documents",
+    "total_files": 7,
+    "pdf_files": 2,
+    "scan_pdf": 1,
+    "text_pdf": 1,
+    "mixed_pdf": 0
+  },
+  "format_distribution": {
+    "total": 7,
+    "distribution": {
+      ".md": {
+        "count": 3,
+        "ratio": 0.4286
+      },
+      ".txt": {
+        "count": 2,
+        "ratio": 0.2857
+      },
+      ".pdf": {
+        "count": 2,
+        "ratio": 0.2857
+      }
+    }
+  },
+  "pdf_classification": {
+    "/root/autodl-tmp/rag_project/data/IMDR/documents/f_scan.pdf": {
+      "type": "scan",
+      "pages": 1,
+      "scan_pages": 1,
+      "scan_ratio": 1.0,
+      "avg_chars": 0.0,
+      "need_confirm": false
+    },
+    "/root/autodl-tmp/rag_project/data/IMDR/documents/e_text.pdf": {
+      "type": "text",
+      "pages": 1,
+      "scan_pages": 0,
+      "scan_ratio": 0.0,
+      "avg_chars": 119.0,
+      "need_confirm": false
+    }
+  },
+  "length_distribution": {
+    "count": 7,
+    "min": 0,
+    "max": 119,
+    "mean": 33.43,
+    "quantiles": {
+      "P25": 12,
+      "P50": 14,
+      "P75": 61,
+      "P90": 130,
+      "P99": 172
+    },
+    "bins": [
+      {
+        "range": "0-500",
+        "count": 7
+      },
+      {
+        "range": "500-2000",
+        "count": 0
+      },
+      {
+        "range": "2000-10000",
+        "count": 0
+      },
+      {
+        "range": "10000-50000",
+        "count": 0
+      },
+      {
+        "range": "50000-100000",
+        "count": 0
+      },
+      {
+        "range": "100000-999999999",
+        "count": 0
+      }
+    ]
+  },
+  "duplicate_report": {
+    "md5": {
+      "duplicate_groups": 1,
+      "groups": [
+        {
+          "md5": "eb1871eb37ab9ffa4159d92a06bd273b",
+          "files": [
+            "/root/autodl-tmp/rag_project/data/IMDR/documents/a.md",
+            "/root/autodl-tmp/rag_project/data/IMDR/documents/a_copy.md"
+          ]
+        }
+      ]
+    },
+    "simhash": {
+      "enabled": true,
+      "pairs": [
+        {
+          "file_a": "/root/autodl-tmp/rag_project/data/IMDR/documents/a.md",
+          "file_b": "/root/autodl-tmp/rag_project/data/IMDR/documents/a_copy.md",
+          "hamming_distance": 0,
+          "status": "待确认"
+        }
+      ],
+      "count": 1
+    }
+  },
+  "sensitive_report": {
+    "total": 3,
+    "items": [
+      {
+        "file": "/root/autodl-tmp/rag_project/data/IMDR/documents/d_with_sensitive.txt",
+        "type": "phone",
+        "match": "13800138000",
+        "context": "联系人电话 13800138000，邮箱 test@example.com，身份证 11010",
+        "position": 6,
+        "status": "待审核"
+      },
+      {
+        "file": "/root/autodl-tmp/rag_project/data/IMDR/documents/d_with_sensitive.txt",
+        "type": "email",
+        "match": "test@example.com",
+        "context": "联系人电话 13800138000，邮箱 test@example.com，身份证 110101199001011234\n",
+        "position": 21,
+        "status": "待审核"
+      },
+      {
+        "file": "/root/autodl-tmp/rag_project/data/IMDR/documents/d_with_sensitive.txt",
+        "type": "id_card",
+        "match": "110101199001011234",
+        "context": "38000，邮箱 test@example.com，身份证 110101199001011234\n",
+        "position": 42,
+        "status": "待审核"
+      }
+    ]
+  },
+  "classification_labels": {
+    "/root/autodl-tmp/rag_project/data/IMDR/documents/a.md": "Clean_Markdown",
+    "/root/autodl-tmp/rag_project/data/IMDR/documents/a_copy.md": "Clean_Markdown",
+    "/root/autodl-tmp/rag_project/data/IMDR/documents/b.md": "Clean_Markdown",
+    "/root/autodl-tmp/rag_project/data/IMDR/documents/c.txt": "Clean_Markdown",
+    "/root/autodl-tmp/rag_project/data/IMDR/documents/d_with_sensitive.txt": "Clean_Markdown",
+    "/root/autodl-tmp/rag_project/data/IMDR/documents/e_text.pdf": "Clean_Markdown",
+    "/root/autodl-tmp/rag_project/data/IMDR/documents/f_scan.pdf": "Scan_PDF"
+  },
+  "to_confirm": {
+    "pdf_mixed": [],
+    "version_conflicts": [
+      {
+        "file_a": "/root/autodl-tmp/rag_project/data/IMDR/documents/a.md",
+        "file_b": "/root/autodl-tmp/rag_project/data/IMDR/documents/a_copy.md",
+        "hamming_distance": 0,
+        "status": "待确认"
+      }
+    ],
+    "sensitive_items": [
+      {
+        "file": "/root/autodl-tmp/rag_project/data/IMDR/documents/d_with_sensitive.txt",
+        "type": "phone",
+        "match": "13800138000",
+        "context": "联系人电话 13800138000，邮箱 test@example.com，身份证 11010",
+        "position": 6,
+        "status": "待审核"
+      },
+      {
+        "file": "/root/autodl-tmp/rag_project/data/IMDR/documents/d_with_sensitive.txt",
+        "type": "email",
+        "match": "test@example.com",
+        "context": "联系人电话 13800138000，邮箱 test@example.com，身份证 110101199001011234\n",
+        "position": 21,
+        "status": "待审核"
+      },
+      {
+        "file": "/root/autodl-tmp/rag_project/data/IMDR/documents/d_with_sensitive.txt",
+        "type": "id_card",
+        "match": "110101199001011234",
+        "context": "38000，邮箱 test@example.com，身份证 110101199001011234\n",
+        "position": 42,
+        "status": "待审核"
+      }
+    ]
+  }
+}
