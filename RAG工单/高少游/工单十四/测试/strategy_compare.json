@@ -1,0 +1,108 @@
+{
+  "workorder": "人工智能NLP-RAG-修复低质量工业PDF的解析与信息丢失工单",
+  "generated_at": "2026-10-09 11:56:18",
+  "results": [
+    {
+      "config": {
+        "strategy": "vector",
+        "embedding_model": "bge-m3",
+        "fulltext_mode": "auto",
+        "reranker": "linear",
+        "fusion": "rrf",
+        "vector_weight": 0.55,
+        "fulltext_weight": 0.45,
+        "recall_k": 150,
+        "top_k": 8,
+        "answer_top_k": 40,
+        "rerank_pool_k": 60,
+        "rrf_k": 60,
+        "fields": [
+          "title",
+          "body",
+          "abstract"
+        ],
+        "use_synonyms": true,
+        "use_llm_rewrite": false
+      },
+      "strategy": "vector",
+      "reranker": "linear",
+      "fusion": "rrf",
+      "embedding_model": "bge-m3",
+      "top_k": 8,
+      "n": 6,
+      "accuracy": 1.0,
+      "traceable": 1.0,
+      "latency_avg": 2.41,
+      "latency_p95": 3.045,
+      "latency_max": 3.045
+    },
+    {
+      "config": {
+        "strategy": "fulltext",
+        "embedding_model": "bge-m3",
+        "fulltext_mode": "auto",
+        "reranker": "linear",
+        "fusion": "rrf",
+        "vector_weight": 0.55,
+        "fulltext_weight": 0.45,
+        "recall_k": 150,
+        "top_k": 8,
+        "answer_top_k": 40,
+        "rerank_pool_k": 60,
+        "rrf_k": 60,
+        "fields": [
+          "title",
+          "body",
+          "abstract"
+        ],
+        "use_synonyms": true,
+        "use_llm_rewrite": false
+      },
+      "strategy": "fulltext",
+      "reranker": "linear",
+      "fusion": "rrf",
+      "embedding_model": "bge-m3",
+      "top_k": 8,
+      "n": 6,
+      "accuracy": 1.0,
+      "traceable": 1.0,
+      "latency_avg": 0.018,
+      "latency_p95": 0.026,
+      "latency_max": 0.026
+    },
+    {
+      "config": {
+        "strategy": "hybrid",
+        "embedding_model": "bge-m3",
+        "fulltext_mode": "auto",
+        "reranker": "linear",
+        "fusion": "rrf",
+        "vector_weight": 0.55,
+        "fulltext_weight": 0.45,
+        "recall_k": 150,
+        "top_k": 8,
+        "answer_top_k": 40,
+        "rerank_pool_k": 60,
+        "rrf_k": 60,
+        "fields": [
+          "title",
+          "body",
+          "abstract"
+        ],
+        "use_synonyms": true,
+        "use_llm_rewrite": false
+      },
+      "strategy": "hybrid",
+      "reranker": "linear",
+      "fusion": "rrf",
+      "embedding_model": "bge-m3",
+      "top_k": 8,
+      "n": 6,
+      "accuracy": 1.0,
+      "traceable": 1.0,
+      "latency_avg": 0.021,
+      "latency_p95": 0.027,
+      "latency_max": 0.027
+    }
+  ]
+}

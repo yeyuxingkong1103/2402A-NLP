@@ -1,0 +1,9 @@
+apiVersion: 1
+# 工单编号: 人工智能 NLP-RAG-解决API服务并发瓶颈与资源泄漏
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: false

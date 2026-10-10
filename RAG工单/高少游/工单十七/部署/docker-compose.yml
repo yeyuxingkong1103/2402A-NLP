@@ -1,0 +1,104 @@
+# 工单编号: 人工智能 NLP-RAG-解决API服务并发瓶颈与资源泄漏
+#
+# RAGFlow 生产拓扑（本工单等价实现）：
+#   api-server   —— 优化版 API 服务（api.app_optimized:app），无状态、可水平扩展
+#   task-executor—— 文档解析 worker 池（service.executor 独立进程模式）
+#   redis        —— 任务队列（API 入队 / Executor 消费，跨进程解耦）
+#   prometheus   —— 指标抓取（/metrics）
+#   grafana      —— 监控面板（优化前后资源曲线对比，用于演示视频）
+#
+# 工单备注 2：配置合理的资源限制（--memory / --cpus）以模拟生产约束并提前暴露问题。
+#
+# 启动： docker compose up -d --build
+# 访问： API http://localhost:9380  · Prometheus http://localhost:9090 · Grafana http://localhost:3000
+version: "3.9"
+
+x-rag-common: &rag-common
+  build:
+    context: ..
+    dockerfile: 部署/Dockerfile
+  environment: &rag-env
+    REDIS_URL: redis://redis:6379/0
+    QUEUE_BACKEND: auto
+    OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+    EMBEDDING_MODEL_SLUG: ${EMBEDDING_MODEL_SLUG:-bge-m3}
+    # ---- 优化参数（工单任务三）----
+    QUERY_CONCURRENCY: "8"      # 检索+生成并发信号量
+    PARSE_CONCURRENCY: "2"      # 文档解析并发上限
+    SESSION_MAX: "512"          # 会话缓存容量（有界 LRU）
+    SESSION_TTL: "1800"         # 会话 TTL（秒）
+    HTTP_POOL_CONNECTIONS: "32" # 连接池常驻连接
+    HTTP_POOL_MAXSIZE: "64"     # 连接池最大连接
+    EMBED_CACHE_MAX: "2048"     # 查询编码 LRU 缓存
+  volumes:
+    - ../vector_db:/app/vector_db:ro
+    - ../data:/app/data:ro
+  depends_on:
+    redis:
+      condition: service_healthy
+  restart: unless-stopped
+
+services:
+  api-server:
+    <<: *rag-common
+    container_name: rag-api-server
+    command: ["uvicorn", "api.app_optimized:app", "--host", "0.0.0.0",
+              "--port", "9380", "--workers", "1"]
+    ports:
+      - "9380:9380"
+    # 工单备注 2：容器资源限制，复现/规避 OOM
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 4g
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:9380/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  task-executor:
+    <<: *rag-common
+    container_name: rag-task-executor
+    command: ["python", "-m", "service.executor"]
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 4g
+
+  redis:
+    image: redis:7-alpine
+    container_name: rag-redis
+    command: ["redis-server", "--appendonly", "no", "--maxmemory", "512mb",
+              "--maxmemory-policy", "noeviction"]
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  prometheus:
+    image: prom/prometheus:v2.53.0
+    container_name: rag-prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:11.1.0
+    container_name: rag-grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/rag_dashboard.json:/var/lib/grafana/dashboards/rag_dashboard.json:ro
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus

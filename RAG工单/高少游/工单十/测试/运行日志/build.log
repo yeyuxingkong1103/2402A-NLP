@@ -1,0 +1,253 @@
+﻿docker : #0 building with "desktop-linux" instance using docker driver
+At line:15 char:1614
++ ... TS="false"; docker build --progress=plain -t finqa:1.0 . 2>&1 | Tee-O ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (#0 building wit...g docker driver:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 3.49kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.10-slim
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 339B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 DONE 0.0s
+
+#5 [ 1/12] FROM docker.io/library/python:3.10-slim@sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e
+31d
+#5 resolve docker.io/library/python:3.10-slim@sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d 0
+.0s done
+#5 DONE 0.0s
+
+#6 [ 2/12] WORKDIR /app
+#6 CACHED
+
+#4 [internal] load build context
+#4 transferring context: 4.63kB done
+#4 DONE 0.0s
+
+#7 [ 3/12] COPY requirements.docker.txt /app/requirements.docker.txt
+#7 DONE 0.0s
+
+#8 [ 4/12] RUN python -m pip install --upgrade pip  && pip install -r /app/requirements.docker.txt
+#8 2.048 Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+#8 2.048 Requirement already satisfied: pip in /usr/local/lib/python3.10/site-packages (23.0.1)
+#8 4.286 Collecting pip
+#8 4.649   Downloading https://pypi.tuna.tsinghua.edu.cn/packages/f3/6e/1736e5b4ae2b778ef2f81c47d797de9f891d4d8acb047a2
+4ca37a60294dd/pip-26.2.1-py3-none-any.whl (1.8 MB)
+#8 10.15      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 328.6 kB/s eta 0:00:00
+#8 10.21 Installing collected packages: pip
+#8 10.21   Attempting uninstall: pip
+#8 10.22     Found existing installation: pip 23.0.1
+#8 10.41     Uninstalling pip-23.0.1:
+#8 10.74       Successfully uninstalled pip-23.0.1
+#8 11.71 Successfully installed pip-26.2.1
+#8 11.71 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the sy
+stem package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+#8 16.00 Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+#8 16.87 Collecting rank-bm25==0.2.2 (from -r /app/requirements.docker.txt (line 12))
+#8 17.25   Downloading rank_bm25-0.2.2-py3-none-any.whl (8.6 kB)
+#8 17.63 Collecting jieba==0.42.1 (from -r /app/requirements.docker.txt (line 13))
+#8 18.05   Downloading jieba-0.42.1.tar.gz (19.2 MB)
+#8 71.02      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 19.2/19.2 MB 322.1 kB/s  0:00:52
+#8 71.61   Installing build dependencies: started
+#8 80.27   Installing build dependencies: finished with status 'done'
+#8 80.27   Getting requirements to build wheel: started
+#8 80.94   Getting requirements to build wheel: finished with status 'done'
+#8 80.94   Preparing metadata (pyproject.toml): started
+#8 81.72   Preparing metadata (pyproject.toml): finished with status 'done'
+#8 85.98 Collecting numpy==2.2.6 (from -r /app/requirements.docker.txt (line 14))
+#8 86.38   Downloading numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.8 MB)
+#8 115.0      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.8/16.8 MB 586.5 kB/s  0:00:28
+#8 115.4 Collecting pdfplumber==0.11.9 (from -r /app/requirements.docker.txt (line 17))
+#8 115.8   Downloading pdfplumber-0.11.9-py3-none-any.whl (60 kB)
+#8 118.0 Collecting pypdfium2==5.7.0 (from -r /app/requirements.docker.txt (line 18))
+#8 118.4   Downloading pypdfium2-5.7.0-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.6 MB)
+#8 129.0      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.6/3.6 MB 339.8 kB/s  0:00:10
+#8 132.3 Collecting pymupdf==1.28.2 (from -r /app/requirements.docker.txt (line 19))
+#8 132.7   Downloading pymupdf-1.28.2-cp310-abi3-manylinux_2_28_x86_64.whl (25.8 MB)
+#8 195.4      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 25.8/25.8 MB 379.1 kB/s  0:01:02
+#8 196.1 Collecting streamlit==1.65.0 (from -r /app/requirements.docker.txt (line 22))
+#8 196.3   Downloading streamlit-1.65.0-py3-none-any.whl (10.3 MB)
+#8 221.1      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.3/10.3 MB 415.3 kB/s  0:00:24
+#8 221.5 Collecting requests==2.33.1 (from -r /app/requirements.docker.txt (line 25))
+#8 221.8   Downloading requests-2.33.1-py3-none-any.whl (64 kB)
+#8 222.2 Collecting python-dotenv==1.2.2 (from -r /app/requirements.docker.txt (line 26))
+#8 222.5   Downloading python_dotenv-1.2.2-py3-none-any.whl (22 kB)
+#8 222.8 Collecting tzdata (from -r /app/requirements.docker.txt (line 29))
+#8 223.0   Downloading tzdata-2026.5-py2.py3-none-any.whl (347 kB)
+#8 224.1 Collecting pdfminer.six==20251230 (from pdfplumber==0.11.9->-r /app/requirements.docker.txt (line 17))
+#8 224.3   Downloading pdfminer_six-20251230-py3-none-any.whl (6.6 MB)
+#8 244.4      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.6/6.6 MB 325.1 kB/s  0:00:20
+#8 250.4 Collecting Pillow>=9.1 (from pdfplumber==0.11.9->-r /app/requirements.docker.txt (line 17))
+#8 250.7   Downloading pillow-12.3.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.9 MB)
+#8 271.6      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.9/6.9 MB 331.9 kB/s  0:00:20
+#8 272.0 Collecting altair!=5.4.0,!=5.4.1,<7,>=5.0.0 (from streamlit==1.65.0->-r /app/requirements.docker.txt (line 22)
+)
+#8 272.3   Downloading altair-6.2.2-py3-none-any.whl (797 kB)
+#8 274.6      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 797.6/797.6 kB 349.7 kB/s  0:00:02
+#8 275.1 Collecting click<9,>=7.0 (from streamlit==1.65.0->-r /app/requirements.docker.txt (line 22))
+#8 275.4   Downloading click-8.5.0-py3-none-any.whl (125 kB)
+#8 275.7 Requirement already satisfied: packaging>=20 in /usr/local/lib/python3.10/site-packages (from streamlit==1.65.
+0->-r /app/requirements.docker.txt (line 22)) (26.3)
+#8 279.5 Collecting pandas<4,>=1.4.0 (from streamlit==1.65.0->-r /app/requirements.docker.txt (line 22))
+#8 279.8   Downloading pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.8 MB)
+#8 324.8      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.8/12.8 MB 275.0 kB/s  0:00:45
+#8 325.3 Collecting pydeck<1,>=0.8.0b4 (from streamlit==1.65.0->-r /app/requirements.docker.txt (line 22))
+#8 325.6   Downloading pydeck-0.9.3-py2.py3-none-any.whl (11.4 MB)
+#8 366.6      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.4/11.4 MB 265.1 kB/s  0:00:40
+#8 370.1 Collecting protobuf<8,>=5.26.1 (from streamlit==1.65.0->-r /app/requirements.docker.txt (line 22))
+#8 370.4   Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl (343 kB)
+#8 373.8 Collecting pyarrow!=25.0.0,<26,>=7.0 (from streamlit==1.65.0->-r /app/requirements.docker.txt (line 22))
+#8 374.1   Downloading pyarrow-25.0.1-cp310-cp310-manylinux_2_28_x86_64.whl (50.1 MB)
+#8 512.8      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50.1/50.1 MB 310.3 kB/s  0:02:18
+#8 513.2 Collecting toml<2,>=0.10.1 (from streamlit==1.65.0->-r /app/requirements.docker.txt (line 22))
+#8 513.5   Downloading toml-0.10.2-py2.py3-none-any.whl (16 kB)
+#8 514.0 Collecting typing-extensions<5,>=4.10.0 (from streamlit==1.65.0->-r /app/requirements.docker.txt (line 22))
+#8 514.4   Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+#8 515.2 Collecting starlette<2,>=0.46.0 (from streamlit==1.65.0->-r /app/requirements.docker.txt (line 22))
+#8 515.5   Downloading starlette-1.7.0-py3-none-any.whl (78 kB)
+#8 516.3 Collecting uvicorn<1,>=0.30.0 (from streamlit==1.65.0->-r /app/requirements.docker.txt (line 22))
+#8 516.6   Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+#8 517.8 Collecting httptools<1,>=0.6.3 (from streamlit==1.65.0->-r /app/requirements.docker.txt (line 22))
+#8 518.1   Downloading httptools-0.8.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (45
+0 kB)
+#8 519.9 Collecting anyio<5,>=4.0.0 (from streamlit==1.65.0->-r /app/requirements.docker.txt (line 22))
+#8 520.2   Downloading anyio-4.15.1-py3-none-any.whl (132 kB)
+#8 521.0 Collecting python-multipart<1,>=0.0.10 (from streamlit==1.65.0->-r /app/requirements.docker.txt (line 22))
+#8 521.3   Downloading python_multipart-0.0.32-py3-none-any.whl (30 kB)
+#8 525.1 Collecting websockets<18,>=12.0.0 (from streamlit==1.65.0->-r /app/requirements.docker.txt (line 22))
+#8 525.4   Downloading websockets-16.1.1-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (
+186 kB)
+#8 526.9 Collecting itsdangerous<3,>=2.1.2 (from streamlit==1.65.0->-r /app/requirements.docker.txt (line 22))
+#8 527.2   Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+#8 528.4 Collecting watchdog<7,>=2.1.5 (from streamlit==1.65.0->-r /app/requirements.docker.txt (line 22))
+#8 528.7   Downloading watchdog-6.0.0-py3-none-manylinux2014_x86_64.whl (79 kB)
+#8 532.3 Collecting charset_normalizer<4,>=2 (from requests==2.33.1->-r /app/requirements.docker.txt (line 25))
+#8 532.7   Downloading charset_normalizer-3.5.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x
+86_64.whl (271 kB)
+#8 533.7 Collecting idna<4,>=2.5 (from requests==2.33.1->-r /app/requirements.docker.txt (line 25))
+#8 534.0   Downloading idna-3.20-py3-none-any.whl (69 kB)
+#8 534.6 Collecting urllib3<3,>=1.26 (from requests==2.33.1->-r /app/requirements.docker.txt (line 25))
+#8 534.9   Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+#8 535.7 Collecting certifi>=2023.5.7 (from requests==2.33.1->-r /app/requirements.docker.txt (line 25))
+#8 536.0   Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+#8 540.1 Collecting cryptography>=36.0.0 (from pdfminer.six==20251230->pdfplumber==0.11.9->-r /app/requirements.docker.
+txt (line 17))
+#8 540.4   Downloading cryptography-50.0.2-cp39-abi3-manylinux_2_34_x86_64.whl (4.8 MB)
+#8 551.4      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.8/4.8 MB 429.3 kB/s  0:00:11
+#8 551.8 Collecting jinja2 (from altair!=5.4.0,!=5.4.1,<7,>=5.0.0->streamlit==1.65.0->-r /app/requirements.docker.txt (
+line 22))
+#8 552.1   Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+#8 552.6 Collecting jsonschema>=3.0 (from altair!=5.4.0,!=5.4.1,<7,>=5.0.0->streamlit==1.65.0->-r /app/requirements.doc
+ker.txt (line 22))
+#8 552.9   Downloading jsonschema-4.26.0-py3-none-any.whl (90 kB)
+#8 553.4 Collecting narwhals>=2.4.0 (from altair!=5.4.0,!=5.4.1,<7,>=5.0.0->streamlit==1.65.0->-r /app/requirements.doc
+ker.txt (line 22))
+#8 553.7   Downloading narwhals-2.26.0-py3-none-any.whl (474 kB)
+#8 554.4 Collecting exceptiongroup>=1.0.2 (from anyio<5,>=4.0.0->streamlit==1.65.0->-r /app/requirements.docker.txt (li
+ne 22))
+#8 554.7   Downloading exceptiongroup-1.3.1-py3-none-any.whl (16 kB)
+#8 555.1 Collecting python-dateutil>=2.8.2 (from pandas<4,>=1.4.0->streamlit==1.65.0->-r /app/requirements.docker.txt (
+line 22))
+#8 555.4   Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+#8 556.2 Collecting pytz>=2020.1 (from pandas<4,>=1.4.0->streamlit==1.65.0->-r /app/requirements.docker.txt (line 22))
+#8 556.5   Downloading pytz-2026.5-py2.py3-none-any.whl (506 kB)
+#8 557.9 Collecting h11>=0.8 (from uvicorn<1,>=0.30.0->streamlit==1.65.0->-r /app/requirements.docker.txt (line 22))
+#8 558.2   Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+#8 559.5 Collecting cffi>=2.0.0 (from cryptography>=36.0.0->pdfminer.six==20251230->pdfplumber==0.11.9->-r /app/require
+ments.docker.txt (line 17))
+#8 559.8   Downloading cffi-2.1.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (218 kB)
+#8 560.3 Collecting pycparser (from cffi>=2.0.0->cryptography>=36.0.0->pdfminer.six==20251230->pdfplumber==0.11.9->-r /
+app/requirements.docker.txt (line 17))
+#8 560.6   Downloading pycparser-3.0-py3-none-any.whl (48 kB)
+#8 561.5 Collecting MarkupSafe>=2.0 (from jinja2->altair!=5.4.0,!=5.4.1,<7,>=5.0.0->streamlit==1.65.0->-r /app/requirem
+ents.docker.txt (line 22))
+#8 561.8   Downloading markupsafe-3.0.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.wh
+l (20 kB)
+#8 562.3 Collecting attrs>=22.2.0 (from jsonschema>=3.0->altair!=5.4.0,!=5.4.1,<7,>=5.0.0->streamlit==1.65.0->-r /app/r
+equirements.docker.txt (line 22))
+#8 562.7   Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+#8 563.2 Collecting jsonschema-specifications>=2023.03.6 (from jsonschema>=3.0->altair!=5.4.0,!=5.4.1,<7,>=5.0.0->strea
+mlit==1.65.0->-r /app/requirements.docker.txt (line 22))
+#8 563.5   Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+#8 564.0 Collecting referencing>=0.28.4 (from jsonschema>=3.0->altair!=5.4.0,!=5.4.1,<7,>=5.0.0->streamlit==1.65.0->-r 
+/app/requirements.docker.txt (line 22))
+#8 564.3   Downloading referencing-0.37.0-py3-none-any.whl (26 kB)
+#8 567.8 Collecting rpds-py>=0.25.0 (from jsonschema>=3.0->altair!=5.4.0,!=5.4.1,<7,>=5.0.0->streamlit==1.65.0->-r /app
+/requirements.docker.txt (line 22))
+#8 568.0   Downloading rpds_py-0.30.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (390 kB)
+#8 569.5 Collecting six>=1.5 (from python-dateutil>=2.8.2->pandas<4,>=1.4.0->streamlit==1.65.0->-r /app/requirements.do
+cker.txt (line 22))
+#8 569.7   Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+#8 569.7 Building wheels for collected packages: jieba
+#8 569.7   Building wheel for jieba (pyproject.toml): started
+#8 572.3   Building wheel for jieba (pyproject.toml): finished with status 'done'
+#8 572.3   Created wheel for jieba: filename=jieba-0.42.1-py3-none-any.whl size=19314509 sha256=f28c607375c28611af7fb9b
+86d929e2bb0878b1c1bff560427715d57610ee1d0
+#8 572.3   Stored in directory: /tmp/pip-ephem-wheel-cache-mmox54du/wheels/b2/9b/80/7537177f75993c29af08e0d00c753724c7f
+06c646352be50a3
+#8 572.3 Successfully built jieba
+#8 572.5 Installing collected packages: pytz, jieba, websockets, watchdog, urllib3, tzdata, typing-extensions, toml, si
+x, rpds-py, python-multipart, python-dotenv, pypdfium2, pymupdf, pycparser, pyarrow, protobuf, Pillow, numpy, narwhals,
+ MarkupSafe, itsdangerous, idna, httptools, h11, click, charset_normalizer, certifi, attrs, uvicorn, requests, referenc
+ing, rank-bm25, python-dateutil, jinja2, exceptiongroup, cffi, pydeck, pandas, jsonschema-specifications, cryptography,
+ anyio, starlette, pdfminer.six, jsonschema, pdfplumber, altair, streamlit
+#8 587.5 
+#8 587.5 Successfully installed MarkupSafe-3.0.4 Pillow-12.3.0 altair-6.2.2 anyio-4.15.1 attrs-26.1.0 certifi-2026.7.22
+ cffi-2.1.1 charset_normalizer-3.5.2 click-8.5.0 cryptography-50.0.2 exceptiongroup-1.3.1 h11-0.16.0 httptools-0.8.0 id
+na-3.20 itsdangerous-2.2.0 jieba-0.42.1 jinja2-3.1.6 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 narwhals-2.26
+.0 numpy-2.2.6 pandas-2.3.3 pdfminer.six-20251230 pdfplumber-0.11.9 protobuf-7.36.2 pyarrow-25.0.1 pycparser-3.0 pydeck
+-0.9.3 pymupdf-1.28.2 pypdfium2-5.7.0 python-dateutil-2.9.0.post0 python-dotenv-1.2.2 python-multipart-0.0.32 pytz-2026
+.5 rank-bm25-0.2.2 referencing-0.37.0 requests-2.33.1 rpds-py-0.30.0 six-1.17.0 starlette-1.7.0 streamlit-1.65.0 toml-0
+.10.2 typing-extensions-4.16.0 tzdata-2026.5 urllib3-2.8.0 uvicorn-0.54.0 watchdog-6.0.0 websockets-16.1.1
+#8 587.5 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the sy
+stem package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: 
+https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppres
+s this warning.
+#8 DONE 588.3s
+
+#9 [ 5/12] COPY src/ /app/src/
+#9 DONE 0.2s
+
+#10 [ 6/12] COPY app.py build_kb.py run_demo.py evaluate_ccf.py /app/
+#10 DONE 0.1s
+
+#11 [ 7/12] COPY tools/ /app/tools/
+#11 DONE 0.0s
+
+#12 [ 8/12] COPY deploy/ /app/deploy/
+#12 DONE 0.0s
+
+#13 [ 9/12] COPY data/ /app/data/
+#13 DONE 0.2s
+
+#14 [10/12] COPY vector_db/ /app/vector_db/
+#14 DONE 0.4s
+
+#15 [11/12] COPY .env /app/.env
+#15 DONE 0.0s
+
+#16 [12/12] RUN useradd -m -u 1000 appuser  && mkdir -p /app/output  && chown -R appuser:appuser /app
+#16 DONE 0.7s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 20.4s done
+#17 exporting manifest sha256:e7ffa48316dbb5fa843e4074da6bf230ff2544cf638cc9054a1d8d350f03b353 0.0s done
+#17 exporting config sha256:b7b804d1b7a2c7bfc0381018f02e6ebed4de6c66831d21b02dd152f9bcb159be 0.0s done
+#17 exporting attestation manifest sha256:88fb280f3e1b832cc2f49194a2007044b3f47176ba7dc393df647296bb94449f 0.0s done
+#17 exporting manifest list sha256:bca1862bc263b94e4150366787ec8fe6d5a256688e40f98ca581e6b056c68187 0.0s done
+#17 naming to docker.io/library/finqa:1.0 done
+#17 unpacking to docker.io/library/finqa:1.0
+#17 unpacking to docker.io/library/finqa:1.0 7.3s done
+#17 DONE 27.9s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/dikwtexgp5460wu4pnkmh4pxo

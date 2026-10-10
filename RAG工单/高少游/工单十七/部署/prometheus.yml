@@ -1,0 +1,23 @@
+# 工单编号: 人工智能 NLP-RAG-解决API服务并发瓶颈与资源泄漏
+# Prometheus 抓取配置：采集优化版 API 的 /metrics（QPS / 延迟直方图 / 内存 / 队列深度）
+global:
+  scrape_interval: 5s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: rag-api-server
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["api-server:9380"]
+        labels:
+          service: rag-api
+          variant: optimized
+
+  # 若同时运行基线服务用于对比，可追加（宿主机端口 8000）
+  - job_name: rag-api-baseline
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["host.docker.internal:8000"]
+        labels:
+          service: rag-api
+          variant: baseline

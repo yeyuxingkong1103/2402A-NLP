@@ -1,0 +1,741 @@
+{
+  "workorder": "人工智能 NLP-RAG-功能测试及评估",
+  "generated_at": "2026-10-08 11:30:43",
+  "by_type": {
+    "list": {
+      "n": 2,
+      "correct": 1,
+      "recall_hit": 2,
+      "chunk_recall": 0.6666,
+      "accuracy": 0.5,
+      "recall": 1.0
+    },
+    "analysis": {
+      "n": 1,
+      "correct": 1,
+      "recall_hit": 1,
+      "chunk_recall": 0.1176,
+      "accuracy": 1.0,
+      "recall": 1.0
+    },
+    "amount": {
+      "n": 5,
+      "correct": 5,
+      "recall_hit": 4,
+      "chunk_recall": 0.58,
+      "accuracy": 1.0,
+      "recall": 0.8
+    },
+    "ratio": {
+      "n": 1,
+      "correct": 1,
+      "recall_hit": 1,
+      "chunk_recall": 0.5,
+      "accuracy": 1.0,
+      "recall": 1.0
+    },
+    "fact": {
+      "n": 1,
+      "correct": 1,
+      "recall_hit": 1,
+      "chunk_recall": 1.0,
+      "accuracy": 1.0,
+      "recall": 1.0
+    }
+  },
+  "results": [
+    {
+      "config": {
+        "strategy": "vector",
+        "embedding_model": "bge-m3",
+        "fulltext_mode": "auto",
+        "reranker": "none",
+        "fusion": "rrf",
+        "vector_weight": 0.5,
+        "fulltext_weight": 0.5,
+        "recall_k": 150,
+        "top_k": 8,
+        "answer_top_k": 40,
+        "rerank_pool_k": 120,
+        "rrf_k": 60,
+        "fields": [
+          "title",
+          "body",
+          "abstract"
+        ],
+        "use_synonyms": true,
+        "use_llm_rewrite": false
+      },
+      "strategy": "vector",
+      "reranker": "none",
+      "fusion": "rrf",
+      "embedding_model": "bge-m3",
+      "top_k": 8,
+      "n": 10,
+      "accuracy": 0.8,
+      "recall": 0.7,
+      "chunk_recall": 0.3783,
+      "latency_avg": 2.201,
+      "latency_p95": 2.385,
+      "latency_max": 2.385,
+      "by_type": {
+        "list": {
+          "n": 2,
+          "correct": 0,
+          "recall_hit": 2,
+          "chunk_recall": 0.6666,
+          "accuracy": 0.0,
+          "recall": 1.0
+        },
+        "analysis": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 0,
+          "chunk_recall": 0.0,
+          "accuracy": 1.0,
+          "recall": 0.0
+        },
+        "amount": {
+          "n": 5,
+          "correct": 5,
+          "recall_hit": 3,
+          "chunk_recall": 0.24,
+          "accuracy": 1.0,
+          "recall": 0.6
+        },
+        "ratio": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 0.25,
+          "accuracy": 1.0,
+          "recall": 1.0
+        },
+        "fact": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 1.0,
+          "accuracy": 1.0,
+          "recall": 1.0
+        }
+      }
+    },
+    {
+      "config": {
+        "strategy": "vector",
+        "embedding_model": "bge-m3",
+        "fulltext_mode": "auto",
+        "reranker": "tfidf",
+        "fusion": "rrf",
+        "vector_weight": 0.5,
+        "fulltext_weight": 0.5,
+        "recall_k": 150,
+        "top_k": 8,
+        "answer_top_k": 40,
+        "rerank_pool_k": 120,
+        "rrf_k": 60,
+        "fields": [
+          "title",
+          "body",
+          "abstract"
+        ],
+        "use_synonyms": true,
+        "use_llm_rewrite": false
+      },
+      "strategy": "vector",
+      "reranker": "tfidf",
+      "fusion": "rrf",
+      "embedding_model": "bge-m3",
+      "top_k": 8,
+      "n": 10,
+      "accuracy": 0.8,
+      "recall": 0.6,
+      "chunk_recall": 0.3576,
+      "latency_avg": 0.235,
+      "latency_p95": 0.283,
+      "latency_max": 0.283,
+      "by_type": {
+        "list": {
+          "n": 2,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 0.5,
+          "accuracy": 0.5,
+          "recall": 0.5
+        },
+        "analysis": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 0.1765,
+          "accuracy": 1.0,
+          "recall": 1.0
+        },
+        "amount": {
+          "n": 5,
+          "correct": 4,
+          "recall_hit": 2,
+          "chunk_recall": 0.18,
+          "accuracy": 0.8,
+          "recall": 0.4
+        },
+        "ratio": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 0.5,
+          "accuracy": 1.0,
+          "recall": 1.0
+        },
+        "fact": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 1.0,
+          "accuracy": 1.0,
+          "recall": 1.0
+        }
+      }
+    },
+    {
+      "config": {
+        "strategy": "vector",
+        "embedding_model": "bge-m3",
+        "fulltext_mode": "auto",
+        "reranker": "linear",
+        "fusion": "rrf",
+        "vector_weight": 0.5,
+        "fulltext_weight": 0.5,
+        "recall_k": 150,
+        "top_k": 8,
+        "answer_top_k": 40,
+        "rerank_pool_k": 120,
+        "rrf_k": 60,
+        "fields": [
+          "title",
+          "body",
+          "abstract"
+        ],
+        "use_synonyms": true,
+        "use_llm_rewrite": false
+      },
+      "strategy": "vector",
+      "reranker": "linear",
+      "fusion": "rrf",
+      "embedding_model": "bge-m3",
+      "top_k": 8,
+      "n": 10,
+      "accuracy": 0.9,
+      "recall": 0.8,
+      "chunk_recall": 0.5533,
+      "latency_avg": 0.038,
+      "latency_p95": 0.048,
+      "latency_max": 0.048,
+      "by_type": {
+        "list": {
+          "n": 2,
+          "correct": 1,
+          "recall_hit": 2,
+          "chunk_recall": 0.6666,
+          "accuracy": 0.5,
+          "recall": 1.0
+        },
+        "analysis": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 0,
+          "chunk_recall": 0.0,
+          "accuracy": 1.0,
+          "recall": 0.0
+        },
+        "amount": {
+          "n": 5,
+          "correct": 5,
+          "recall_hit": 4,
+          "chunk_recall": 0.54,
+          "accuracy": 1.0,
+          "recall": 0.8
+        },
+        "ratio": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 0.5,
+          "accuracy": 1.0,
+          "recall": 1.0
+        },
+        "fact": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 1.0,
+          "accuracy": 1.0,
+          "recall": 1.0
+        }
+      }
+    },
+    {
+      "config": {
+        "strategy": "fulltext",
+        "embedding_model": "bge-m3",
+        "fulltext_mode": "auto",
+        "reranker": "none",
+        "fusion": "rrf",
+        "vector_weight": 0.5,
+        "fulltext_weight": 0.5,
+        "recall_k": 150,
+        "top_k": 8,
+        "answer_top_k": 40,
+        "rerank_pool_k": 120,
+        "rrf_k": 60,
+        "fields": [
+          "title",
+          "body",
+          "abstract"
+        ],
+        "use_synonyms": true,
+        "use_llm_rewrite": false
+      },
+      "strategy": "fulltext",
+      "reranker": "none",
+      "fusion": "rrf",
+      "embedding_model": "bge-m3",
+      "top_k": 8,
+      "n": 10,
+      "accuracy": 0.7,
+      "recall": 0.6,
+      "chunk_recall": 0.3518,
+      "latency_avg": 0.062,
+      "latency_p95": 0.073,
+      "latency_max": 0.073,
+      "by_type": {
+        "list": {
+          "n": 2,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 0.5,
+          "accuracy": 0.5,
+          "recall": 0.5
+        },
+        "analysis": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 0.1176,
+          "accuracy": 1.0,
+          "recall": 1.0
+        },
+        "amount": {
+          "n": 5,
+          "correct": 4,
+          "recall_hit": 2,
+          "chunk_recall": 0.18,
+          "accuracy": 0.8,
+          "recall": 0.4
+        },
+        "ratio": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 0.5,
+          "accuracy": 1.0,
+          "recall": 1.0
+        },
+        "fact": {
+          "n": 1,
+          "correct": 0,
+          "recall_hit": 1,
+          "chunk_recall": 1.0,
+          "accuracy": 0.0,
+          "recall": 1.0
+        }
+      }
+    },
+    {
+      "config": {
+        "strategy": "fulltext",
+        "embedding_model": "bge-m3",
+        "fulltext_mode": "auto",
+        "reranker": "tfidf",
+        "fusion": "rrf",
+        "vector_weight": 0.5,
+        "fulltext_weight": 0.5,
+        "recall_k": 150,
+        "top_k": 8,
+        "answer_top_k": 40,
+        "rerank_pool_k": 120,
+        "rrf_k": 60,
+        "fields": [
+          "title",
+          "body",
+          "abstract"
+        ],
+        "use_synonyms": true,
+        "use_llm_rewrite": false
+      },
+      "strategy": "fulltext",
+      "reranker": "tfidf",
+      "fusion": "rrf",
+      "embedding_model": "bge-m3",
+      "top_k": 8,
+      "n": 10,
+      "accuracy": 0.8,
+      "recall": 0.6,
+      "chunk_recall": 0.3818,
+      "latency_avg": 0.238,
+      "latency_p95": 0.274,
+      "latency_max": 0.274,
+      "by_type": {
+        "list": {
+          "n": 2,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 0.5,
+          "accuracy": 0.5,
+          "recall": 0.5
+        },
+        "analysis": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 0.1176,
+          "accuracy": 1.0,
+          "recall": 1.0
+        },
+        "amount": {
+          "n": 5,
+          "correct": 4,
+          "recall_hit": 2,
+          "chunk_recall": 0.14,
+          "accuracy": 0.8,
+          "recall": 0.4
+        },
+        "ratio": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 1.0,
+          "accuracy": 1.0,
+          "recall": 1.0
+        },
+        "fact": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 1.0,
+          "accuracy": 1.0,
+          "recall": 1.0
+        }
+      }
+    },
+    {
+      "config": {
+        "strategy": "fulltext",
+        "embedding_model": "bge-m3",
+        "fulltext_mode": "auto",
+        "reranker": "linear",
+        "fusion": "rrf",
+        "vector_weight": 0.5,
+        "fulltext_weight": 0.5,
+        "recall_k": 150,
+        "top_k": 8,
+        "answer_top_k": 40,
+        "rerank_pool_k": 120,
+        "rrf_k": 60,
+        "fields": [
+          "title",
+          "body",
+          "abstract"
+        ],
+        "use_synonyms": true,
+        "use_llm_rewrite": false
+      },
+      "strategy": "fulltext",
+      "reranker": "linear",
+      "fusion": "rrf",
+      "embedding_model": "bge-m3",
+      "top_k": 8,
+      "n": 10,
+      "accuracy": 0.8,
+      "recall": 0.8,
+      "chunk_recall": 0.5959,
+      "latency_avg": 0.067,
+      "latency_p95": 0.084,
+      "latency_max": 0.084,
+      "by_type": {
+        "list": {
+          "n": 2,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 0.5,
+          "accuracy": 0.5,
+          "recall": 0.5
+        },
+        "analysis": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 0.0588,
+          "accuracy": 1.0,
+          "recall": 1.0
+        },
+        "amount": {
+          "n": 5,
+          "correct": 4,
+          "recall_hit": 4,
+          "chunk_recall": 0.58,
+          "accuracy": 0.8,
+          "recall": 0.8
+        },
+        "ratio": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 1.0,
+          "accuracy": 1.0,
+          "recall": 1.0
+        },
+        "fact": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 1.0,
+          "accuracy": 1.0,
+          "recall": 1.0
+        }
+      }
+    },
+    {
+      "config": {
+        "strategy": "hybrid",
+        "embedding_model": "bge-m3",
+        "fulltext_mode": "auto",
+        "reranker": "none",
+        "fusion": "rrf",
+        "vector_weight": 0.5,
+        "fulltext_weight": 0.5,
+        "recall_k": 150,
+        "top_k": 8,
+        "answer_top_k": 40,
+        "rerank_pool_k": 120,
+        "rrf_k": 60,
+        "fields": [
+          "title",
+          "body",
+          "abstract"
+        ],
+        "use_synonyms": true,
+        "use_llm_rewrite": false
+      },
+      "strategy": "hybrid",
+      "reranker": "none",
+      "fusion": "rrf",
+      "embedding_model": "bge-m3",
+      "top_k": 8,
+      "n": 10,
+      "accuracy": 0.7,
+      "recall": 0.7,
+      "chunk_recall": 0.3818,
+      "latency_avg": 0.087,
+      "latency_p95": 0.101,
+      "latency_max": 0.101,
+      "by_type": {
+        "list": {
+          "n": 2,
+          "correct": 0,
+          "recall_hit": 1,
+          "chunk_recall": 0.5,
+          "accuracy": 0.0,
+          "recall": 0.5
+        },
+        "analysis": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 0.1176,
+          "accuracy": 1.0,
+          "recall": 1.0
+        },
+        "amount": {
+          "n": 5,
+          "correct": 5,
+          "recall_hit": 3,
+          "chunk_recall": 0.24,
+          "accuracy": 1.0,
+          "recall": 0.6
+        },
+        "ratio": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 0.5,
+          "accuracy": 1.0,
+          "recall": 1.0
+        },
+        "fact": {
+          "n": 1,
+          "correct": 0,
+          "recall_hit": 1,
+          "chunk_recall": 1.0,
+          "accuracy": 0.0,
+          "recall": 1.0
+        }
+      }
+    },
+    {
+      "config": {
+        "strategy": "hybrid",
+        "embedding_model": "bge-m3",
+        "fulltext_mode": "auto",
+        "reranker": "tfidf",
+        "fusion": "rrf",
+        "vector_weight": 0.5,
+        "fulltext_weight": 0.5,
+        "recall_k": 150,
+        "top_k": 8,
+        "answer_top_k": 40,
+        "rerank_pool_k": 120,
+        "rrf_k": 60,
+        "fields": [
+          "title",
+          "body",
+          "abstract"
+        ],
+        "use_synonyms": true,
+        "use_llm_rewrite": false
+      },
+      "strategy": "hybrid",
+      "reranker": "tfidf",
+      "fusion": "rrf",
+      "embedding_model": "bge-m3",
+      "top_k": 8,
+      "n": 10,
+      "accuracy": 0.8,
+      "recall": 0.6,
+      "chunk_recall": 0.3818,
+      "latency_avg": 0.292,
+      "latency_p95": 0.313,
+      "latency_max": 0.313,
+      "by_type": {
+        "list": {
+          "n": 2,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 0.5,
+          "accuracy": 0.5,
+          "recall": 0.5
+        },
+        "analysis": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 0.1176,
+          "accuracy": 1.0,
+          "recall": 1.0
+        },
+        "amount": {
+          "n": 5,
+          "correct": 4,
+          "recall_hit": 2,
+          "chunk_recall": 0.14,
+          "accuracy": 0.8,
+          "recall": 0.4
+        },
+        "ratio": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 1.0,
+          "accuracy": 1.0,
+          "recall": 1.0
+        },
+        "fact": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 1.0,
+          "accuracy": 1.0,
+          "recall": 1.0
+        }
+      }
+    },
+    {
+      "config": {
+        "strategy": "hybrid",
+        "embedding_model": "bge-m3",
+        "fulltext_mode": "auto",
+        "reranker": "linear",
+        "fusion": "rrf",
+        "vector_weight": 0.5,
+        "fulltext_weight": 0.5,
+        "recall_k": 150,
+        "top_k": 8,
+        "answer_top_k": 40,
+        "rerank_pool_k": 120,
+        "rrf_k": 60,
+        "fields": [
+          "title",
+          "body",
+          "abstract"
+        ],
+        "use_synonyms": true,
+        "use_llm_rewrite": false
+      },
+      "strategy": "hybrid",
+      "reranker": "linear",
+      "fusion": "rrf",
+      "embedding_model": "bge-m3",
+      "top_k": 8,
+      "n": 10,
+      "accuracy": 0.9,
+      "recall": 0.9,
+      "chunk_recall": 0.5851,
+      "latency_avg": 0.094,
+      "latency_p95": 0.111,
+      "latency_max": 0.111,
+      "by_type": {
+        "list": {
+          "n": 2,
+          "correct": 1,
+          "recall_hit": 2,
+          "chunk_recall": 0.6666,
+          "accuracy": 0.5,
+          "recall": 1.0
+        },
+        "analysis": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 0.1176,
+          "accuracy": 1.0,
+          "recall": 1.0
+        },
+        "amount": {
+          "n": 5,
+          "correct": 5,
+          "recall_hit": 4,
+          "chunk_recall": 0.58,
+          "accuracy": 1.0,
+          "recall": 0.8
+        },
+        "ratio": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 0.5,
+          "accuracy": 1.0,
+          "recall": 1.0
+        },
+        "fact": {
+          "n": 1,
+          "correct": 1,
+          "recall_hit": 1,
+          "chunk_recall": 1.0,
+          "accuracy": 1.0,
+          "recall": 1.0
+        }
+      }
+    }
+  ]
+}

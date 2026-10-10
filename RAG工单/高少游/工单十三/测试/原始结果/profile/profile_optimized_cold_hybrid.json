@@ -1,0 +1,388 @@
+{
+  "workorder": "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化",
+  "mode": "optimized",
+  "scenario": "cold",
+  "strategy": "hybrid",
+  "perf_opt": true,
+  "n_questions": 10,
+  "startup_warmup_ms": 0.0,
+  "end_to_end": {
+    "n": 10,
+    "avg": 509.862,
+    "p50": 250.826,
+    "p95": 2876.008,
+    "p99": 2876.008,
+    "max": 2876.008
+  },
+  "stages": {
+    "query_rewrite": {
+      "n": 10,
+      "avg": 0.091,
+      "p50": 0.037,
+      "p95": 0.565,
+      "p99": 0.565,
+      "max": 0.565
+    },
+    "query_understanding": {
+      "n": 10,
+      "avg": 61.088,
+      "p50": 0.227,
+      "p95": 608.649,
+      "p99": 608.649,
+      "max": 608.649
+    },
+    "vector_recall": {
+      "n": 10,
+      "avg": 338.576,
+      "p50": 150.315,
+      "p95": 2163.291,
+      "p99": 2163.291,
+      "max": 2163.291
+    },
+    "embed": {
+      "n": 10,
+      "avg": 331.683,
+      "p50": 142.532,
+      "p95": 2159.025,
+      "p99": 2159.025,
+      "max": 2159.025
+    },
+    "fulltext_recall": {
+      "n": 10,
+      "avg": 50.854,
+      "p50": 55.014,
+      "p95": 76.569,
+      "p99": 76.569,
+      "max": 76.569
+    },
+    "fusion": {
+      "n": 10,
+      "avg": 0.473,
+      "p50": 0.413,
+      "p95": 0.734,
+      "p99": 0.734,
+      "max": 0.734
+    },
+    "rerank": {
+      "n": 10,
+      "avg": 6.949,
+      "p50": 6.188,
+      "p95": 13.579,
+      "p99": 13.579,
+      "max": 13.579
+    },
+    "answer_synthesis": {
+      "n": 10,
+      "avg": 51.602,
+      "p50": 52.344,
+      "p95": 68.931,
+      "p99": 68.931,
+      "max": 68.931
+    },
+    "total": {
+      "n": 10,
+      "avg": 509.862,
+      "p50": 250.826,
+      "p95": 2876.008,
+      "p99": 2876.008,
+      "max": 2876.008
+    }
+  },
+  "stage_label": {
+    "query_rewrite": "查询处理与增强",
+    "query_understanding": "查询理解",
+    "vector_recall": "检索·向量召回",
+    "embed": "查询向量编码",
+    "fulltext_recall": "检索·全文召回",
+    "fusion": "检索·多通道融合",
+    "rerank": "上下文组装·重排",
+    "answer_synthesis": "后处理·答案合成",
+    "total": "端到端总计"
+  },
+  "alerts": [
+    {
+      "level": "warn",
+      "metric": "embed_max",
+      "value_ms": 2159.025,
+      "threshold_ms": 1500.0,
+      "msg": "阶段「查询向量编码」单次最大 2.16s 超过 1.5s"
+    },
+    {
+      "level": "warn",
+      "metric": "vector_recall_max",
+      "value_ms": 2163.291,
+      "threshold_ms": 1500.0,
+      "msg": "阶段「检索·向量召回」单次最大 2.16s 超过 1.5s"
+    }
+  ],
+  "rows": [
+    {
+      "id": "Q01",
+      "company": "平安银行",
+      "question": "平安银行在2019年年度报告的董事长致辞中，提到其盈利增长的关键因素有哪些？",
+      "total_ms": 2876.0,
+      "stages_ms": {
+        "query_rewrite": 0.565,
+        "query_understanding": 608.649,
+        "embed": 2159.025,
+        "vector_recall": 2163.291,
+        "fulltext_recall": 29.917,
+        "fusion": 0.411,
+        "rerank": 6.779,
+        "answer_synthesis": 66.176,
+        "total": 2876.008
+      },
+      "doc": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf"
+    },
+    {
+      "id": "Q02",
+      "company": "招商银行",
+      "question": "招商银行在其2019年年度报告中提到的创新商业模式有哪些？",
+      "total_ms": 190.3,
+      "stages_ms": {
+        "query_rewrite": 0.03,
+        "query_understanding": 0.197,
+        "embed": 77.765,
+        "vector_recall": 82.607,
+        "fulltext_recall": 32.982,
+        "fusion": 0.602,
+        "rerank": 4.783,
+        "answer_synthesis": 68.931,
+        "total": 190.322
+      },
+      "doc": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf"
+    },
+    {
+      "id": "Q03",
+      "company": "平安银行",
+      "question": "平安银行的风险管理体系如何体现其应对宏观经济周期波动的能力？结合其不良贷款率与拨备覆盖率分析。",
+      "total_ms": 254.8,
+      "stages_ms": {
+        "query_rewrite": 0.067,
+        "query_understanding": 0.448,
+        "embed": 146.053,
+        "vector_recall": 154.257,
+        "fulltext_recall": 42.528,
+        "fusion": 0.378,
+        "rerank": 13.579,
+        "answer_synthesis": 43.294,
+        "total": 254.81
+      },
+      "doc": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf"
+    },
+    {
+      "id": "Q04",
+      "company": "招商银行",
+      "question": "招商银行2019年实现营业收入和归属于本行股东的净利润分别是多少？",
+      "total_ms": 272.7,
+      "stages_ms": {
+        "query_rewrite": 0.04,
+        "query_understanding": 0.238,
+        "embed": 145.068,
+        "vector_recall": 152.917,
+        "fulltext_recall": 56.606,
+        "fusion": 0.68,
+        "rerank": 6.308,
+        "answer_synthesis": 55.547,
+        "total": 272.696
+      },
+      "doc": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf"
+    },
+    {
+      "id": "Q05",
+      "company": "邮储银行",
+      "question": "邮储银行2019年末的不良贷款率和拨备覆盖率分别是多少？",
+      "total_ms": 231.8,
+      "stages_ms": {
+        "query_rewrite": 0.031,
+        "query_understanding": 0.213,
+        "embed": 146.53,
+        "vector_recall": 153.785,
+        "fulltext_recall": 33.272,
+        "fusion": 0.386,
+        "rerank": 5.982,
+        "answer_synthesis": 37.922,
+        "total": 231.787
+      },
+      "doc": "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf"
+    },
+    {
+      "id": "Q06",
+      "company": "中国平安",
+      "question": "中国平安2019年归属于母公司股东的净利润是多少？",
+      "total_ms": 253.8,
+      "stages_ms": {
+        "query_rewrite": 0.038,
+        "query_understanding": 0.216,
+        "embed": 127.188,
+        "vector_recall": 134.485,
+        "fulltext_recall": 58.94,
+        "fusion": 0.32,
+        "rerank": 4.615,
+        "answer_synthesis": 55.007,
+        "total": 253.801
+      },
+      "doc": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf"
+    },
+    {
+      "id": "Q07",
+      "company": "中信证券",
+      "question": "中信证券2020年实现营业收入和归属于母公司股东的净利润分别是多少？",
+      "total_ms": 247.9,
+      "stages_ms": {
+        "query_rewrite": 0.033,
+        "query_understanding": 0.202,
+        "embed": 140.165,
+        "vector_recall": 147.753,
+        "fulltext_recall": 53.423,
+        "fusion": 0.416,
+        "rerank": 6.069,
+        "answer_synthesis": 39.737,
+        "total": 247.851
+      },
+      "doc": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf"
+    },
+    {
+      "id": "Q08",
+      "company": "中国人寿",
+      "question": "中国人寿2020年的保费收入和内含价值分别是多少？",
+      "total_ms": 241.6,
+      "stages_ms": {
+        "query_rewrite": 0.032,
+        "query_understanding": 0.182,
+        "embed": 126.225,
+        "vector_recall": 133.704,
+        "fulltext_recall": 62.078,
+        "fusion": 0.421,
+        "rerank": 4.512,
+        "answer_synthesis": 40.5,
+        "total": 241.626
+      },
+      "doc": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf"
+    },
+    {
+      "id": "Q09",
+      "company": "中国太保",
+      "question": "中国太保2021年在绿色金融和碳减排方面有哪些举措？",
+      "total_ms": 239.1,
+      "stages_ms": {
+        "query_rewrite": 0.039,
+        "query_understanding": 0.25,
+        "embed": 103.908,
+        "vector_recall": 110.085,
+        "fulltext_recall": 62.227,
+        "fusion": 0.384,
+        "rerank": 6.652,
+        "answer_synthesis": 59.227,
+        "total": 239.124
+      },
+      "doc": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf"
+    },
+    {
+      "id": "Q10",
+      "company": "国泰君安",
+      "question": "国泰君安2021年实现营业收入和归属于母公司所有者的净利润分别是多少？",
+      "total_ms": 290.6,
+      "stages_ms": {
+        "query_rewrite": 0.035,
+        "query_understanding": 0.285,
+        "embed": 144.9,
+        "vector_recall": 152.878,
+        "fulltext_recall": 76.569,
+        "fusion": 0.734,
+        "rerank": 10.208,
+        "answer_synthesis": 49.681,
+        "total": 290.597
+      },
+      "doc": "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf"
+    }
+  ],
+  "metrics": {
+    "requests": 10,
+    "errors": 0,
+    "error_rate": 0.0,
+    "duration_s": 5.115,
+    "throughput_rps": 1.955,
+    "counters": {
+      "num_candidates": 2094,
+      "num_evidence": 15,
+      "context_chars": 2400,
+      "answer_chars": 1969
+    },
+    "stages": {
+      "query_rewrite": {
+        "n": 10,
+        "avg": 0.091,
+        "p50": 0.037,
+        "p95": 0.565,
+        "p99": 0.565,
+        "max": 0.565
+      },
+      "query_understanding": {
+        "n": 10,
+        "avg": 61.088,
+        "p50": 0.227,
+        "p95": 608.649,
+        "p99": 608.649,
+        "max": 608.649
+      },
+      "embed": {
+        "n": 10,
+        "avg": 331.683,
+        "p50": 142.532,
+        "p95": 2159.025,
+        "p99": 2159.025,
+        "max": 2159.025
+      },
+      "vector_recall": {
+        "n": 10,
+        "avg": 338.576,
+        "p50": 150.315,
+        "p95": 2163.291,
+        "p99": 2163.291,
+        "max": 2163.291
+      },
+      "fulltext_recall": {
+        "n": 10,
+        "avg": 50.854,
+        "p50": 55.014,
+        "p95": 76.569,
+        "p99": 76.569,
+        "max": 76.569
+      },
+      "fusion": {
+        "n": 10,
+        "avg": 0.473,
+        "p50": 0.413,
+        "p95": 0.734,
+        "p99": 0.734,
+        "max": 0.734
+      },
+      "rerank": {
+        "n": 10,
+        "avg": 6.949,
+        "p50": 6.188,
+        "p95": 13.579,
+        "p99": 13.579,
+        "max": 13.579
+      },
+      "answer_synthesis": {
+        "n": 10,
+        "avg": 51.602,
+        "p50": 52.344,
+        "p95": 68.931,
+        "p99": 68.931,
+        "max": 68.931
+      },
+      "total": {
+        "n": 10,
+        "avg": 509.862,
+        "p50": 250.826,
+        "p95": 2876.008,
+        "p99": 2876.008,
+        "max": 2876.008
+      }
+    }
+  },
+  "measured_at": "2026-10-09 09:20:38"
+}

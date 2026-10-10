@@ -1,0 +1,25 @@
+﻿==================== 容器启动与运行（真实运行） ====================
+工单编号: 人工智能 NLP-RAG-金融问答系统部署
+$ docker run -d --name finqa-app --network finqa-net -p 8501:8501 ... finqa:1.0
+finqa-app  Up 28 seconds (healthy)  0.0.0.0:8501->8501/tcp, [::]:8501->8501/tcp
+
+$ docker port finqa-app
+8501/tcp -> 0.0.0.0:8501
+8501/tcp -> [::]:8501
+
+$ docker inspect --format '{{.State.Health.Status}}' finqa-app
+healthy
+
+$ docker exec finqa-app python -c ".../_stcore/health..."
+ok
+
+$ docker logs finqa-app
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://172.18.0.2:8501
+  External URL: http://221.221.201.143:8501
+
+  Detected WSL. Using poll-based file watching for better compatibility. To force watchdog, set server.fileWatcherType = "watchdog".
+2026-10-08 15:03:32.183 Uvicorn server started on 0.0.0.0:8501

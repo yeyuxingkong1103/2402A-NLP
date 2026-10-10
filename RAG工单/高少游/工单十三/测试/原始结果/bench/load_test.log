@@ -1,0 +1,21 @@
+﻿python : Building prefix dict from the default dictionary ...
+At line:15 char:1645
++ ... 码\工单十三\研发"; python tools/load_test.py --levels 1,4,8,16 --requests 40 ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Building prefix... dictionary ...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading model from cache C:\Users\30274\AppData\Local\Temp\jieba.cache
+Loading model cost 0.534 seconds.
+Prefix dict has been built successfully.
+====================================================================================
+RAG 负载测试  |  工单编号: 人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
+策略=hybrid  每级请求=40
+====================================================================================
+    并发       QPS   avg(ms)      p50      p95      p99      错误率
+     1       9.9     101.2     99.5    128.5    134.0     0.0%
+     4      10.5     379.8    366.0    537.7    571.3     0.0%
+     8      10.2     752.6    731.9   1137.8   1169.8     0.0%
+    16      10.3    1421.2   1545.4   2289.7   2290.4     0.0%
+
+结果已落盘 → G:\Trae-work产出\6ac83e1b4ddcc1c6e9e3cb96\交付\工单代码\工单十三\研发\output\load_test.json

@@ -1,0 +1,34 @@
+﻿python : Building prefix dict from the default dictionary ...
+At line:15 char:1954
++ ... ankers.log; python evaluate_retrieval.py --strategies hybrid --rerank ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Building prefix... dictionary ...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading model from cache C:\Users\30274\AppData\Local\Temp\jieba.cache
+Loading model cost 0.530 seconds.
+Prefix dict has been built successfully.
+============================================================================================
+检索策略评测  |  工单编号: 人工智能 NLP-RAG-混合检索任务
+题目数：50    嵌入模型：bge-m3
+============================================================================================
+[GT] ground-truth 相关块已标注：50/50 题有可定位相关块
+
+[1/3] 评测 hybrid / linear / weighted ...
+      hybrid/linear/weighted   | 准确率 94.0% | 召回率 96.0% (块级 52.5%) | 平均 2.26s P95 2.40s
+[2/3] 评测 hybrid / linear / rrf ...
+      hybrid/linear/rrf        | 准确率 100.0% | 召回率 98.0% (块级 54.4%) | 平均 0.02s P95 0.04s
+[3/3] 评测 hybrid / linear / voting ...
+      hybrid/linear/voting     | 准确率 100.0% | 召回率 98.0% (块级 54.4%) | 平均 0.02s P95 0.03s
+
+============================================================================================
+汇总（按准确率排序）
+============================================================================================
+hybrid/linear/rrf        | 准确率 100.0% | 召回率 98.0% (块级 54.4%) | 平均 0.02s P95 0.04s
+hybrid/linear/voting     | 准确率 100.0% | 召回率 98.0% (块级 54.4%) | 平均 0.02s P95 0.03s
+hybrid/linear/weighted   | 准确率 94.0% | 召回率 96.0% (块级 52.5%) | 平均 2.26s P95 2.40s
+--------------------------------------------------------------------------------------------
+最优配置：hybrid / linear / voting  →  准确率 100.0%，召回率 98.0%，平均响应 0.02s
+验收：准确率≥90% ✅  召回率≥95% ✅  响应≤3s ✅
+
+评测结果已落盘 → output\ablation_fusions.json

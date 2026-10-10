@@ -1,0 +1,33 @@
+{
+  "workorder": "人工智能NLP-RAG-优化技术图纸与文本的跨模态检索流程工单",
+  "built_at": "2026-10-09 15:35:33",
+  "bench_question": "在文件中第11页图3中，编号13的部件相对于编号12的部件的位置关系是？",
+  "cold_start_ms": 2657.51,
+  "warm_ms": 2221.56,
+  "cached_repeat_ms": 2.3,
+  "stage_breakdown_ms": {
+    "rewrite_ms": 0.02,
+    "understand_ms": 0.21,
+    "embed_ms": 2151.86,
+    "vector_ms": 0.2,
+    "fulltext_ms": 1.18,
+    "fusion_recall_ms": 2238.83,
+    "rerank_ms": 0.55,
+    "answer_ms": 0.14,
+    "e2e_ms": 2167.1
+  },
+  "strategy_e2e_ms": {
+    "vector": 2173.77,
+    "fulltext": 1.34,
+    "hybrid": 2176.06
+  },
+  "stability": {
+    "repeat": 20,
+    "mean_ms": 2187.14,
+    "p50_ms": 2171.44,
+    "p95_ms": 2305.15,
+    "max_ms": 2305.15,
+    "min_ms": 2122.57,
+    "stdev_ms": 54.23
+  }
+}

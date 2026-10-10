@@ -1,0 +1,28 @@
+﻿============================================================================================
+检索策略评测  |  工单编号: 人工智能 NLP-RAG-混合检索任务
+题目数：50    嵌入模型：nomic-embed
+============================================================================================
+[GT] ground-truth 相关块已标注：50/50 题有可定位相关块
+
+[1/1] 评测 hybrid / linear / rrf ...
+python : Building prefix dict from the default dictionary ...
+At line:15 char:2338
++ ... elarge.log; python evaluate_retrieval.py --strategies hybrid --rerank ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Building prefix... dictionary ...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading model from cache C:\Users\30274\AppData\Local\Temp\jieba.cache
+Loading model cost 0.492 seconds.
+Prefix dict has been built successfully.
+      hybrid/linear/rrf        | 准确率 98.0% | 召回率 96.0% (块级 47.4%) | 平均 2.36s P95 2.42s
+
+============================================================================================
+汇总（按准确率排序）
+============================================================================================
+hybrid/linear/rrf        | 准确率 98.0% | 召回率 96.0% (块级 47.4%) | 平均 2.36s P95 2.42s
+--------------------------------------------------------------------------------------------
+最优配置：hybrid / linear / rrf  →  准确率 98.0%，召回率 96.0%，平均响应 2.36s
+验收：准确率≥90% ✅  召回率≥95% ✅  响应≤3s ✅
+
+评测结果已落盘 → output\ablation_model_nomic.json

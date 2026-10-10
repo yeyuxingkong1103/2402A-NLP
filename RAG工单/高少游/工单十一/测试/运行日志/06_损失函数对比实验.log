@@ -1,0 +1,48 @@
+﻿[1/6] 语料块 7476 | 评估集 330 条
+Loading weights: 100%|██████████| 71/71 [00:00<00:00, 3033.00it/s]
+G:\Trae-work产出\6ac74ad9945a4596a6819335\_build11\研发\src\embedding_model.py:58: FutureWarning: The `get_sentence_embeddi
+ng_dimension` method has been renamed to `get_embedding_dimension`.
+  dim = model.get_sentence_embedding_dimension()
+[2/6] 基座模型 BAAI/bge-small-zh-v1.5 | dim=512
+[3/6] 微调前评估（复用基座向量缓存）...
+    微调前: {"recall@1": 0.3303030303030303, "recall@3": 0.47575757575757577, "recall@5": 0.5424242424242425, "recall@10": 0.6090909090909091, "mrr@10": 0.4207263107263107, "ndcg@10": 0.44337358178632885, "entity_acc@1": 0.8121212121212121, "chunk_recall@10": 0.09047907488313456, "n": 330}
+[4/6] 损失函数 triplet | 训练样本 1215
+Computing widget examples:   0%|          | 0/1 [00:00<?, ?example/s]
+[5/6] 开始训练：epochs=4 bs=16 lr=2e-05
+{'loss': '0.2905', 'grad_norm': '1.743', 'learning_rate': '5.806e-06', 'epoch': '0.1316'}
+{'loss': '0.2679', 'grad_norm': '1.354', 'learning_rate': '1.226e-05', 'epoch': '0.2632'}
+{'loss': '0.2553', 'grad_norm': '1.375', 'learning_rate': '1.871e-05', 'epoch': '0.3947'}
+{'loss': '0.22', 'grad_norm': '1.202', 'learning_rate': '1.996e-05', 'epoch': '0.5263'}
+{'loss': '0.216', 'grad_norm': '1.184', 'learning_rate': '1.979e-05', 'epoch': '0.6579'}
+{'loss': '0.1842', 'grad_norm': '1.149', 'learning_rate': '1.949e-05', 'epoch': '0.7895'}
+{'loss': '0.162', 'grad_norm': '1.164', 'learning_rate': '1.906e-05', 'epoch': '0.9211'}
+{'loss': '0.1423', 'grad_norm': '1.166', 'learning_rate': '1.851e-05', 'epoch': '1.053'}
+{'loss': '0.1364', 'grad_norm': '1.43', 'learning_rate': '1.785e-05', 'epoch': '1.184'}
+{'loss': '0.1157', 'grad_norm': '1.34', 'learning_rate': '1.709e-05', 'epoch': '1.316'}
+{'loss': '0.09127', 'grad_norm': '1.365', 'learning_rate': '1.623e-05', 'epoch': '1.447'}
+{'loss': '0.07844', 'grad_norm': '1.169', 'learning_rate': '1.53e-05', 'epoch': '1.579'}
+{'loss': '0.06343', 'grad_norm': '0.7634', 'learning_rate': '1.429e-05', 'epoch': '1.711'}
+{'loss': '0.05965', 'grad_norm': '1.123', 'learning_rate': '1.322e-05', 'epoch': '1.842'}
+{'loss': '0.05057', 'grad_norm': '1.376', 'learning_rate': '1.211e-05', 'epoch': '1.974'}
+{'loss': '0.04966', 'grad_norm': '1.004', 'learning_rate': '1.098e-05', 'epoch': '2.105'}
+{'loss': '0.04349', 'grad_norm': '1.329', 'learning_rate': '9.827e-06', 'epoch': '2.237'}
+{'loss': '0.03971', 'grad_norm': '1.595', 'learning_rate': '8.68e-06', 'epoch': '2.368'}
+{'loss': '0.03257', 'grad_norm': '0.9928', 'learning_rate': '7.551e-06', 'epoch': '2.5'}
+{'loss': '0.02585', 'grad_norm': '1.65', 'learning_rate': '6.454e-06', 'epoch': '2.632'}
+{'loss': '0.03677', 'grad_norm': '1.762', 'learning_rate': '5.404e-06', 'epoch': '2.763'}
+{'loss': '0.02308', 'grad_norm': '0.9346', 'learning_rate': '4.414e-06', 'epoch': '2.895'}
+{'loss': '0.0136', 'grad_norm': '1.031', 'learning_rate': '3.499e-06', 'epoch': '3.026'}
+{'loss': '0.02571', 'grad_norm': '1.274', 'learning_rate': '2.669e-06', 'epoch': '3.158'}
+{'loss': '0.01954', 'grad_norm': '0.9796', 'learning_rate': '1.937e-06', 'epoch': '3.289'}
+{'loss': '0.01538', 'grad_norm': '0.7515', 'learning_rate': '1.311e-06', 'epoch': '3.421'}
+{'loss': '0.02734', 'grad_norm': '1.973', 'learning_rate': '8.002e-07', 'epoch': '3.553'}
+{'loss': '0.02656', 'grad_norm': '0.9445', 'learning_rate': '4.11e-07', 'epoch': '3.684'}
+{'loss': '0.01933', 'grad_norm': '1.426', 'learning_rate': '1.486e-07', 'epoch': '3.816'}
+{'loss': '0.03002', 'grad_norm': '1.42', 'learning_rate': '1.655e-08', 'epoch': '3.947'}
+{'train_runtime': '1008', 'train_samples_per_second': '4.821', 'train_steps_per_second': '0.302', 'train_loss': '0.09115', 'epoch': '4'}
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]
+Writing model shards: 100%|██████████| 1/1 [00:00<00:00, 16.11it/s]
+[6/6] 微调后评估（模型 -> G:\Trae-work产出\6ac74ad9945a4596a6819335\_build11\研发\models\bge-small-zh-ccf-triplet）...
+    微调后: {"recall@1": 0.09393939393939393, "recall@3": 0.18484848484848485, "recall@5": 0.24545454545454545, "recall@10": 0.3787878787878788, "mrr@10": 0.16393819143819144, "ndcg@10": 0.21023877707317257, "entity_acc@1": 0.9181818181818182, "chunk_recall@10": 0.038564786543006054, "n": 330}
+===== Triplet 实验完成 =====
+指标变化: {"recall@1": -0.2364, "recall@3": -0.2909, "recall@5": -0.297, "recall@10": -0.2303, "mrr@10": -0.2568, "ndcg@10": -0.2331, "entity_acc@1": 0.1061, "chunk_recall@10": -0.0519}

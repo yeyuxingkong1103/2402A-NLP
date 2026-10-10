@@ -1,0 +1,21 @@
+# 工单编号: 人工智能 NLP-RAG-Query 理解优化任务
+# 依赖清单（轻量可复现：不依赖 faiss / torch，向量走 Ollama HTTP）
+# 安装： pip install -r requirements.txt
+
+# ---- 检索与中文分词 ----
+rank-bm25==0.2.2
+jieba==0.42.1
+numpy==2.2.6
+
+# ---- PDF 解析 ----
+pdfplumber==0.11.9
+pypdfium2==5.7.0
+
+# ---- 演示与可视化 ----
+streamlit==1.65.0
+matplotlib==3.10.8
+pillow==12.2.0
+
+# ---- HTTP / 配置 ----
+requests==2.33.1
+python-dotenv==1.2.2

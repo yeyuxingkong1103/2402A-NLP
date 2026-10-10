@@ -1,0 +1,23 @@
+﻿
+>>> 运行 baseline  / cold   / hybrid ...
+
+>>> 运行 optimized / cold   / hybrid ...
+
+>>> 运行 baseline  / warm   / hybrid ...
+
+>>> 运行 optimized / warm   / hybrid ...
+
+>>> 运行 baseline  / cached / hybrid ...
+
+>>> 运行 optimized / cached / hybrid ...
+
+==============================================================================
+优化前后检索时间对比（端到端，单位 ms）
+==============================================================================
+场景                     优化前 avg     优化后 avg      提升      达标
+冷启动                       2454         510   4.81×       ✅
+稳态（新查询）                   2375         230  10.31×       ✅
+重复查询（缓存命中）                1245         109  11.41×       ✅
+
+结果已落盘 → G:\Trae-work产出\6ac83e1b4ddcc1c6e9e3cb96\交付\工单代码\工单十三\研发\output\bench_compare.json
+对比报告 → G:\Trae-work产出\6ac83e1b4ddcc1c6e9e3cb96\交付\工单代码\工单十三\研发\output\bench_compare.md

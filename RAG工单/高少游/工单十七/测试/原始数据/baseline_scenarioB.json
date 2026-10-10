@@ -1,0 +1,711 @@
+{
+  "scenario": "B",
+  "base_url": "http://127.0.0.1:8000",
+  "concurrency": 10,
+  "qa_workers": 5,
+  "upload_workers": 5,
+  "duration_s": 315.46,
+  "aborted": false,
+  "max_fail_streak": 5,
+  "summary": {
+    "total": 103,
+    "success": 98,
+    "failures": 5,
+    "throttled": 0,
+    "success_rate": 0.9515,
+    "rps": 0.33,
+    "latency_ms": {
+      "mean": 25370.4,
+      "p50": 18969.8,
+      "p90": 53872.2,
+      "p95": 64286.8,
+      "p99": 73552.1,
+      "max": 76126.0
+    },
+    "by_endpoint": {
+      "upload_document": {
+        "count": 79,
+        "mean": 19140.9,
+        "p95": 28531.4,
+        "max": 39920.9
+      },
+      "chat_completions": {
+        "count": 19,
+        "mean": 51271.9,
+        "p95": 73552.1,
+        "max": 76126.0
+      }
+    },
+    "aux_endpoints": {
+      "upload_parse": {
+        "count": 79,
+        "mean": 19140.9,
+        "p50": 18026.7,
+        "p95": 28531.4,
+        "max": 39920.9
+      }
+    },
+    "parse_failed": 0,
+    "parse_incomplete": 0
+  },
+  "rss_series": [
+    {
+      "t": 0.0,
+      "rss_mb": 200.0,
+      "private_mb": 668.7
+    },
+    {
+      "t": 2.5,
+      "rss_mb": 287.5,
+      "private_mb": 756.5
+    },
+    {
+      "t": 4.7,
+      "rss_mb": 358.5,
+      "private_mb": 828.3
+    },
+    {
+      "t": 6.9,
+      "rss_mb": 425.3,
+      "private_mb": 895.3
+    },
+    {
+      "t": 9.0,
+      "rss_mb": 485.8,
+      "private_mb": 956.4
+    },
+    {
+      "t": 11.3,
+      "rss_mb": 554.8,
+      "private_mb": 1026.4
+    },
+    {
+      "t": 13.5,
+      "rss_mb": 630.9,
+      "private_mb": 1102.9
+    },
+    {
+      "t": 15.7,
+      "rss_mb": 649.4,
+      "private_mb": 1121.8
+    },
+    {
+      "t": 18.1,
+      "rss_mb": 588.3,
+      "private_mb": 1065.8
+    },
+    {
+      "t": 20.4,
+      "rss_mb": 593.7,
+      "private_mb": 1070.6
+    },
+    {
+      "t": 22.6,
+      "rss_mb": 612.8,
+      "private_mb": 1090.6
+    },
+    {
+      "t": 24.8,
+      "rss_mb": 646.8,
+      "private_mb": 1126.7
+    },
+    {
+      "t": 27.3,
+      "rss_mb": 596.8,
+      "private_mb": 1070.3
+    },
+    {
+      "t": 29.6,
+      "rss_mb": 619.6,
+      "private_mb": 1097.1
+    },
+    {
+      "t": 31.9,
+      "rss_mb": 650.4,
+      "private_mb": 1127.6
+    },
+    {
+      "t": 34.1,
+      "rss_mb": 647.6,
+      "private_mb": 1122.7
+    },
+    {
+      "t": 36.3,
+      "rss_mb": 632.7,
+      "private_mb": 1106.0
+    },
+    {
+      "t": 38.5,
+      "rss_mb": 644.8,
+      "private_mb": 1118.7
+    },
+    {
+      "t": 40.8,
+      "rss_mb": 667.9,
+      "private_mb": 1145.8
+    },
+    {
+      "t": 43.3,
+      "rss_mb": 642.8,
+      "private_mb": 1125.8
+    },
+    {
+      "t": 45.5,
+      "rss_mb": 612.3,
+      "private_mb": 1100.0
+    },
+    {
+      "t": 48.1,
+      "rss_mb": 633.8,
+      "private_mb": 1116.9
+    },
+    {
+      "t": 50.4,
+      "rss_mb": 647.6,
+      "private_mb": 1132.4
+    },
+    {
+      "t": 52.8,
+      "rss_mb": 639.8,
+      "private_mb": 1114.6
+    },
+    {
+      "t": 55.6,
+      "rss_mb": 663.0,
+      "private_mb": 1138.5
+    },
+    {
+      "t": 58.1,
+      "rss_mb": 576.4,
+      "private_mb": 1052.4
+    },
+    {
+      "t": 60.2,
+      "rss_mb": 554.7,
+      "private_mb": 1026.5
+    },
+    {
+      "t": 62.6,
+      "rss_mb": 569.0,
+      "private_mb": 1041.9
+    },
+    {
+      "t": 64.8,
+      "rss_mb": 598.9,
+      "private_mb": 1075.1
+    },
+    {
+      "t": 67.0,
+      "rss_mb": 618.7,
+      "private_mb": 1096.7
+    },
+    {
+      "t": 69.2,
+      "rss_mb": 654.1,
+      "private_mb": 1132.6
+    },
+    {
+      "t": 71.4,
+      "rss_mb": 587.9,
+      "private_mb": 1060.6
+    },
+    {
+      "t": 73.6,
+      "rss_mb": 555.8,
+      "private_mb": 1029.5
+    },
+    {
+      "t": 75.7,
+      "rss_mb": 566.3,
+      "private_mb": 1042.0
+    },
+    {
+      "t": 77.9,
+      "rss_mb": 600.8,
+      "private_mb": 1078.9
+    },
+    {
+      "t": 80.3,
+      "rss_mb": 591.4,
+      "private_mb": 1064.4
+    },
+    {
+      "t": 82.4,
+      "rss_mb": 630.2,
+      "private_mb": 1108.2
+    },
+    {
+      "t": 85.1,
+      "rss_mb": 696.0,
+      "private_mb": 1174.7
+    },
+    {
+      "t": 87.7,
+      "rss_mb": 679.2,
+      "private_mb": 1152.8
+    },
+    {
+      "t": 89.9,
+      "rss_mb": 616.9,
+      "private_mb": 1091.1
+    },
+    {
+      "t": 92.3,
+      "rss_mb": 624.3,
+      "private_mb": 1098.3
+    },
+    {
+      "t": 94.5,
+      "rss_mb": 621.3,
+      "private_mb": 1093.2
+    },
+    {
+      "t": 96.7,
+      "rss_mb": 620.0,
+      "private_mb": 1093.9
+    },
+    {
+      "t": 99.0,
+      "rss_mb": 671.7,
+      "private_mb": 1147.0
+    },
+    {
+      "t": 101.6,
+      "rss_mb": 776.8,
+      "private_mb": 1261.3
+    },
+    {
+      "t": 103.8,
+      "rss_mb": 800.9,
+      "private_mb": 1276.6
+    },
+    {
+      "t": 106.0,
+      "rss_mb": 793.4,
+      "private_mb": 1269.0
+    },
+    {
+      "t": 108.1,
+      "rss_mb": 806.8,
+      "private_mb": 1282.2
+    },
+    {
+      "t": 110.6,
+      "rss_mb": 796.4,
+      "private_mb": 1274.1
+    },
+    {
+      "t": 112.8,
+      "rss_mb": 803.1,
+      "private_mb": 1281.6
+    },
+    {
+      "t": 115.1,
+      "rss_mb": 822.6,
+      "private_mb": 1300.1
+    },
+    {
+      "t": 117.4,
+      "rss_mb": 860.6,
+      "private_mb": 1343.0
+    },
+    {
+      "t": 120.5,
+      "rss_mb": 928.3,
+      "private_mb": 1411.2
+    },
+    {
+      "t": 123.3,
+      "rss_mb": 882.4,
+      "private_mb": 1359.2
+    },
+    {
+      "t": 125.8,
+      "rss_mb": 888.1,
+      "private_mb": 1364.6
+    },
+    {
+      "t": 128.0,
+      "rss_mb": 892.7,
+      "private_mb": 1369.0
+    },
+    {
+      "t": 130.6,
+      "rss_mb": 931.6,
+      "private_mb": 1414.3
+    },
+    {
+      "t": 133.1,
+      "rss_mb": 991.3,
+      "private_mb": 1473.6
+    },
+    {
+      "t": 135.5,
+      "rss_mb": 953.7,
+      "private_mb": 1428.7
+    },
+    {
+      "t": 137.8,
+      "rss_mb": 956.0,
+      "private_mb": 1431.4
+    },
+    {
+      "t": 140.0,
+      "rss_mb": 997.1,
+      "private_mb": 1476.0
+    },
+    {
+      "t": 142.3,
+      "rss_mb": 1058.9,
+      "private_mb": 1537.8
+    },
+    {
+      "t": 145.1,
+      "rss_mb": 1152.3,
+      "private_mb": 1664.2
+    },
+    {
+      "t": 147.7,
+      "rss_mb": 1127.1,
+      "private_mb": 1666.4
+    },
+    {
+      "t": 150.0,
+      "rss_mb": 1130.0,
+      "private_mb": 1669.3
+    },
+    {
+      "t": 152.2,
+      "rss_mb": 1130.6,
+      "private_mb": 1669.8
+    },
+    {
+      "t": 154.7,
+      "rss_mb": 1148.9,
+      "private_mb": 1689.4
+    },
+    {
+      "t": 156.9,
+      "rss_mb": 1181.7,
+      "private_mb": 1727.0
+    },
+    {
+      "t": 160.5,
+      "rss_mb": 1188.0,
+      "private_mb": 1730.0
+    },
+    {
+      "t": 163.0,
+      "rss_mb": 1191.5,
+      "private_mb": 1734.6
+    },
+    {
+      "t": 165.5,
+      "rss_mb": 1192.8,
+      "private_mb": 1737.1
+    },
+    {
+      "t": 167.9,
+      "rss_mb": 1206.7,
+      "private_mb": 1751.3
+    },
+    {
+      "t": 170.1,
+      "rss_mb": 1237.3,
+      "private_mb": 1782.5
+    },
+    {
+      "t": 173.7,
+      "rss_mb": 1175.6,
+      "private_mb": 1720.1
+    },
+    {
+      "t": 175.9,
+      "rss_mb": 1151.5,
+      "private_mb": 1699.3
+    },
+    {
+      "t": 178.5,
+      "rss_mb": 1166.1,
+      "private_mb": 1714.0
+    },
+    {
+      "t": 180.7,
+      "rss_mb": 1194.4,
+      "private_mb": 1743.8
+    },
+    {
+      "t": 183.2,
+      "rss_mb": 1226.5,
+      "private_mb": 1774.9
+    },
+    {
+      "t": 187.2,
+      "rss_mb": 1244.1,
+      "private_mb": 1801.0
+    },
+    {
+      "t": 189.5,
+      "rss_mb": 1244.7,
+      "private_mb": 1801.4
+    },
+    {
+      "t": 191.7,
+      "rss_mb": 1245.8,
+      "private_mb": 1801.5
+    },
+    {
+      "t": 194.1,
+      "rss_mb": 1256.1,
+      "private_mb": 1806.6
+    },
+    {
+      "t": 196.3,
+      "rss_mb": 1303.7,
+      "private_mb": 1856.0
+    },
+    {
+      "t": 200.2,
+      "rss_mb": 1200.3,
+      "private_mb": 1746.3
+    },
+    {
+      "t": 202.6,
+      "rss_mb": 1201.4,
+      "private_mb": 1747.4
+    },
+    {
+      "t": 204.9,
+      "rss_mb": 1204.4,
+      "private_mb": 1750.6
+    },
+    {
+      "t": 207.2,
+      "rss_mb": 1204.9,
+      "private_mb": 1750.9
+    },
+    {
+      "t": 209.5,
+      "rss_mb": 1209.1,
+      "private_mb": 1755.1
+    },
+    {
+      "t": 213.2,
+      "rss_mb": 506.3,
+      "private_mb": 1784.2
+    },
+    {
+      "t": 215.3,
+      "rss_mb": 861.1,
+      "private_mb": 1780.4
+    },
+    {
+      "t": 217.6,
+      "rss_mb": 881.9,
+      "private_mb": 1784.1
+    },
+    {
+      "t": 220.1,
+      "rss_mb": 966.2,
+      "private_mb": 1817.4
+    },
+    {
+      "t": 222.3,
+      "rss_mb": 1028.5,
+      "private_mb": 1851.0
+    },
+    {
+      "t": 224.5,
+      "rss_mb": 1087.1,
+      "private_mb": 1882.4
+    },
+    {
+      "t": 226.9,
+      "rss_mb": 1104.8,
+      "private_mb": 1877.8
+    },
+    {
+      "t": 229.3,
+      "rss_mb": 1106.6,
+      "private_mb": 1877.9
+    },
+    {
+      "t": 231.6,
+      "rss_mb": 1107.5,
+      "private_mb": 1877.9
+    },
+    {
+      "t": 233.9,
+      "rss_mb": 1108.5,
+      "private_mb": 1878.0
+    },
+    {
+      "t": 236.4,
+      "rss_mb": 1109.1,
+      "private_mb": 1878.1
+    },
+    {
+      "t": 238.8,
+      "rss_mb": 1108.9,
+      "private_mb": 1876.4
+    },
+    {
+      "t": 241.6,
+      "rss_mb": 958.9,
+      "private_mb": 1701.2
+    },
+    {
+      "t": 244.3,
+      "rss_mb": 961.8,
+      "private_mb": 1704.6
+    },
+    {
+      "t": 246.5,
+      "rss_mb": 963.4,
+      "private_mb": 1706.1
+    },
+    {
+      "t": 248.8,
+      "rss_mb": 964.9,
+      "private_mb": 1708.1
+    },
+    {
+      "t": 251.0,
+      "rss_mb": 977.2,
+      "private_mb": 1720.6
+    },
+    {
+      "t": 253.4,
+      "rss_mb": 1002.9,
+      "private_mb": 1752.9
+    },
+    {
+      "t": 255.7,
+      "rss_mb": 1029.7,
+      "private_mb": 1784.6
+    },
+    {
+      "t": 259.2,
+      "rss_mb": 959.0,
+      "private_mb": 1698.5
+    },
+    {
+      "t": 261.9,
+      "rss_mb": 961.8,
+      "private_mb": 1701.7
+    },
+    {
+      "t": 264.6,
+      "rss_mb": 962.4,
+      "private_mb": 1702.2
+    },
+    {
+      "t": 267.2,
+      "rss_mb": 964.1,
+      "private_mb": 1704.0
+    },
+    {
+      "t": 269.7,
+      "rss_mb": 973.0,
+      "private_mb": 1712.8
+    },
+    {
+      "t": 272.2,
+      "rss_mb": 1001.0,
+      "private_mb": 1742.0
+    },
+    {
+      "t": 275.4,
+      "rss_mb": 1013.6,
+      "private_mb": 1760.0
+    },
+    {
+      "t": 278.3,
+      "rss_mb": 1015.3,
+      "private_mb": 1761.3
+    },
+    {
+      "t": 280.5,
+      "rss_mb": 1035.3,
+      "private_mb": 1783.5
+    },
+    {
+      "t": 283.0,
+      "rss_mb": 1061.7,
+      "private_mb": 1809.9
+    },
+    {
+      "t": 285.4,
+      "rss_mb": 1096.1,
+      "private_mb": 1843.5
+    },
+    {
+      "t": 287.9,
+      "rss_mb": 1134.9,
+      "private_mb": 1873.5
+    },
+    {
+      "t": 290.2,
+      "rss_mb": 1172.3,
+      "private_mb": 1901.7
+    },
+    {
+      "t": 294.7,
+      "rss_mb": 1206.3,
+      "private_mb": 1926.1
+    },
+    {
+      "t": 297.4,
+      "rss_mb": 1179.3,
+      "private_mb": 1905.8
+    },
+    {
+      "t": 299.6,
+      "rss_mb": 1179.5,
+      "private_mb": 1905.8
+    },
+    {
+      "t": 301.9,
+      "rss_mb": 1179.6,
+      "private_mb": 1905.8
+    },
+    {
+      "t": 304.2,
+      "rss_mb": 1180.0,
+      "private_mb": 1906.0
+    },
+    {
+      "t": 306.4,
+      "rss_mb": 1182.8,
+      "private_mb": 1906.0
+    },
+    {
+      "t": 310.2,
+      "rss_mb": 1126.9,
+      "private_mb": 1848.8
+    },
+    {
+      "t": 312.3,
+      "rss_mb": 971.6,
+      "private_mb": 1682.2
+    },
+    {
+      "t": 314.4,
+      "rss_mb": 974.2,
+      "private_mb": 1685.7
+    }
+  ],
+  "rss": {
+    "start_mb": 200.0,
+    "end_mb": 974.2,
+    "max_mb": 1303.7,
+    "min_mb": 200.0,
+    "growth_pct": 387.1,
+    "private_start_mb": 668.7,
+    "private_end_mb": 1685.7,
+    "private_max_mb": 1926.1,
+    "private_min_mb": 668.7,
+    "private_steady_base_mb": 1029.5,
+    "private_growth_pct": 63.74
+  }
+}

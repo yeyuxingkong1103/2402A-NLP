@@ -1,0 +1,221 @@
+{
+  "mode": "sample",
+  "calls": 20,
+  "workers": 8,
+  "elapsed_s": 12.782,
+  "total_samples": 2749,
+  "top_stacks": [
+    {
+      "stack": "connection.py:create_connection <- connection.py:_new_conn <- connection.py:connect <- client.py:send <- client.py:_send_output <- client.py:endheaders",
+      "count": 590,
+      "pct": 21.46
+    },
+    {
+      "stack": "[leaf] connection.py:create_connection",
+      "count": 590,
+      "pct": 21.46
+    },
+    {
+      "stack": "vector_retriever.py:search <- hybrid_retriever.py:recall <- hybrid_retriever.py:search <- qa_engine.py:ask <- profile_service.py:_worker <- threading.py:run",
+      "count": 543,
+      "pct": 19.75
+    },
+    {
+      "stack": "[leaf] vector_retriever.py:search",
+      "count": 543,
+      "pct": 19.75
+    },
+    {
+      "stack": "fromnumeric.py:_wrapfunc <- fromnumeric.py:argsort <- vector_retriever.py:search <- hybrid_retriever.py:recall <- hybrid_retriever.py:search <- qa_engine.py:ask",
+      "count": 416,
+      "pct": 15.13
+    },
+    {
+      "stack": "[leaf] fromnumeric.py:_wrapfunc",
+      "count": 416,
+      "pct": 15.13
+    },
+    {
+      "stack": "threading.py:_wait_for_tstate_lock <- threading.py:join <- profile_service.py:run_sample <- profile_service.py:main <- profile_service.py:<module>",
+      "count": 344,
+      "pct": 12.51
+    },
+    {
+      "stack": "[leaf] threading.py:_wait_for_tstate_lock",
+      "count": 344,
+      "pct": 12.51
+    },
+    {
+      "stack": "[leaf] re.py:sub",
+      "count": 179,
+      "pct": 6.51
+    },
+    {
+      "stack": "[leaf] socket.py:readinto",
+      "count": 173,
+      "pct": 6.29
+    },
+    {
+      "stack": "socket.py:readinto <- client.py:_read_status <- client.py:begin <- client.py:getresponse <- connection.py:getresponse <- connectionpool.py:_make_request",
+      "count": 153,
+      "pct": 5.57
+    },
+    {
+      "stack": "embedding.py:_cache_get <- embedding.py:encode_many_cached <- vector_retriever.py:encode_queries <- hybrid_retriever.py:recall <- hybrid_retriever.py:search <- qa_engine.py:ask",
+      "count": 126,
+      "pct": 4.58
+    },
+    {
+      "stack": "[leaf] embedding.py:_cache_get",
+      "count": 126,
+      "pct": 4.58
+    },
+    {
+      "stack": "[leaf] shape_base.py:vstack",
+      "count": 72,
+      "pct": 2.62
+    },
+    {
+      "stack": "shape_base.py:vstack <- embedding.py:encode_many_cached <- vector_retriever.py:encode_queries <- hybrid_retriever.py:recall <- hybrid_retriever.py:search <- qa_engine.py:ask",
+      "count": 70,
+      "pct": 2.55
+    },
+    {
+      "stack": "[leaf] answer_builder.py:_clean_text",
+      "count": 56,
+      "pct": 2.04
+    },
+    {
+      "stack": "re.py:sub <- answer_builder.py:_clean_text <- answer_builder.py:_metric_pair_answer <- answer_builder.py:build_answer <- qa_engine.py:ask <- profile_service.py:_worker",
+      "count": 50,
+      "pct": 1.82
+    },
+    {
+      "stack": "re.py:sub <- answer_builder.py:_metric_covered <- answer_builder.py:<listcomp> <- answer_builder.py:_metric_pair_answer <- answer_builder.py:build_answer <- qa_engine.py:ask",
+      "count": 45,
+      "pct": 1.64
+    },
+    {
+      "stack": "answer_builder.py:_clean_text <- answer_builder.py:_metric_pair_answer <- answer_builder.py:build_answer <- qa_engine.py:ask <- profile_service.py:_worker <- threading.py:run",
+      "count": 39,
+      "pct": 1.42
+    },
+    {
+      "stack": "re.py:sub <- rerankers.py:rerank <- hybrid_retriever.py:search <- qa_engine.py:ask <- profile_service.py:_worker <- threading.py:run",
+      "count": 30,
+      "pct": 1.09
+    },
+    {
+      "stack": "inverted_index.py:_score_terms <- inverted_index.py:search_bm25 <- inverted_index.py:search <- fulltext_retriever.py:search <- hybrid_retriever.py:recall <- hybrid_retriever.py:search",
+      "count": 27,
+      "pct": 0.98
+    },
+    {
+      "stack": "[leaf] inverted_index.py:_score_terms",
+      "count": 27,
+      "pct": 0.98
+    },
+    {
+      "stack": "re.py:sub <- answer_builder.py:_clean_text <- answer_builder.py:_metric_answer <- answer_builder.py:build_answer <- qa_engine.py:ask <- profile_service.py:_worker",
+      "count": 26,
+      "pct": 0.95
+    },
+    {
+      "stack": "answer_builder.py:_paragraphs <- answer_builder.py:__init__ <- answer_builder.py:build_answer <- qa_engine.py:ask <- profile_service.py:_worker <- threading.py:run",
+      "count": 21,
+      "pct": 0.76
+    },
+    {
+      "stack": "[leaf] answer_builder.py:_paragraphs",
+      "count": 21,
+      "pct": 0.76
+    },
+    {
+      "stack": "socket.py:readinto <- client.py:_safe_read <- response.py:_handle_chunk <- response.py:read_chunked <- response.py:stream <- models.py:generate",
+      "count": 20,
+      "pct": 0.73
+    },
+    {
+      "stack": "answer_builder.py:_clean_text <- answer_builder.py:_metric_answer <- answer_builder.py:build_answer <- qa_engine.py:ask <- profile_service.py:_worker <- threading.py:run",
+      "count": 17,
+      "pct": 0.62
+    },
+    {
+      "stack": "embedding.py:encode_many_cached <- vector_retriever.py:encode_queries <- hybrid_retriever.py:recall <- hybrid_retriever.py:search <- qa_engine.py:ask <- profile_service.py:_worker",
+      "count": 16,
+      "pct": 0.58
+    },
+    {
+      "stack": "[leaf] embedding.py:encode_many_cached",
+      "count": 16,
+      "pct": 0.58
+    },
+    {
+      "stack": "answer_builder.py:_sentences <- answer_builder.py:__init__ <- answer_builder.py:build_answer <- qa_engine.py:ask <- profile_service.py:_worker <- threading.py:run",
+      "count": 15,
+      "pct": 0.55
+    }
+  ],
+  "top_leaf_functions": [
+    {
+      "stack": "[leaf] connection.py:create_connection",
+      "count": 590,
+      "pct": 21.46
+    },
+    {
+      "stack": "[leaf] vector_retriever.py:search",
+      "count": 543,
+      "pct": 19.75
+    },
+    {
+      "stack": "[leaf] fromnumeric.py:_wrapfunc",
+      "count": 416,
+      "pct": 15.13
+    },
+    {
+      "stack": "[leaf] threading.py:_wait_for_tstate_lock",
+      "count": 344,
+      "pct": 12.51
+    },
+    {
+      "stack": "[leaf] re.py:sub",
+      "count": 179,
+      "pct": 6.51
+    },
+    {
+      "stack": "[leaf] socket.py:readinto",
+      "count": 173,
+      "pct": 6.29
+    },
+    {
+      "stack": "[leaf] embedding.py:_cache_get",
+      "count": 126,
+      "pct": 4.58
+    },
+    {
+      "stack": "[leaf] shape_base.py:vstack",
+      "count": 72,
+      "pct": 2.62
+    },
+    {
+      "stack": "[leaf] answer_builder.py:_clean_text",
+      "count": 56,
+      "pct": 2.04
+    },
+    {
+      "stack": "[leaf] inverted_index.py:_score_terms",
+      "count": 27,
+      "pct": 0.98
+    },
+    {
+      "stack": "[leaf] answer_builder.py:_paragraphs",
+      "count": 21,
+      "pct": 0.76
+    },
+    {
+      "stack": "[leaf] embedding.py:encode_many_cached",
+      "count": 16,
+      "pct": 0.58
+    }
+  ]
+}

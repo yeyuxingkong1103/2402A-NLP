@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="900" viewBox="0 0 1320 900" font-family="Microsoft YaHei, PingFang SC, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 z" fill="#475569"/>
+    </marker>
+    <marker id="arrowR" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 z" fill="#dc2626"/>
+    </marker>
+    <linearGradient id="gClient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef2ff"/><stop offset="1" stop-color="#e0e7ff"/>
+    </linearGradient>
+    <linearGradient id="gApi" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ecfeff"/><stop offset="1" stop-color="#cffafe"/>
+    </linearGradient>
+    <linearGradient id="gExec" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f0fdf4"/><stop offset="1" stop-color="#dcfce7"/>
+    </linearGradient>
+    <linearGradient id="gData" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fefce8"/><stop offset="1" stop-color="#fef9c3"/>
+    </linearGradient>
+    <linearGradient id="gObs" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#faf5ff"/><stop offset="1" stop-color="#f3e8ff"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1320" height="900" fill="#ffffff"/>
+  <text x="660" y="40" text-anchor="middle" font-size="24" font-weight="bold" fill="#0f172a">RAG API 服务系统总体架构（优化后 · 工单十七）</text>
+  <text x="660" y="66" text-anchor="middle" font-size="13" fill="#64748b">工单编号：人工智能 NLP-RAG-解决API服务并发瓶颈与资源泄漏</text>
+
+  <!-- Client layer -->
+  <rect x="40" y="92" width="1240" height="92" rx="14" fill="url(#gClient)" stroke="#a5b4fc"/>
+  <text x="60" y="120" font-size="14" font-weight="bold" fill="#3730a3">客户端 / 压测端</text>
+  <rect x="70" y="132" width="270" height="40" rx="8" fill="#ffffff" stroke="#818cf8"/>
+  <text x="205" y="157" text-anchor="middle" font-size="13" fill="#1e293b">场景A：20 并发问答</text>
+  <rect x="370" y="132" width="330" height="40" rx="8" fill="#ffffff" stroke="#818cf8"/>
+  <text x="535" y="157" text-anchor="middle" font-size="13" fill="#1e293b">场景B：5 问答 + 5 上传解析</text>
+  <rect x="730" y="132" width="250" height="40" rx="8" fill="#ffffff" stroke="#818cf8"/>
+  <text x="855" y="157" text-anchor="middle" font-size="13" fill="#1e293b">JMeter / Python 压测器</text>
+  <rect x="1010" y="132" width="250" height="40" rx="8" fill="#ffffff" stroke="#818cf8"/>
+  <text x="1135" y="157" text-anchor="middle" font-size="13" fill="#1e293b">Grafana 监控面板</text>
+
+  <!-- API Server -->
+  <rect x="40" y="212" width="800" height="300" rx="14" fill="url(#gApi)" stroke="#22d3ee"/>
+  <text x="60" y="240" font-size="15" font-weight="bold" fill="#0e7490">API Server（FastAPI · async def · uvicorn workers=1）</text>
+
+  <rect x="66" y="256" width="748" height="46" rx="8" fill="#ffffff" stroke="#67e8f9"/>
+  <text x="82" y="284" font-size="13" fill="#0f172a">异步端点：run_in_threadpool 卸载阻塞检索，事件循环不被阻塞</text>
+
+  <rect x="66" y="312" width="238" height="86" rx="8" fill="#ffffff" stroke="#67e8f9"/>
+  <text x="185" y="336" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e7490">并发限流</text>
+  <text x="185" y="358" text-anchor="middle" font-size="12" fill="#475569">Semaphore(QUERY_CONCURRENCY=8)</text>
+  <text x="185" y="380" text-anchor="middle" font-size="12" fill="#475569">解析 Semaphore(PARSE=2)</text>
+
+  <rect x="320" y="312" width="238" height="86" rx="8" fill="#ffffff" stroke="#67e8f9"/>
+  <text x="439" y="336" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e7490">单例资源容器</text>
+  <text x="439" y="358" text-anchor="middle" font-size="12" fill="#475569">ResourceManager.instance()</text>
+  <text x="439" y="380" text-anchor="middle" font-size="12" fill="#475569">QAEngine / KB 仅初始化一次</text>
+
+  <rect x="574" y="312" width="240" height="86" rx="8" fill="#ffffff" stroke="#67e8f9"/>
+  <text x="694" y="336" text-anchor="middle" font-size="13" font-weight="bold" fill="#0e7490">有界缓存</text>
+  <text x="694" y="358" text-anchor="middle" font-size="12" fill="#475569">会话 LRU+TTL(512/1800s)</text>
+  <text x="694" y="380" text-anchor="middle" font-size="12" fill="#475569">查询编码 LRU(2048)</text>
+
+  <rect x="66" y="412" width="748" height="80" rx="8" fill="#ffffff" stroke="#67e8f9"/>
+  <text x="82" y="438" font-size="13" font-weight="bold" fill="#0e7490">HTTP 连接池（共享 requests.Session + HTTPAdapter）</text>
+  <text x="82" y="462" font-size="12" fill="#475569">pool_connections=32 · pool_maxsize=64 · TCP 复用归还，杜绝套接字/句柄泄漏</text>
+  <text x="82" y="482" font-size="12" fill="#475569">注入 src.embedding，Ollama 嵌入/LLM 调用全部复用同一连接池</text>
+
+  <!-- Redis queue -->
+  <rect x="864" y="212" width="416" height="120" rx="14" fill="#fff7ed" stroke="#fb923c"/>
+  <text x="1072" y="242" text-anchor="middle" font-size="15" font-weight="bold" fill="#c2410c">Redis 任务队列（Task Queue）</text>
+  <text x="1072" y="272" text-anchor="middle" font-size="12" fill="#7c2d12">键 rag:tasks · LPUSH / BRPOP</text>
+  <text x="1072" y="296" text-anchor="middle" font-size="12" fill="#7c2d12">API 入队即返回 task_id，Executor 异步消费</text>
+  <text x="1072" y="318" text-anchor="middle" font-size="11" fill="#9a3412">（无 Redis 时自动回退进程内内存队列，接口一致）</text>
+
+  <!-- Task Executor -->
+  <rect x="864" y="352" width="416" height="160" rx="14" fill="url(#gExec)" stroke="#4ade80"/>
+  <text x="1072" y="380" text-anchor="middle" font-size="15" font-weight="bold" fill="#15803d">Task Executor（解析 worker 池）</text>
+  <text x="884" y="410" font-size="12" fill="#166534">• EXECUTOR_WORKERS=2，阻塞出队 + 后台解析</text>
+  <text x="884" y="434" font-size="12" fill="#166534">• parse_sem 限制并行重型解析</text>
+  <text x="884" y="458" font-size="12" fill="#166534">• 解析结果真实追加进内存知识库</text>
+  <text x="884" y="482" font-size="12" fill="#166534">• 向量 vstack + 倒排索引 finalize</text>
+
+  <!-- Data layer -->
+  <rect x="40" y="540" width="1240" height="120" rx="14" fill="url(#gData)" stroke="#facc15"/>
+  <text x="60" y="568" font-size="15" font-weight="bold" fill="#a16207">数据与模型层</text>
+  <rect x="70" y="582" width="330" height="62" rx="8" fill="#ffffff" stroke="#fde047"/>
+  <text x="235" y="606" text-anchor="middle" font-size="13" font-weight="bold" fill="#854d0e">向量库 vector_db/</text>
+  <text x="235" y="628" text-anchor="middle" font-size="11" fill="#475569">emb_bge-m3/bge-large/nomic .npy（L2 归一化）</text>
+  <rect x="420" y="582" width="330" height="62" rx="8" fill="#ffffff" stroke="#fde047"/>
+  <text x="585" y="606" text-anchor="middle" font-size="13" font-weight="bold" fill="#854d0e">倒排索引 + 切片</text>
+  <text x="585" y="628" text-anchor="middle" font-size="11" fill="#475569">inverted_index.pkl · chunks.jsonl（8086 块）</text>
+  <rect x="770" y="582" width="240" height="62" rx="8" fill="#ffffff" stroke="#fde047"/>
+  <text x="890" y="606" text-anchor="middle" font-size="13" font-weight="bold" fill="#854d0e">Ollama 本地模型</text>
+  <text x="890" y="628" text-anchor="middle" font-size="11" fill="#475569">bge-m3 嵌入 · deepseek-r1 LLM</text>
+  <rect x="1030" y="582" width="230" height="62" rx="8" fill="#ffffff" stroke="#fde047"/>
+  <text x="1145" y="606" text-anchor="middle" font-size="13" font-weight="bold" fill="#854d0e">混合检索 / 重排</text>
+  <text x="1145" y="628" text-anchor="middle" font-size="11" fill="#475569">向量+BM25 融合 · 多信号重排</text>
+
+  <!-- Observability -->
+  <rect x="40" y="688" width="1240" height="100" rx="14" fill="url(#gObs)" stroke="#c084fc"/>
+  <text x="60" y="716" font-size="15" font-weight="bold" fill="#7e22ce">可观测性（Prometheus + Grafana）</text>
+  <rect x="70" y="730" width="560" height="44" rx="8" fill="#ffffff" stroke="#d8b4fe"/>
+  <text x="350" y="757" text-anchor="middle" font-size="12" fill="#4c1d95">/metrics：QPS · 延迟直方图(P95/P99) · RSS/commit · 队列深度 · 在飞请求 · 任务计数</text>
+  <rect x="650" y="730" width="590" height="44" rx="8" fill="#ffffff" stroke="#d8b4fe"/>
+  <text x="945" y="757" text-anchor="middle" font-size="12" fill="#4c1d95">进程外监控 tools/monitor_resources.py：USS · CPU · 线程 · 句柄采样</text>
+
+  <!-- arrows -->
+  <line x1="660" y1="184" x2="440" y2="256" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="440" y1="512" x2="1072" y2="212" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6,4"/>
+  <line x1="1072" y1="332" x2="1072" y2="352" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="440" y1="512" x2="585" y2="582" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="1072" y1="512" x2="890" y2="582" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="660" y1="512" x2="350" y2="730" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6,4"/>
+  <text x="770" y="200" font-size="11" fill="#64748b">上传（异步入队）</text>
+  <text x="470" y="548" font-size="11" fill="#64748b">检索/生成</text>
+</svg>

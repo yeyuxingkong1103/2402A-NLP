@@ -1,0 +1,37 @@
+﻿====================================================================
+【构建知识库】招股说明书1（兴图新科） + 招股说明书2（力源信息）
+====================================================================
+[KB] 解析 898 页 → 切片 2352 个 {'text': 1737, 'table': 615}
+[KB] 知识块 2352 个，开始向量化（bge-m3:567m）...
+  embedded 16/2352 (8.1s)
+  embedded 176/2352 (34.3s)
+  embedded 336/2352 (60.3s)
+  embedded 496/2352 (86.0s)
+  embedded 656/2352 (112.0s)
+  embedded 816/2352 (138.1s)
+  embedded 976/2352 (164.1s)
+  embedded 1136/2352 (189.7s)
+  embedded 1296/2352 (215.5s)
+  embedded 1456/2352 (241.6s)
+  embedded 1616/2352 (267.3s)
+  embedded 1776/2352 (293.3s)
+  embedded 1936/2352 (319.3s)
+  embedded 2096/2352 (345.2s)
+  embedded 2256/2352 (370.8s)
+[KB] 向量化完成，用时 386.4s，维度 (2352, 1024)
+python.exe : Building prefix dict from the default dictionary ...
+At line:1 char:927
++ ... \30274\Desktop\工单代码\工单五\研发"; & $py build_kb.py --rebuild *>&1 | Tee-O ...
++                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Building prefix... dictionary ...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading model from cache C:\Users\30274\AppData\Local\Temp\jieba.cache
+Loading model cost 0.573 seconds.
+Prefix dict has been built successfully.
+[KB] 索引已落盘 → F:\Trea-Work\AppData\Roaming\TRAE SOLO CN\VMCache\main-TRAE_SOLO-Yinli\drive\C\Users\30274\Desktop\工单代码\工单五\研发\vector_db
+--------------------------------------------------------------------
+构建完成，用时 473.3s
+  块数: 2352  维度: 1024  模型: bge-m3:567m
+  类型分布: {'table': 615, 'text': 1737}
+  落盘位置: F:\Trea-Work\AppData\Roaming\TRAE SOLO CN\VMCache\main-TRAE_SOLO-Yinli\drive\C\Users\30274\Desktop\工单代码\工单五\研发\vector_db

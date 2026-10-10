@@ -1,0 +1,40 @@
+﻿python : Building prefix dict from the default dictionary ...
+At line:15 char:1756
++ ... l_3way.log; python evaluate_retrieval.py --strategies hybrid --rerank ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Building prefix... dictionary ...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading model from cache C:\Users\30274\AppData\Local\Temp\jieba.cache
+Loading model cost 0.721 seconds.
+Prefix dict has been built successfully.
+============================================================================================
+检索策略评测  |  工单编号: 人工智能 NLP-RAG-混合检索任务
+题目数：50    嵌入模型：bge-m3
+============================================================================================
+[GT] ground-truth 相关块已标注：50/50 题有可定位相关块
+
+[1/5] 评测 hybrid / none / rrf ...
+      hybrid/none/rrf          | 准确率 94.0% | 召回率 96.0% (块级 50.0%) | 平均 2.24s P95 2.37s
+[2/5] 评测 hybrid / tfidf / rrf ...
+      hybrid/tfidf/rrf         | 准确率 98.0% | 召回率 98.0% (块级 50.4%) | 平均 0.08s P95 0.11s
+[3/5] 评测 hybrid / llm / rrf ...
+      hybrid/llm/rrf           | 准确率 94.0% | 召回率 96.0% (块级 50.0%) | 平均 4.23s P95 3.00s
+[4/5] 评测 hybrid / adaptive / rrf ...
+      hybrid/adaptive/rrf      | 准确率 92.0% | 召回率 94.0% (块级 48.0%) | 平均 0.02s P95 0.05s
+[5/5] 评测 hybrid / linear / rrf ...
+      hybrid/linear/rrf        | 准确率 100.0% | 召回率 98.0% (块级 54.4%) | 平均 0.02s P95 0.04s
+
+============================================================================================
+汇总（按准确率排序）
+============================================================================================
+hybrid/linear/rrf        | 准确率 100.0% | 召回率 98.0% (块级 54.4%) | 平均 0.02s P95 0.04s
+hybrid/tfidf/rrf         | 准确率 98.0% | 召回率 98.0% (块级 50.4%) | 平均 0.08s P95 0.11s
+hybrid/none/rrf          | 准确率 94.0% | 召回率 96.0% (块级 50.0%) | 平均 2.24s P95 2.37s
+hybrid/llm/rrf           | 准确率 94.0% | 召回率 96.0% (块级 50.0%) | 平均 4.23s P95 3.00s
+hybrid/adaptive/rrf      | 准确率 92.0% | 召回率 94.0% (块级 48.0%) | 平均 0.02s P95 0.05s
+--------------------------------------------------------------------------------------------
+最优配置：hybrid / linear / rrf  →  准确率 100.0%，召回率 98.0%，平均响应 0.02s
+验收：准确率≥90% ✅  召回率≥95% ✅  响应≤3s ✅
+
+评测结果已落盘 → output\ablation_rerankers.json

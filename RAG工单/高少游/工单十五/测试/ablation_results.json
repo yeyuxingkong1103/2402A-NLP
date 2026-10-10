@@ -1,0 +1,312 @@
+{
+  "workorder": "人工智能NLP-RAG-优化技术图纸与文本的跨模态检索流程工单",
+  "built_at": "2026-10-09 15:38:26",
+  "cases": {
+    "baseline（优化前）": {
+      "accuracy": 0.3333,
+      "correct": 2,
+      "questions": 6,
+      "figure_top1_rate": 0.0,
+      "avg_latency": 2.086,
+      "rows": [
+        {
+          "id": 1,
+          "correct": true,
+          "fig_top1": false,
+          "answer": "本发明主要涉及块状散料的分配装置。",
+          "latency": 2.068
+        },
+        {
+          "id": 2,
+          "correct": true,
+          "fig_top1": false,
+          "answer": "本发明的分散装置包含链条。",
+          "latency": 2.064
+        },
+        {
+          "id": 3,
+          "correct": false,
+          "fig_top1": false,
+          "answer": "此处所述装置的这些按照本发明要承受特别磨损条件下的载荷的零部件另外还通过铠装 , 例如通过堆焊来保护 .图 3 表示了一种分散装置的实施形式 , 例如在一个熔化气化器里用于将 DRI 装入在移动床上的装置 . 在一个落料架 10 里通过合适的紧固机构 11 在一个保护管 12 里设置了一根或多根链条 13。",
+          "latency": 2.105
+        },
+        {
+          "id": 4,
+          "correct": false,
+          "fig_top1": false,
+          "answer": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】可以考虑对于承受特殊高温的那些零部件有一种防火外罪 。",
+          "latency": 2.078
+        },
+        {
+          "id": 5,
+          "correct": false,
+          "fig_top1": false,
+          "answer": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 i萝|屯明二鲁:宫第 1/5 页用于分配块状散料的装置和相应的分散装置技术领域本发明涉及用于将一种块状散料 , 尤其是至少部分经预还原的铁矿石分配在一个伸展的平面上 , 尤其是在一个移动床上的装置和方法 , 其中该平面布置在物理的或化学的工艺技术装备的一个反应器或宰器里 , 尤其是在用于生产生铁或钢预制品的冷金工厂的反应器里 , 而这些块状散料通过至少一个装料装置来装料 , 该装料装",
+          "latency": 2.093
+        },
+        {
+          "id": 6,
+          "correct": false,
+          "fig_top1": false,
+          "answer": "此处所述装置的这些按照本发明要承受特别磨损条件下的载荷的零部件另外还通过铠装 , 例如通过堆焊来保护 .图 3 表示了一种分散装置的实施形式 , 例如在一个熔化气化器里用于将 DRI 装入在移动床上的装置 . 在一个落料架 10 里通过合适的紧固机构 11 在一个保护管 12 里设置了一根或多根链条 13。",
+          "latency": 2.109
+        }
+      ]
+    },
+    "full（优化后全量）": {
+      "accuracy": 1.0,
+      "correct": 6,
+      "questions": 6,
+      "figure_top1_rate": 1.0,
+      "avg_latency": 2.167,
+      "rows": [
+        {
+          "id": 1,
+          "correct": true,
+          "fig_top1": false,
+          "answer": "本发明主要涉及块状散料的分配装置。",
+          "latency": 2.112
+        },
+        {
+          "id": 2,
+          "correct": true,
+          "fig_top1": false,
+          "answer": "本发明的分散装置包含链条。",
+          "latency": 2.199
+        },
+        {
+          "id": 3,
+          "correct": true,
+          "fig_top1": true,
+          "answer": "编号13的部件（链条）位于编号12的部件（保护管）之内。",
+          "latency": 2.156
+        },
+        {
+          "id": 4,
+          "correct": true,
+          "fig_top1": true,
+          "answer": "编号14的部件（输入管）位于整个装置的顶部。",
+          "latency": 2.248
+        },
+        {
+          "id": 5,
+          "correct": true,
+          "fig_top1": true,
+          "answer": "散料从部件14进入后，下一步经过部件13（链条）。",
+          "latency": 2.161
+        },
+        {
+          "id": 6,
+          "correct": true,
+          "fig_top1": true,
+          "answer": "需要操作部件11（紧固机构）来调整链条（部件13）的位置。",
+          "latency": 2.127
+        }
+      ]
+    },
+    "w/o 视觉引用识别": {
+      "accuracy": 0.6667,
+      "correct": 4,
+      "questions": 6,
+      "figure_top1_rate": 1.0,
+      "avg_latency": 2.176,
+      "rows": [
+        {
+          "id": 1,
+          "correct": true,
+          "fig_top1": false,
+          "answer": "本发明主要涉及块状散料的分配装置。",
+          "latency": 2.246
+        },
+        {
+          "id": 2,
+          "correct": true,
+          "fig_top1": false,
+          "answer": "本发明的分散装置包含链条。",
+          "latency": 2.178
+        },
+        {
+          "id": 3,
+          "correct": false,
+          "fig_top1": true,
+          "answer": "部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放渣和出铁口、5-体的排气装置、6-装置、8-落料架、10-落料架、11-紧固机构、12-保护管、13-链条、14-输入管 空间关系：紧固机构11位于落料架10之内；",
+          "latency": 2.127
+        },
+        {
+          "id": 4,
+          "correct": false,
+          "fig_top1": true,
+          "answer": "部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放渣和出铁口、5-体的排气装置、6-装置、8-落料架、10-落料架、11-紧固机构、12-保护管、13-链条、14-输入管 空间关系：紧固机构11位于落料架10之内；",
+          "latency": 2.15
+        },
+        {
+          "id": 5,
+          "correct": true,
+          "fig_top1": true,
+          "answer": "散料从部件14进入后，下一步经过部件13（链条）。",
+          "latency": 2.228
+        },
+        {
+          "id": 6,
+          "correct": true,
+          "fig_top1": true,
+          "answer": "需要操作部件11（紧固机构）来调整链条（部件13）的位置。",
+          "latency": 2.125
+        }
+      ]
+    },
+    "w/o 图像增强召回": {
+      "accuracy": 1.0,
+      "correct": 6,
+      "questions": 6,
+      "figure_top1_rate": 1.0,
+      "avg_latency": 2.095,
+      "rows": [
+        {
+          "id": 1,
+          "correct": true,
+          "fig_top1": false,
+          "answer": "本发明主要涉及块状散料的分配装置。",
+          "latency": 2.068
+        },
+        {
+          "id": 2,
+          "correct": true,
+          "fig_top1": false,
+          "answer": "本发明的分散装置包含链条。",
+          "latency": 2.074
+        },
+        {
+          "id": 3,
+          "correct": true,
+          "fig_top1": true,
+          "answer": "编号13的部件（链条）位于编号12的部件（保护管）之内。",
+          "latency": 2.116
+        },
+        {
+          "id": 4,
+          "correct": true,
+          "fig_top1": true,
+          "answer": "编号14的部件（输入管）位于整个装置的顶部。",
+          "latency": 2.093
+        },
+        {
+          "id": 5,
+          "correct": true,
+          "fig_top1": true,
+          "answer": "散料从部件14进入后，下一步经过部件13（链条）。",
+          "latency": 2.112
+        },
+        {
+          "id": 6,
+          "correct": true,
+          "fig_top1": true,
+          "answer": "需要操作部件11（紧固机构）来调整链条（部件13）的位置。",
+          "latency": 2.106
+        }
+      ]
+    },
+    "w/o 跨模态重排(换 linear)": {
+      "accuracy": 1.0,
+      "correct": 6,
+      "questions": 6,
+      "figure_top1_rate": 1.0,
+      "avg_latency": 2.164,
+      "rows": [
+        {
+          "id": 1,
+          "correct": true,
+          "fig_top1": false,
+          "answer": "本发明主要涉及块状散料的分配装置。",
+          "latency": 2.089
+        },
+        {
+          "id": 2,
+          "correct": true,
+          "fig_top1": false,
+          "answer": "本发明的分散装置包含链条。",
+          "latency": 2.166
+        },
+        {
+          "id": 3,
+          "correct": true,
+          "fig_top1": true,
+          "answer": "编号13的部件（链条）位于编号12的部件（保护管）之内。",
+          "latency": 2.184
+        },
+        {
+          "id": 4,
+          "correct": true,
+          "fig_top1": true,
+          "answer": "编号14的部件（输入管）位于整个装置的顶部。",
+          "latency": 2.148
+        },
+        {
+          "id": 5,
+          "correct": true,
+          "fig_top1": true,
+          "answer": "散料从部件14进入后，下一步经过部件13（链条）。",
+          "latency": 2.169
+        },
+        {
+          "id": 6,
+          "correct": true,
+          "fig_top1": true,
+          "answer": "需要操作部件11（紧固机构）来调整链条（部件13）的位置。",
+          "latency": 2.231
+        }
+      ]
+    },
+    "w/o 视觉提示工程": {
+      "accuracy": 1.0,
+      "correct": 6,
+      "questions": 6,
+      "figure_top1_rate": 1.0,
+      "avg_latency": 2.193,
+      "rows": [
+        {
+          "id": 1,
+          "correct": true,
+          "fig_top1": false,
+          "answer": "本发明主要涉及块状散料的分配装置。",
+          "latency": 2.173
+        },
+        {
+          "id": 2,
+          "correct": true,
+          "fig_top1": false,
+          "answer": "本发明的分散装置包含链条。",
+          "latency": 2.086
+        },
+        {
+          "id": 3,
+          "correct": true,
+          "fig_top1": true,
+          "answer": "编号13的部件（链条）位于编号12的部件（保护管）之内。",
+          "latency": 2.234
+        },
+        {
+          "id": 4,
+          "correct": true,
+          "fig_top1": true,
+          "answer": "编号14的部件（输入管）位于整个装置的顶部。",
+          "latency": 2.299
+        },
+        {
+          "id": 5,
+          "correct": true,
+          "fig_top1": true,
+          "answer": "散料从部件14进入后，下一步经过部件13（链条）。",
+          "latency": 2.139
+        },
+        {
+          "id": 6,
+          "correct": true,
+          "fig_top1": true,
+          "answer": "需要操作部件11（紧固机构）来调整链条（部件13）的位置。",
+          "latency": 2.226
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,42 @@
+﻿py-spy.exe : [2026-10-09T12:04:56.383717500Z INFO  py_spy::config] config Config {
+At line:15 char:1989
++ ...  -Force -Path $out | Out-Null; & $py dump --pid $pid8001 2>&1 | Out-F ...
++                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([2026-10-09T12:...config Config {:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+        blocking: Lock,
+        native: false,
+        command: "dump",
+        pid: Some(
+            26076,
+        ),
+        python_program: None,
+        sampling_rate: 100,
+        filename: None,
+        format: None,
+        show_line_numbers: false,
+        duration: Unlimited,
+        include_idle: false,
+        include_thread_ids: false,
+        subprocesses: false,
+        gil_only: false,
+        hide_progress: false,
+        capture_output: true,
+        dump_json: false,
+        dump_locals: 0,
+        full_filenames: false,
+        lineno: LastInstruction,
+        refresh_seconds: 1.0,
+        core_filename: None,
+    }
+[2026-10-09T12:04:56.436818900Z INFO  py_spy::python_process_info] Got virtual memory maps from pid 26076:
+[2026-10-09T12:04:56.436916700Z WARN  py_spy::python_process_info] Failed to find 'f:\trea-work\appdata\roaming\trae so
+lo cn\modulardata\ai-agent\vm\tools\python\python.exe' in virtual memory maps, falling back to first map region
+[2026-10-09T12:04:56.460667300Z INFO  py_spy::python_process_info] Found libpython binary @ C:\Users\30274\AppData\Roam
+ing\TRAE SOLO CN\ModularData\ai-agent\vm\tools\python\python310.dll
+[2026-10-09T12:04:56.474412200Z INFO  py_spy::python_process_info] Getting version from python binary BSS
+Error: 仅完成部分的 ReadProcessMemory 或 WriteProcessMemory 请求。 (os error 299)
+
+Caused by:
+    仅完成部分的 ReadProcessMemory 或 WriteProcessMemory 请求。 (os error 299)

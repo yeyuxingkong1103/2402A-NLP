@@ -1,0 +1,22 @@
+﻿python : Building prefix dict from the default dictionary ...
+At line:15 char:1757
++ ... .log 2>&1 ; python tools\run_functional_tests.py > output\functional_ ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Building prefix... dictionary ...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading model from cache C:\Users\30274\AppData\Local\Temp\jieba.cache
+Loading model cost 0.466 seconds.
+Prefix dict has been built successfully.
+TC-01 PASS | 招商银行2019年实现营业收入和归属于本行股东的净利润分别是多少？ | 截至年末，招商银行总资产达7.42万亿元， 较上年末增长9.95%；全年实现营业收入2,697.03亿元，同比增长8.5
+TC-02 PASS | 它的不良贷款率和拨备覆盖率分别是多少？ | 2019年 2018年本年末比 2017年资产质量指标(%) 12月31日 12月31日上年末增减 12月31日不良贷款
+TC-03 PASS | 那邮储银行呢？ | 截至报告期末，不良贷款余额428.44亿元，不良贷款率0.86%，拨备覆盖率389.45%。
+TC-04 PASS | 中国平安2019年归属于母公司股东的净利润是多少？ | 2019年，集团实现归属于母公司股东的净利润1,494.07亿元，同比增长39.1%；
+TC-05 PASS | 中国太保2021年在绿色金融和碳减排方面有哪些举措？ | 1 2 绿色保险绿色投资中国太保围绕保障清洁高效能源体系建设、降低污染消耗、 中国太保积极参与绿色金融体制机制创新，为国
+TC-06 PASS | What is the non-performing loan ra | 截至报告期末，不良贷款余额428.44亿元，不良贷款率0.86%，拨备覆盖率389.45%。
+TC-07 PASS | 空输入 / 乱码输入 | 未在年报知识库中检索到与该问题相关的内容，请尝试换一种与公司/财务/业务相关的问法。 | 未在年报知识库中检索到与该问题
+TC-08 PASS | 今天天气如何？适合去爬山吗？ | 未在年报知识库中检索到与该问题相关的内容，请尝试换一种与公司/财务/业务相关的问法。
+TC-09 PASS | 连续 50 轮问答 | 完成 50 轮；平均 0.18s，最大 2.22s
+TC-10 PASS | 重置会话后再提问 | 重置前 1 轮 → 重置后 0 轮
+
+通过 10/10 = 100%

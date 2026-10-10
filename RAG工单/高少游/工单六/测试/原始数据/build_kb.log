@@ -1,0 +1,55 @@
+﻿========================================================================
+【构建知识库】招股说明书1（兴图新科） + 招股说明书2（力源信息）
+嵌入模型：bge-m3, bge-large, nomic-embed
+========================================================================
+[KB] 解析 898 页 → 切片 2352 个 {'text': 1737, 'table': 615}
+[KB] 图形语义块 5 个（组织结构图）
+[KB] 向量化 2357 块（模型 bge-m3: bge-m3:567m）...
+  [bge-m3] embedded 64/2357 (38.4s)
+  [bge-m3] embedded 384/2357 (58.4s)
+  [bge-m3] embedded 704/2357 (77.6s)
+  [bge-m3] embedded 1024/2357 (97.2s)
+  [bge-m3] embedded 1344/2357 (123.2s)
+  [bge-m3] embedded 1664/2357 (141.4s)
+  [bge-m3] embedded 1984/2357 (160.2s)
+  [bge-m3] embedded 2304/2357 (178.9s)
+[KB]   bge-m3 完成，用时 182.6s，维度 (2357, 1024)
+[KB] 向量化 2357 块（模型 bge-large: bge-large:latest）...
+  [bge-large] embedded 64/2357 (5.7s)
+  [bge-large] embedded 384/2357 (26.5s)
+  [bge-large] embedded 704/2357 (46.8s)
+  [bge-large] embedded 1024/2357 (67.2s)
+  [bge-large] embedded 1344/2357 (86.9s)
+  [bge-large] embedded 1664/2357 (107.6s)
+  [bge-large] embedded 1984/2357 (128.3s)
+  [bge-large] embedded 2304/2357 (148.5s)
+[KB]   bge-large 完成，用时 152.3s，维度 (2357, 1024)
+[KB] 向量化 2357 块（模型 nomic-embed: nomic-embed-text:latest）...
+  [nomic-embed] embedded 64/2357 (4.5s)
+  [nomic-embed] embedded 384/2357 (20.6s)
+  [nomic-embed] embedded 704/2357 (36.8s)
+  [nomic-embed] embedded 1024/2357 (52.8s)
+  [nomic-embed] embedded 1344/2357 (68.1s)
+  [nomic-embed] embedded 1664/2357 (84.1s)
+  [nomic-embed] embedded 1984/2357 (100.0s)
+  [nomic-embed] embedded 2304/2357 (115.8s)
+[KB]   nomic-embed 完成，用时 118.8s，维度 (2357, 768)
+python : Building prefix dict from the default dictionary ...
+At line:15 char:1700
++ ... | Out-Null; python build_kb.py --rebuild --models bge-m3,bge-large,no ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Building prefix... dictionary ...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Dumping model to file cache C:\Users\30274\AppData\Local\Temp\jieba.cache
+Loading model cost 0.563 seconds.
+Prefix dict has been built successfully.
+[KB] 倒排索引构建完成：词表 20629 项，文档 2357 篇 → inverted_index.pkl
+[KB] 索引已落盘 → G:\Trae-work产出\6ac6e7fa945a4596a6818381\_build\研发\vector_db
+------------------------------------------------------------------------
+构建完成，用时 570.6s
+  块数: 2357
+  模型维度: {'bge-m3': 1024, 'bge-large': 1024, 'nomic-embed': 768}
+  倒排词表: 20629
+  类型分布: {'figure': 5, 'table': 615, 'text': 1737}
+  落盘位置: G:\Trae-work产出\6ac6e7fa945a4596a6818381\_build\研发\vector_db

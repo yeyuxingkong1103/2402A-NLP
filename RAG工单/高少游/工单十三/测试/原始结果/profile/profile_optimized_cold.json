@@ -1,0 +1,261 @@
+{
+  "workorder": "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化",
+  "mode": "optimized",
+  "scenario": "cold",
+  "perf_opt": true,
+  "n_questions": 3,
+  "startup_warmup_ms": 0.0,
+  "end_to_end": {
+    "n": 3,
+    "avg": 1116.621,
+    "p50": 237.749,
+    "p95": 2935.177,
+    "p99": 2935.177,
+    "max": 2935.177
+  },
+  "stages": {
+    "query_rewrite": {
+      "n": 3,
+      "avg": 0.252,
+      "p50": 0.045,
+      "p95": 0.681,
+      "p99": 0.681,
+      "max": 0.681
+    },
+    "query_understanding": {
+      "n": 3,
+      "avg": 181.988,
+      "p50": 0.517,
+      "p95": 545.245,
+      "p99": 545.245,
+      "max": 545.245
+    },
+    "vector_recall": {
+      "n": 3,
+      "avg": 827.959,
+      "p50": 146.587,
+      "p95": 2256.077,
+      "p99": 2256.077,
+      "max": 2256.077
+    },
+    "embed": {
+      "n": 3,
+      "avg": 821.951,
+      "p50": 139.093,
+      "p95": 2251.218,
+      "p99": 2251.218,
+      "max": 2251.218
+    },
+    "fulltext_recall": {
+      "n": 3,
+      "avg": 39.357,
+      "p50": 35.442,
+      "p95": 49.318,
+      "p99": 49.318,
+      "max": 49.318
+    },
+    "fusion": {
+      "n": 3,
+      "avg": 0.569,
+      "p50": 0.588,
+      "p95": 0.701,
+      "p99": 0.701,
+      "max": 0.701
+    },
+    "rerank": {
+      "n": 3,
+      "avg": 9.98,
+      "p50": 9.963,
+      "p95": 15.807,
+      "p99": 15.807,
+      "max": 15.807
+    },
+    "answer_synthesis": {
+      "n": 3,
+      "avg": 56.287,
+      "p50": 57.424,
+      "p95": 73.075,
+      "p99": 73.075,
+      "max": 73.075
+    },
+    "total": {
+      "n": 3,
+      "avg": 1116.621,
+      "p50": 237.749,
+      "p95": 2935.177,
+      "p99": 2935.177,
+      "max": 2935.177
+    }
+  },
+  "stage_label": {
+    "query_rewrite": "查询处理与增强",
+    "query_understanding": "查询理解",
+    "vector_recall": "检索·向量召回",
+    "embed": "查询向量编码",
+    "fulltext_recall": "检索·全文召回",
+    "fusion": "检索·多通道融合",
+    "rerank": "上下文组装·重排",
+    "answer_synthesis": "后处理·答案合成",
+    "total": "端到端总计"
+  },
+  "alerts": [
+    {
+      "level": "warn",
+      "metric": "embed_max",
+      "value_ms": 2251.218,
+      "threshold_ms": 1500.0,
+      "msg": "阶段「查询向量编码」单次最大 2.25s 超过 1.5s"
+    },
+    {
+      "level": "warn",
+      "metric": "vector_recall_max",
+      "value_ms": 2256.077,
+      "threshold_ms": 1500.0,
+      "msg": "阶段「检索·向量召回」单次最大 2.26s 超过 1.5s"
+    }
+  ],
+  "rows": [
+    {
+      "id": "Q01",
+      "company": "平安银行",
+      "question": "平安银行在2019年年度报告的董事长致辞中，提到其盈利增长的关键因素有哪些？",
+      "total_ms": 2935.2,
+      "stages_ms": {
+        "query_rewrite": 0.681,
+        "query_understanding": 545.245,
+        "embed": 2251.218,
+        "vector_recall": 2256.077,
+        "fulltext_recall": 49.318,
+        "fusion": 0.588,
+        "rerank": 9.963,
+        "answer_synthesis": 73.075,
+        "total": 2935.177
+      },
+      "doc": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf"
+    },
+    {
+      "id": "Q02",
+      "company": "招商银行",
+      "question": "招商银行在其2019年年度报告中提到的创新商业模式有哪些？",
+      "total_ms": 176.9,
+      "stages_ms": {
+        "query_rewrite": 0.03,
+        "query_understanding": 0.203,
+        "embed": 75.541,
+        "vector_recall": 81.214,
+        "fulltext_recall": 33.31,
+        "fusion": 0.419,
+        "rerank": 4.169,
+        "answer_synthesis": 57.424,
+        "total": 176.938
+      },
+      "doc": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf"
+    },
+    {
+      "id": "Q03",
+      "company": "平安银行",
+      "question": "平安银行的风险管理体系如何体现其应对宏观经济周期波动的能力？结合其不良贷款率与拨备覆盖率分析。",
+      "total_ms": 237.7,
+      "stages_ms": {
+        "query_rewrite": 0.045,
+        "query_understanding": 0.517,
+        "embed": 139.093,
+        "vector_recall": 146.587,
+        "fulltext_recall": 35.442,
+        "fusion": 0.701,
+        "rerank": 15.807,
+        "answer_synthesis": 38.361,
+        "total": 237.749
+      },
+      "doc": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf"
+    }
+  ],
+  "metrics": {
+    "requests": 3,
+    "errors": 0,
+    "error_rate": 0.0,
+    "duration_s": 3.355,
+    "throughput_rps": 0.894,
+    "counters": {
+      "num_candidates": 638,
+      "num_evidence": 6,
+      "context_chars": 960,
+      "answer_chars": 1042
+    },
+    "stages": {
+      "query_rewrite": {
+        "n": 3,
+        "avg": 0.252,
+        "p50": 0.045,
+        "p95": 0.681,
+        "p99": 0.681,
+        "max": 0.681
+      },
+      "query_understanding": {
+        "n": 3,
+        "avg": 181.988,
+        "p50": 0.517,
+        "p95": 545.245,
+        "p99": 545.245,
+        "max": 545.245
+      },
+      "embed": {
+        "n": 3,
+        "avg": 821.951,
+        "p50": 139.093,
+        "p95": 2251.218,
+        "p99": 2251.218,
+        "max": 2251.218
+      },
+      "vector_recall": {
+        "n": 3,
+        "avg": 827.959,
+        "p50": 146.587,
+        "p95": 2256.077,
+        "p99": 2256.077,
+        "max": 2256.077
+      },
+      "fulltext_recall": {
+        "n": 3,
+        "avg": 39.357,
+        "p50": 35.442,
+        "p95": 49.318,
+        "p99": 49.318,
+        "max": 49.318
+      },
+      "fusion": {
+        "n": 3,
+        "avg": 0.569,
+        "p50": 0.588,
+        "p95": 0.701,
+        "p99": 0.701,
+        "max": 0.701
+      },
+      "rerank": {
+        "n": 3,
+        "avg": 9.98,
+        "p50": 9.963,
+        "p95": 15.807,
+        "p99": 15.807,
+        "max": 15.807
+      },
+      "answer_synthesis": {
+        "n": 3,
+        "avg": 56.287,
+        "p50": 57.424,
+        "p95": 73.075,
+        "p99": 73.075,
+        "max": 73.075
+      },
+      "total": {
+        "n": 3,
+        "avg": 1116.621,
+        "p50": 237.749,
+        "p95": 2935.177,
+        "p99": 2935.177,
+        "max": 2935.177
+      }
+    }
+  },
+  "measured_at": "2026-10-09 09:16:47"
+}

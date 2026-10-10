@@ -1,0 +1,159 @@
+{
+  "mode": "cpu",
+  "calls": 30,
+  "elapsed_s": 3.636,
+  "per_call_ms": 121.2,
+  "top_cumulative": [
+    {
+      "func": "qa_engine.py:73:ask",
+      "ncalls": 30,
+      "tottime_s": 0.0096,
+      "cumtime_s": 3.6322
+    },
+    {
+      "func": "answer_builder.py:1006:build_answer",
+      "ncalls": 30,
+      "tottime_s": 0.0005,
+      "cumtime_s": 1.8368
+    },
+    {
+      "func": "hybrid_retriever.py:203:search",
+      "ncalls": 30,
+      "tottime_s": 0.0026,
+      "cumtime_s": 1.7443
+    },
+    {
+      "func": "hybrid_retriever.py:125:recall",
+      "ncalls": 30,
+      "tottime_s": 0.0128,
+      "cumtime_s": 1.4861
+    },
+    {
+      "func": "~:0:<method 'sub' of 're.Pattern' objects>",
+      "ncalls": 183320,
+      "tottime_s": 0.9323,
+      "cumtime_s": 0.9323
+    },
+    {
+      "func": "answer_builder.py:547:_metric_pair_answer",
+      "ncalls": 30,
+      "tottime_s": 0.0211,
+      "cumtime_s": 0.8161
+    },
+    {
+      "func": "re.py:202:sub",
+      "ncalls": 129220,
+      "tottime_s": 0.0585,
+      "cumtime_s": 0.799
+    },
+    {
+      "func": "answer_builder.py:127:_clean_text",
+      "ncalls": 27050,
+      "tottime_s": 0.05,
+      "cumtime_s": 0.6982
+    },
+    {
+      "func": "answer_builder.py:693:_metric_answer",
+      "ncalls": 10,
+      "tottime_s": 0.0463,
+      "cumtime_s": 0.6231
+    },
+    {
+      "func": "vector_retriever.py:35:encode_queries",
+      "ncalls": 30,
+      "tottime_s": 0.0001,
+      "cumtime_s": 0.6131
+    },
+    {
+      "func": "embedding.py:149:encode_many_cached",
+      "ncalls": 30,
+      "tottime_s": 0.0006,
+      "cumtime_s": 0.613
+    },
+    {
+      "func": "embedding.py:98:encode",
+      "ncalls": 3,
+      "tottime_s": 0.0002,
+      "cumtime_s": 0.6101
+    },
+    {
+      "func": "embedding.py:74:_embed_batch",
+      "ncalls": 3,
+      "tottime_s": 0.0,
+      "cumtime_s": 0.6086
+    },
+    {
+      "func": "sessions.py:629:post",
+      "ncalls": 3,
+      "tottime_s": 0.0,
+      "cumtime_s": 0.6041
+    },
+    {
+      "func": "sessions.py:503:request",
+      "ncalls": 3,
+      "tottime_s": 0.0001,
+      "cumtime_s": 0.604
+    },
+    {
+      "func": "sessions.py:676:send",
+      "ncalls": 3,
+      "tottime_s": 0.0001,
+      "cumtime_s": 0.5986
+    },
+    {
+      "func": "adapters.py:591:send",
+      "ncalls": 3,
+      "tottime_s": 0.0001,
+      "cumtime_s": 0.5975
+    },
+    {
+      "func": "connectionpool.py:592:urlopen",
+      "ncalls": 3,
+      "tottime_s": 0.0001,
+      "cumtime_s": 0.5965
+    },
+    {
+      "func": "connectionpool.py:377:_make_request",
+      "ncalls": 3,
+      "tottime_s": 0.0001,
+      "cumtime_s": 0.596
+    },
+    {
+      "func": "connection.py:540:getresponse",
+      "ncalls": 3,
+      "tottime_s": 0.0001,
+      "cumtime_s": 0.595
+    },
+    {
+      "func": "client.py:1331:getresponse",
+      "ncalls": 3,
+      "tottime_s": 0.0,
+      "cumtime_s": 0.5946
+    },
+    {
+      "func": "client.py:311:begin",
+      "ncalls": 3,
+      "tottime_s": 0.0001,
+      "cumtime_s": 0.5945
+    },
+    {
+      "func": "socket.py:691:readinto",
+      "ncalls": 27,
+      "tottime_s": 0.0001,
+      "cumtime_s": 0.5938
+    },
+    {
+      "func": "~:0:<method 'recv_into' of '_socket.socket' objects>",
+      "ncalls": 27,
+      "tottime_s": 0.5937,
+      "cumtime_s": 0.5937
+    },
+    {
+      "func": "client.py:278:_read_status",
+      "ncalls": 3,
+      "tottime_s": 0.0001,
+      "cumtime_s": 0.5936
+    }
+  ],
+  "report": "         2648322 function calls (2646931 primitive calls) in 3.626 seconds\n\n   Ordered by: cumulative time\n   List reduced from 618 to 25 due to restriction <25>\n\n   ncalls  tottime  percall  cumtime  percall filename:lineno(function)\n       30    0.010    0.000    3.632    0.121 G:\\Trae-work产出\\6ac8c6c44ddcc1c6e9e3e0f6\\交付\\工单代码\\工单十七\\研发\\src\\qa_engine.py:73(ask)\n       30    0.001    0.000    1.837    0.061 G:\\Trae-work产出\\6ac8c6c44ddcc1c6e9e3e0f6\\交付\\工单代码\\工单十七\\研发\\src\\answer_builder.py:1006(build_answer)\n       30    0.003    0.000    1.744    0.058 G:\\Trae-work产出\\6ac8c6c44ddcc1c6e9e3e0f6\\交付\\工单代码\\工单十七\\研发\\src\\hybrid_retriever.py:203(search)\n       30    0.013    0.000    1.486    0.050 G:\\Trae-work产出\\6ac8c6c44ddcc1c6e9e3e0f6\\交付\\工单代码\\工单十七\\研发\\src\\hybrid_retriever.py:125(recall)\n   183320    0.932    0.000    0.932    0.000 {method 'sub' of 're.Pattern' objects}\n       30    0.021    0.001    0.816    0.027 G:\\Trae-work产出\\6ac8c6c44ddcc1c6e9e3e0f6\\交付\\工单代码\\工单十七\\研发\\src\\answer_builder.py:547(_metric_pair_answer)\n   129220    0.059    0.000    0.799    0.000 re.py:202(sub)\n    27050    0.050    0.000    0.698    0.000 G:\\Trae-work产出\\6ac8c6c44ddcc1c6e9e3e0f6\\交付\\工单代码\\工单十七\\研发\\src\\answer_builder.py:127(_clean_text)\n       10    0.046    0.005    0.623    0.062 G:\\Trae-work产出\\6ac8c6c44ddcc1c6e9e3e0f6\\交付\\工单代码\\工单十七\\研发\\src\\answer_builder.py:693(_metric_answer)\n       30    0.000    0.000    0.613    0.020 G:\\Trae-work产出\\6ac8c6c44ddcc1c6e9e3e0f6\\交付\\工单代码\\工单十七\\研发\\src\\vector_retriever.py:35(encode_queries)\n       30    0.001    0.000    0.613    0.020 G:\\Trae-work产出\\6ac8c6c44ddcc1c6e9e3e0f6\\交付\\工单代码\\工单十七\\研发\\src\\embedding.py:149(encode_many_cached)\n        3    0.000    0.000    0.610    0.203 G:\\Trae-work产出\\6ac8c6c44ddcc1c6e9e3e0f6\\交付\\工单代码\\工单十七\\研发\\src\\embedding.py:98(encode)\n        3    0.000    0.000    0.609    0.203 G:\\Trae-work产出\\6ac8c6c44ddcc1c6e9e3e0f6\\交付\\工单代码\\工单十七\\研发\\src\\embedding.py:74(_embed_batch)\n        3    0.000    0.000    0.604    0.201 C:\\Users\\30274\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\vm\\tools\\python\\lib\\site-packages\\requests\\sessions.py:629(post)\n        3    0.000    0.000    0.604    0.201 C:\\Users\\30274\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\vm\\tools\\python\\lib\\site-packages\\requests\\sessions.py:503(request)\n        3    0.000    0.000    0.599    0.200 C:\\Users\\30274\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\vm\\tools\\python\\lib\\site-packages\\requests\\sessions.py:676(send)\n        3    0.000    0.000    0.597    0.199 C:\\Users\\30274\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\vm\\tools\\python\\lib\\site-packages\\requests\\adapters.py:591(send)\n        3    0.000    0.000    0.596    0.199 C:\\Users\\30274\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\vm\\tools\\python\\lib\\site-packages\\urllib3\\connectionpool.py:592(urlopen)\n        3    0.000    0.000    0.596    0.199 C:\\Users\\30274\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\vm\\tools\\python\\lib\\site-packages\\urllib3\\connectionpool.py:377(_make_request)\n        3    0.000    0.000    0.595    0.198 C:\\Users\\30274\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\vm\\tools\\python\\lib\\site-packages\\urllib3\\connection.py:540(getresponse)\n        3    0.000    0.000    0.595    0.198 http\\client.py:1331(getresponse)\n        3    0.000    0.000    0.594    0.198 http\\client.py:311(begin)\n       27    0.000    0.000    0.594    0.022 socket.py:691(readinto)\n       27    0.594    0.022    0.594    0.022 {method 'recv_into' of '_socket.socket' objects}\n        3    0.000    0.000    0.594    0.198 http\\client.py:278(_read_status)\n\n\n"
+}

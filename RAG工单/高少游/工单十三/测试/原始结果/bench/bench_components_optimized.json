@@ -1,0 +1,86 @@
+{
+  "workorder": "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化",
+  "mode": "optimized",
+  "perf_opt": true,
+  "n": 10,
+  "embedding": [
+    {
+      "slug": "bge-m3",
+      "model": "bge-m3:567m",
+      "dim": 1024,
+      "per_query": {
+        "n": 10,
+        "avg": 49.8,
+        "p50": 39.56,
+        "p95": 122.55
+      },
+      "batch": {
+        "n": 10,
+        "total_ms": 214.63,
+        "per_item_ms": 21.46
+      }
+    },
+    {
+      "slug": "bge-large",
+      "model": "bge-large:latest",
+      "dim": 1024,
+      "per_query": {
+        "n": 10,
+        "avg": 43.78,
+        "p50": 44.03,
+        "p95": 54.87
+      },
+      "batch": {
+        "n": 10,
+        "total_ms": 254.47,
+        "per_item_ms": 25.45
+      }
+    },
+    {
+      "slug": "nomic-embed",
+      "model": "nomic-embed-text:latest",
+      "dim": 768,
+      "per_query": {
+        "n": 10,
+        "avg": 44.99,
+        "p50": 44.11,
+        "p95": 50.54
+      },
+      "batch": {
+        "n": 10,
+        "total_ms": 233.9,
+        "per_item_ms": 23.39
+      }
+    }
+  ],
+  "vector_search": {
+    "chunks": 8086,
+    "dim": 1024,
+    "top_k": 150,
+    "latency": {
+      "n": 10,
+      "avg": 1.45,
+      "p50": 1.49,
+      "p95": 1.66
+    }
+  },
+  "fulltext_search": {
+    "top_k": 150,
+    "latency": {
+      "n": 10,
+      "avg": 88.86,
+      "p50": 23.76,
+      "p95": 679.67
+    }
+  },
+  "rerank": {
+    "pool": 120,
+    "latency": {
+      "n": 10,
+      "avg": 3.61,
+      "p50": 3.32,
+      "p95": 7.0
+    }
+  },
+  "measured_at": "2026-10-09 10:07:30"
+}

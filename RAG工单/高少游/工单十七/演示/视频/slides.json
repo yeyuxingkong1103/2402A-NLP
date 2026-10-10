@@ -1,0 +1,17 @@
+[
+  {"text": "RAG API 服务并发瓶颈与资源泄漏治理", "title": "RAG API 服务并发瓶颈与资源泄漏治理", "subtitle": "工单十七 · 基线复现 → 根因定位 → 优化修复 → 压测验证", "duration": 6, "accent": "blue"},
+  {"image": "G:/Trae-work产出/6ac8c6c44ddcc1c6e9e3e0f6/交付/实训一工单/工单十七/演示/截图/真实运行/dashboard_baseline_A.png", "subtitle": "基线 · 场景A（20并发问答）：内存 RSS 138→1159MB、句柄 314→3948（Δ3634）持续泄漏，P95 达 8271ms", "duration": 9},
+  {"image": "G:/Trae-work产出/6ac8c6c44ddcc1c6e9e3e0f6/交付/实训一工单/工单十七/演示/截图/真实运行/terminal_01_基准压测.png", "subtitle": "一键基准压测编排（真实运行）：基线场景A吞吐 2.96 req/s，场景B 仅 0.33 req/s 且出现失败", "duration": 9},
+  {"image": "G:/Trae-work产出/6ac8c6c44ddcc1c6e9e3e0f6/交付/实训一工单/工单十七/演示/截图/真实运行/dashboard_optimized_A.png", "subtitle": "优化后 · 场景A：8422 请求零失败、吞吐 14.02 req/s、P95 1850ms，commit 稳态仅 +2.62%、句柄 Δ76", "duration": 9},
+  {"image": "G:/Trae-work产出/6ac8c6c44ddcc1c6e9e3e0f6/交付/实训一工单/工单十七/演示/截图/真实运行/dashboard_baseline_B.png", "subtitle": "基线 · 场景B（10并发混合负载）：上传同步阻塞问答，问答 P95 达 73.5s，服务在泄漏下濒临崩溃", "duration": 9},
+  {"image": "G:/Trae-work产出/6ac8c6c44ddcc1c6e9e3e0f6/交付/实训一工单/工单十七/演示/截图/真实运行/dashboard_optimized_B.png", "subtitle": "优化后 · 场景B：2403 请求零失败，问答 P95 2570ms ≤ 5000ms，解析任务正常入队并被消费（64 完成 / 0 失败）", "duration": 9},
+  {"image": "G:/Trae-work产出/6ac8c6c44ddcc1c6e9e3e0f6/交付/实训一工单/工单十七/演示/截图/真实运行/terminal_02_队列验证.png", "subtitle": "队列消费验证：12 个上传任务 0.326s 全部入队（深度峰值 10），12/12 被 worker 消费为 done", "duration": 8},
+  {"image": "G:/Trae-work产出/6ac8c6c44ddcc1c6e9e3e0f6/交付/实训一工单/工单十七/演示/截图/真实运行/terminal_04_API交互.png", "subtitle": "API 交互真实样例：问答 328ms 返回正确答案；上传立即返回 task_id，异步解析完成后可检索", "duration": 8},
+  {"image": "G:/Trae-work产出/6ac8c6c44ddcc1c6e9e3e0f6/交付/实训一工单/工单十七/演示/截图/界面截图/ui_01_swagger_docs.png", "subtitle": "服务界面（真实 Swagger UI）：问答 / 上传文档 / 任务状态 / 健康检查 / Prometheus 指标 五类端点", "duration": 8},
+  {"image": "G:/Trae-work产出/6ac8c6c44ddcc1c6e9e3e0f6/交付/实训一工单/工单十七/演示/截图/界面截图/ui_02_swagger_chat_api.png", "subtitle": "问答接口详情：OpenAI 兼容协议（messages/stream/top_k），可直接在界面发起请求调试", "duration": 8},
+  {"image": "G:/Trae-work产出/6ac8c6c44ddcc1c6e9e3e0f6/交付/实训一工单/工单十七/演示/截图/界面截图/ui_04_prometheus_metrics.png", "subtitle": "可观测性：/metrics 暴露 QPS、延迟直方图、在飞请求、RSS/commit、队列深度与任务计数", "duration": 7},
+  {"image": "G:/Trae-work产出/6ac8c6c44ddcc1c6e9e3e0f6/交付/实训一工单/工单十七/演示/截图/性能图表/01_延迟对比.png", "subtitle": "延迟对比：场景A P95 由 8271ms 降至 1850ms（−77.6%），场景B 问答 P95 由 73.5s 降至 2.6s", "duration": 8},
+  {"image": "G:/Trae-work产出/6ac8c6c44ddcc1c6e9e3e0f6/交付/实训一工单/工单十七/演示/截图/性能图表/02_吞吐对比.png", "subtitle": "吞吐对比：场景A 2.96 → 14.02 req/s（×4.74），场景B 0.33 → 3.99 req/s（×12）", "duration": 7},
+  {"image": "G:/Trae-work产出/6ac8c6c44ddcc1c6e9e3e0f6/交付/实训一工单/工单十七/演示/截图/性能图表/03_内存与句柄对比.png", "subtitle": "资源泄漏治理：commit 曲线由单调上涨转为平稳，句柄增长由 +3634 收敛至 +76", "duration": 8},
+  {"text": "验收结论", "title": "验收结论：全面达标", "subtitle": "场景A P95 1850ms ≤ 3000ms、零失败、内存增长 2.62% ≤ 10%；场景B 服务不崩溃、队列正常消费、问答 P95 2570ms ≤ 5000ms；资源泄漏已消除", "duration": 8, "accent": "green"}
+]

@@ -1,0 +1,40 @@
+﻿==================== 容器数据管理（真实运行） ====================
+工单编号: 人工智能 NLP-RAG-金融问答系统部署
+
+【2.1 卷持久化】写入 → 销毁容器 → 重建 → 读取（数据不丢失）
+$ docker run --rm --name finqa-writer -v finqa_out_vol:/app/output finqa:1.0 python deploy/kb_tool.py write
+[WRITE] 容器 960dbad1089d 已向共享卷写入凭据 → /app/output/shared/writers.json
+        凭据内容: finqa-shared-960dbad1089d-1
+        卷上知识库: 8086 块 / 9 份文档 / chunks.jsonl=10914154B
+
+$ docker rm -f finqa-app   # 销毁服务容器
+finqa-app
+$ docker run -d --name finqa-app --network finqa-net -p 8501:8501 ... finqa:1.0   # 重建
+4ad2b364f3108089cea57b5704976bbb338b8d91e91654acb48a8f9d789f3c29
+$ docker run --rm -v finqa_out_vol:/app/output finqa:1.0 python deploy/kb_tool.py read
+[READ] 容器 6172127574a3 读取共享卷 → /app/output/shared/writers.json
+        知识库: {'chunks': 8086, 'dims': {'bge-m3': 1024, 'bge-large': 1024, 'nomic-embed': 768}, 'sources': 9, 'chunks_jsonl_bytes': 10914154, 'index_bytes': 16055521}
+        发现 6 份写入凭据（来自其他容器）:
+          - f57a343ad4c1 @ 2026-10-08 15:05:25  finqa-shared-f57a343ad4c1-1
+          - 5d42e46c989f @ 2026-10-08 15:05:34  finqa-shared-5d42e46c989f-1
+          - finqa-share-a @ 2026-10-08 15:05:54  finqa-shared-finqa-share-a-1
+          - 3c633187d354 @ 2026-10-08 15:06:14  finqa-shared-3c633187d354-1
+          - finqa-share-a @ 2026-10-08 15:06:23  finqa-shared-finqa-share-a-1
+          - 960dbad1089d @ 2026-10-08 15:06:39  finqa-shared-960dbad1089d-1
+
+【2.2 容器间数据共享】容器 A 写入 → 容器 B 读取同一命名卷
+$ docker run --rm --hostname finqa-share-a -v finqa_kb_vol:/app/vector_db -v finqa_out_vol:/app/output finqa:1.0 python deploy/kb_tool.py write
+[WRITE] 容器 finqa-share-a 已向共享卷写入凭据 → /app/output/shared/writers.json
+        凭据内容: finqa-shared-finqa-share-a-1
+        卷上知识库: 8086 块 / 9 份文档 / chunks.jsonl=10914154B
+$ docker run --rm --hostname finqa-share-b -v finqa_kb_vol:/app/vector_db -v finqa_out_vol:/app/output finqa:1.0 python deploy/kb_tool.py read
+[READ] 容器 finqa-share-b 读取共享卷 → /app/output/shared/writers.json
+        知识库: {'chunks': 8086, 'dims': {'bge-m3': 1024, 'bge-large': 1024, 'nomic-embed': 768}, 'sources': 9, 'chunks_jsonl_bytes': 10914154, 'index_bytes': 16055521}
+        发现 7 份写入凭据（来自其他容器）:
+          - f57a343ad4c1 @ 2026-10-08 15:05:25  finqa-shared-f57a343ad4c1-1
+          - 5d42e46c989f @ 2026-10-08 15:05:34  finqa-shared-5d42e46c989f-1
+          - finqa-share-a @ 2026-10-08 15:05:54  finqa-shared-finqa-share-a-1
+          - 3c633187d354 @ 2026-10-08 15:06:14  finqa-shared-3c633187d354-1
+          - finqa-share-a @ 2026-10-08 15:06:23  finqa-shared-finqa-share-a-1
+          - 960dbad1089d @ 2026-10-08 15:06:39  finqa-shared-960dbad1089d-1
+          - finqa-share-a @ 2026-10-08 15:06:46  finqa-shared-finqa-share-a-1

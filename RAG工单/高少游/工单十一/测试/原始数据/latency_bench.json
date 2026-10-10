@@ -1,0 +1,46 @@
+{
+  "workorder": "人工智能 NLP-RAG-Embedding 模型微调任务",
+  "n_chunks": 7476,
+  "bench": [
+    {
+      "tag": "base",
+      "model_path": "BAAI/bge-small-zh-v1.5",
+      "load_seconds": 8.428,
+      "corpus_encode_blocks_per_s": 42.7,
+      "corpus_full_est_seconds": 175.1,
+      "query_encode_ms": {
+        "mean": 9.94,
+        "p50": 9.99,
+        "p95": 10.97
+      },
+      "e2e_retrieval_ms": {
+        "mean": 11.38,
+        "p95": 13.75
+      }
+    },
+    {
+      "tag": "finetuned",
+      "model_path": "G:\\Trae-work产出\\6ac74ad9945a4596a6819335\\_build11\\研发\\models\\bge-small-zh-ccf-finetuned",
+      "load_seconds": 0.15,
+      "corpus_encode_blocks_per_s": 42.3,
+      "corpus_full_est_seconds": 176.8,
+      "query_encode_ms": {
+        "mean": 9.89,
+        "p50": 9.56,
+        "p95": 11.81
+      },
+      "e2e_retrieval_ms": {
+        "mean": 10.15,
+        "p95": 11.74
+      }
+    }
+  ],
+  "train": {
+    "n_train": 810,
+    "epochs": 4,
+    "batch_size": 16,
+    "train_seconds": 475.67,
+    "samples_per_s": 6.81,
+    "total_seconds": 668.74
+  }
+}

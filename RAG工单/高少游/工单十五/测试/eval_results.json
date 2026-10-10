@@ -1,0 +1,1668 @@
+{
+  "workorder": "人工智能NLP-RAG-优化技术图纸与文本的跨模态检索流程工单",
+  "built_at": "2026-10-09 15:29:23",
+  "questions": 6,
+  "results": {
+    "baseline": {
+      "mode": "baseline",
+      "config": {
+        "strategy": "vector",
+        "embedding_model": "bge-m3",
+        "fulltext_mode": "auto",
+        "reranker": "none",
+        "fusion": "rrf",
+        "vector_weight": 0.5,
+        "fulltext_weight": 0.5,
+        "recall_k": 30,
+        "top_k": 6,
+        "answer_top_k": 20,
+        "rerank_pool_k": 60,
+        "rrf_k": 60,
+        "fields": [
+          "title",
+          "body",
+          "abstract"
+        ],
+        "use_synonyms": true,
+        "use_llm_rewrite": false
+      },
+      "crossmodal_flags": {
+        "USE_VISUAL_QUERY": false,
+        "USE_FIGURE_RECALL": false,
+        "USE_CROSSMODAL_RERANK": false,
+        "USE_VISUAL_PROMPT": false
+      },
+      "summary": {
+        "questions": 6,
+        "correct": 2,
+        "accuracy": 0.3333,
+        "figure_questions": 4,
+        "figure_top1_hit": 0,
+        "figure_top3_hit": 0,
+        "figure_top1_rate": 0.0,
+        "figure_top3_rate": 0.0,
+        "avg_latency": 2.144,
+        "max_latency": 2.326
+      },
+      "rows": [
+        {
+          "id": 1,
+          "question": "根据专利文本，本发明主要涉及哪种物料的分配装置？",
+          "type": "text",
+          "gold_answer": "块状散料",
+          "gold_option": "C",
+          "gold_keywords": [
+            "块状散料"
+          ],
+          "answer": "本发明主要涉及块状散料的分配装置。",
+          "pred_option": "C",
+          "correct": true,
+          "visual_ref": false,
+          "figure_nos": [],
+          "page_refs": [],
+          "part_refs": [],
+          "fig_hit_top1": null,
+          "fig_hit_top3": null,
+          "latency_engine": 2.131,
+          "latency_wall": 2.131,
+          "top1": {
+            "kind": "text",
+            "page": 4,
+            "figure_no": null,
+            "score": 1.0,
+            "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 i萝|屯明二鲁:宫第 1/5 页用于分配块状散料的装置和相应的分散装置技术领域本发明涉及用于将一种块状散料 , 尤其是至少部分经预还原的铁矿石分配"
+          },
+          "topk": [
+            {
+              "chunk_id": 6,
+              "score": 1.0,
+              "vector_score": 0.693,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 4,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 i萝|屯明二鲁:宫第 1/5 页用于分配块状散料的装置和相应的分散装置技术领域本发明涉及用于将一种块状散料 , 尤其是至少部分经预还原的铁矿石分配"
+            },
+            {
+              "chunk_id": 3,
+              "score": 0.9909,
+              "vector_score": 0.6875,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 2,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 权利要求书第 1/2 页 1. 用于将一种来自物料流的块状散料分配在一个伸展的平面上的装置 , 其中该平面布置在物理或化学工艺技术装备的一个反应器"
+            },
+            {
+              "chunk_id": 2,
+              "score": 0.968,
+              "vector_score": 0.6736,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 1,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "5.11.16 US4497609A “1985.2.5 权利要求书 2 页说明书 5 页附图 3 页 [54] 发朋名称用于分配块状散料的装置和相应的分散装置[57] 摘要本发明涉及用于将一种块状散料 , 特别是至少部分已预还原的铁矿石分"
+            },
+            {
+              "chunk_id": 7,
+              "score": 0.9316,
+              "vector_score": 0.6515,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 4,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】反应器错误地加料那就会降低所生产出的产品的质量 , 而且也会造成明显较高的环境污染 , 这多少是由于粉小排放较大 . 因此就会对这种设备的生产率产生负面影响 。US-A"
+            },
+            {
+              "chunk_id": 10,
+              "score": 0.9182,
+              "vector_score": 0.6434,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 6,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 说明书第 3/5 页本发明的特征还在于一种按本发明的装置 , 它用于将块状散料 , 尤其是海绵块的块状散料从散料物流中分配到一个伸展到的平面上尤其"
+            },
+            {
+              "chunk_id": 11,
+              "score": 0.8955,
+              "vector_score": 0.6296,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 6,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】本发明的一种特别优选的实施形式 , 加宽的散料流相互重迭 。 因而尤其保证了 : 即使落料架失效 , 例如由于落料架塔塞 , 散料也能基本均匀地装在移动床上 。若从上看"
+            }
+          ],
+          "retrieval": {
+            "strategy": "vector",
+            "fusion": "rrf",
+            "fulltext_mode": "auto",
+            "vector_hits": 17,
+            "fulltext_hits": 0,
+            "candidates": 17,
+            "routes": 1,
+            "doc_filter": false,
+            "reranker": "none",
+            "ranked": 17,
+            "rerank_pool": 17,
+            "strategy_label": "向量检索（召回+重排）",
+            "embedding_model": "bge-m3",
+            "vector_weight": 0.5,
+            "fulltext_weight": 0.5,
+            "visual_query": false,
+            "figure_recall": false,
+            "crossmodal_rerank": false,
+            "visual_prompt": false
+          },
+          "prompt_has_visual": false,
+          "rewritten": "根据专利文本，本发明主要涉及哪种物料的分配装置？",
+          "evidence": [
+            {
+              "chunk_id": 6,
+              "source": "CN100347506C.pdf",
+              "page": 4,
+              "kind": "text",
+              "score": 1.0,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 i萝|屯明二鲁:宫第 1/5 页用于分配块状散料的装置和相应的分散装置技术领域本发明涉及用于将一种块状散料 , 尤其是至少部分经预还原的铁矿石分配在一个伸展的平面上 , 尤其是在一个移动床上的装置和方法 , 其中该平面布置在物"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "question": "根据专利文本，本发明的分散装置包含以下哪个组件？",
+          "type": "text",
+          "gold_answer": "链条",
+          "gold_option": "B",
+          "gold_keywords": [
+            "链条"
+          ],
+          "answer": "本发明的分散装置包含链条。",
+          "pred_option": "B",
+          "correct": true,
+          "visual_ref": false,
+          "figure_nos": [],
+          "page_refs": [],
+          "part_refs": [],
+          "fig_hit_top1": null,
+          "fig_hit_top3": null,
+          "latency_engine": 2.12,
+          "latency_wall": 2.12,
+          "top1": {
+            "kind": "text",
+            "page": 7,
+            "figure_no": null,
+            "score": 1.0,
+            "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】温的耐磨的材料制成 。 按照另一个附加特征这链条在预定的 , 最好可以相对变化的距高上具有一些分散元件 , 例如接点 。 团而就保证了达到一种特别均匀的分散 。按照一种"
+          },
+          "topk": [
+            {
+              "chunk_id": 13,
+              "score": 1.0,
+              "vector_score": 0.7277,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 7,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】温的耐磨的材料制成 。 按照另一个附加特征这链条在预定的 , 最好可以相对变化的距高上具有一些分散元件 , 例如接点 。 团而就保证了达到一种特别均匀的分散 。按照一种"
+            },
+            {
+              "chunk_id": 5,
+              "score": 0.9924,
+              "vector_score": 0.723,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 3,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 权利要求书第 2/2 页散装置 , 其特征在于 , 分散装置具有一些链条 , 在链条上又分别设置了一些接点 , 其中相邻的接点以相互不同的间距来设"
+            },
+            {
+              "chunk_id": 3,
+              "score": 0.9848,
+              "vector_score": 0.7182,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 2,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 权利要求书第 1/2 页 1. 用于将一种来自物料流的块状散料分配在一个伸展的平面上的装置 , 其中该平面布置在物理或化学工艺技术装备的一个反应器"
+            },
+            {
+              "chunk_id": 12,
+              "score": 0.9803,
+              "vector_score": 0.7154,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 7,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 说明 “ 书第 4/5 页使分散装置不承受熔化气化器的高温 。 特别要考虑到气体腔室里的高的辐射热 , 正如它出现在一个熔化气化器里并对整个内部结"
+            },
+            {
+              "chunk_id": 16,
+              "score": 0.9685,
+              "vector_score": 0.708,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 8,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】可以考虑对于承受特殊高温的那些零部件有一种防火外罪 。 此处所述装置的这些按照本发明要承受特别磨损条件下的载荷的零部件另外还通过铠装 , 例如通过堆焊来保护 .图 3 "
+            },
+            {
+              "chunk_id": 11,
+              "score": 0.9591,
+              "vector_score": 0.7021,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 6,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】本发明的一种特别优选的实施形式 , 加宽的散料流相互重迭 。 因而尤其保证了 : 即使落料架失效 , 例如由于落料架塔塞 , 散料也能基本均匀地装在移动床上 。若从上看"
+            }
+          ],
+          "retrieval": {
+            "strategy": "vector",
+            "fusion": "rrf",
+            "fulltext_mode": "auto",
+            "vector_hits": 17,
+            "fulltext_hits": 0,
+            "candidates": 17,
+            "routes": 1,
+            "doc_filter": false,
+            "reranker": "none",
+            "ranked": 17,
+            "rerank_pool": 17,
+            "strategy_label": "向量检索（召回+重排）",
+            "embedding_model": "bge-m3",
+            "vector_weight": 0.5,
+            "fulltext_weight": 0.5,
+            "visual_query": false,
+            "figure_recall": false,
+            "crossmodal_rerank": false,
+            "visual_prompt": false
+          },
+          "prompt_has_visual": false,
+          "rewritten": "根据专利文本，本发明的分散装置包含以下哪个组件？",
+          "evidence": [
+            {
+              "chunk_id": 13,
+              "source": "CN100347506C.pdf",
+              "page": 7,
+              "kind": "text",
+              "score": 1.0,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】温的耐磨的材料制成 。 按照另一个附加特征这链条在预定的 , 最好可以相对变化的距高上具有一些分散元件 , 例如接点 。 团而就保证了达到一种特别均匀的分散 。按照一种特别的实施形式 , 分散装置具有一些链条 , 在这些链条上又分别设有一些接点 ,"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "question": "在文件中第11页图3中，编号13的部件相对于编号12的部件的位置关系是？",
+          "type": "figure",
+          "gold_answer": "位于编号12的部件之内",
+          "gold_option": "B",
+          "gold_keywords": [
+            "位于编号12",
+            "之内"
+          ],
+          "answer": "此处所述装置的这些按照本发明要承受特别磨损条件下的载荷的零部件另外还通过铠装 , 例如通过堆焊来保护 .图 3 表示了一种分散装置的实施形式 , 例如在一个熔化气化器里用于将 DRI 装入在移动床上的装置 . 在一个落料架 10 里通过合适的紧固机构 11 在一个保护管 12 里设置了一根或多根链条 13。",
+          "pred_option": "",
+          "correct": false,
+          "visual_ref": false,
+          "figure_nos": [],
+          "page_refs": [],
+          "part_refs": [],
+          "fig_hit_top1": false,
+          "fig_hit_top3": false,
+          "latency_engine": 2.326,
+          "latency_wall": 2.326,
+          "top1": {
+            "kind": "text",
+            "page": 3,
+            "figure_no": null,
+            "score": 1.0,
+            "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 权利要求书第 2/2 页散装置 , 其特征在于 , 分散装置具有一些链条 , 在链条上又分别设置了一些接点 , 其中相邻的接点以相互不同的间距来设"
+          },
+          "topk": [
+            {
+              "chunk_id": 5,
+              "score": 1.0,
+              "vector_score": 0.4552,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 3,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 权利要求书第 2/2 页散装置 , 其特征在于 , 分散装置具有一些链条 , 在链条上又分别设置了一些接点 , 其中相邻的接点以相互不同的间距来设"
+            },
+            {
+              "chunk_id": 4,
+              "score": 0.9939,
+              "vector_score": 0.4542,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 2,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】设计成可活动的 , 但没有机械驱动装置 。 6. 按权利要求 1 或 2 所述的装置 , 其特征在于 , 分散装置有一些栓钉 , 它们设置在落料架的内侧面上 。7. 按"
+            },
+            {
+              "chunk_id": 15,
+              "score": 0.9671,
+              "vector_score": 0.4501,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 8,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】 DRI 的输入装置 6。 DRI 通过 6 个分别国定在气化器拱顶的相应开口里的落料架来引导 , 其中每个落料架在其内表面上都有用于使 DRI 分散的栓钉 。DRI "
+            },
+            {
+              "chunk_id": 11,
+              "score": 0.9647,
+              "vector_score": 0.4497,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 6,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】本发明的一种特别优选的实施形式 , 加宽的散料流相互重迭 。 因而尤其保证了 : 即使落料架失效 , 例如由于落料架塔塞 , 散料也能基本均匀地装在移动床上 。若从上看"
+            },
+            {
+              "chunk_id": 10,
+              "score": 0.9586,
+              "vector_score": 0.4487,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 6,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 说明书第 3/5 页本发明的特征还在于一种按本发明的装置 , 它用于将块状散料 , 尤其是海绵块的块状散料从散料物流中分配到一个伸展到的平面上尤其"
+            },
+            {
+              "chunk_id": 16,
+              "score": 0.8795,
+              "vector_score": 0.4364,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 8,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】可以考虑对于承受特殊高温的那些零部件有一种防火外罪 。 此处所述装置的这些按照本发明要承受特别磨损条件下的载荷的零部件另外还通过铠装 , 例如通过堆焊来保护 .图 3 "
+            }
+          ],
+          "retrieval": {
+            "strategy": "vector",
+            "fusion": "rrf",
+            "fulltext_mode": "auto",
+            "vector_hits": 17,
+            "fulltext_hits": 0,
+            "candidates": 17,
+            "routes": 1,
+            "doc_filter": false,
+            "reranker": "none",
+            "ranked": 17,
+            "rerank_pool": 17,
+            "strategy_label": "向量检索（召回+重排）",
+            "embedding_model": "bge-m3",
+            "vector_weight": 0.5,
+            "fulltext_weight": 0.5,
+            "visual_query": false,
+            "figure_recall": false,
+            "crossmodal_rerank": false,
+            "visual_prompt": false
+          },
+          "prompt_has_visual": false,
+          "rewritten": "在文件中第11页图3中，编号13的部件相对于编号12的部件的位置关系是？",
+          "evidence": [
+            {
+              "chunk_id": 16,
+              "source": "CN100347506C.pdf",
+              "page": 8,
+              "kind": "text",
+              "score": 0.8795,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】可以考虑对于承受特殊高温的那些零部件有一种防火外罪 。 此处所述装置的这些按照本发明要承受特别磨损条件下的载荷的零部件另外还通过铠装 , 例如通过堆焊来保护 .图 3 表示了一种分散装置的实施形式 , 例如在一个熔化气化器里用于将 DRI 装入在移"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "question": "在文件中第11页图3中，编号14的部件位于整个装置的哪个位置？",
+          "type": "figure",
+          "gold_answer": "顶部",
+          "gold_option": "A",
+          "gold_keywords": [
+            "顶部"
+          ],
+          "answer": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】可以考虑对于承受特殊高温的那些零部件有一种防火外罪 。",
+          "pred_option": "",
+          "correct": false,
+          "visual_ref": false,
+          "figure_nos": [],
+          "page_refs": [],
+          "part_refs": [],
+          "fig_hit_top1": false,
+          "fig_hit_top3": false,
+          "latency_engine": 2.096,
+          "latency_wall": 2.097,
+          "top1": {
+            "kind": "text",
+            "page": 2,
+            "figure_no": null,
+            "score": 1.0,
+            "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】设计成可活动的 , 但没有机械驱动装置 。 6. 按权利要求 1 或 2 所述的装置 , 其特征在于 , 分散装置有一些栓钉 , 它们设置在落料架的内侧面上 。7. 按"
+          },
+          "topk": [
+            {
+              "chunk_id": 4,
+              "score": 1.0,
+              "vector_score": 0.513,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 2,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】设计成可活动的 , 但没有机械驱动装置 。 6. 按权利要求 1 或 2 所述的装置 , 其特征在于 , 分散装置有一些栓钉 , 它们设置在落料架的内侧面上 。7. 按"
+            },
+            {
+              "chunk_id": 15,
+              "score": 0.9459,
+              "vector_score": 0.5056,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 8,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】 DRI 的输入装置 6。 DRI 通过 6 个分别国定在气化器拱顶的相应开口里的落料架来引导 , 其中每个落料架在其内表面上都有用于使 DRI 分散的栓钉 。DRI "
+            },
+            {
+              "chunk_id": 5,
+              "score": 0.9296,
+              "vector_score": 0.5034,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 3,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 权利要求书第 2/2 页散装置 , 其特征在于 , 分散装置具有一些链条 , 在链条上又分别设置了一些接点 , 其中相邻的接点以相互不同的间距来设"
+            },
+            {
+              "chunk_id": 11,
+              "score": 0.8654,
+              "vector_score": 0.4946,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 6,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】本发明的一种特别优选的实施形式 , 加宽的散料流相互重迭 。 因而尤其保证了 : 即使落料架失效 , 例如由于落料架塔塞 , 散料也能基本均匀地装在移动床上 。若从上看"
+            },
+            {
+              "chunk_id": 14,
+              "score": 0.8466,
+              "vector_score": 0.492,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 8,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 说明书第 5/5 页具体实施方式图 1 用草图表示了在一个熔化气化器里 DRI 的分配 。 熔化气化器有送煤装置 1, 输送 DIR 装置 6, "
+            },
+            {
+              "chunk_id": 3,
+              "score": 0.8409,
+              "vector_score": 0.4912,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 2,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 权利要求书第 1/2 页 1. 用于将一种来自物料流的块状散料分配在一个伸展的平面上的装置 , 其中该平面布置在物理或化学工艺技术装备的一个反应器"
+            }
+          ],
+          "retrieval": {
+            "strategy": "vector",
+            "fusion": "rrf",
+            "fulltext_mode": "auto",
+            "vector_hits": 17,
+            "fulltext_hits": 0,
+            "candidates": 17,
+            "routes": 1,
+            "doc_filter": false,
+            "reranker": "none",
+            "ranked": 17,
+            "rerank_pool": 17,
+            "strategy_label": "向量检索（召回+重排）",
+            "embedding_model": "bge-m3",
+            "vector_weight": 0.5,
+            "fulltext_weight": 0.5,
+            "visual_query": false,
+            "figure_recall": false,
+            "crossmodal_rerank": false,
+            "visual_prompt": false
+          },
+          "prompt_has_visual": false,
+          "rewritten": "在文件中第11页图3中，编号14的部件位于整个装置的哪个位置？",
+          "evidence": [
+            {
+              "chunk_id": 16,
+              "source": "CN100347506C.pdf",
+              "page": 8,
+              "kind": "text",
+              "score": 0.8382,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】可以考虑对于承受特殊高温的那些零部件有一种防火外罪 。 此处所述装置的这些按照本发明要承受特别磨损条件下的载荷的零部件另外还通过铠装 , 例如通过堆焊来保护 .图 3 表示了一种分散装置的实施形式 , 例如在一个熔化气化器里用于将 DRI 装入在移"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "question": "根据文件中第11页图3，散料从部件14进入后，下一步会经过哪个部件？",
+          "type": "figure",
+          "gold_answer": "部件13",
+          "gold_option": "D",
+          "gold_keywords": [
+            "部件13"
+          ],
+          "answer": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 i萝|屯明二鲁:宫第 1/5 页用于分配块状散料的装置和相应的分散装置技术领域本发明涉及用于将一种块状散料 , 尤其是至少部分经预还原的铁矿石分配在一个伸展的平面上 , 尤其是在一个移动床上的装置和方法 , 其中该平面布置在物理的或化学的工艺技术装备的一个反应器或宰器里 , 尤其是在用于生产生铁或钢预制品的冷金工厂的反应器里 , 而这些块状散料通过至少一个装料装置来装料 , 该装料装",
+          "pred_option": "",
+          "correct": false,
+          "visual_ref": false,
+          "figure_nos": [],
+          "page_refs": [],
+          "part_refs": [],
+          "fig_hit_top1": false,
+          "fig_hit_top3": false,
+          "latency_engine": 2.098,
+          "latency_wall": 2.098,
+          "top1": {
+            "kind": "text",
+            "page": 4,
+            "figure_no": null,
+            "score": 1.0,
+            "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】反应器错误地加料那就会降低所生产出的产品的质量 , 而且也会造成明显较高的环境污染 , 这多少是由于粉小排放较大 . 因此就会对这种设备的生产率产生负面影响 。US-A"
+          },
+          "topk": [
+            {
+              "chunk_id": 7,
+              "score": 1.0,
+              "vector_score": 0.5958,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 4,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】反应器错误地加料那就会降低所生产出的产品的质量 , 而且也会造成明显较高的环境污染 , 这多少是由于粉小排放较大 . 因此就会对这种设备的生产率产生负面影响 。US-A"
+            },
+            {
+              "chunk_id": 16,
+              "score": 0.9964,
+              "vector_score": 0.5945,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 8,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】可以考虑对于承受特殊高温的那些零部件有一种防火外罪 。 此处所述装置的这些按照本发明要承受特别磨损条件下的载荷的零部件另外还通过铠装 , 例如通过堆焊来保护 .图 3 "
+            },
+            {
+              "chunk_id": 10,
+              "score": 0.9657,
+              "vector_score": 0.5842,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 6,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 说明书第 3/5 页本发明的特征还在于一种按本发明的装置 , 它用于将块状散料 , 尤其是海绵块的块状散料从散料物流中分配到一个伸展到的平面上尤其"
+            },
+            {
+              "chunk_id": 9,
+              "score": 0.9574,
+              "vector_score": 0.5814,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 5,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】熔化气化器的圆拱形顶部装入气化器里 , 其中业已证明 , 从中央装入煤是有利的 。 然后 DRI 就经过一个或多个非中心布置在气化器顶部的孔装入熔化汽化器里 。按照本发"
+            },
+            {
+              "chunk_id": 13,
+              "score": 0.929,
+              "vector_score": 0.5719,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 7,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】温的耐磨的材料制成 。 按照另一个附加特征这链条在预定的 , 最好可以相对变化的距高上具有一些分散元件 , 例如接点 。 团而就保证了达到一种特别均匀的分散 。按照一种"
+            },
+            {
+              "chunk_id": 15,
+              "score": 0.9265,
+              "vector_score": 0.571,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 8,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】 DRI 的输入装置 6。 DRI 通过 6 个分别国定在气化器拱顶的相应开口里的落料架来引导 , 其中每个落料架在其内表面上都有用于使 DRI 分散的栓钉 。DRI "
+            }
+          ],
+          "retrieval": {
+            "strategy": "vector",
+            "fusion": "rrf",
+            "fulltext_mode": "auto",
+            "vector_hits": 17,
+            "fulltext_hits": 0,
+            "candidates": 17,
+            "routes": 1,
+            "doc_filter": false,
+            "reranker": "none",
+            "ranked": 17,
+            "rerank_pool": 17,
+            "strategy_label": "向量检索（召回+重排）",
+            "embedding_model": "bge-m3",
+            "vector_weight": 0.5,
+            "fulltext_weight": 0.5,
+            "visual_query": false,
+            "figure_recall": false,
+            "crossmodal_rerank": false,
+            "visual_prompt": false
+          },
+          "prompt_has_visual": false,
+          "rewritten": "根据文件中第11页图3，散料从部件14进入后，下一步会经过哪个部件？",
+          "evidence": [
+            {
+              "chunk_id": 6,
+              "source": "CN100347506C.pdf",
+              "page": 4,
+              "kind": "text",
+              "score": 0.9232,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 i萝|屯明二鲁:宫第 1/5 页用于分配块状散料的装置和相应的分散装置技术领域本发明涉及用于将一种块状散料 , 尤其是至少部分经预还原的铁矿石分配在一个伸展的平面上 , 尤其是在一个移动床上的装置和方法 , 其中该平面布置在物"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "question": "在文件中第11页图3的装置中，如果需要调整链条的位置，需要操作哪个部件?",
+          "type": "figure",
+          "gold_answer": "部件11",
+          "gold_option": "B",
+          "gold_keywords": [
+            "部件11"
+          ],
+          "answer": "此处所述装置的这些按照本发明要承受特别磨损条件下的载荷的零部件另外还通过铠装 , 例如通过堆焊来保护 .图 3 表示了一种分散装置的实施形式 , 例如在一个熔化气化器里用于将 DRI 装入在移动床上的装置 . 在一个落料架 10 里通过合适的紧固机构 11 在一个保护管 12 里设置了一根或多根链条 13。",
+          "pred_option": "",
+          "correct": false,
+          "visual_ref": false,
+          "figure_nos": [],
+          "page_refs": [],
+          "part_refs": [],
+          "fig_hit_top1": false,
+          "fig_hit_top3": false,
+          "latency_engine": 2.094,
+          "latency_wall": 2.094,
+          "top1": {
+            "kind": "text",
+            "page": 8,
+            "figure_no": null,
+            "score": 1.0,
+            "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】可以考虑对于承受特殊高温的那些零部件有一种防火外罪 。 此处所述装置的这些按照本发明要承受特别磨损条件下的载荷的零部件另外还通过铠装 , 例如通过堆焊来保护 .图 3 "
+          },
+          "topk": [
+            {
+              "chunk_id": 16,
+              "score": 1.0,
+              "vector_score": 0.5732,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 8,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】可以考虑对于承受特殊高温的那些零部件有一种防火外罪 。 此处所述装置的这些按照本发明要承受特别磨损条件下的载荷的零部件另外还通过铠装 , 例如通过堆焊来保护 .图 3 "
+            },
+            {
+              "chunk_id": 12,
+              "score": 0.9444,
+              "vector_score": 0.5576,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 7,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 说明 “ 书第 4/5 页使分散装置不承受熔化气化器的高温 。 特别要考虑到气体腔室里的高的辐射热 , 正如它出现在一个熔化气化器里并对整个内部结"
+            },
+            {
+              "chunk_id": 8,
+              "score": 0.9249,
+              "vector_score": 0.5521,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 5,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 说明书第 2/5 页部分散料在从上面看径向和 / 或切向方向上分配 , 该分散装置具有一链条本发明还提出一种应用在本发明的散装块料分配装置里的分散"
+            },
+            {
+              "chunk_id": 4,
+              "score": 0.9142,
+              "vector_score": 0.5492,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 2,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】设计成可活动的 , 但没有机械驱动装置 。 6. 按权利要求 1 或 2 所述的装置 , 其特征在于 , 分散装置有一些栓钉 , 它们设置在落料架的内侧面上 。7. 按"
+            },
+            {
+              "chunk_id": 13,
+              "score": 0.9095,
+              "vector_score": 0.5478,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 7,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】温的耐磨的材料制成 。 按照另一个附加特征这链条在预定的 , 最好可以相对变化的距高上具有一些分散元件 , 例如接点 。 团而就保证了达到一种特别均匀的分散 。按照一种"
+            },
+            {
+              "chunk_id": 5,
+              "score": 0.8987,
+              "vector_score": 0.5448,
+              "fulltext_score": 0.0,
+              "source": "CN100347506C.pdf",
+              "page": 3,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 权利要求书第 2/2 页散装置 , 其特征在于 , 分散装置具有一些链条 , 在链条上又分别设置了一些接点 , 其中相邻的接点以相互不同的间距来设"
+            }
+          ],
+          "retrieval": {
+            "strategy": "vector",
+            "fusion": "rrf",
+            "fulltext_mode": "auto",
+            "vector_hits": 17,
+            "fulltext_hits": 0,
+            "candidates": 17,
+            "routes": 1,
+            "doc_filter": false,
+            "reranker": "none",
+            "ranked": 17,
+            "rerank_pool": 17,
+            "strategy_label": "向量检索（召回+重排）",
+            "embedding_model": "bge-m3",
+            "vector_weight": 0.5,
+            "fulltext_weight": 0.5,
+            "visual_query": false,
+            "figure_recall": false,
+            "crossmodal_rerank": false,
+            "visual_prompt": false
+          },
+          "prompt_has_visual": false,
+          "rewritten": "在文件中第11页图3的装置中，如果需要调整链条的位置，需要操作哪个部件?",
+          "evidence": [
+            {
+              "chunk_id": 16,
+              "source": "CN100347506C.pdf",
+              "page": 8,
+              "kind": "text",
+              "score": 1.0,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】可以考虑对于承受特殊高温的那些零部件有一种防火外罪 。 此处所述装置的这些按照本发明要承受特别磨损条件下的载荷的零部件另外还通过铠装 , 例如通过堆焊来保护 .图 3 表示了一种分散装置的实施形式 , 例如在一个熔化气化器里用于将 DRI 装入在移"
+            }
+          ]
+        }
+      ]
+    },
+    "optimized": {
+      "mode": "optimized",
+      "config": {
+        "strategy": "hybrid",
+        "embedding_model": "bge-m3",
+        "fulltext_mode": "auto",
+        "reranker": "crossmodal",
+        "fusion": "rrf",
+        "vector_weight": 0.5,
+        "fulltext_weight": 0.5,
+        "recall_k": 30,
+        "top_k": 6,
+        "answer_top_k": 20,
+        "rerank_pool_k": 60,
+        "rrf_k": 60,
+        "fields": [
+          "title",
+          "body",
+          "abstract"
+        ],
+        "use_synonyms": true,
+        "use_llm_rewrite": false
+      },
+      "crossmodal_flags": {
+        "USE_VISUAL_QUERY": true,
+        "USE_FIGURE_RECALL": true,
+        "USE_CROSSMODAL_RERANK": true,
+        "USE_VISUAL_PROMPT": true
+      },
+      "summary": {
+        "questions": 6,
+        "correct": 6,
+        "accuracy": 1.0,
+        "figure_questions": 4,
+        "figure_top1_hit": 4,
+        "figure_top3_hit": 4,
+        "figure_top1_rate": 1.0,
+        "figure_top3_rate": 1.0,
+        "avg_latency": 2.195,
+        "max_latency": 2.26
+      },
+      "rows": [
+        {
+          "id": 1,
+          "question": "根据专利文本，本发明主要涉及哪种物料的分配装置？",
+          "type": "text",
+          "gold_answer": "块状散料",
+          "gold_option": "C",
+          "gold_keywords": [
+            "块状散料"
+          ],
+          "answer": "本发明主要涉及块状散料的分配装置。",
+          "pred_option": "C",
+          "correct": true,
+          "visual_ref": false,
+          "figure_nos": [],
+          "page_refs": [],
+          "part_refs": [],
+          "fig_hit_top1": null,
+          "fig_hit_top3": null,
+          "latency_engine": 2.186,
+          "latency_wall": 2.186,
+          "top1": {
+            "kind": "text",
+            "page": 4,
+            "figure_no": null,
+            "score": 0.5368,
+            "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 i萝|屯明二鲁:宫第 1/5 页用于分配块状散料的装置和相应的分散装置技术领域本发明涉及用于将一种块状散料 , 尤其是至少部分经预还原的铁矿石分配"
+          },
+          "topk": [
+            {
+              "chunk_id": 6,
+              "score": 0.5368,
+              "vector_score": 0.7654,
+              "fulltext_score": 7.8523,
+              "source": "CN100347506C.pdf",
+              "page": 4,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 i萝|屯明二鲁:宫第 1/5 页用于分配块状散料的装置和相应的分散装置技术领域本发明涉及用于将一种块状散料 , 尤其是至少部分经预还原的铁矿石分配"
+            },
+            {
+              "chunk_id": 2,
+              "score": 0.5346,
+              "vector_score": 0.735,
+              "fulltext_score": 7.8924,
+              "source": "CN100347506C.pdf",
+              "page": 1,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "5.11.16 US4497609A “1985.2.5 权利要求书 2 页说明书 5 页附图 3 页 [54] 发朋名称用于分配块状散料的装置和相应的分散装置[57] 摘要本发明涉及用于将一种块状散料 , 特别是至少部分已预还原的铁矿石分"
+            },
+            {
+              "chunk_id": 3,
+              "score": 0.5338,
+              "vector_score": 0.7069,
+              "fulltext_score": 5.3599,
+              "source": "CN100347506C.pdf",
+              "page": 2,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 权利要求书第 1/2 页 1. 用于将一种来自物料流的块状散料分配在一个伸展的平面上的装置 , 其中该平面布置在物理或化学工艺技术装备的一个反应器"
+            },
+            {
+              "chunk_id": 7,
+              "score": 0.4401,
+              "vector_score": 0.7229,
+              "fulltext_score": 3.1275,
+              "source": "CN100347506C.pdf",
+              "page": 4,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】反应器错误地加料那就会降低所生产出的产品的质量 , 而且也会造成明显较高的环境污染 , 这多少是由于粉小排放较大 . 因此就会对这种设备的生产率产生负面影响 。US-A"
+            },
+            {
+              "chunk_id": 8,
+              "score": 0.4397,
+              "vector_score": 0.6834,
+              "fulltext_score": 4.9647,
+              "source": "CN100347506C.pdf",
+              "page": 5,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 说明书第 2/5 页部分散料在从上面看径向和 / 或切向方向上分配 , 该分散装置具有一链条本发明还提出一种应用在本发明的散装块料分配装置里的分散"
+            },
+            {
+              "chunk_id": 11,
+              "score": 0.4189,
+              "vector_score": 0.7149,
+              "fulltext_score": 3.5814,
+              "source": "CN100347506C.pdf",
+              "page": 6,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】本发明的一种特别优选的实施形式 , 加宽的散料流相互重迭 。 因而尤其保证了 : 即使落料架失效 , 例如由于落料架塔塞 , 散料也能基本均匀地装在移动床上 。若从上看"
+            }
+          ],
+          "retrieval": {
+            "strategy": "hybrid",
+            "fusion": "rrf",
+            "fulltext_mode": "bm25,bm25,bm25",
+            "vector_hits": 20,
+            "fulltext_hits": 19,
+            "candidates": 20,
+            "routes": 3,
+            "doc_filter": false,
+            "reranker": "crossmodal",
+            "ranked": 20,
+            "rerank_pool": 20,
+            "strategy_label": "混合检索（向量+全文）",
+            "embedding_model": "bge-m3",
+            "vector_weight": 0.5,
+            "fulltext_weight": 0.5,
+            "visual_query": true,
+            "figure_recall": true,
+            "crossmodal_rerank": true,
+            "visual_prompt": true
+          },
+          "prompt_has_visual": false,
+          "rewritten": "根据专利文本，本发明主要涉及哪种物料的分配装置？",
+          "evidence": [
+            {
+              "chunk_id": 6,
+              "source": "CN100347506C.pdf",
+              "page": 4,
+              "kind": "text",
+              "score": 0.5368,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 i萝|屯明二鲁:宫第 1/5 页用于分配块状散料的装置和相应的分散装置技术领域本发明涉及用于将一种块状散料 , 尤其是至少部分经预还原的铁矿石分配在一个伸展的平面上 , 尤其是在一个移动床上的装置和方法 , 其中该平面布置在物"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "question": "根据专利文本，本发明的分散装置包含以下哪个组件？",
+          "type": "text",
+          "gold_answer": "链条",
+          "gold_option": "B",
+          "gold_keywords": [
+            "链条"
+          ],
+          "answer": "本发明的分散装置包含链条。",
+          "pred_option": "B",
+          "correct": true,
+          "visual_ref": false,
+          "figure_nos": [],
+          "page_refs": [],
+          "part_refs": [],
+          "fig_hit_top1": null,
+          "fig_hit_top3": null,
+          "latency_engine": 2.172,
+          "latency_wall": 2.172,
+          "top1": {
+            "kind": "text",
+            "page": 7,
+            "figure_no": null,
+            "score": 0.5705,
+            "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】温的耐磨的材料制成 。 按照另一个附加特征这链条在预定的 , 最好可以相对变化的距高上具有一些分散元件 , 例如接点 。 团而就保证了达到一种特别均匀的分散 。按照一种"
+          },
+          "topk": [
+            {
+              "chunk_id": 13,
+              "score": 0.5705,
+              "vector_score": 0.7277,
+              "fulltext_score": 4.6133,
+              "source": "CN100347506C.pdf",
+              "page": 7,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】温的耐磨的材料制成 。 按照另一个附加特征这链条在预定的 , 最好可以相对变化的距高上具有一些分散元件 , 例如接点 。 团而就保证了达到一种特别均匀的分散 。按照一种"
+            },
+            {
+              "chunk_id": 19,
+              "score": 0.4771,
+              "vector_score": 0.7435,
+              "fulltext_score": 0.894,
+              "source": "CN100347506C.pdf",
+              "page": 11,
+              "kind": "figure",
+              "figure_no": 3,
+              "snippet": "【图3·技术图纸】文档第11页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 69°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放渣和出铁口、5-体的排"
+            },
+            {
+              "chunk_id": 18,
+              "score": 0.454,
+              "vector_score": 0.7133,
+              "fulltext_score": 0.8923,
+              "source": "CN100347506C.pdf",
+              "page": 10,
+              "kind": "figure",
+              "figure_no": 2,
+              "snippet": "【图2·技术图纸】说明书附图第2/3页，文档第10页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 90°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放"
+            },
+            {
+              "chunk_id": 10,
+              "score": 0.4504,
+              "vector_score": 0.6829,
+              "fulltext_score": 2.7745,
+              "source": "CN100347506C.pdf",
+              "page": 6,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 说明书第 3/5 页本发明的特征还在于一种按本发明的装置 , 它用于将块状散料 , 尤其是海绵块的块状散料从散料物流中分配到一个伸展到的平面上尤其"
+            },
+            {
+              "chunk_id": 6,
+              "score": 0.4465,
+              "vector_score": 0.6958,
+              "fulltext_score": 2.3188,
+              "source": "CN100347506C.pdf",
+              "page": 4,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 i萝|屯明二鲁:宫第 1/5 页用于分配块状散料的装置和相应的分散装置技术领域本发明涉及用于将一种块状散料 , 尤其是至少部分经预还原的铁矿石分配"
+            },
+            {
+              "chunk_id": 8,
+              "score": 0.4415,
+              "vector_score": 0.6709,
+              "fulltext_score": 2.7828,
+              "source": "CN100347506C.pdf",
+              "page": 5,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】01816120.0 说明书第 2/5 页部分散料在从上面看径向和 / 或切向方向上分配 , 该分散装置具有一链条本发明还提出一种应用在本发明的散装块料分配装置里的分散"
+            }
+          ],
+          "retrieval": {
+            "strategy": "hybrid",
+            "fusion": "rrf",
+            "fulltext_mode": "bm25,bm25,bm25,bm25",
+            "vector_hits": 20,
+            "fulltext_hits": 19,
+            "candidates": 20,
+            "routes": 3,
+            "doc_filter": false,
+            "reranker": "crossmodal",
+            "ranked": 20,
+            "rerank_pool": 20,
+            "strategy_label": "混合检索（向量+全文）",
+            "embedding_model": "bge-m3",
+            "vector_weight": 0.5,
+            "fulltext_weight": 0.5,
+            "visual_query": true,
+            "figure_recall": true,
+            "crossmodal_rerank": true,
+            "visual_prompt": true
+          },
+          "prompt_has_visual": true,
+          "rewritten": "根据专利文本，本发明的分散装置包含以下哪个组件？",
+          "evidence": [
+            {
+              "chunk_id": 13,
+              "source": "CN100347506C.pdf",
+              "page": 7,
+              "kind": "text",
+              "score": 0.5705,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】温的耐磨的材料制成 。 按照另一个附加特征这链条在预定的 , 最好可以相对变化的距高上具有一些分散元件 , 例如接点 。 团而就保证了达到一种特别均匀的分散 。按照一种特别的实施形式 , 分散装置具有一些链条 , 在这些链条上又分别设有一些接点 ,"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "question": "在文件中第11页图3中，编号13的部件相对于编号12的部件的位置关系是？",
+          "type": "figure",
+          "gold_answer": "位于编号12的部件之内",
+          "gold_option": "B",
+          "gold_keywords": [
+            "位于编号12",
+            "之内"
+          ],
+          "answer": "编号13的部件（链条）位于编号12的部件（保护管）之内。",
+          "pred_option": "",
+          "correct": true,
+          "visual_ref": true,
+          "figure_nos": [
+            3
+          ],
+          "page_refs": [
+            11
+          ],
+          "part_refs": [
+            13,
+            12
+          ],
+          "fig_hit_top1": true,
+          "fig_hit_top3": true,
+          "latency_engine": 2.162,
+          "latency_wall": 2.162,
+          "top1": {
+            "kind": "figure",
+            "page": 11,
+            "figure_no": 3,
+            "score": 1.5,
+            "snippet": "【图3·技术图纸】文档第11页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 69°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放渣和出铁口、5-体的排"
+          },
+          "topk": [
+            {
+              "chunk_id": 19,
+              "score": 1.5,
+              "vector_score": 0.7676,
+              "fulltext_score": 71.7997,
+              "source": "CN100347506C.pdf",
+              "page": 11,
+              "kind": "figure",
+              "figure_no": 3,
+              "snippet": "【图3·技术图纸】文档第11页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 69°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放渣和出铁口、5-体的排"
+            },
+            {
+              "chunk_id": 16,
+              "score": 0.5884,
+              "vector_score": 0.629,
+              "fulltext_score": 10.4251,
+              "source": "CN100347506C.pdf",
+              "page": 8,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】可以考虑对于承受特殊高温的那些零部件有一种防火外罪 。 此处所述装置的这些按照本发明要承受特别磨损条件下的载荷的零部件另外还通过铠装 , 例如通过堆焊来保护 .图 3 "
+            },
+            {
+              "chunk_id": 13,
+              "score": 0.498,
+              "vector_score": 0.6533,
+              "fulltext_score": 8.1283,
+              "source": "CN100347506C.pdf",
+              "page": 7,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】温的耐磨的材料制成 。 按照另一个附加特征这链条在预定的 , 最好可以相对变化的距高上具有一些分散元件 , 例如接点 。 团而就保证了达到一种特别均匀的分散 。按照一种"
+            },
+            {
+              "chunk_id": 18,
+              "score": 0.3672,
+              "vector_score": 0.7268,
+              "fulltext_score": 74.229,
+              "source": "CN100347506C.pdf",
+              "page": 10,
+              "kind": "figure",
+              "figure_no": 2,
+              "snippet": "【图2·技术图纸】说明书附图第2/3页，文档第10页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 90°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放"
+            },
+            {
+              "chunk_id": 17,
+              "score": 0.3671,
+              "vector_score": 0.7267,
+              "fulltext_score": 74.3743,
+              "source": "CN100347506C.pdf",
+              "page": 9,
+              "kind": "figure",
+              "figure_no": 1,
+              "snippet": "【图1·技术图纸】说明书附图第1/3页，文档第9页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 88°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放渣"
+            },
+            {
+              "chunk_id": 2,
+              "score": 0.3509,
+              "vector_score": 0.6072,
+              "fulltext_score": 7.2347,
+              "source": "CN100347506C.pdf",
+              "page": 1,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "5.11.16 US4497609A “1985.2.5 权利要求书 2 页说明书 5 页附图 3 页 [54] 发朋名称用于分配块状散料的装置和相应的分散装置[57] 摘要本发明涉及用于将一种块状散料 , 特别是至少部分已预还原的铁矿石分"
+            }
+          ],
+          "retrieval": {
+            "strategy": "hybrid",
+            "fusion": "rrf",
+            "fulltext_mode": "bm25,bm25,bm25,bm25",
+            "vector_hits": 20,
+            "fulltext_hits": 20,
+            "candidates": 20,
+            "routes": 4,
+            "doc_filter": false,
+            "reranker": "crossmodal",
+            "ranked": 20,
+            "rerank_pool": 20,
+            "strategy_label": "混合检索（向量+全文）",
+            "embedding_model": "bge-m3",
+            "vector_weight": 0.5,
+            "fulltext_weight": 0.5,
+            "visual_query": true,
+            "figure_recall": true,
+            "crossmodal_rerank": true,
+            "visual_prompt": true
+          },
+          "prompt_has_visual": true,
+          "rewritten": "在文件中第11页图3中，编号13的部件相对于编号12的部件的位置关系是？",
+          "evidence": [
+            {
+              "chunk_id": 19,
+              "source": "CN100347506C.pdf",
+              "page": 11,
+              "kind": "figure",
+              "score": 1.5,
+              "snippet": "【图3·技术图纸】文档第11页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 69°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放渣和出铁口、5-体的排气装置、6-装置、8-落料架、10-落料架、11-紧固机构、12-保护管、13-"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "question": "在文件中第11页图3中，编号14的部件位于整个装置的哪个位置？",
+          "type": "figure",
+          "gold_answer": "顶部",
+          "gold_option": "A",
+          "gold_keywords": [
+            "顶部"
+          ],
+          "answer": "编号14的部件（输入管）位于整个装置的顶部。",
+          "pred_option": "A",
+          "correct": true,
+          "visual_ref": true,
+          "figure_nos": [
+            3
+          ],
+          "page_refs": [
+            11
+          ],
+          "part_refs": [
+            14
+          ],
+          "fig_hit_top1": true,
+          "fig_hit_top3": true,
+          "latency_engine": 2.26,
+          "latency_wall": 2.261,
+          "top1": {
+            "kind": "figure",
+            "page": 11,
+            "figure_no": 3,
+            "score": 1.5,
+            "snippet": "【图3·技术图纸】文档第11页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 69°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放渣和出铁口、5-体的排"
+          },
+          "topk": [
+            {
+              "chunk_id": 19,
+              "score": 1.5,
+              "vector_score": 0.7785,
+              "fulltext_score": 59.3766,
+              "source": "CN100347506C.pdf",
+              "page": 11,
+              "kind": "figure",
+              "figure_no": 3,
+              "snippet": "【图3·技术图纸】文档第11页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 69°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放渣和出铁口、5-体的排"
+            },
+            {
+              "chunk_id": 13,
+              "score": 0.6189,
+              "vector_score": 0.6723,
+              "fulltext_score": 8.1283,
+              "source": "CN100347506C.pdf",
+              "page": 7,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】温的耐磨的材料制成 。 按照另一个附加特征这链条在预定的 , 最好可以相对变化的距高上具有一些分散元件 , 例如接点 。 团而就保证了达到一种特别均匀的分散 。按照一种"
+            },
+            {
+              "chunk_id": 16,
+              "score": 0.5962,
+              "vector_score": 0.6425,
+              "fulltext_score": 7.2576,
+              "source": "CN100347506C.pdf",
+              "page": 8,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】可以考虑对于承受特殊高温的那些零部件有一种防火外罪 。 此处所述装置的这些按照本发明要承受特别磨损条件下的载荷的零部件另外还通过铠装 , 例如通过堆焊来保护 .图 3 "
+            },
+            {
+              "chunk_id": 18,
+              "score": 0.3695,
+              "vector_score": 0.7386,
+              "fulltext_score": 62.2832,
+              "source": "CN100347506C.pdf",
+              "page": 10,
+              "kind": "figure",
+              "figure_no": 2,
+              "snippet": "【图2·技术图纸】说明书附图第2/3页，文档第10页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 90°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放"
+            },
+            {
+              "chunk_id": 17,
+              "score": 0.3688,
+              "vector_score": 0.7376,
+              "fulltext_score": 62.5845,
+              "source": "CN100347506C.pdf",
+              "page": 9,
+              "kind": "figure",
+              "figure_no": 1,
+              "snippet": "【图1·技术图纸】说明书附图第1/3页，文档第9页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 88°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放渣"
+            },
+            {
+              "chunk_id": 1,
+              "score": 0.3634,
+              "vector_score": 0.6258,
+              "fulltext_score": 8.6237,
+              "source": "CN100347506C.pdf",
+              "page": 1,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "27041 英 2002.4.4 审查员 _ 孟丽焦 85] 进入国家阶殴日期 _2003.3.21 [74] 专利代理机构中国专利代理 ( 香港 ) 有限公司73] 专利权人 “ 沃斯特 - 阿尔派因工业设备制造股代理人苏娟赵辛份有限公司"
+            }
+          ],
+          "retrieval": {
+            "strategy": "hybrid",
+            "fusion": "rrf",
+            "fulltext_mode": "bm25,bm25,bm25,bm25,bm25",
+            "vector_hits": 20,
+            "fulltext_hits": 20,
+            "candidates": 20,
+            "routes": 5,
+            "doc_filter": false,
+            "reranker": "crossmodal",
+            "ranked": 20,
+            "rerank_pool": 20,
+            "strategy_label": "混合检索（向量+全文）",
+            "embedding_model": "bge-m3",
+            "vector_weight": 0.5,
+            "fulltext_weight": 0.5,
+            "visual_query": true,
+            "figure_recall": true,
+            "crossmodal_rerank": true,
+            "visual_prompt": true
+          },
+          "prompt_has_visual": true,
+          "rewritten": "在文件中第11页图3中，编号14的部件位于整个装置的哪个位置？",
+          "evidence": [
+            {
+              "chunk_id": 19,
+              "source": "CN100347506C.pdf",
+              "page": 11,
+              "kind": "figure",
+              "score": 1.5,
+              "snippet": "【图3·技术图纸】文档第11页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 69°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放渣和出铁口、5-体的排气装置、6-装置、8-落料架、10-落料架、11-紧固机构、12-保护管、13-"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "question": "根据文件中第11页图3，散料从部件14进入后，下一步会经过哪个部件？",
+          "type": "figure",
+          "gold_answer": "部件13",
+          "gold_option": "D",
+          "gold_keywords": [
+            "部件13"
+          ],
+          "answer": "散料从部件14进入后，下一步经过部件13（链条）。",
+          "pred_option": "D",
+          "correct": true,
+          "visual_ref": true,
+          "figure_nos": [
+            3
+          ],
+          "page_refs": [
+            11
+          ],
+          "part_refs": [
+            14
+          ],
+          "fig_hit_top1": true,
+          "fig_hit_top3": true,
+          "latency_engine": 2.183,
+          "latency_wall": 2.183,
+          "top1": {
+            "kind": "figure",
+            "page": 11,
+            "figure_no": 3,
+            "score": 1.5,
+            "snippet": "【图3·技术图纸】文档第11页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 69°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放渣和出铁口、5-体的排"
+          },
+          "topk": [
+            {
+              "chunk_id": 19,
+              "score": 1.5,
+              "vector_score": 0.7785,
+              "fulltext_score": 59.3766,
+              "source": "CN100347506C.pdf",
+              "page": 11,
+              "kind": "figure",
+              "figure_no": 3,
+              "snippet": "【图3·技术图纸】文档第11页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 69°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放渣和出铁口、5-体的排"
+            },
+            {
+              "chunk_id": 13,
+              "score": 0.6189,
+              "vector_score": 0.6723,
+              "fulltext_score": 8.1283,
+              "source": "CN100347506C.pdf",
+              "page": 7,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】温的耐磨的材料制成 。 按照另一个附加特征这链条在预定的 , 最好可以相对变化的距高上具有一些分散元件 , 例如接点 。 团而就保证了达到一种特别均匀的分散 。按照一种"
+            },
+            {
+              "chunk_id": 16,
+              "score": 0.5962,
+              "vector_score": 0.6425,
+              "fulltext_score": 7.57,
+              "source": "CN100347506C.pdf",
+              "page": 8,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】可以考虑对于承受特殊高温的那些零部件有一种防火外罪 。 此处所述装置的这些按照本发明要承受特别磨损条件下的载荷的零部件另外还通过铠装 , 例如通过堆焊来保护 .图 3 "
+            },
+            {
+              "chunk_id": 18,
+              "score": 0.3695,
+              "vector_score": 0.7386,
+              "fulltext_score": 62.2832,
+              "source": "CN100347506C.pdf",
+              "page": 10,
+              "kind": "figure",
+              "figure_no": 2,
+              "snippet": "【图2·技术图纸】说明书附图第2/3页，文档第10页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 90°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放"
+            },
+            {
+              "chunk_id": 17,
+              "score": 0.3688,
+              "vector_score": 0.7376,
+              "fulltext_score": 62.5845,
+              "source": "CN100347506C.pdf",
+              "page": 9,
+              "kind": "figure",
+              "figure_no": 1,
+              "snippet": "【图1·技术图纸】说明书附图第1/3页，文档第9页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 88°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放渣"
+            },
+            {
+              "chunk_id": 1,
+              "score": 0.3634,
+              "vector_score": 0.6258,
+              "fulltext_score": 8.6237,
+              "source": "CN100347506C.pdf",
+              "page": 1,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "27041 英 2002.4.4 审查员 _ 孟丽焦 85] 进入国家阶殴日期 _2003.3.21 [74] 专利代理机构中国专利代理 ( 香港 ) 有限公司73] 专利权人 “ 沃斯特 - 阿尔派因工业设备制造股代理人苏娟赵辛份有限公司"
+            }
+          ],
+          "retrieval": {
+            "strategy": "hybrid",
+            "fusion": "rrf",
+            "fulltext_mode": "bm25,bm25,bm25,bm25,bm25",
+            "vector_hits": 20,
+            "fulltext_hits": 20,
+            "candidates": 20,
+            "routes": 5,
+            "doc_filter": false,
+            "reranker": "crossmodal",
+            "ranked": 20,
+            "rerank_pool": 20,
+            "strategy_label": "混合检索（向量+全文）",
+            "embedding_model": "bge-m3",
+            "vector_weight": 0.5,
+            "fulltext_weight": 0.5,
+            "visual_query": true,
+            "figure_recall": true,
+            "crossmodal_rerank": true,
+            "visual_prompt": true
+          },
+          "prompt_has_visual": true,
+          "rewritten": "根据文件中第11页图3，散料从部件14进入后，下一步会经过哪个部件？",
+          "evidence": [
+            {
+              "chunk_id": 19,
+              "source": "CN100347506C.pdf",
+              "page": 11,
+              "kind": "figure",
+              "score": 1.5,
+              "snippet": "【图3·技术图纸】文档第11页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 69°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放渣和出铁口、5-体的排气装置、6-装置、8-落料架、10-落料架、11-紧固机构、12-保护管、13-"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "question": "在文件中第11页图3的装置中，如果需要调整链条的位置，需要操作哪个部件?",
+          "type": "figure",
+          "gold_answer": "部件11",
+          "gold_option": "B",
+          "gold_keywords": [
+            "部件11"
+          ],
+          "answer": "需要操作部件11（紧固机构）来调整链条（部件13）的位置。",
+          "pred_option": "B",
+          "correct": true,
+          "visual_ref": true,
+          "figure_nos": [
+            3
+          ],
+          "page_refs": [
+            11
+          ],
+          "part_refs": [],
+          "fig_hit_top1": true,
+          "fig_hit_top3": true,
+          "latency_engine": 2.205,
+          "latency_wall": 2.205,
+          "top1": {
+            "kind": "figure",
+            "page": 11,
+            "figure_no": 3,
+            "score": 1.28,
+            "snippet": "【图3·技术图纸】文档第11页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 69°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放渣和出铁口、5-体的排"
+          },
+          "topk": [
+            {
+              "chunk_id": 19,
+              "score": 1.28,
+              "vector_score": 0.7811,
+              "fulltext_score": 51.027,
+              "source": "CN100347506C.pdf",
+              "page": 11,
+              "kind": "figure",
+              "figure_no": 3,
+              "snippet": "【图3·技术图纸】文档第11页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 69°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放渣和出铁口、5-体的排"
+            },
+            {
+              "chunk_id": 13,
+              "score": 0.3925,
+              "vector_score": 0.6548,
+              "fulltext_score": 7.0997,
+              "source": "CN100347506C.pdf",
+              "page": 7,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】温的耐磨的材料制成 。 按照另一个附加特征这链条在预定的 , 最好可以相对变化的距高上具有一些分散元件 , 例如接点 。 团而就保证了达到一种特别均匀的分散 。按照一种"
+            },
+            {
+              "chunk_id": 16,
+              "score": 0.3734,
+              "vector_score": 0.6272,
+              "fulltext_score": 7.1172,
+              "source": "CN100347506C.pdf",
+              "page": 8,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "【14. 应用在一种按权利要求 1 至 13 中的之一所述的装置里的分】可以考虑对于承受特殊高温的那些零部件有一种防火外罪 。 此处所述装置的这些按照本发明要承受特别磨损条件下的载荷的零部件另外还通过铠装 , 例如通过堆焊来保护 .图 3 "
+            },
+            {
+              "chunk_id": 2,
+              "score": 0.3646,
+              "vector_score": 0.6145,
+              "fulltext_score": 7.2347,
+              "source": "CN100347506C.pdf",
+              "page": 1,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "5.11.16 US4497609A “1985.2.5 权利要求书 2 页说明书 5 页附图 3 页 [54] 发朋名称用于分配块状散料的装置和相应的分散装置[57] 摘要本发明涉及用于将一种块状散料 , 特别是至少部分已预还原的铁矿石分"
+            },
+            {
+              "chunk_id": 1,
+              "score": 0.3635,
+              "vector_score": 0.6129,
+              "fulltext_score": 8.6237,
+              "source": "CN100347506C.pdf",
+              "page": 1,
+              "kind": "text",
+              "figure_no": null,
+              "snippet": "27041 英 2002.4.4 审查员 _ 孟丽焦 85] 进入国家阶殴日期 _2003.3.21 [74] 专利代理机构中国专利代理 ( 香港 ) 有限公司73] 专利权人 “ 沃斯特 - 阿尔派因工业设备制造股代理人苏娟赵辛份有限公司"
+            },
+            {
+              "chunk_id": 18,
+              "score": 0.1481,
+              "vector_score": 0.7351,
+              "fulltext_score": 53.917,
+              "source": "CN100347506C.pdf",
+              "page": 10,
+              "kind": "figure",
+              "figure_no": 2,
+              "snippet": "【图2·技术图纸】说明书附图第2/3页，文档第10页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 90°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放"
+            }
+          ],
+          "retrieval": {
+            "strategy": "hybrid",
+            "fusion": "rrf",
+            "fulltext_mode": "bm25,bm25,bm25,bm25",
+            "vector_hits": 20,
+            "fulltext_hits": 20,
+            "candidates": 20,
+            "routes": 4,
+            "doc_filter": false,
+            "reranker": "crossmodal",
+            "ranked": 20,
+            "rerank_pool": 20,
+            "strategy_label": "混合检索（向量+全文）",
+            "embedding_model": "bge-m3",
+            "vector_weight": 0.5,
+            "fulltext_weight": 0.5,
+            "visual_query": true,
+            "figure_recall": true,
+            "crossmodal_rerank": true,
+            "visual_prompt": true
+          },
+          "prompt_has_visual": true,
+          "rewritten": "在文件中第11页图3的装置中，如果需要调整链条的位置，需要操作哪个部件?",
+          "evidence": [
+            {
+              "chunk_id": 19,
+              "source": "CN100347506C.pdf",
+              "page": 11,
+              "kind": "figure",
+              "score": 1.28,
+              "snippet": "【图3·技术图纸】文档第11页 图像描述（解析模块生成）：该图为一种分散装置的技术图纸，主体呈倾斜细长的杆状/臂状结构、主轴线相对水平方向倾斜约 69°。 部件标注：1-体实施方式图、2-粉生装置、3-供氧装置、4-放渣和出铁口、5-体的排气装置、6-装置、8-落料架、10-落料架、11-紧固机构、12-保护管、13-"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

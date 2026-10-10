@@ -1,0 +1,51 @@
+﻿python : Building prefix dict from the default dictionary ...
+At line:15 char:1645
++ ... 码\工单十三\研发"; python profile_rag.py --mode optimized --scenario warm -- ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Building prefix... dictionary ...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading model from cache C:\Users\30274\AppData\Local\Temp\jieba.cache
+Loading model cost 0.536 seconds.
+Prefix dict has been built successfully.
+
+----------------------------------------------------------------------------------------
+cProfile 热点函数（按累计耗时 Top-12，应用级性能分析）
+----------------------------------------------------------------------------------------
+         718733 function calls (717933 primitive calls) in 1.240 seconds
+
+   Ordered by: cumulative time
+   List reduced from 656 to 12 due to restriction <12>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        5    0.002    0.000    1.241    0.248 G:\Trae-work产出\6ac83e1b4ddcc1c6e9e3cb96\交付\工单代码\工单十三\研发\src\qa_engine.py:96(ask)
+        5    0.000    0.000    0.903    0.181 G:\Trae-work产出\6ac83e1b4ddcc1c6e9e3cb96\交付\工单代码\工单十三\研发\src\hybrid_retriever.py:231(search)
+        5    0.002    0.000    0.862    0.172 G:\Trae-work产出\6ac83e1b4ddcc1c6e9e3cb96\交付\工单代码\工单十三\研发\src\hybrid_retriever.py:145(recall)
+        5    0.000    0.000    0.564    0.113 G:\Trae-work产出\6ac83e1b4ddcc1c6e9e3cb96\交付\工单代码\工单十三\研发\src\vector_retriever.py:35(encode_queries)
+        5    0.000    0.000    0.564    0.113 G:\Trae-work产出\6ac83e1b4ddcc1c6e9e3cb96\交付\工单代码\工单十三\研发\src\embedding.py:218(encode_many_cached)
+        5    0.000    0.000    0.561    0.112 G:\Trae-work产出\6ac83e1b4ddcc1c6e9e3cb96\交付\工单代码\工单十三\研发\src\embedding.py:185(encode)
+        5    0.000    0.000    0.560    0.112 G:\Trae-work产出\6ac83e1b4ddcc1c6e9e3cb96\交付\工单代码\工单十三\研发\src\embedding.py:151(_embed_batch)
+        5    0.000    0.000    0.555    0.111 C:\Users\30274\AppData\Roaming\TRAE SOLO CN\ModularData\ai-agent\vm\tools\python\lib\site-packages\requests\sessions.py:629(post)
+        5    0.000    0.000    0.555    0.111 C:\Users\30274\AppData\Roaming\TRAE SOLO CN\ModularData\ai-agent\vm\tools\python\lib\site-packages\requests\sessions.py:503(request)
+        5    0.000    0.000    0.546    0.109 C:\Users\30274\AppData\Roaming\TRAE SOLO CN\ModularData\ai-agent\vm\tools\python\lib\site-packages\requests\sessions.py:676(send)
+        5    0.000    0.000    0.544    0.109 C:\Users\30274\AppData\Roaming\TRAE SOLO CN\ModularData\ai-agent\vm\tools\python\lib\site-packages\requests\adapters.py:591(send)
+        5    0.000    0.000    0.543    0.109 C:\Users\30274\AppData\Roaming\TRAE SOLO CN\ModularData\ai-agent\vm\tools\python\lib\site-packages\urllib3\connectionpool.py:592(urlopen)
+
+
+========================================================================================
+RAG 性能剖析  |  模式=optimized  场景=warm  PERF_OPT=True  题数=5
+工单编号: 人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
+========================================================================================
+启动预热耗时: 2667 ms（一次性，已移出用户请求路径）
+
+端到端: avg=246.2ms  p50=251.7ms  p95=298.9ms  p99=298.9ms  max=298.9ms
+
+分阶段耗时（avg / p95 / max，单位 ms）：
+  阶段                         avg       p95       max       占比
+  查询处理与增强                    0.2       0.8       0.8     0.1%
+  查询理解                       1.9       7.6       7.6     0.8%
+  检索·向量召回                  120.5     166.1     166.1    49.0%
+  查询向量编码                   112.8     156.1     156.1    45.8%
+  检索·全文召回                   50.9      67.0      67.0    20.7%
+  检索·多通道融合                   0.7       1.1       1.1     0.3%
+  上下文组装·重排                   8.1      10.9      10.9     3.3%

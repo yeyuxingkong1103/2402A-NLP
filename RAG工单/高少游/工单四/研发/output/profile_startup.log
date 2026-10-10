@@ -1,0 +1,11 @@
+﻿== 启动耗时剖析 ==
+  import src.config                                 0.81s
+  import src.knowledge_base (含 langchain/faiss)   136.31s
+  import src.image_index                            0.01s
+    -> {'name': 'faiss', 'chunks': 3472, 'table_chunks': 689, 'table_kv_chunks': 786, 'sources': ['招股说明书1.pdf', '招股说明书2.pdf']}
+  kb_stats(config.DB_DIR)                           1.03s
+    -> 3472 docs
+  get_all_documents(config.DB_DIR)                  0.15s
+    -> {'images': 89, 'dim': 512, 'ready': True}
+  get_image_index().stats()                         0.01s
+== 完成 ==

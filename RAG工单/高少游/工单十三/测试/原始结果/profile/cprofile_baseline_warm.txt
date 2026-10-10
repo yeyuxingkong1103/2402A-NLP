@@ -1,0 +1,60 @@
+﻿python : Building prefix dict from the default dictionary ...
+At line:15 char:1645
++ ... 码\工单十三\研发"; python profile_rag.py --mode baseline --scenario warm --c ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Building prefix... dictionary ...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading model from cache C:\Users\30274\AppData\Local\Temp\jieba.cache
+Loading model cost 0.515 seconds.
+Prefix dict has been built successfully.
+
+----------------------------------------------------------------------------------------
+cProfile 热点函数（按累计耗时 Top-12，应用级性能分析）
+----------------------------------------------------------------------------------------
+         720884 function calls (720079 primitive calls) in 11.638 seconds
+
+   Ordered by: cumulative time
+   List reduced from 704 to 12 due to restriction <12>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        5    0.002    0.000   11.639    2.328 G:\Trae-work产出\6ac83e1b4ddcc1c6e9e3cb96\交付\工单代码\工单十三\研发\src\qa_engine.py:96(ask)
+        5    0.000    0.000   11.258    2.252 G:\Trae-work产出\6ac83e1b4ddcc1c6e9e3cb96\交付\工单代码\工单十三\研发\src\hybrid_retriever.py:231(search)
+        5    0.002    0.000   11.207    2.241 G:\Trae-work产出\6ac83e1b4ddcc1c6e9e3cb96\交付\工单代码\工单十三\研发\src\hybrid_retriever.py:145(recall)
+        5    0.000    0.000   10.843    2.169 G:\Trae-work产出\6ac83e1b4ddcc1c6e9e3cb96\交付\工单代码\工单十三\研发\src\vector_retriever.py:35(encode_queries)
+        5    0.000    0.000   10.843    2.169 G:\Trae-work产出\6ac83e1b4ddcc1c6e9e3cb96\交付\工单代码\工单十三\研发\src\embedding.py:218(encode_many_cached)
+        5    0.000    0.000   10.842    2.168 G:\Trae-work产出\6ac83e1b4ddcc1c6e9e3cb96\交付\工单代码\工单十三\研发\src\embedding.py:185(encode)
+        5    0.000    0.000   10.840    2.168 G:\Trae-work产出\6ac83e1b4ddcc1c6e9e3cb96\交付\工单代码\工单十三\研发\src\embedding.py:151(_embed_batch)
+        5    0.000    0.000   10.834    2.167 C:\Users\30274\AppData\Roaming\TRAE SOLO CN\ModularData\ai-agent\vm\tools\python\lib\site-packages\requests\api.py:103(post)
+        5    0.000    0.000   10.834    2.167 C:\Users\30274\AppData\Roaming\TRAE SOLO CN\ModularData\ai-agent\vm\tools\python\lib\site-packages\requests\api.py:14(request)
+        5    0.000    0.000   10.833    2.167 C:\Users\30274\AppData\Roaming\TRAE SOLO CN\ModularData\ai-agent\vm\tools\python\lib\site-packages\requests\sessions.py:503(request)
+        5    0.000    0.000   10.825    2.165 C:\Users\30274\AppData\Roaming\TRAE SOLO CN\ModularData\ai-agent\vm\tools\python\lib\site-packages\requests\sessions.py:676(send)
+        5    0.000    0.000   10.824    2.165 C:\Users\30274\AppData\Roaming\TRAE SOLO CN\ModularData\ai-agent\vm\tools\python\lib\site-packages\requests\adapters.py:591(send)
+
+
+========================================================================================
+RAG 性能剖析  |  模式=baseline  场景=warm  PERF_OPT=False  题数=5
+工单编号: 人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
+========================================================================================
+启动预热耗时: 2623 ms（一次性，已移出用户请求路径）
+
+端到端: avg=2325.7ms  p50=2327.3ms  p95=2375.4ms  p99=2375.4ms  max=2375.4ms
+
+分阶段耗时（avg / p95 / max，单位 ms）：
+  阶段                         avg       p95       max       占比
+  查询处理与增强                    0.3       1.2       1.2     0.0%
+  查询理解                       1.6       6.2       6.2     0.1%
+  检索·向量召回                 2176.4    2213.6    2213.6    93.6%
+  查询向量编码                  2168.6    2204.8    2204.8    93.2%
+  检索·全文召回                   64.1     108.2     108.2     2.8%
+  检索·多通道融合                   0.9       1.1       1.1     0.0%
+  上下文组装·重排                  10.0      15.6      15.6     0.4%
+  后处理·答案合成                  72.0      93.0      93.0     3.1%
+  端到端总计                   2325.7    2375.4    2375.4   100.0%
+
+告警：
+  [warn] 阶段「查询向量编码」单次最大 2.20s 超过 1.5s
+  [warn] 阶段「检索·向量召回」单次最大 2.21s 超过 1.5s
+
+结果已落盘 → output\profile\profile_baseline_warm.json
+cProfile 数据 → G:\Trae-work产出\6ac83e1b4ddcc1c6e9e3cb96\交付\工单代码\工单十三\研发\output\profile\cprofile_baseline_warm.prof（可视化：snakeviz <file>.prof）

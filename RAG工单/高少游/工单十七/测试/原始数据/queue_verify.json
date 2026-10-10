@@ -1,0 +1,282 @@
+{
+  "workorder": "人工智能 NLP-RAG-解决API服务并发瓶颈与资源泄漏",
+  "base_url": "http://127.0.0.1:8001",
+  "submitted": 12,
+  "submit_seconds": 0.326,
+  "queue_depth_at_submit": [
+    0,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "queue_depth_max": 10,
+  "completed": 12,
+  "failed": 0,
+  "pending_left": 0,
+  "consume_total_seconds": 68.55,
+  "chunks_total": 1182,
+  "parse_seconds": {
+    "mean": 11.034,
+    "min": 7.655,
+    "max": 16.46
+  },
+  "executor_stats": {
+    "workers": 2,
+    "done": 12,
+    "failed": 0,
+    "queue": {
+      "backend": "memory",
+      "depth": 0,
+      "enqueued": 12,
+      "dequeued": 12
+    },
+    "records": 12,
+    "parse_max_pages": 40
+  },
+  "tasks": [
+    {
+      "task_id": "task-459c8c795d05",
+      "filename": "upload_sample_1.pdf",
+      "status": "done",
+      "chunks": 112,
+      "elapsed": 13.583
+    },
+    {
+      "task_id": "task-f288fcebfcfc",
+      "filename": "upload_sample_2.pdf",
+      "status": "done",
+      "chunks": 88,
+      "elapsed": 9.542
+    },
+    {
+      "task_id": "task-6edc2efc7f40",
+      "filename": "upload_sample_3.pdf",
+      "status": "done",
+      "chunks": 78,
+      "elapsed": 7.655
+    },
+    {
+      "task_id": "task-43f905173f57",
+      "filename": "upload_sample_4.pdf",
+      "status": "done",
+      "chunks": 80,
+      "elapsed": 8.076
+    },
+    {
+      "task_id": "task-61d0c43de872",
+      "filename": "upload_sample_5.pdf",
+      "status": "done",
+      "chunks": 162,
+      "elapsed": 16.46
+    },
+    {
+      "task_id": "task-e51542cb62e5",
+      "filename": "upload_sample_6.pdf",
+      "status": "done",
+      "chunks": 71,
+      "elapsed": 9.874
+    },
+    {
+      "task_id": "task-d5a1a6bf9d6c",
+      "filename": "upload_sample_1.pdf",
+      "status": "done",
+      "chunks": 112,
+      "elapsed": 11.593
+    },
+    {
+      "task_id": "task-35e57d469e4d",
+      "filename": "upload_sample_2.pdf",
+      "status": "done",
+      "chunks": 88,
+      "elapsed": 11.032
+    },
+    {
+      "task_id": "task-148b6e72f6dc",
+      "filename": "upload_sample_3.pdf",
+      "status": "done",
+      "chunks": 78,
+      "elapsed": 9.193
+    },
+    {
+      "task_id": "task-26a3023bffe1",
+      "filename": "upload_sample_4.pdf",
+      "status": "done",
+      "chunks": 80,
+      "elapsed": 8.395
+    },
+    {
+      "task_id": "task-0fe0baa34f2c",
+      "filename": "upload_sample_5.pdf",
+      "status": "done",
+      "chunks": 162,
+      "elapsed": 15.461
+    },
+    {
+      "task_id": "task-f951208d3cd9",
+      "filename": "upload_sample_6.pdf",
+      "status": "done",
+      "chunks": 71,
+      "elapsed": 11.539
+    }
+  ],
+  "timeline": [
+    {
+      "t": 1.0,
+      "pending": 12,
+      "done": 0
+    },
+    {
+      "t": 4.4,
+      "pending": 12,
+      "done": 0
+    },
+    {
+      "t": 6.9,
+      "pending": 12,
+      "done": 0
+    },
+    {
+      "t": 8.9,
+      "pending": 12,
+      "done": 0
+    },
+    {
+      "t": 11.4,
+      "pending": 11,
+      "done": 1
+    },
+    {
+      "t": 13.6,
+      "pending": 11,
+      "done": 1
+    },
+    {
+      "t": 16.2,
+      "pending": 10,
+      "done": 2
+    },
+    {
+      "t": 19.5,
+      "pending": 9,
+      "done": 3
+    },
+    {
+      "t": 22.1,
+      "pending": 9,
+      "done": 3
+    },
+    {
+      "t": 24.9,
+      "pending": 8,
+      "done": 4
+    },
+    {
+      "t": 26.9,
+      "pending": 8,
+      "done": 4
+    },
+    {
+      "t": 28.9,
+      "pending": 8,
+      "done": 4
+    },
+    {
+      "t": 30.9,
+      "pending": 8,
+      "done": 4
+    },
+    {
+      "t": 33.6,
+      "pending": 7,
+      "done": 5
+    },
+    {
+      "t": 35.9,
+      "pending": 6,
+      "done": 6
+    },
+    {
+      "t": 38.1,
+      "pending": 6,
+      "done": 6
+    },
+    {
+      "t": 40.2,
+      "pending": 6,
+      "done": 6
+    },
+    {
+      "t": 42.2,
+      "pending": 6,
+      "done": 6
+    },
+    {
+      "t": 44.4,
+      "pending": 5,
+      "done": 7
+    },
+    {
+      "t": 46.8,
+      "pending": 4,
+      "done": 8
+    },
+    {
+      "t": 49.0,
+      "pending": 4,
+      "done": 8
+    },
+    {
+      "t": 51.0,
+      "pending": 4,
+      "done": 8
+    },
+    {
+      "t": 54.1,
+      "pending": 2,
+      "done": 10
+    },
+    {
+      "t": 56.2,
+      "pending": 2,
+      "done": 10
+    },
+    {
+      "t": 58.4,
+      "pending": 2,
+      "done": 10
+    },
+    {
+      "t": 60.5,
+      "pending": 2,
+      "done": 10
+    },
+    {
+      "t": 62.5,
+      "pending": 2,
+      "done": 10
+    },
+    {
+      "t": 64.5,
+      "pending": 2,
+      "done": 10
+    },
+    {
+      "t": 66.5,
+      "pending": 1,
+      "done": 11
+    },
+    {
+      "t": 68.5,
+      "pending": 0,
+      "done": 12
+    }
+  ]
+}

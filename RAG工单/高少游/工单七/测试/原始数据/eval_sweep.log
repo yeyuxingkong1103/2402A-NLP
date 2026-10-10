@@ -1,0 +1,54 @@
+﻿python : Building prefix dict from the default dictionary ...
+At line:15 char:1583
++ ... pgrep\bin'; python evaluate_ccf.py --strategies vector,fulltext,hybri ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Building prefix... dictionary ...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading model from cache C:\Users\30274\AppData\Local\Temp\jieba.cache
+Loading model cost 0.500 seconds.
+Prefix dict has been built successfully.
+====================================================================================================
+RAG 功能测试及检索评估  |  工单编号: 人工智能 NLP-RAG-功能测试及评估
+数据集：ccf_competition（9 份年报）  题目数：10
+====================================================================================================
+[GT] ground-truth 相关块已标注：10/10 题
+
+[1/8] 评测 vector / none / rrf ...
+      vector/none            | 准确率 70.0% | 召回率 70.0% (块级 37.8%) | 平均 2.21s P95 2.29s
+[2/8] 评测 vector / linear / rrf ...
+      vector/linear          | 准确率 70.0% | 召回率 70.0% (块级 50.3%) | 平均 0.02s P95 0.02s
+[3/8] 评测 fulltext / none / rrf ...
+      fulltext/none          | 准确率 60.0% | 召回率 60.0% (块级 35.2%) | 平均 0.04s P95 0.07s
+[4/8] 评测 fulltext / linear / rrf ...
+      fulltext/linear        | 准确率 60.0% | 召回率 70.0% (块级 54.6%) | 平均 0.04s P95 0.06s
+[5/8] 评测 hybrid / none / weighted ...
+      hybrid/none/weighted   | 准确率 60.0% | 召回率 70.0% (块级 40.2%) | 平均 0.05s P95 0.07s
+[6/8] 评测 hybrid / none / rrf ...
+      hybrid/none/rrf        | 准确率 70.0% | 召回率 70.0% (块级 40.2%) | 平均 0.05s P95 0.07s
+[7/8] 评测 hybrid / linear / weighted ...
+      hybrid/linear/weighted | 准确率 70.0% | 召回率 80.0% (块级 52.9%) | 平均 0.05s P95 0.07s
+[8/8] 评测 hybrid / linear / rrf ...
+      hybrid/linear/rrf      | 准确率 70.0% | 召回率 70.0% (块级 55.2%) | 平均 0.05s P95 0.07s
+
+====================================================================================================
+汇总（按准确率排序）
+====================================================================================================
+hybrid/linear/weighted | 准确率 70.0% | 召回率 80.0% (块级 52.9%) | 平均 0.05s P95 0.07s
+vector/none            | 准确率 70.0% | 召回率 70.0% (块级 37.8%) | 平均 2.21s P95 2.29s
+vector/linear          | 准确率 70.0% | 召回率 70.0% (块级 50.3%) | 平均 0.02s P95 0.02s
+hybrid/none/rrf        | 准确率 70.0% | 召回率 70.0% (块级 40.2%) | 平均 0.05s P95 0.07s
+hybrid/linear/rrf      | 准确率 70.0% | 召回率 70.0% (块级 55.2%) | 平均 0.05s P95 0.07s
+fulltext/linear        | 准确率 60.0% | 召回率 70.0% (块级 54.6%) | 平均 0.04s P95 0.06s
+hybrid/none/weighted   | 准确率 60.0% | 召回率 70.0% (块级 40.2%) | 平均 0.05s P95 0.07s
+fulltext/none          | 准确率 60.0% | 召回率 60.0% (块级 35.2%) | 平均 0.04s P95 0.07s
+----------------------------------------------------------------------------------------------------
+验收：准确率≥90% ❌  召回率≥95% ❌  响应≤3s ✅
+
+问题分析：5/10 题存在可归因问题
+
+结果已落盘 → G:\Trae-work产出\6ac6f3a2945a4596a6818536\_build7\研发\output
+  · ccf_test_results.json     逐题检索结果 / 答案 / 评估 / 诊断
+  · ccf_eval_summary.json     汇总指标（含按题型细分）
+  · ccf_test_report.md        逐题结果表（Markdown，供测试报告引用）
+  · ccf_strategy_compare.json 检索策略对比

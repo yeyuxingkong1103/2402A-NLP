@@ -1,0 +1,194 @@
+{
+  "workorder": "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化",
+  "target_seconds": 3.0,
+  "n_questions": 10,
+  "strategy": "hybrid",
+  "scenarios": [
+    {
+      "scenario": "cold",
+      "scenario_label": "冷启动",
+      "baseline_avg": 2454.345,
+      "baseline_p50": 2399.685,
+      "baseline_p95": 3049.958,
+      "optimized_avg": 509.862,
+      "optimized_p50": 250.826,
+      "optimized_p95": 2876.008,
+      "speedup": 4.81,
+      "baseline_pass": true,
+      "optimized_pass": true
+    },
+    {
+      "scenario": "warm",
+      "scenario_label": "稳态（新查询）",
+      "baseline_avg": 2375.238,
+      "baseline_p50": 2364.787,
+      "baseline_p95": 2469.683,
+      "optimized_avg": 230.277,
+      "optimized_p50": 234.52,
+      "optimized_p95": 280.316,
+      "speedup": 10.31,
+      "baseline_pass": true,
+      "optimized_pass": true
+    },
+    {
+      "scenario": "cached",
+      "scenario_label": "重复查询（缓存命中）",
+      "baseline_avg": 1245.425,
+      "baseline_p50": 1196.955,
+      "baseline_p95": 2501.108,
+      "optimized_avg": 109.163,
+      "optimized_p50": 108.267,
+      "optimized_p95": 137.254,
+      "speedup": 11.41,
+      "baseline_pass": true,
+      "optimized_pass": true
+    }
+  ],
+  "warm_stage_compare": [
+    {
+      "stage": "query_rewrite",
+      "label": "查询处理与增强",
+      "baseline_avg": 0.133,
+      "optimized_avg": 0.134,
+      "delta": -0.0,
+      "speedup": 0.99
+    },
+    {
+      "stage": "query_understanding",
+      "label": "查询理解",
+      "baseline_avg": 0.805,
+      "optimized_avg": 0.682,
+      "delta": 0.1,
+      "speedup": 1.18
+    },
+    {
+      "stage": "vector_recall",
+      "label": "检索·向量召回",
+      "baseline_avg": 2232.446,
+      "optimized_avg": 129.166,
+      "delta": 2103.3,
+      "speedup": 17.28
+    },
+    {
+      "stage": "embed",
+      "label": "查询向量编码",
+      "baseline_avg": 2224.459,
+      "optimized_avg": 121.846,
+      "delta": 2102.6,
+      "speedup": 18.26
+    },
+    {
+      "stage": "fulltext_recall",
+      "label": "检索·全文召回",
+      "baseline_avg": 64.1,
+      "optimized_avg": 45.116,
+      "delta": 19.0,
+      "speedup": 1.42
+    },
+    {
+      "stage": "fusion",
+      "label": "检索·多通道融合",
+      "baseline_avg": 0.601,
+      "optimized_avg": 0.391,
+      "delta": 0.2,
+      "speedup": 1.54
+    },
+    {
+      "stage": "rerank",
+      "label": "上下文组装·重排",
+      "baseline_avg": 9.139,
+      "optimized_avg": 5.744,
+      "delta": 3.4,
+      "speedup": 1.59
+    },
+    {
+      "stage": "answer_synthesis",
+      "label": "后处理·答案合成",
+      "baseline_avg": 67.735,
+      "optimized_avg": 48.849,
+      "delta": 18.9,
+      "speedup": 1.39
+    },
+    {
+      "stage": "total",
+      "label": "端到端总计",
+      "baseline_avg": 2375.238,
+      "optimized_avg": 230.277,
+      "delta": 2145.0,
+      "speedup": 10.31
+    }
+  ],
+  "raw": {
+    "cold": {
+      "baseline": {
+        "n": 10,
+        "avg": 2454.345,
+        "p50": 2399.685,
+        "p95": 3049.958,
+        "p99": 3049.958,
+        "max": 3049.958
+      },
+      "optimized": {
+        "n": 10,
+        "avg": 509.862,
+        "p50": 250.826,
+        "p95": 2876.008,
+        "p99": 2876.008,
+        "max": 2876.008
+      }
+    },
+    "warm": {
+      "baseline": {
+        "n": 10,
+        "avg": 2375.238,
+        "p50": 2364.787,
+        "p95": 2469.683,
+        "p99": 2469.683,
+        "max": 2469.683
+      },
+      "optimized": {
+        "n": 10,
+        "avg": 230.277,
+        "p50": 234.52,
+        "p95": 280.316,
+        "p99": 280.316,
+        "max": 280.316
+      }
+    },
+    "cached": {
+      "baseline": {
+        "n": 20,
+        "avg": 1245.425,
+        "p50": 1196.955,
+        "p95": 2501.108,
+        "p99": 2501.108,
+        "max": 2501.108
+      },
+      "optimized": {
+        "n": 20,
+        "avg": 109.163,
+        "p50": 108.267,
+        "p95": 137.254,
+        "p99": 137.254,
+        "max": 137.254
+      }
+    }
+  },
+  "optimized_alerts": [],
+  "baseline_alerts": [
+    {
+      "level": "warn",
+      "metric": "embed_max",
+      "value_ms": 2326.648,
+      "threshold_ms": 1500.0,
+      "msg": "阶段「查询向量编码」单次最大 2.33s 超过 1.5s"
+    },
+    {
+      "level": "warn",
+      "metric": "vector_recall_max",
+      "value_ms": 2334.769,
+      "threshold_ms": 1500.0,
+      "msg": "阶段「检索·向量召回」单次最大 2.33s 超过 1.5s"
+    }
+  ]
+}

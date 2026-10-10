@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="820" viewBox="0 0 1360 820" font-family="Microsoft YaHei, PingFang SC, sans-serif">
+  <defs>
+    <marker id="ar" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 z" fill="#64748b"/>
+    </marker>
+    <linearGradient id="gBad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fef2f2"/><stop offset="1" stop-color="#fecaca"/></linearGradient>
+    <linearGradient id="gFix" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0fdf4"/><stop offset="1" stop-color="#bbf7d0"/></linearGradient>
+    <linearGradient id="gSym" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eff6ff"/><stop offset="1" stop-color="#dbeafe"/></linearGradient>
+  </defs>
+  <rect width="1360" height="820" fill="#ffffff"/>
+  <text x="680" y="40" text-anchor="middle" font-size="23" font-weight="bold" fill="#0f172a">并发瓶颈与资源泄漏 · 根因定位与修复映射（工单十七）</text>
+  <text x="680" y="64" text-anchor="middle" font-size="13" fill="#64748b">工单编号：人工智能 NLP-RAG-解决API服务并发瓶颈与资源泄漏</text>
+
+  <!-- headers -->
+  <text x="200" y="112" text-anchor="middle" font-size="15" font-weight="bold" fill="#991b1b">故障现象</text>
+  <text x="560" y="112" text-anchor="middle" font-size="15" font-weight="bold" fill="#7f1d1d">根因（代码位置）</text>
+  <text x="920" y="112" text-anchor="middle" font-size="15" font-weight="bold" fill="#166534">修复措施（优化代码）</text>
+  <text x="1220" y="112" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e3a8a">实测效果</text>
+
+  <line x1="40" y1="126" x2="1320" y2="126" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <!-- row1 瓶颈一 -->
+  <rect x="40" y="146" width="320" height="140" rx="12" fill="url(#gSym)" stroke="#60a5fa"/>
+  <text x="200" y="174" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">响应延迟飙升</text>
+  <text x="200" y="198" text-anchor="middle" font-size="12" fill="#334155">10+ 并发时问答平均响应</text>
+  <text x="200" y="218" text-anchor="middle" font-size="12" fill="#334155">由 ~2s 陡增至 10s+</text>
+  <text x="200" y="248" text-anchor="middle" font-size="12" fill="#1e40af">瓶颈一：文档解析与模型加载</text>
+  <text x="200" y="270" text-anchor="middle" font-size="11" fill="#475569">每请求重复初始化重量级组件</text>
+
+  <rect x="400" y="146" width="320" height="140" rx="12" fill="url(#gBad)" stroke="#ef4444"/>
+  <text x="560" y="174" text-anchor="middle" font-size="13" font-weight="bold" fill="#991b1b">api/app_baseline.py · _reload_index_per_request()</text>
+  <text x="560" y="200" text-anchor="middle" font-size="12" fill="#7f1d1d">每请求 load_kb() 重读向量/切片</text>
+  <text x="560" y="222" text-anchor="middle" font-size="12" fill="#7f1d1d">每请求 new QAEngine（≈2.5s）</text>
+  <text x="560" y="252" text-anchor="middle" font-size="11" fill="#b91c1c">等价 RAGFlow 每请求初始化 DeepDoc / VLM</text>
+  <text x="560" y="272" text-anchor="middle" font-size="11" fill="#b91c1c">→ 初始化延迟 + 并发资源争用</text>
+
+  <rect x="760" y="146" width="320" height="140" rx="12" fill="url(#gFix)" stroke="#22c55e"/>
+  <text x="920" y="174" text-anchor="middle" font-size="13" font-weight="bold" fill="#166534">service/resources.py · ResourceManager</text>
+  <text x="920" y="200" text-anchor="middle" font-size="12" fill="#14532d">进程内单例 QAEngine / KB，启动预热一次</text>
+  <text x="920" y="222" text-anchor="middle" font-size="12" fill="#14532d">请求零重复初始化</text>
+  <text x="920" y="252" text-anchor="middle" font-size="11" fill="#15803d">查询编码有界 LRU 缓存（热门问题零 Ollama 开销）</text>
+  <text x="920" y="272" text-anchor="middle" font-size="11" fill="#15803d">→ 固定开销归零，延迟稳定</text>
+
+  <rect x="1120" y="146" width="200" height="140" rx="12" fill="#ffffff" stroke="#93c5fd"/>
+  <text x="1220" y="180" text-anchor="middle" font-size="12" fill="#1e3a8a">P95 8.27s → 1.99s</text>
+  <text x="1220" y="206" text-anchor="middle" font-size="12" fill="#1e3a8a">吞吐 2.96 → 12.7 req/s</text>
+  <text x="1220" y="238" text-anchor="middle" font-size="11" fill="#475569">（场景A 实测）</text>
+
+  <!-- row2 瓶颈二 -->
+  <rect x="40" y="300" width="320" height="140" rx="12" fill="url(#gSym)" stroke="#60a5fa"/>
+  <text x="200" y="328" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">高并发请求堆积</text>
+  <text x="200" y="352" text-anchor="middle" font-size="12" fill="#334155">线程阻塞、请求排队</text>
+  <text x="200" y="372" text-anchor="middle" font-size="12" fill="#334155">场景B 上传拖垮问答</text>
+  <text x="200" y="402" text-anchor="middle" font-size="12" fill="#1e40af">瓶颈二：请求处理无队列 / 限流</text>
+  <text x="200" y="424" text-anchor="middle" font-size="11" fill="#475569">同步 def 端点，耗时操作阻塞</text>
+
+  <rect x="400" y="300" width="320" height="140" rx="12" fill="url(#gBad)" stroke="#ef4444"/>
+  <text x="560" y="328" text-anchor="middle" font-size="13" font-weight="bold" fill="#991b1b">api/app_baseline.py · chat/upload 端点</text>
+  <text x="560" y="354" text-anchor="middle" font-size="12" fill="#7f1d1d">def（同步）端点 + 无并发信号量</text>
+  <text x="560" y="376" text-anchor="middle" font-size="12" fill="#7f1d1d">PDF 解析在请求线程内同步执行</text>
+  <text x="560" y="406" text-anchor="middle" font-size="11" fill="#b91c1c">→ 线程池耗尽、请求堆积</text>
+
+  <rect x="760" y="300" width="320" height="140" rx="12" fill="url(#gFix)" stroke="#22c55e"/>
+  <text x="920" y="328" text-anchor="middle" font-size="13" font-weight="bold" fill="#166534">app_optimized.py + service/executor.py</text>
+  <text x="920" y="354" text-anchor="middle" font-size="12" fill="#14532d">async def + run_in_threadpool 卸载阻塞</text>
+  <text x="920" y="376" text-anchor="middle" font-size="12" fill="#14532d">Semaphore(8) 限流；上传投递 Redis 队列</text>
+  <text x="920" y="406" text-anchor="middle" font-size="11" fill="#15803d">TaskExecutor 后台消费，API 不阻塞</text>
+
+  <rect x="1120" y="300" width="200" height="140" rx="12" fill="#ffffff" stroke="#93c5fd"/>
+  <text x="1220" y="334" text-anchor="middle" font-size="12" fill="#1e3a8a">场景B P95 64.7s → ≤5s</text>
+  <text x="1220" y="360" text-anchor="middle" font-size="12" fill="#1e3a8a">上传毫秒级返回</text>
+  <text x="1220" y="392" text-anchor="middle" font-size="11" fill="#475569">解析任务入队并被消费</text>
+
+  <!-- row3 泄漏一 -->
+  <rect x="40" y="454" width="320" height="140" rx="12" fill="url(#gSym)" stroke="#60a5fa"/>
+  <text x="200" y="482" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">内存持续增长 → OOM</text>
+  <text x="200" y="506" text-anchor="middle" font-size="12" fill="#334155">容器内存随运行时间缓慢上涨</text>
+  <text x="200" y="526" text-anchor="middle" font-size="12" fill="#334155">数小时后触发 OOM Killer</text>
+  <text x="200" y="556" text-anchor="middle" font-size="12" fill="#1e40af">泄漏点一：全局缓存 / 会话未释放</text>
+  <text x="200" y="578" text-anchor="middle" font-size="11" fill="#475569">中间张量 / 会话上下文未回收</text>
+
+  <rect x="400" y="454" width="320" height="140" rx="12" fill="url(#gBad)" stroke="#ef4444"/>
+  <text x="560" y="482" text-anchor="middle" font-size="13" font-weight="bold" fill="#991b1b">app_baseline.py 全局容器</text>
+  <text x="560" y="508" text-anchor="middle" font-size="12" fill="#7f1d1d">_SESSIONS：无界会话字典</text>
+  <text x="560" y="530" text-anchor="middle" font-size="12" fill="#7f1d1d">_LEAKED_TENSORS：召回向量快照不释放</text>
+  <text x="560" y="552" text-anchor="middle" font-size="12" fill="#7f1d1d">_PARSE_ARTIFACTS：解析产物累积</text>
+  <text x="560" y="576" text-anchor="middle" font-size="11" fill="#b91c1c">→ commit 内存只增不减</text>
+
+  <rect x="760" y="454" width="320" height="140" rx="12" fill="url(#gFix)" stroke="#22c55e"/>
+  <text x="920" y="482" text-anchor="middle" font-size="13" font-weight="bold" fill="#166534">service/resources.py · BoundedSessionStore</text>
+  <text x="920" y="508" text-anchor="middle" font-size="12" fill="#14532d">有界 LRU 缓存（容量 512）+ TTL 1800s</text>
+  <text x="920" y="530" text-anchor="middle" font-size="12" fill="#14532d">后台定时 purge_expired 清理</text>
+  <text x="920" y="552" text-anchor="middle" font-size="12" fill="#14532d">解析产物用后即弃，不入全局容器</text>
+  <text x="920" y="576" text-anchor="middle" font-size="11" fill="#15803d">→ 稳态内存恒定</text>
+
+  <rect x="1120" y="454" width="200" height="140" rx="12" fill="#ffffff" stroke="#93c5fd"/>
+  <text x="1220" y="488" text-anchor="middle" font-size="12" fill="#1e3a8a">RSS 增长 738% → 持平</text>
+  <text x="1220" y="514" text-anchor="middle" font-size="12" fill="#1e3a8a">10 分钟波动 ≤10%</text>
+  <text x="1220" y="546" text-anchor="middle" font-size="11" fill="#475569">无持续上涨趋势</text>
+
+  <!-- row4 泄漏二 -->
+  <rect x="40" y="608" width="320" height="140" rx="12" fill="url(#gSym)" stroke="#60a5fa"/>
+  <text x="200" y="636" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">句柄 / 套接字泄漏</text>
+  <text x="200" y="660" text-anchor="middle" font-size="12" fill="#334155">长跑后连接资源耗尽</text>
+  <text x="200" y="680" text-anchor="middle" font-size="12" fill="#334155">服务不可用</text>
+  <text x="200" y="710" text-anchor="middle" font-size="12" fill="#1e40af">泄漏点二：连接池泄漏</text>
+  <text x="200" y="732" text-anchor="middle" font-size="11" fill="#475569">连接未归还池</text>
+
+  <rect x="400" y="608" width="320" height="140" rx="12" fill="url(#gBad)" stroke="#ef4444"/>
+  <text x="560" y="636" text-anchor="middle" font-size="13" font-weight="bold" fill="#991b1b">app_baseline.py · 每请求新建 Session</text>
+  <text x="560" y="662" text-anchor="middle" font-size="12" fill="#7f1d1d">requests.Session() 从不 close()</text>
+  <text x="560" y="684" text-anchor="middle" font-size="12" fill="#7f1d1d">_LEAKED_SESSIONS 持有引用</text>
+  <text x="560" y="714" text-anchor="middle" font-size="11" fill="#b91c1c">→ 套接字 / 文件描述符泄漏</text>
+
+  <rect x="760" y="608" width="320" height="140" rx="12" fill="url(#gFix)" stroke="#22c55e"/>
+  <text x="920" y="636" text-anchor="middle" font-size="13" font-weight="bold" fill="#166534">resources.py · http() 共享连接池</text>
+  <text x="920" y="662" text-anchor="middle" font-size="12" fill="#14532d">共享 requests.Session + HTTPAdapter</text>
+  <text x="920" y="684" text-anchor="middle" font-size="12" fill="#14532d">pool_connections=32 / maxsize=64</text>
+  <text x="920" y="714" text-anchor="middle" font-size="11" fill="#15803d">→ TCP 连接复用归还</text>
+
+  <rect x="1120" y="608" width="200" height="140" rx="12" fill="#ffffff" stroke="#93c5fd"/>
+  <text x="1220" y="642" text-anchor="middle" font-size="12" fill="#1e3a8a">句柄 +3634 → 稳定</text>
+  <text x="1220" y="668" text-anchor="middle" font-size="12" fill="#1e3a8a">无句柄增长</text>
+  <text x="1220" y="700" text-anchor="middle" font-size="11" fill="#475569">（场景A 实测）</text>
+</svg>

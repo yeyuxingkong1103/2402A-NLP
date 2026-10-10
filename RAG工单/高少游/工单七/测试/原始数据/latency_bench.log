@@ -1,0 +1,24 @@
+﻿python : Building prefix dict from the default dictionary ...
+At line:15 char:1641
++ ... uild7\研发" ; python tools\bench_latency.py --strategies vector,fulltex ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Building prefix... dictionary ...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading model from cache C:\Users\30274\AppData\Local\Temp\jieba.cache
+Loading model cost 0.490 seconds.
+Prefix dict has been built successfully.
+====================================================================================
+响应时间基准  |  工单编号: 人工智能 NLP-RAG-功能测试及评估
+====================================================================================
+
+[vector] 冷启动 avg=2.28s p50=2.30s p95=2.41s max=2.41s
+       热缓存 avg=2.044s p95=2.381s
+
+[fulltext] 冷启动 avg=0.07s p50=0.07s p95=0.08s max=0.08s
+       热缓存 avg=0.072s p95=0.090s
+
+[hybrid] 冷启动 avg=2.33s p50=2.31s p95=2.45s max=2.45s
+       热缓存 avg=2.069s p95=2.367s
+
+结果已落盘 → G:\Trae-work产出\6ac6f3a2945a4596a6818536\_build7\研发\output\latency_bench.json

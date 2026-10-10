@@ -1,0 +1,21 @@
+﻿==================== 网络配置（真实运行） ====================
+工单编号: 人工智能 NLP-RAG-金融问答系统部署
+
+$ docker network inspect finqa-net --format "{{range .Containers}}{{.Name}} {{end}}"
+finqa-app 
+$ docker inspect --format "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" finqa-app
+172.18.0.2
+
+【启动对端服务】自建最小 RTMP 服务器容器（finqa-rtmp:1.0，监听 1935）
+$ docker run -d --name finqa-peer --network finqa-net finqa-rtmp:1.0
+24686822ddfaf07dd1b94955b4dfe890c5a242ab650afb0e9f343106be08c7ab
+$ docker logs finqa-peer
+[rtmp] 最小 RTMP 服务器已启动，监听 0.0.0.0:1935（RTMP v3 握手）
+
+【容器间连通】从问答容器向对端 RTMP 服务发起标准 RTMP 握手
+$ docker exec finqa-app python deploy/rtmp_client.py finqa-peer 1935
+[client] 向 finqa-peer:1935 发起 RTMP 握手…
+[client] [PASS] RTMP 握手成功：S0=0x03 S1=1536B S2回显=一致
+$ docker logs finqa-peer   # 对端服务侧记录到的握手完成日志
+[rtmp] 最小 RTMP 服务器已启动，监听 0.0.0.0:1935（RTMP v3 握手）
+[rtmp] ('172.18.0.2', 55742) 握手完成: C0=0x03 S0=0x03 C2=ok → RTMP 会话已建立

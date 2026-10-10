@@ -1,0 +1,22 @@
+﻿python : Building prefix dict from the default dictionary ...
+At line:1 char:818
++ ... IOENCODING="utf-8"; python tools\run_functional_tests.py 2>&1 | Tee-O ...
++                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Building prefix... dictionary ...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading model from cache C:\Users\30274\AppData\Local\Temp\jieba.cache
+Loading model cost 0.555 seconds.
+Prefix dict has been built successfully.
+TC-01 PASS | 报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？ | 报告期内，公司来自军用领域的收入分别为 6,464.51 万元、14,414.16 万元、18,780.67 万元和 4
+TC-02 PASS | 他参与的哪个工程荣获了国家科技进步一等奖？ | 2014年12月，某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统）荣获国
+TC-03 PASS | 这个公司的法定代表人是谁？ | 法定代表人为程家明。
+TC-04 PASS | 那武汉力源信息技术股份有限公司呢？ | 法定代表人为赵马克。
+TC-05 PASS | 武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有 | 大客户销售部的销售处最多，共6个：成都销售处、广州销售处、武汉销售处、北京销售处、深圳销售处、珠海销售处。
+TC-06 PASS | Who is the legal representative of | 法定代表人为程家明。
+TC-07 PASS | 空输入 / 乱码输入 | 未在招股说明书中检索到与该问题相关的内容，请尝试换一种与公司/财务/业务相关的问法。 | 未在招股说明书中检索到与该问题
+TC-08 PASS | 今天天气如何？适合去爬山吗？ | 未在招股说明书中检索到与该问题相关的内容，请尝试换一种与公司/财务/业务相关的问法。
+TC-09 PASS | 连续 50 轮问答 | 完成 50 轮；平均 0.12s，最大 2.15s
+TC-10 PASS | 重置会话后再提问 | 重置前 1 轮 → 重置后 0 轮
+
+通过 10/10 = 100%
