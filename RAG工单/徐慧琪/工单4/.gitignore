@@ -1,0 +1,20 @@
+# ---- 输入数据（体积大，不入库）----
+*.pdf
+
+# ---- 运行期产物 ----
+_scratch/
+data/
+models/
+*.log
+logs/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+
+# ---- 评估与压测的大体积输出 ----
+docs/reports/*.json
+docs/reports/*.csv
+!docs/reports/.gitkeep
