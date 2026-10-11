@@ -1,0 +1,27 @@
+# 文档质量评估 Skill · 配置文件（所有阈值可调，不硬编码）
+
+# 1) 格式分布统计：参与统计的扩展名
+extensions: [".pdf", ".docx", ".doc", ".md", ".txt", ".xlsx", ".pptx"]
+
+# 2) PDF 页面类型识别（启发式；所有阈值可配置）
+pdf_min_chars_per_page: 20      # 每页字符数 < 阈值 → 视为「扫描页」
+scan_page_ratio: 0.70           # 扫描页占比 > 0.70 → 整篇「扫描型」
+text_page_ratio: 0.70           # 文字页占比 > 0.70 → 整篇「文字型」，其余「混合型」
+
+# 3) 文档长度分布
+length_quantiles: [0.25, 0.5, 0.75, 0.9, 0.99]
+
+# 4) 重复检测
+simhash_bits: 64
+simhash_shingle: 3
+simhash_hamming_threshold: 3    # ≤ 该汉明距离 → 「待确认的版本冲突」自动入列
+
+# 5) 敏感信息检测
+enable_phone: true
+enable_email: true
+enable_idcard: true
+enable_bankcard: false          # 默认关闭（误报率高）
+context_chars: 20               # 每条命中附带的上下文长度
+
+# 6) 文档分类标签体系
+classify: true

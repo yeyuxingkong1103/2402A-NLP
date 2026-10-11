@@ -1,0 +1,106 @@
+{
+  "generated_at": "2026-10-10T08:48:21",
+  "meta": {
+    "root": "D:\\_RAG新工单素材\\original_problems\\documents",
+    "files": 1700,
+    "config": {
+      "extensions": [
+        ".pdf",
+        ".docx",
+        ".doc",
+        ".md",
+        ".txt",
+        ".xlsx",
+        ".pptx"
+      ],
+      "pdf_min_chars_per_page": 20,
+      "scan_page_ratio": 0.7,
+      "text_page_ratio": 0.7,
+      "length_quantiles": [
+        0.25,
+        0.5,
+        0.75,
+        0.9,
+        0.99
+      ],
+      "simhash_bits": 64,
+      "simhash_shingle": 3,
+      "simhash_hamming_threshold": 3,
+      "enable_phone": true,
+      "enable_email": true,
+      "enable_idcard": true,
+      "enable_bankcard": false,
+      "context_chars": 20,
+      "classify": true
+    }
+  },
+  "format_stats": {
+    "total_files": 1700,
+    "by_ext": {
+      ".pdf": {
+        "count": 1700,
+        "ratio": 1.0
+      }
+    }
+  },
+  "pdf_types": {
+    "pdf_total": 1700,
+    "scan": 622,
+    "text": 1078,
+    "mixed": 0,
+    "待确认": []
+  },
+  "length_distribution": {
+    "count": 1700,
+    "min": 3,
+    "max": 24455,
+    "mean": 3477.8,
+    "P25": 8,
+    "P50": 4120,
+    "P75": 5505,
+    "P90": 6825,
+    "P99": 10939,
+    "bins": {
+      "0-1000": 622,
+      "1000-5000": 468,
+      "5000-20000": 608,
+      "20000-100000": 2,
+      "100000-1000000000": 0
+    }
+  },
+  "duplicates": {
+    "md5": [],
+    "near": [
+      {
+        "file_a": "D:\\_RAG新工单素材\\original_problems\\documents\\CN111617987A.pdf",
+        "file_b": "D:\\_RAG新工单素材\\original_problems\\documents\\CN212576904U.pdf",
+        "hamming": 3,
+        "status": "待确认(版本冲突?)"
+      },
+      {
+        "file_a": "D:\\_RAG新工单素材\\original_problems\\documents\\CN111873149A.pdf",
+        "file_b": "D:\\_RAG新工单素材\\original_problems\\documents\\CN212602486U.pdf",
+        "hamming": 3,
+        "status": "待确认(版本冲突?)"
+      }
+    ]
+  },
+  "sensitive": {
+    "enabled": {
+      "phone": true,
+      "email": true,
+      "idcard": true,
+      "bankcard": false
+    },
+    "counts": {},
+    "items": []
+  },
+  "classification": {
+    "label_counts": {
+      "Text_PDF+Patent+LongDoc": 1078,
+      "Scan_PDF+Patent+ShortDoc": 620,
+      "Scan_PDF+ShortDoc": 2
+    },
+    "待确认": []
+  }
+}
