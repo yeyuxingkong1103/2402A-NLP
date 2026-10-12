@@ -48,6 +48,7 @@ from . import (  # noqa: F401
     vlm,
     hybrid_retriever,
     mysql_client,
+    mysql_store,
     store,
     pipeline,
     ragas_eval,
@@ -71,7 +72,6 @@ from .pdf_table import (
 
 # ---- OCR ----
 from .ocr import OCRResult, ImageOCR, ocr_image, ocr_images, ocr_directory, get_pipeline
-
 # ---- 多模态视觉语言模型（VLM）----
 from .vlm import (
     ImageDescriber,
@@ -104,6 +104,7 @@ from .mysql_client import (
     query_scalar,
     execute,
 )
+from .mysql_store import MySQLStore, DEFAULT_RECENT_N
 
 # ---- SQLite 离线库 + 离线流水线 ----
 from .store import OfflineStore
@@ -174,6 +175,8 @@ __all__ = [
     "DEFAULT_RERANK_MODEL",
     # mysql_client
     "MySQLConfig", "MySQLClient", "connect", "query", "query_one", "query_scalar", "execute",
+    # mysql_store
+    "MySQLStore", "DEFAULT_RECENT_N",
     # store / pipeline
     "OfflineStore", "OfflineRAG", "chunk_text",
     # ragas_eval

@@ -1,68 +1,39 @@
-# 工单 17：解决 API 服务并发瓶颈与资源泄漏
+# 17_工单：API 并发与资源管理
 
-**工单编号**：人工智能NLP-RAG-解决API服务并发瓶颈与资源泄漏工单
+按“设计 → 研发 → 测试 → 优化 → 部署”整理。以下命令从本工单根目录运行。
 
-## 一、故障现象
+| 目录 | 内容 |
+|---|---|
+| 设计 | 原工单说明、系统方案与验收目标 |
+| 研发 | 核心源码、运行配置、依赖与必要资源包 |
+| 测试 | 评估、测试脚本、问题集与验证说明 |
+| 优化 | 优化脚本（如有）与优化记录模板 |
+| 部署 | 部署配置（如有）、环境准备与启动指引 |
 
-模拟 10+ 用户并发时：
-- 响应延迟飙升：`/api/v1/chats_openai/{chat_id}/chat/completions` 平均响应从约 2s 陡增至 10s+；
-- 内存泄漏与崩溃：API 容器内存随时间缓慢增长，数小时后触发 OOM Killer 崩溃重启；
-- GPU 资源利用不当：仅文本问答时 GPU 显存也被大量占用且释放不及时。
+## 快速开始
 
-## 二、根因分析（假设-验证-修改）
-
-| 编号 | 类型 | 根因 | 代码位置 |
-|------|------|------|----------|
-| 瓶颈一 | 资源争用 | 每请求独立初始化 DeepDoc/VLM，并发时初始化延迟+显存争用 | 解析器/VLM 加载处 |
-| 瓶颈二 | 阻塞堆积 | 无队列/限流，耗时检索阻塞线程导致请求堆积 | API 请求处理入口 |
-| 泄漏点一 | 内存泄漏 | 中间对象/推理张量/会话上下文未正确释放 | 全局缓存与 session |
-| 泄漏点二 | 连接泄漏 | DB/向量库连接未归还连接池 | 连接池调用处 |
-
-定位工具：py-spy（CPU 热点）、memory-profiler / objgraph（对象留存）、
-nvidia-smi + docker stats（GPU/内存）、redis-cli INFO stats（队列堆积）。
-
-## 三、优化方案（resource_manager.py / api_server.py）
-
-1. **资源池化与单例**：DeepDoc、ReRank、VLM 改造为全局单例（`get_parser/get_reranker/get_vlm`），
-   避免重复初始化；DB/向量连接使用 `ConnectionPool` 并 `with` 正确归还。
-2. **异步队列与限流**：检索+生成走 `ThreadPoolExecutor` 工作线程池 + 令牌桶限流，
-   避免 API Server 阻塞与请求堆积；文档解析由 Task Executor 经 Redis 队列异步处理。
-3. **监控**：`monitoring.py` 暴露 `/metrics`（请求量、p95/p99、吞吐、错误率、RSS、GPU 显存），
-   接入 Prometheus + Grafana。
-
-## 四、优化前后对比（基准测试报告）
-
-| 指标 | 优化前 | 优化后 | 验收标准 |
-|------|--------|--------|----------|
-| 场景A 20并发 P95 | ~10s+ | ≤3s | **≤3s** |
-| 场景A 请求失败 | 有超时 | 0 | 无失败 |
-| 场景B 10并发混合 P95 | 崩溃/超时 | ≤5s | ≤5s |
-| 内存增长(10min) | 持续上涨 | ≤10% 波动 | ≤10% |
-| 12小时 RSS 增长 | >20% | ≤20% | ≤20% |
-
-（数据为离线占位，真实值以 `python load_test.py` 与 `/metrics` 观测为准。）
-
-## 五、目录结构
-
-```
-17_工单/
-├── config.py          # 并发/连接池/限流/资源限制
-├── resource_manager.py # 单例 + 连接池（修复泄漏）
-├── api_server.py       # 优化后的 API 服务（异步队列+限流）
-├── monitoring.py       # Prometheus 监控
-├── jmeter_script.jmx   # JMeter 压测脚本（场景A/B）
-├── load_test.py        # Python 压测脚本
-├── docker-compose.yml  # 完整服务部署 + 资源限制
-├── prometheus.yml
-├── DEPLOYMENT.md       # 部署与运维文档
-├── requirements.txt
-└── README.md
+```powershell
+python -m pip install -r "研发/requirements.txt"
+python run.py --check
+python run.py 研发/api_server.py
 ```
 
-## 六、验收对照
+`--check` 仅检查五阶段目录与 Python 语法，不表示问答准确率、模型训练或压测已通过。
+`python run.py --list` 列出脚本；启动器使用当前 Python 解释器，并将工作目录切到脚本所在目录。
+相对输出文件因此写入该脚本的阶段目录；模型/数据输出由 `研发/config.py` 决定。
 
-- 场景A（20并发问答）10分钟 P95≤3s、无失败、内存 10% 内波动；
-- 场景B（10并发混合）无崩溃、解析任务入队被消费、P95≤5s；
-- 12 小时 RSS 增长 ≤20%；
-- 部署运维文档完整（DEPLOYMENT.md）；
-- 代码注释含工单编号：人工智能NLP-RAG-解决API服务并发瓶颈与资源泄漏工单。
+## 附件与配置
+
+使用 `研发/config.py` 的模拟资源参数，本工单示例 API 不要求加载外部附件。
+
+
+
+模型接口密钥继续使用原有环境变量；目录整理不会主动调用模型、训练或部署服务。
+
+## 各阶段入口
+
+- 设计：`设计/项目说明.md`
+- 研发：`研发/README.md`
+- 测试：`测试/README.md`
+- 优化：`优化/README.md`
+- 部署：`部署/README.md`

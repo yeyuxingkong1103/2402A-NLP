@@ -24,6 +24,7 @@ from .config import RAG2Config, load_config
 from .hybrid_retriever import Hit, HybridRetriever
 from .llm_client import LLMClient
 from .logging_config import get_logger
+from .mysql_store import MySQLStore
 from .redis_memory import RedisMemory
 from .roles import Role, get_role, list_roles, load_roles
 
@@ -57,6 +58,7 @@ class RAGChat:
         self._llm = llm
         self._vlm = None
         self._memory = memory
+        self._store = None
         self._embed_fn = embed_fn
 
     # ------------------------------------------------------------------ 依赖
@@ -68,6 +70,16 @@ class RAGChat:
                 prefix=rc.prefix, history_ttl=rc.history_ttl, token_ttl=rc.token_ttl,
             )
         return self._memory
+
+    def get_store(self) -> MySQLStore:
+        """MySQL 持久化层（角色表 + 用户最近对话），懒构建。"""
+        if self._store is None:
+            mc = self.config.mysql
+            self._store = MySQLStore(
+                host=mc.host, port=mc.port, user=mc.user, password=mc.password,
+                database=mc.database, charset=mc.charset,
+            )
+        return self._store
 
     def get_llm(self) -> LLMClient:
         if self._llm is None:
@@ -133,6 +145,7 @@ class RAGChat:
             self.config = config
         self._llm = None  # LLM 地址/模型/温度等变化 → 下次 get_llm() 重建
         self._vlm = None  # VLM 模型变化 → 下次 get_vlm() 重建
+        self._store = None  # MySQL 连接参数变化 → 下次 get_store() 重建
         if self._memory is not None:
             self._memory.history_ttl = self.config.redis.history_ttl
             self._memory.token_ttl = self.config.redis.token_ttl
@@ -320,6 +333,18 @@ class RAGChat:
             memory.update_session(session_id, **updates)
         except Exception as exc:  # noqa: BLE001 - 回写失败不影响回答
             logger.warning("会话回写失败：%s", exc)
+
+        # MySQL 长期留存：每个用户只保留最近 10 条对话（与 Redis 短期记忆互补，不阻塞回答）
+        try:
+            self.get_store().append_messages(
+                user_id,
+                [
+                    {"role": "user", "content": question, "role_id": role_id, "session_id": session_id},
+                    {"role": "assistant", "content": answer, "role_id": role_id, "session_id": session_id},
+                ],
+            )
+        except Exception as exc:  # noqa: BLE001 - MySQL 回写失败不影响回答
+            logger.warning("MySQL 对话留存失败：%s", exc)
 
     # ------------------------------------------------------------------ 问答
     def answer(

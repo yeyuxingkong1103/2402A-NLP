@@ -85,6 +85,16 @@ class RedisConfig:
 
 
 @dataclass
+class MySQLConfig:
+    host: str = "127.0.0.1"
+    port: int = 3306
+    user: str = "root"
+    password: str = ""          # 本机 MySQL 密码（见 config.yaml）
+    database: str = "rag2"      # 角色表 + 用户最近对话所在的库（首次启动自动创建）
+    charset: str = "utf8mb4"
+
+
+@dataclass
 class RetrievalConfig:
     top_k: int = 6
     mode: str = "hybrid"       # dense / bm25 / hybrid
@@ -109,6 +119,7 @@ class RAG2Config:
     vlm: VLMConfig = field(default_factory=VLMConfig)
     milvus: MilvusConfig = field(default_factory=MilvusConfig)
     redis: RedisConfig = field(default_factory=RedisConfig)
+    mysql: MySQLConfig = field(default_factory=MySQLConfig)
     retrieval: RetrievalConfig = field(default_factory=RetrievalConfig)
     memory: MemoryConfig = field(default_factory=MemoryConfig)
     admin: AdminConfig = field(default_factory=AdminConfig)
@@ -215,6 +226,12 @@ _ENV_MAP: dict[str, tuple[str | None, str, Any]] = {
     "RAG2_REDIS_PREFIX": ("redis", "prefix", str),
     "RAG2_REDIS_HISTORY_TTL": ("redis", "history_ttl", int),
     "RAG2_REDIS_TOKEN_TTL": ("redis", "token_ttl", int),
+    "RAG2_MYSQL_HOST": ("mysql", "host", str),
+    "RAG2_MYSQL_PORT": ("mysql", "port", int),
+    "RAG2_MYSQL_USER": ("mysql", "user", str),
+    "RAG2_MYSQL_PASSWORD": ("mysql", "password", str),
+    "RAG2_MYSQL_DATABASE": ("mysql", "database", str),
+    "RAG2_MYSQL_CHARSET": ("mysql", "charset", str),
     "RAG2_TOP_K": ("retrieval", "top_k", int),
     "RAG2_MODE": ("retrieval", "mode", str),
     "RAG2_RERANK": ("retrieval", "rerank", _as_bool),

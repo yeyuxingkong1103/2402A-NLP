@@ -1,43 +1,41 @@
-# 工单 10：金融问答系统部署
+# 10_工单：金融问答服务部署
 
-**工单编号**：人工智能NLP-RAG-金融问答系统部署
+按“设计 → 研发 → 测试 → 优化 → 部署”整理。以下命令从本工单根目录运行。
 
-## 一、项目简介
+| 目录 | 内容 |
+|---|---|
+| 设计 | 原工单说明、系统方案与验收目标 |
+| 研发 | 核心源码、运行配置、依赖与必要资源包 |
+| 测试 | 评估、测试脚本、问题集与验证说明 |
+| 优化 | 优化脚本（如有）与优化记录模板 |
+| 部署 | 部署配置（如有）、环境准备与启动指引 |
 
-将金融问答系统以 Docker 容器形式部署到服务器，提供 HTTP 问答服务，
-支持数据卷持久化、容器间数据共享与网络配置。
+## 快速开始
 
-## 二、目录结构
-
-```
-10_工单/
-├── app.py             # Flask 问答服务（/ 界面 + /ask 接口）
-├── rag.py             # RAG 核心（PDF 解析 + BM25 检索 + 生成）
-├── config.py          # 配置（DATA_DIR 环境变量覆盖）
-├── Dockerfile         # 容器镜像定义
-├── docker-compose.yml # 编排（卷、网络）
-├── deploy.md          # 部署文档与问题记录
-├── requirements.txt
-└── README.md
+```powershell
+python -m pip install -r "研发/requirements.txt"
+python run.py --check
+python run.py 研发/app.py
 ```
 
-## 三、本地运行（非容器）
+`--check` 仅检查五阶段目录与 Python 语法，不表示问答准确率、模型训练或压测已通过。
+`python run.py --list` 列出脚本；启动器使用当前 Python 解释器，并将工作目录切到脚本所在目录。
+相对输出文件因此写入该脚本的阶段目录；模型/数据输出由 `研发/config.py` 决定。
 
-```bash
-pip install -r requirements.txt
-python app.py
-# 访问 http://localhost:8000
+## 附件与配置
+
+附件原默认路径保留，可用环境变量覆盖：
+
+```powershell
+$env:DATA_DIR = "D:\你的附件目录"
 ```
+工单 10 使用 `$env:DATA_DIR`，容器内使用 `/data`。
+模型接口密钥继续使用原有环境变量；目录整理不会主动调用模型、训练或部署服务。
 
-## 四、容器部署
+## 各阶段入口
 
-见 `deploy.md`，核心命令：`docker build -t finance-qa .` 与
-`docker run -d -p 8000:8000 -v "附件目录:/data:ro" finance-qa`。
-
-## 五、验收对照
-
-- 部署后问答服务测试通过；
-- 容器启动运行正常、无异常日志；
-- Docker 卷持久化数据、支持容器间共享；
-- 网络配置正确（可与其他服务通信）；
-- 代码注释含工单编号：人工智能NLP-RAG-金融问答系统部署。
+- 设计：`设计/项目说明.md`
+- 研发：`研发/README.md`
+- 测试：`测试/README.md`
+- 优化：`优化/README.md`
+- 部署：`部署/README.md`

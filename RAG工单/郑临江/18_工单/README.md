@@ -1,77 +1,41 @@
-# 工单 18：实现文档质量评估 Skill 并集成至智能体工作流
+# 18_工单：文档质量评估 Skill
 
-**工单编号**：人工智能NLP-RAG-实现文档质量评估Skill并集成至智能体工作流工单
+按“设计 → 研发 → 测试 → 优化 → 部署”整理。以下命令从本工单根目录运行。
 
-## 一、背景：MCP 与 Skills
+| 目录 | 内容 |
+|---|---|
+| 设计 | 原工单说明、系统方案与验收目标 |
+| 研发 | 核心源码、运行配置、依赖与必要资源包 |
+| 测试 | 评估、测试脚本、问题集与验证说明 |
+| 优化 | 优化脚本（如有）与优化记录模板 |
+| 部署 | 部署配置（如有）、环境准备与启动指引 |
 
-- **MCP**：对“工具调用”的协议标准化（解决 N 模型 × M 工具的复杂度），只定义“手怎么动”；
-- **Skills**：对“业务逻辑编排”的标准化（定义“脑怎么想”），本质是标准化的 SOP，
-  封装任务定义 + 执行流程 + 配套资源。
+## 快速开始
 
-Skill 三层结构：
-
-| 层 | 加载时机 | 内容 | Token |
-|----|----------|------|-------|
-| 元数据层 | 始终加载 | 技能名称与简介 | 极低 |
-| 指令层 | 触发时加载 | `SKILL.md` 核心工作流程 | 中等 |
-| 资源层 | 按需加载 | 脚本、参考文档、模板数据 | 大 |
-
-## 二、DocumentQualityAssessmentSkill 功能
-
-| 功能 | 说明 |
-|------|------|
-| 格式分布统计 | 遍历文件夹，统计 `.pdf/.docx/.md` 等数量与占比 |
-| PDF 页面类型识别 | 按页字符数 < 阈值判扫描页，扫描页占比 > 70% 标记扫描型；阈值可配置，输出“待确认”列表 |
-| 文档长度分布 | 字符数分位数 P25/P50/P75/P90/P99 + 长度区间分布 |
-| 重复检测 | MD5 精确匹配 + SimHash 高相似（输出“待确认的版本冲突列表”） |
-| 敏感信息检测 | 手机号/邮箱/身份证（银行卡默认关闭），每条记录附上下文 |
-
-## 三、目录结构
-
-```
-18_工单/
-├── document_quality_assessment/
-│   ├── SKILL.md               # 元数据层 + 指令层
-│   ├── __init__.py
-│   ├── assessor.py            # 核心质检逻辑（资源层脚本）
-│   └── assessment_config.yaml # 所有可调阈值配置
-├── workflow.py                # document_ingestion_workflow（质检→路由）
-├── api_server.py              # POST /v1/document/quality-inspection（JSON+HTML）
-├── test_assessor.py           # 单元测试
-├── main.py                    # 在 IMDR 数据集上运行
-├── config.py
-├── requirements.txt
-└── README.md
+```powershell
+python -m pip install -r "研发/requirements.txt"
+python run.py --check
+python run.py 研发/api_server.py
 ```
 
-## 四、集成与运行
+`--check` 仅检查五阶段目录与 Python 语法，不表示问答准确率、模型训练或压测已通过。
+`python run.py --list` 列出脚本；启动器使用当前 Python 解释器，并将工作目录切到脚本所在目录。
+相对输出文件因此写入该脚本的阶段目录；模型/数据输出由 `研发/config.py` 决定。
 
-```bash
-pip install -r requirements.txt
-python test_assessor.py                     # 单元测试
-python main.py [文件夹路径]                  # 在真实数据集上运行
-python api_server.py                        # 启动质检 API
-# 调用：
-curl -X POST http://localhost:8001/v1/document/quality-inspection \
-     -H "Content-Type: application/json" -d '{"folder": "..."}'
-curl -X POST ".../quality-inspection?format=html" ...   # 返回 HTML 简报
+## 附件与配置
+
+附件原默认路径保留，可用环境变量覆盖：
+
+```powershell
+$env:ATTACH_DIR = "D:\你的附件目录"
 ```
 
-智能体工作流：`workflow.py` 中 `document_ingestion_workflow` 完成
-`触发质检 → 调用 Skill → 按分类标签路由解析器`（Scan_PDF → OCR 解析器）。
+模型接口密钥继续使用原有环境变量；目录整理不会主动调用模型、训练或部署服务。
 
-## 五、配置说明（assessment_config.yaml）
+## 各阶段入口
 
-所有阈值配置化：`scan_page_char_threshold`、`scanned_ratio_threshold`、
-`length_percentiles`、`simhash_hamming_threshold`、`detect_bankcard`、`context_window` 等。
-
-## 六、验收对照
-
-- 五大功能全覆盖，输出所有要求列表（待确认版本冲突、待审核敏感信息等）；
-- 分类标签（Text_PDF/Scan_PDF/Mixed_PDF/Duplicate/…）抽样准确率 ≥85%；
-- 列表可操作：每项含文件路径、相似片段、敏感信息上下文；
-- API 端点成功调用并返回结构化 JSON（含 HTML 简报）；
-- Skill 可注册并被工作流决策节点调用；
-- 阈值配置化、有损坏 PDF 错误处理；
-- 进度反馈与中断恢复（`main.py` 落盘 `quality_report.json`）；
-- 代码注释含工单编号：人工智能NLP-RAG-实现文档质量评估Skill并集成至智能体工作流工单。
+- 设计：`设计/项目说明.md`
+- 研发：`研发/README.md`
+- 测试：`测试/README.md`
+- 优化：`优化/README.md`
+- 部署：`部署/README.md`

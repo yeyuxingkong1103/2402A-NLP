@@ -1,43 +1,41 @@
-# 工单 07：功能测试及评估
+# 07_工单：功能测试与评估
 
-**工单编号**：人工智能NLP-RAG-功能测试及评估
+按“设计 → 研发 → 测试 → 优化 → 部署”整理。以下命令从本工单根目录运行。
 
-## 一、项目简介
+| 目录 | 内容 |
+|---|---|
+| 设计 | 原工单说明、系统方案与验收目标 |
+| 研发 | 核心源码、运行配置、依赖与必要资源包 |
+| 测试 | 评估、测试脚本、问题集与验证说明 |
+| 优化 | 优化脚本（如有）与优化记录模板 |
+| 部署 | 部署配置（如有）、环境准备与启动指引 |
 
-基于工单 01~06 实现的 RAG，对 `ccf_competition.zip` 中的金融年报 PDF
-进行 RAG 检索测试与评估。使用 `sample_questions.pdf` 中的示例问题整理出
-10 个测试问题，通过 RAGAS 风格评估框架输出评估结果，并分析检索问题。
+## 快速开始
 
-## 二、功能
-
-1. 加载 ccf 年报（txt 优先，可回退 pdf）；
-2. 对 10 个问题执行 BM25 检索；
-3. 计算四项评估指标（忠实度、答案相关性、上下文精度、上下文召回）；
-4. 输出 `results.json` 与结果分析（`results.md`）。
-
-## 三、目录结构
-
-```
-07_工单/
-├── test.py        # 测试主程序
-├── evaluation.py  # RAGAS 风格评估框架
-├── config.py      # 10 个问题与参考答案
-├── retriever.py   # BM25 检索
-├── results.md     # 结果与分析
-├── requirements.txt
-└── README.md
+```powershell
+python -m pip install -r "研发/requirements.txt"
+python run.py --check
+python run.py 测试/test.py
 ```
 
-## 四、运行
+`--check` 仅检查五阶段目录与 Python 语法，不表示问答准确率、模型训练或压测已通过。
+`python run.py --list` 列出脚本；启动器使用当前 Python 解释器，并将工作目录切到脚本所在目录。
+相对输出文件因此写入该脚本的阶段目录；模型/数据输出由 `研发/config.py` 决定。
 
-```bash
-pip install -r requirements.txt
-python test.py   # 生成 results.json
+## 附件与配置
+
+附件原默认路径保留，可用环境变量覆盖：
+
+```powershell
+$env:ATTACH_DIR = "D:\你的附件目录"
 ```
 
-## 五、验收对照
+模型接口密钥继续使用原有环境变量；目录整理不会主动调用模型、训练或部署服务。
 
-- 10 个问题体现 ccf 年报内容相关性；
-- 使用 01~06 的 RAG 进行测试；
-- 输出 10 个问题的检索结果 + 评估结果 + 问题分析；
-- 代码注释含工单编号：人工智能NLP-RAG-功能测试及评估。
+## 各阶段入口
+
+- 设计：`设计/项目说明.md`
+- 研发：`研发/README.md`
+- 测试：`测试/README.md`
+- 优化：`优化/README.md`
+- 部署：`部署/README.md`

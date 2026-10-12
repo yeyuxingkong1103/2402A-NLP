@@ -12,7 +12,7 @@ from __future__ import annotations
 import json
 from contextlib import asynccontextmanager
 from pathlib import Path
-from typing import Any, Iterator
+from typing import Any, Iterator, Sequence
 
 from fastapi import Body, Depends, FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -23,7 +23,7 @@ from pydantic import BaseModel
 from .config import RAG2Config, apply_updates, load_config, save_config, validate_updates
 from .logging_config import get_logger, setup_logging
 from .online_chat import RAGChat
-from .roles import Role, load_roles, role_from_dict, save_roles
+from .roles import Role, load_roles, role_from_dict
 
 logger = get_logger("server")
 
@@ -158,11 +158,36 @@ def _build_evaluator(cfg: RAG2Config) -> Any:
     )
 
 
+def _load_roles(chat: RAGChat, cfg: RAG2Config) -> list[Role]:
+    """从 MySQL 加载角色表（Web 端据此确定「有哪些角色」）。
+
+    - roles 表为空（首次启动）→ 用 roles.yaml 播种一次；
+    - MySQL 不可用 → 回退 roles.yaml，保证服务仍可启动。
+    """
+    store = chat.get_store()
+    try:
+        store.ensure_schema()
+        return store.load_or_seed_roles(load_roles(cfg.roles_file()))
+    except Exception as exc:  # noqa: BLE001 - MySQL 异常回退本地角色
+        logger.warning("MySQL 角色加载失败，回退 roles.yaml：%s", exc)
+        return load_roles(cfg.roles_file())
+
+
+def _save_roles_to_mysql(chat: RAGChat, roles: Sequence[Role]) -> None:
+    """把角色表写回 MySQL；失败时抛 500（内存态已更新，但持久化失败需告知管理员）。"""
+    try:
+        chat.get_store().save_roles(roles)
+    except Exception as exc:  # noqa: BLE001
+        logger.exception("角色写回 MySQL 失败")
+        raise HTTPException(status_code=500, detail=f"角色已更新但写回 MySQL 失败：{exc}") from exc
+
+
 def create_app(config: RAG2Config | None = None) -> FastAPI:
-    """构建 FastAPI 应用（懒连接 Redis / Milvus / Ollama）。"""
+    """构建 FastAPI 应用（懒连接 Redis / Milvus / Ollama / MySQL）。"""
     cfg = config or load_config()
     chat = RAGChat(cfg)
-    roles = load_roles(cfg.roles_file())
+    roles = _load_roles(chat, cfg)
+    chat.set_roles(roles)  # 让 chat 与 MySQL 角色表保持一致
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
@@ -206,6 +231,10 @@ def create_app(config: RAG2Config | None = None) -> FastAPI:
             report["components"]["redis"] = {"ok": True, **chat.get_memory().ping()}
         except Exception as exc:  # noqa: BLE001
             report["components"]["redis"] = {"ok": False, "error": str(exc)}
+        try:
+            report["components"]["mysql"] = {"ok": True, **chat.get_store().ping()}
+        except Exception as exc:  # noqa: BLE001
+            report["components"]["mysql"] = {"ok": False, "error": str(exc)}
         try:
             retriever = chat.get_retriever()
             ping = retriever.ping()
@@ -361,6 +390,16 @@ def create_app(config: RAG2Config | None = None) -> FastAPI:
         memory.delete_session(session_id)
         return {"ok": True, "deleted": session_id}
 
+    @app.get("/api/history")
+    def user_history(user: str = Depends(current_user)) -> dict[str, Any]:
+        """当前用户在 MySQL 中留存的最近 N 条对话（长期留存，独立于 Redis 会话）。"""
+        store = chat.get_store()
+        try:
+            messages = store.recent_messages(user)
+        except Exception as exc:  # noqa: BLE001
+            raise HTTPException(status_code=500, detail=f"读取 MySQL 对话失败：{exc}") from exc
+        return {"ok": True, "messages": messages, "limit": store.recent_n}
+
     # ------------------------------------------------------------------ 评估
     @app.post("/api/evaluate")
     def evaluate(payload: EvaluateRequest, user: str = Depends(current_user)) -> dict[str, Any]:
@@ -466,7 +505,7 @@ def create_app(config: RAG2Config | None = None) -> FastAPI:
         role = role_from_dict(payload.model_dump())
         roles.append(role)
         chat.set_roles(roles)
-        save_roles(roles)
+        _save_roles_to_mysql(chat, roles)
         logger.info("管理员 %s 新增角色：%s", user, role_id)
         return {"ok": True, "role": role.to_dict()}
 
@@ -479,7 +518,7 @@ def create_app(config: RAG2Config | None = None) -> FastAPI:
         updated = role_from_dict(data)
         roles[:] = [updated if r.role_id == role_id else r for r in roles]
         chat.set_roles(roles)
-        save_roles(roles)
+        _save_roles_to_mysql(chat, roles)
         logger.info("管理员 %s 更新角色：%s", user, role_id)
         return {"ok": True, "role": updated.to_dict()}
 
@@ -491,7 +530,7 @@ def create_app(config: RAG2Config | None = None) -> FastAPI:
             raise HTTPException(status_code=400, detail="至少保留一个角色")
         roles[:] = [r for r in roles if r.role_id != role_id]
         chat.set_roles(roles)
-        save_roles(roles)
+        _save_roles_to_mysql(chat, roles)
         logger.info("管理员 %s 删除角色：%s", user, role_id)
         return {"ok": True, "deleted": role_id}
 

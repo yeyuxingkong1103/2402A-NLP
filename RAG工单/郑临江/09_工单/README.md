@@ -1,44 +1,41 @@
-# 工单 09：Graph RAG 优化
+# 09_工单：Graph RAG 优化
 
-**工单编号**：人工智能NLP-RAG-Graph RAG优化任务
+按“设计 → 研发 → 测试 → 优化 → 部署”整理。以下命令从本工单根目录运行。
 
-## 一、项目简介
+| 目录 | 内容 |
+|---|---|
+| 设计 | 原工单说明、系统方案与验收目标 |
+| 研发 | 核心源码、运行配置、依赖与必要资源包 |
+| 测试 | 评估、测试脚本、问题集与验证说明 |
+| 优化 | 优化脚本（如有）与优化记录模板 |
+| 部署 | 部署配置（如有）、环境准备与启动指引 |
 
-基于工单 08 搭建的 GraphRAG，从 **prompt 构建实体/关系、检索、生成** 三个
-层面进行优化，使用 RAGAS 的上下文精度（context precision）与上下文召回
-（context recall）指标对比优化前后效果。目标：精度 ≥ 0.8，召回 ≥ 0.9。
+## 快速开始
 
-## 二、优化点
-
-| 层面 | 基线 | 优化 |
-|------|------|------|
-| 实体/关系抽取 | 规则 + 粗粒度共现 | prompt 引导 LLM 精确抽取（限定实体/关系类型） |
-| 检索 | 单一路径 | 图谱邻居扩展 + 文本检索联合召回 |
-| 生成 | 普通拼接 | 结合图谱结构与文档片段，对齐参考答案 |
-
-## 三、目录结构
-
-```
-09_工单/
-├── app.py           # 优化前后对比
-├── graph_builder.py # 基线 + 优化图谱构建（prompt 抽取）
-├── graph_rag.py     # 图谱检索
-├── evaluation.py    # RAGAS 上下文精度/召回
-├── llm.py / config.py
-├── requirements.txt
-└── README.md
+```powershell
+python -m pip install -r "研发/requirements.txt"
+python run.py --check
+python run.py 研发/app.py
 ```
 
-## 四、运行
+`--check` 仅检查五阶段目录与 Python 语法，不表示问答准确率、模型训练或压测已通过。
+`python run.py --list` 列出脚本；启动器使用当前 Python 解释器，并将工作目录切到脚本所在目录。
+相对输出文件因此写入该脚本的阶段目录；模型/数据输出由 `研发/config.py` 决定。
 
-```bash
-pip install -r requirements.txt
-python app.py
+## 附件与配置
+
+附件原默认路径保留，可用环境变量覆盖：
+
+```powershell
+$env:ATTACH_DIR = "D:\你的附件目录"
 ```
 
-## 五、验收对照
+模型接口密钥继续使用原有环境变量；目录整理不会主动调用模型、训练或部署服务。
 
-- 问题分析 + 优化技术方案；
-- RAGAS 指标：context precision ≥ 0.8、context recall ≥ 0.9；
-- 输出优化前后指标变化；
-- 代码注释含工单编号：人工智能NLP-RAG-Graph RAG优化任务。
+## 各阶段入口
+
+- 设计：`设计/项目说明.md`
+- 研发：`研发/README.md`
+- 测试：`测试/README.md`
+- 优化：`优化/README.md`
+- 部署：`部署/README.md`

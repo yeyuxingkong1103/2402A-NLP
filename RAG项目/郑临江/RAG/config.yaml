@@ -48,6 +48,14 @@ redis:
   history_ttl: 86400       # 会话/消息短期记忆过期时间（秒，24h）
   token_ttl: 43200         # 登录令牌有效期（秒，12h）
 
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  user: root
+  password: ""             # 本机 MySQL 密码（留空则用环境变量 RAG2_MYSQL_PASSWORD）
+  database: rag2           # 角色表 + 用户最近对话所在的库（首次启动自动创建）
+  charset: utf8mb4
+
 retrieval:
   top_k: 6
   mode: hybrid             # dense / bm25 / hybrid
