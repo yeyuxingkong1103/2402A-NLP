@@ -1,0 +1,37 @@
+﻿pdf_classifier:
+  scan_page_char_threshold: 50
+  scan_ratio_threshold: 0.70
+  mixed_ratio_lower: 0.10
+  max_pages_per_file: 100
+
+length_stats:
+  percentiles: [25, 50, 75, 90, 99]
+  bins: [0, 1000, 5000, 10000, 50000, 100000, 500000, 999999999]
+  bin_labels: ['0-1K', '1K-5K', '5K-10K', '10K-50K', '50K-100K', '100K-500K', '500K+']
+
+dedup:
+  md5_enabled: true
+  simhash_enabled: true
+  simhash_hamming_threshold: 3
+  simhash_sample_size: 10000
+sensitive:
+  phone:
+    enabled: true
+    pattern: '1[3-9]\d{9}'
+  email:
+    enabled: true
+    pattern: '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+  id_card:
+    enabled: true
+    pattern: '[1-9]\d{5}(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{3}[0-9Xx]'
+  bank_card:
+    enabled: false
+    pattern: '\d{16,19}'
+  context_chars: 40
+
+classifier:
+  clean_markdown:
+    min_char_count: 500
+    require_text_ratio: 0.9
+  scan_pdf:
+    scan_ratio_threshold: 0.70

@@ -1,0 +1,46 @@
+name: document_ingestion_workflow
+description: 文档入库质检工作流
+trigger:
+  type: api
+  endpoint: /v1/workflows/document-ingestion/trigger
+
+nodes:
+  - id: trigger
+    type: input
+    next: quality_check
+
+  - id: quality_check
+    type: skill
+    skill: DocumentQualityAssessmentSkill
+    params:
+      folder_path: "{{ input.folder_path }}"
+      output_dir: "/tmp/dqa"
+    next: route_by_label
+
+  - id: route_by_label
+    type: switch
+    condition: "{{ quality_check.classified_docs }}"
+    branches:
+      - when: "doc.primary_label == 'Scan_PDF'"
+        next: ocr_parser
+      - when: "doc.primary_label == 'Table_Heavy'"
+        next: table_parser
+      - when: "doc.primary_label == 'Image_Heavy'"
+        next: multimodal_parser
+      - when: "doc.primary_label == 'Parse_Failed'"
+        next: human_review
+      - default: naive_parser
+
+  - id: ocr_parser
+    type: parser
+    method: ocr
+    next: store
+
+  - id: naive_parser
+    type: parser
+    method: naive
+    next: store
+
+  - id: store
+    type: store
+    backend: elasticsearch
