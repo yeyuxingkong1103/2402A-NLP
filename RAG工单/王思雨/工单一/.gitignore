@@ -1,0 +1,24 @@
+# 工单编号：人工智能NLP-RAG-基于PDF文档的问答系统
+# 运行期数据与密钥不入库
+
+# 含 DeepSeek API Key，禁止提交
+.env
+
+# 运行期产物
+data/uploads/
+data/parsed/
+data/index/
+data/milvus/
+data/feedback.jsonl
+eval/results/
+
+# Milvus 容器数据卷
+deploy/volumes/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# 测试
+.pytest_cache/

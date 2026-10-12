@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<!-- 工单编号：人工智能NLP-RAG-混合检索任务 -->
+<!-- 文件说明：Vue 3 单页前端。检索模式/融合算法/权重/topK/重排器全部可视化可调，支持多轮对话与反馈。 -->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>招股说明书混合检索问答 · 工单六</title>
+  <script src="./vue.global.prod.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Microsoft YaHei", -apple-system, sans-serif; background: #f4f6fa; color: #1f2430; }
+    #app { max-width: 1280px; margin: 0 auto; padding: 18px; }
+    header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+    header h1 { font-size: 20px; }
+    header .sub { font-size: 13px; color: #6b7280; }
+    .badge { font-size: 12px; padding: 2px 8px; border-radius: 10px; background: #e5edff; color: #2b52cc; }
+    .badge.warn { background: #ffe9e3; color: #b3402a; }
+    .badge.ok { background: #e3f6e9; color: #1f7a42; }
+    .layout { display: grid; grid-template-columns: 320px 1fr; gap: 16px; align-items: start; }
+    .card { background: #fff; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(16,24,40,.08); }
+    .card h2 { font-size: 14px; margin-bottom: 10px; color: #374151; }
+    label { display: block; font-size: 13px; color: #4b5563; margin: 10px 0 4px; }
+    select, input[type=text], textarea, button { font-family: inherit; font-size: 13px; }
+    select, input[type=text], textarea { width: 100%; padding: 7px 9px; border: 1px solid #d5dae2; border-radius: 6px; background: #fff; }
+    textarea { resize: vertical; min-height: 68px; }
+    input[type=range] { width: 100%; }
+    .row { display: flex; gap: 8px; }
+    .row > * { flex: 1; }
+    button { padding: 9px 14px; border: 0; border-radius: 6px; background: #2b52cc; color: #fff; cursor: pointer; }
+    button:disabled { background: #b9c2d6; cursor: not-allowed; }
+    button.ghost { background: #eef1f7; color: #33405c; }
+    .hint { font-size: 12px; color: #8a93a6; margin-top: 6px; line-height: 1.6; }
+    .chat { display: flex; flex-direction: column; gap: 12px; min-height: 420px; max-height: 62vh; overflow-y: auto; padding-right: 4px; }
+    .msg { border-radius: 10px; padding: 11px 13px; font-size: 14px; line-height: 1.75; white-space: pre-wrap; word-break: break-word; }
+    .msg.user { background: #2b52cc; color: #fff; align-self: flex-end; max-width: 82%; }
+    .msg.bot { background: #fff; box-shadow: 0 1px 3px rgba(16,24,40,.08); }
+    .meta { font-size: 12px; color: #8a93a6; margin-top: 8px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .cite { border-left: 3px solid #cdd7ee; padding-left: 10px; margin-top: 8px; font-size: 12.5px; color: #4b5563; }
+    .cite b { color: #2b52cc; }
+    .fb { border: 1px solid #d5dae2; background: #fff; color: #4b5563; padding: 2px 9px; border-radius: 12px; font-size: 12px; }
+    .fb.on { background: #e3f6e9; border-color: #9ed8b4; color: #1f7a42; }
+    .empty { color: #9aa3b5; font-size: 13px; text-align: center; padding: 60px 0; }
+    table.cfg { width: 100%; font-size: 12.5px; border-collapse: collapse; }
+    table.cfg td { padding: 3px 0; color: #4b5563; }
+    table.cfg td:last-child { text-align: right; color: #1f2430; font-weight: 600; }
+  </style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>招股说明书混合检索问答</h1>
+    <span class="badge">工单六 · 向量 + 全文 + 混合检索</span>
+    <span class="badge" :class="health.status === 'ok' ? 'ok' : 'warn'">
+      服务 {{ health.status || '检测中' }} · 知识库 {{ health.chunks ?? '-' }} 块
+    </span>
+  </header>
+
+  <div class="layout">
+    <!-- ============ 左栏：检索策略配置 ============ -->
+    <div class="card">
+      <h2>检索策略</h2>
+      <label>检索模式</label>
+      <select v-model="cfg.mode">
+        <option value="hybrid">混合检索（向量 + 全文）</option>
+        <option value="vector">向量检索（召回 + 重排）</option>
+        <option value="bm25">全文检索（BM25 倒排索引）</option>
+      </select>
+
+      <label>融合算法</label>
+      <select v-model="cfg.fusion" :disabled="cfg.mode !== 'hybrid'">
+        <option v-for="f in opts.fusions" :value="f">{{ opts.fusion_labels[f] }}</option>
+      </select>
+
+      <label>权重　向量 {{ cfg.vec_weight.toFixed(2) }} ／ 全文 {{ cfg.bm25_weight.toFixed(2) }}</label>
+      <input type="range" min="0" max="1" step="0.05" v-model.number="cfg.vec_weight">
+      <input type="range" min="0" max="1" step="0.05" v-model.number="cfg.bm25_weight">
+      <div class="hint">两路分数先各自归一化再加权，避免量级不同导致弱权通道被架空。</div>
+
+      <label>返回条数 topK：{{ cfg.top_k }}</label>
+      <input type="range" min="1" max="30" step="1" v-model.number="cfg.top_k">
+
+      <label>重排器（按顺序级联）</label>
+      <select v-model="cfg.rerankers" multiple size="4" style="height:auto">
+        <option v-for="rk in opts.rerankers" :value="rk">{{ opts.reranker_labels[rk] }}</option>
+      </select>
+      <div class="hint">多选即级联：排在前的先截断候选，排在后的做精排。</div>
+
+      <label>是否使用缓存</label>
+      <select v-model="cfg.use_cache">
+        <option :value="true">使用 Redis 缓存（快）</option>
+        <option :value="false">绕过缓存（测真实耗时）</option>
+      </select>
+
+      <div class="row" style="margin-top:12px">
+        <button class="ghost" @click="resetCfg">恢复默认</button>
+        <button class="ghost" @click="healthCheck">重新探活</button>
+      </div>
+      <div class="hint">
+        全文检索语法：<br>
+        <code>甲 AND 乙</code> 布尔与　<code>甲 OR 乙</code> 布尔或　<code>NOT 乙</code> 排除<br>
+        <code>"连续短语"</code> 短语匹配　<code>词~</code> 模糊匹配
+      </div>
+    </div>
+
+    <!-- ============ 右栏：对话 ============ -->
+    <div class="card">
+      <h2>问答（会话 {{ session }}）</h2>
+      <div class="chat" ref="chat">
+        <div v-if="!msgs.length" class="empty">
+          输入问题开始提问，例如：<br>“报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？”
+        </div>
+        <div v-for="(m, i) in msgs" :key="i" class="msg" :class="m.role === 'user' ? 'user' : 'bot'">
+          <div>{{ m.text }}</div>
+          <div v-if="m.role === 'bot'" class="meta">
+            <span>{{ m.latency_ms }} ms</span>
+            <span v-if="m.cached" class="badge">缓存命中</span>
+            <span v-if="m.degraded && m.degraded.length" class="badge warn">降级：{{ m.degraded.join('、') }}</span>
+            <span v-if="m.label" class="badge">{{ m.label }}</span>
+            <template v-if="m.refs && m.refs.length">
+              <button class="fb" :class="{on: m.vote === 1}" @click="vote(m, 1)">👍 有用</button>
+              <button class="fb" :class="{on: m.vote === -1}" @click="vote(m, -1)">👎 无用</button>
+            </template>
+          </div>
+          <div v-for="(r, j) in (m.refs || [])" :key="j" class="cite">
+            <b>[{{ j + 1 }}] {{ r.doc }} 第 {{ r.page }} 页</b>
+            <span>· 通道 {{ r.channel }} · 融合分 {{ r.score }}</span>
+            <div>{{ r.snippet }}…</div>
+          </div>
+        </div>
+      </div>
+      <label style="margin-top:14px">你的问题（中英文均可）</label>
+      <textarea v-model="q" @keydown.ctrl.enter="ask" placeholder="Ctrl + Enter 发送"></textarea>
+      <div class="row" style="margin-top:10px">
+        <button :disabled="busy || !q.trim()" @click="ask">{{ busy ? '检索中…' : '发送提问' }}</button>
+        <button class="ghost" @click="clearSession">清空会话</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const { createApp } = Vue;
+createApp({
+  data() {
+    return {
+      q: '', busy: false, msgs: [],
+      session: 'web-' + Math.random().toString(36).slice(2, 8),   // 每个页面一个会话号
+      health: {},
+      opts: { fusions: ['weighted', 'rrf', 'vote'], fusion_labels: {}, rerankers: [], reranker_labels: {} },
+      cfg: { mode: 'hybrid', fusion: 'weighted', vec_weight: 0.7, bm25_weight: 0.3, top_k: 8, rerankers: ['bge'], use_cache: true },
+    };
+  },
+  mounted() { this.loadConfig(); this.healthCheck(); },
+  methods: {
+    async loadConfig() {                                   // 读取后端可选配置，驱动下拉框
+      try { const r = await (await fetch('/config')).json(); this.opts = { ...this.opts, ...r }; } catch (e) { /* 后端未起时保持默认 */ }
+    },
+    async healthCheck() {                                  // 探活并展示知识库规模
+      try { this.health = await (await fetch('/health')).json(); } catch (e) { this.health = { status: '不可达' }; }
+    },
+    resetCfg() {                                           // 恢复后端默认配置
+      const d = this.opts.defaults || {};
+      this.cfg = { mode: d.mode || 'hybrid', fusion: d.fusion || 'weighted',
+                   vec_weight: d.vec_weight ?? 0.7, bm25_weight: d.bm25_weight ?? 0.3,
+                   top_k: d.rerank_top_n ?? 8, rerankers: d.rerankers || ['bge'], use_cache: true };
+    },
+    async ask() {                                          // 提问：走 /chat 多轮问答
+      const text = this.q.trim(); if (!text || this.busy) return;
+      this.msgs.push({ role: 'user', text }); this.q = ''; this.busy = true;
+      const label = `${this.cfg.mode} / ${this.cfg.mode === 'hybrid' ? this.cfg.fusion : '单通道'} / ${this.cfg.rerankers.join('+') || '无重排'}`;
+      try {
+        const res = await fetch('/chat', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question: text, session_id: this.session, mode: this.cfg.mode,
+            fusion: this.cfg.fusion, vec_weight: this.cfg.vec_weight, bm25_weight: this.cfg.bm25_weight,
+            top_k: this.cfg.top_k, rerankers: this.cfg.rerankers, use_cache: this.cfg.use_cache }),
+        });
+        const d = await res.json();
+        if (!res.ok) throw new Error(d.detail || res.statusText);
+        this.msgs.push({ role: 'bot', text: d.answer, refs: d.references, latency_ms: d.latency_ms,
+                         cached: d.cached, degraded: d.degraded, label, vote: 0 });
+      } catch (e) {
+        this.msgs.push({ role: 'bot', text: '请求失败：' + e.message, refs: [], label });
+      } finally { this.busy = false; this.$nextTick(this.scroll); }
+    },
+    async vote(m, rating) {                                // 反馈：写入 Redis，供自适应重排器使用
+      m.vote = m.vote === rating ? 0 : rating;
+      const top = (m.refs || [])[0] || {};
+      try {
+        await fetch('/feedback', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chunk_id: top.chunk_id || '', doc: top.doc || '', rating: m.vote, session_id: this.session }) });
+      } catch (e) { /* 反馈失败不影响使用 */ }
+    },
+    async clearSession() {                                 // 换一个会话号即开启新对话
+      this.msgs = []; this.session = 'web-' + Math.random().toString(36).slice(2, 8);
+    },
+    scroll() { const el = this.$refs.chat; if (el) el.scrollTop = el.scrollHeight; },
+  },
+}).mount('#app');
+</script>
+</body>
+</html>

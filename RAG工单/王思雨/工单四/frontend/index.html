@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!-- 工单编号：人工智能NLP-RAG-图像内容解析及检索优化 -->
+<!-- 文件说明：前端页面。Vue 3 CDN 单文件，零构建；提供提问、中英文切换、答案/来源/检索精确度/响应时间展示。 -->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>招股说明书图文问答 · 图像内容解析及检索优化</title>
+<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+<!-- 可用性兜底：本机实测该 CDN 会偶发 ERR_CONNECTION_RESET，页面会停在"未渲染"状态——
+     满屏 {{ res.answer }} 占位符但样式正常，不报错，极易被当成渲染正常。
+     CDN 仍是首选（工单要求 Vue 走 CDN 单文件），仅在它不可达时回落到同源副本。 -->
+<script>
+  window.Vue || document.write('<script src="vue.global.prod.js"><\/script>');
+</script>
+<style>
+  /* 简洁明了的界面：左输入右结果，指标以卡片形式陈列，来源可展开核对 */
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif; background: #f4f6f9; color: #1f2937; }
+  header { background: #1e3a5f; color: #fff; padding: 16px 28px; }
+  header h1 { margin: 0; font-size: 19px; font-weight: 600; }
+  header p { margin: 4px 0 0; font-size: 12px; opacity: .75; }
+  main { max-width: 1180px; margin: 22px auto; padding: 0 18px; display: grid; grid-template-columns: 400px 1fr; gap: 20px; }
+  @media (max-width: 940px) { main { grid-template-columns: 1fr; } }
+  .card { background: #fff; border-radius: 10px; padding: 18px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  textarea { width: 100%; height: 92px; padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; resize: vertical; font-family: inherit; }
+  .row { display: flex; gap: 10px; align-items: center; margin-top: 12px; }
+  select, button { padding: 9px 16px; border-radius: 8px; font-size: 14px; font-family: inherit; }
+  select { border: 1px solid #d1d5db; background: #fff; }
+  button { background: #1e3a5f; color: #fff; border: none; cursor: pointer; font-weight: 600; }
+  button:disabled { background: #9ca3af; cursor: not-allowed; }
+  .quick { margin-top: 16px; border-top: 1px dashed #e5e7eb; padding-top: 12px; }
+  .quick h3 { font-size: 12px; color: #6b7280; margin: 0 0 8px; font-weight: 600; }
+  .quick button { display: block; width: 100%; text-align: left; background: #f3f4f6; color: #374151; font-weight: 400;
+                  font-size: 12px; margin-bottom: 5px; padding: 6px 9px; line-height: 1.4; }
+  .quick button:hover { background: #e5e7eb; }
+  .metrics { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+  .metric { flex: 1; min-width: 118px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 12px; }
+  .metric .k { font-size: 11px; color: #6b7280; }
+  .metric .v { font-size: 21px; font-weight: 700; margin-top: 3px; }
+  .ok { color: #15803d; } .warn { color: #b45309; } .bad { color: #b91c1c; }
+  .answer { white-space: pre-wrap; line-height: 1.75; font-size: 14.5px; min-height: 60px; }
+  .banner { padding: 9px 12px; border-radius: 8px; font-size: 12.5px; margin-bottom: 12px; }
+  .banner.cached { background: #eff6ff; color: #1d4ed8; }
+  .banner.degraded { background: #fffbeb; color: #b45309; }
+  .src { border-top: 1px solid #eef1f5; padding: 11px 0; font-size: 13px; }
+  .src:first-child { border-top: none; }
+  .src .meta { color: #6b7280; font-size: 12px; margin-bottom: 5px; }
+  .tag { display: inline-block; padding: 1px 7px; border-radius: 99px; font-size: 11px; margin-right: 6px; }
+  .tag.image { background: #fef3c7; color: #92400e; }
+  .tag.text { background: #e0e7ff; color: #3730a3; }
+  .tag.table { background: #dcfce7; color: #166534; }
+  .src .body { color: #4b5563; line-height: 1.6; }
+  .thumb { max-width: 260px; max-height: 190px; border: 1px solid #e5e7eb; border-radius: 6px; margin-top: 7px; display: block; }
+  .empty { color: #9ca3af; font-size: 13.5px; text-align: center; padding: 40px 0; }
+  h2 { font-size: 15px; margin: 0 0 12px; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>招股说明书图文问答系统</h1>
+    <p>人工智能NLP-RAG-图像内容解析及检索优化 ｜ 向量 + BM25 混合检索 · RRF 融合 · bge-reranker 重排 · 图像语义解析</p>
+  </header>
+  <main>
+    <section class="card">
+      <h2>提问</h2>
+      <textarea v-model="q" placeholder="请输入关于招股说明书的问题，中英文均可…" @keydown.ctrl.enter="ask"></textarea>
+      <div class="row">
+        <select v-model="lang">
+          <option value="auto">自动识别语言</option>
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+        </select>
+        <button :disabled="loading || !q.trim()" @click="ask">{{ loading ? '检索中…' : '提问 (Ctrl+Enter)' }}</button>
+      </div>
+      <div class="quick">
+        <h3>工单四指定问题（点击填入）</h3>
+        <button v-for="it in quick" :key="it.id" @click="q = it.question; ask()">#{{ it.id }} {{ it.question }}</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>答案</h2>
+      <div v-if="err" class="banner degraded">{{ err }}</div>
+      <div v-if="res">
+        <div class="banner cached" v-if="res.cached">命中缓存，直接返回（未重新检索与生成）</div>
+        <div class="banner degraded" v-if="res.degraded">降级运行：{{ res.degraded_reason }}</div>
+        <div class="metrics">
+          <div class="metric"><div class="k">响应时间</div>
+            <div class="v" :class="res.elapsed_ms <= 3000 ? 'ok' : 'warn'">{{ res.elapsed_ms }} ms</div></div>
+          <div class="metric"><div class="k">检索精确度</div>
+            <div class="v" :class="res.retrieval_precision >= 0.6 ? 'ok' : 'warn'">{{ (res.retrieval_precision * 100).toFixed(0) }}%</div></div>
+          <div class="metric"><div class="k">检索通道</div><div class="v" style="font-size:16px">{{ res.retrieval_mode || '—' }}</div></div>
+          <div class="metric"><div class="k">检索/生成耗时</div>
+            <div class="v" style="font-size:15px">{{ res.retrieval_ms || 0 }} / {{ res.generate_ms || 0 }} ms</div></div>
+        </div>
+        <div class="answer">{{ res.answer }}</div>
+        <h2 style="margin-top:20px">来源（{{ res.sources.length }} 条）</h2>
+        <div v-if="!res.sources.length" class="empty">无来源</div>
+        <div class="src" v-for="(s, i) in res.sources" :key="i">
+          <div class="meta">
+            <span class="tag" :class="s.block_type === 'image' ? 'image' : (s.block_type === 'table_row' ? 'table' : 'text')">
+              {{ s.block_type === 'image' ? ('图像 · ' + (s.image_type || '语义块')) : (s.block_type === 'table_row' ? '表格行' : '正文') }}
+            </span>
+            {{ s.doc }} · {{ s.locator || ('第 ' + s.page_no + ' 页') }} · 相关度 {{ s.score }}
+          </div>
+          <div class="body">{{ s.text }}</div>
+          <img v-if="s.block_type === 'image' && s.image_path" class="thumb" :src="'/api/image?path=' + encodeURIComponent(s.image_path)" />
+        </div>
+      </div>
+      <div v-else class="empty">输入问题后点击"提问"，这里会显示答案、来源、检索精确度与响应时间。</div>
+    </section>
+  </main>
+</div>
+<script>
+// 工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+const { createApp } = Vue;                                     // Vue 3 CDN 全局对象
+createApp({
+  data() {                                                     // 页面状态
+    return {
+      q: '',                                                   // 当前问题
+      lang: 'auto',                                            // 语言选择：自动/中文/英文
+      res: null,                                               // 接口返回结果
+      err: '',                                                 // 错误提示
+      loading: false,                                          // 请求中标记
+      quick: []                                                // 工单 16 题快捷入口
+    };
+  },
+  mounted() {                                                  // 载入工单问题列表
+    fetch('/api/questions').then(r => r.json()).then(d => this.quick = d).catch(() => {});
+  },
+  methods: {
+    async ask() {                                              // 发起提问
+      const question = this.q.trim();                          // 去空白
+      if (!question || this.loading) return;                   // 空问题或请求中直接忽略
+      this.loading = true; this.err = ''; this.res = null;      // 进入加载态
+      try {                                                    // 容错：网络或服务异常给出友好提示
+        const r = await fetch('/api/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question, lang: this.lang })   // 入参：问题 + 语言
+        });
+        const d = await r.json();                              // 解析响应
+        if (d.error && !d.sources?.length) this.err = d.answer; // 后端给出业务错误
+        this.res = d;                                          // 展示结果
+      } catch (e) {
+        this.err = '请求失败，请确认后端服务已启动（' + e.message + '）';   // 网络异常
+      } finally { this.loading = false; }                       // 退出加载态
+    }
+  }
+}).mount('#app');
+</script>
+</body>
+</html>

@@ -1,0 +1,1552 @@
+{
+ "_说明": "工单六扩样题集（召回率结案用）。子集A=23 道手工自然题（原 tests/questions.json）；子集B=91 道扩样探针，由语料事实模板生成，ground_truth 直接引用原文句子，expect 已经程序校验必须真实存在于语料（校验不通过者一条未收）。探针类型分布偏离建议的每类 25 题：语料里能干净成题的 模糊指代型 与 数字型 数量不足，宁可如实少放，也不用模板凑数。 另：子集B 已由 tests/validate_questions.py 闸门剔除 8 道题面不成立的模板废题，保留 106 道全部通过两道筛。",
+ "subset_A_natural": [
+  {
+   "id": "q01",
+   "lang": "zh",
+   "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+   "ground_truth": "报告期内，武汉兴图新科电子股份有限公司直接和间接向国防客户的销售额分别为 2016年6,464.51万元、2017年14,414.16万元、2018年18,780.67万元、2019年1-6月4,627.14万元。",
+   "expect": [
+    "6,464.51",
+    "14,414.16",
+    "18,780.67",
+    "4,627.14"
+   ],
+   "expect_not": [
+    "力源信息",
+    "赵马克"
+   ],
+   "pages": [
+    4,
+    129
+   ]
+  },
+  {
+   "id": "q02",
+   "lang": "zh",
+   "question": "武汉兴图新科电子股份有限公司参与了哪个荣获国家科技进步一等奖的工程？",
+   "ground_truth": "武汉兴图新科参与的“某情报、指挥、控制与通信网络一体化工程”荣获国家科技进步一等奖。",
+   "expect": [
+    "一体化工程",
+    "国家科技进步一等奖"
+   ],
+   "expect_not": [
+    "力源信息",
+    "赵马克"
+   ],
+   "pages": [
+    27,
+    94,
+    95
+   ]
+  },
+  {
+   "id": "q03",
+   "lang": "zh",
+   "question": "武汉兴图新科电子股份有限公司的法定代表人是谁？",
+   "ground_truth": "武汉兴图新科电子股份有限公司法定代表人是程家明。",
+   "expect": [
+    "程家明"
+   ],
+   "expect_not": [
+    "赵马克"
+   ],
+   "pages": [
+    22,
+    52
+   ]
+  },
+  {
+   "id": "q04",
+   "lang": "zh",
+   "question": "武汉兴图新科电子股份有限公司的注册资本是多少？",
+   "ground_truth": "武汉兴图新科电子股份有限公司注册资本为 5,520 万元。",
+   "expect": [
+    "5,520"
+   ],
+   "expect_not": [
+    "5,000万元",
+    "6,670"
+   ],
+   "pages": [
+    22,
+    52
+   ]
+  },
+  {
+   "id": "q05",
+   "lang": "zh",
+   "question": "武汉兴图新科电子股份有限公司的注册地址在哪里？",
+   "ground_truth": "注册地址为湖北省武汉市东湖新技术开发区关山大道1号软件产业三期A3栋8层。",
+   "expect": [
+    "关山大道",
+    "软件产业三期"
+   ],
+   "expect_not": [
+    "珞瑜路",
+    "洪山创业大厦"
+   ],
+   "pages": [
+    22,
+    52
+   ]
+  },
+  {
+   "id": "q06",
+   "lang": "zh",
+   "question": "截至2019年6月30日，武汉兴图新科电子股份有限公司取得了多少项专利和计算机软件著作权？其中发明专利多少项？",
+   "ground_truth": "截至2019年6月30日，发行人已取得35项专利（其中7项发明专利）、56项计算机软件著作权。",
+   "expect": [
+    "35项专利",
+    "7项发明专利",
+    "56项计算机软件著作权"
+   ],
+   "expect_not": [
+    "力源信息"
+   ],
+   "pages": [
+    25,
+    26
+   ]
+  },
+  {
+   "id": "q07",
+   "lang": "zh",
+   "question": "截至报告期末，武汉兴图新科电子股份有限公司及其子公司共有多少名在职员工？",
+   "ground_truth": "截至报告期末，兴图新科及其子公司共有在职员工 412 人。",
+   "expect": [
+    "412"
+   ],
+   "expect_not": [
+    "力源信息"
+   ],
+   "pages": [
+    90
+   ]
+  },
+  {
+   "id": "q08",
+   "lang": "zh",
+   "question": "武汉兴图新科电子股份有限公司本次公开发行多少股？发行后总股本是多少？",
+   "ground_truth": "本次公开发行的股份数量为1,840.00万股（全部为公开发行的新股，占发行后总股本的比例不低于25.00%），发行后总股本为7,360.00万股。",
+   "expect": [
+    "1,840",
+    "7,360"
+   ],
+   "expect_not": [
+    "1,670",
+    "6,670"
+   ],
+   "pages": [
+    3,
+    22
+   ]
+  },
+  {
+   "id": "q09",
+   "lang": "zh",
+   "question": "武汉兴图新科电子股份有限公司拟在哪个交易所和板块上市？",
+   "ground_truth": "拟上市交易所和板块为上海证券交易所科创板。",
+   "expect": [
+    "科创板",
+    "上海证券交易所"
+   ],
+   "expect_not": [
+    "创业板",
+    "深圳证券交易所"
+   ],
+   "pages": [
+    3,
+    22
+   ]
+  },
+  {
+   "id": "q10",
+   "lang": "zh",
+   "question": "武汉兴图新科电子股份有限公司本次发行的保荐机构（主承销商）是哪家？",
+   "ground_truth": "保荐机构（主承销商）为中泰证券股份有限公司。",
+   "expect": [
+    "中泰证券"
+   ],
+   "expect_not": [
+    "国信证券"
+   ],
+   "pages": [
+    1,
+    3
+   ]
+  },
+  {
+   "id": "q11",
+   "lang": "zh",
+   "question": "报告期内，武汉兴图新科电子股份有限公司累计研发投入是多少？占收入的比重是多少？",
+   "ground_truth": "报告期内，公司累计研发投入为 7,445.42 万元，占收入的比重 15.66%。",
+   "expect": [
+    "7,445.42",
+    "15.66"
+   ],
+   "expect_not": [
+    "力源信息"
+   ],
+   "pages": [
+    26
+   ]
+  },
+  {
+   "id": "q12",
+   "lang": "zh",
+   "question": "武汉兴图新科电子股份有限公司的控股股东和实际控制人是谁？",
+   "ground_truth": "武汉兴图新科电子股份有限公司的控股股东与实际控制人均为程家明。",
+   "expect": [
+    "程家明"
+   ],
+   "expect_not": [
+    "赵马克"
+   ],
+   "pages": [
+    22,
+    66
+   ]
+  },
+  {
+   "id": "q13",
+   "lang": "zh",
+   "question": "武汉力源信息技术股份有限公司的法定代表人是谁？",
+   "ground_truth": "武汉力源信息技术股份有限公司法定代表人是赵马克（Mark Zhao）。",
+   "expect": [
+    "赵马克"
+   ],
+   "expect_not": [
+    "程家明"
+   ],
+   "pages": [
+    9,
+    12,
+    15
+   ]
+  },
+  {
+   "id": "q14",
+   "lang": "zh",
+   "question": "武汉力源信息技术股份有限公司的注册资本是多少？",
+   "ground_truth": "武汉力源信息技术股份有限公司注册资本为人民币 5,000 万元。",
+   "expect": [
+    "5,000"
+   ],
+   "expect_not": [
+    "5,520"
+   ],
+   "pages": [
+    15
+   ]
+  },
+  {
+   "id": "q15",
+   "lang": "zh",
+   "question": "武汉力源信息技术股份有限公司的主营业务是什么？",
+   "ground_truth": "主营业务为半导体集成电路（IC）等电子元器件的推广、销售及应用服务。",
+   "expect": [
+    "半导体集成电路",
+    "电子元器件"
+   ],
+   "expect_not": [
+    "视频指挥",
+    "兴图新科"
+   ],
+   "pages": [
+    15
+   ]
+  },
+  {
+   "id": "q16",
+   "lang": "zh",
+   "question": "武汉力源信息技术股份有限公司本次拟发行多少股？发行后总股本是多少？",
+   "ground_truth": "本次拟发行 1,670 万股，占发行后总股本的比例为 25.04%，发行后总股本为 6,670 万股。",
+   "expect": [
+    "1,670",
+    "6,670"
+   ],
+   "expect_not": [
+    "1,840",
+    "7,360"
+   ],
+   "pages": [
+    2,
+    22
+   ]
+  },
+  {
+   "id": "q17",
+   "lang": "zh",
+   "question": "武汉力源信息技术股份有限公司本次发行的保荐机构（主承销商）是哪家？拟在哪个交易所上市？",
+   "ground_truth": "保荐机构（主承销商）为国信证券股份有限公司，拟上市证券交易所为深圳证券交易所（创业板）。",
+   "expect": [
+    "国信证券"
+   ],
+   "expect_any": [
+    [
+     "深圳证券交易所",
+     "创业板"
+    ]
+   ],
+   "expect_not": [
+    "中泰证券",
+    "上海证券交易所"
+   ],
+   "pages": [
+    1,
+    2,
+    22
+   ],
+   "_判分说明": "创业板属于深圳证券交易所，两种表述都对。首轮评估时答案写作'拟在创业板市场上市'，被判分器误判为错（缺字面串'深圳证券交易所'），故引入 expect_any。"
+  },
+  {
+   "id": "q18",
+   "lang": "zh",
+   "question": "武汉力源信息技术股份有限公司在哪一年被认定为高新技术企业？取得了几项实用新型专利？",
+   "ground_truth": "2008 年，本公司被认定为“高新技术企业”，目前已取得五项实用新型专利。",
+   "expect": [
+    "2008",
+    "实用新型"
+   ],
+   "expect_not": [
+    "兴图新科"
+   ],
+   "pages": [
+    20,
+    95
+   ]
+  },
+  {
+   "id": "q19",
+   "lang": "zh",
+   "session": "mt-1",
+   "question": "武汉兴图新科电子股份有限公司的法定代表人是谁？",
+   "ground_truth": "武汉兴图新科电子股份有限公司法定代表人是程家明。",
+   "expect": [
+    "程家明"
+   ],
+   "expect_not": [
+    "赵马克"
+   ],
+   "pages": [
+    22,
+    52
+   ]
+  },
+  {
+   "id": "q20",
+   "lang": "zh",
+   "session": "mt-1",
+   "question": "那武汉力源信息技术股份有限公司呢？它的法定代表人是谁？",
+   "ground_truth": "武汉力源信息技术股份有限公司法定代表人是赵马克（Mark Zhao）。",
+   "expect": [
+    "赵马克"
+   ],
+   "expect_not": [
+    "程家明"
+   ],
+   "pages": [
+    9,
+    12,
+    15
+   ],
+   "_备注": "与 q19 共用会话 mt-1，用来验证多轮指代消解：末句指代“它”应落到力源信息，而不是沿用上一轮的兴图新科。"
+  },
+  {
+   "id": "e01",
+   "lang": "en",
+   "question": "What are the military-related revenues of Wuhan Xingtu Xinke Electronics Co., Ltd. during the reporting period?",
+   "ground_truth": "The military-related revenues were RMB 6,464.51 ten-thousand yuan in 2016, 14,414.16 in 2017, 18,780.67 in 2018, and 4,627.14 in Jan-Jun 2019.",
+   "expect": [
+    "6,464.51",
+    "14,414.16",
+    "18,780.67",
+    "4,627.14"
+   ],
+   "expect_not": [
+    "P&S",
+    "赵马克"
+   ],
+   "pages": [
+    4,
+    129
+   ]
+  },
+  {
+   "id": "e02",
+   "lang": "en",
+   "question": "Who is the legal representative of Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "The legal representative of Wuhan P&S Information Technology Co., Ltd. is Zhao Make (赵马克, Mark Zhao).",
+   "expect": [
+    "赵马克"
+   ],
+   "expect_not": [
+    "程家明"
+   ],
+   "pages": [
+    9,
+    12,
+    15
+   ]
+  },
+  {
+   "id": "e03",
+   "lang": "en",
+   "question": "What is the registered capital of Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "The registered capital of Wuhan P&S Information Technology Co., Ltd. is RMB 50 million (5,000 万元).",
+   "expect": [
+    "5,000"
+   ],
+   "expect_not": [
+    "5,520"
+   ],
+   "pages": [
+    15
+   ]
+  }
+ ],
+ "subset_B_probe": [
+  {
+   "doc": "招股说明书1",
+   "type": "数字型",
+   "question_zh": "武汉兴图新科电子股份有限公司的注册资本是多少？",
+   "question_en": "What is the registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书，武汉兴图新科电子股份有限公司的注册资本为 5,520。",
+   "expect": [
+    "5,520"
+   ],
+   "expect_not": [
+    "5,000",
+    "程家明"
+   ],
+   "page": 52
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "数字型",
+   "question_zh": "武汉兴图新科电子股份有限公司的在职员工有多少人？",
+   "question_en": "How many employees does Wuhan Xingtu Xinke Electronics Co., Ltd. have?",
+   "ground_truth": "根据招股说明书，武汉兴图新科电子股份有限公司的员工人数为 412。",
+   "expect": [
+    "412"
+   ],
+   "expect_not": [
+    "5,000",
+    "5,520"
+   ],
+   "page": 90
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "数字型",
+   "question_zh": "武汉兴图新科电子股份有限公司取得了多少项专利？",
+   "question_en": "How many patents has Wuhan Xingtu Xinke Electronics Co., Ltd. obtained?",
+   "ground_truth": "根据招股说明书，武汉兴图新科电子股份有限公司的专利数量为 35。",
+   "expect": [
+    "35"
+   ],
+   "expect_not": [
+    "5,000",
+    "5,520"
+   ],
+   "page": 25
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "数字型",
+   "question_zh": "武汉兴图新科电子股份有限公司取得了多少项计算机软件著作权？",
+   "question_en": "How many software copyrights has Wuhan Xingtu Xinke Electronics Co., Ltd. obtained?",
+   "ground_truth": "根据招股说明书，武汉兴图新科电子股份有限公司的软件著作权为 56。",
+   "expect": [
+    "56"
+   ],
+   "expect_not": [
+    "5,000",
+    "5,520"
+   ],
+   "page": 25
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "数字型",
+   "question_zh": "武汉兴图新科电子股份有限公司本次发行多少万股？",
+   "question_en": "How many shares (in ten-thousand) is Wuhan Xingtu Xinke Electronics Co., Ltd. issuing?",
+   "ground_truth": "根据招股说明书，武汉兴图新科电子股份有限公司的发行股数为 1,840。",
+   "expect": [
+    "1,840"
+   ],
+   "expect_not": [
+    "5,000",
+    "5,520"
+   ],
+   "page": 22
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "数字型",
+   "question_zh": "武汉力源信息技术股份有限公司的注册资本是多少？",
+   "question_en": "What is the registered capital of Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "根据招股说明书，武汉力源信息技术股份有限公司的注册资本为 5,000。",
+   "expect": [
+    "5,000"
+   ],
+   "expect_not": [
+    "5,520",
+    "程家明"
+   ],
+   "page": 15
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "数字型",
+   "question_zh": "武汉力源信息技术股份有限公司本次发行多少万股？",
+   "question_en": "How many shares (in ten-thousand) is Wuhan P&S Information Technology Co., Ltd. issuing?",
+   "ground_truth": "根据招股说明书，武汉力源信息技术股份有限公司的发行股数为 1,670。",
+   "expect": [
+    "1,670"
+   ],
+   "expect_not": [
+    "5,000",
+    "5,520"
+   ],
+   "page": 2
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的法定代表人是谁？",
+   "question_en": "Who is the legal representative of Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书，武汉兴图新科电子股份有限公司的法定代表人是程家明。",
+   "expect": [
+    "程家明"
+   ],
+   "expect_not": [
+    "赵马克"
+   ],
+   "page": 52
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括湖北兴图天建科技有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 湖北兴图天建科技有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「湖北兴图天建科技有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "湖北兴图天建科技有限公司"
+   ],
+   "expect_not": [],
+   "page": 61
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括武汉启目科技有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 武汉启目科技有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「武汉启目科技有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "武汉启目科技有限公司"
+   ],
+   "expect_not": [],
+   "page": 62
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括北京启目科技有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 北京启目科技有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「北京启目科技有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "北京启目科技有限公司"
+   ],
+   "expect_not": [],
+   "page": 63
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括北京华创兴图电子科技有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 北京华创兴图电子科技有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「北京华创兴图电子科技有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "北京华创兴图电子科技有限公司"
+   ],
+   "expect_not": [],
+   "page": 64
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括北京维盛网域科技有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 北京维盛网域科技有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「北京维盛网域科技有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "北京维盛网域科技有限公司"
+   ],
+   "expect_not": [],
+   "page": 154
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括奥维通信股份有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 奥维通信股份有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「奥维通信股份有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "奥维通信股份有限公司"
+   ],
+   "expect_not": [],
+   "page": 187
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括北京雨辰视美科技有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 北京雨辰视美科技有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「北京雨辰视美科技有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "北京雨辰视美科技有限公司"
+   ],
+   "expect_not": [],
+   "page": 188
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括中国电信股份有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 中国电信股份有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「中国电信股份有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "中国电信股份有限公司"
+   ],
+   "expect_not": [],
+   "page": 192
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括如奥维通信股份有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 如奥维通信股份有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「如奥维通信股份有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "如奥维通信股份有限公司"
+   ],
+   "expect_not": [],
+   "page": 193
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括北京飞讯数码科技有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 北京飞讯数码科技有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「北京飞讯数码科技有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "北京飞讯数码科技有限公司"
+   ],
+   "expect_not": [],
+   "page": 193
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括大量向武汉玉航科技有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 大量向武汉玉航科技有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「大量向武汉玉航科技有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "大量向武汉玉航科技有限公司"
+   ],
+   "expect_not": [],
+   "page": 204
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括武汉玉航科技有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 武汉玉航科技有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「武汉玉航科技有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "武汉玉航科技有限公司"
+   ],
+   "expect_not": [],
+   "page": 208
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括北京安恒伟业系统工程技术有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 北京安恒伟业系统工程技术有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「北京安恒伟业系统工程技术有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "北京安恒伟业系统工程技术有限公司"
+   ],
+   "expect_not": [],
+   "page": 210
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括北京华力创通科技股份有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 北京华力创通科技股份有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「北京华力创通科技股份有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "北京华力创通科技股份有限公司"
+   ],
+   "expect_not": [],
+   "page": 210
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括武汉智慧易视科技有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 武汉智慧易视科技有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「武汉智慧易视科技有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "武汉智慧易视科技有限公司"
+   ],
+   "expect_not": [],
+   "page": 253
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括武汉金桔家具有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 武汉金桔家具有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「武汉金桔家具有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "武汉金桔家具有限公司"
+   ],
+   "expect_not": [],
+   "page": 262
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括武汉普尔泰模型技术有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 武汉普尔泰模型技术有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「武汉普尔泰模型技术有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "武汉普尔泰模型技术有限公司"
+   ],
+   "expect_not": [],
+   "page": 264
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括单价与武汉普尔泰模型技术有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 单价与武汉普尔泰模型技术有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「单价与武汉普尔泰模型技术有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "单价与武汉普尔泰模型技术有限公司"
+   ],
+   "expect_not": [],
+   "page": 264
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括上市的哈尔滨新光光电科技股份有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 上市的哈尔滨新光光电科技股份有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「上市的哈尔滨新光光电科技股份有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "上市的哈尔滨新光光电科技股份有限公司"
+   ],
+   "expect_not": [],
+   "page": 345
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "专有名词型",
+   "question_zh": "武汉兴图新科电子股份有限公司的客户或供应商中是否包括维育奥维通信股份有限公司？",
+   "question_en": "Does Wuhan Xingtu Xinke Electronics Co., Ltd. list 维育奥维通信股份有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「维育奥维通信股份有限公司」与武汉兴图新科电子股份有限公司的客户/供应商关系。",
+   "expect": [
+    "维育奥维通信股份有限公司"
+   ],
+   "expect_not": [],
+   "page": 346
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "专有名词型",
+   "question_zh": "武汉力源信息技术股份有限公司的法定代表人是谁？",
+   "question_en": "Who is the legal representative of Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "根据招股说明书，武汉力源信息技术股份有限公司的法定代表人是赵马克。",
+   "expect": [
+    "赵马克"
+   ],
+   "expect_not": [
+    "程家明"
+   ],
+   "page": 15
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "专有名词型",
+   "question_zh": "武汉力源信息技术股份有限公司的客户或供应商中是否包括光宝科技股份有限公司？",
+   "question_en": "Does Wuhan P&S Information Technology Co., Ltd. list 光宝科技股份有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「光宝科技股份有限公司」与武汉力源信息技术股份有限公司的客户/供应商关系。",
+   "expect": [
+    "光宝科技股份有限公司"
+   ],
+   "expect_not": [],
+   "page": 11
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "专有名词型",
+   "question_zh": "武汉力源信息技术股份有限公司的客户或供应商中是否包括新晔科技有限公司？",
+   "question_en": "Does Wuhan P&S Information Technology Co., Ltd. list 新晔科技有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「新晔科技有限公司」与武汉力源信息技术股份有限公司的客户/供应商关系。",
+   "expect": [
+    "新晔科技有限公司"
+   ],
+   "expect_not": [],
+   "page": 12
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "专有名词型",
+   "question_zh": "武汉力源信息技术股份有限公司的客户或供应商中是否包括赛迪顾问股份有限公司？",
+   "question_en": "Does Wuhan P&S Information Technology Co., Ltd. list 赛迪顾问股份有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「赛迪顾问股份有限公司」与武汉力源信息技术股份有限公司的客户/供应商关系。",
+   "expect": [
+    "赛迪顾问股份有限公司"
+   ],
+   "expect_not": [],
+   "page": 13
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "专有名词型",
+   "question_zh": "武汉力源信息技术股份有限公司的客户或供应商中是否包括关于同意武汉力源信息技术有限公司？",
+   "question_en": "Does Wuhan P&S Information Technology Co., Ltd. list 关于同意武汉力源信息技术有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「关于同意武汉力源信息技术有限公司」与武汉力源信息技术股份有限公司的客户/供应商关系。",
+   "expect": [
+    "关于同意武汉力源信息技术有限公司"
+   ],
+   "expect_not": [],
+   "page": 42
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "专有名词型",
+   "question_zh": "武汉力源信息技术股份有限公司的客户或供应商中是否包括湖北佳信物贸股份有限公司？",
+   "question_en": "Does Wuhan P&S Information Technology Co., Ltd. list 湖北佳信物贸股份有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「湖北佳信物贸股份有限公司」与武汉力源信息技术股份有限公司的客户/供应商关系。",
+   "expect": [
+    "湖北佳信物贸股份有限公司"
+   ],
+   "expect_not": [],
+   "page": 52
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "专有名词型",
+   "question_zh": "武汉力源信息技术股份有限公司的客户或供应商中是否包括深圳市人力资源服务有限公司？",
+   "question_en": "Does Wuhan P&S Information Technology Co., Ltd. list 深圳市人力资源服务有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「深圳市人力资源服务有限公司」与武汉力源信息技术股份有限公司的客户/供应商关系。",
+   "expect": [
+    "深圳市人力资源服务有限公司"
+   ],
+   "expect_not": [],
+   "page": 62
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "专有名词型",
+   "question_zh": "武汉力源信息技术股份有限公司的客户或供应商中是否包括广州致远电子有限公司？",
+   "question_en": "Does Wuhan P&S Information Technology Co., Ltd. list 广州致远电子有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「广州致远电子有限公司」与武汉力源信息技术股份有限公司的客户/供应商关系。",
+   "expect": [
+    "广州致远电子有限公司"
+   ],
+   "expect_not": [],
+   "page": 98
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "专有名词型",
+   "question_zh": "武汉力源信息技术股份有限公司的客户或供应商中是否包括信息技术有限公司？",
+   "question_en": "Does Wuhan P&S Information Technology Co., Ltd. list 信息技术有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「信息技术有限公司」与武汉力源信息技术股份有限公司的客户/供应商关系。",
+   "expect": [
+    "信息技术有限公司"
+   ],
+   "expect_not": [],
+   "page": 119
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "专有名词型",
+   "question_zh": "武汉力源信息技术股份有限公司的客户或供应商中是否包括浙江大华技术股份有限公司？",
+   "question_en": "Does Wuhan P&S Information Technology Co., Ltd. list 浙江大华技术股份有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「浙江大华技术股份有限公司」与武汉力源信息技术股份有限公司的客户/供应商关系。",
+   "expect": [
+    "浙江大华技术股份有限公司"
+   ],
+   "expect_not": [],
+   "page": 121
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "专有名词型",
+   "question_zh": "武汉力源信息技术股份有限公司的客户或供应商中是否包括上海盈硅电子有限公司？",
+   "question_en": "Does Wuhan P&S Information Technology Co., Ltd. list 上海盈硅电子有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「上海盈硅电子有限公司」与武汉力源信息技术股份有限公司的客户/供应商关系。",
+   "expect": [
+    "上海盈硅电子有限公司"
+   ],
+   "expect_not": [],
+   "page": 160
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "专有名词型",
+   "question_zh": "武汉力源信息技术股份有限公司的客户或供应商中是否包括资产评估有限公司？",
+   "question_en": "Does Wuhan P&S Information Technology Co., Ltd. list 资产评估有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「资产评估有限公司」与武汉力源信息技术股份有限公司的客户/供应商关系。",
+   "expect": [
+    "资产评估有限公司"
+   ],
+   "expect_not": [],
+   "page": 168
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "专有名词型",
+   "question_zh": "武汉力源信息技术股份有限公司的客户或供应商中是否包括湖北回天胶业股份有限公司？",
+   "question_en": "Does Wuhan P&S Information Technology Co., Ltd. list 湖北回天胶业股份有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「湖北回天胶业股份有限公司」与武汉力源信息技术股份有限公司的客户/供应商关系。",
+   "expect": [
+    "湖北回天胶业股份有限公司"
+   ],
+   "expect_not": [],
+   "page": 184
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "专有名词型",
+   "question_zh": "武汉力源信息技术股份有限公司的客户或供应商中是否包括国信证券股份有限公司？",
+   "question_en": "Does Wuhan P&S Information Technology Co., Ltd. list 国信证券股份有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「国信证券股份有限公司」与武汉力源信息技术股份有限公司的客户/供应商关系。",
+   "expect": [
+    "国信证券股份有限公司"
+   ],
+   "expect_not": [],
+   "page": 259
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "专有名词型",
+   "question_zh": "武汉力源信息技术股份有限公司的客户或供应商中是否包括力源有限与立迪斯科技有限公司？",
+   "question_en": "Does Wuhan P&S Information Technology Co., Ltd. list 力源有限与立迪斯科技有限公司 as a customer or supplier?",
+   "ground_truth": "招股说明书中提及「力源有限与立迪斯科技有限公司」与武汉力源信息技术股份有限公司的客户/供应商关系。",
+   "expect": [
+    "力源有限与立迪斯科技有限公司"
+   ],
+   "expect_not": [],
+   "page": 339
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "跨段落型",
+   "question_zh": "武汉兴图新科电子股份有限公司，直接和间接向国防客户的销售额分别是多少？",
+   "question_en": "What are the respective amounts of 直接和间接向国防客户的销售额 for Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「报告期内，公司主要向国防客户提供视频指挥控制、视频预警控制等视音频系统产品，直接和间接向国防客户的销售额合计分别为 6,464.51 万元、14,414.16万元、18,780.67 万元和 4,627.14 万元，占主营业务收入的比重分别为 82.10%、4.84%和 94.34%；我国军工行业用」",
+   "expect": [
+    "6,464.51",
+    "14,414.16",
+    "18,780.67",
+    "4,627.14"
+   ],
+   "expect_not": [],
+   "page": 4
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "跨段落型",
+   "question_zh": "武汉兴图新科电子股份有限公司，公司应收账款账面价值分别是多少？",
+   "question_en": "What are the respective amounts of 公司应收账款账面价值 for Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「受国防军队预算管理体制的影响，公司的军队客户或服务于军队的总体单位等客户的结算周期较长，导致发行人报告期各期末应收账款余额较高、报告期各期应收账款周转率较低。报告期各期末，公司应收账款账面价值分别为 9,107.26万元、11,485.28 万元、18,597.78 万元和 13,125.06 万元」",
+   "expect": [
+    "9,107.26",
+    "11,485.28",
+    "18,597.78",
+    "13,125.06"
+   ],
+   "expect_not": [],
+   "page": 5
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "跨段落型",
+   "question_zh": "武汉兴图新科电子股份有限公司，发行人资产减值损失中坏账准备的金额分别是多少？",
+   "question_en": "What are the respective amounts of 发行人资产减值损失中坏账准备的金额 for Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「收入比重较高。随着公司经营规模持续较快增长，应收账款规模也可能持续增加， 如果出现应收账款不能按期收回或无法收回的情况，公司将面临应收账款坏账损 失的风险。 报告期各期，发行人资产减值损失中坏账准备的金额分别为 193.60 万元、467.56 万元、947.49 万元和 217.56 万元，占当期」",
+   "expect": [
+    "193.60",
+    "467.56",
+    "947.49",
+    "217.56"
+   ],
+   "expect_not": [],
+   "page": 6
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "跨段落型",
+   "question_zh": "武汉兴图新科电子股份有限公司，发行人尚未经备案确认的军品收入分别是多少？",
+   "question_en": "What are the respective amounts of 发行人尚未经备案确认的军品收入 for Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「受报告期内主管部门变动等影响，2016 年-2 8 年度以及 2019 年 1-6 月，发行人尚未经备案确认的军品收入分别为 2,978.27 万元、6,022.75 万元、9,457.87万元、409.04万元，可退税金额合计 2,275.35 万元。公司无法控制、无法预计备案主管部门的相关程序完」",
+   "expect": [
+    "2,978.27",
+    "6,022.75",
+    "9,457.87",
+    "409.04"
+   ],
+   "expect_not": [],
+   "page": 7
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "跨段落型",
+   "question_zh": "武汉兴图新科电子股份有限公司，公司各期净利润分别是多少？",
+   "question_en": "What are the respective amounts of 公司各期净利润 for Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「报告期内，公司各期净利润分别为 460.98 万元、3,115.34 万元、4,221.38 万元及72.92 万元，受资产减值准备、长期资产折旧及摊销等影响净利润但未发生实际现金流出的项目以及存货和经营性应收项目、经营性应付项目波动的影响，各期经营活动产生的现金流量分别为-1,058.70 万元、」",
+   "expect": [
+    "460.98",
+    "3,115.34",
+    "4,221.38",
+    "72.92"
+   ],
+   "expect_not": [],
+   "page": 7
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "跨段落型",
+   "question_zh": "武汉兴图新科电子股份有限公司，报告期内公司在民用市场实现销售收入分别是多少？",
+   "question_en": "What are the respective amounts of 报告期内公司在民用市场实现销售收入 for Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「报告期内，公司产品主要应用于国防指挥信息系统，以及监狱、油田等少量民用通信领域。报告期内公司在民用市场实现销售收入分别为 1,409.12 万元、398.56 万元、1,021.81 万元和 277.57 万元，占当期营业收入比例分别为 17.90%、2.69%、5.16%和 5.66%，整体占比较」",
+   "expect": [
+    "1,409.12",
+    "398.56",
+    "1,021.81",
+    "277.57"
+   ],
+   "expect_not": [],
+   "page": 9
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "跨段落型",
+   "question_zh": "武汉兴图新科电子股份有限公司，本次发行预计费用总额分别是多少？",
+   "question_en": "What are the respective amounts of 本次发行预计费用总额 for Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「rengongzhiner | 本次发行预计费用总额为【】万元，其中：inengliumin1、保荐费500万元（含税），承销费按照实际募集资金总额分段计算，募集资金3亿元以内（含)的部分承销费1,680万元(含税)，募集资金超过3亿元的部分承销费率为8%;2、审计及验资费用：943.40万元；3、」",
+   "expect": [
+    "500",
+    "1,680",
+    "943.40",
+    "113.21"
+   ],
+   "expect_not": [],
+   "page": 22
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "跨段落型",
+   "question_zh": "武汉兴图新科电子股份有限公司，公司视频指挥控制类产品的销售收入分别是多少？",
+   "question_en": "What are the respective amounts of 公司视频指挥控制类产品的销售收入 for Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「报告期内，公司视频指挥控制类产品的销售收入分别为 6,172.41 万元、14,198.94 万元、18,687.75 万元和 4,508.18 万元，占主营业务收入比例分别为78.39%、95.86%、94.37%和 91.92%，公司存在依赖单一产品的风险。如果视频指挥控制类产品特别是网络化视频」",
+   "expect": [
+    "6,172.41",
+    "14,198.94",
+    "18,687.75",
+    "4,508.18"
+   ],
+   "expect_not": [],
+   "page": 38
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "跨段落型",
+   "question_zh": "武汉兴图新科电子股份有限公司，公司销售奥维通信收入金额分别是多少？",
+   "question_en": "What are the respective amounts of 公司销售奥维通信收入金额 for Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「报告期内，公司销售奥维通信收入金额分别为 625.59 万元、2,809.60 万元、522.93 万元及 3,496.37 万元，是公司各报告期收入金额排名第 3、第 1、第 6 及第1大客户。虽然公司作为核心系统及产品的供应商竞争力较强，并与多家集成商保持良好合作关系，对单一集成商客户并不构成依」",
+   "expect": [
+    "625.59",
+    "2,809.60",
+    "522.93",
+    "3,496.37"
+   ],
+   "expect_not": [],
+   "page": 42
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "跨段落型",
+   "question_zh": "武汉兴图新科电子股份有限公司，公司应收账款账面价值分别是多少？",
+   "question_en": "What are the respective amounts of 公司应收账款账面价值 for Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「受国防军队预算管理体制的影响，公司的军队客户或服务于军队的总体单位等客户的结算周期较长，导致发行人报告期各期末应收账款余额较高、报告期各期应收账款周转率较低。报告期各期末，公司应收账款账面价值分别为 9,107.2628 万元、18,597.78 万元和 13,125.06 万元，占当期营业收入的比」",
+   "expect": [
+    "9,107.2628",
+    "18,597.78",
+    "13,125.06",
+    "193.60"
+   ],
+   "expect_not": [],
+   "page": 42
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "跨段落型",
+   "question_zh": "武汉兴图新科电子股份有限公司，公司的存货分别是多少？",
+   "question_en": "What are the respective amounts of 公司的存货 for Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「报告期各期末，公司的存货分别为 5,260.34 万元、5,127.63 万元、3,009.73万元和 3,499.67 万元，占当期末流动资产的比重分别为 33.21%、22.49%、10.83%和14.97%；报告期内，公司的存货周转率分别为 0.45次、0.97次、1.36 次和0.28」",
+   "expect": [
+    "5,260.34",
+    "5,127.63",
+    "3,009.73",
+    "3,499.67"
+   ],
+   "expect_not": [],
+   "page": 42
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "跨段落型",
+   "question_zh": "武汉兴图新科电子股份有限公司，存货跌价准备的金额分别是多少？",
+   "question_en": "What are the respective amounts of 存货跌价准备的金额 for Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「出商品未通过客户验收，公司提前备货而无法实现销售，现有存货项目因技术指标落后或下游客户需求的技术快速升级等情形，导致公司较高金额的存货面临减值或计提不足的风险。截至 2019年6 月30日，发行人存货账面余额 3,897.65万元，其中 2-3年存货余额 185.55 万元、3 年及以上的存货余额 」",
+   "expect": [
+    "3,897.65",
+    "185.55",
+    "435.99",
+    "397.99"
+   ],
+   "expect_not": [],
+   "page": 43
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "跨段落型",
+   "question_zh": "武汉兴图新科电子股份有限公司，各期经营活动产生的现金流量分别是多少？",
+   "question_en": "What are the respective amounts of 各期经营活动产生的现金流量 for Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「元及72.92 万元，受资产减值准备、长期资产折旧及摊销等影响净利润但未发生实际现金流出的项目以及存货和经营性应收项目、经营性应付项目波动的影响，各期经营活动产生的现金流量分别为-1,058.70 万元、2,459.47 万元、-291.47 万元及-324.60 万元，与当期净利润存在较大差异。其」",
+   "expect": [
+    "72.92",
+    "1,058.70",
+    "2,459.47",
+    "291.47"
+   ],
+   "expect_not": [],
+   "page": 44
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "跨段落型",
+   "question_zh": "武汉兴图新科电子股份有限公司，如果合同设备的故障分别是多少？",
+   "question_en": "What are the respective amounts of 如果合同设备的故障 for Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「根据与客户签订的产品销售合同约定，发行人对于销售的视频指挥控制类产品和视频预警控制类产品一般提供 12-36个月不等的质保服务，质保期内，如果合同产品出现硬件故障，公司免费提供质保期服务；如果合同设备的故障是由客户自身原因造成的，则对合同设备进行修理和更换的费用由客户承担。由于未来是否实际需要承担免」",
+   "expect": [
+    "7.38",
+    "82.62",
+    "133.69",
+    "57.33"
+   ],
+   "expect_not": [],
+   "page": 45
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "跨段落型",
+   "question_zh": "武汉兴图新科电子股份有限公司，公司固定资产和无形资产账面价值分别是多少？",
+   "question_en": "What are the respective amounts of 公司固定资产和无形资产账面价值 for Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「截至2019年6月30日，公司固定资产和无形资产账面价值为847.27万元。 本次募集资金投资项目实施完成后，公司将增加固定资产 12,961.30 万元，无形1,020.00 万元，固定资产和无形资产大幅增加，相应固定资产折旧费用和摊 销费用亦会大幅增加，按照公司会计政策本次募集资金投资项目实施完」",
+   "expect": [
+    "847.27",
+    "12,961.30",
+    "1,020.00",
+    "1,450.50"
+   ],
+   "expect_not": [],
+   "page": 49
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "跨段落型",
+   "question_zh": "武汉兴图新科电子股份有限公司，取得武汉市工商行政管理局核发的注册号分别是多少？",
+   "question_en": "What are the respective amounts of 取得武汉市工商行政管理局核发的注册号 for Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「武汉莲城会计师事务所有限公司对本次出资进行了审验并出具了武莲会验字[2004]第 0823 号《验资报告》，确认截至 2004 年 6 月 10 日，兴图新科有限（筹）已收到全体股东缴纳的出资 50万元，其中程家明以货币出资 13.19 万元，实物出资21.81万元；陈爱民以货币出资 6.23 万元」",
+   "expect": [
+    "13.19",
+    "21.81",
+    "6.23",
+    "8.77"
+   ],
+   "expect_not": [],
+   "page": 53
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "跨段落型",
+   "question_zh": "武汉兴图新科电子股份有限公司，一期投资款分别是多少？",
+   "question_en": "What are the respective amounts of 一期投资款 for Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「2017 年 1 月 9 日公司、程家明与光谷人才创投签署了《武汉光谷人才创新投资合伙企业（有限合伙）关于武汉兴图新科电子股份有限公司之投资协议书》（以下简称“投资协议书”），协议主要约定光谷人才创投拟向公司投资 5,000万元，该投资分两期对公司增资，增资价格分别在公司 2016年度、2017 年」",
+   "expect": [
+    "5,000",
+    "2,400",
+    "500",
+    "500"
+   ],
+   "expect_not": [],
+   "page": 56
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "跨段落型",
+   "question_zh": "武汉兴图新科电子股份有限公司，广垦太证拟向公司投资款分别是多少？",
+   "question_en": "What are the respective amounts of 广垦太证拟向公司投资款 for Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「），协议主要约定光谷人才创投、广垦太证拟向公司投资款分别为 3,500 万元、1,500 万元，并对估值调整、补偿机制及回购措施、公司治理等事项进行了补充约定。至5,225.00 万元。由光谷人才创投、广垦太证认缴 147.87万股、61.13 万股，价格为 11.48 元/股。2017 年6月28」",
+   "expect": [
+    "3,500",
+    "1,500",
+    "5,225.00",
+    "2,400"
+   ],
+   "expect_not": [],
+   "page": 56
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "跨段落型",
+   "question_zh": "武汉兴图新科电子股份有限公司，互通而指定采购公司产品形成的销售收入分别是多少？",
+   "question_en": "What are the respective amounts of 互通而指定采购公司产品形成的销售收入 for Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「报告期内，为保障与原有系统互联互通而指定采购公司产品形成的销售收入分别为 5,135.25 万元、4,377.60 万元、9,396.59 万元和 404.20 万元，分别占各期主营业务收入 65.22%、29.55%、47.45%和 8.24%。该类收入主要由直接军方以单一来源方式指定采购公司产品」",
+   "expect": [
+    "5,135.25",
+    "4,377.60",
+    "9,396.59",
+    "404.20"
+   ],
+   "expect_not": [],
+   "page": 124
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "跨段落型",
+   "question_zh": "武汉力源信息技术股份有限公司，司前身力源服务由有限责任公司整体变更分别是多少？",
+   "question_en": "What are the respective amounts of 司前身力源服务由有限责任公司整体变更 for Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「2004年11月，本公司前身力源服务由有限责任公司整体变更为股份有限公司(力源股份)，以 2004 年 8 月 31 日为审计基准日，将大信审字(2004)第 0490号《审计报告》审计确认的公司净资产 1,367.51 万元中的 1,360 万元折为股本，剩余 7.51 万元计入资本公积，公司总股」",
+   "expect": [
+    "1,367.51",
+    "1,360",
+    "7.51",
+    "300"
+   ],
+   "expect_not": [],
+   "page": 31
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "跨段落型",
+   "question_zh": "武汉力源信息技术股份有限公司，本公司对外采购金额分别是多少？",
+   "question_en": "What are the respective amounts of 本公司对外采购金额 for Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「2007 年、2008 年、2009 年及 2010 年 1-6 月，本公司对外采购金额分别为6,243.84 万元、11,050.29 万元、14,841.45 万元及 10,203.35 万元。 香港力源设立之前，本公司由力源贸易协助在香港接收自海外供应商处采购的货物，对其进行分类管理，通过专业」",
+   "expect": [
+    "6,243.84",
+    "11,050.29",
+    "14,841.45",
+    "10,203.35"
+   ],
+   "expect_not": [],
+   "page": 121
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "跨段落型",
+   "question_zh": "武汉力源信息技术股份有限公司，采购金额分别是多少？",
+   "question_en": "What are the respective amounts of 采购金额 for Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「20 7年，本公司通过力源贸易向IC原厂采购5,690.64万元(通过武汉经发自香港进口，占当年采购金额的91.14%)，自其他分销商或境内生产厂家处采购553.20 万元(占当年采购金额的 8.86%)。2008年，本公司通过力源贸易向IC原厂采购7,782.72万元(占当年采购金额的 70.43」",
+   "expect": [
+    "5,690.64",
+    "553.20",
+    "7,782.72",
+    "200.10"
+   ],
+   "expect_not": [],
+   "page": 122
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "跨段落型",
+   "question_zh": "武汉力源信息技术股份有限公司，力源有限整体变更分别是多少？",
+   "question_en": "What are the respective amounts of 力源有限整体变更 for Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「持股期间 | 变动原因 | 所持股本(金额/股数) | 所持股本占总股本的比例 | 持有方式 2007年1月23日-2007年12月24日 | 通过受让股权，首次持有力源有限股份 | 60.18万元 | 4.43% | 直接持有 2007年12月25日-2007年12月27日 | 2007年12月力」",
+   "expect": [
+    "60.18",
+    "912",
+    "912",
+    "300"
+   ],
+   "expect_not": [],
+   "page": 179
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "跨段落型",
+   "question_zh": "武汉力源信息技术股份有限公司，力源有限整体变更分别是多少？",
+   "question_en": "What are the respective amounts of 力源有限整体变更 for Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「持股期间 | 变动原因 | 所持股本(金额/股数) | 所持股本占总股本的比例 | 持有方式 2007年1月23日-2007年12月24日 | 通过受让股权，首次持有力源有限股份 | 131万元 | 9.63%iumin | 直接持有 2007年12月25日-2007年12月27日 | 2007年1」",
+   "expect": [
+    "131",
+    "327.50",
+    "327.50",
+    "327.50"
+   ],
+   "expect_not": [],
+   "page": 179
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "跨段落型",
+   "question_zh": "武汉力源信息技术股份有限公司，委托胡戎代分别是多少？",
+   "question_en": "What are the respective amounts of 委托胡戎代 for Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「项目 | 股东姓名 | 直接持有公司股份数(金额/股数) | 2委托胡戎代为持有公司股份数(金额/股数) | 通过听音投资间接持有公司股份数(金额/股数) | 间接持股比例 2007年1月1日-2007年1月 22 日 | 2007年1月23 日-2007年12 月24日 | 2007年12月 25」",
+   "expect": [
+    "20.40",
+    "64.13",
+    "64.13",
+    "13.60"
+   ],
+   "expect_not": [],
+   "page": 180
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "跨段落型",
+   "question_zh": "武汉力源信息技术股份有限公司，十一条规定的需由股东大会审议的担保行分别是多少？",
+   "question_en": "What are the respective amounts of 十一条规定的需由股东大会审议的担保行 for Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「公司下述对外投资、收购出售资产、资产抵押、对外担保、委托理财、关联交易事项，授权董事会进行审批：(1)审议批准公司拟与关联人达成的金额低于1000 万元或占公司最近一期经审计净资产值绝对值低于 5%的关联交易(公司获赠现金资产和提供担保除外)；(2)审议批准公司章程第四十一条规定的需由股东大会审议的」",
+   "expect": [
+    "1000",
+    "3000",
+    "300",
+    "3000"
+   ],
+   "expect_not": [],
+   "page": 199
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "跨段落型",
+   "question_zh": "武汉力源信息技术股份有限公司，该验资报告认分别是多少？",
+   "question_en": "What are the respective amounts of 该验资报告认 for Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「2001 年 8 月 7 日，湖北光明会计师事务有限责任公司出具了鄂光明验字(2001)第06号《验资报告》，对拟设立的力源服务截至2001年8月7日的注册资本及投入资本的真实性和合法性进行了审验。该验资报告认为： “湖北力源信息技术服务有限公司申请的注册资本为300万元。根据我们的审验，截至 20」",
+   "expect": [
+    "300",
+    "225",
+    "300",
+    "225"
+   ],
+   "expect_not": [],
+   "page": 251
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "跨段落型",
+   "question_zh": "武汉力源信息技术股份有限公司，该验资报告认分别是多少？",
+   "question_en": "What are the respective amounts of 该验资报告认 for Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「7年12月27日，大信所出具了大信验字(2007)第0085号《验资报告》，20对力源有限截至 2007 年 12 月 27 日的新增注册资本实收情况进行了审验。该验资报告认为： “贵公司原注册资本为人民币4,500万元，实收资本为人民币4,500万元，根据贵公司董事会决议和修改后章程的规定，申请增」",
+   "expect": [
+    "4,500",
+    "4,500",
+    "500",
+    "400"
+   ],
+   "expect_not": [],
+   "page": 253
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "跨段落型",
+   "question_zh": "武汉力源信息技术股份有限公司，本公司主要从事的业务分别是多少？",
+   "question_en": "What are the respective amounts of 本公司主要从事的业务 for Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「本公司主要从事的业务为 IC 的推广、销售及应用服务，属于“轻资产”行业，需要保存较大数量的 IC 现货库存以满足客户需求，同时必须保持充足的货币资金用于采购新的存货，因此本公司的主要资产是存货及货币资金等流动资 报告期内，本公司资产总额随主营业务的扩张而快速增长。2007年末、20082009年末」",
+   "expect": [
+    "8,429.94",
+    "11,047.21",
+    "14,561.85",
+    "15,665.99"
+   ],
+   "expect_not": [],
+   "page": 255
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "跨段落型",
+   "question_zh": "武汉力源信息技术股份有限公司，公司的货币资金分别是多少？",
+   "question_en": "What are the respective amounts of 公司的货币资金 for Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「2007年末、2008年末、2009年末及2010年6月30日，公司的货币资金分别为 1,198.94 万元、1,000.41 万元、2,928.84 万元及 6,151.29 万元。 192.76%，2010 年 6 月 30 日较 2009 年末增长 3,222.45 万元，增幅为 110.02」",
+   "expect": [
+    "1,198.94",
+    "1,000.41",
+    "2,928.84",
+    "6,151.29"
+   ],
+   "expect_not": [],
+   "page": 255
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "跨段落型",
+   "question_zh": "武汉力源信息技术股份有限公司，公司的预付款项分别是多少？",
+   "question_en": "What are the respective amounts of 公司的预付款项 for Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「2007 年 12 月 31 日、2008 年 12 月 31 日、2009 年 12 月 31 日及 2010 年 6月 30 日，公司的预付款项余额分别为 277.32 万元、1,382.97 万元、2,241.86万元及 371.02 万元，主要为预付供应商货款，占当期期末总资产的比例分别为3」",
+   "expect": [
+    "277.32",
+    "1,382.97",
+    "2,241.86",
+    "371.02"
+   ],
+   "expect_not": [],
+   "page": 258
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "跨段落型",
+   "question_zh": "武汉力源信息技术股份有限公司，公司其他应收款净额分别是多少？",
+   "question_en": "What are the respective amounts of 公司其他应收款净额 for Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「截至2009年12月31日，公司其他应收款净额为63.55万元，比2008年末减少了763.43万元，降幅为92.32%,主要原因是公司加大了往来款的回收力度，且加强了员工备用金的管理。截至2010年6月30日，公司的其他应收款净额进一步降低为 26.39 万元，较 2009 年末减少了 37.16」",
+   "expect": [
+    "63.55",
+    "763.43",
+    "26.39",
+    "37.16"
+   ],
+   "expect_not": [],
+   "page": 259
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "跨段落型",
+   "question_zh": "武汉力源信息技术股份有限公司，在建工程分别是多少？",
+   "question_en": "What are the respective amounts of 在建工程 for Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「2007 年末、2008 年末、2009 年末及 2010 年 6 月 30 日，在建工程分别为 113.53万元、166.79 万元、4.03 万元、36.35 万元。2008 年末在建工程较 2007 年末增加 53.25 万元，主要原因系公司为了提高管理水平而建设 ERP 系统，2008 年公」",
+   "expect": [
+    "113.53",
+    "166.79",
+    "4.03",
+    "36.35"
+   ],
+   "expect_not": [],
+   "page": 263
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "跨段落型",
+   "question_zh": "武汉力源信息技术股份有限公司，主要原因分别是多少？",
+   "question_en": "What are the respective amounts of 主要原因 for Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「截至 2010 年 6 月 30 日，公司拥有一宗土地使用权、一套 ERP 系统、两套软件，其中：2010 年购买了两套软件，支付成本 51.43 万元；2009 年取得土地使支付成本182.86万元；建成ERP系统共投资346.34万元。 2009 年末，公司无形资产较 2008 年末增加 511」",
+   "expect": [
+    "51.43",
+    "182.86",
+    "346.34",
+    "511.72"
+   ],
+   "expect_not": [],
+   "page": 264
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "跨段落型",
+   "question_zh": "武汉力源信息技术股份有限公司，公司应付账款分别是多少？",
+   "question_en": "What are the respective amounts of 公司应付账款 for Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「2007年末、2008年末、2009年末及2010年6月30日，公司应付账款余额分别为 98.14 万元、162.64 万元、411.27 万元及 1,084.70 万元。公司应付账款主要是应付供应商的货款。由于公司在采购方面均有长期合作单位，而且公司商业信用良好，目前应付账款均是合约未到付款期的正」",
+   "expect": [
+    "98.14",
+    "162.64",
+    "411.27",
+    "1,084.70"
+   ],
+   "expect_not": [],
+   "page": 267
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "跨段落型",
+   "question_zh": "武汉力源信息技术股份有限公司，公司其他应付款分别是多少？",
+   "question_en": "What are the respective amounts of 公司其他应付款 for Wuhan P&S Information Technology Co., Ltd.?",
+   "ground_truth": "根据招股说明书：「年末、2008年末、2009年末及2010年6月30日，公司其他应付款余额分别为 49.08 万元、144.15 万元、90.66 万元及 25.73 万元。2010 年 6 月 30日，其他应收款余额较 2009 年末减少 64.93 万元，降幅为 71.62%； 2009 年末其他应付款余额较2」",
+   "expect": [
+    "49.08",
+    "144.15",
+    "90.66",
+    "25.73"
+   ],
+   "expect_not": [],
+   "page": 269
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "模糊指代型",
+   "session": "lbl-注册资本",
+   "question_zh": "武汉兴图新科电子股份有限公司的注册资本是什么？",
+   "question_en": "What is the 注册资本 of Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "武汉兴图新科电子股份有限公司的注册资本是5,520。",
+   "expect": [
+    "5,520"
+   ],
+   "expect_not": [
+    "5,000"
+   ],
+   "page": 0
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "模糊指代型",
+   "session": "lbl-注册资本",
+   "question_zh": "那另一家公司呢？它的注册资本是什么？",
+   "question_en": "What about the other company? What is its 注册资本?",
+   "ground_truth": "武汉力源信息技术股份有限公司的注册资本是5,000。",
+   "expect": [
+    "5,000"
+   ],
+   "expect_not": [
+    "5,520"
+   ],
+   "page": 0
+  },
+  {
+   "doc": "招股说明书1",
+   "type": "模糊指代型",
+   "session": "lbl-法定代表人",
+   "question_zh": "武汉兴图新科电子股份有限公司的法定代表人是什么？",
+   "question_en": "What is the 法定代表人 of Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+   "ground_truth": "武汉兴图新科电子股份有限公司的法定代表人是程家明。",
+   "expect": [
+    "程家明"
+   ],
+   "expect_not": [
+    "赵马克"
+   ],
+   "page": 0
+  },
+  {
+   "doc": "招股说明书2",
+   "type": "模糊指代型",
+   "session": "lbl-法定代表人",
+   "question_zh": "那另一家公司呢？它的法定代表人是什么？",
+   "question_en": "What about the other company? What is its 法定代表人?",
+   "ground_truth": "武汉力源信息技术股份有限公司的法定代表人是赵马克。",
+   "expect": [
+    "赵马克"
+   ],
+   "expect_not": [
+    "程家明"
+   ],
+   "page": 0
+  }
+ ]
+}

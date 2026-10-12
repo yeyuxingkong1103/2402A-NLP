@@ -1,0 +1,22 @@
+# 工单编号：人工智能NLP-RAG-基于PDF文档的问答系统优化
+# .env 含 DeepSeek 密钥，绝不入库；同目录提供了 .env.example 作为模板。
+.env
+
+# Python 缓存与虚拟环境
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 解析与索引产物（体积大且可由脚本重新生成）
+data/parsed/
+data/index.json
+data/bm25.pkl
+
+# 前端依赖与构建产物
+frontend/node_modules/
+frontend/dist/
+
+# 容器数据卷与评测中间产物
+deploy/volumes/
+results/*.json

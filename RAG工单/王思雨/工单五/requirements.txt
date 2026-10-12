@@ -1,0 +1,50 @@
+# 工单编号：人工智能NLP-RAG-Query理解优化
+# 依赖清单。版本号为本机实测通过的版本（Python 3.12.7 / CUDA 12.6）。
+# 安装：python -m pip install -r requirements.txt
+
+# ===== Web 服务 =====
+fastapi==0.141.1                 # HTTP 框架
+uvicorn==0.51.0                  # ASGI 服务器
+pydantic==2.13.4                 # 请求/响应数据校验
+python-multipart                 # /upload 表单文件上传所需
+
+# ===== 配置 =====
+python-dotenv                    # 读取 .env
+
+# ===== 大模型 =====
+openai==2.47.0                   # DeepSeek 走 OpenAI 兼容接口
+
+# ===== 向量模型与重排 =====
+torch==2.13.0                    # 深度学习框架（CUDA 版由官方源安装）
+sentence_transformers==3.1.0     # bge-m3 编码
+FlagEmbedding                    # bge-reranker-v2-m3 重排
+numpy==1.26.4                    # 数值运算
+Pillow==12.3.0                   # 图像读写
+
+# ===== 向量库与缓存 =====
+pymilvus==2.4.9                  # Milvus 客户端（注意：MilvusClient 没有 flush 方法，检索须用 Strong 一致性）
+redis==8.1.0                     # Redis 客户端（坑：连 Redis 5.x 必须 protocol=2，见 backend/config.py）
+
+# ===== 关键词检索 =====
+rank_bm25                        # BM25Okapi
+jieba==0.42.1                    # 中文分词
+
+# ===== PDF 解析 =====
+mineru                           # 主解析器（含 OCR 与版面分析）
+pymupdf==1.28.2                  # 降级解析 + 扫描页渲染
+pdfplumber==0.11.10              # 第二降级解析
+paddleocr==2.7.3                 # 扫描件/图表 OCR
+opencv-python==4.6.0             # 流程图的方框与连线检测（成像几何）
+
+# ===== 评估 =====
+ragas==0.4.3                     # 四项 RAG 指标
+langchain-huggingface            # ragas 的本地嵌入适配
+
+# ===== 说明 =====
+# 1) MinerU 依赖较重，若已在独立环境安装，可通过 .env 的 MINERU_PYTHON 指向那个解释器，本环境无需重复安装。
+# 2) PaddleOCR 2.7.3 在中文用户名下无法打开默认模型缓存目录 ~/.paddleocr/，需把模型复制到纯英文路径：
+#    cp -r ~/.paddleocr/whl/{det,rec,cls} C:/paddleocr_models/
+#    并把 .env 的 PADDLEOCR_MODEL_DIR 指向该目录。
+# 3) MinerU 在中文用户名下需要 fasttext 补丁目录（.env 的 MINERU_LANGFIX_DIR），否则必失败。
+# 4) 同一进程内必须先 import torch 再 import paddleocr，否则 Windows 上报 WinError 127（shm.dll）。
+#    本项目已在 backend/ocr_image.py 内处理，勿随意调整导入顺序。

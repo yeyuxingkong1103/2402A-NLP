@@ -1,0 +1,43 @@
+# 工单编号：人工智能NLP-RAG-混合检索任务
+# 说明：本机实测通过的版本已在下面钉死；未钉版本的包（FlagEmbedding/rank-bm25 等）安装时取最新即可。
+# 环境：Windows + Python 3.12（本机解释器 D:/myconda1/python.exe，CUDA 12.6）
+
+# ---- Web 服务 ----
+fastapi==0.141.1
+uvicorn==0.51.0
+pydantic>=2.0
+python-dotenv
+python-multipart
+
+# ---- 大模型 ----
+openai==2.47.0
+
+# ---- 向量模型与重排 ----
+torch==2.13.0
+transformers==4.57.6
+sentence-transformers==3.1.0
+FlagEmbedding
+sentencepiece
+
+# ---- 向量库 / 缓存 ----
+pymilvus==2.4.9
+redis==8.1.0
+
+# ---- 关键词检索 ----
+jieba==0.42.1
+rank-bm25
+rapidfuzz==3.14.6
+scikit-learn==1.9.0
+numpy
+
+# ---- PDF 解析（MinerU 主 + 三个 fallback）----
+mineru
+pymupdf
+pdfplumber
+paddleocr
+
+# ---- 评估 ----
+ragas==0.4.3
+langchain-huggingface
+datasets
+pandas

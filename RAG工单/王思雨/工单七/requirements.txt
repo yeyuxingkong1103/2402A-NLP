@@ -1,0 +1,39 @@
+# 工单编号：人工智能NLP-RAG-功能测试及评估 —— 依赖清单
+# 解释器：D:/myconda1/python.exe（Python 3.12.7，CUDA 12.6）。本机依赖已装好，此文件用于换机复现。
+# 注意：torch 必须先于 paddleocr 导入，反了会 WinError 127（像 torch 坏了，其实是导入顺序）。
+
+# ===== Web 层 =====
+fastapi==0.141.1
+uvicorn==0.51.0
+pydantic>=2.0
+
+# ===== 大模型 =====
+openai==2.47.0
+
+# ===== 向量与重排 =====
+torch==2.13.0                 # CUDA 12.6 构建
+transformers==4.57.6
+sentence-transformers==3.1.0  # 载入 bge-m3
+FlagEmbedding                 # 载入 bge-reranker-v2-m3
+
+# ===== 向量库 / 缓存 =====
+pymilvus==2.4.9
+redis==8.1.0                  # 本机 Redis 5.0.14 必须 protocol=2（不支持 RESP3）
+
+# ===== 检索 =====
+jieba==0.42.1
+rank-bm25
+numpy
+
+# ===== PDF 解析：主路径 + 三级备用 =====
+mineru                        # 主解析器（视觉版面分析）
+pymupdf                       # 备用①：文本层 PDF 快速解析
+pdfplumber                    # 备用②
+paddleocr                     # 备用③：扫描件 OCR
+
+# ===== 评估 =====
+ragas==0.4.3
+datasets==5.0.1
+langchain-huggingface         # RAGAS 的嵌入接口
+pandas
+python-dotenv

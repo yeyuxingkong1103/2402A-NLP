@@ -1,0 +1,51 @@
+# 工单编号：人工智能NLP-RAG-基于PDF文档的问答系统
+# 依赖清单（本机已全部安装并实测可用，版本号为实测版本）
+# 安装：pip install -r requirements.txt
+
+# ---- Web 服务 ----
+fastapi==0.141.1            # 后端框架
+uvicorn==0.51.0             # ASGI 服务器
+python-multipart==0.0.20    # 上传文件（multipart/form-data）解析
+pydantic==2.13.4            # 请求体校验
+
+# ---- 大模型调用 ----
+httpx==0.28.1               # 调用 DeepSeek HTTP 接口（支持流式）
+openai==2.47.0              # 仅 RAGAS 评判模型需要（DeepSeek 兼容 OpenAI 协议）
+
+# ---- 向量与重排 ----
+sentence-transformers==3.1.0   # 加载 bge-m3 生成稠密向量
+transformers==4.57.6           # 加载 bge-reranker-v2-m3 做交叉编码重排
+torch==2.13.0                  # 深度学习运行时（本机为 cu126 GPU 版）
+FlagEmbedding==1.4.0           # BGE 系列官方库（备用加载路径）
+
+# ---- 向量库与缓存 ----
+pymilvus==2.4.9             # Milvus 客户端（同时支持 Docker 服务端与 milvus-lite）
+milvus-lite==3.2.1          # Milvus 服务端不可用时的本地降级库
+redis==8.1.0                # 缓存与反馈存储（本机 Redis 5，需 protocol=2）
+
+# ---- 检索 ----
+rank-bm25==0.2.2            # BM25 关键词检索
+jieba==0.42.1               # 中文分词（BM25 与关键词抽取）
+numpy==1.26.4               # 向量运算
+
+# ---- PDF 解析 ----
+mineru==3.4.5               # 主解析器：文字 + 表格（中文路径需 langfix 补丁，见部署文档）
+pymupdf==1.28.2             # 降级解析器：快速抽文字
+pdfplumber==0.11.10         # 降级解析器：抽取表格
+paddleocr==2.7.3            # 扫描件 OCR 备用
+
+# ---- 评估 ----
+ragas==0.4.3                # RAGAS 四指标评估
+datasets==5.0.1             # RAGAS 数据集依赖
+pandas                      # RAGAS 结果转表
+langchain==1.3.14           # RAGAS 嵌入包装器依赖
+
+# ---- 重排 ONNX 旁路（可选，仅构建/测量时用；不装不影响在线问答）----
+# 注意版本约束：onnx 必须配 protobuf<4、numpy<2，否则会把 protobuf 从 3.20.2 升到 7.x，
+# 连带影响 pymilvus。实测在本机该组合下 pymilvus / torch 均不受影响。
+onnx==1.17.0                # torch 的 TorchScript 导出器需要（导出 ONNX 模型）
+onnxruntime==1.27.0         # ONNX 推理与动态 int8 量化
+ml_dtypes==0.5.4            # onnxruntime.quantization 的依赖
+
+# ---- 测试 ----
+pytest==9.1.1               # 回归测试（python -m pytest tests -v）

@@ -1,0 +1,42 @@
+# 工单编号：人工智能NLP-RAG-Graph RAG优化任务 —— 依赖清单
+# 解释器：D:/myconda1/python.exe（Python 3.12.7，CUDA 12.6）。工单要求 3.11，本机唯一同时具备
+# CUDA torch + MinerU + ragas 的解释器是 3.12.7，故按 3.12 交付并在 docs/05_部署.md 注明差异。
+# 注意：torch 必须先于 paddleocr 导入，反了必崩 WinError 127（像 torch 坏了，其实是导入顺序）。
+# 本单复用 08 工单的模型与索引，因此依赖集与 08 基本一致；新增依赖为 networkx（工单九指定图方案）。
+
+# ===== Web 层（FastAPI + Vue 单文件）=====
+fastapi
+uvicorn
+pydantic>=2.0
+
+# ===== 大模型：DeepSeek（OpenAI 兼容）=====
+openai
+
+# ===== 向量、重排与图 =====
+torch                    # CUDA 12.6 构建
+transformers
+sentence-transformers    # 载入 bge-m3
+FlagEmbedding            # 载入 bge-reranker-v2-m3
+networkx                 # 工单九指定的轻量图方案：NX + JSON，不引入 Neo4j
+
+# ===== 向量库 / 缓存 =====
+pymilvus
+redis                    # 本机 Redis 5.0.14 必须 protocol=2（不支持 RESP3）
+
+# ===== 检索 =====
+jieba
+rank-bm25
+numpy
+
+# ===== PDF 解析：MinerU 主路径 + 三级备用 =====
+mineru                   # 主解析器（视觉版面分析，能读表格与图内文字）
+pdfplumber               # 备用①：工单九要求的兜底解析器
+pymupdf                  # 备用②
+paddleocr                # 备用③：扫描件 OCR（仅依赖预留）
+
+# ===== 评估 =====
+ragas
+datasets
+langchain-huggingface    # RAGAS 的嵌入接口
+pandas
+python-dotenv

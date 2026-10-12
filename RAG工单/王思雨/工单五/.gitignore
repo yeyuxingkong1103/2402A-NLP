@@ -1,0 +1,15 @@
+# 工单编号：人工智能NLP-RAG-Query理解优化
+# 忽略规则：密钥、缓存产物、依赖与构建产物不入库。
+.env                          # 含 DEEPSEEK_API_KEY，绝不入库
+__pycache__/                  # Python 字节码
+*.pyc
+.venv/
+node_modules/                 # 前端依赖
+frontend/dist/                # 前端构建产物
+data/parsed/                  # MinerU 解析产物（体积大，可重现）
+data/raw/                     # 原始 PDF（体积大）
+data/index.json               # 分块快照（可由 ingest 重建）
+data/bm25.pkl                 # BM25 索引
+data/image_texts.json         # 图像 OCR 缓存
+data/entities.json            # 实体表
+results/                      # 评测结果

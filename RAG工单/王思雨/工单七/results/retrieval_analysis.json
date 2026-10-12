@@ -1,0 +1,149 @@
+{
+ "eval_20261009_204719.json": {
+  "analysis": {
+   "n_questions": 10,
+   "avg_ctx": 8.0,
+   "doc_hit": 9,
+   "n_doc": 9,
+   "page_hit": 7,
+   "n_page": 9,
+   "boiler": 5,
+   "total_ctx": 80,
+   "boiler_rate": 0.062,
+   "src": {
+    "vec": 33,
+    "vec+bm25": 41,
+    "bm25": 6
+   },
+   "detail": [
+    {
+     "id": "Q01",
+     "doc_hit": true,
+     "n": 8,
+     "boiler": 0,
+     "docs": [
+      "平安银行",
+      "招商银行",
+      "邮储银行"
+     ],
+     "err": ""
+    },
+    {
+     "id": "Q02",
+     "doc_hit": true,
+     "n": 8,
+     "boiler": 0,
+     "docs": [
+      "平安银行",
+      "招商银行"
+     ],
+     "err": ""
+    },
+    {
+     "id": "Q03",
+     "doc_hit": true,
+     "n": 8,
+     "boiler": 2,
+     "docs": [
+      "中国平安",
+      "平安银行"
+     ],
+     "err": ""
+    },
+    {
+     "id": "Q04",
+     "doc_hit": null,
+     "n": 8,
+     "boiler": 0,
+     "docs": [
+      "中国太保",
+      "中国平安",
+      "平安银行",
+      "招商银行",
+      "邮储银行"
+     ],
+     "err": ""
+    },
+    {
+     "id": "Q05",
+     "doc_hit": true,
+     "n": 8,
+     "boiler": 0,
+     "docs": [
+      "平安银行",
+      "招商银行",
+      "邮储银行"
+     ],
+     "err": ""
+    },
+    {
+     "id": "Q06",
+     "doc_hit": true,
+     "n": 8,
+     "boiler": 0,
+     "docs": [
+      "平安银行",
+      "招商银行",
+      "邮储银行"
+     ],
+     "err": ""
+    },
+    {
+     "id": "Q07",
+     "doc_hit": true,
+     "n": 8,
+     "boiler": 0,
+     "docs": [
+      "中国平安",
+      "平安银行"
+     ],
+     "err": ""
+    },
+    {
+     "id": "Q08",
+     "doc_hit": true,
+     "n": 8,
+     "boiler": 0,
+     "docs": [
+      "中信证券"
+     ],
+     "err": ""
+    },
+    {
+     "id": "Q09",
+     "doc_hit": true,
+     "n": 8,
+     "boiler": 3,
+     "docs": [
+      "中国人寿"
+     ],
+     "err": ""
+    },
+    {
+     "id": "Q10",
+     "doc_hit": true,
+     "n": 8,
+     "boiler": 0,
+     "docs": [
+      "国泰君安",
+      "招商证券"
+     ],
+     "err": ""
+    }
+   ]
+  },
+  "ragas": {
+   "faithfulness": 0.915,
+   "answer_relevancy": 0.791,
+   "context_recall": 0.7475,
+   "context_precision": 0.758,
+   "metric_valid": {
+    "faithfulness": "10/10",
+    "answer_relevancy": "10/10",
+    "context_recall": "10/10",
+    "context_precision": "10/10"
+   },
+   "n_samples": 10
+  }
+ }
+}

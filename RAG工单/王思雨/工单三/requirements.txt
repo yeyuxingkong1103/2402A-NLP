@@ -1,0 +1,33 @@
+# 工单编号：人工智能NLP-RAG-PDF文档的表格解析及检索优化
+# 依赖清单：与工单指定技术栈一一对应。安装：pip install -r requirements.txt
+# 说明：torch / paddlepaddle 体积较大，若已有 GPU 环境可按官方指引单独安装对应 CUDA 版本。
+#      本机实测环境：Python 3.12.7 + torch 2.13.0+cu126（CUDA 可用）。
+
+# ---------- Web 服务 ----------
+fastapi                     # 后端框架
+uvicorn[standard]           # ASGI 服务器
+pydantic                    # 请求体校验
+python-dotenv               # 读取 .env 配置
+
+# ---------- PDF 解析与表格结构化 ----------
+mineru                      # 主解析器：版面还原 + 表格识别（工单指定）
+pymupdf                     # 兜底解析 + 页码核验
+pdfplumber                  # 兜底表格抽取
+paddleocr                   # 扫描件 OCR 兜底
+paddlepaddle                # PaddleOCR 运行时
+
+# ---------- 向量与检索 ----------
+sentence-transformers       # 加载本地 bge-m3 向量模型
+FlagEmbedding               # 加载本地 bge-reranker-v2-m3 重排模型
+pymilvus                    # Milvus 向量库客户端
+rank_bm25                   # BM25 关键词检索
+jieba                       # 中文分词
+numpy                       # 向量与打分运算
+
+# ---------- 大模型与缓存 ----------
+openai                      # 通过 OpenAI 兼容接口调用 DeepSeek
+redis                       # Redis 客户端，缓存问答结果
+
+# ---------- 评估 ----------
+ragas                       # RAGAS 评估框架（工单指定）
+langchain-huggingface       # Ragas 的本地嵌入适配

@@ -1,0 +1,12 @@
+# 工单编号：人工智能NLP-RAG-PDF文档的表格解析及检索优化
+.env                 # 含密钥，绝不入库
+__pycache__/
+*.pyc
+data/parsed/         # MinerU 解析产物，可由 /parse 重建
+data/index.json      # 分块结果，可重建
+data/bm25.pkl        # BM25 索引，可重建
+results/             # 评测结果
+.probe/              # 临时探针文件
+frontend/node_modules/
+frontend/dist/
+volumes/             # docker 卷

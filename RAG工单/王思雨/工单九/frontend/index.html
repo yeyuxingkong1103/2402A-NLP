@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!-- 工单编号：人工智能NLP-RAG-Graph RAG优化任务 —— 演示前端：问答 / 图谱 / before-after 对比 / 上传 -->
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>工单九 · GraphRAG 优化（金融问答）</title>
+  <script src="/vue.global.prod.js"></script>
+  <style>
+    body { font-family: "Microsoft YaHei", sans-serif; margin: 0; background: #f5f6f8; color: #222; }
+    header { background: #1f3a5f; color: #fff; padding: 12px 20px; }
+    header h1 { margin: 0; font-size: 18px; }
+    header small { opacity: .8; }
+    nav { margin-top: 10px; } nav button { margin-right: 8px; }
+    main { padding: 16px 20px; max-width: 1080px; }
+    button { padding: 6px 14px; border: 1px solid #1f3a5f; background: #fff; color: #1f3a5f; border-radius: 4px; cursor: pointer; }
+    button.on, button:hover { background: #1f3a5f; color: #fff; }
+    textarea { width: 100%; min-height: 64px; padding: 8px; box-sizing: border-box; }
+    .card { background: #fff; border-radius: 6px; padding: 14px; margin-top: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+    .ans { white-space: pre-wrap; line-height: 1.7; }
+    .ctx { border-left: 3px solid #8aa; padding-left: 10px; margin: 8px 0; font-size: 13px; color: #333; }
+    .meta { font-size: 12px; color: #666; }
+    .tag { display: inline-block; background: #eef3fa; border-radius: 3px; padding: 1px 6px; margin: 2px; font-size: 12px; }
+    table { border-collapse: collapse; width: 100%; font-size: 13px; }
+    th, td { border: 1px solid #ddd; padding: 6px 8px; text-align: left; }
+    th { background: #eef3fa; }
+    .ok { color: #1a7f37; font-weight: bold; } .bad { color: #c00; font-weight: bold; }
+    pre { background: #f8f8f8; padding: 8px; overflow: auto; font-size: 12px; }
+  </style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>工单九 · 人工智能NLP-RAG-Graph RAG优化任务</h1>
+    <small>基于 08 工单 GraphRAG 服务与检索结果做四层优化 · 复用 Milvus <code>gd8_chunks</code> / bge-m3 / bge-reranker-v2-m3 / DeepSeek / Redis</small>
+    <nav>
+      <button :class="{on: tab==='ask'}"   @click="tab='ask'">问答</button>
+      <button :class="{on: tab==='graph'}" @click="tab='graph'">知识图谱</button>
+      <button :class="{on: tab==='eval'}"  @click="tab='eval'">优化前后指标</button>
+      <button :class="{on: tab==='up'}"    @click="tab='up'">上传 PDF</button>
+      <button @click="health">健康检查</button>
+    </nav>
+  </header>
+  <main>
+    <div v-if="healthSt" class="card"><b>环境状态：</b><span class="meta">{{ healthSt }}</span></div>
+
+    <!-- ============ 问答 ============ -->
+    <section v-show="tab==='ask'">
+      <div class="card">
+        <textarea v-model="q" placeholder="用中文或英文提问，例如：平安银行2019年的不良贷款率是多少？ / What is the net interest margin of China Merchants Bank?"></textarea>
+        <p>
+          链路：
+          <button :class="{on: mode==='after'}"  @click="mode='after'">after · 工单九优化链路</button>
+          <button :class="{on: mode==='before'}" @click="mode='before'">before · 08 原链路</button>
+          <button :class="{on: !useCache}"       @click="useCache=!useCache">{{ useCache ? '缓存：开' : '缓存：关' }}</button>
+          <button @click="ask" :disabled="busy || !q.trim()">{{ busy ? '查询中…' : '提问' }}</button>
+        </p>
+        <div v-if="ans">
+          <div class="ans">{{ ans.answer }}</div>
+          <p class="meta">
+            链路={{ ans.mode }} · 端到端 {{ ans.latency_ms }} ms（生成 {{ ans.llm_ms }} ms）·
+            {{ ans.cached ? '命中 Redis 缓存' : '实跑链路' }} · 片段数 {{ (ans.contexts||[]).length }}
+          </p>
+          <p v-if="ans.graph">
+            <b>图谱命中：</b>
+            <span class="tag" v-for="e in ans.graph.entities">{{ e }}</span>
+            <span class="tag" v-if="ans.graph.codes.length">图约束 code={{ ans.graph.codes.join(',') }}</span>
+            <span class="tag">社区摘要 {{ ans.graph.n_communities_used || 0 }} 条</span>
+            <span class="tag" v-for="t in (ans.graph.expand||[]).slice(0,8)">扩展:{{ t }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="card" v-if="ans && ans.contexts">
+        <b>检索到的上下文片段（RAGAS 的 contexts 即为此列表）</b>
+        <div class="ctx" v-for="(c,i) in ans.contexts">
+          <div class="meta">片段{{ i+1 }} · {{ c.company }} 第{{ c.page }}页 · 来源通道 {{ c.src }} · 重排分 {{ c.rscore }}</div>
+          {{ (c.text||'').slice(0, 260) }}…
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 图谱 ============ -->
+    <section v-show="tab==='graph'">
+      <div class="card">
+        <button @click="loadGraph">加载图谱</button>
+        <span class="meta" v-if="graphData.stats">　节点 {{ graphData.stats.nodes }} · 边 {{ graphData.stats.edges }} · 社区 {{ graphData.stats.communities }} · 类型 {{ JSON.stringify(graphData.stats.by_type) }}</span>
+        <p><span class="tag" v-for="(v,k) in (graphData.stats||{}).by_type">{{ k }}:{{ v }}</span></p>
+        <p class="meta">下列为按出现频次排序的实体节点（前端力导向图从简，仅列主干与社区摘要）：</p>
+        <p><span class="tag" v-for="n in graphData.nodes.slice(0,80)">{{ n.name }}<sub>{{ n.type }}</sub></span></p>
+      </div>
+      <div class="card" v-if="(graphData.communities||[]).length">
+        <b>社区摘要（GraphRAG global 通道）</b>
+        <div class="ctx" v-for="(c,i) in graphData.communities">
+          <div class="meta">社区 {{ i+1 }} · {{ c.members.length }} 个成员</div>{{ c.summary }}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 指标对比 ============ -->
+    <section v-show="tab==='eval'">
+      <div class="card">
+        <button @click="loadEval">读取 eval/before.json 与 after.json</button>
+        <p class="meta">{{ evalHint }}</p>
+        <div v-if="bf || af">
+          <table>
+            <tr><th>指标</th><th>目标</th><th>before（08 原链路）</th><th>after（工单九优化）</th><th>Δ</th><th>达标</th></tr>
+            <tr v-for="r in evalRows">
+              <td>{{ r.name }}</td><td>{{ r.target }}</td><td>{{ r.b }}</td><td>{{ r.a }}</td><td>{{ r.d }}</td>
+              <td :class="!r.has ? '' : (r.ok ? 'ok' : 'bad')">{{ !r.has ? '—' : (r.ok ? '✅' : '❌') }}</td>
+            </tr>
+          </table>
+          <p class="meta">
+            before 样本 {{ (bf||{}).n }} 题 / 错误 {{ (bf||{}).errors }} · after 样本 {{ (af||{}).n }} 题 / 错误 {{ (af||{}).errors }}；
+            跑法：<code>python -m app.eval_ragas --sample-pdf data/sample_questions.pdf</code>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 上传 ============ -->
+    <section v-show="tab==='up'">
+      <div class="card">
+        <b>上传 PDF → 三级降级解析（MinerU → pdfplumber → pymupdf）→ DeepSeek 抽实体关系 → 并回图谱</b>
+        <p><input type="file" accept="application/pdf" @change="onFile"></p>
+        <button @click="upload" :disabled="!file || busy">{{ busy ? '处理中…' : '上传并建图' }}</button>
+        <pre v-if="upMsg">{{ upMsg }}</pre>
+      </div>
+      <div class="card">
+        <b>或：直接贴一段年报文本建图（演示实体关系抽取 prompt）</b>
+        <textarea v-model="rawText" placeholder="粘贴年报片段…"></textarea>
+        <p><input v-model="rawCode" placeholder="公司代码（可选，如 000001）" style="width:200px"> <button @click="buildText" :disabled="!rawText.trim()">抽取并建图</button></p>
+        <pre v-if="txMsg">{{ txMsg }}</pre>
+      </div>
+    </section>
+  </main>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+{
+  "_说明": "工单五评估题集。multi_turn 按顺序在同一会话内提问，用来验证多轮指代消解与实体切换；english 用另一会话验证中英双语；standalone 用新会话验证单轮也能答。expect 为必需关键字段（全含才算对），expect_not 为负样本（出现即判错，用于抓'多答无关内容'）。",
+  "multi_turn": [
+    {
+      "id": "q1",
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "ground_truth": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别为 2016年6,464.51万元、2017年14,414.16万元、2018年18,780.67万元、2019年1-6月4,627.14万元。",
+      "expect": ["6,464.51", "14,414.16", "18,780.67", "4,627.14"],
+      "expect_not": ["力源信息"],
+      "source_pages": [129]
+    },
+    {
+      "id": "q2",
+      "question": "他参与的哪个工程荣获了国家科技进步一等奖？",
+      "ground_truth": "武汉兴图新科参与的“某情报、指挥、控制与通信网络一体化工程”荣获国家科技进步一等奖。",
+      "expect": ["一体化工程", "国家科技进步一等奖"],
+      "expect_not": ["力源信息"],
+      "source_pages": [27, 94, 95]
+    },
+    {
+      "id": "q3",
+      "question": "这个公司的法定代表人是谁？",
+      "ground_truth": "武汉兴图新科电子股份有限公司法定代表人是程家明。",
+      "expect": ["程家明"],
+      "expect_not": ["赵马克"],
+      "source_pages": [22]
+    },
+    {
+      "id": "q4",
+      "question": "那武汉力源信息技术股份有限公司呢？",
+      "ground_truth": "武汉力源信息技术股份有限公司法定代表人是赵马克（Mark Zhao）。",
+      "expect": ["赵马克"],
+      "expect_not": ["程家明"],
+      "source_pages": [9, 12]
+    },
+    {
+      "id": "q5",
+      "question": "武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有哪些销售处？",
+      "ground_truth": "招股说明书2 内部组织结构图显示：大客户销售部下属的销售处最多，共6个——珠海销售处、深圳销售处、北京销售处、武汉销售处、广州销售处、成都销售处。",
+      "expect": ["大客户销售部", "珠海", "深圳", "北京", "武汉", "广州", "成都"],
+      "expect_not": ["程家明", "赵马克"],
+      "source_pages": [39],
+      "_备注": "工单期望答案为“渠道销售部，下辖珠海/深圳/北京/武汉/广州5个”，与招股说明书2 内部组织结构图原件不一致；本系统以原件为准。详见 docs/测试报告.md 的差异说明。"
+    }
+  ],
+  "english": [
+    {
+      "id": "e1",
+      "question": "What are the military-related revenues of Wuhan Xingtu Xinke Electronics Co., Ltd. during the reporting period?",
+      "ground_truth": "The military-related revenues of Wuhan Xingtu Xinke Electronics were RMB 6,464.51 ten-thousand in 2016, 14,414.16 in 2017, 18,780.67 in 2018 and 4,627.14 in Jan-Jun 2019.",
+      "expect": ["6,464.51", "14,414.16", "18,780.67", "4,627.14"],
+      "expect_not": [],
+      "source_pages": [129]
+    },
+    {
+      "id": "e2",
+      "question": "Who is the legal representative of Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+      "ground_truth": "The legal representative of Wuhan Xingtu Xinke Electronics Co., Ltd. is Cheng Jiaming (程家明).",
+      "expect": ["程家明"],
+      "expect_not": ["赵马克"],
+      "source_pages": [22]
+    },
+    {
+      "id": "e3",
+      "question": "What about Wuhan P&S Information Technology Co., Ltd.? Who is its legal representative?",
+      "ground_truth": "The legal representative of Wuhan P&S Information Technology Co., Ltd. is Zhao Make (赵马克, Mark Zhao).",
+      "expect": ["赵马克"],
+      "expect_not": ["程家明"],
+      "source_pages": [9, 12]
+    }
+  ],
+  "standalone": [
+    {
+      "id": "s1",
+      "question": "武汉力源信息技术股份有限公司的法定代表人是谁？",
+      "ground_truth": "武汉力源信息技术股份有限公司法定代表人是赵马克（Mark Zhao）。",
+      "expect": ["赵马克"],
+      "expect_not": ["程家明"],
+      "source_pages": [9, 12]
+    },
+    {
+      "id": "s2",
+      "question": "武汉兴图新科电子股份有限公司的法定代表人是谁？",
+      "ground_truth": "武汉兴图新科电子股份有限公司法定代表人是程家明。",
+      "expect": ["程家明"],
+      "expect_not": ["赵马克"],
+      "source_pages": [22]
+    }
+  ]
+}

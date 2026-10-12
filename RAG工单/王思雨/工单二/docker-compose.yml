@@ -1,0 +1,79 @@
+# 工单编号：人工智能NLP-RAG-基于PDF文档的问答系统优化
+# 基础设施编排：Milvus standalone（etcd + minio + milvus）与 Redis。
+# 启动：docker compose up -d
+# 停止：docker compose down
+# 注意：镜像版本与本机已缓存版本保持一致，避免联网重新拉取；
+#       若本机已在 19530（Milvus）或 6379（Redis）端口上跑着服务，请不要重复启动本编排中对应的服务。
+services:
+  etcd:
+    image: quay.io/coreos/etcd:v3.5.16              # etcd：Milvus 的元数据存储
+    container_name: rag2-etcd                       # 固定容器名，便于排错
+    environment:
+      - ETCD_AUTO_COMPACTION_MODE=revision          # 自动压缩策略：按版本号
+      - ETCD_AUTO_COMPACTION_RETENTION=1000         # 保留最近 1000 个版本
+      - ETCD_QUOTA_BACKEND_BYTES=4294967296         # 后端存储配额 4GB
+      - ETCD_SNAPSHOT_COUNT=50000                   # 每 5 万次事务做一次快照
+    volumes:
+      - ./deploy/volumes/etcd:/etcd                 # 数据持久化到宿主机
+    command: etcd -advertise-client-urls=http://etcd:2379 -listen-client-urls http://0.0.0.0:2379 --data-dir /etcd
+    healthcheck:
+      test: ["CMD", "etcdctl", "endpoint", "health"]  # 健康检查，供 milvus 依赖判断
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  minio:
+    image: minio/minio:RELEASE.2024-05-28T17-19-04Z  # minio：Milvus 的对象存储后端
+    container_name: rag2-minio
+    environment:
+      MINIO_ACCESS_KEY: minioadmin                  # 默认账号（内网部署，仅本机使用）
+      MINIO_SECRET_KEY: minioadmin                  # 默认密码
+    ports:
+      - "9100:9000"                                 # API 端口，错开常用端口避免冲突
+      - "9101:9001"                                 # 控制台端口，便于人工核查
+    volumes:
+      - ./deploy/volumes/minio:/minio_data          # 数据持久化
+    command: minio server /minio_data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  milvus:
+    image: milvusdb/milvus:v2.6.2                   # Milvus 本体，与本机已缓存镜像一致
+    container_name: rag2-milvus
+    command: ["milvus", "run", "standalone"]        # standalone 模式：单机全功能
+    security_opt:
+      - seccomp:unconfined                          # Milvus 官方要求，否则启动时线程受限
+    environment:
+      ETCD_ENDPOINTS: etcd:2379                     # 指向上面 etcd
+      MINIO_ADDRESS: minio:9000                     # 指向上面 minio
+    volumes:
+      - ./deploy/volumes/milvus:/var/lib/milvus     # 向量数据持久化
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
+      interval: 30s
+      start_period: 90s                             # 冷启动较慢，给 90 秒宽限
+      timeout: 20s
+      retries: 3
+    ports:
+      - "19530:19530"                               # gRPC 端口：pymilvus 连接用
+      - "9091:9091"                                 # 指标与健康检查端口
+    depends_on:
+      - etcd
+      - minio
+
+  redis:
+    image: redis:6-alpine                           # Redis：缓存高频问题的问答结果
+    container_name: rag2-redis
+    command: redis-server --save 60 1 --loglevel warning  # 60 秒内至少 1 次写入即落盘
+    ports:
+      - "6379:6379"                                 # 与 .env 中 REDIS_URL 对应
+    volumes:
+      - ./deploy/volumes/redis:/data                # 缓存持久化，重启不丢热数据
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]            # 健康检查
+      interval: 30s
+      timeout: 10s
+      retries: 3

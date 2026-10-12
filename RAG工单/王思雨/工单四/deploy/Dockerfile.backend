@@ -1,0 +1,18 @@
+# 工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+# 文件说明：后端镜像。仅安装代码依赖；模型权重一律通过挂载提供，不打进镜像。
+FROM python:3.11-slim
+WORKDIR /app
+# 系统依赖：pymupdf 需要 libgl/图像库，中文渲染需要字体
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      build-essential libgl1 libglib2.0-0 libsm6 libxext6 libxrender1 \
+ && rm -rf /var/lib/apt/lists/*
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY config.py ./
+COPY backend/ ./backend/
+COPY scripts/ ./scripts/
+COPY tests/ ./tests/
+COPY frontend/ ./frontend/
+EXPOSE 8000
+# 并发交给 uvicorn 的多 worker；模型在每个 worker 内各自常驻，故 worker 数不宜超过 GPU 承受能力
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<!-- 工单编号：人工智能NLP-RAG-基于PDF文档的问答系统 -->
+<!-- 前端页面：Vue 3 CDN 单文件，含问答 / 知识库 / RAG对比 / 评估 四个标签页 -->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>基于PDF文档的问答系统</title>
+<style>
+  /* 全局样式：简洁、无第三方 UI 库，减少依赖 */
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+         background: #f4f6fa; color: #1f2430; }
+  header { background: #1f2d5a; color: #fff; padding: 14px 22px; display: flex;
+           align-items: center; justify-content: space-between; }
+  header h1 { font-size: 18px; margin: 0; font-weight: 600; }
+  header .right { font-size: 13px; display: flex; gap: 12px; align-items: center; }
+  .tabs { display: flex; gap: 6px; background: #fff; padding: 0 22px;
+          border-bottom: 1px solid #e2e6ef; }
+  .tabs button { border: none; background: none; padding: 12px 18px; cursor: pointer;
+                 font-size: 14px; color: #5a6376; border-bottom: 2px solid transparent; }
+  .tabs button.active { color: #1f6feb; border-bottom-color: #1f6feb; font-weight: 600; }
+  main { max-width: 1080px; margin: 18px auto; padding: 0 18px 60px; }
+  .card { background: #fff; border-radius: 10px; padding: 18px; margin-bottom: 16px;
+          box-shadow: 0 1px 3px rgba(20,30,60,.08); }
+  .card h3 { margin: 0 0 12px; font-size: 15px; color: #1f2d5a; }
+  textarea, input[type=text] { width: 100%; border: 1px solid #d7dce8; border-radius: 8px;
+        padding: 10px 12px; font-size: 14px; font-family: inherit; resize: vertical; }
+  textarea:focus, input:focus { outline: none; border-color: #1f6feb; }
+  .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  button.primary { background: #1f6feb; color: #fff; border: none; border-radius: 8px;
+        padding: 10px 20px; font-size: 14px; cursor: pointer; }
+  button.primary:disabled { background: #9db6e0; cursor: not-allowed; }
+  button.ghost { background: #fff; border: 1px solid #d7dce8; border-radius: 8px;
+        padding: 6px 14px; cursor: pointer; font-size: 13px; }
+  button.mic { background: #fff; border: 1px solid #d7dce8; border-radius: 8px;
+        padding: 10px 14px; cursor: pointer; font-size: 16px; }
+  button.mic.rec { background: #ffe8e8; border-color: #ff8a8a; }
+  .answer { white-space: pre-wrap; line-height: 1.75; font-size: 15px; }
+  .badge { display: inline-block; background: #eef3ff; color: #1f6feb; border-radius: 6px;
+        padding: 2px 8px; font-size: 12px; margin-right: 6px; }
+  .badge.gray { background: #f0f1f4; color: #5a6376; }
+  .badge.green { background: #e8f8ef; color: #1a9d55; }
+  .badge.red { background: #fdecec; color: #d33; }
+  .ctx { border-left: 3px solid #cfd8ea; padding: 8px 12px; margin: 8px 0;
+         background: #fafbfe; font-size: 13px; line-height: 1.6; white-space: pre-wrap; }
+  .muted { color: #7b8394; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { border-bottom: 1px solid #eceff5; padding: 8px 6px; text-align: left;
+           vertical-align: top; }
+  th { color: #5a6376; font-weight: 600; background: #fafbfe; }
+  .bar { height: 6px; background: #eceff5; border-radius: 4px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; background: #1f6feb; transition: width .3s; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } }
+  .metric { display: inline-block; text-align: center; background: #f7f9fd; border-radius: 10px;
+            padding: 12px 18px; margin: 0 10px 10px 0; min-width: 130px; }
+  .metric b { display: block; font-size: 22px; color: #1f6feb; }
+  .metric span { font-size: 12px; color: #5a6376; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+  .dot.ok { background: #1a9d55; } .dot.bad { background: #d33; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>📄 {{ t.title }}</h1>
+    <div class="right">
+      <!-- 工单验收项「多语言支持」：中英界面切换 -->
+      <span @click="lang='zh'" style="cursor:pointer">中文</span>
+      <span @click="lang='en'" style="cursor:pointer">EN</span>
+      <span><span class="dot" :class="health.status==='ok' ? 'ok':'bad'"></span>{{ health.status || '…' }}</span>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <button v-for="tab in tabs" :key="tab.key" :class="{active: cur===tab.key}"
+            @click="cur=tab.key">{{ tab.label }}</button>
+  </div>
+
+  <main>
+    <!-- ==================== 问答标签页 ==================== -->
+    <template v-if="cur==='chat'">
+      <div class="card">
+        <div class="row">
+          <textarea v-model="question" rows="3" :placeholder="t.placeholder"
+                    @keydown.ctrl.enter="ask"></textarea>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <!-- 语音输入：浏览器原生 Web Speech API，无第三方依赖 -->
+          <button class="mic" :class="{rec: listening}" v-if="speechOk" @click="toggleVoice"
+                  :title="t.voice">{{ listening ? '🔴' : '🎤' }}</button>
+          <button class="primary" :disabled="loading || !question.trim()" @click="ask">
+            {{ loading ? t.thinking : t.ask }}
+          </button>
+          <label class="muted"><input type="checkbox" v-model="useRerank"> {{ t.rerank }}</label>
+          <select v-model="useRewrite" class="muted" style="padding:6px;border-radius:6px;border:1px solid #d7dce8">
+            <option value="auto">{{ t.rwAuto }}</option>
+            <option value="true">{{ t.rwOn }}</option>
+            <option value="false">{{ t.rwOff }}</option>
+          </select>
+          <span class="muted" v-if="listening">{{ t.listening }}</span>
+        </div>
+        <div class="row" style="margin-top:8px">
+          <span class="muted">{{ t.examples }}：</span>
+          <button class="ghost" v-for="(e,i) in examples" :key="i" @click="question=e; ask()">
+            {{ e.length > 26 ? e.slice(0,26)+'…' : e }}</button>
+        </div>
+      </div>
+
+      <div class="card" v-if="answer || loading">
+        <h3>{{ t.answer }}</h3>
+        <div class="row" style="margin-bottom:8px" v-if="latency.total">
+          <span class="badge">{{ t.retrieve }} {{ latency.retrieve }}s</span>
+          <span class="badge" v-if="latency.first_token">{{ t.firstToken }} {{ latency.first_token }}s</span>
+          <span class="badge" :class="latency.total<=3 ? 'green':'red'">{{ t.total }} {{ latency.total }}s</span>
+          <span class="badge gray" v-if="cached">{{ t.cached }}</span>
+          <span class="badge red" v-if="degraded">{{ t.degraded }}</span>
+          <span class="badge gray" v-if="qu.rewrite_source">
+            Query理解: {{ qu.rewrite_source }} / {{ qu.intent }}</span>
+        </div>
+        <div class="answer">{{ answer }}<span v-if="loading">▊</span></div>
+        <div class="row" style="margin-top:14px" v-if="answer && !loading">
+          <span class="muted">{{ t.feedback }}</span>
+          <button class="ghost" @click="vote('up')" :disabled="voted">{{ t.up }}</button>
+          <button class="ghost" @click="vote('down')" :disabled="voted">{{ t.down }}</button>
+          <span class="muted" v-if="voted">{{ t.thanks }}</span>
+          <span class="muted" style="margin-left:auto">👍 {{ fb.up }} · 👎 {{ fb.down }}</span>
+        </div>
+      </div>
+
+      <div class="card" v-if="contexts.length">
+        <h3>{{ t.contexts }}（{{ contexts.length }}）</h3>
+        <div class="ctx" v-for="(c,i) in contexts" :key="i">
+          <span class="badge">#{{ i+1 }}</span>
+          <span class="badge gray">{{ t.page }} {{ c.page_no }}</span>
+          <span class="badge gray">{{ c.chunk_type }}</span>
+          <span class="badge green">score {{ c.score }}</span>
+          <div style="margin-top:6px">{{ c.content.length > 500 ? c.content.slice(0,500)+'…' : c.content }}</div>
+        </div>
+      </div>
+    </template>
+
+    <!-- ==================== 知识库标签页 ==================== -->
+    <template v-if="cur==='kb'">
+      <div class="card">
+        <h3>{{ t.upload }}</h3>
+        <div class="row">
+          <input type="file" accept=".pdf" @change="onFile" ref="fileInput">
+          <label class="muted"><input type="radio" value="mineru" v-model="engine"> MinerU（表格精度高）</label>
+          <label class="muted"><input type="radio" value="fast" v-model="engine"> {{ t.fastParser }}</label>
+          <button class="primary" :disabled="!file || building" @click="upload">{{ t.startBuild }}</button>
+        </div>
+        <div v-if="task.status" style="margin-top:12px">
+          <div class="bar"><i :style="{width: progressPct + '%'}"></i></div>
+          <p class="muted" style="margin:8px 0 0">
+            {{ task.status }} — {{ task.message }}
+            <span v-if="task.parser">｜解析器 {{ task.parser }}</span>
+            <span v-if="task.seconds">｜{{ task.seconds }}s</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>{{ t.docs }} <button class="ghost" @click="loadDocs" style="float:right">{{ t.refresh }}</button></h3>
+        <table>
+          <thead><tr><th>{{ t.fName }}</th><th>{{ t.fChunks }}</th><th>{{ t.fTables }}</th>
+            <th>{{ t.fPages }}</th><th>{{ t.fDocId }}</th><th>{{ t.fOps }}</th></tr></thead>
+          <tbody>
+            <tr v-for="d in docs" :key="d.doc_id">
+              <td>{{ d.doc_name }}</td><td>{{ d.chunks }}</td><td>{{ d.tables }}</td>
+              <td>{{ d.pages }}</td><td class="muted">{{ d.doc_id }}</td>
+              <td>
+                <button class="ghost" @click="viewChunks(d)">{{ t.view }}</button>
+                <button class="ghost" @click="delDoc(d)">{{ t.del }}</button>
+              </td>
+            </tr>
+            <tr v-if="!docs.length"><td colspan="6" class="muted">{{ t.empty }}</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" v-if="chunkView.doc_id">
+        <h3>{{ t.chunksOf }} {{ chunkView.name }}（{{ chunkView.total }}）
+          <select v-model="chunkKind" @change="loadChunks(1)" style="margin-left:10px;padding:4px">
+            <option value="">{{ t.all }}</option><option value="text">text</option>
+            <option value="table">table</option>
+          </select>
+        </h3>
+        <div class="ctx" v-for="c in chunkView.items" :key="c.chunk_index">
+          <span class="badge">#{{ c.chunk_index }}</span>
+          <span class="badge gray">{{ t.page }} {{ c.page_no }}</span>
+          <span class="badge gray">{{ c.chunk_type }}</span>
+          <div style="margin-top:6px">{{ c.content.length>400 ? c.content.slice(0,400)+'…' : c.content }}</div>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <button class="ghost" :disabled="chunkPage<=1" @click="loadChunks(chunkPage-1)">← {{ t.prev }}</button>
+          <span class="muted">{{ chunkPage }} / {{ Math.max(1, Math.ceil(chunkView.total/20)) }}</span>
+          <button class="ghost" :disabled="chunkPage*20>=chunkView.total" @click="loadChunks(chunkPage+1)">{{ t.next }} →</button>
+        </div>
+      </div>
+    </template>
+
+    <!-- ==================== RAG vs 纯 LLM 对比标签页 ==================== -->
+    <template v-if="cur==='compare'">
+      <div class="card">
+        <h3>{{ t.compareTitle }}</h3>
+        <div class="row">
+          <input type="text" v-model="cmpQuestion" :placeholder="t.placeholder" @keydown.enter="compare">
+          <button class="primary" :disabled="cmpLoading || !cmpQuestion.trim()" @click="compare">
+            {{ cmpLoading ? t.thinking : t.compareBtn }}</button>
+        </div>
+      </div>
+      <div class="cols" v-if="cmpRag || cmpLlm">
+        <div class="card">
+          <h3>RAG（检索增强）<span class="badge" style="float:right">{{ cmpRag.latency.total }}s</span></h3>
+          <div class="answer">{{ cmpRag.answer }}</div>
+          <p class="muted" style="margin-top:10px">{{ t.cites }} {{ cmpRag.contexts.length }} {{ t.pieces }}</p>
+        </div>
+        <div class="card">
+          <h3>{{ t.llmOnly }}<span class="badge gray" style="float:right">{{ cmpLlm.latency.total }}s</span></h3>
+          <div class="answer">{{ cmpLlm.answer }}</div>
+          <p class="muted" style="margin-top:10px">{{ t.noCtx }}</p>
+        </div>
+      </div>
+    </template>
+
+    <!-- ==================== 评估标签页 ==================== -->
+    <template v-if="cur==='eval'">
+      <div class="card">
+        <h3>{{ t.evalTitle }}</h3>
+        <div class="row">
+          <button class="primary" :disabled="evalRunning" @click="runEval">
+            {{ evalRunning ? t.running : t.runEval }}</button>
+          <span class="muted">{{ t.evalHint }}</span>
+        </div>
+        <p class="muted" v-if="evalTask.message" style="margin-top:10px">{{ evalTask.status }} — {{ evalTask.message }}</p>
+      </div>
+
+      <div class="card" v-if="evalData">
+        <h3>RAGAS {{ t.metrics }}</h3>
+        <div>
+          <div class="metric" v-for="(v,k) in evalData.ragas.overall" :key="k">
+            <b>{{ v }}</b><span>{{ k }}</span></div>
+        </div>
+        <p class="muted">{{ t.genAt }} {{ evalData.generated_at }}｜{{ t.avgLatency }} {{ evalData.summary.avg_latency }}s
+          ｜{{ t.under3 }} {{ (evalData.summary.under_3s_rate*100).toFixed(1) }}%</p>
+        <table style="margin-top:12px">
+          <thead><tr><th>ID</th><th>{{ t.question }}</th><th>{{ t.ragAnswer }}</th>
+            <th>{{ t.llmAnswer }}</th><th>{{ t.time }}</th></tr></thead>
+          <tbody>
+            <tr v-for="it in evalData.items" :key="it.id">
+              <td>{{ it.id }}</td>
+              <td>{{ it.question.length>34 ? it.question.slice(0,34)+'…' : it.question }}</td>
+              <td>{{ it.rag_answer.length>120 ? it.rag_answer.slice(0,120)+'…' : it.rag_answer }}</td>
+              <td>{{ it.llm_only_answer.length>120 ? it.llm_only_answer.slice(0,120)+'…' : it.llm_only_answer }}</td>
+              <td><span class="badge" :class="it.latency.total<=3?'green':'red'">{{ it.latency.total }}s</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" v-else><p class="muted">{{ t.noEval }}</p></div>
+    </template>
+  </main>
+</div>
+
+<!-- 优先加载本地 Vue（离线可用），失败再回退 CDN -->
+<script src="/static/vendor/vue.global.prod.js"></script>
+<script>
+if (!window.Vue) {                                   // 本地文件缺失时回退到 CDN
+  document.write('<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"><\/script>');
+}
+</script>
+<script>
+const { createApp } = Vue;                           // 取出 Vue 的 createApp
+
+// 中英文界面文案（工单验收项「多语言支持」）
+const I18N = {
+  zh: { title:'招股说明书问答系统', placeholder:'请输入你的问题（Ctrl+Enter 发送）…',
+        ask:'提 问', thinking:'思考中…', answer:'回答', retrieve:'检索', firstToken:'首字',
+        total:'总耗时', cached:'缓存命中', degraded:'已降级', feedback:'本次回答是否有帮助？',
+        up:'👍 有帮助', down:'👎 没帮助', thanks:'感谢反馈！', contexts:'引用片段',
+        page:'第', voice:'语音输入', listening:'正在聆听…（请说话）', examples:'示例问题',
+        rerank:'启用重排', rwAuto:'Query理解：自动', rwOn:'Query理解：强制LLM', rwOff:'Query理解：仅本地',
+        upload:'上传 PDF 并建立索引', fastParser:'快速解析（pymupdf，无 MinerU）',
+        startBuild:'开始解析入库', docs:'已入库文档', refresh:'刷新', fName:'文件名', fChunks:'分块数',
+        fTables:'表格块', fPages:'最大页', fDocId:'文档ID', fOps:'操作', view:'查看分块',
+        del:'删除', empty:'知识库为空，请先上传 PDF', chunksOf:'分块内容：', all:'全部', prev:'上一页', next:'下一页',
+        compareTitle:'RAG 与纯 LLM 回答对比（工单验收项）', compareBtn:'开始对比',
+        llmOnly:'纯 LLM（不传上下文）', cites:'引用片段：', pieces:'条', noCtx:'未使用任何检索上下文',
+        evalTitle:'RAGAS 评估（工单 10 个问题）', runEval:'开始评估', running:'评估中…',
+        evalHint:'将逐题执行 RAG 问答与纯 LLM 问答，并用 RAGAS 计算四项指标，约需数分钟。',
+        metrics:'指标', genAt:'生成于', avgLatency:'平均耗时', under3:'3秒内达标率',
+        question:'问题', ragAnswer:'RAG 回答', llmAnswer:'纯 LLM 回答', time:'耗时',
+        noEval:'尚无评估结果，点击“开始评估”。' },
+  en: { title:'Prospectus QA System', placeholder:'Type your question (Ctrl+Enter to send)…',
+        ask:'Ask', thinking:'Thinking…', answer:'Answer', retrieve:'Retrieve', firstToken:'TTFT',
+        total:'Total', cached:'Cached', degraded:'Degraded', feedback:'Was this answer helpful?',
+        up:'👍 Helpful', down:'👎 Not helpful', thanks:'Thanks for your feedback!', contexts:'Citations',
+        page:'p.', voice:'Voice input', listening:'Listening…', examples:'Examples',
+        rerank:'Rerank', rwAuto:'Query: auto', rwOn:'Query: force LLM', rwOff:'Query: local only',
+        upload:'Upload a PDF and build index', fastParser:'Fast parser (pymupdf, no MinerU)',
+        startBuild:'Parse & index', docs:'Indexed documents', refresh:'Refresh', fName:'File',
+        fChunks:'Chunks', fTables:'Tables', fPages:'Max page', fDocId:'Doc ID', fOps:'Actions',
+        view:'View chunks', del:'Delete', empty:'Knowledge base is empty. Upload a PDF first.',
+        chunksOf:'Chunks of ', all:'All', prev:'Prev', next:'Next',
+        compareTitle:'RAG vs. pure LLM comparison', compareBtn:'Compare',
+        llmOnly:'Pure LLM (no context)', cites:'Citations:', pieces:'', noCtx:'No retrieval context used',
+        evalTitle:'RAGAS evaluation (10 work-order questions)', runEval:'Run evaluation',
+        running:'Evaluating…', evalHint:'Runs RAG and pure-LLM QA per question, then scores four RAGAS metrics.',
+        metrics:'metrics', genAt:'Generated at', avgLatency:'Avg latency', under3:'Rate ≤3s',
+        question:'Question', ragAnswer:'RAG answer', llmAnswer:'LLM-only answer', time:'Latency',
+        noEval:'No evaluation result yet.' }
+};
+
+const EXAMPLES = ['武汉兴图新科电子股份有限公司法定代表人是谁？',
+                  '武汉兴图新科电子股份有限公司注册资本是多少？',
+                  '武汉兴图新科电子股份有限公司参与制定了哪个技术标准？',
+                  '电子信息行业的下游主要包括哪些行业？'];
+
+createApp({
+  data() {                                            // 组件状态
+    return {
+      lang: 'zh', cur: 'chat',                        // 当前语言与标签页
+      question: '', answer: '', contexts: [],         // 问答状态
+      loading: false, latency: {}, cached: false, degraded: false,  // 耗时与标记
+      qu: {}, useRerank: true, useRewrite: 'auto',    // Query 理解选项
+      voted: false, fb: { up: 0, down: 0 },           // 反馈状态
+      listening: false, speechOk: !!(window.SpeechRecognition || window.webkitSpeechRecognition),
+      recog: null,                                    // 语音识别实例
+      health: {}, docs: [],                           // 健康状态与文档列表
+      file: null, engine: 'mineru', building: false, task: {},   // 上传与任务
+      chunkView: { doc_id: '', items: [], total: 0 }, chunkPage: 1, chunkKind: '',
+      cmpQuestion: '', cmpRag: null, cmpLlm: null, cmpLoading: false,   // 对比页
+      evalRunning: false, evalTask: {}, evalData: null,                 // 评估页
+      tabs: []                                        // 标签（随语言变化，见 computed 之外的处理）
+    };
+  },
+  computed: {
+    t() { return I18N[this.lang]; },                  // 当前语言文案
+    progressPct() {                                   // 建索引进度条百分比（按阶段估算）
+      const s = this.task.status;                     // 任务状态
+      if (s === 'done') return 100;                   // 完成
+      if (s === 'failed') return 100;                 // 失败也填满，用颜色区分由文案承担
+      if (s === 'indexing') return 70;                // 入库阶段
+      if (s === 'parsing') return 35;                 // 解析阶段
+      return 8;                                       // 排队
+    },
+    examples() { return EXAMPLES; }                   // 示例问题（中英通用，均针对该 PDF）
+  },
+  watch: {
+    lang() { this.buildTabs(); }                      // 切换语言时重建标签文案
+  },
+  methods: {
+    buildTabs() {                                     // 组装四个标签页
+      const zh = this.lang === 'zh';                  // 是否中文
+      this.tabs = [{ key:'chat', label: zh?'问答':'Chat' },
+                   { key:'kb',   label: zh?'知识库':'Knowledge Base' },
+                   { key:'compare', label: zh?'RAG对比':'RAG vs LLM' },
+                   { key:'eval', label: zh?'评估':'Evaluation' }];
+    },
+    async api(path, opt) {                            // 统一 fetch 封装（JSON）
+      const r = await fetch(path, opt);               // 发请求
+      if (!r.ok) throw new Error(await r.text());     // 非 2xx 抛错
+      return r.json();                                // 返回 JSON
+    },
+    async loadHealth() {                              // 拉取健康状态
+      try { this.health = await this.api('/api/health'); } catch (e) { this.health = { status:'down' }; }
+    },
+    async loadFeedback() {                            // 拉取反馈统计
+      try { this.fb = await this.api('/api/feedback/stats'); } catch (e) {}
+    },
+    async loadDocs() {                                // 拉取文档列表
+      try { this.docs = (await this.api('/api/kb/documents')).items || []; } catch (e) { this.docs = []; }
+    },
+    // ---------- 问答（SSE 流式） ----------
+    async ask() {
+      const q = this.question.trim();                 // 取问题
+      if (!q || this.loading) return;                 // 空或进行中直接返回
+      this.loading = true; this.answer = ''; this.contexts = [];   // 重置状态
+      this.latency = {}; this.cached = false; this.degraded = false;
+      this.voted = false; this.qu = {};               // 重置反馈与理解结果
+      try {
+        const resp = await fetch('/api/chat/stream', {   // 发起流式请求
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question: q, use_rerank: this.useRerank, use_rewrite: this.useRewrite })
+        });
+        if (!resp.ok) throw new Error(await resp.text());   // 错误处理
+        const reader = resp.body.getReader();         // 流读取器
+        const dec = new TextDecoder('utf-8');         // 解码器
+        let buf = '';                                 // 行缓冲
+        while (true) {                                // 循环读取
+          const { done, value } = await reader.read();   // 读一块
+          if (done) break;                            // 结束
+          buf += dec.decode(value, { stream: true }); // 累积
+          const parts = buf.split('\n\n');            // SSE 以空行分隔事件
+          buf = parts.pop();                          // 最后一段可能不完整，留到下次
+          for (const p of parts) {                    // 处理完整事件
+            const line = p.split('\n').find(x => x.startsWith('data: '));   // 取 data 行
+            if (!line) continue;                      // 跳过非数据行
+            const ev = JSON.parse(line.slice(6));     // 解析事件体
+            if (ev.type === 'meta') {                 // 元信息事件
+              this.contexts = ev.contexts || [];      // 引用片段
+              this.qu = ev.query_understanding || {}; // Query 理解
+              this.latency = { retrieve: ev.retrieve_seconds };   // 检索耗时
+            } else if (ev.type === 'delta') {         // 增量文本
+              this.answer += ev.text;                 // 追加到答案
+              if (ev.degraded) this.degraded = true;  // 降级标记
+            } else if (ev.type === 'done') {          // 结束事件
+              this.latency = ev.latency;              // 完整耗时
+              this.answer = ev.answer || this.answer; // 用权威文本覆盖
+            } else if (ev.type === 'error') {         // 错误事件
+              this.answer = '❌ ' + ev.message;        // 展示错误
+            }
+          }
+        }
+      } catch (e) {
+        this.answer = '❌ ' + e.message;              // 请求失败提示
+      } finally {
+        this.loading = false;                         // 结束加载态
+      }
+    },
+    async vote(v) {                                   // 提交点赞/点踩
+      try {
+        const r = await this.api('/api/feedback', {   // 调用反馈接口
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question: this.question, answer: this.answer, vote: v })
+        });
+        this.fb = { up: r.up, down: r.down }; this.voted = true;   // 更新统计
+      } catch (e) { this.voted = true; }              // 失败也标记已投，避免重复点击
+    },
+    // ---------- 语音输入 ----------
+    toggleVoice() {                                   // 开始/停止语音识别
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;   // 兼容前缀
+      if (!SR) { this.speechOk = false; return; }     // 不支持的浏览器直接隐藏按钮
+      if (this.listening) { this.recog.stop(); this.listening = false; return; }   // 停止
+      const r = new SR();                             // 新建识别器
+      r.lang = this.lang === 'zh' ? 'zh-CN' : 'en-US';      // 语言随界面切换
+      r.continuous = false; r.interimResults = false;        // 单次识别，出最终结果
+      r.onresult = (e) => { this.question = e.results[0][0].transcript; };   // 填入问题框
+      r.onend = () => { this.listening = false; };    // 结束时复位
+      r.onerror = () => { this.listening = false; };  // 出错时复位
+      r.start(); this.recog = r; this.listening = true;   // 启动
+    },
+    // ---------- 知识库 ----------
+    onFile(e) { this.file = e.target.files[0] || null; },   // 选中文件
+    async upload() {
+      if (!this.file) return;                         // 未选文件
+      const fd = new FormData();                      // 表单数据
+      fd.append('file', this.file);                   // 追加文件
+      fd.append('use_mineru', this.engine === 'mineru');   // 是否用 MinerU
+      this.building = true;                           // 进入构建态
+      try {
+        const r = await this.api('/api/kb/upload', { method: 'POST', body: fd });   // 上传
+        this.pollTask(r.task_id);                     // 轮询任务进度
+      } catch (e) { this.task = { status:'failed', message: e.message }; this.building = false; }
+    },
+    async pollTask(id) {                              // 轮询任务状态
+      while (true) {                                  // 循环直到结束
+        await new Promise(r => setTimeout(r, 1500));  // 每 1.5 秒查一次
+        try { this.task = await this.api('/api/kb/task/' + id); } catch (e) { break; }
+        if (this.task.status === 'done' || this.task.status === 'failed') {   // 终止条件
+          this.building = false; this.loadDocs(); break;   // 刷新文档列表
+        }
+      }
+    },
+    async viewChunks(d) {                             // 查看分块
+      this.chunkView = { doc_id: d.doc_id, name: d.doc_name, items: [], total: 0 };   // 初始化
+      this.chunkPage = 1; this.chunkKind = '';        // 重置分页与过滤
+      this.loadChunks(1);                             // 加载第一页
+    },
+    async loadChunks(page) {                          // 加载分块分页
+      this.chunkPage = page;                          // 记录页码
+      try {
+        const r = await this.api(`/api/kb/documents/${this.chunkView.doc_id}/chunks` +
+              `?page=${page}&size=20&kind=${this.chunkKind}`);   // 请求
+        this.chunkView = { ...this.chunkView, total: r.total, items: r.items };   // 更新
+      } catch (e) {}
+    },
+    async delDoc(d) {                                 // 删除文档
+      if (!confirm((this.lang==='zh'?'确认删除 ':'Delete ') + d.doc_name + ' ?')) return;   // 二次确认
+      try { await this.api('/api/kb/documents/' + d.doc_id, { method:'DELETE' }); this.loadDocs(); } catch (e) {}
+    },
+    // ---------- 对比 ----------
+    async compare() {
+      if (!this.cmpQuestion.trim()) return;           // 空问题
+      this.cmpLoading = true; this.cmpRag = null; this.cmpLlm = null;   // 重置
+      const body = JSON.stringify({ question: this.cmpQuestion });      // 请求体
+      const opt = { method:'POST', headers:{'Content-Type':'application/json'}, body };   // 选项
+      try {
+        const [rag, llm] = await Promise.all([        // 并行请求，缩短等待
+          this.api('/api/chat', opt).catch(e => ({ answer:'❌ '+e.message, contexts:[], latency:{total:0} })),
+          this.api('/api/chat/llm_only', opt).catch(e => ({ answer:'❌ '+e.message, latency:{total:0} }))
+        ]);
+        this.cmpRag = rag; this.cmpLlm = llm;         // 保存两侧结果
+      } finally { this.cmpLoading = false; }
+    },
+    // ---------- 评估 ----------
+    async runEval() {
+      this.evalRunning = true; this.evalTask = {};    // 进入评估态
+      try {
+        const r = await this.api('/api/eval/run', { method:'POST' });   // 触发评估
+        while (true) {                                // 轮询进度
+          await new Promise(x => setTimeout(x, 3000));    // 每 3 秒一次
+          this.evalTask = await this.api('/api/kb/task/' + r.task_id);  // 查询状态
+          if (['done','failed'].includes(this.evalTask.status)) break;  // 结束
+        }
+        const res = await this.api('/api/eval/result');   // 取结果
+        this.evalData = res.available ? res : null;   // 保存
+      } catch (e) { this.evalTask = { status:'failed', message: e.message }; }
+      finally { this.evalRunning = false; }
+    }
+  },
+  mounted() {                                         // 页面加载后初始化
+    this.buildTabs();                                 // 构建标签
+    this.loadHealth(); this.loadDocs(); this.loadFeedback();   // 拉取基础数据
+    this.api('/api/eval/result').then(r => { if (r.available) this.evalData = r; }).catch(() => {});   // 历史评估
+    setInterval(() => this.loadHealth(), 30000);      // 每 30 秒刷新健康状态
+  }
+}).mount('#app');                                     // 挂载到 #app
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+# 工单编号：人工智能NLP-RAG-混合检索任务
+# 说明：一键拉起 Milvus（standalone：etcd + minio + milvus）与 Redis。
+#      注意：本机 19530 / 6379 已被既有服务占用，实际部署时不要再跑本文件，
+#            直接复用已在运行的容器即可（详见 docs/05-deploy.md 的"本机现状"一节）。
+version: "3.8"
+
+services:
+  etcd:
+    image: quay.io/coreos/etcd:v3.5.5                     # Milvus 的元数据存储
+    environment:
+      - ETCD_AUTO_COMPACTION_MODE=revision
+      - ETCD_AUTO_COMPACTION_RETENTION=1000
+      - ETCD_QUOTA_BACKEND_BYTES=4294967296
+      - ETCD_SNAPSHOT_COUNT=50000
+    volumes:
+      - ./data/docker/etcd:/etcd                          # 数据持久化到项目目录
+    command: etcd -advertise-client-urls=http://127.0.0.1:2379 -listen-client-urls http://0.0.0.0:2379 --data-dir /etcd
+    healthcheck:
+      test: ["CMD", "etcdctl", "endpoint", "health"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  minio:
+    image: minio/minio:RELEASE.2023-03-20T20-16-18Z       # Milvus 的对象存储
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    ports:
+      - "9001:9001"
+      - "9000:9000"
+    volumes:
+      - ./data/docker/minio:/minio_data
+    command: minio server /minio_data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  milvus:
+    image: milvusdb/milvus:v2.4.9                         # 与 pymilvus 2.4.9 匹配的版本
+    command: ["milvus", "run", "standalone"]
+    environment:
+      ETCD_ENDPOINTS: etcd:2379
+      MINIO_ADDRESS: minio:9000
+    volumes:
+      - ./data/docker/milvus:/var/lib/milvus
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
+      interval: 30s
+      start_period: 90s
+      timeout: 20s
+      retries: 3
+    ports:
+      - "19530:19530"                                     # gRPC 端口，pymilvus 连这个
+      - "9091:9091"                                       # 健康检查端口
+    depends_on:
+      - etcd
+      - minio
+
+  redis:
+    image: redis:7-alpine                                 # 缓存与会话历史
+    command: redis-server --appendonly yes                # 开启 AOF，重启不丢反馈与历史
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/docker/redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
