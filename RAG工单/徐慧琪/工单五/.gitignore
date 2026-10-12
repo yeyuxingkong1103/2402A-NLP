@@ -1,0 +1,25 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# PDF 原文（体积大；项目根目录放置同名文件即可复现）
+*.pdf
+!docs/**/*.pdf
+
+# 大体积产物：可由 python build_index.py 重新生成
+data/parsed/
+data/parsed_mineru/
+data/chunks/
+data/qdrant/
+data/tables/
+data/eval/*.json
+logs/
+
+# 临时/草稿
+_scratch/
+_extract/
+.tmp_*
+
+# SDD 工作区
+.superpowers/

@@ -1,0 +1,175 @@
+{
+  "workorder": "人工智能NLP-RAG-Query理解优化",
+  "source_docs": ["招股说明书1.pdf", "招股说明书2.pdf"],
+  "notes": [
+    "Task9 三方对比评测（工单3 单轮基线 / 工单5 多轮 / 纯 LLM）的输入测试集，20 轮。",
+    "expected_resolved = 把指代/省略补全后应有的「独立完整问题」；基线（单轮）与纯 LLM 拿不到它，",
+    "因为这两路根本没有改写环节——评测里记为 n/a，而不是记 0（避免把「没这个能力」伪装成「做错了」）。",
+    "expected_entity = 改写结果里必须出现的公司全称（指代消解准确率按它判定，避免被改写措辞差异干扰）。",
+    "expected_answer_facts 全部取自 data/eval/ground_truth.json 的已验证关键事实（同一个标准答案口径）。",
+    "adversarial_no_candidate 轮无历史上下文，expected_resolved 用 <unresolved> 哨兵表示「期望系统不解析、反问公司名」，",
+    "绝不允许瞎猜成某家公司。"
+  ],
+  "dialogues": [
+    {
+      "dialogue_id": "d1_person_pronoun_zh",
+      "note": "中文单字「他」：t1 点名公司，t2 用代词追问",
+      "turns": [
+        {"turn": 1, "question": "武汉兴图新科电子股份有限公司注册资本是多少？",
+         "expected_resolved": "武汉兴图新科电子股份有限公司注册资本是多少？",
+         "expected_entity": "武汉兴图新科电子股份有限公司",
+         "coref_type": "none",
+         "expected_answer_facts": ["5,520"]},
+        {"turn": 2, "question": "他参与的哪个工程荣获了国家科技进步一等奖？",
+         "expected_resolved": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+         "expected_entity": "武汉兴图新科电子股份有限公司",
+         "coref_type": "person_pronoun",
+         "expected_answer_facts": ["情报、指挥、控制与通信网络一体化工程"]}
+      ]
+    },
+    {
+      "dialogue_id": "d2_person_pronoun_en",
+      "note": "英文代词 he：问句外壳英文、实体中文，考语言判定与改写",
+      "turns": [
+        {"turn": 1, "question": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+         "expected_resolved": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+         "expected_entity": "武汉兴图新科电子股份有限公司",
+         "coref_type": "none",
+         "expected_answer_facts": ["程家明"]},
+        {"turn": 2, "question": "Which project did he participate in that won the National Science and Technology Progress Award?",
+         "expected_resolved": "Which project did 武汉兴图新科电子股份有限公司 participate in that won the National Science and Technology Progress Award?",
+         "expected_entity": "武汉兴图新科电子股份有限公司",
+         "coref_type": "person_pronoun_en",
+         "expected_answer_facts": ["情报、指挥、控制与通信网络一体化工程"]}
+      ]
+    },
+    {
+      "dialogue_id": "d3_demonstrative_zh",
+      "note": "指示代词「这个公司」",
+      "turns": [
+        {"turn": 1, "question": "武汉力源信息技术股份有限公司法定代表人是谁？",
+         "expected_resolved": "武汉力源信息技术股份有限公司法定代表人是谁？",
+         "expected_entity": "武汉力源信息技术股份有限公司",
+         "coref_type": "none",
+         "expected_answer_facts": ["赵马克"]},
+        {"turn": 2, "question": "这个公司本次发行股数是多少，占发行后总股本的比例是多少？",
+         "expected_resolved": "武汉力源信息技术股份有限公司本次发行股数是多少，占发行后总股本的比例是多少？",
+         "expected_entity": "武汉力源信息技术股份有限公司",
+         "coref_type": "demonstrative",
+         "expected_answer_facts": ["1,670", "25.04%"]}
+      ]
+    },
+    {
+      "dialogue_id": "d4_demonstrative_gai",
+      "note": "书面指示词「该公司」",
+      "turns": [
+        {"turn": 1, "question": "武汉力源信息技术股份有限公司本次募集资金拟投资哪些项目？",
+         "expected_resolved": "武汉力源信息技术股份有限公司本次募集资金拟投资哪些项目？",
+         "expected_entity": "武汉力源信息技术股份有限公司",
+         "coref_type": "none",
+         "expected_answer_facts": ["仓储及物流中心", "研发中心", "电子商务平台", "扩充产品种类和数量", "营运资金"]},
+        {"turn": 2, "question": "该公司的控股股东是谁？",
+         "expected_resolved": "武汉力源信息技术股份有限公司的控股股东是谁？",
+         "expected_entity": "武汉力源信息技术股份有限公司",
+         "coref_type": "demonstrative_gai",
+         "expected_answer_facts": ["赵马克"]}
+      ]
+    },
+    {
+      "dialogue_id": "d5_demonstrative_en",
+      "note": "英文指示短语 this company",
+      "turns": [
+        {"turn": 1, "question": "与武汉力源信息技术股份有限公司不存在控制关系的关联方企业有哪些？",
+         "expected_resolved": "与武汉力源信息技术股份有限公司不存在控制关系的关联方企业有哪些？",
+         "expected_entity": "武汉力源信息技术股份有限公司",
+         "coref_type": "none",
+         "expected_answer_facts": ["融冰投资", "武汉博润", "上海博润", "听音投资", "联众聚源", "力源贸易", "普芯达"]},
+        {"turn": 2, "question": "Who is the legal representative of this company?",
+         "expected_resolved": "Who is the legal representative of 武汉力源信息技术股份有限公司?",
+         "expected_entity": "武汉力源信息技术股份有限公司",
+         "coref_type": "demonstrative_en",
+         "expected_answer_facts": ["赵马克"]}
+      ]
+    },
+    {
+      "dialogue_id": "d6_zero_zh",
+      "note": "零指代：本句无代词也无公司名，靠焦点继承补全",
+      "turns": [
+        {"turn": 1, "question": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+         "expected_resolved": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+         "expected_entity": "武汉兴图新科电子股份有限公司",
+         "coref_type": "none",
+         "expected_answer_facts": ["军队视频指挥", "重要供应商"]},
+        {"turn": 2, "question": "法定代表人是谁？",
+         "expected_resolved": "武汉兴图新科电子股份有限公司的法定代表人是谁？",
+         "expected_entity": "武汉兴图新科电子股份有限公司",
+         "coref_type": "zero",
+         "expected_answer_facts": ["程家明"]}
+      ]
+    },
+    {
+      "dialogue_id": "d7_ellipsis_topic_switch",
+      "note": "省略 + 话题切换：「那 X 呢？」沿用上一轮信息点、换公司",
+      "turns": [
+        {"turn": 1, "question": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+         "expected_resolved": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+         "expected_entity": "武汉兴图新科电子股份有限公司",
+         "coref_type": "none",
+         "expected_answer_facts": ["程家明"]},
+        {"turn": 2, "question": "那武汉力源信息技术股份有限公司呢？",
+         "expected_resolved": "武汉力源信息技术股份有限公司的法定代表人是谁？",
+         "expected_entity": "武汉力源信息技术股份有限公司",
+         "coref_type": "ellipsis_topic_switch",
+         "expected_answer_facts": ["赵马克"]}
+      ]
+    },
+    {
+      "dialogue_id": "d8_ellipsis_what_about_en",
+      "note": "英文省略句式 What about X?",
+      "turns": [
+        {"turn": 1, "question": "武汉力源信息技术股份有限公司法定代表人是谁？",
+         "expected_resolved": "武汉力源信息技术股份有限公司法定代表人是谁？",
+         "expected_entity": "武汉力源信息技术股份有限公司",
+         "coref_type": "none",
+         "expected_answer_facts": ["赵马克"]},
+        {"turn": 2, "question": "What about 武汉兴图新科电子股份有限公司?",
+         "expected_resolved": "What is the legal representative of 武汉兴图新科电子股份有限公司?",
+         "expected_entity": "武汉兴图新科电子股份有限公司",
+         "coref_type": "ellipsis_what_about_en",
+         "expected_answer_facts": ["程家明"]}
+      ]
+    },
+    {
+      "dialogue_id": "d9_topic_back_reference",
+      "note": "隔一轮指回前一家公司：t3 的指代要跨过未点名公司的 t2，指回 t1 点名的公司",
+      "turns": [
+        {"turn": 1, "question": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+         "expected_resolved": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+         "expected_entity": "武汉兴图新科电子股份有限公司",
+         "coref_type": "none",
+         "expected_answer_facts": ["视频指挥系统技术规范", "军事科学院"]},
+        {"turn": 2, "question": "他参与的哪个工程荣获了国家科技进步一等奖？",
+         "expected_resolved": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+         "expected_entity": "武汉兴图新科电子股份有限公司",
+         "coref_type": "person_pronoun",
+         "expected_answer_facts": ["情报、指挥、控制与通信网络一体化工程"]},
+        {"turn": 3, "question": "这个公司的注册资本是多少？",
+         "expected_resolved": "武汉兴图新科电子股份有限公司的注册资本是多少？",
+         "expected_entity": "武汉兴图新科电子股份有限公司",
+         "coref_type": "topic_back_reference",
+         "expected_answer_facts": ["5,520"]}
+      ]
+    },
+    {
+      "dialogue_id": "d10_adversarial_no_candidate",
+      "note": "对抗样本：全新会话第一轮就是代词，无任何候选公司——必须反问，不得瞎猜",
+      "turns": [
+        {"turn": 1, "question": "他参与的哪个工程荣获了国家科技进步一等奖？",
+         "expected_resolved": "<unresolved>",
+         "expected_entity": "",
+         "coref_type": "adversarial_no_candidate",
+         "expect_unresolved": true}
+      ]
+    }
+  ]
+}

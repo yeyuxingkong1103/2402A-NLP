@@ -1,0 +1,229 @@
+# -*- coding: utf-8 -*-
+"""
+工单编号：人工智能NLP-RAG-Query理解优化
+         （工单 PDF 原文：人工智能NLP-RAG-Query 理解优化任务）
+模块：全局配置（路径 / 模型 / 参数）
+
+本工单在工单 03（表格解析与检索优化）基础上新增**多轮对话**：
+  · 对话状态 + 指代消解 + 省略补全 + 话题切换（src/dialogue.py、src/coref.py）
+  · 组织结构图矢量解析（src/orgchart_parser.py），服务 5 轮验收序列的 Q5
+
+硬约束：只使用本机已下载模型，任何路径都不触发下载。本机无视觉大模型。
+"""
+from src import bootstrap  # noqa: F401  —— 必须最先导入（离线环境 + 栈修复）
+
+import os
+
+# ---------------------------------------------------------------------------
+# 路径
+# ---------------------------------------------------------------------------
+ROOT = bootstrap.project_root()
+DATA_DIR = os.path.join(ROOT, "data")
+PARSED_DIR = os.path.join(DATA_DIR, "parsed_mineru")  # MinerU 解析产物（主解析器）
+CHUNK_DIR = os.path.join(DATA_DIR, "chunks")         # 分块结果
+TABLE_DIR = os.path.join(DATA_DIR, "tables")         # 表格结构化中间产物（工单3新增）
+QDRANT_DIR = os.path.join(DATA_DIR, "qdrant")        # Qdrant 本地存储
+EVAL_DIR = os.path.join(DATA_DIR, "eval")            # 评估结果
+DOCS_DIR = os.path.join(ROOT, "docs")
+TESTS_DIR = os.path.join(ROOT, "tests")
+LOG_DIR = os.path.join(ROOT, "logs")
+
+# ---------------------------------------------------------------------------
+# 多文档（工单3 核心变化之一）
+# ---------------------------------------------------------------------------
+# 招股说明书1：武汉兴图新科电子股份有限公司（548 页，科创板）
+# 招股说明书2：武汉力源信息技术股份有限公司（350 页，创业板）
+SOURCE_PDFS = [
+    os.path.join(ROOT, "招股说明书1.pdf"),
+    os.path.join(ROOT, "招股说明书2.pdf"),
+]
+SOURCE_NAMES = [os.path.basename(p) for p in SOURCE_PDFS]
+
+# 兼容单文档接口（沿用 01/02 的调用点）
+SOURCE_PDF = SOURCE_PDFS[0]
+SOURCE_NAME = SOURCE_NAMES[0]
+
+for _d in (DATA_DIR, PARSED_DIR, CHUNK_DIR, TABLE_DIR, QDRANT_DIR, EVAL_DIR,
+           DOCS_DIR, TESTS_DIR, LOG_DIR):
+    os.makedirs(_d, exist_ok=True)
+
+# ---------------------------------------------------------------------------
+# 模型（全部本机路径，禁止下载）
+# ---------------------------------------------------------------------------
+# [Embedding] bge-m3：1024 维、中英双语、local_files_only
+EMBEDDING_MODEL_PATH = r"D:\model\bge-m3"
+EMBEDDING_DIM = 1024
+EMBEDDING_DEVICE = "cuda"            # 不可用时自动回退 cpu
+EMBEDDING_BATCH_SIZE = 32
+EMBEDDING_MAX_LEN = 1024
+
+# [Reranker] bge-reranker-v2-m3（XLMRobertaForSequenceClassification）
+RERANKER_MODEL_PATH = r"D:\model\reranker"
+RERANKER_ENABLED = True
+RERANKER_TOP_K_IN = 20
+RERANKER_TOP_K_OUT = 6
+RERANKER_MAX_LEN = 512
+RERANKER_BATCH_SIZE = 16
+RERANKER_TIE_EPSILON = 0.01
+
+# [LLM] Ollama qwen2.5:3b（生成）/ qwen2.5:0.5b（轻量改写、兜底）
+OLLAMA_HOST = os.environ.get("OLLAMA_HOST", "http://127.0.0.1:11434")
+OLLAMA_MODEL = "qwen2.5:3b"
+OLLAMA_FALLBACK_MODEL = "qwen2.5:0.5b"
+OLLAMA_TEMPERATURE = 0.0            # 事实型问答：贪心解码，最小化随机性/数字幻觉
+OLLAMA_NUM_CTX = 8192
+OLLAMA_NUM_PREDICT = 512
+OLLAMA_KEEP_ALIVE = "30m"            # 常驻显存，避免每题冷启动
+LLM_TIMEOUT_S = 120
+
+# [MinerU] 3.4.5 + 独立 venv（2026-10-03 实测打通，工单2 沿用）
+MINERU_ENABLED = True
+MINERU_PYTHON = r"D:\model\mineru-venv\Scripts\python.exe"
+MINERU_RUN_SCRIPT = os.path.join(ROOT, "scripts", "mineru_run.py")
+MINERU_BACKEND = "pipeline"
+MINERU_VLM_MODELS = r"C:\Users\35071\.cache\modelscope\models\OpenDataLab--MinerU2.5-Pro-2605-1.2B\snapshots\master"
+MINERU_PIPELINE_MODELS = r"C:\Users\35071\.cache\modelscope\models\OpenDataLab--PDF-Extract-Kit-1.0\snapshots\master"
+MINERU_TIMEOUT_S = 7200
+MINERU_COMPAT_SCRIPT = os.path.join(ROOT, "scripts", "mineru_compat.py")  # 2.x/vlm 备用
+
+# [OCR 兜底] PaddleOCR-VL 独立 venv，子进程调用（不污染主环境）
+PADDLEOCR_PYTHON = r"D:\model\Paddle-OCR\venv\Scripts\python.exe"
+PADDLEOCR_VL_PATH = r"D:\model\Paddle-OCR\official_models\PaddleOCR-VL"
+OCR_MIN_CHARS_PER_PAGE = 30          # 页面文本低于此值视为需 OCR
+OCR_TIMEOUT_S = 600
+OCR_MAX_PAGES = 40                   # 单次兜底最多处理页数
+
+# ---------------------------------------------------------------------------
+# Qdrant（本机无 Docker：local 模式；起服务后把 QDRANT_MODE 改为 server 即可）
+# ---------------------------------------------------------------------------
+QDRANT_MODE = "local"                # "local" | "server"
+QDRANT_LOCAL_PATH = QDRANT_DIR
+QDRANT_URL = "http://127.0.0.1:6333"
+COLLECTION_OPT = "zhaogu_v5_mt"      # 工单5 collection（多轮）；工单3 的 zhaogu_v3_table 保持只读
+VECTOR_DISTANCE = "COSINE"
+UPSERT_BATCH_SIZE = 128
+UPSERT_PARALLEL = 4
+
+# ---------------------------------------------------------------------------
+# 上游系统（对比评估用）—— 只读引用，不修改
+# ---------------------------------------------------------------------------
+GY1_ROOT = os.path.join(os.path.dirname(ROOT), "工单1")   # 01：单文档基线
+GY2_ROOT = os.path.join(os.path.dirname(ROOT), "工单2")   # 02：优化版（无表格结构化）
+
+BASELINE_ROOT = GY1_ROOT                                  # 兼容旧调用点
+BASELINE_QDRANT_DIR = os.path.join(GY1_ROOT, "data", "qdrant")
+BASELINE_COLLECTION = "zhaogu_shuoming_shu"
+BASELINE_CHUNKS = os.path.join(GY1_ROOT, "data", "chunks", "chunks.json")
+BASELINE_GT_FILE = os.path.join(GY1_ROOT, "data", "eval", "ground_truth.json")
+BASELINE_EVAL_RESULTS = os.path.join(GY1_ROOT, "data", "eval", "eval_results.json")
+
+# 工单2 系统（「无表格优化」对比基线）：仅招股1 有索引
+GY2_QDRANT_DIR = os.path.join(GY2_ROOT, "data", "qdrant")
+GY2_COLLECTION = "zhaogu_v2_opt"
+GY2_PYTHON = r"D:\Python\python.exe"
+
+# 工单3 系统（本工单的「优化前」基线）：只读引用，不修改
+GY3_ROOT = os.path.join(os.path.dirname(ROOT), "工单3")
+GY3_COLLECTION = "zhaogu_v3_table"
+GY3_QDRANT_DIR = os.path.join(GY3_ROOT, "data", "qdrant")
+
+# ---------------------------------------------------------------------------
+# 分块参数（父子块）
+# ---------------------------------------------------------------------------
+CHILD_MIN_CHARS = 300                # 子块目标下限
+CHILD_MAX_CHARS = 450                # 子块目标上限
+PARENT_MAX_CHARS = 1800              # 父块（LLM 上下文）上限
+TABLE_MAX_CHARS = 3000               # 表格整块保留上限（无结构化时的降级路径）
+SECTION_MIN_CHARS = 80               # 过短小节并入相邻
+
+# ---------------------------------------------------------------------------
+# 表格参数（工单3 核心）
+# ---------------------------------------------------------------------------
+TABLE_ENABLED = True                 # 表格结构化总开关（False 时退化为整表块）
+TABLE_ROW_MAX_CHARS = 600            # 单行描述上限（超长行截断，避免一条占满向量）
+TABLE_CTX_MAX_CHARS = 2600           # 表格上下文（整表）预算
+TABLE_MAX_ROWS_PER_TABLE = 400       # 单表最大行数（超长表的保护阈值）
+TABLE_MIN_CELLS = 3                  # 少于该单元格数视为低质量表
+TABLE_MIN_ALNUM_RATIO = 0.30         # 非空字符占比低于此值视为低质量表
+TABLE_OCR_FALLBACK = True            # 低质量表调用 PaddleOCR-VL 兜底
+TABLE_QUALITY_PASS = 0.55            # 质量分 ≥ 该值不触发兜底
+TABLE_HEADER_MAX_CHARS = 300         # 表头块文本上限
+
+# ---------------------------------------------------------------------------
+# 多文档路由（工单3）
+# ---------------------------------------------------------------------------
+# 问题中出现下列别名时，把检索限定到对应 source
+DOC_ALIASES = {
+    "招股说明书2.pdf": (
+        "武汉力源信息技术股份有限公司", "武汉力源", "力源信息", "力源",
+        "赵马克", "Mark Zhao",
+    ),
+    "招股说明书1.pdf": (
+        "武汉兴图新科电子股份有限公司", "武汉兴图新科", "兴图新科", "兴图",
+    ),
+}
+DOC_ROUTER_ENABLED = True
+DOC_ROUTER_FALLBACK_OPEN = True      # 过滤后候选不足时放开过滤重检
+
+# ---------------------------------------------------------------------------
+# 检索参数
+# ---------------------------------------------------------------------------
+VECTOR_TOP_K = 30
+BM25_TOP_K = 30
+RRF_K = 60
+HYBRID_ENABLED_DEFAULT = True        # 向量 + BM25 + RRF
+RERANK_INPUT_TOP_K = 20              # 融合后进入精排的候选数
+# 最终送 LLM 的片段数。
+# 工单2 曾用 4（当时是单文档、表格整块，噪声源少）。工单3 实测发现 4 不够：
+# 招股书里有大量"**只含问题措辞、不含答案**"的标题/小标题块（如"1、存在控制关系的
+# 关联方"），cross-encoder 会给它们 0.95+ 的高分，把真正的答案行（0.94）挤到第 5 位。
+# 提到 6 后答案行能进入上下文；CONTEXT_MAX_CHARS 仍会兜住总长度，不会明显拖慢生成。
+FINAL_TOP_K = 6
+CONTEXT_DEDUP_SAME_PAGE = True       # 同一页的多个片段只保留最佳者（表格块除外）
+CONTEXT_MAX_CHARS = 3600             # 送 LLM 上下文总长上限（配合 FINAL_TOP_K=6）
+
+# ---------------------------------------------------------------------------
+# 多轮对话（工单5 核心）
+# ---------------------------------------------------------------------------
+DIALOGUE_ENABLED = True
+DIALOGUE_HISTORY_WINDOW = 3          # 送 LLM 的最近轮数（滑动窗口）
+DIALOGUE_MAX_TURNS = 50              # 单会话硬上限
+DIALOGUE_SUMMARY_MAX_CHARS = 400     # 更早轮次的摘要上限
+DIALOGUE_MAX_SESSIONS = 64           # 会话表 LRU 上限
+
+REWRITE_ENABLED = True
+REWRITE_MODEL_JUDGE = "qwen2.5:0.5b"   # L2 实体判定（实测：受约束子任务可靠，0.05-0.25s）
+REWRITE_MODEL_GEN = "qwen2.5:3b"       # L3 生成（实测：省略补全只有 3b 能做，~0.49s）
+REWRITE_MAX_CHARS = 120                # 改写结果长度上限
+REWRITE_TIMEOUT_S = 8                  # 单次改写超时；超时走 L4 规则兜底
+REWRITE_NUM_PREDICT = 64               # 改写只输出一句话；默认 512 会白白拖长 L3
+REWRITE_CACHE_SIZE = 256
+REWRITE_NGRAM_REPEAT_THRESHOLD = 0.5   # 与指令模板的 4-gram 重合率超此值判为「复述指令」
+
+# ---------------------------------------------------------------------------
+# 组织结构图（工单5 Q5）
+# ---------------------------------------------------------------------------
+ORGCHART_ENABLED = True
+ORGCHART_SOURCE = "招股说明书2.pdf"
+ORGCHART_PAGE_IDX = 38               # 0 基索引；展示为第 39 页（PDF 阅读器页码）
+ORGCHART_ANCHOR = "发行人内部组织结构图"   # 用于定位的锚点文本（在 page_idx=37）
+ORGCHART_RENDER_DPI = 210
+ORGCHART_MERGE_GAP_PT = 5.0          # 文字合并的间距阈值
+ORGCHART_LINE_TOL_PT = 3.0           # 连线端点吸附到框边的容差
+ORGCHART_POINT_TOL_PT = 2.0          # 端点重合的容差
+
+# ---------------------------------------------------------------------------
+# 缓存
+# ---------------------------------------------------------------------------
+ANSWER_CACHE_SIZE = 128
+QUERY_ANALYSIS_CACHE_SIZE = 256
+
+# ---------------------------------------------------------------------------
+# 评估
+# ---------------------------------------------------------------------------
+EVAL_QUESTIONS_FILE = os.path.join(DATA_DIR, "test_questions.json")
+GT_FILE = os.path.join(EVAL_DIR, "ground_truth.json")
+RAGAS_METRICS = ["faithfulness", "answer_relevancy", "context_recall", "context_precision"]
+
+WORKORDER_ID = "人工智能NLP-RAG-Query理解优化"
+WORKORDER_ID_PDF = "人工智能NLP-RAG-Query 理解优化任务"
