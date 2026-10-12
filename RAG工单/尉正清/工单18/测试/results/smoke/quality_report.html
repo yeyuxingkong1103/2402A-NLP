@@ -1,0 +1,122 @@
+<html><head><meta charset='utf-8'><title>文档质量评估报告</title>
+<style>
+    body{font-family:"Microsoft YaHei",sans-serif;margin:24px;color:#222;line-height:1.6}
+    h1{font-size:20px;border-bottom:2px solid #333;padding-bottom:6px}
+    h2{font-size:16px;margin-top:28px;border-left:4px solid #0b5cad;padding-left:8px}
+    table{border-collapse:collapse;margin:8px 0;font-size:13px}
+    th,td{border:1px solid #ddd;padding:5px 9px;text-align:left;vertical-align:top}
+    th{background:#f4f6f8}
+    .k{font-weight:bold}
+    .warn{color:#b42318;font-weight:bold}
+    .ok{color:#1a7f37}
+    .ctx{color:#555;font-size:12px}
+    code{background:#f4f4f4;padding:1px 4px;border-radius:3px}
+    </style></head><body>
+<h1>文档质量评估报告</h1>
+<p>扫描根目录：<code>D:\BW\RAG 工单\14-17附件\original_problems\documents</code>　文件总数：<span class='k'>60</span>　总体积：40.5MB　解析用时：0.1s</p>
+<h2>1. 格式分布</h2><table><tr><th>扩展名</th><th>数量</th><th>占比</th></tr>
+<tr><td>.pdf</td><td>60</td><td>100.0%</td></tr>
+</table>
+<h2>2. PDF 文字型 / 扫描型分流</h2>
+<table><tr><th>类型</th><th>数量</th><th>占比</th><th>下游解析器</th></tr>
+<tr><td>扫描型</td><td>60</td><td>100.0%</td><td>OCR 解析器</td></tr>
+<tr><td>文字型</td><td>0</td><td>0.0%</td><td>直接抽文字</td></tr>
+<tr><td>混合型</td><td>0</td><td>0.0%</td><td>逐页判断</td></tr>
+<tr><td>打不开</td><td>0</td><td>0.0%</td><td>人工处理</td></tr>
+</table>
+<h2>3. 文档长度分布</h2>
+<table><tr><th>分位</th><th>P25</th><th>P50</th><th>P75</th><th>P90</th><th>P99</th></tr><tr><td>字符数</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr></table>
+<table><tr><th>区间（字符）</th><th>数量</th><th>占比</th></tr>
+<tr><td>0~500</td><td>60</td><td>100.0%</td></tr>
+<tr><td>500~2000</td><td>0</td><td>0.0%</td></tr>
+<tr><td>2000~10000</td><td>0</td><td>0.0%</td></tr>
+<tr><td>10000~50000</td><td>0</td><td>0.0%</td></tr>
+<tr><td>50000~200000</td><td>0</td><td>0.0%</td></tr>
+<tr><td>&gt;=200000</td><td>0</td><td>0.0%</td></tr>
+</table>
+<p class='ctx'>过短（&lt;50 字符）60 份，空文档 60 份，超长（&gt;500000 字符）0 份，解析失败 0 份。</p>
+<h2>4. 完全重复的文件（MD5 精确匹配）</h2>
+<p class='ctx'>同一 MD5 就是同一个文件，可直接去重，无需人工确认。</p>
+<p class='ok'>✓ 无</p>
+<h2>5. 待确认的 PDF 类型判定</h2>
+<p class='ctx'>启发式判定拿不准的（扫描页占比在中间地带，或只抽样了部分页），列出来人工定夺。</p>
+<p class='ok'>✓ 无</p>
+<h2>6. 待确认的版本冲突列表（SimHash 近似）</h2>
+<p class='warn'>60 份文档正文不足 200 字符或没有文字层，未参与 SimHash 比较（仅 0 份参与）；这批文档的版本冲突需先 OCR 出正文再比。</p>
+<p class='ok'>✓ 无</p>
+<h2>7. 待审核的敏感信息列表</h2>
+<p class='ctx'>每条都带前后文，方便判断是不是误报（专利号、申请号、统计表格里的长数字最容易误判）。</p>
+<p class='ok'>✓ 无</p>
+<h2>8. 文档分类标签与路由</h2><table><tr><th>标签</th><th>数量</th><th>下游解析器</th></tr>
+<tr><td>Scan_PDF</td><td>60</td><td>ocr</td></tr>
+</table>
+<p class='k'>主路由汇总（工作流决策节点读这个）：<code>ocr</code> 60 份</p>
+<p class='ctx'>上表「下游解析器」列是该标签单独对应的去向；一份文档可能带多个标签（如「文字型 + 超长」），所以各行相加不等于总数。<b>主路由</b>取每份文档第一条标签（规则按最确定→最兜底排序），一份文档只有一个主路由，工作流按它选解析器，其余标签当参数用。</p>
+<h2>9. 逐份文档标签与主路由</h2>
+<p class='ctx'>每份文档打得什么标签、主路由送去哪个解析器。</p>
+<table><tr><th>文件</th><th>标签（按规则优先级）</th><th>主路由（工作流据此选解析器）</th></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100342976C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100347506C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100364694C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100391686C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100398667C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100408139C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100408987C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100457304C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100469721C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100475718C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100484837C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100519503C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100531869C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100532294C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100532581C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100542713C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100577326C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100581923C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100582067C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN100587559C.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN1006163B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN1007281B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101014519A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101015855A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101024828B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101029671A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101032731A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101042144A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101069989B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101073748A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101096413B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101105190A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101112759B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101134389B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101148689A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101161570A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101172343A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101178500B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101181964A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101200113B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101206065B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101207523A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101216629B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101219352B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101220141B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101224511A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101235824B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101274145B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101275580B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101347682A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101396623A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101398011A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101423600A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101445293B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101456278A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101481974A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101508902A.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101554691B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101555243B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+<tr><td>D:\BW\RAG 工单\14-17附件\original_problems\documents\CN101570253B.pdf</td><td>Scan_PDF</td><td>ocr</td></tr>
+</table>
+<h2>10. 解析失败 / 打不开的文件</h2>
+<p class='ctx'>这些文件没进统计口径，需要人工处理或重下。</p>
+<p class='ok'>✓ 无</p>
+</body></html>

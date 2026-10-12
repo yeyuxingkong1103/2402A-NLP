@@ -1,0 +1,152 @@
+<html><head><meta charset='utf-8'><title>文档质量评估报告</title>
+<style>
+    body{font-family:"Microsoft YaHei",sans-serif;margin:24px;color:#222;line-height:1.6}
+    h1{font-size:20px;border-bottom:2px solid #333;padding-bottom:6px}
+    h2{font-size:16px;margin-top:28px;border-left:4px solid #0b5cad;padding-left:8px}
+    table{border-collapse:collapse;margin:8px 0;font-size:13px}
+    th,td{border:1px solid #ddd;padding:5px 9px;text-align:left;vertical-align:top}
+    th{background:#f4f6f8}
+    .k{font-weight:bold}
+    .warn{color:#b42318;font-weight:bold}
+    .ok{color:#1a7f37}
+    .ctx{color:#555;font-size:12px}
+    code{background:#f4f4f4;padding:1px 4px;border-radius:3px}
+    </style></head><body>
+<h1>文档质量评估报告</h1>
+<p>扫描根目录：<code>D:\BW\RAG 工单\附件</code>　文件总数：<span class='k'>22</span>　总体积：92.7MB　解析用时：13.5s</p>
+<h2>1. 格式分布</h2><table><tr><th>扩展名</th><th>数量</th><th>占比</th></tr>
+<tr><td>.pdf</td><td>13</td><td>59.1%</td></tr>
+<tr><td>.txt</td><td>9</td><td>40.9%</td></tr>
+</table>
+<h2>2. PDF 文字型 / 扫描型分流</h2>
+<table><tr><th>类型</th><th>数量</th><th>占比</th><th>下游解析器</th></tr>
+<tr><td>扫描型</td><td>0</td><td>0.0%</td><td>OCR 解析器</td></tr>
+<tr><td>文字型</td><td>13</td><td>100.0%</td><td>直接抽文字</td></tr>
+<tr><td>混合型</td><td>0</td><td>0.0%</td><td>逐页判断</td></tr>
+<tr><td>打不开</td><td>0</td><td>0.0%</td><td>人工处理</td></tr>
+</table>
+<h2>3. 文档长度分布</h2>
+<table><tr><th>分位</th><th>P25</th><th>P50</th><th>P75</th><th>P90</th><th>P99</th></tr><tr><td>字符数</td><td>322,571</td><td>451,145</td><td>748,369</td><td>818,181</td><td>1,020,391</td></tr></table>
+<table><tr><th>区间（字符）</th><th>数量</th><th>占比</th></tr>
+<tr><td>0~500</td><td>0</td><td>0.0%</td></tr>
+<tr><td>500~2000</td><td>1</td><td>4.5%</td></tr>
+<tr><td>2000~10000</td><td>0</td><td>0.0%</td></tr>
+<tr><td>10000~50000</td><td>0</td><td>0.0%</td></tr>
+<tr><td>50000~200000</td><td>0</td><td>0.0%</td></tr>
+<tr><td>&gt;=200000</td><td>21</td><td>95.5%</td></tr>
+</table>
+<p class='ctx'>过短（&lt;50 字符）0 份，空文档 0 份，超长（&gt;500000 字符）10 份，解析失败 0 份。</p>
+<h2>4. 完全重复的文件（MD5 精确匹配）</h2>
+<p class='ctx'>同一 MD5 就是同一个文件，可直接去重，无需人工确认。</p>
+<p class='ok'>✓ 无</p>
+<h2>5. 待确认的 PDF 类型判定</h2>
+<p class='ctx'>启发式判定拿不准的（扫描页占比在中间地带，或只抽样了部分页），列出来人工定夺。</p>
+<p class='ok'>✓ 无</p>
+<h2>6. 待确认的版本冲突列表（SimHash 近似）</h2>
+<p class='ctx'>SimHash 是近似匹配，**每条都需要人工确认**是不是同一份文档的不同版本。</p>
+<table><tr><th>文件 A</th><th>文件 B</th><th>相似度</th><th>汉明距离</th></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-03-21__�������йɷ����޹�˾__600036__��������__2019��__��ȱ���.txt</td><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.txt</td><td>94%</td><td>4</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-03-21__�������йɷ����޹�˾__600036__��������__2019��__��ȱ���.txt</td><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.txt</td><td>92%</td><td>5</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.txt</td><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.txt</td><td>91%</td><td>6</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.txt</td><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-03-21__�������йɷ����޹�˾__600036__��������__2019��__��ȱ���.txt</td><td>89%</td><td>7</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-03-21__�������йɷ����޹�˾__600036__��������__2019��__��ȱ���.txt</td><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.txt</td><td>89%</td><td>7</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.txt</td><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.txt</td><td>89%</td><td>7</td></tr>
+</table>
+<h2>7. 待审核的敏感信息列表</h2>
+<p class='warn'>每条都带前后文，方便判断是不是误报（专利号、申请号、统计表格里的长数字最容易误判）。</p>
+<table><tr><th>文件</th><th>类型</th><th>命中内容</th><th>上下文</th></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2020-02-14__ƽ�����йɷ����޹�˾__000001__ƽ������__2019��__��ȱ���.pdf</td><td>邮箱</td><td>PAB_db@pingan.com.cn</td><td class='ctx'>33 公司网址 http://bank.pingan.com 电子信箱 PAB_db@pingan.com.cn 服务热线 95511 转3 1.1.2 联系人和联系方式 董事会秘</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2020-02-14__ƽ�����йɷ����޹�˾__000001__ƽ������__2019��__��ȱ���.pdf</td><td>邮箱</td><td>PAB_db@pingan.com.cn</td><td class='ctx'>真 （0755）82080386 （0755）82080386 电子信箱 PAB_db@pingan.com.cn PAB_db@pingan.com.cn 9</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2020-02-14__ƽ�����йɷ����޹�˾__000001__ƽ������__2019��__��ȱ���.pdf</td><td>邮箱</td><td>PAB_db@pingan.com.cn</td><td class='ctx'>55）82080386 电子信箱 PAB_db@pingan.com.cn PAB_db@pingan.com.cn 9 1.1.3 信息披露及备置地点 公司选定的</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.pdf</td><td>邮箱</td><td>IR@pingan.com.cn</td><td class='ctx'>所载信息，股东可就其权利致函本公司投资者关系团队 或电邮至“投资者关系” 邮箱(IR@pingan.com.cn)发出查询或提出请求。股东提出查询有关信息的，应根据《公司章程》第五 十九条规定</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.pdf</td><td>邮箱</td><td>IR@pingan.com.cn</td><td class='ctx'>行进一步的查询，亦可直接致函本公司投资者关系团队或电邮至“投资者关系” 邮 箱(IR@pingan.com.cn)。本公司会以合适的形式处理有关查询请求。 公司通过路演、视频及电话会议、企业开</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.pdf</td><td>邮箱</td><td>IR@pingan.com.cn</td><td class='ctx'>400 8866 338 传真 +86 755 8243 1029 电子信箱 IR@pingan.com.cn PR@pingan.com.cn 注册地址 深圳市福田区益田路5033号平安金</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.pdf</td><td>邮箱</td><td>PR@pingan.com.cn</td><td class='ctx'>+86 755 8243 1029 电子信箱 IR@pingan.com.cn PR@pingan.com.cn 注册地址 深圳市福田区益田路5033号平安金融中心 47、48、109、11</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2020-03-21__�������йɷ����޹�˾__600036__��������__2019��__��ȱ���.pdf</td><td>邮箱</td><td>cmb@cmbchina.com</td><td class='ctx'>5 8319 8888 传真：+86 755 8319 5109 电子信箱：cmb@cmbchina.com 互联网网址：www.cmbchina.com 客户服务投诉电话：95555</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.pdf</td><td>邮箱</td><td>ir@psbc.com</td><td class='ctx'>-10-68858158 传真： 86-10-68858165 E-mail： ir@psbc.com 中国注册和办公地址： 北京市西城区金融大街3 号 香港主要营业地址： 香港湾仔</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.pdf</td><td>邮箱</td><td>ir@psbc.com</td><td class='ctx'>-10-68858158 传真： 86-10-68858165 E-mail： ir@psbc.com 网址： www.psbc.com 客服及投诉电话： 86-95580 信息披露</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.pdf</td><td>邮箱</td><td>ir@psbc.com</td><td class='ctx'>话：86-10-68858158 传真：86-10-68858165 电邮地址：ir@psbc.com 10.15 社会责任 报告期内，本行坚持服务“三农”、城乡居民和中小企业的市场</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.pdf</td><td>邮箱</td><td>ir@psbc.com</td><td class='ctx'>(86)10 6885 8158 传真：(86)10 6885 8165 电邮：ir@psbc.com 其他资料 可致函本行H 股股份登记处香港中央证券登记有限公司（地址：香港湾仔皇</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2021-03-19__����֤ȯ�ɷ����޹�˾__600030__����֤ȯ__2020��__��ȱ���.pdf</td><td>邮箱</td><td>ir@citics.com</td><td class='ctx'>-755-2383 5525、0086-10-6083 6031 电子信箱 ir@citics.com 三、 基本情况简介 公司注册地址 广东省深圳市福田区中心三路8号卓越时代</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2021-03-19__����֤ȯ�ɷ����޹�˾__600030__����֤ȯ__2020��__��ȱ���.pdf</td><td>邮箱</td><td>ir@citics.com</td><td class='ctx'>26层 公司网址 http://www.citics.com 电子信箱 ir@citics.com 联系电话 0086-755-2383 5888、0086-10-6083</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.pdf</td><td>邮箱</td><td>ir@e-chinalife.com</td><td class='ctx'>-66575722 公司网址 www.e-chinalife.com 电子信箱 ir@e-chinalife.com 香港办事处联系地址 香港九龙红磡红鸾道18号One Harbour Gate中</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.pdf</td><td>邮箱</td><td>ir@e-chinalife.com</td><td class='ctx'>1 传真 86-10-66575112 86-10-66575112 电子信箱 ir@e-chinalife.com liyh@e-chinalife.com * 证券事务代表李英慧女士亦为与公司</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.pdf</td><td>邮箱</td><td>liyh@e-chinalife.com</td><td class='ctx'>86-10-66575112 电子信箱 ir@e-chinalife.com liyh@e-chinalife.com * 证券事务代表李英慧女士亦为与公司外聘公司 秘书之主要联络人 信息披露及报告</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.pdf</td><td>邮箱</td><td>ir@e-chinalife.com</td><td class='ctx'>333 公司网址 ： www.e-chinalife.com 电子信箱 ： ir@e-chinalife.com</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.pdf</td><td>邮箱</td><td>ir@cpic.com.cn</td><td class='ctx'>86-21-58767282 传真：+86-21-68870791 Email：ir@cpic.com.cn 邮寄地址：中国上海市黄浦区中山南路1 号 1 2021 年度报告 2021</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.pdf</td><td>邮箱</td><td>ir@cpic.com.cn</td><td class='ctx'>系部 电话：021-58767282 传真：021-68870791 电子信箱：ir@cpic.com.cn 联系地址：中国上海市黄浦区中山南路1 号 注册地址：中国上海市黄浦区中山南路1</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.pdf</td><td>邮箱</td><td>ir@cpic.com.cn</td><td class='ctx'>010 国际互联网网址：http://www.cpic.com.cn 电子信箱：ir@cpic.com.cn 信息披露报纸（A 股）： 《中国证券报》《上海证券报》《证券时报》 登载A 股</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.pdf</td><td>邮箱</td><td>IR@cmschina.com.cn</td><td class='ctx'>传真 0755－82944669 0755－82944669 电子信箱 IR@cmschina.com.cn luoli@cmschina.com.cn 联席公司秘书 姓名</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.pdf</td><td>邮箱</td><td>luoli@cmschina.com.cn</td><td class='ctx'>755－82944669 电子信箱 IR@cmschina.com.cn luoli@cmschina.com.cn 联席公司秘书 姓名 吴慧峰 邝燕萍 联系地址 深圳市福田区福</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.pdf</td><td>邮箱</td><td>IR@cmschina.com.cn</td><td class='ctx'>楼 公司网址 http://www.cmschina.com 电子信箱 IR@cmschina.com.cn 四、 信息披露及备置地点 公司披露年度报告的媒体名称及网址 中国证券</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2022-03-31__��̩����֤ȯ�ɷ����޹�˾__601211__��̩����__2021��__��ȱ���.pdf</td><td>邮箱</td><td>dshbgs@gtjas.com</td><td class='ctx'>传真 021-38670798 021-38670798 电子信箱 dshbgs@gtjas.com dshbgs@gtjas.com</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2022-03-31__��̩����֤ȯ�ɷ����޹�˾__601211__��̩����__2021��__��ȱ���.pdf</td><td>邮箱</td><td>dshbgs@gtjas.com</td><td class='ctx'>021-38670798 电子信箱 dshbgs@gtjas.com dshbgs@gtjas.com</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2022-03-31__��̩����֤ȯ�ɷ����޹�˾__601211__��̩����__2021��__��ȱ���.pdf</td><td>邮箱</td><td>dshbgs@gtjas.com</td><td class='ctx'>0041 公司网址 http://www.gtja.com/ 电子信箱 dshbgs@gtjas.com 四、 信息披露及备置地点 公司披露年度报告的媒体名称及网址 中国证券</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-02-14__ƽ�����йɷ����޹�˾__000001__ƽ������__2019��__��ȱ���.txt</td><td>邮箱</td><td>PAB_db@pingan.com.cn</td><td class='ctx'>, &quot;type&quot;: &quot;excel&quot;, &quot;inside&quot;: &quot;[&#x27;电子信箱&#x27;, &#x27;PAB_db@pingan.com.cn&#x27;, &#x27;&#x27;, &#x27;&#x27;]&quot;} {&quot;page&quot;: 9, &quot;allrow&quot;: 121,</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-02-14__ƽ�����йɷ����޹�˾__000001__ƽ������__2019��__��ȱ���.txt</td><td>邮箱</td><td>PAB_db@pingan.com.cn</td><td class='ctx'>, &quot;type&quot;: &quot;excel&quot;, &quot;inside&quot;: &quot;[&#x27;电子信箱&#x27;, &#x27;PAB_db@pingan.com.cn&#x27;, &#x27;PAB_db@pingan.com.cn&#x27;]&quot;} {&quot;page&quot;: 9,</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-02-14__ƽ�����йɷ����޹�˾__000001__ƽ������__2019��__��ȱ���.txt</td><td>邮箱</td><td>PAB_db@pingan.com.cn</td><td class='ctx'>de&quot;: &quot;[&#x27;电子信箱&#x27;, &#x27;PAB_db@pingan.com.cn&#x27;, &#x27;PAB_db@pingan.com.cn&#x27;]&quot;} {&quot;page&quot;: 9, &quot;allrow&quot;: 130, &quot;type&quot;:</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.txt</td><td>邮箱</td><td>IR@pingan.com.cn</td><td class='ctx'>）项所载信息，股东可就其权利致函本公司投资者关系团队或电邮至“投资者关系”邮箱(IR@pingan.com.cn)发出查询或提出请求。股东提出查询有关信息的，应根据《公司章程》第五十九条规定提</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.txt</td><td>邮箱</td><td>IR@pingan.com.cn</td><td class='ctx'>需进行进一步的查询，亦可直接致函本公司投资者关系团队或电邮至“投资者关系”邮箱(IR@pingan.com.cn)。本公司会以合适的形式处理有关查询请求。&quot;} {&quot;page&quot;: 93, &quot;al</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.txt</td><td>邮箱</td><td>IR@pingan.com.cn</td><td class='ctx'>lrow&quot;: 8352, &quot;type&quot;: &quot;text&quot;, &quot;inside&quot;: &quot;IR@pingan.com.cn&quot;} {&quot;page&quot;: 339, &quot;allrow&quot;: 8353, &quot;type&quot;:</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.txt</td><td>邮箱</td><td>PR@pingan.com.cn</td><td class='ctx'>lrow&quot;: 8354, &quot;type&quot;: &quot;text&quot;, &quot;inside&quot;: &quot;PR@pingan.com.cn&quot;} {&quot;page&quot;: 339, &quot;allrow&quot;: 8355, &quot;type&quot;:</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-03-21__�������йɷ����޹�˾__600036__��������__2019��__��ȱ���.txt</td><td>邮箱</td><td>cmb@cmbchina.com</td><td class='ctx'>&quot;: 130, &quot;type&quot;: &quot;text&quot;, &quot;inside&quot;: &quot;电子信箱：cmb@cmbchina.com&quot;} {&quot;page&quot;: 9, &quot;allrow&quot;: 131, &quot;type&quot;: &quot;t</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.txt</td><td>邮箱</td><td>ir@psbc.com</td><td class='ctx'>86-10-68858158传真： 86-10-68858165E-mail： ir@psbc.com&#x27;]&quot;} {&quot;page&quot;: 8, &quot;allrow&quot;: 169, &quot;type&quot;:</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.txt</td><td>邮箱</td><td>ir@psbc.com</td><td class='ctx'>86-10-68858158传真： 86-10-68858165E-mail： ir@psbc.com网址： www.psbc.com&#x27;]&quot;} {&quot;page&quot;: 8, &quot;allrow</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.txt</td><td>邮箱</td><td>ir@psbc.com</td><td class='ctx'>: 2570, &quot;type&quot;: &quot;text&quot;, &quot;inside&quot;: &quot;电邮地址：ir@psbc.com&quot;} {&quot;page&quot;: 149, &quot;allrow&quot;: 2571, &quot;type&quot;:</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.txt</td><td>邮箱</td><td>ir@psbc.com</td><td class='ctx'>w&quot;: 3539, &quot;type&quot;: &quot;text&quot;, &quot;inside&quot;: &quot;电邮：ir@psbc.com&quot;} {&quot;page&quot;: 207, &quot;allrow&quot;: 3540, &quot;type&quot;:</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2021-03-19__����֤ȯ�ɷ����޹�˾__600030__����֤ȯ__2020��__��ȱ���.txt</td><td>邮箱</td><td>ir@citics.com</td><td class='ctx'>, &quot;type&quot;: &quot;excel&quot;, &quot;inside&quot;: &quot;[&#x27;电子信箱&#x27;, &#x27;ir@citics.com&#x27;]&quot;} {&quot;page&quot;: 6, &quot;allrow&quot;: 161, &quot;type&quot;:</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2021-03-19__����֤ȯ�ɷ����޹�˾__600030__����֤ȯ__2020��__��ȱ���.txt</td><td>邮箱</td><td>ir@citics.com</td><td class='ctx'>, &quot;type&quot;: &quot;excel&quot;, &quot;inside&quot;: &quot;[&#x27;电子信箱&#x27;, &#x27;ir@citics.com&#x27;]&quot;} {&quot;page&quot;: 6, &quot;allrow&quot;: 170, &quot;type&quot;:</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.txt</td><td>邮箱</td><td>ir@e-chinalife.com</td><td class='ctx'>lrow&quot;: 3329, &quot;type&quot;: &quot;text&quot;, &quot;inside&quot;: &quot;ir@e-chinalife.com&quot;} {&quot;page&quot;: 89, &quot;allrow&quot;: 3330, &quot;type&quot;:</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.txt</td><td>邮箱</td><td>ir@e-chinalife.com</td><td class='ctx'>, &quot;type&quot;: &quot;excel&quot;, &quot;inside&quot;: &quot;[&#x27;电子信箱&#x27;, &#x27;ir@e-chinalife.com&#x27;, &#x27;liyh@e-chinalife.com&#x27;]&quot;} {&quot;page&quot;: 90</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.txt</td><td>邮箱</td><td>liyh@e-chinalife.com</td><td class='ctx'>side&quot;: &quot;[&#x27;电子信箱&#x27;, &#x27;ir@e-chinalife.com&#x27;, &#x27;liyh@e-chinalife.com&#x27;]&quot;} {&quot;page&quot;: 90, &quot;allrow&quot;: 3349, &quot;type&quot;</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.txt</td><td>邮箱</td><td>ir@e-chinalife.com</td><td class='ctx'>lrow&quot;: 8599, &quot;type&quot;: &quot;text&quot;, &quot;inside&quot;: &quot;ir@e-chinalife.com&quot;} {&quot;page&quot;: 235, &quot;allrow&quot;: 8600, &quot;type&quot;:</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.txt</td><td>邮箱</td><td>ir@cpic.com.cn</td><td class='ctx'>: 275, &quot;type&quot;: &quot;text&quot;, &quot;inside&quot;: &quot;Email：ir@cpic.com.cn&quot;} {&quot;page&quot;: 17, &quot;allrow&quot;: 276, &quot;type&quot;: &quot;</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.txt</td><td>邮箱</td><td>ir@cpic.com.cn</td><td class='ctx'>&quot;: 348, &quot;type&quot;: &quot;text&quot;, &quot;inside&quot;: &quot;电子信箱：ir@cpic.com.cn&quot;} {&quot;page&quot;: 23, &quot;allrow&quot;: 349, &quot;type&quot;: &quot;</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.txt</td><td>邮箱</td><td>ir@cpic.com.cn</td><td class='ctx'>&quot;: 364, &quot;type&quot;: &quot;text&quot;, &quot;inside&quot;: &quot;电子信箱：ir@cpic.com.cn&quot;} {&quot;page&quot;: 23, &quot;allrow&quot;: 365, &quot;type&quot;: &quot;</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.txt</td><td>邮箱</td><td>IR@cmschina.com.cn</td><td class='ctx'>, &quot;type&quot;: &quot;excel&quot;, &quot;inside&quot;: &quot;[&#x27;电子信箱&#x27;, &#x27;IR@cmschina.com.cn&#x27;, &#x27;luoli@cmschina.com.cn&#x27;]&quot;} {&quot;page&quot;: 1</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.txt</td><td>邮箱</td><td>luoli@cmschina.com.cn</td><td class='ctx'>side&quot;: &quot;[&#x27;电子信箱&#x27;, &#x27;IR@cmschina.com.cn&#x27;, &#x27;luoli@cmschina.com.cn&#x27;]&quot;} {&quot;page&quot;: 10, &quot;allrow&quot;: 270, &quot;type&quot;:</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.txt</td><td>邮箱</td><td>IR@cmschina.com.cn</td><td class='ctx'>, &quot;type&quot;: &quot;excel&quot;, &quot;inside&quot;: &quot;[&#x27;电子信箱&#x27;, &#x27;IR@cmschina.com.cn&#x27;]&quot;} {&quot;page&quot;: 10, &quot;allrow&quot;: 282, &quot;type&quot;:</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2022-03-31__��̩����֤ȯ�ɷ����޹�˾__601211__��̩����__2021��__��ȱ���.txt</td><td>邮箱</td><td>dshbgs@gtjas.com</td><td class='ctx'>, &quot;type&quot;: &quot;excel&quot;, &quot;inside&quot;: &quot;[&#x27;电子信箱&#x27;, &#x27;dshbgs@gtjas.com&#x27;, &#x27;dshbgs@gtjas.com&#x27;]&quot;} {&quot;page&quot;: 13, &quot;a</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2022-03-31__��̩����֤ȯ�ɷ����޹�˾__601211__��̩����__2021��__��ȱ���.txt</td><td>邮箱</td><td>dshbgs@gtjas.com</td><td class='ctx'>inside&quot;: &quot;[&#x27;电子信箱&#x27;, &#x27;dshbgs@gtjas.com&#x27;, &#x27;dshbgs@gtjas.com&#x27;]&quot;} {&quot;page&quot;: 13, &quot;allrow&quot;: 208, &quot;type&quot;:</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2022-03-31__��̩����֤ȯ�ɷ����޹�˾__601211__��̩����__2021��__��ȱ���.txt</td><td>邮箱</td><td>dshbgs@gtjas.com</td><td class='ctx'>, &quot;type&quot;: &quot;excel&quot;, &quot;inside&quot;: &quot;[&#x27;电子信箱&#x27;, &#x27;dshbgs@gtjas.com&#x27;]&quot;} {&quot;page&quot;: 14, &quot;allrow&quot;: 219, &quot;type&quot;:</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\招股说明书1-无水印.pdf</td><td>邮箱</td><td>xingtu@xingtu.com</td><td class='ctx'>27-81979095 互联网网址：www.xingtu.com 电子邮箱：xingtu@xingtu.com 负责信息披露和投资者关系的部门：证券部 负责人：姚小华 二、发行人改制重</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\招股说明书1.pdf</td><td>邮箱</td><td>xingtu@xingtu.com</td><td class='ctx'>27-81979095 互联网网址：www.xingtu.com 电子邮箱：xingtu@xingtu.com 负责信息披露和投资者关系的部门：证券部 负责人：姚小华 二、发行人改制重</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\招股说明书2.pdf</td><td>邮箱</td><td>zqb@icbase.com</td><td class='ctx'>门：证券部 负责人：王晓东 联系电话：027-87526790 电子信箱：zqb@icbase.com 13、经营范围：电子产品、电子元器件、信息技术及相关成套产品方案的开 发、研</td></tr>
+</table>
+<h2>8. 文档分类标签与路由</h2><table><tr><th>标签</th><th>数量</th><th>下游解析器</th></tr>
+<tr><td>Long_Document</td><td>21</td><td>chunk_aggressive</td></tr>
+<tr><td>Text_PDF</td><td>13</td><td>text</td></tr>
+<tr><td>Plain_Text</td><td>9</td><td>text</td></tr>
+</table>
+<p class='k'>主路由汇总（工作流决策节点读这个）：<code>text</code> 13 份；<code>chunk_aggressive</code> 9 份</p>
+<p class='ctx'>上表「下游解析器」列是该标签单独对应的去向；一份文档可能带多个标签（如「文字型 + 超长」），所以各行相加不等于总数。<b>主路由</b>取每份文档第一条标签（规则按最确定→最兜底排序），一份文档只有一个主路由，工作流按它选解析器，其余标签当参数用。</p>
+<h2>9. 逐份文档标签与主路由</h2>
+<p class='ctx'>每份文档打得什么标签、主路由送去哪个解析器。</p>
+<table><tr><th>文件</th><th>标签（按规则优先级）</th><th>主路由（工作流据此选解析器）</th></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2020-02-14__ƽ�����йɷ����޹�˾__000001__ƽ������__2019��__��ȱ���.pdf</td><td>Text_PDF、Long_Document</td><td>text</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.pdf</td><td>Text_PDF、Long_Document</td><td>text</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2020-03-21__�������йɷ����޹�˾__600036__��������__2019��__��ȱ���.pdf</td><td>Text_PDF、Long_Document</td><td>text</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.pdf</td><td>Text_PDF、Long_Document</td><td>text</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2021-03-19__����֤ȯ�ɷ����޹�˾__600030__����֤ȯ__2020��__��ȱ���.pdf</td><td>Text_PDF、Long_Document</td><td>text</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.pdf</td><td>Text_PDF、Long_Document</td><td>text</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.pdf</td><td>Text_PDF、Long_Document</td><td>text</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.pdf</td><td>Text_PDF、Long_Document</td><td>text</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\pdf\2022-03-31__��̩����֤ȯ�ɷ����޹�˾__601211__��̩����__2021��__��ȱ���.pdf</td><td>Text_PDF、Long_Document</td><td>text</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-02-14__ƽ�����йɷ����޹�˾__000001__ƽ������__2019��__��ȱ���.txt</td><td>Long_Document、Plain_Text</td><td>chunk_aggressive</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.txt</td><td>Long_Document、Plain_Text</td><td>chunk_aggressive</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-03-21__�������йɷ����޹�˾__600036__��������__2019��__��ȱ���.txt</td><td>Long_Document、Plain_Text</td><td>chunk_aggressive</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.txt</td><td>Long_Document、Plain_Text</td><td>chunk_aggressive</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2021-03-19__����֤ȯ�ɷ����޹�˾__600030__����֤ȯ__2020��__��ȱ���.txt</td><td>Long_Document、Plain_Text</td><td>chunk_aggressive</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.txt</td><td>Long_Document、Plain_Text</td><td>chunk_aggressive</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.txt</td><td>Long_Document、Plain_Text</td><td>chunk_aggressive</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.txt</td><td>Long_Document、Plain_Text</td><td>chunk_aggressive</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\ccf_competition\txt\2022-03-31__��̩����֤ȯ�ɷ����޹�˾__601211__��̩����__2021��__��ȱ���.txt</td><td>Long_Document、Plain_Text</td><td>chunk_aggressive</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\sample_questions.pdf</td><td>Text_PDF</td><td>text</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\招股说明书1-无水印.pdf</td><td>Text_PDF、Long_Document</td><td>text</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\招股说明书1.pdf</td><td>Text_PDF、Long_Document</td><td>text</td></tr>
+<tr><td>D:\BW\RAG 工单\附件\招股说明书2.pdf</td><td>Text_PDF、Long_Document</td><td>text</td></tr>
+</table>
+<h2>10. 解析失败 / 打不开的文件</h2>
+<p class='ctx'>这些文件没进统计口径，需要人工处理或重下。</p>
+<p class='ok'>✓ 无</p>
+</body></html>

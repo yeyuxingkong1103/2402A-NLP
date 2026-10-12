@@ -1,0 +1,279 @@
+{
+  "title": "document_ingestion_workflow",
+  "description": "文档入库质检工作流：接收质检 Skill 判出的主路由，把文档分流到对应的解析流程（扫描型→OCR、文字型→直接抽文字、混合型→逐页判断、其余→人工复核）。",
+  "canvas_type": "Agent",
+  "avatar": "",
+  "dsl": {
+    "components": {
+      "begin": {
+        "obj": {
+          "component_name": "Begin",
+          "params": {
+            "enablePrologue": false,
+            "mode": "Webhook",
+            "prologue": "",
+            "inputs": {
+              "route": {
+                "name": "route",
+                "type": "string",
+                "optional": false
+              },
+              "path": {
+                "name": "path",
+                "type": "string",
+                "optional": true
+              },
+              "tags": {
+                "name": "tags",
+                "type": "string",
+                "optional": true
+              }
+            }
+          }
+        },
+        "downstream": ["Switch:RouteByQuality"],
+        "upstream": []
+      },
+      "Switch:RouteByQuality": {
+        "obj": {
+          "component_name": "Switch",
+          "params": {
+            "conditions": [
+              {
+                "logical_operator": "and",
+                "items": [
+                  {
+                    "cpn_id": "begin@route",
+                    "operator": "=",
+                    "value": "ocr"
+                  }
+                ],
+                "to": ["Message:ToOCR"]
+              },
+              {
+                "logical_operator": "and",
+                "items": [
+                  {
+                    "cpn_id": "begin@route",
+                    "operator": "=",
+                    "value": "text"
+                  }
+                ],
+                "to": ["Message:ToText"]
+              },
+              {
+                "logical_operator": "and",
+                "items": [
+                  {
+                    "cpn_id": "begin@route",
+                    "operator": "=",
+                    "value": "hybrid"
+                  }
+                ],
+                "to": ["Message:ToHybrid"]
+              }
+            ],
+            "end_cpn_ids": ["Message:ToReview"]
+          }
+        },
+        "downstream": [
+          "Message:ToOCR",
+          "Message:ToText",
+          "Message:ToHybrid",
+          "Message:ToReview"
+        ],
+        "upstream": ["begin"]
+      },
+      "Message:ToOCR": {
+        "obj": {
+          "component_name": "Message",
+          "params": {
+            "content": [
+              "【路由 → OCR 解析器】\n文件：{begin@path}\n标签：{begin@tags}\n\n该文档没有文字层，直接抽文字会得到空白，必须走 OCR（RAGFlow 的 DeepDOC 解析器自带 OCR）。"
+            ]
+          }
+        },
+        "downstream": [],
+        "upstream": ["Switch:RouteByQuality"]
+      },
+      "Message:ToText": {
+        "obj": {
+          "component_name": "Message",
+          "params": {
+            "content": [
+              "【路由 → 直接抽文字】\n文件：{begin@path}\n标签：{begin@tags}\n\n该文档自带文字层，走 plain_text 解析即可，不需要 OCR（省时间）。"
+            ]
+          }
+        },
+        "downstream": [],
+        "upstream": ["Switch:RouteByQuality"]
+      },
+      "Message:ToHybrid": {
+        "obj": {
+          "component_name": "Message",
+          "params": {
+            "content": [
+              "【路由 → 逐页判断】\n文件：{begin@path}\n标签：{begin@tags}\n\n该文档部分页有文字层、部分页要 OCR，需要按页决定解析方式。"
+            ]
+          }
+        },
+        "downstream": [],
+        "upstream": ["Switch:RouteByQuality"]
+      },
+      "Message:ToReview": {
+        "obj": {
+          "component_name": "Message",
+          "params": {
+            "content": [
+              "【路由 → 人工复核】\n文件：{begin@path}\n标签：{begin@tags}\n\n路由值不在已知集合内（可能为空或文档判为坏文件），不自动入库，转人工确认。"
+            ]
+          }
+        },
+        "downstream": [],
+        "upstream": ["Switch:RouteByQuality"]
+      }
+    },
+    "globals": {
+      "sys.conversation_turns": 0,
+      "sys.files": [],
+      "sys.query": "",
+      "sys.user_id": ""
+    },
+    "graph": {
+      "nodes": [
+        {
+          "id": "begin",
+          "type": "beginNode",
+          "data": {
+            "label": "Begin",
+            "name": "Begin",
+            "form": {
+              "enablePrologue": false,
+              "mode": "Webhook",
+              "prologue": "",
+              "inputs": {
+                "route": {"name": "route", "type": "string", "optional": false},
+                "path": {"name": "path", "type": "string", "optional": true},
+                "tags": {"name": "tags", "type": "string", "optional": true}
+              }
+            }
+          },
+          "position": {"x": 50, "y": 260},
+          "measured": {"width": 200, "height": 48},
+          "selected": false,
+          "sourcePosition": "right",
+          "targetPosition": "left"
+        },
+        {
+          "id": "Switch:RouteByQuality",
+          "type": "switchNode",
+          "data": {
+            "label": "Switch",
+            "name": "Switch",
+            "form": {
+              "conditions": [
+                {
+                  "logical_operator": "and",
+                  "items": [{"cpn_id": "begin@route", "operator": "=", "value": "ocr"}],
+                  "to": ["Message:ToOCR"]
+                },
+                {
+                  "logical_operator": "and",
+                  "items": [{"cpn_id": "begin@route", "operator": "=", "value": "text"}],
+                  "to": ["Message:ToText"]
+                },
+                {
+                  "logical_operator": "and",
+                  "items": [{"cpn_id": "begin@route", "operator": "=", "value": "hybrid"}],
+                  "to": ["Message:ToHybrid"]
+                }
+              ],
+              "end_cpn_ids": ["Message:ToReview"]
+            }
+          },
+          "position": {"x": 320, "y": 240},
+          "measured": {"width": 200, "height": 146},
+          "selected": false,
+          "sourcePosition": "right",
+          "targetPosition": "left"
+        },
+        {
+          "id": "Message:ToOCR",
+          "type": "messageNode",
+          "data": {"label": "Message", "name": "Message", "form": {"content": ["【路由 → OCR 解析器】"]}},
+          "position": {"x": 620, "y": 40},
+          "measured": {"width": 200, "height": 48},
+          "selected": false,
+          "sourcePosition": "right",
+          "targetPosition": "left"
+        },
+        {
+          "id": "Message:ToText",
+          "type": "messageNode",
+          "data": {"label": "Message", "name": "Message", "form": {"content": ["【路由 → 直接抽文字】"]}},
+          "position": {"x": 620, "y": 180},
+          "measured": {"width": 200, "height": 48},
+          "selected": false,
+          "sourcePosition": "right",
+          "targetPosition": "left"
+        },
+        {
+          "id": "Message:ToHybrid",
+          "type": "messageNode",
+          "data": {"label": "Message", "name": "Message", "form": {"content": ["【路由 → 逐页判断】"]}},
+          "position": {"x": 620, "y": 320},
+          "measured": {"width": 200, "height": 48},
+          "selected": false,
+          "sourcePosition": "right",
+          "targetPosition": "left"
+        },
+        {
+          "id": "Message:ToReview",
+          "type": "messageNode",
+          "data": {"label": "Message", "name": "Message", "form": {"content": ["【路由 → 人工复核】"]}},
+          "position": {"x": 620, "y": 460},
+          "measured": {"width": 200, "height": 48},
+          "selected": false,
+          "sourcePosition": "right",
+          "targetPosition": "left"
+        }
+      ],
+      "edges": [
+        {
+          "id": "xy-edge__begin-Switch:RouteByQuality",
+          "source": "begin",
+          "target": "Switch:RouteByQuality",
+          "data": {"isHovered": false}
+        },
+        {
+          "id": "xy-edge__Switch:RouteByQuality-Message:ToOCR",
+          "source": "Switch:RouteByQuality",
+          "target": "Message:ToOCR",
+          "data": {"isHovered": false}
+        },
+        {
+          "id": "xy-edge__Switch:RouteByQuality-Message:ToText",
+          "source": "Switch:RouteByQuality",
+          "target": "Message:ToText",
+          "data": {"isHovered": false}
+        },
+        {
+          "id": "xy-edge__Switch:RouteByQuality-Message:ToHybrid",
+          "source": "Switch:RouteByQuality",
+          "target": "Message:ToHybrid",
+          "data": {"isHovered": false}
+        },
+        {
+          "id": "xy-edge__Switch:RouteByQuality-Message:ToReview",
+          "source": "Switch:RouteByQuality",
+          "target": "Message:ToReview",
+          "data": {"isHovered": false}
+        }
+      ]
+    },
+    "history": [],
+    "messages": [],
+    "path": ["begin"],
+    "retrieval": {"chunks": [], "doc_aggs": []}
+  }
+}

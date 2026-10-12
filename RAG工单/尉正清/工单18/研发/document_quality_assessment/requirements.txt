@@ -1,0 +1,24 @@
+# 工单编号：人工智能NLP-RAG-实现文档质量评估Skill并集成至智能体工作流
+#
+# DocumentQualityAssessmentSkill 的依赖
+#
+# 说明：本 Skill 刻意把依赖压到最少 —— 每多一个包，就多一分「装不上/版本打架」的风险，
+# 而质检这件事本身不需要重型库。文本相似度是自己实现的 SimHash（3 字滑窗），
+# 没引 jieba/simhash/datasketch。
+
+# ---- 必需 ----
+PyMuPDF>=1.23          # PDF 解析。逐页字符数、逐页图片覆盖率、全文抽取都靠它
+PyYAML>=6.0            # 读 assessment_config.yaml
+
+# ---- 按需（按知识库里的文件类型装，不装不影响其他功能）----
+python-docx>=1.1       # .docx 解析
+openpyxl>=3.1          # .xlsx 解析。不装的话 .xlsx 会记进 errors，其余功能照常
+# pandas>=2.0          # 不直接用；openpyxl 读表已经够
+
+# ---- 注意：RAGFlow 容器里的 venv 额外需要 ----
+# 容器的 /ragflow/.venv 自带 PyYAML 和 python-docx，但**没有 PyMuPDF**，
+# 集成部署时必须补装，否则所有 PDF 会被判成 unreadable：
+#
+#   docker exec docker-ragflow-cpu-1 /ragflow/.venv/bin/pip install pymupdf
+#
+# 注意这个包装在容器可写层，**容器重建就丢**，要重跑。

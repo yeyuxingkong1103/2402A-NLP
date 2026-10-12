@@ -1,0 +1,589 @@
+{
+ "report_version": "1.0",
+ "skill": "DocumentQualityAssessmentSkill",
+ "summary": {
+  "root": "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents",
+  "total_files": 60,
+  "total_bytes": 42489400,
+  "parse_failed": 0,
+  "ext": {
+   ".pdf": 60
+  },
+  "pdf": {
+   "scanned": 60
+  },
+  "pdf_scanned_ratio": 1.0,
+  "chars": {
+   "total": 0,
+   "mean": 0.0,
+   "P25": 0,
+   "P50": 0,
+   "P75": 0,
+   "P90": 0,
+   "P99": 0
+  },
+  "exact_dup_groups": 0,
+  "redundant_copies": 0,
+  "similar_pairs": 0,
+  "simhash_compared": 0,
+  "simhash_skipped_thin": 60,
+  "sensitive_hits": 0,
+  "uncertain_pdf": 0,
+  "unreadable_pdf": 0,
+  "by_tag": {
+   "Scan_PDF": 60
+  },
+  "by_route": {
+   "ocr": 60
+  },
+  "by_primary_route": {
+   "ocr": 60
+  },
+  "elapsed_sec": 0.1,
+  "reused_from_cache": 60
+ },
+ "details": {
+  "format": {
+   "total": 60,
+   "by_ext": {
+    ".pdf": 60
+   },
+   "ratio": {
+    ".pdf": 1.0
+   }
+  },
+  "pdf": {
+   "counts": {
+    "scanned": 60
+   },
+   "ratios": {
+    "scanned": 1.0
+   },
+   "total": 60,
+   "unreadable": [],
+   "uncertain": []
+  },
+  "length": {
+   "count": 60,
+   "failed_count": 0,
+   "total_chars": 0,
+   "mean": 0.0,
+   "percentiles": {
+    "P25": 0,
+    "P50": 0,
+    "P75": 0,
+    "P90": 0,
+    "P99": 0
+   },
+   "distribution": [
+    {
+     "range": "0~500",
+     "count": 60,
+     "ratio": 1.0
+    },
+    {
+     "range": "500~2000",
+     "count": 0,
+     "ratio": 0.0
+    },
+    {
+     "range": "2000~10000",
+     "count": 0,
+     "ratio": 0.0
+    },
+    {
+     "range": "10000~50000",
+     "count": 0,
+     "ratio": 0.0
+    },
+    {
+     "range": "50000~200000",
+     "count": 0,
+     "ratio": 0.0
+    },
+    {
+     "range": ">=200000",
+     "count": 0,
+     "ratio": 0.0
+    }
+   ],
+   "too_long": 0,
+   "too_short": 60,
+   "empty": 60,
+   "_too_long": [],
+   "_too_short": [
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100342976C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100347506C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100364694C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100391686C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100398667C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100408139C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100408987C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100457304C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100469721C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100475718C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100484837C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100519503C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100531869C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100532294C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100532581C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100542713C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100577326C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100581923C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100582067C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100587559C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN1006163B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN1007281B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101014519A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101015855A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101024828B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101029671A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101032731A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101042144A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101069989B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101073748A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101096413B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101105190A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101112759B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101134389B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101148689A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101161570A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101172343A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101178500B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101181964A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101200113B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101206065B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101207523A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101216629B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101219352B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101220141B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101224511A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101235824B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101274145B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101275580B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101347682A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101396623A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101398011A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101423600A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101445293B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101456278A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101481974A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101508902A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101554691B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101555243B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101570253B.pdf"
+   ],
+   "_empty": [
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100342976C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100347506C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100364694C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100391686C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100398667C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100408139C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100408987C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100457304C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100469721C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100475718C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100484837C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100519503C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100531869C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100532294C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100532581C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100542713C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100577326C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100581923C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100582067C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100587559C.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN1006163B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN1007281B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101014519A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101015855A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101024828B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101029671A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101032731A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101042144A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101069989B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101073748A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101096413B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101105190A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101112759B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101134389B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101148689A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101161570A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101172343A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101178500B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101181964A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101200113B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101206065B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101207523A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101216629B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101219352B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101220141B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101224511A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101235824B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101274145B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101275580B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101347682A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101396623A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101398011A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101423600A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101445293B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101456278A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101481974A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101508902A.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101554691B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101555243B.pdf",
+    "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101570253B.pdf"
+   ],
+   "_failed": []
+  },
+  "dup": {
+   "summary": {
+    "total_files": 60,
+    "exact_dup_groups": 0,
+    "exact_dup_files": 0,
+    "redundant_copies": 0,
+    "similar_pairs": 0,
+    "simhash_compared": 0,
+    "simhash_skipped_thin": 60
+   },
+   "md5_groups": [],
+   "sim_pairs": [],
+   "note": "60 份文档正文不足 200 字符或没有文字层，未参与 SimHash 比较（仅 0 份参与）；这批文档的版本冲突需先 OCR 出正文再比。"
+  },
+  "sensitive": {
+   "summary": {
+    "total_hits": 0,
+    "by_type": {},
+    "files_with_hits": 0,
+    "top_files": [],
+    "alert_files": [],
+    "enabled_types": [
+     "phone",
+     "email",
+     "id_card"
+    ]
+   },
+   "hits": []
+  },
+  "tags": {
+   "by_tag": {
+    "Scan_PDF": 60
+   },
+   "by_route": {
+    "ocr": 60
+   },
+   "by_primary": {
+    "ocr": 60
+   },
+   "tag_routes": {
+    "Scan_PDF": [
+     "ocr"
+    ]
+   },
+   "docs": [
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100342976C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100347506C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100364694C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100391686C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100398667C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100408139C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100408987C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100457304C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100469721C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100475718C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100484837C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100519503C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100531869C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100532294C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100532581C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100542713C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100577326C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100581923C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100582067C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN100587559C.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN1006163B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN1007281B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101014519A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101015855A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101024828B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101029671A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101032731A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101042144A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101069989B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101073748A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101096413B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101105190A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101112759B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101134389B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101148689A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101161570A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101172343A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101178500B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101181964A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101200113B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101206065B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101207523A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101216629B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101219352B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101220141B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101224511A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101235824B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101274145B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101275580B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101347682A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101396623A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101398011A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101423600A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101445293B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101456278A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101481974A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101508902A.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101554691B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101555243B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\14-17附件\\original_problems\\documents\\CN101570253B.pdf",
+     "Scan_PDF",
+     "ocr"
+    ]
+   ]
+  },
+  "errors": []
+ }
+}

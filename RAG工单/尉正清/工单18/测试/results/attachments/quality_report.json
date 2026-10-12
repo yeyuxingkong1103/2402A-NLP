@@ -1,0 +1,768 @@
+{
+ "report_version": "1.0",
+ "skill": "DocumentQualityAssessmentSkill",
+ "summary": {
+  "root": "D:\\BW\\RAG 工单\\附件",
+  "total_files": 22,
+  "total_bytes": 97161916,
+  "parse_failed": 0,
+  "ext": {
+   ".pdf": 13,
+   ".txt": 9
+  },
+  "pdf": {
+   "text": 13
+  },
+  "pdf_scanned_ratio": 0.0,
+  "chars": {
+   "total": 11121935,
+   "mean": 505542.5,
+   "P25": 322571,
+   "P50": 451145,
+   "P75": 748369,
+   "P90": 818181,
+   "P99": 1020391
+  },
+  "exact_dup_groups": 0,
+  "redundant_copies": 0,
+  "similar_pairs": 6,
+  "simhash_compared": 22,
+  "simhash_skipped_thin": 0,
+  "sensitive_hits": 57,
+  "uncertain_pdf": 0,
+  "unreadable_pdf": 0,
+  "by_tag": {
+   "Text_PDF": 13,
+   "Long_Document": 21,
+   "Plain_Text": 9
+  },
+  "by_route": {
+   "text": 22,
+   "chunk_aggressive": 21
+  },
+  "by_primary_route": {
+   "text": 13,
+   "chunk_aggressive": 9
+  },
+  "elapsed_sec": 13.5,
+  "reused_from_cache": 0
+ },
+ "details": {
+  "format": {
+   "total": 22,
+   "by_ext": {
+    ".pdf": 13,
+    ".txt": 9
+   },
+   "ratio": {
+    ".pdf": 0.5909,
+    ".txt": 0.4091
+   }
+  },
+  "pdf": {
+   "counts": {
+    "text": 13
+   },
+   "ratios": {
+    "text": 1.0
+   },
+   "total": 13,
+   "unreadable": [],
+   "uncertain": []
+  },
+  "length": {
+   "count": 22,
+   "failed_count": 0,
+   "total_chars": 11121935,
+   "mean": 505542.5,
+   "percentiles": {
+    "P25": 322571,
+    "P50": 451145,
+    "P75": 748369,
+    "P90": 818181,
+    "P99": 1020391
+   },
+   "distribution": [
+    {
+     "range": "0~500",
+     "count": 0,
+     "ratio": 0.0
+    },
+    {
+     "range": "500~2000",
+     "count": 1,
+     "ratio": 0.0455
+    },
+    {
+     "range": "2000~10000",
+     "count": 0,
+     "ratio": 0.0
+    },
+    {
+     "range": "10000~50000",
+     "count": 0,
+     "ratio": 0.0
+    },
+    {
+     "range": "50000~200000",
+     "count": 0,
+     "ratio": 0.0
+    },
+    {
+     "range": ">=200000",
+     "count": 21,
+     "ratio": 0.9545
+    }
+   ],
+   "too_long": 10,
+   "too_short": 0,
+   "empty": 0,
+   "_too_long": [
+    "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-02-14__ƽ�����йɷ����޹�˾__000001__ƽ������__2019��__��ȱ���.txt",
+    "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.txt",
+    "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-03-21__�������йɷ����޹�˾__600036__��������__2019��__��ȱ���.txt",
+    "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.txt",
+    "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2021-03-19__����֤ȯ�ɷ����޹�˾__600030__����֤ȯ__2020��__��ȱ���.txt",
+    "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.txt",
+    "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.txt",
+    "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.txt",
+    "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-31__��̩����֤ȯ�ɷ����޹�˾__601211__��̩����__2021��__��ȱ���.txt",
+    "D:\\BW\\RAG 工单\\附件\\招股说明书1.pdf"
+   ],
+   "_too_short": [],
+   "_empty": [],
+   "_failed": []
+  },
+  "dup": {
+   "summary": {
+    "total_files": 22,
+    "exact_dup_groups": 0,
+    "exact_dup_files": 0,
+    "redundant_copies": 0,
+    "similar_pairs": 6,
+    "simhash_compared": 22,
+    "simhash_skipped_thin": 0
+   },
+   "md5_groups": [],
+   "sim_pairs": [
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-03-21__�������йɷ����޹�˾__600036__��������__2019��__��ȱ���.txt",
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.txt",
+     "94%",
+     4
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-03-21__�������йɷ����޹�˾__600036__��������__2019��__��ȱ���.txt",
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.txt",
+     "92%",
+     5
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.txt",
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.txt",
+     "91%",
+     6
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.txt",
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-03-21__�������йɷ����޹�˾__600036__��������__2019��__��ȱ���.txt",
+     "89%",
+     7
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-03-21__�������йɷ����޹�˾__600036__��������__2019��__��ȱ���.txt",
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.txt",
+     "89%",
+     7
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.txt",
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.txt",
+     "89%",
+     7
+    ]
+   ],
+   "note": ""
+  },
+  "sensitive": {
+   "summary": {
+    "total_hits": 57,
+    "by_type": {
+     "email": 57
+    },
+    "files_with_hits": 21,
+    "top_files": [
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.pdf",
+      "hits": 4
+     },
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.pdf",
+      "hits": 4
+     },
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.pdf",
+      "hits": 4
+     },
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.txt",
+      "hits": 4
+     },
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.txt",
+      "hits": 4
+     },
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.txt",
+      "hits": 4
+     },
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-02-14__ƽ�����йɷ����޹�˾__000001__ƽ������__2019��__��ȱ���.pdf",
+      "hits": 3
+     },
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.pdf",
+      "hits": 3
+     },
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.pdf",
+      "hits": 3
+     },
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2022-03-31__��̩����֤ȯ�ɷ����޹�˾__601211__��̩����__2021��__��ȱ���.pdf",
+      "hits": 3
+     },
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-02-14__ƽ�����йɷ����޹�˾__000001__ƽ������__2019��__��ȱ���.txt",
+      "hits": 3
+     },
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.txt",
+      "hits": 3
+     },
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.txt",
+      "hits": 3
+     },
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-31__��̩����֤ȯ�ɷ����޹�˾__601211__��̩����__2021��__��ȱ���.txt",
+      "hits": 3
+     },
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2021-03-19__����֤ȯ�ɷ����޹�˾__600030__����֤ȯ__2020��__��ȱ���.pdf",
+      "hits": 2
+     },
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2021-03-19__����֤ȯ�ɷ����޹�˾__600030__����֤ȯ__2020��__��ȱ���.txt",
+      "hits": 2
+     },
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-03-21__�������йɷ����޹�˾__600036__��������__2019��__��ȱ���.pdf",
+      "hits": 1
+     },
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-03-21__�������йɷ����޹�˾__600036__��������__2019��__��ȱ���.txt",
+      "hits": 1
+     },
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\招股说明书1-无水印.pdf",
+      "hits": 1
+     },
+     {
+      "path": "D:\\BW\\RAG 工单\\附件\\招股说明书1.pdf",
+      "hits": 1
+     }
+    ],
+    "alert_files": [],
+    "enabled_types": [
+     "phone",
+     "email",
+     "id_card"
+    ]
+   },
+   "hits": [
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-02-14__ƽ�����йɷ����޹�˾__000001__ƽ������__2019��__��ȱ���.pdf",
+     "email",
+     "PAB_db@pingan.com.cn",
+     "33 公司网址 http://bank.pingan.com 电子信箱 PAB_db@pingan.com.cn 服务热线 95511 转3 1.1.2 联系人和联系方式 董事会秘"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-02-14__ƽ�����йɷ����޹�˾__000001__ƽ������__2019��__��ȱ���.pdf",
+     "email",
+     "PAB_db@pingan.com.cn",
+     "真 （0755）82080386 （0755）82080386 电子信箱 PAB_db@pingan.com.cn PAB_db@pingan.com.cn 9"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-02-14__ƽ�����йɷ����޹�˾__000001__ƽ������__2019��__��ȱ���.pdf",
+     "email",
+     "PAB_db@pingan.com.cn",
+     "55）82080386 电子信箱 PAB_db@pingan.com.cn PAB_db@pingan.com.cn 9 1.1.3 信息披露及备置地点 公司选定的"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.pdf",
+     "email",
+     "IR@pingan.com.cn",
+     "所载信息，股东可就其权利致函本公司投资者关系团队 或电邮至“投资者关系” 邮箱(IR@pingan.com.cn)发出查询或提出请求。股东提出查询有关信息的，应根据《公司章程》第五 十九条规定"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.pdf",
+     "email",
+     "IR@pingan.com.cn",
+     "行进一步的查询，亦可直接致函本公司投资者关系团队或电邮至“投资者关系” 邮 箱(IR@pingan.com.cn)。本公司会以合适的形式处理有关查询请求。 公司通过路演、视频及电话会议、企业开"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.pdf",
+     "email",
+     "IR@pingan.com.cn",
+     "400 8866 338 传真 +86 755 8243 1029 电子信箱 IR@pingan.com.cn PR@pingan.com.cn 注册地址 深圳市福田区益田路5033号平安金"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.pdf",
+     "email",
+     "PR@pingan.com.cn",
+     "+86 755 8243 1029 电子信箱 IR@pingan.com.cn PR@pingan.com.cn 注册地址 深圳市福田区益田路5033号平安金融中心 47、48、109、11"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-03-21__�������йɷ����޹�˾__600036__��������__2019��__��ȱ���.pdf",
+     "email",
+     "cmb@cmbchina.com",
+     "5 8319 8888 传真：+86 755 8319 5109 电子信箱：cmb@cmbchina.com 互联网网址：www.cmbchina.com 客户服务投诉电话：95555"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.pdf",
+     "email",
+     "ir@psbc.com",
+     "-10-68858158 传真： 86-10-68858165 E-mail： ir@psbc.com 中国注册和办公地址： 北京市西城区金融大街3 号 香港主要营业地址： 香港湾仔"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.pdf",
+     "email",
+     "ir@psbc.com",
+     "-10-68858158 传真： 86-10-68858165 E-mail： ir@psbc.com 网址： www.psbc.com 客服及投诉电话： 86-95580 信息披露"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.pdf",
+     "email",
+     "ir@psbc.com",
+     "话：86-10-68858158 传真：86-10-68858165 电邮地址：ir@psbc.com 10.15 社会责任 报告期内，本行坚持服务“三农”、城乡居民和中小企业的市场"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.pdf",
+     "email",
+     "ir@psbc.com",
+     "(86)10 6885 8158 传真：(86)10 6885 8165 电邮：ir@psbc.com 其他资料 可致函本行H 股股份登记处香港中央证券登记有限公司（地址：香港湾仔皇"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2021-03-19__����֤ȯ�ɷ����޹�˾__600030__����֤ȯ__2020��__��ȱ���.pdf",
+     "email",
+     "ir@citics.com",
+     "-755-2383 5525、0086-10-6083 6031 电子信箱 ir@citics.com 三、 基本情况简介 公司注册地址 广东省深圳市福田区中心三路8号卓越时代"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2021-03-19__����֤ȯ�ɷ����޹�˾__600030__����֤ȯ__2020��__��ȱ���.pdf",
+     "email",
+     "ir@citics.com",
+     "26层 公司网址 http://www.citics.com 电子信箱 ir@citics.com 联系电话 0086-755-2383 5888、0086-10-6083"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.pdf",
+     "email",
+     "ir@e-chinalife.com",
+     "-66575722 公司网址 www.e-chinalife.com 电子信箱 ir@e-chinalife.com 香港办事处联系地址 香港九龙红磡红鸾道18号One Harbour Gate中"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.pdf",
+     "email",
+     "ir@e-chinalife.com",
+     "1 传真 86-10-66575112 86-10-66575112 电子信箱 ir@e-chinalife.com liyh@e-chinalife.com * 证券事务代表李英慧女士亦为与公司"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.pdf",
+     "email",
+     "liyh@e-chinalife.com",
+     "86-10-66575112 电子信箱 ir@e-chinalife.com liyh@e-chinalife.com * 证券事务代表李英慧女士亦为与公司外聘公司 秘书之主要联络人 信息披露及报告"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.pdf",
+     "email",
+     "ir@e-chinalife.com",
+     "333 公司网址 ： www.e-chinalife.com 电子信箱 ： ir@e-chinalife.com"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.pdf",
+     "email",
+     "ir@cpic.com.cn",
+     "86-21-58767282 传真：+86-21-68870791 Email：ir@cpic.com.cn 邮寄地址：中国上海市黄浦区中山南路1 号 1 2021 年度报告 2021"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.pdf",
+     "email",
+     "ir@cpic.com.cn",
+     "系部 电话：021-58767282 传真：021-68870791 电子信箱：ir@cpic.com.cn 联系地址：中国上海市黄浦区中山南路1 号 注册地址：中国上海市黄浦区中山南路1"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.pdf",
+     "email",
+     "ir@cpic.com.cn",
+     "010 国际互联网网址：http://www.cpic.com.cn 电子信箱：ir@cpic.com.cn 信息披露报纸（A 股）： 《中国证券报》《上海证券报》《证券时报》 登载A 股"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.pdf",
+     "email",
+     "IR@cmschina.com.cn",
+     "传真 0755－82944669 0755－82944669 电子信箱 IR@cmschina.com.cn luoli@cmschina.com.cn 联席公司秘书 姓名"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.pdf",
+     "email",
+     "luoli@cmschina.com.cn",
+     "755－82944669 电子信箱 IR@cmschina.com.cn luoli@cmschina.com.cn 联席公司秘书 姓名 吴慧峰 邝燕萍 联系地址 深圳市福田区福"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.pdf",
+     "email",
+     "IR@cmschina.com.cn",
+     "楼 公司网址 http://www.cmschina.com 电子信箱 IR@cmschina.com.cn 四、 信息披露及备置地点 公司披露年度报告的媒体名称及网址 中国证券"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2022-03-31__��̩����֤ȯ�ɷ����޹�˾__601211__��̩����__2021��__��ȱ���.pdf",
+     "email",
+     "dshbgs@gtjas.com",
+     "传真 021-38670798 021-38670798 电子信箱 dshbgs@gtjas.com dshbgs@gtjas.com"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2022-03-31__��̩����֤ȯ�ɷ����޹�˾__601211__��̩����__2021��__��ȱ���.pdf",
+     "email",
+     "dshbgs@gtjas.com",
+     "021-38670798 电子信箱 dshbgs@gtjas.com dshbgs@gtjas.com"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2022-03-31__��̩����֤ȯ�ɷ����޹�˾__601211__��̩����__2021��__��ȱ���.pdf",
+     "email",
+     "dshbgs@gtjas.com",
+     "0041 公司网址 http://www.gtja.com/ 电子信箱 dshbgs@gtjas.com 四、 信息披露及备置地点 公司披露年度报告的媒体名称及网址 中国证券"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-02-14__ƽ�����йɷ����޹�˾__000001__ƽ������__2019��__��ȱ���.txt",
+     "email",
+     "PAB_db@pingan.com.cn",
+     ", \"type\": \"excel\", \"inside\": \"['电子信箱', 'PAB_db@pingan.com.cn', '', '']\"} {\"page\": 9, \"allrow\": 121,"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-02-14__ƽ�����йɷ����޹�˾__000001__ƽ������__2019��__��ȱ���.txt",
+     "email",
+     "PAB_db@pingan.com.cn",
+     ", \"type\": \"excel\", \"inside\": \"['电子信箱', 'PAB_db@pingan.com.cn', 'PAB_db@pingan.com.cn']\"} {\"page\": 9,"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-02-14__ƽ�����йɷ����޹�˾__000001__ƽ������__2019��__��ȱ���.txt",
+     "email",
+     "PAB_db@pingan.com.cn",
+     "de\": \"['电子信箱', 'PAB_db@pingan.com.cn', 'PAB_db@pingan.com.cn']\"} {\"page\": 9, \"allrow\": 130, \"type\":"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.txt",
+     "email",
+     "IR@pingan.com.cn",
+     "）项所载信息，股东可就其权利致函本公司投资者关系团队或电邮至“投资者关系”邮箱(IR@pingan.com.cn)发出查询或提出请求。股东提出查询有关信息的，应根据《公司章程》第五十九条规定提"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.txt",
+     "email",
+     "IR@pingan.com.cn",
+     "需进行进一步的查询，亦可直接致函本公司投资者关系团队或电邮至“投资者关系”邮箱(IR@pingan.com.cn)。本公司会以合适的形式处理有关查询请求。\"} {\"page\": 93, \"al"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.txt",
+     "email",
+     "IR@pingan.com.cn",
+     "lrow\": 8352, \"type\": \"text\", \"inside\": \"IR@pingan.com.cn\"} {\"page\": 339, \"allrow\": 8353, \"type\":"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.txt",
+     "email",
+     "PR@pingan.com.cn",
+     "lrow\": 8354, \"type\": \"text\", \"inside\": \"PR@pingan.com.cn\"} {\"page\": 339, \"allrow\": 8355, \"type\":"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-03-21__�������йɷ����޹�˾__600036__��������__2019��__��ȱ���.txt",
+     "email",
+     "cmb@cmbchina.com",
+     "\": 130, \"type\": \"text\", \"inside\": \"电子信箱：cmb@cmbchina.com\"} {\"page\": 9, \"allrow\": 131, \"type\": \"t"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.txt",
+     "email",
+     "ir@psbc.com",
+     "86-10-68858158传真： 86-10-68858165E-mail： ir@psbc.com']\"} {\"page\": 8, \"allrow\": 169, \"type\":"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.txt",
+     "email",
+     "ir@psbc.com",
+     "86-10-68858158传真： 86-10-68858165E-mail： ir@psbc.com网址： www.psbc.com']\"} {\"page\": 8, \"allrow"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.txt",
+     "email",
+     "ir@psbc.com",
+     ": 2570, \"type\": \"text\", \"inside\": \"电邮地址：ir@psbc.com\"} {\"page\": 149, \"allrow\": 2571, \"type\":"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.txt",
+     "email",
+     "ir@psbc.com",
+     "w\": 3539, \"type\": \"text\", \"inside\": \"电邮：ir@psbc.com\"} {\"page\": 207, \"allrow\": 3540, \"type\":"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2021-03-19__����֤ȯ�ɷ����޹�˾__600030__����֤ȯ__2020��__��ȱ���.txt",
+     "email",
+     "ir@citics.com",
+     ", \"type\": \"excel\", \"inside\": \"['电子信箱', 'ir@citics.com']\"} {\"page\": 6, \"allrow\": 161, \"type\":"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2021-03-19__����֤ȯ�ɷ����޹�˾__600030__����֤ȯ__2020��__��ȱ���.txt",
+     "email",
+     "ir@citics.com",
+     ", \"type\": \"excel\", \"inside\": \"['电子信箱', 'ir@citics.com']\"} {\"page\": 6, \"allrow\": 170, \"type\":"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.txt",
+     "email",
+     "ir@e-chinalife.com",
+     "lrow\": 3329, \"type\": \"text\", \"inside\": \"ir@e-chinalife.com\"} {\"page\": 89, \"allrow\": 3330, \"type\":"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.txt",
+     "email",
+     "ir@e-chinalife.com",
+     ", \"type\": \"excel\", \"inside\": \"['电子信箱', 'ir@e-chinalife.com', 'liyh@e-chinalife.com']\"} {\"page\": 90"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.txt",
+     "email",
+     "liyh@e-chinalife.com",
+     "side\": \"['电子信箱', 'ir@e-chinalife.com', 'liyh@e-chinalife.com']\"} {\"page\": 90, \"allrow\": 3349, \"type\""
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.txt",
+     "email",
+     "ir@e-chinalife.com",
+     "lrow\": 8599, \"type\": \"text\", \"inside\": \"ir@e-chinalife.com\"} {\"page\": 235, \"allrow\": 8600, \"type\":"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.txt",
+     "email",
+     "ir@cpic.com.cn",
+     ": 275, \"type\": \"text\", \"inside\": \"Email：ir@cpic.com.cn\"} {\"page\": 17, \"allrow\": 276, \"type\": \""
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.txt",
+     "email",
+     "ir@cpic.com.cn",
+     "\": 348, \"type\": \"text\", \"inside\": \"电子信箱：ir@cpic.com.cn\"} {\"page\": 23, \"allrow\": 349, \"type\": \""
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.txt",
+     "email",
+     "ir@cpic.com.cn",
+     "\": 364, \"type\": \"text\", \"inside\": \"电子信箱：ir@cpic.com.cn\"} {\"page\": 23, \"allrow\": 365, \"type\": \""
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.txt",
+     "email",
+     "IR@cmschina.com.cn",
+     ", \"type\": \"excel\", \"inside\": \"['电子信箱', 'IR@cmschina.com.cn', 'luoli@cmschina.com.cn']\"} {\"page\": 1"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.txt",
+     "email",
+     "luoli@cmschina.com.cn",
+     "side\": \"['电子信箱', 'IR@cmschina.com.cn', 'luoli@cmschina.com.cn']\"} {\"page\": 10, \"allrow\": 270, \"type\":"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.txt",
+     "email",
+     "IR@cmschina.com.cn",
+     ", \"type\": \"excel\", \"inside\": \"['电子信箱', 'IR@cmschina.com.cn']\"} {\"page\": 10, \"allrow\": 282, \"type\":"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-31__��̩����֤ȯ�ɷ����޹�˾__601211__��̩����__2021��__��ȱ���.txt",
+     "email",
+     "dshbgs@gtjas.com",
+     ", \"type\": \"excel\", \"inside\": \"['电子信箱', 'dshbgs@gtjas.com', 'dshbgs@gtjas.com']\"} {\"page\": 13, \"a"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-31__��̩����֤ȯ�ɷ����޹�˾__601211__��̩����__2021��__��ȱ���.txt",
+     "email",
+     "dshbgs@gtjas.com",
+     "inside\": \"['电子信箱', 'dshbgs@gtjas.com', 'dshbgs@gtjas.com']\"} {\"page\": 13, \"allrow\": 208, \"type\":"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-31__��̩����֤ȯ�ɷ����޹�˾__601211__��̩����__2021��__��ȱ���.txt",
+     "email",
+     "dshbgs@gtjas.com",
+     ", \"type\": \"excel\", \"inside\": \"['电子信箱', 'dshbgs@gtjas.com']\"} {\"page\": 14, \"allrow\": 219, \"type\":"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\招股说明书1-无水印.pdf",
+     "email",
+     "xingtu@xingtu.com",
+     "27-81979095 互联网网址：www.xingtu.com 电子邮箱：xingtu@xingtu.com 负责信息披露和投资者关系的部门：证券部 负责人：姚小华 二、发行人改制重"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\招股说明书1.pdf",
+     "email",
+     "xingtu@xingtu.com",
+     "27-81979095 互联网网址：www.xingtu.com 电子邮箱：xingtu@xingtu.com 负责信息披露和投资者关系的部门：证券部 负责人：姚小华 二、发行人改制重"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\招股说明书2.pdf",
+     "email",
+     "zqb@icbase.com",
+     "门：证券部 负责人：王晓东 联系电话：027-87526790 电子信箱：zqb@icbase.com 13、经营范围：电子产品、电子元器件、信息技术及相关成套产品方案的开 发、研"
+    ]
+   ]
+  },
+  "tags": {
+   "by_tag": {
+    "Text_PDF": 13,
+    "Long_Document": 21,
+    "Plain_Text": 9
+   },
+   "by_route": {
+    "text": 22,
+    "chunk_aggressive": 21
+   },
+   "by_primary": {
+    "text": 13,
+    "chunk_aggressive": 9
+   },
+   "tag_routes": {
+    "Text_PDF": [
+     "text"
+    ],
+    "Long_Document": [
+     "chunk_aggressive"
+    ],
+    "Plain_Text": [
+     "text"
+    ]
+   },
+   "docs": [
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-02-14__ƽ�����йɷ����޹�˾__000001__ƽ������__2019��__��ȱ���.pdf",
+     "Text_PDF、Long_Document",
+     "text"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.pdf",
+     "Text_PDF、Long_Document",
+     "text"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-03-21__�������йɷ����޹�˾__600036__��������__2019��__��ȱ���.pdf",
+     "Text_PDF、Long_Document",
+     "text"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.pdf",
+     "Text_PDF、Long_Document",
+     "text"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2021-03-19__����֤ȯ�ɷ����޹�˾__600030__����֤ȯ__2020��__��ȱ���.pdf",
+     "Text_PDF、Long_Document",
+     "text"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.pdf",
+     "Text_PDF、Long_Document",
+     "text"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.pdf",
+     "Text_PDF、Long_Document",
+     "text"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.pdf",
+     "Text_PDF、Long_Document",
+     "text"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\pdf\\2022-03-31__��̩����֤ȯ�ɷ����޹�˾__601211__��̩����__2021��__��ȱ���.pdf",
+     "Text_PDF、Long_Document",
+     "text"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-02-14__ƽ�����йɷ����޹�˾__000001__ƽ������__2019��__��ȱ���.txt",
+     "Long_Document、Plain_Text",
+     "chunk_aggressive"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-02-21__�й�ƽ�����ռ��Źɷ����޹�˾__601318__�й�ƽ��__2019��__��ȱ���.txt",
+     "Long_Document、Plain_Text",
+     "chunk_aggressive"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-03-21__�������йɷ����޹�˾__600036__��������__2019��__��ȱ���.txt",
+     "Long_Document、Plain_Text",
+     "chunk_aggressive"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2020-03-26__�й������������йɷ����޹�˾__601658__�ʴ�����__2019��__��ȱ���.txt",
+     "Long_Document、Plain_Text",
+     "chunk_aggressive"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2021-03-19__����֤ȯ�ɷ����޹�˾__600030__����֤ȯ__2020��__��ȱ���.txt",
+     "Long_Document、Plain_Text",
+     "chunk_aggressive"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2021-03-26__�й����ٱ��չɷ����޹�˾__601628__�й�����__2020��__��ȱ���.txt",
+     "Long_Document、Plain_Text",
+     "chunk_aggressive"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-28__�й�̫ƽ���ռ��Źɷ����޹�˾__601601__�й�̫��__2021��__��ȱ���.txt",
+     "Long_Document、Plain_Text",
+     "chunk_aggressive"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-28__����֤ȯ�ɷ����޹�˾__600999__����֤ȯ__2021��__��ȱ���.txt",
+     "Long_Document、Plain_Text",
+     "chunk_aggressive"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\ccf_competition\\txt\\2022-03-31__��̩����֤ȯ�ɷ����޹�˾__601211__��̩����__2021��__��ȱ���.txt",
+     "Long_Document、Plain_Text",
+     "chunk_aggressive"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\sample_questions.pdf",
+     "Text_PDF",
+     "text"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\招股说明书1-无水印.pdf",
+     "Text_PDF、Long_Document",
+     "text"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\招股说明书1.pdf",
+     "Text_PDF、Long_Document",
+     "text"
+    ],
+    [
+     "D:\\BW\\RAG 工单\\附件\\招股说明书2.pdf",
+     "Text_PDF、Long_Document",
+     "text"
+    ]
+   ]
+  },
+  "errors": []
+ }
+}
