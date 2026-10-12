@@ -1,0 +1,35 @@
+=== 部署脚本清单 ===
+build_kb.py
+evaluate.py
+init_all.sh
+install.sh
+start.sh
+stop.sh
+---
+==> scripts/install.sh <==
+#!/bin/bash
+# 工单十五：环境安装脚本（conda + cuda）
+set -e
+cd "$(dirname "$0")/.."
+
+
+==> scripts/start.sh <==
+#!/bin/bash
+# 工单十五：启动脚本（FastAPI + Streamlit）
+set -e
+cd "$(dirname "$0")/.."
+export PYTHONPATH=$(pwd)
+
+==> scripts/stop.sh <==
+#!/bin/bash
+# 工单十五：停止脚本
+cd "$(dirname "$0")/.."
+for pidf in data/pids/api.pid data/pids/streamlit.pid; do
+  if [ -f "$pidf" ]; then
+
+==> scripts/init_all.sh <==
+#!/bin/bash
+# 工单十五：一键初始化（安装 + 构建知识库）
+set -e
+cd "$(dirname "$0")/.."
+export PYTHONPATH=$(pwd)

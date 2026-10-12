@@ -1,0 +1,46 @@
+# 工单十六：Qwen2-VL LoRA 微调配置（LLaMA-Factory 风格）
+# 模型与数据
+model_name_or_path: /home/dabaie/models/Qwen2-VL-2B-Instruct
+stage: sft
+do_train: true
+finetuning_type: lora
+
+# 数据集
+dataset: imdr_vlm
+template: qwen2_vl
+train_file: ./data/train.jsonl
+eval_file: ./data/eval.jsonl
+image_dir: ./data/images
+
+# 超参数
+lora_target: q_proj,k_proj,v_proj,o_proj,gate_proj,up_proj,down_proj
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.05
+
+learning_rate: 1.0e-4
+num_train_epochs: 1
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 4
+warmup_ratio: 0.1
+lr_scheduler_type: cosine
+max_grad_norm: 1.0
+
+# 显存优化（8GB 笔记本 GPU）
+bf16: false
+fp16: true
+gradient_checkpointing: true
+quantization_bit: 4          # 4bit 量化基座，降低显存
+freeze_vision_tower: true    # 冻结视觉编码器，仅微调语言侧 LoRA
+resize_side: 512             # 图像最大边长，控制显存
+
+# 输出与日志
+output_dir: ./finetune_output
+logging_steps: 2
+save_steps: 50
+save_total_limit: 2
+eval_steps: 20
+per_device_eval_batch_size: 1
+
+max_samples: 102
+seed: 42

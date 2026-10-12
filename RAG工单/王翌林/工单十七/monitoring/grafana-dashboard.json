@@ -1,0 +1,43 @@
+{
+  "dashboard": {
+    "title": "RAG API 性能与资源监控（工单十七）",
+    "panels": [
+      {
+        "title": "请求速率 (req/s)",
+        "type": "graph",
+        "expr": "rate(rag_requests_total[1m])",
+        "yaxes": [{"label": "req/s"}]
+      },
+      {
+        "title": "P95 响应延迟 (s)",
+        "type": "graph",
+        "expr": "histogram_quantile(0.95, rate(rag_request_duration_seconds_bucket[1m]))",
+        "yaxes": [{"label": "s", "max": 3}]
+      },
+      {
+        "title": "在途请求数",
+        "type": "graph",
+        "expr": "rag_inflight_requests",
+        "yaxes": [{"label": "count"}]
+      },
+      {
+        "title": "进程内存 RSS (MB)",
+        "type": "graph",
+        "expr": "rag_process_rss_mb",
+        "yaxes": [{"label": "MB"}]
+      },
+      {
+        "title": "语义缓存条目数 / 命中率",
+        "type": "graph",
+        "expr": "rag_cache_size",
+        "yaxes": [{"label": "entries"}]
+      },
+      {
+        "title": "文档解析队列深度",
+        "type": "graph",
+        "expr": "rag_queue_depth",
+        "yaxes": [{"label": "depth"}]
+      }
+    ]
+  }
+}

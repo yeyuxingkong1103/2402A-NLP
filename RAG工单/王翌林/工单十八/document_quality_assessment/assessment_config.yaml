@@ -1,0 +1,67 @@
+# 工单十八 · 文档质量评估 Skill 配置文件
+# 所有阈值均可配置，禁止在代码中硬编码。
+
+# 支持统计的文档格式
+formats:
+  - .pdf
+  - .docx
+  - .doc
+  - .md
+  - .txt
+  - .pptx
+  - .xlsx
+  - .png
+  - .jpg
+  - .jpeg
+
+# PDF 页面类型识别（文字型 / 扫描型 / 混合型）
+pdf_classification:
+  scan_page_char_threshold: 50      # 每页字符数低于此值视为“扫描页”
+  scan_file_ratio_threshold: 0.7    # 扫描页占比超过 70% 标记整个文件为扫描型
+  # 介于两者之间为混合型；所有判定输出“待确认”列表供人工复核
+
+# 文档长度分析（字符数）
+length_analysis:
+  buckets:                          # 长度区间分布
+    - { name: "极短(<500)", min: 0, max: 500 }
+    - { name: "短(500-2k)", min: 500, max: 2000 }
+    - { name: "中(2k-10k)", min: 2000, max: 10000 }
+    - { name: "长(10k-50k)", min: 10000, max: 50000 }
+    - { name: "超长(>50k)", min: 50000, max: 100000000 }
+  percentiles: [25, 50, 75, 90, 99]
+
+# 重复检测
+duplicate_detection:
+  enable_md5: true
+  enable_simhash: true              # 进阶项，可关闭
+  simhash_threshold: 3              # 汉明距离 ≤ 3 视为高相似（待确认版本冲突）
+  simhash_hash_bits: 64
+
+# 敏感信息检测
+sensitive_info:
+  enable_phone: true
+  enable_email: true
+  enable_id_card: true
+  enable_bank_card: false           # 默认关闭（误报率高）
+  context_chars: 20                 # 每条命中附带前后文字符数
+
+# 分类标签体系
+classification:
+  labels:
+    - Text_PDF          # 文字型 PDF
+    - Scan_PDF          # 扫描型 PDF（需 OCR）
+    - Mixed_PDF         # 混合型 PDF
+    - Office_Doc        # Word/PPT/Excel
+    - Markdown
+    - PlainText
+    - Image
+    - Unknown
+  route_map:                          # 工作流路由：标签 -> 解析器
+    Text_PDF: text_extractor
+    Scan_PDF: ocr_parser
+    Mixed_PDF: ocr_parser
+    Office_Doc: office_extractor
+    Markdown: markdown_extractor
+    PlainText: text_extractor
+    Image: ocr_parser
+    Unknown: fallback_parser

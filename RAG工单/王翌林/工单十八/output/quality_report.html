@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>文档质量评估报告</title>
+<style>body{font-family:sans-serif;margin:24px}table{border-collapse:collapse}
+td,th{border:1px solid #ccc;padding:6px}h2{color:#2c5282}</style></head><body>
+<h1>文档质量评估报告</h1>
+<p>输入：/home/dabaie/code/工单/工单十八/demo_dataset　文件数：15</p>
+<h2>1. 格式分布</h2><table><tr><th>格式</th><th>数量</th><th>占比</th></tr><tr><td>.pdf</td><td>7</td><td>46.67%</td></tr><tr><td>.md</td><td>3</td><td>20.0%</td></tr><tr><td>.txt</td><td>2</td><td>13.33%</td></tr><tr><td>.docx</td><td>1</td><td>6.67%</td></tr><tr><td>.pptx</td><td>1</td><td>6.67%</td></tr><tr><td>.png</td><td>1</td><td>6.67%</td></tr></table>
+<h2>2. PDF 分类</h2><table><tr><th>文件</th><th>标签</th><th>页数</th><th>扫描页占比</th></tr><tr><td>manual_0.pdf</td><td>Text_PDF</td><td>10</td><td>0.0</td></tr><tr><td>manual_2.pdf</td><td>Text_PDF</td><td>3</td><td>0.0</td></tr><tr><td>scan_doc_2.pdf</td><td>Scan_PDF</td><td>5</td><td>1.0</td></tr><tr><td>scan_doc_1.pdf</td><td>Scan_PDF</td><td>5</td><td>1.0</td></tr><tr><td>manual_3.pdf</td><td>Text_PDF</td><td>7</td><td>0.0</td></tr><tr><td>scan_doc_0.pdf</td><td>Scan_PDF</td><td>5</td><td>1.0</td></tr><tr><td>manual_1.pdf</td><td>Text_PDF</td><td>8</td><td>0.125</td></tr></table>
+<h3>待确认（PDF）</h3><ul><li>无</li></ul>
+<h2>3. 文档长度分布</h2><p>分位数：P25=4 P50=195 P75=1030 P90=5115 P99=6643</p><p>区间分布：极短(<500):11 短(500-2k):1 中(2k-10k):3 长(10k-50k):0 超长(>50k):0</p>
+<h2>4. 重复检测</h2>
+<h3>精确重复（MD5）</h3><ul><li>scan_doc_2.pdf | scan_doc_1.pdf | scan_doc_0.pdf</li><li>spec.docx | report.pptx | photo.png</li><li>op_a.md | op_a_copy.md</li></ul>
+<h3>待确认版本冲突（SimHash）</h3><ul><li>op_a.md ↔ op_a_copy.md（汉明距离 0）<br><small>片段A: # 规程A
+工业设备维护规程：淬火工艺要求将钢件加热至临界温度以上，保温后快速冷却以获得高硬度。操作人员须佩戴防护装备。工业设备维护规程：淬火工艺要求将钢件加热<br>片段B: # 规程A
+工业设备维护规程：淬火工艺要求将钢件加热至临界温度以上，保温后快速冷却以获得高硬度。操作人员须佩戴防护装备。工业设备维护规程：淬火工艺要求将钢件加热</small></li></ul>
+<h2>5. 敏感信息（待审核）</h2>
+<table><tr><th>文件</th><th>类型</th><th>命中</th><th>上下文</th></tr><tr><td>contacts.txt</td><td>phone</td><td>13912345678</td><td>...紧急联系：张工 13912345678，邮箱 zhang@factory.co...</td></tr><tr><td>contacts.txt</td><td>phone</td><td>13912345678</td><td>...8805051234。 紧急联系：张工 13912345678，邮箱 zhang@factory.co...</td></tr><tr><td>contacts.txt</td><td>phone</td><td>13912345678</td><td>...8805051234。 紧急联系：张工 13912345678，邮箱 zhang@factory.co...</td></tr><tr><td>contacts.txt</td><td>email</td><td>zhang@factory.com</td><td>...系：张工 13912345678，邮箱 zhang@factory.com，身份证 320101198805051...</td></tr><tr><td>contacts.txt</td><td>email</td><td>zhang@factory.com</td><td>...系：张工 13912345678，邮箱 zhang@factory.com，身份证 320101198805051...</td></tr><tr><td>contacts.txt</td><td>email</td><td>zhang@factory.com</td><td>...系：张工 13912345678，邮箱 zhang@factory.com，身份证 320101198805051...</td></tr><tr><td>contacts.txt</td><td>id_card</td><td>320101198805051234</td><td>...ang@factory.com，身份证 320101198805051234。 紧急联系：张工 1391234567...</td></tr><tr><td>contacts.txt</td><td>id_card</td><td>320101198805051234</td><td>...ang@factory.com，身份证 320101198805051234。 紧急联系：张工 1391234567...</td></tr><tr><td>contacts.txt</td><td>id_card</td><td>320101198805051234</td><td>...ang@factory.com，身份证 320101198805051234。 ...</td></tr></table>
+</body></html>

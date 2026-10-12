@@ -1,0 +1,56 @@
+=== 部署脚本清单 ===
+
+1. 安装脚本 (conda + cuda):
+#!/bin/bash
+# ============================================
+# 工单十四：安装脚本（环境 conda + cuda）
+# 低质量工业PDF解析与多模态RAG
+# ============================================
+
+2. 启动脚本:
+#!/bin/bash
+# 工单十四：启动脚本（FastAPI + Streamlit）
+set -e
+cd "$(dirname "$0")/.."
+
+PYTHON=/home/dabaie/code/my_project/.venv/bin/python3
+export PYTHONPATH=$(pwd)
+
+mkdir -p data/logs data/pids
+
+# 启动 FastAPI
+echo "启动 FastAPI 服务 (port 8014)..."
+$PYTHON -m uvicorn src.api:app --host 0.0.0.0 --port 8014 > data/logs/api.log 2>&1 &
+echo $! > data/pids/api.pid
+
+# 启动 Streamlit
+echo "启动 Streamlit 界面 (port 8514)..."
+$PYTHON -m streamlit run app/streamlit_app.py --server.port 8514 --server.address 0.0.0.0 > data/logs/streamlit.log 2>&1 &
+echo $! > data/pids/streamlit.pid
+
+sleep 3
+echo "=== 服务已启动 ==="
+echo "FastAPI:  http://localhost:8014/docs"
+echo "Streamlit: http://localhost:8514"
+
+3. 结束脚本:
+#!/bin/bash
+# 工单十四：停止脚本
+cd "$(dirname "$0")/.."
+
+for svc in api streamlit; do
+    pidfile="data/pids/${svc}.pid"
+    if [ -f "$pidfile" ]; then
+        pid=$(cat "$pidfile")
+        if kill -0 "$pid" 2>/dev/null; then
+            kill "$pid" 2>/dev/null
+            echo "已停止 $svc (pid=$pid)"
+        fi
+        rm -f "$pidfile"
+    fi
+done
+
+# 兜底清理
+pkill -f "uvicorn src.api" 2>/dev/null || true
+pkill -f "streamlit run app/streamlit_app" 2>/dev/null || true
+echo "所有服务已停止"
