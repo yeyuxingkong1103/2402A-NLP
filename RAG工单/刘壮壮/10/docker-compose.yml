@@ -1,0 +1,20 @@
+# 工单编号：人工智能NLP-RAG-金融问答系统部署
+version: "3.8"
+
+services:
+  rag-finance-qa:
+    build: .
+    container_name: rag-finance-qa
+    ports:
+      - "8000:8000"
+    environment:
+      - DATA_DIR=/data
+      - PORT=8000
+      # LLM 接口（可选，不配置则离线抽取式回答）
+      - LLM_API_BASE=${LLM_API_BASE:-}
+      - LLM_API_KEY=${LLM_API_KEY:-}
+      - LLM_MODEL=${LLM_MODEL:-deepseek-chat}
+    volumes:
+      # 数据卷：挂载金融年报 txt 目录，实现持久化与容器间共享
+      - ./data:/data
+    restart: unless-stopped
