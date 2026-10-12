@@ -1,0 +1,13 @@
+=== 单元测试结果 ===
+plugins: anyio-4.15.1, langsmith-0.12.4, asyncio-1.4.0
+asyncio: mode=strict, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 6 items
+
+tests/test_rag.py::test_detect_figure_refs PASSED                        [ 16%]
+tests/test_rag.py::test_route_query_visual PASSED                        [ 33%]
+tests/test_rag.py::test_route_query_text PASSED                          [ 50%]
+tests/test_rag.py::test_image_knowledge PASSED                           [ 66%]
+tests/test_rag.py::test_rewrite_query_injects_figure PASSED              [ 83%]
+tests/test_rag.py::test_chunker PASSED                                   [100%]
+
+============================== 6 passed in 0.01s ===============================

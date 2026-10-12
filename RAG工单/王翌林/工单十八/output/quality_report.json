@@ -1,0 +1,360 @@
+{
+  "input": "/home/dabaie/code/工单/工单十八/demo_dataset",
+  "file_count": 15,
+  "format_distribution": {
+    "total": 15,
+    "distribution": {
+      ".pdf": {
+        "count": 7,
+        "ratio": 46.67
+      },
+      ".md": {
+        "count": 3,
+        "ratio": 20.0
+      },
+      ".txt": {
+        "count": 2,
+        "ratio": 13.33
+      },
+      ".docx": {
+        "count": 1,
+        "ratio": 6.67
+      },
+      ".pptx": {
+        "count": 1,
+        "ratio": 6.67
+      },
+      ".png": {
+        "count": 1,
+        "ratio": 6.67
+      }
+    },
+    "unknown_examples": []
+  },
+  "pdf_classification": {
+    "pdfs": [
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/manual_0.pdf",
+        "label": "Text_PDF",
+        "pages": 10,
+        "scan_ratio": 0.0,
+        "avg_page_chars": 680
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/manual_2.pdf",
+        "label": "Text_PDF",
+        "pages": 3,
+        "scan_ratio": 0.0,
+        "avg_page_chars": 537
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/scan_doc_2.pdf",
+        "label": "Scan_PDF",
+        "pages": 5,
+        "scan_ratio": 1.0,
+        "avg_page_chars": 0
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/scan_doc_1.pdf",
+        "label": "Scan_PDF",
+        "pages": 5,
+        "scan_ratio": 1.0,
+        "avg_page_chars": 0
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/manual_3.pdf",
+        "label": "Text_PDF",
+        "pages": 7,
+        "scan_ratio": 0.0,
+        "avg_page_chars": 640
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/scan_doc_0.pdf",
+        "label": "Scan_PDF",
+        "pages": 5,
+        "scan_ratio": 1.0,
+        "avg_page_chars": 0
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/manual_1.pdf",
+        "label": "Text_PDF",
+        "pages": 8,
+        "scan_ratio": 0.125,
+        "avg_page_chars": 689
+      }
+    ],
+    "to_confirm": []
+  },
+  "length_distribution": {
+    "percentiles": {
+      "P25": 4,
+      "P50": 195,
+      "P75": 1030,
+      "P90": 5115,
+      "P99": 6643
+    },
+    "mean": 1333,
+    "buckets": {
+      "极短(<500)": 11,
+      "短(500-2k)": 1,
+      "中(2k-10k)": 3,
+      "长(10k-50k)": 0,
+      "超长(>50k)": 0
+    },
+    "outliers_long": [
+      "/home/dabaie/code/工单/工单十八/demo_dataset/manual_0.pdf",
+      "/home/dabaie/code/工单/工单十八/demo_dataset/manual_1.pdf",
+      "/home/dabaie/code/工单/工单十八/demo_dataset/manual_3.pdf",
+      "/home/dabaie/code/工单/工单十八/demo_dataset/manual_2.pdf",
+      "/home/dabaie/code/工单/工单十八/demo_dataset/op_b.md"
+    ],
+    "outliers_short": [
+      "/home/dabaie/code/工单/工单十八/demo_dataset/spec.docx",
+      "/home/dabaie/code/工单/工单十八/demo_dataset/report.pptx",
+      "/home/dabaie/code/工单/工单十八/demo_dataset/photo.png",
+      "/home/dabaie/code/工单/工单十八/demo_dataset/scan_doc_2.pdf",
+      "/home/dabaie/code/工单/工单十八/demo_dataset/scan_doc_1.pdf"
+    ]
+  },
+  "duplicates": {
+    "exact_duplicates": [
+      [
+        "/home/dabaie/code/工单/工单十八/demo_dataset/scan_doc_2.pdf",
+        "/home/dabaie/code/工单/工单十八/demo_dataset/scan_doc_1.pdf",
+        "/home/dabaie/code/工单/工单十八/demo_dataset/scan_doc_0.pdf"
+      ],
+      [
+        "/home/dabaie/code/工单/工单十八/demo_dataset/spec.docx",
+        "/home/dabaie/code/工单/工单十八/demo_dataset/report.pptx",
+        "/home/dabaie/code/工单/工单十八/demo_dataset/photo.png"
+      ],
+      [
+        "/home/dabaie/code/工单/工单十八/demo_dataset/op_a.md",
+        "/home/dabaie/code/工单/工单十八/demo_dataset/op_a_copy.md"
+      ]
+    ],
+    "version_conflicts_to_confirm": [
+      {
+        "file_a": "/home/dabaie/code/工单/工单十八/demo_dataset/op_a.md",
+        "file_b": "/home/dabaie/code/工单/工单十八/demo_dataset/op_a_copy.md",
+        "hamming_distance": 0,
+        "snippet_a": "# 规程A\n工业设备维护规程：淬火工艺要求将钢件加热至临界温度以上，保温后快速冷却以获得高硬度。操作人员须佩戴防护装备。工业设备维护规程：淬火工艺要求将钢件加热",
+        "snippet_b": "# 规程A\n工业设备维护规程：淬火工艺要求将钢件加热至临界温度以上，保温后快速冷却以获得高硬度。操作人员须佩戴防护装备。工业设备维护规程：淬火工艺要求将钢件加热",
+        "status": "待确认"
+      }
+    ]
+  },
+  "sensitive_info": {
+    "summary": {
+      "phone": 3,
+      "email": 3,
+      "id_card": 3
+    },
+    "to_review": [
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/contacts.txt",
+        "type": "phone",
+        "value": "13912345678",
+        "context": "...紧急联系：张工 13912345678，邮箱 zhang@factory.co...",
+        "status": "待审核"
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/contacts.txt",
+        "type": "phone",
+        "value": "13912345678",
+        "context": "...8805051234。 紧急联系：张工 13912345678，邮箱 zhang@factory.co...",
+        "status": "待审核"
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/contacts.txt",
+        "type": "phone",
+        "value": "13912345678",
+        "context": "...8805051234。 紧急联系：张工 13912345678，邮箱 zhang@factory.co...",
+        "status": "待审核"
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/contacts.txt",
+        "type": "email",
+        "value": "zhang@factory.com",
+        "context": "...系：张工 13912345678，邮箱 zhang@factory.com，身份证 320101198805051...",
+        "status": "待审核"
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/contacts.txt",
+        "type": "email",
+        "value": "zhang@factory.com",
+        "context": "...系：张工 13912345678，邮箱 zhang@factory.com，身份证 320101198805051...",
+        "status": "待审核"
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/contacts.txt",
+        "type": "email",
+        "value": "zhang@factory.com",
+        "context": "...系：张工 13912345678，邮箱 zhang@factory.com，身份证 320101198805051...",
+        "status": "待审核"
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/contacts.txt",
+        "type": "id_card",
+        "value": "320101198805051234",
+        "context": "...ang@factory.com，身份证 320101198805051234。 紧急联系：张工 1391234567...",
+        "status": "待审核"
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/contacts.txt",
+        "type": "id_card",
+        "value": "320101198805051234",
+        "context": "...ang@factory.com，身份证 320101198805051234。 紧急联系：张工 1391234567...",
+        "status": "待审核"
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/contacts.txt",
+        "type": "id_card",
+        "value": "320101198805051234",
+        "context": "...ang@factory.com，身份证 320101198805051234。 ...",
+        "status": "待审核"
+      }
+    ]
+  },
+  "classification": {
+    "/home/dabaie/code/工单/工单十八/demo_dataset/manual_0.pdf": {
+      "label": "Text_PDF",
+      "route_to": "text_extractor"
+    },
+    "/home/dabaie/code/工单/工单十八/demo_dataset/manual_2.pdf": {
+      "label": "Text_PDF",
+      "route_to": "text_extractor"
+    },
+    "/home/dabaie/code/工单/工单十八/demo_dataset/scan_doc_2.pdf": {
+      "label": "Scan_PDF",
+      "route_to": "ocr_parser"
+    },
+    "/home/dabaie/code/工单/工单十八/demo_dataset/scan_doc_1.pdf": {
+      "label": "Scan_PDF",
+      "route_to": "ocr_parser"
+    },
+    "/home/dabaie/code/工单/工单十八/demo_dataset/spec.docx": {
+      "label": "Office_Doc",
+      "route_to": "office_extractor"
+    },
+    "/home/dabaie/code/工单/工单十八/demo_dataset/report.pptx": {
+      "label": "Office_Doc",
+      "route_to": "office_extractor"
+    },
+    "/home/dabaie/code/工单/工单十八/demo_dataset/manual_3.pdf": {
+      "label": "Text_PDF",
+      "route_to": "text_extractor"
+    },
+    "/home/dabaie/code/工单/工单十八/demo_dataset/scan_doc_0.pdf": {
+      "label": "Scan_PDF",
+      "route_to": "ocr_parser"
+    },
+    "/home/dabaie/code/工单/工单十八/demo_dataset/manual_1.pdf": {
+      "label": "Text_PDF",
+      "route_to": "text_extractor"
+    },
+    "/home/dabaie/code/工单/工单十八/demo_dataset/op_b.md": {
+      "label": "Markdown",
+      "route_to": "markdown_extractor"
+    },
+    "/home/dabaie/code/工单/工单十八/demo_dataset/short_note.txt": {
+      "label": "PlainText",
+      "route_to": "text_extractor"
+    },
+    "/home/dabaie/code/工单/工单十八/demo_dataset/op_a.md": {
+      "label": "Markdown",
+      "route_to": "markdown_extractor"
+    },
+    "/home/dabaie/code/工单/工单十八/demo_dataset/op_a_copy.md": {
+      "label": "Markdown",
+      "route_to": "markdown_extractor"
+    },
+    "/home/dabaie/code/工单/工单十八/demo_dataset/photo.png": {
+      "label": "Image",
+      "route_to": "ocr_parser"
+    },
+    "/home/dabaie/code/工单/工单十八/demo_dataset/contacts.txt": {
+      "label": "PlainText",
+      "route_to": "text_extractor"
+    }
+  },
+  "parse_errors": [],
+  "action_items": {
+    "to_confirm_pdf": [],
+    "version_conflicts": [
+      {
+        "file_a": "/home/dabaie/code/工单/工单十八/demo_dataset/op_a.md",
+        "file_b": "/home/dabaie/code/工单/工单十八/demo_dataset/op_a_copy.md",
+        "hamming_distance": 0,
+        "snippet_a": "# 规程A\n工业设备维护规程：淬火工艺要求将钢件加热至临界温度以上，保温后快速冷却以获得高硬度。操作人员须佩戴防护装备。工业设备维护规程：淬火工艺要求将钢件加热",
+        "snippet_b": "# 规程A\n工业设备维护规程：淬火工艺要求将钢件加热至临界温度以上，保温后快速冷却以获得高硬度。操作人员须佩戴防护装备。工业设备维护规程：淬火工艺要求将钢件加热",
+        "status": "待确认"
+      }
+    ],
+    "sensitive_to_review": [
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/contacts.txt",
+        "type": "phone",
+        "value": "13912345678",
+        "context": "...紧急联系：张工 13912345678，邮箱 zhang@factory.co...",
+        "status": "待审核"
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/contacts.txt",
+        "type": "phone",
+        "value": "13912345678",
+        "context": "...8805051234。 紧急联系：张工 13912345678，邮箱 zhang@factory.co...",
+        "status": "待审核"
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/contacts.txt",
+        "type": "phone",
+        "value": "13912345678",
+        "context": "...8805051234。 紧急联系：张工 13912345678，邮箱 zhang@factory.co...",
+        "status": "待审核"
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/contacts.txt",
+        "type": "email",
+        "value": "zhang@factory.com",
+        "context": "...系：张工 13912345678，邮箱 zhang@factory.com，身份证 320101198805051...",
+        "status": "待审核"
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/contacts.txt",
+        "type": "email",
+        "value": "zhang@factory.com",
+        "context": "...系：张工 13912345678，邮箱 zhang@factory.com，身份证 320101198805051...",
+        "status": "待审核"
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/contacts.txt",
+        "type": "email",
+        "value": "zhang@factory.com",
+        "context": "...系：张工 13912345678，邮箱 zhang@factory.com，身份证 320101198805051...",
+        "status": "待审核"
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/contacts.txt",
+        "type": "id_card",
+        "value": "320101198805051234",
+        "context": "...ang@factory.com，身份证 320101198805051234。 紧急联系：张工 1391234567...",
+        "status": "待审核"
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/contacts.txt",
+        "type": "id_card",
+        "value": "320101198805051234",
+        "context": "...ang@factory.com，身份证 320101198805051234。 紧急联系：张工 1391234567...",
+        "status": "待审核"
+      },
+      {
+        "file": "/home/dabaie/code/工单/工单十八/demo_dataset/contacts.txt",
+        "type": "id_card",
+        "value": "320101198805051234",
+        "context": "...ang@factory.com，身份证 320101198805051234。 ...",
+        "status": "待审核"
+      }
+    ]
+  }
+}

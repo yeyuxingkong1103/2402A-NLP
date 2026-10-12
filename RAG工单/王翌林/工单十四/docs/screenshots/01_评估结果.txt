@@ -1,0 +1,65 @@
+2026-10-08 13:47:25.574 | INFO     | src.vector_store:_connect:33 - 已连接远程 Milvus: http://localhost:19530
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]Loading weights:   7%|▋         | 29/393 [00:00<00:01, 282.26it/s]Loading weights:  15%|█▍        | 58/393 [00:00<00:01, 249.10it/s]Loading weights:  22%|██▏       | 85/393 [00:00<00:01, 252.60it/s]Loading weights:  28%|██▊       | 111/393 [00:00<00:01, 247.95it/s]Loading weights:  35%|███▍      | 136/393 [00:00<00:01, 248.35it/s]Loading weights: 100%|██████████| 393/393 [00:00<00:00, 623.67it/s]
+2026-10-08 13:47:30.604 | INFO     | src.retriever:__init__:52 - Reranker 加载完成
+Building prefix dict from the default dictionary ...
+Loading model from cache /tmp/jieba.cache
+Loading model cost 0.325 seconds.
+Prefix dict has been built successfully.
+2026-10-08 13:47:30.939 | INFO     | src.retriever:_build_bm25_index:32 - BM25 索引构建完成: 11 chunks
+2026-10-08 13:47:31.027 | INFO     | src.embedding:_load:53 - 加载嵌入模型: /home/dabaie/models/bge-m3  device=cpu
+知识库映射已加载
+
+=== Q1: 根据文本信息，该静电除尘器的发明人是？... ===
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 12425.26it/s]
+2026-10-08 13:47:32.887 | INFO     | src.embedding:_load:61 - 嵌入模型就绪: dim=1024
+2026-10-08 13:47:39.333 | INFO     | src.retriever:retrieve:119 - 检索完成: 11 chunks | vec=2028ms bm25=0ms
+2026-10-08 13:47:39.784 | INFO     | src.llm_client:get_client:21 - DeepSeek client 就绪: https://api.deepseek.com/v1
+2026-10-08 13:47:40.891 | INFO     | src.llm_client:chat:47 - LLM 返回: model=deepseek-v4-flash, latency=1106ms, tokens=1530
+2026-10-08 13:47:44.996 | INFO     | src.retriever:retrieve:119 - 检索完成: 11 chunks | vec=3753ms bm25=6ms
+2026-10-08 13:47:46.234 | INFO     | src.llm_client:chat:47 - LLM 返回: model=deepseek-v4-flash, latency=1237ms, tokens=1633
+2026-10-08 13:47:46.804 | INFO     | src.retriever:retrieve:119 - 检索完成: 11 chunks | vec=243ms bm25=13ms
+2026-10-08 13:47:47.576 | INFO     | src.llm_client:chat:47 - LLM 返回: model=deepseek-v4-flash, latency=772ms, tokens=1377
+2026-10-08 13:47:48.026 | INFO     | src.retriever:retrieve:119 - 检索完成: 11 chunks | vec=132ms bm25=1ms
+2026-10-08 13:47:48.653 | INFO     | src.llm_client:chat:47 - LLM 返回: model=deepseek-v4-flash, latency=627ms, tokens=1304
+2026-10-08 13:47:49.085 | INFO     | src.retriever:retrieve:119 - 检索完成: 11 chunks | vec=119ms bm25=1ms
+2026-10-08 13:47:49.951 | INFO     | src.llm_client:chat:47 - LLM 返回: model=deepseek-v4-flash, latency=866ms, tokens=1231
+2026-10-08 13:47:50.450 | INFO     | src.retriever:retrieve:119 - 检索完成: 11 chunks | vec=174ms bm25=3ms
+2026-10-08 13:47:51.211 | INFO     | src.llm_client:chat:47 - LLM 返回: model=deepseek-v4-flash, latency=760ms, tokens=1231
+  答案: 根据参考资料，该静电除尘器的发明人是 **P·吉特勒**。
+  正确: ✅ (标准答案: A)
+  耗时: 9951ms
+
+=== Q2: 根据文本信息，以下哪个描述符合该静电除尘器的特征？... ===
+  答案: 根据参考资料，符合该静电除尘器特征的描述是：
+
+**静电除尘器具有一个关于其中心轴线基本旋转对称的外壳，管状入口在单个的圆锥形部分张开，该圆锥形部分达到外壳直径的80%至95%，剩余外壳直径的5%至20%的加宽部分采用一个基本垂直于外壳轴线并关于该轴线径向对称的台阶，在圆锥形部分上至少有两个基本垂直于外壳轴线的配气带孔盘。**
+
+这一描述与资料1、资料2（摘要）和资料4中的记载一致。
+  正确: ✅ (标准答案: C)
+  耗时: 5343ms
+
+=== Q3: 在文件中第7页的图片中，部件4相对于部件5在图片中的位置关系是？... ===
+  答案: 部件4在部件5的左侧。
+  正确: ✅ (标准答案: A)
+  耗时: 1342ms
+
+=== Q4: 在文件中第7页的图片中，尺寸X1，X2，X3分别代表什么部件的间隔距离？... ===
+  答案: 尺寸X1、X2、X3分别代表配气带孔盘6、6'、6''之间的间隔距离，且这些间隔均从台阶形截止面5开始测量。
+  正确: ✅ (标准答案: A)
+  耗时: 1078ms
+
+=== Q5: 根据文件中第7页图示，气流方向(7)首先经过哪个部件？紧接着会经过哪个部件？... ===
+  答案: 根据说明书，气流方向（箭头7）首先经过配气带孔盘6"，紧接着经过配气带孔盘6'。
+  正确: ✅ (标准答案: C)
+  耗时: 1298ms
+
+=== Q6: 根据文件中第7页图示，如果已知外壳直径D，那么h1和h2的尺寸可以用来计算什么？... ===
+  答案: 根据说明书，h1和h2的尺寸可以用来确定配气带孔盘6、6'、6''的位置。
+  正确: ✅ (标准答案: B)
+  耗时: 1259ms
+
+============================================================
+评估结果: 6/6 = 100%
+平均响应时间: 3379ms
+============================================================
+结果已保存: ./docs/v14_evaluation_results.json

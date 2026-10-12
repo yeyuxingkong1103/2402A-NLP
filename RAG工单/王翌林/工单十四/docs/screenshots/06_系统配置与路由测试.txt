@@ -1,0 +1,18 @@
+=== 系统配置 ===
+项目: 低质量工业PDF解析与多模态RAG
+PDF: CN100342976C.pdf (图片型, 8页)
+LLM: DeepSeek v4-flash
+嵌入模型: bge-m3 (1024维)
+重排序: bge-reranker-v2-m3
+OCR/VQA: Qwen2-VL-2B-Instruct
+向量库: Milvus (HNSW+COSINE)
+API端口: 8014
+Streamlit端口: 8514
+
+=== 查询路由测试 ===
+  问题: 发明人是谁？... → 文本检索, 页码=None
+  问题: 除尘器特征？... → 文本检索, 页码=None
+  问题: 第7页图中部件4相对部件5位置？... → 图像VQA, 页码=7
+  问题: X1,X2,X3代表什么？... → 文本检索, 页码=None
+  问题: 气流方向先经过哪个部件？... → 图像VQA, 页码=None
+  问题: h1,h2尺寸可计算什么？... → 图像VQA, 页码=None

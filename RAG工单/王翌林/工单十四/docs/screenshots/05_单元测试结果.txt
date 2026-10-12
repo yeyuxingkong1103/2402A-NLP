@@ -1,0 +1,21 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.6.0 -- /home/dabaie/code/my_project/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/dabaie/code/工单/工单十四
+plugins: anyio-4.15.1, langsmith-0.12.4, asyncio-1.4.0
+asyncio: mode=strict, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 11 items
+
+tests/test_rag.py::TestQueryRouter::test_text_query_detection PASSED     [  9%]
+tests/test_rag.py::TestQueryRouter::test_image_query_detection PASSED    [ 18%]
+tests/test_rag.py::TestQueryRouter::test_page_detection PASSED           [ 27%]
+tests/test_rag.py::TestQueryRouter::test_route_query PASSED              [ 36%]
+tests/test_rag.py::TestPdfParser::test_extract_images PASSED             [ 45%]
+tests/test_rag.py::TestChunker::test_chunk_ocr_results PASSED            [ 54%]
+tests/test_rag.py::TestOcrResults::test_ocr_file_exists PASSED           [ 63%]
+tests/test_rag.py::TestOcrResults::test_ocr_contains_inventor PASSED     [ 72%]
+tests/test_rag.py::TestOcrResults::test_ocr_contains_feature PASSED      [ 81%]
+tests/test_rag.py::TestKBExists::test_kb_mapping_exists PASSED           [ 90%]
+tests/test_rag.py::TestKBExists::test_milvus_has_data PASSED             [100%]
+
+============================== 11 passed in 8.29s ==============================

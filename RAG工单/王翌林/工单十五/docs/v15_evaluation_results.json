@@ -1,0 +1,117 @@
+{
+  "accuracy": 1.0,
+  "correct": 6,
+  "total": 6,
+  "avg_latency_s": 1.92,
+  "results": [
+    {
+      "no": 1,
+      "question": "根据专利文本，本发明主要涉及哪种物料的分配装置？",
+      "gold": "块状散料",
+      "pred": "根据专利文本，本发明主要涉及**块状散料**的分配装置，尤其是**至少部分预还原的铁矿石（DRI）**。",
+      "correct": true,
+      "latency_s": 3.6,
+      "mode": "text_rag",
+      "route": {
+        "query_type": "text",
+        "needs_vlm": false,
+        "fig_no": null,
+        "page": null,
+        "parts": [],
+        "has_visual_ref": false
+      }
+    },
+    {
+      "no": 2,
+      "question": "根据专利文本，本发明的分散装置包含以下哪个组件？",
+      "gold": "链条",
+      "pred": "根据专利文本，本发明的分散装置包含**链条**（尤其是环形链条），链条上可设置**接点**等分散元件；此外，分散装置还可具有**栓钉**，装在落料架的内侧面上。",
+      "correct": true,
+      "latency_s": 1.2,
+      "mode": "text_rag",
+      "route": {
+        "query_type": "text",
+        "needs_vlm": false,
+        "fig_no": null,
+        "page": null,
+        "parts": [],
+        "has_visual_ref": false
+      }
+    },
+    {
+      "no": 3,
+      "question": "在文件中第11页图3中，编号13的部件相对于编号12的部件的位置关系是？",
+      "gold": "位于编号12的部件之内",
+      "pred": "编号13的部件位于编号12的部件内部。",
+      "correct": true,
+      "latency_s": 1.67,
+      "mode": "crossmodal_rag",
+      "route": {
+        "query_type": "image",
+        "needs_vlm": true,
+        "fig_no": 3,
+        "page": 11,
+        "parts": [
+          13,
+          12
+        ],
+        "has_visual_ref": true
+      }
+    },
+    {
+      "no": 4,
+      "question": "在文件中第11页图3中，编号14的部件位于整个装置的哪个位置？",
+      "gold": "顶部",
+      "pred": "编号14的部件（顶部入口料斗）位于整个装置的顶部。",
+      "correct": true,
+      "latency_s": 1.59,
+      "mode": "crossmodal_rag",
+      "route": {
+        "query_type": "image",
+        "needs_vlm": true,
+        "fig_no": 3,
+        "page": 11,
+        "parts": [
+          14
+        ],
+        "has_visual_ref": true
+      }
+    },
+    {
+      "no": 5,
+      "question": "根据文件中第11页图3，散料从部件14进入后，下一步会经过哪个部件？",
+      "gold": "部件13",
+      "pred": "根据图3的图纸描述，散料从部件14（顶部入口料斗）进入后，下一步经过的是**部件13**（位于部件12内部的内套管/导向件）。",
+      "correct": true,
+      "latency_s": 1.9,
+      "mode": "crossmodal_rag",
+      "route": {
+        "query_type": "image",
+        "needs_vlm": true,
+        "fig_no": 3,
+        "page": 11,
+        "parts": [
+          14
+        ],
+        "has_visual_ref": true
+      }
+    },
+    {
+      "no": 6,
+      "question": "在文件中第11页图3的装置中，如果需要调整链条的位置，需要操作哪个部件?",
+      "gold": "部件11",
+      "pred": "需要操作部件11（链条位置调节部件，位于装置顶部）。",
+      "correct": true,
+      "latency_s": 1.55,
+      "mode": "crossmodal_rag",
+      "route": {
+        "query_type": "image",
+        "needs_vlm": true,
+        "fig_no": 3,
+        "page": 11,
+        "parts": [],
+        "has_visual_ref": true
+      }
+    }
+  ]
+}

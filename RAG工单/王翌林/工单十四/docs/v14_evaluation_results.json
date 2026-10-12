@@ -1,0 +1,60 @@
+{
+  "results": [
+    {
+      "id": 1,
+      "question": "根据文本信息，该静电除尘器的发明人是？",
+      "answer": "根据参考资料，该静电除尘器的发明人是 **P·吉特勒**。",
+      "correct_answer": "A",
+      "correct": true,
+      "latency_ms": 9951.4,
+      "mode": "text_rag"
+    },
+    {
+      "id": 2,
+      "question": "根据文本信息，以下哪个描述符合该静电除尘器的特征？",
+      "answer": "根据参考资料，符合该静电除尘器特征的描述是：\n\n**静电除尘器具有一个关于其中心轴线基本旋转对称的外壳，管状入口在单个的圆锥形部分张开，该圆锥形部分达到外壳直径的80%至95%，剩余外壳直径的5%至20%的加宽部分采用一个基本垂直于外壳轴线并关于该轴线径向对称的台阶，在圆锥形部分上至少有两个基本垂直于外壳轴线的配气带孔盘。**\n\n这一描述与资料1、资料2（摘要）和资料4中的记载一致。",
+      "correct_answer": "C",
+      "correct": true,
+      "latency_ms": 5343.0,
+      "mode": "text_rag"
+    },
+    {
+      "id": 3,
+      "question": "在文件中第7页的图片中，部件4相对于部件5在图片中的位置关系是？",
+      "answer": "部件4在部件5的左侧。",
+      "correct_answer": "A",
+      "correct": true,
+      "latency_ms": 1341.8,
+      "mode": "image_rag"
+    },
+    {
+      "id": 4,
+      "question": "在文件中第7页的图片中，尺寸X1，X2，X3分别代表什么部件的间隔距离？",
+      "answer": "尺寸X1、X2、X3分别代表配气带孔盘6、6'、6''之间的间隔距离，且这些间隔均从台阶形截止面5开始测量。",
+      "correct_answer": "A",
+      "correct": true,
+      "latency_ms": 1077.7,
+      "mode": "image_rag"
+    },
+    {
+      "id": 5,
+      "question": "根据文件中第7页图示，气流方向(7)首先经过哪个部件？紧接着会经过哪个部件？",
+      "answer": "根据说明书，气流方向（箭头7）首先经过配气带孔盘6\"，紧接着经过配气带孔盘6'。",
+      "correct_answer": "C",
+      "correct": true,
+      "latency_ms": 1297.9,
+      "mode": "image_rag"
+    },
+    {
+      "id": 6,
+      "question": "根据文件中第7页图示，如果已知外壳直径D，那么h1和h2的尺寸可以用来计算什么？",
+      "answer": "根据说明书，h1和h2的尺寸可以用来确定配气带孔盘6、6'、6''的位置。",
+      "correct_answer": "B",
+      "correct": true,
+      "latency_ms": 1259.3,
+      "mode": "image_rag"
+    }
+  ],
+  "accuracy": 1.0,
+  "avg_latency_ms": 3378.516666666667
+}
