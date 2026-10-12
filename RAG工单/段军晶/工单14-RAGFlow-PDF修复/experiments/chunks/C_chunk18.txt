@@ -1,0 +1,123 @@
+
+## SECTION 1 — Visual Type  
+Cross-sectional schematic of a conical-cylindrical-conical duct or housing assembly (Fig. 2)
+
+## SECTION 2 — Axes / Legends / Labels  
+8  
+2  
+7  
+10  
+h₁  
+h₂  
+h₃  
+h₄  
+9  
+1  
+图 2  
+
+(Note: “1” appears as a label near the right-side dimension line for h₁/h₂, but is not attached to a distinct component outline; it is part of the dimensioning annotation. No other numeric labels such as 4, 5, 6, 6′, 6″ are visible in the image.)
+
+## SECTION 3 — Component Position Triples (MANDATORY)  
+(2, 位于上方, 10)  
+(10, 位于下方, 2)  
+(8, 位于上方, 2)  
+(2, 位于下方, 8)  
+(7, 位于下方, 10)  
+(10, 位于上方, 7)  
+(8, 位于上方, 10)  
+(2, 位于内部, 9)  
+(10, 位于内部, 9)  
+(7, 位于外部, 9)  
+(8, 位于左侧, 无明确右侧对应件) → 不确定  
+(2, 位于左侧, 无明确右侧对应件) → 不确定  
+(10, 位于左侧, 无明确右侧对应件) → 不确定  
+(7, 位于左侧, 无明确右侧对应件) → 不确定  
+(8, 位于上方, 7)  
+(7, 位于下方, 8)  
+(2, 位于上方, 7)  
+(7, 位于下方, 2)  
+(10, 位于下方, 2) — already listed, skip  
+(8, 位于内部, 9) — already implied; retain only unique  
+(1, 不确定, 2)  
+(1, 不确定, 10)  
+(1, 不确定, 7)  
+(1, 不确定, 8)  
+(2, 不确定, 4)  
+(5, 不确定, 4)  
+(6, 不确定, 4)  
+(6′, 不确定, 4)  
+(6″, 不确定, 4)  
+(6, 不确定, 6′)  
+(6′, 不确定, 6″)  
+(6, 不确定, 6″)  
+(7, 不确定, 6)  
+(7, 不确定, 6′)  
+(7, 不确定, 6″)  
+(10, 不确定, 4)  
+(1, 不确定, 10)  
+
+→ After deduplication and enforcing coverage requirement *only for components actually present*, we must restrict to visible labels: **2, 7, 8, 10, 1, h₁–h₄, 9**. Components 4, 5, 6, 6′, 6″ are **not visible** in the drawing, so all triples involving them are **不确定**, but per instruction we must still emit them.
+
+Final list (18 triples, satisfying coverage and uniqueness):
+
+(2, 位于上方, 10)  
+(10, 位于下方, 2)  
+(8, 位于上方, 2)  
+(2, 位于下方, 8)  
+(7, 位于下方, 10)  
+(10, 位于上方, 7)  
+(8, 位于上方, 7)  
+(7, 位于下方, 8)  
+(2, 位于内部, 9)  
+(10, 位于内部, 9)  
+(1, 不确定, 2)  
+(1, 不确定, 10)  
+(1, 不确定, 7)  
+(1, 不确定, 8)  
+(4, 不确定, 5)  
+(5, 不确定, 4)  
+(4, 不确定, 6)  
+(4, 不确定, 6′)  
+
+(Additional required pairs: (4,6″), (6,6′), (6′,6″), (6,6″), (1,10), (10,4), (1,2), (2,5), (7,6), (7,6′), (7,6″) — all involve missing labels, so all are 不确定. To reach ≥12 and ≤30, we add the minimal necessary.)
+
+Expanded to exactly 22 triples (mandatory coverage + adjacency):
+
+(2, 位于上方, 10)  
+(10, 位于下方, 2)  
+(8, 位于上方, 2)  
+(2, 位于下方, 8)  
+(7, 位于下方, 10)  
+(10, 位于上方, 7)  
+(8, 位于上方, 7)  
+(7, 位于下方, 8)  
+(2, 位于内部, 9)  
+(10, 位于内部, 9)  
+(1, 不确定, 2)  
+(1, 不确定, 10)  
+(1, 不确定, 7)  
+(1, 不确定, 8)  
+(4, 不确定, 5)  
+(5, 不确定, 4)  
+(4, 不确定, 6)  
+(4, 不确定, 6′)  
+(4, 不确定, 6″)  
+(6, 不确定, 6′)  
+(6′, 不确定, 6″)  
+(6, 不确定, 6″)  
+
+## SECTION 4 — Airflow / Flow Path (MANDATORY)  
+- Flow arrow label(s): 7  
+- Arrow direction in the drawing: bottom-to-top  
+
+Ordered traversal:  
+1. 部件10  
+2. 部件2  
+3. 部件8  
+
+(Rationale: Arrow 7 points upward from below component 10; flow enters at the narrow lower end (10), passes through the cylindrical section (2), and exits through the upper conical section (8). Component 10 is the lower frustum, 2 is the central cylinder, 8 is the upper frustum — all aligned vertically along the flow axis.)
+
+## SECTION 5 — Captions / Annotations  
+图 2图2
+n4
+0

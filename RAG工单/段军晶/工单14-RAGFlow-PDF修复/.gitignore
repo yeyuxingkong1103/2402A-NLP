@@ -1,0 +1,46 @@
+# ============================================================
+# 工单14 · 仓库级忽略规则
+# 注：ragflow-main/ 自带上游 .gitignore，会与本文件叠加生效
+# ============================================================
+
+# ---------- 运行产物与日志 ----------
+ragflow-main/docker/ragflow-logs/
+*.log
+logs/
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# ---------- Node / 前端构建产物 ----------
+node_modules/
+dist/
+.next/
+out/
+*.tsbuildinfo
+
+# ---------- 临时工作目录 ----------
+.ragflow_tmp/
+tmp/
+*.tmp
+*.bak
+*~
+
+# ---------- 编辑器 ----------
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ---------- 操作系统 ----------
+.DS_Store
+Thumbs.db
+desktop.ini
