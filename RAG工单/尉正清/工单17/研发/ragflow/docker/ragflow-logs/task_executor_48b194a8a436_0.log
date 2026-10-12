@@ -1,0 +1,59 @@
+2026-10-12 14:16:00,831 INFO     6349 task_executor_48b194a8a436_0 log path: /ragflow/logs/task_executor_48b194a8a436_0.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-12 14:16:00,833 INFO     6349 Staggering startup by 0.41s to prevent connection storm
+2026-10-12 14:16:01,241 INFO     6349 
+    ____                      __  _
+   /  _/___  ____ ____  _____/ /_(_)___  ____     ________  ______   _____  _____
+   / // __ \/ __ `/ _ \/ ___/ __/ / __ \/ __ \   / ___/ _ \/ ___/ | / / _ \/ ___/
+ _/ // / / / /_/ /  __(__  ) /_/ / /_/ / / / /  (__  )  __/ /   | |/ /  __/ /
+/___/_/ /_/\__, /\___/____/\__/_/\____/_/ /_/  /____/\___/_/    |___/\___/_/
+          /____/
+    
+2026-10-12 14:16:01,244 INFO     6349 RAGFlow version: v0.23.1
+2026-10-12 14:16:01,246 INFO     6349 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3306, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'chat_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}, 'embedding_model': {'name': 'bge-m3', 'api_key': 'sk-local', 'base_url': 'http://host.docker.internal:9997/v1'}, 'image2text_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}}}
+2026-10-12 14:16:01,248 WARNING  6349 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-12 14:16:01,265 INFO     6349 GET http://es01:9200/ [status:200 duration:0.012s]
+2026-10-12 14:16:01,268 INFO     6349 HEAD http://es01:9200/ [status:200 duration:0.002s]
+2026-10-12 14:16:01,269 INFO     6349 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-12 14:16:01,270 INFO     6349 Elasticsearch http://es01:9200 is healthy.
+2026-10-12 14:16:01,271 INFO     6349 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-12 14:16:01,271 INFO     6349 Elasticsearch http://es01:9200 is healthy.
+2026-10-12 14:16:01,274 WARNING  6349 Load term.freq FAIL!
+2026-10-12 14:16:01,279 WARNING  6349 Realtime synonym is disabled, since no redis connection.
+2026-10-12 14:16:01,286 WARNING  6349 Load term.freq FAIL!
+2026-10-12 14:16:01,291 WARNING  6349 Realtime synonym is disabled, since no redis connection.
+2026-10-12 14:16:01,292 INFO     6349 can't import package 'torch'
+2026-10-12 14:16:01,293 INFO     6349 default embedding config: {'model': 'bge-m3', 'factory': '', 'api_key': 'sk-local', 'base_url': 'http://host.docker.internal:9997/v1'}
+2026-10-12 14:16:01,294 INFO     6349 MAX_CONTENT_LENGTH: 134217728
+2026-10-12 14:16:01,294 INFO     6349 MAX_FILE_COUNT_PER_USER: 0
+2026-10-12 14:16:01,300 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:16:01.299+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-12 14:16:01,302 INFO     6349 task_executor_1b49384c4f73_0 expired, removed
+2026-10-12 14:16:31,306 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:16:31.304+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-12 14:17:01,312 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:17:01.311+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-12 14:17:31,317 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:17:31.317+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-12 14:18:01,322 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:18:01.321+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-12 14:18:31,326 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:18:31.325+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-12 14:19:01,330 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:19:01.329+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-12 14:19:31,334 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:19:31.333+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-12 14:20:01,388 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:20:01.387+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-12 14:20:31,391 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:20:31.390+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-12 14:21:01,398 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:21:01.397+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-12 14:21:31,404 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:21:31.403+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-12 14:22:01,409 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:22:01.408+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-12 14:22:31,413 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:22:31.412+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-12 14:23:01,416 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:23:01.415+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-12 14:23:31,455 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:23:31.454+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-12 14:24:01,461 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:24:01.460+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-12 14:24:31,465 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:24:31.464+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-12 14:25:01,471 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:25:01.470+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-12 14:25:31,477 INFO     6349 task_executor_48b194a8a436_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 6349, "name": "task_executor_48b194a8a436_0", "now": "2026-10-12T14:25:31.476+08:00", "boot_at": "2026-10-12T14:16:00.829+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}

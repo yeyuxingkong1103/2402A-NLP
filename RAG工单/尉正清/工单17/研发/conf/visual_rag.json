@@ -1,0 +1,14 @@
+{
+  "_说明": "工单15 跨模态检索的外部配置。改完重启容器生效；也可用同名环境变量覆盖（VISUAL_RAG_<KEY>）。",
+
+  "enabled": true,
+
+  "_figure_boost": "问题里提到「图N」且块上带「【技术图纸】图N」标记时的加分。调大→图纸块排得更前",
+  "figure_boost": 0.5,
+
+  "_page_boost": "问题里提到「第P页」且块标记的页码也是 P 时的额外加分",
+  "page_boost": 0.2,
+
+  "_marker": "图纸块标记前缀，必须与 deepdoc/parser/figure_parser.py 里 _mark_figures 写的保持一致",
+  "marker": "【技术图纸】"
+}

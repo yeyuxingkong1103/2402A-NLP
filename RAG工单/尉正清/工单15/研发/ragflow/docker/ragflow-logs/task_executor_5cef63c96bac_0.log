@@ -1,0 +1,204 @@
+2026-10-10 08:34:21,513 INFO     27 task_executor_5cef63c96bac_0 log path: /ragflow/logs/task_executor_5cef63c96bac_0.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-10 08:34:21,514 INFO     27 Staggering startup by 0.40s to prevent connection storm
+2026-10-10 08:34:21,916 INFO     27 
+    ____                      __  _
+   /  _/___  ____ ____  _____/ /_(_)___  ____     ________  ______   _____  _____
+   / // __ \/ __ `/ _ \/ ___/ __/ / __ \/ __ \   / ___/ _ \/ ___/ | / / _ \/ ___/
+ _/ // / / / /_/ /  __(__  ) /_/ / /_/ / / / /  (__  )  __/ /   | |/ /  __/ /
+/___/_/ /_/\__, /\___/____/\__/_/\____/_/ /_/  /____/\___/_/    |___/\___/_/
+          /____/
+    
+2026-10-10 08:34:21,918 INFO     27 RAGFlow version: v0.23.1
+2026-10-10 08:34:21,919 INFO     27 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3306, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'chat_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}, 'embedding_model': {'name': 'bge-m3', 'api_key': 'sk-local', 'base_url': 'http://host.docker.internal:9997/v1'}, 'image2text_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}}}
+2026-10-10 08:34:21,921 WARNING  27 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-10 08:34:21,928 INFO     27 GET http://es01:9200/ [status:200 duration:0.005s]
+2026-10-10 08:34:21,932 INFO     27 HEAD http://es01:9200/ [status:200 duration:0.003s]
+2026-10-10 08:34:21,933 INFO     27 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-10 08:34:21,934 INFO     27 Elasticsearch http://es01:9200 is healthy.
+2026-10-10 08:34:21,934 INFO     27 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-10 08:34:21,935 INFO     27 Elasticsearch http://es01:9200 is healthy.
+2026-10-10 08:34:21,937 WARNING  27 Load term.freq FAIL!
+2026-10-10 08:34:21,941 WARNING  27 Realtime synonym is disabled, since no redis connection.
+2026-10-10 08:34:21,947 WARNING  27 Load term.freq FAIL!
+2026-10-10 08:34:21,950 WARNING  27 Realtime synonym is disabled, since no redis connection.
+2026-10-10 08:34:21,951 INFO     27 can't import package 'torch'
+2026-10-10 08:34:21,952 INFO     27 default embedding config: {'model': 'bge-m3', 'factory': '', 'api_key': 'sk-local', 'base_url': 'http://host.docker.internal:9997/v1'}
+2026-10-10 08:34:21,952 INFO     27 MAX_CONTENT_LENGTH: 134217728
+2026-10-10 08:34:21,953 INFO     27 MAX_FILE_COUNT_PER_USER: 0
+2026-10-10 08:34:21,956 INFO     27 task_executor_5cef63c96bac_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 27, "name": "task_executor_5cef63c96bac_0", "now": "2026-10-10T08:34:21.955+08:00", "boot_at": "2026-10-10T08:34:21.511+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-10 08:34:51,957 INFO     27 task_executor_5cef63c96bac_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 27, "name": "task_executor_5cef63c96bac_0", "now": "2026-10-10T08:34:51.956+08:00", "boot_at": "2026-10-10T08:34:21.511+08:00", "pending": 0, "lag": 0, "done": 0, "failed": 0, "current": {}}
+2026-10-10 08:34:57,384 INFO     27 handle_task begin for task {"id": "6b3717cac44211f1979866c5e19ceb41", "doc_id": "73d31a6cc43c11f18e56ba651418d766", "from_page": 0, "to_page": 11, "retry_count": 0, "kb_id": "7383929bc43c11f19506ba651418d766", "parser_id": "naive", "parser_config": {"table_context_size": 0, "image_context_size": 0, "layout_recognize": "DeepDOC", "chunk_token_num": 512, "delimiter": "\n", "auto_keywords": 0, "auto_questions": 0, "html4excel": false, "topn_tags": 3, "raptor": {"use_raptor": true, "prompt": "Please summarize the following paragraphs. Be careful with the numbers, do not make things up. Paragraphs as following:\n      {cluster_content}\nThe above is the content you need to summarize.", "max_token": 256, "threshold": 0.1, "max_cluster": 64, "random_seed": 0}, "graphrag": {"use_graphrag": true, "entity_types": ["organization", "person", "geo", "event", "category"], "method": "light"}, "llm_id": "deepseek-flash@DeepSeek"}, "name": "CN100347506C.pdf", "type": "pdf", "location": "CN100347506C.pdf", "size": 549413, "tenant_id": "1b9ada8dc43c11f1925aba651418d766", "language": "English", "embd_id": "bge-m3___OpenAI-API@OpenAI-API-Compatible", "pagerank": 0, "kb_parser_config": {"table_context_size": 0, "image_context_size": 0, "layout_recognize": "DeepDOC", "chunk_token_num": 300, "delimiter": "\n", "auto_keywords": 0, "auto_questions": 0, "html4excel": false, "topn_tags": 3, "raptor": {"use_raptor": true, "prompt": "Please summarize the following paragraphs. Be careful with the numbers, do not make things up. Paragraphs as following:\n      {cluster_content}\nThe above is the content you need to summarize.", "max_token": 256, "threshold": 0.1, "max_cluster": 64, "random_seed": 0}, "graphrag": {"use_graphrag": true, "entity_types": ["organization", "person", "geo", "event", "category"], "method": "light"}, "llm_id": "deepseek-flash@DeepSeek"}, "img2txt_id": "deepseek-flash___OpenAI-API@OpenAI-API-Compatible", "asr_id": "", "llm_id": "deepseek-flash@DeepSeek", "update_time": 1791592497096, "task_type": ""}
+2026-10-10 08:34:57,860 INFO     27 HEAD http://es01:9200/ragflow_1b9ada8dc43c11f1925aba651418d766 [status:200 duration:0.005s]
+2026-10-10 08:34:58,275 INFO     27 From minio(0.4140343799999755) CN100347506C.pdf/CN100347506C.pdf
+2026-10-10 08:34:58,292 INFO     27 set_progress(6b3717cac44211f1979866c5e19ceb41), progress: 0.1, progress_msg: 08:34:58 Page(1~12): Start to parse.
+2026-10-10 08:34:58,293 INFO     27 load_model /ragflow/rag/res/deepdoc/det.onnx reuses cached model
+2026-10-10 08:34:58,297 INFO     27 load_model /ragflow/rag/res/deepdoc/rec.onnx reuses cached model
+2026-10-10 08:34:58,786 INFO     27 load_model /ragflow/rag/res/deepdoc/layout.onnx uses CPU
+2026-10-10 08:34:58,832 INFO     27 load_model /ragflow/rag/res/deepdoc/tsr.onnx uses CPU
+2026-10-10 08:34:58,838 INFO     27 No torch found.
+2026-10-10 08:34:58,875 INFO     27 set_progress(6b3717cac44211f1979866c5e19ceb41), progress: None, progress_msg: 08:34:58 Page(1~12): OCR started
+2026-10-10 08:35:00,293 INFO     27 __images__ dedupe_chars cost 1.4167597690002367s
+2026-10-10 08:35:00,723 INFO     27 __ocr detecting boxes of a image cost (0.4277882240003237s)
+2026-10-10 08:35:00,725 INFO     27 __ocr sorting 0 chars cost 0.0004687470000135363s
+2026-10-10 08:35:08,065 INFO     27 __ocr recognize 57 boxes cost 7.337901812000382s
+2026-10-10 08:35:08,346 INFO     27 __ocr detecting boxes of a image cost (0.27904235999994853s)
+2026-10-10 08:35:08,347 INFO     27 __ocr sorting 0 chars cost 0.00037135399998078356s
+2026-10-10 08:35:19,529 INFO     27 __ocr recognize 35 boxes cost 11.194863483000063s
+2026-10-10 08:35:20,309 INFO     27 __ocr detecting boxes of a image cost (0.7112041659997885s)
+2026-10-10 08:35:20,322 INFO     27 __ocr sorting 0 chars cost 0.00016606300005150842s
+2026-10-10 08:35:21,989 INFO     27 task_executor_5cef63c96bac_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 27, "name": "task_executor_5cef63c96bac_0", "now": "2026-10-10T08:35:21.949+08:00", "boot_at": "2026-10-10T08:34:21.511+08:00", "pending": 1, "lag": 0, "done": 0, "failed": 0, "current": {"6b3717cac44211f1979866c5e19ceb41": {"id": "6b3717cac44211f1979866c5e19ceb41", "doc_id": "73d31a6cc43c11f18e56ba651418d766", "from_page": 0, "to_page": 11, "retry_count": 0, "kb_id": "7383929bc43c11f19506ba651418d766", "parser_id": "naive", "parser_config": {"table_context_size": 0, "image_context_size": 0, "layout_recognize": "DeepDOC", "chunk_token_num": 512, "delimiter": "\n", "auto_keywords": 0, "auto_questions": 0, "html4excel": false, "topn_tags": 3, "raptor": {"use_raptor": true, "prompt": "Please summarize the following paragraphs. Be careful with the numbers, do not make things up. Paragraphs as following:\n      {cluster_content}\nThe above is the content you need to summarize.", "max_token": 256, "threshold": 0.1, "max_cluster": 64, "random_seed": 0}, "graphrag": {"use_graphrag": true, "entity_types": ["organization", "person", "geo", "event", "category"], "method": "light"}, "llm_id": "deepseek-flash@DeepSeek"}, "name": "CN100347506C.pdf", "type": "pdf", "location": "CN100347506C.pdf", "size": 549413, "tenant_id": "1b9ada8dc43c11f1925aba651418d766", "language": "English", "embd_id": "bge-m3___OpenAI-API@OpenAI-API-Compatible", "pagerank": 0, "kb_parser_config": {"table_context_size": 0, "image_context_size": 0, "layout_recognize": "DeepDOC", "chunk_token_num": 300, "delimiter": "\n", "auto_keywords": 0, "auto_questions": 0, "html4excel": false, "topn_tags": 3, "raptor": {"use_raptor": true, "prompt": "Please summarize the following paragraphs. Be careful with the numbers, do not make things up. Paragraphs as following:\n      {cluster_content}\nThe above is the content you need to summarize.", "max_token": 256, "threshold": 0.1, "max_cluster": 64, "random_seed": 0}, "graphrag": {"use_graphrag": true, "entity_types": ["organization", "person", "geo", "event", "category"], "method": "light"}, "llm_id": "deepseek-flash@DeepSeek"}, "img2txt_id": "deepseek-flash___OpenAI-API@OpenAI-API-Compatible", "asr_id": "", "llm_id": "deepseek-flash@DeepSeek", "update_time": 1791592497096, "task_type": ""}}}
+2026-10-10 08:35:22,042 INFO     27 task_executor_d056e819f64b_0 expired, removed
+2026-10-10 08:35:22,923 INFO     27 __ocr recognize 4 boxes cost 2.5989172989998224s
+2026-10-10 08:35:23,539 INFO     27 __ocr detecting boxes of a image cost (0.6136805070000264s)
+2026-10-10 08:35:23,540 INFO     27 __ocr sorting 0 chars cost 0.0007211219999589957s
+2026-10-10 08:35:38,181 INFO     27 __ocr recognize 34 boxes cost 14.633552172000236s
+2026-10-10 08:35:38,520 INFO     27 __ocr detecting boxes of a image cost (0.33314234299996315s)
+2026-10-10 08:35:38,523 INFO     27 __ocr sorting 0 chars cost 0.00034279900000910857s
+2026-10-10 08:35:49,927 INFO     27 __ocr recognize 35 boxes cost 11.398071737999999s
+2026-10-10 08:35:50,319 INFO     27 __ocr detecting boxes of a image cost (0.3870867159998852s)
+2026-10-10 08:35:50,321 INFO     27 __ocr sorting 0 chars cost 0.00032659899989084806s
+2026-10-10 08:35:52,162 INFO     27 task_executor_5cef63c96bac_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 27, "name": "task_executor_5cef63c96bac_0", "now": "2026-10-10T08:35:52.149+08:00", "boot_at": "2026-10-10T08:34:21.511+08:00", "pending": 1, "lag": 0, "done": 0, "failed": 0, "current": {"6b3717cac44211f1979866c5e19ceb41": {"id": "6b3717cac44211f1979866c5e19ceb41", "doc_id": "73d31a6cc43c11f18e56ba651418d766", "from_page": 0, "to_page": 11, "retry_count": 0, "kb_id": "7383929bc43c11f19506ba651418d766", "parser_id": "naive", "parser_config": {"table_context_size": 0, "image_context_size": 0, "layout_recognize": "DeepDOC", "chunk_token_num": 512, "delimiter": "\n", "auto_keywords": 0, "auto_questions": 0, "html4excel": false, "topn_tags": 3, "raptor": {"use_raptor": true, "prompt": "Please summarize the following paragraphs. Be careful with the numbers, do not make things up. Paragraphs as following:\n      {cluster_content}\nThe above is the content you need to summarize.", "max_token": 256, "threshold": 0.1, "max_cluster": 64, "random_seed": 0}, "graphrag": {"use_graphrag": true, "entity_types": ["organization", "person", "geo", "event", "category"], "method": "light"}, "llm_id": "deepseek-flash@DeepSeek"}, "name": "CN100347506C.pdf", "type": "pdf", "location": "CN100347506C.pdf", "size": 549413, "tenant_id": "1b9ada8dc43c11f1925aba651418d766", "language": "English", "embd_id": "bge-m3___OpenAI-API@OpenAI-API-Compatible", "pagerank": 0, "kb_parser_config": {"table_context_size": 0, "image_context_size": 0, "layout_recognize": "DeepDOC", "chunk_token_num": 300, "delimiter": "\n", "auto_keywords": 0, "auto_questions": 0, "html4excel": false, "topn_tags": 3, "raptor": {"use_raptor": true, "prompt": "Please summarize the following paragraphs. Be careful with the numbers, do not make things up. Paragraphs as following:\n      {cluster_content}\nThe above is the content you need to summarize.", "max_token": 256, "threshold": 0.1, "max_cluster": 64, "random_seed": 0}, "graphrag": {"use_graphrag": true, "entity_types": ["organization", "person", "geo", "event", "category"], "method": "light"}, "llm_id": "deepseek-flash@DeepSeek"}, "img2txt_id": "deepseek-flash___OpenAI-API@OpenAI-API-Compatible", "asr_id": "", "llm_id": "deepseek-flash@DeepSeek", "update_time": 1791592497096, "task_type": ""}}}
+2026-10-10 08:36:01,005 INFO     27 __ocr recognize 35 boxes cost 10.682929914999931s
+2026-10-10 08:36:01,052 INFO     27 set_progress(6b3717cac44211f1979866c5e19ceb41), progress: 0.3272727272727272, progress_msg: 08:36:01 Page(1~12): Processing...
+2026-10-10 08:36:01,254 INFO     27 __ocr detecting boxes of a image cost (0.20116479800026354s)
+2026-10-10 08:36:01,256 INFO     27 __ocr sorting 0 chars cost 0.0005167679996702645s
+2026-10-10 08:36:08,541 INFO     27 __ocr recognize 34 boxes cost 7.283633265999924s
+2026-10-10 08:36:08,745 INFO     27 __ocr detecting boxes of a image cost (0.20217279200005578s)
+2026-10-10 08:36:08,747 INFO     27 __ocr sorting 0 chars cost 0.0002824979997058108s
+2026-10-10 08:36:17,451 INFO     27 __ocr recognize 34 boxes cost 8.709870946000137s
+2026-10-10 08:36:17,732 INFO     27 __ocr detecting boxes of a image cost (0.2752197569998316s)
+2026-10-10 08:36:17,733 INFO     27 __ocr sorting 0 chars cost 0.00010034699971583905s
+2026-10-10 08:36:17,834 INFO     27 __ocr recognize 4 boxes cost 0.10025709999990795s
+2026-10-10 08:36:18,115 INFO     27 __ocr detecting boxes of a image cost (0.27958830200032025s)
+2026-10-10 08:36:18,117 INFO     27 __ocr sorting 0 chars cost 9.700200007500825e-05s
+2026-10-10 08:36:18,404 INFO     27 __ocr recognize 5 boxes cost 0.2855114499998308s
+2026-10-10 08:36:18,613 INFO     27 __ocr detecting boxes of a image cost (0.2069875580000371s)
+2026-10-10 08:36:18,614 INFO     27 __ocr sorting 0 chars cost 0.00011151299986522645s
+2026-10-10 08:36:18,916 INFO     27 __ocr recognize 6 boxes cost 0.3015330329999415s
+2026-10-10 08:36:18,918 INFO     27 __images__ 11 pages cost 78.63685632900024s
+2026-10-10 08:36:18,949 INFO     27 set_progress(6b3717cac44211f1979866c5e19ceb41), progress: None, progress_msg: 08:36:18 Page(1~12): OCR finished (80.07s)
+2026-10-10 08:36:18,951 INFO     27 OCR(0~11): 80.10s
+2026-10-10 08:36:22,164 INFO     27 task_executor_5cef63c96bac_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 27, "name": "task_executor_5cef63c96bac_0", "now": "2026-10-10T08:36:22.163+08:00", "boot_at": "2026-10-10T08:34:21.511+08:00", "pending": 1, "lag": 0, "done": 0, "failed": 0, "current": {"6b3717cac44211f1979866c5e19ceb41": {"id": "6b3717cac44211f1979866c5e19ceb41", "doc_id": "73d31a6cc43c11f18e56ba651418d766", "from_page": 0, "to_page": 11, "retry_count": 0, "kb_id": "7383929bc43c11f19506ba651418d766", "parser_id": "naive", "parser_config": {"table_context_size": 0, "image_context_size": 0, "layout_recognize": "DeepDOC", "chunk_token_num": 512, "delimiter": "\n", "auto_keywords": 0, "auto_questions": 0, "html4excel": false, "topn_tags": 3, "raptor": {"use_raptor": true, "prompt": "Please summarize the following paragraphs. Be careful with the numbers, do not make things up. Paragraphs as following:\n      {cluster_content}\nThe above is the content you need to summarize.", "max_token": 256, "threshold": 0.1, "max_cluster": 64, "random_seed": 0}, "graphrag": {"use_graphrag": true, "entity_types": ["organization", "person", "geo", "event", "category"], "method": "light"}, "llm_id": "deepseek-flash@DeepSeek"}, "name": "CN100347506C.pdf", "type": "pdf", "location": "CN100347506C.pdf", "size": 549413, "tenant_id": "1b9ada8dc43c11f1925aba651418d766", "language": "English", "embd_id": "bge-m3___OpenAI-API@OpenAI-API-Compatible", "pagerank": 0, "kb_parser_config": {"table_context_size": 0, "image_context_size": 0, "layout_recognize": "DeepDOC", "chunk_token_num": 300, "delimiter": "\n", "auto_keywords": 0, "auto_questions": 0, "html4excel": false, "topn_tags": 3, "raptor": {"use_raptor": true, "prompt": "Please summarize the following paragraphs. Be careful with the numbers, do not make things up. Paragraphs as following:\n      {cluster_content}\nThe above is the content you need to summarize.", "max_token": 256, "threshold": 0.1, "max_cluster": 64, "random_seed": 0}, "graphrag": {"use_graphrag": true, "entity_types": ["organization", "person", "geo", "event", "category"], "method": "light"}, "llm_id": "deepseek-flash@DeepSeek"}, "img2txt_id": "deepseek-flash___OpenAI-API@OpenAI-API-Compatible", "asr_id": "", "llm_id": "deepseek-flash@DeepSeek", "update_time": 1791592497096, "task_type": ""}}}
+2026-10-10 08:36:36,310 INFO     27 set_progress(6b3717cac44211f1979866c5e19ceb41), progress: 0.63, progress_msg: 08:36:36 Page(1~12): Layout analysis (17.34s)
+2026-10-10 08:36:36,387 INFO     27 set_progress(6b3717cac44211f1979866c5e19ceb41), progress: 0.65, progress_msg: 08:36:36 Page(1~12): Table analysis (0.06s)
+2026-10-10 08:36:36,468 INFO     27 [Page 1] best_score=0.85, best_k=2
+2026-10-10 08:36:36,471 INFO     27 [Page 0] best_score=0.00, best_k=1
+2026-10-10 08:36:36,474 WARNING  27 /ragflow/.venv/lib/python3.12/site-packages/sklearn/base.py:1473: ConvergenceWarning: Number of distinct clusters (1) found smaller than n_clusters (2). Possibly due to duplicate points in X.
+  return fit_method(estimator, *args, **kwargs)
+
+2026-10-10 08:36:36,475 WARNING  27 /ragflow/.venv/lib/python3.12/site-packages/sklearn/base.py:1473: ConvergenceWarning: Number of distinct clusters (1) found smaller than n_clusters (3). Possibly due to duplicate points in X.
+  return fit_method(estimator, *args, **kwargs)
+
+2026-10-10 08:36:36,477 WARNING  27 /ragflow/.venv/lib/python3.12/site-packages/sklearn/base.py:1473: ConvergenceWarning: Number of distinct clusters (1) found smaller than n_clusters (4). Possibly due to duplicate points in X.
+  return fit_method(estimator, *args, **kwargs)
+
+2026-10-10 08:36:36,478 INFO     27 [Page 2] best_score=0.00, best_k=1
+2026-10-10 08:36:36,480 WARNING  27 /ragflow/.venv/lib/python3.12/site-packages/sklearn/base.py:1473: ConvergenceWarning: Number of distinct clusters (1) found smaller than n_clusters (2). Possibly due to duplicate points in X.
+  return fit_method(estimator, *args, **kwargs)
+
+2026-10-10 08:36:36,480 INFO     27 [Page 3] best_score=0.00, best_k=1
+2026-10-10 08:36:36,483 WARNING  27 /ragflow/.venv/lib/python3.12/site-packages/sklearn/base.py:1473: ConvergenceWarning: Number of distinct clusters (2) found smaller than n_clusters (3). Possibly due to duplicate points in X.
+  return fit_method(estimator, *args, **kwargs)
+
+2026-10-10 08:36:36,488 WARNING  27 /ragflow/.venv/lib/python3.12/site-packages/sklearn/base.py:1473: ConvergenceWarning: Number of distinct clusters (2) found smaller than n_clusters (4). Possibly due to duplicate points in X.
+  return fit_method(estimator, *args, **kwargs)
+
+2026-10-10 08:36:36,490 INFO     27 [Page 4] best_score=0.97, best_k=2
+2026-10-10 08:36:36,492 WARNING  27 /ragflow/.venv/lib/python3.12/site-packages/sklearn/base.py:1473: ConvergenceWarning: Number of distinct clusters (1) found smaller than n_clusters (2). Possibly due to duplicate points in X.
+  return fit_method(estimator, *args, **kwargs)
+
+2026-10-10 08:36:36,495 WARNING  27 /ragflow/.venv/lib/python3.12/site-packages/sklearn/base.py:1473: ConvergenceWarning: Number of distinct clusters (1) found smaller than n_clusters (3). Possibly due to duplicate points in X.
+  return fit_method(estimator, *args, **kwargs)
+
+2026-10-10 08:36:36,496 WARNING  27 /ragflow/.venv/lib/python3.12/site-packages/sklearn/base.py:1473: ConvergenceWarning: Number of distinct clusters (1) found smaller than n_clusters (4). Possibly due to duplicate points in X.
+  return fit_method(estimator, *args, **kwargs)
+
+2026-10-10 08:36:36,497 INFO     27 [Page 5] best_score=0.00, best_k=1
+2026-10-10 08:36:36,499 WARNING  27 /ragflow/.venv/lib/python3.12/site-packages/sklearn/base.py:1473: ConvergenceWarning: Number of distinct clusters (1) found smaller than n_clusters (2). Possibly due to duplicate points in X.
+  return fit_method(estimator, *args, **kwargs)
+
+2026-10-10 08:36:36,501 WARNING  27 /ragflow/.venv/lib/python3.12/site-packages/sklearn/base.py:1473: ConvergenceWarning: Number of distinct clusters (1) found smaller than n_clusters (3). Possibly due to duplicate points in X.
+  return fit_method(estimator, *args, **kwargs)
+
+2026-10-10 08:36:36,502 WARNING  27 /ragflow/.venv/lib/python3.12/site-packages/sklearn/base.py:1473: ConvergenceWarning: Number of distinct clusters (1) found smaller than n_clusters (4). Possibly due to duplicate points in X.
+  return fit_method(estimator, *args, **kwargs)
+
+2026-10-10 08:36:36,503 INFO     27 [Page 6] best_score=0.00, best_k=1
+2026-10-10 08:36:36,504 WARNING  27 /ragflow/.venv/lib/python3.12/site-packages/sklearn/base.py:1473: ConvergenceWarning: Number of distinct clusters (1) found smaller than n_clusters (2). Possibly due to duplicate points in X.
+  return fit_method(estimator, *args, **kwargs)
+
+2026-10-10 08:36:36,506 WARNING  27 /ragflow/.venv/lib/python3.12/site-packages/sklearn/base.py:1473: ConvergenceWarning: Number of distinct clusters (1) found smaller than n_clusters (3). Possibly due to duplicate points in X.
+  return fit_method(estimator, *args, **kwargs)
+
+2026-10-10 08:36:36,508 WARNING  27 /ragflow/.venv/lib/python3.12/site-packages/sklearn/base.py:1473: ConvergenceWarning: Number of distinct clusters (1) found smaller than n_clusters (4). Possibly due to duplicate points in X.
+  return fit_method(estimator, *args, **kwargs)
+
+2026-10-10 08:36:36,509 INFO     27 [Page 7] best_score=0.00, best_k=1
+2026-10-10 08:36:36,511 WARNING  27 /ragflow/.venv/lib/python3.12/site-packages/sklearn/base.py:1473: ConvergenceWarning: Number of distinct clusters (1) found smaller than n_clusters (2). Possibly due to duplicate points in X.
+  return fit_method(estimator, *args, **kwargs)
+
+2026-10-10 08:36:36,512 WARNING  27 /ragflow/.venv/lib/python3.12/site-packages/sklearn/base.py:1473: ConvergenceWarning: Number of distinct clusters (1) found smaller than n_clusters (3). Possibly due to duplicate points in X.
+  return fit_method(estimator, *args, **kwargs)
+
+2026-10-10 08:36:36,514 WARNING  27 /ragflow/.venv/lib/python3.12/site-packages/sklearn/base.py:1473: ConvergenceWarning: Number of distinct clusters (1) found smaller than n_clusters (4). Possibly due to duplicate points in X.
+  return fit_method(estimator, *args, **kwargs)
+
+2026-10-10 08:36:36,518 INFO     27 [Page 8] best_score=0.00, best_k=1
+2026-10-10 08:36:36,523 INFO     27 [Page 9] best_score=0.30, best_k=2
+2026-10-10 08:36:36,524 INFO     27 [Page 10] best_score=0.00, best_k=1
+2026-10-10 08:36:36,527 INFO     27 [Page 11] best_score=0.39, best_k=2
+2026-10-10 08:36:36,532 INFO     27 Global column_num decided by majority: 1
+2026-10-10 08:36:36,558 INFO     27 set_progress(6b3717cac44211f1979866c5e19ceb41), progress: 0.67, progress_msg: 08:36:36 Page(1~12): Text merged (0.15s)
+2026-10-10 08:36:36,560 WARNING  27 Missing layout match: 7,text-15
+2026-10-10 08:36:36,561 WARNING  27 Missing layout match: 8,text-4
+2026-10-10 08:36:36,575 WARNING  27 Missing layout match: 10,figure caption-0
+2026-10-10 08:36:36,587 INFO     27 layouts cost: 97.73759096699996s
+2026-10-10 08:36:36,647 INFO     27 set_progress(6b3717cac44211f1979866c5e19ceb41), progress: 0.7, progress_msg: 08:36:36 Page(1~12): Visual model detected. Attempting to enhance figure extraction...
+2026-10-10 08:36:49,115 INFO     27 [VisualRAG] 图纸#0 位置戳页码=[6, 7] 图注='图 2 简明表示了用于引导和分散 DRI 的一种按本发明的装置。涉\n图 1用草图表示了在一个熔化气化器里 DRI 的分配。熔化气,化器\n图 3： 一种分散装置的实施例。\n图 2： 用于组合引导和分散功' 取到图号=['2', '1', '3']
+2026-10-10 08:36:49,116 INFO     27 [VisualRAG] 图纸#1 位置戳页码=[8] 图注='图\n' 取到图号=[]
+2026-10-10 08:36:49,117 INFO     27 [VisualRAG] 图纸#2 位置戳页码=[9, 10] 图注='图3\n图 2\n1' 取到图号=['3', '2']
+2026-10-10 08:36:49,212 INFO     27 set_progress(6b3717cac44211f1979866c5e19ceb41), progress: 0.8, progress_msg: 08:36:49 Page(1~12): Finish parsing.
+2026-10-10 08:36:49,612 INFO     27 naive_merge(CN100347506C.pdf): 0.39904895600011514
+2026-10-10 08:36:49,613 INFO     27 Close text detector.
+2026-10-10 08:36:50,164 INFO     27 Close text recognizer.
+2026-10-10 08:36:50,627 INFO     27 Close recognizer.
+2026-10-10 08:36:51,089 INFO     27 Close recognizer.
+2026-10-10 08:36:51,821 INFO     27 Chunking(113.977699089) CN100347506C.pdf/CN100347506C.pdf done
+2026-10-10 08:36:52,145 INFO     27 MINIO PUT(CN100347506C.pdf) cost 0.322 s
+2026-10-10 08:36:52,146 INFO     27 Build document CN100347506C.pdf: 114.30s
+2026-10-10 08:36:52,156 INFO     27 set_progress(6b3717cac44211f1979866c5e19ceb41), progress: None, progress_msg: 08:36:52 Page(1~12): Generate 21 chunks
+2026-10-10 08:36:52,166 INFO     27 task_executor_5cef63c96bac_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 27, "name": "task_executor_5cef63c96bac_0", "now": "2026-10-10T08:36:52.165+08:00", "boot_at": "2026-10-10T08:34:21.511+08:00", "pending": 1, "lag": 0, "done": 0, "failed": 0, "current": {"6b3717cac44211f1979866c5e19ceb41": {"id": "6b3717cac44211f1979866c5e19ceb41", "doc_id": "73d31a6cc43c11f18e56ba651418d766", "from_page": 0, "to_page": 11, "retry_count": 0, "kb_id": "7383929bc43c11f19506ba651418d766", "parser_id": "naive", "parser_config": {"table_context_size": 0, "image_context_size": 0, "layout_recognize": "DeepDOC", "chunk_token_num": 512, "delimiter": "\n", "auto_keywords": 0, "auto_questions": 0, "html4excel": false, "topn_tags": 3, "raptor": {"use_raptor": true, "prompt": "Please summarize the following paragraphs. Be careful with the numbers, do not make things up. Paragraphs as following:\n      {cluster_content}\nThe above is the content you need to summarize.", "max_token": 256, "threshold": 0.1, "max_cluster": 64, "random_seed": 0}, "graphrag": {"use_graphrag": true, "entity_types": ["organization", "person", "geo", "event", "category"], "method": "light"}, "llm_id": "deepseek-flash@DeepSeek"}, "name": "CN100347506C.pdf", "type": "pdf", "location": "CN100347506C.pdf", "size": 549413, "tenant_id": "1b9ada8dc43c11f1925aba651418d766", "language": "English", "embd_id": "bge-m3___OpenAI-API@OpenAI-API-Compatible", "pagerank": 0, "kb_parser_config": {"table_context_size": 0, "image_context_size": 0, "layout_recognize": "DeepDOC", "chunk_token_num": 300, "delimiter": "\n", "auto_keywords": 0, "auto_questions": 0, "html4excel": false, "topn_tags": 3, "raptor": {"use_raptor": true, "prompt": "Please summarize the following paragraphs. Be careful with the numbers, do not make things up. Paragraphs as following:\n      {cluster_content}\nThe above is the content you need to summarize.", "max_token": 256, "threshold": 0.1, "max_cluster": 64, "random_seed": 0}, "graphrag": {"use_graphrag": true, "entity_types": ["organization", "person", "geo", "event", "category"], "method": "light"}, "llm_id": "deepseek-flash@DeepSeek"}, "img2txt_id": "deepseek-flash___OpenAI-API@OpenAI-API-Compatible", "asr_id": "", "llm_id": "deepseek-flash@DeepSeek", "update_time": 1791592497096, "task_type": ""}}}
+2026-10-10 08:37:22,192 INFO     27 task_executor_5cef63c96bac_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 27, "name": "task_executor_5cef63c96bac_0", "now": "2026-10-10T08:37:22.188+08:00", "boot_at": "2026-10-10T08:34:21.511+08:00", "pending": 1, "lag": 0, "done": 0, "failed": 0, "current": {"6b3717cac44211f1979866c5e19ceb41": {"id": "6b3717cac44211f1979866c5e19ceb41", "doc_id": "73d31a6cc43c11f18e56ba651418d766", "from_page": 0, "to_page": 11, "retry_count": 0, "kb_id": "7383929bc43c11f19506ba651418d766", "parser_id": "naive", "parser_config": {"table_context_size": 0, "image_context_size": 0, "layout_recognize": "DeepDOC", "chunk_token_num": 512, "delimiter": "\n", "auto_keywords": 0, "auto_questions": 0, "html4excel": false, "topn_tags": 3, "raptor": {"use_raptor": true, "prompt": "Please summarize the following paragraphs. Be careful with the numbers, do not make things up. Paragraphs as following:\n      {cluster_content}\nThe above is the content you need to summarize.", "max_token": 256, "threshold": 0.1, "max_cluster": 64, "random_seed": 0}, "graphrag": {"use_graphrag": true, "entity_types": ["organization", "person", "geo", "event", "category"], "method": "light"}, "llm_id": "deepseek-flash@DeepSeek"}, "name": "CN100347506C.pdf", "type": "pdf", "location": "CN100347506C.pdf", "size": 549413, "tenant_id": "1b9ada8dc43c11f1925aba651418d766", "language": "English", "embd_id": "bge-m3___OpenAI-API@OpenAI-API-Compatible", "pagerank": 0, "kb_parser_config": {"table_context_size": 0, "image_context_size": 0, "layout_recognize": "DeepDOC", "chunk_token_num": 300, "delimiter": "\n", "auto_keywords": 0, "auto_questions": 0, "html4excel": false, "topn_tags": 3, "raptor": {"use_raptor": true, "prompt": "Please summarize the following paragraphs. Be careful with the numbers, do not make things up. Paragraphs as following:\n      {cluster_content}\nThe above is the content you need to summarize.", "max_token": 256, "threshold": 0.1, "max_cluster": 64, "random_seed": 0}, "graphrag": {"use_graphrag": true, "entity_types": ["organization", "person", "geo", "event", "category"], "method": "light"}, "llm_id": "deepseek-flash@DeepSeek"}, "img2txt_id": "deepseek-flash___OpenAI-API@OpenAI-API-Compatible", "asr_id": "", "llm_id": "deepseek-flash@DeepSeek", "update_time": 1791592497096, "task_type": ""}}}
+2026-10-10 08:37:52,291 INFO     27 task_executor_5cef63c96bac_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 27, "name": "task_executor_5cef63c96bac_0", "now": "2026-10-10T08:37:52.286+08:00", "boot_at": "2026-10-10T08:34:21.511+08:00", "pending": 1, "lag": 0, "done": 0, "failed": 0, "current": {"6b3717cac44211f1979866c5e19ceb41": {"id": "6b3717cac44211f1979866c5e19ceb41", "doc_id": "73d31a6cc43c11f18e56ba651418d766", "from_page": 0, "to_page": 11, "retry_count": 0, "kb_id": "7383929bc43c11f19506ba651418d766", "parser_id": "naive", "parser_config": {"table_context_size": 0, "image_context_size": 0, "layout_recognize": "DeepDOC", "chunk_token_num": 512, "delimiter": "\n", "auto_keywords": 0, "auto_questions": 0, "html4excel": false, "topn_tags": 3, "raptor": {"use_raptor": true, "prompt": "Please summarize the following paragraphs. Be careful with the numbers, do not make things up. Paragraphs as following:\n      {cluster_content}\nThe above is the content you need to summarize.", "max_token": 256, "threshold": 0.1, "max_cluster": 64, "random_seed": 0}, "graphrag": {"use_graphrag": true, "entity_types": ["organization", "person", "geo", "event", "category"], "method": "light"}, "llm_id": "deepseek-flash@DeepSeek"}, "name": "CN100347506C.pdf", "type": "pdf", "location": "CN100347506C.pdf", "size": 549413, "tenant_id": "1b9ada8dc43c11f1925aba651418d766", "language": "English", "embd_id": "bge-m3___OpenAI-API@OpenAI-API-Compatible", "pagerank": 0, "kb_parser_config": {"table_context_size": 0, "image_context_size": 0, "layout_recognize": "DeepDOC", "chunk_token_num": 300, "delimiter": "\n", "auto_keywords": 0, "auto_questions": 0, "html4excel": false, "topn_tags": 3, "raptor": {"use_raptor": true, "prompt": "Please summarize the following paragraphs. Be careful with the numbers, do not make things up. Paragraphs as following:\n      {cluster_content}\nThe above is the content you need to summarize.", "max_token": 256, "threshold": 0.1, "max_cluster": 64, "random_seed": 0}, "graphrag": {"use_graphrag": true, "entity_types": ["organization", "person", "geo", "event", "category"], "method": "light"}, "llm_id": "deepseek-flash@DeepSeek"}, "img2txt_id": "deepseek-flash___OpenAI-API@OpenAI-API-Compatible", "asr_id": "", "llm_id": "deepseek-flash@DeepSeek", "update_time": 1791592497096, "task_type": ""}}}
+2026-10-10 08:38:14,499 INFO     27 set_progress(6b3717cac44211f1979866c5e19ceb41), progress: 0.7095238095238094, progress_msg: 
+2026-10-10 08:38:19,615 INFO     27 set_progress(6b3717cac44211f1979866c5e19ceb41), progress: 0.8619047619047618, progress_msg: 
+2026-10-10 08:38:19,621 INFO     27 Embedding chunks (87.50s)
+2026-10-10 08:38:19,651 INFO     27 set_progress(6b3717cac44211f1979866c5e19ceb41), progress: None, progress_msg: 08:38:19 Page(1~12): Embedding chunks (87.50s)
+2026-10-10 08:38:19,957 INFO     27 PUT http://es01:9200/ragflow_1b9ada8dc43c11f1925aba651418d766/_bulk?refresh=false&timeout=60s [status:200 duration:0.300s]
+2026-10-10 08:38:19,966 INFO     27 set_progress(6b3717cac44211f1979866c5e19ceb41), progress: 0.8047619047619048, progress_msg: 
+2026-10-10 08:38:20,033 INFO     27 PUT http://es01:9200/ragflow_1b9ada8dc43c11f1925aba651418d766/_bulk?refresh=false&timeout=60s [status:200 duration:0.056s]
+2026-10-10 08:38:20,098 INFO     27 PUT http://es01:9200/ragflow_1b9ada8dc43c11f1925aba651418d766/_bulk?refresh=false&timeout=60s [status:200 duration:0.052s]
+2026-10-10 08:38:20,173 INFO     27 PUT http://es01:9200/ragflow_1b9ada8dc43c11f1925aba651418d766/_bulk?refresh=false&timeout=60s [status:200 duration:0.057s]
+2026-10-10 08:38:20,235 INFO     27 PUT http://es01:9200/ragflow_1b9ada8dc43c11f1925aba651418d766/_bulk?refresh=false&timeout=60s [status:200 duration:0.052s]
+2026-10-10 08:38:20,261 INFO     27 PUT http://es01:9200/ragflow_1b9ada8dc43c11f1925aba651418d766/_bulk?refresh=false&timeout=60s [status:200 duration:0.016s]
+2026-10-10 08:38:20,267 INFO     27 Indexing doc(CN100347506C.pdf), page(0-11), chunks(21), elapsed: 0.62
+2026-10-10 08:38:20,293 INFO     27 set_progress(6b3717cac44211f1979866c5e19ceb41), progress: None, progress_msg: 08:38:20 Page(1~12): Indexing done (0.63s).
+2026-10-10 08:38:20,308 INFO     27 set_progress(6b3717cac44211f1979866c5e19ceb41), progress: 1.0, progress_msg: 08:38:20 Page(1~12): Task done (202.96s)
+2026-10-10 08:38:20,309 INFO     27 Chunk doc(CN100347506C.pdf), page(0-11), chunks(21), token(0), elapsed:202.96
+2026-10-10 08:38:20,313 INFO     27 handle_task done for task {"id": "6b3717cac44211f1979866c5e19ceb41", "doc_id": "73d31a6cc43c11f18e56ba651418d766", "from_page": 0, "to_page": 11, "retry_count": 0, "kb_id": "7383929bc43c11f19506ba651418d766", "parser_id": "naive", "parser_config": {"table_context_size": 0, "image_context_size": 0, "layout_recognize": "DeepDOC", "chunk_token_num": 512, "delimiter": "\n", "auto_keywords": 0, "auto_questions": 0, "html4excel": false, "topn_tags": 3, "raptor": {"use_raptor": true, "prompt": "Please summarize the following paragraphs. Be careful with the numbers, do not make things up. Paragraphs as following:\n      {cluster_content}\nThe above is the content you need to summarize.", "max_token": 256, "threshold": 0.1, "max_cluster": 64, "random_seed": 0}, "graphrag": {"use_graphrag": true, "entity_types": ["organization", "person", "geo", "event", "category"], "method": "light"}, "llm_id": "deepseek-flash@DeepSeek"}, "name": "CN100347506C.pdf", "type": "pdf", "location": "CN100347506C.pdf", "size": 549413, "tenant_id": "1b9ada8dc43c11f1925aba651418d766", "language": "English", "embd_id": "bge-m3___OpenAI-API@OpenAI-API-Compatible", "pagerank": 0, "kb_parser_config": {"table_context_size": 0, "image_context_size": 0, "layout_recognize": "DeepDOC", "chunk_token_num": 300, "delimiter": "\n", "auto_keywords": 0, "auto_questions": 0, "html4excel": false, "topn_tags": 3, "raptor": {"use_raptor": true, "prompt": "Please summarize the following paragraphs. Be careful with the numbers, do not make things up. Paragraphs as following:\n      {cluster_content}\nThe above is the content you need to summarize.", "max_token": 256, "threshold": 0.1, "max_cluster": 64, "random_seed": 0}, "graphrag": {"use_graphrag": true, "entity_types": ["organization", "person", "geo", "event", "category"], "method": "light"}, "llm_id": "deepseek-flash@DeepSeek"}, "img2txt_id": "deepseek-flash___OpenAI-API@OpenAI-API-Compatible", "asr_id": "", "llm_id": "deepseek-flash@DeepSeek", "update_time": 1791592497096, "task_type": ""}
+2026-10-10 08:38:22,293 INFO     27 task_executor_5cef63c96bac_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 27, "name": "task_executor_5cef63c96bac_0", "now": "2026-10-10T08:38:22.291+08:00", "boot_at": "2026-10-10T08:34:21.511+08:00", "pending": 0, "lag": 0, "done": 1, "failed": 0, "current": {}}
+2026-10-10 08:38:52,297 INFO     27 task_executor_5cef63c96bac_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 27, "name": "task_executor_5cef63c96bac_0", "now": "2026-10-10T08:38:52.296+08:00", "boot_at": "2026-10-10T08:34:21.511+08:00", "pending": 0, "lag": 0, "done": 1, "failed": 0, "current": {}}
+2026-10-10 08:39:22,300 INFO     27 task_executor_5cef63c96bac_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 27, "name": "task_executor_5cef63c96bac_0", "now": "2026-10-10T08:39:22.299+08:00", "boot_at": "2026-10-10T08:34:21.511+08:00", "pending": 0, "lag": 0, "done": 1, "failed": 0, "current": {}}
+2026-10-10 08:39:52,303 INFO     27 task_executor_5cef63c96bac_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 27, "name": "task_executor_5cef63c96bac_0", "now": "2026-10-10T08:39:52.302+08:00", "boot_at": "2026-10-10T08:34:21.511+08:00", "pending": 0, "lag": 0, "done": 1, "failed": 0, "current": {}}
+2026-10-10 08:40:22,306 INFO     27 task_executor_5cef63c96bac_0 reported heartbeat: {"ip_address": "172.20.0.5", "pid": 27, "name": "task_executor_5cef63c96bac_0", "now": "2026-10-10T08:40:22.305+08:00", "boot_at": "2026-10-10T08:34:21.511+08:00", "pending": 0, "lag": 0, "done": 1, "failed": 0, "current": {}}

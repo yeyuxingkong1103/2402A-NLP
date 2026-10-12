@@ -1,0 +1,160 @@
+include:
+  - ./docker-compose-base.yml
+# To ensure that the container processes the locally modified `service_conf.yaml.template` instead of the one included in its image, you need to mount the local `service_conf.yaml.template` to the container.
+services:
+  ragflow-cpu:
+    depends_on:
+      mysql:
+        condition: service_healthy
+    profiles:
+      - cpu
+    image: ${RAGFLOW_IMAGE}
+    # Example configuration to set up an MCP server:
+    # command:
+    #   - --enable-mcpserver
+    #   - --mcp-host=0.0.0.0
+    #   - --mcp-port=9382
+    #   - --mcp-base-url=http://127.0.0.1:9380
+    #   - --mcp-script-path=/ragflow/mcp/server/server.py
+    #   - --mcp-mode=self-host
+    #   - --mcp-host-api-key=ragflow-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    # Optional transport flags for MCP (customize if needed).
+    # Host mode need to combined with --no-transport-streamable-http-enabled flag, namely, host+streamable-http is not supported yet.
+    # The following are enabled by default unless explicitly disabled with --no-<flag>.
+    #   - --no-transport-sse-enabled # Disable legacy SSE endpoints (/sse and /messages/)
+    #   - --no-transport-streamable-http-enabled #  Disable Streamable HTTP transport (/mcp endpoint)
+    #   - --no-json-response # Disable JSON response mode in Streamable HTTP transport (instead of SSE over HTTP)
+
+    # Example configuration to start Admin server:
+    command:
+      - --enable-adminserver
+    ports:
+      - ${SVR_WEB_HTTP_PORT}:80
+      - ${SVR_WEB_HTTPS_PORT}:443
+      - ${SVR_HTTP_PORT}:9380
+      - ${ADMIN_SVR_HTTP_PORT}:9381
+      - ${SVR_MCP_PORT}:9382 # entry for MCP (host_port:docker_port). The docker_port must match the value you set for `mcp-port` above.
+    volumes:
+      - ./ragflow-logs:/ragflow/logs
+      - ./nginx/ragflow.conf:/etc/nginx/conf.d/ragflow.conf
+      - ./nginx/proxy.conf:/etc/nginx/proxy.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./service_conf.yaml.template:/ragflow/conf/service_conf.yaml.template
+      - ./entrypoint.sh:/ragflow/entrypoint.sh
+      # 工单14：覆盖镜像里的 LLM 调度代码，关闭 deepseek 推理模型的思维链。
+      # 原文件从镜像里 docker cp 出来的（附件源码与镜像不是同一版本，不能直接挂），
+      # 改动见 ../../patches/rag/llm/chat_model.py 里的「工单14 改动」段。
+      - ../../patches/rag/llm/chat_model.py:/ragflow/rag/llm/chat_model.py
+      # 工单14：图纸描述提示词 —— 原提示词禁止描述「顺序/过程」，
+      # 工业专利附图最要紧的部件左右次序和气流箭头朝向因此丢失。
+      - ../../patches/rag/prompts/vision_llm_figure_describe_prompt.md:/ragflow/rag/prompts/vision_llm_figure_describe_prompt.md
+      # 工单15：给图纸块打「图号+页码」标记（检索层据此定位图纸）
+      - ../../patches/deepdoc/parser/figure_parser.py:/ragflow/deepdoc/parser/figure_parser.py
+      # 工单15：跨模态检索 —— 查询理解 + 视觉条件下的分数融合
+      - ../../patches/rag/nlp/search.py:/ragflow/rag/nlp/search.py
+      - ../../patches/rag/nlp/visual_query.py:/ragflow/rag/nlp/visual_query.py
+      # 工单15：跨模态检索的外部配置（融合权重、开关）
+      - ../../conf/visual_rag.json:/ragflow/conf/visual_rag.json
+    env_file: .env
+    networks:
+      - ragflow
+    restart: unless-stopped
+    # https://docs.docker.com/engine/daemon/prometheus/#create-a-prometheus-configuration
+    # If you use Docker Desktop, the --add-host flag is optional. This flag ensures that the host's internal IP is exposed to the Prometheus container.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  ragflow-gpu:
+    depends_on:
+      mysql:
+        condition: service_healthy
+    profiles:
+      - gpu
+    image: ${RAGFLOW_IMAGE}
+    # Example configuration to set up an MCP server:
+    # command:
+    #   - --enable-mcpserver
+    #   - --mcp-host=0.0.0.0
+    #   - --mcp-port=9382
+    #   - --mcp-base-url=http://127.0.0.1:9380
+    #   - --mcp-script-path=/ragflow/mcp/server/server.py
+    #   - --mcp-mode=self-host
+    #   - --mcp-host-api-key=ragflow-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    # Optional transport flags for MCP (customize if needed).
+    # Host mode need to combined with --no-transport-streamable-http-enabled flag, namely, host+streamable-http is not supported yet.
+    # The following are enabled by default unless explicitly disabled with --no-<flag>.
+    #   - --no-transport-sse-enabled # Disable legacy SSE endpoints (/sse and /messages/)
+    #   - --no-transport-streamable-http-enabled #  Disable Streamable HTTP transport (/mcp endpoint)
+    #   - --no-json-response # Disable JSON response mode in Streamable HTTP transport (instead of SSE over HTTP)
+
+    # Example configuration to start Admin server:
+    command:
+      - --enable-adminserver
+    ports:
+      - ${SVR_WEB_HTTP_PORT}:80
+      - ${SVR_WEB_HTTPS_PORT}:443
+      - ${SVR_HTTP_PORT}:9380
+      - ${ADMIN_SVR_HTTP_PORT}:9381
+      - ${SVR_MCP_PORT}:9382 # entry for MCP (host_port:docker_port). The docker_port must match the value you set for `mcp-port` above.
+    volumes:
+      - ./ragflow-logs:/ragflow/logs
+      - ./nginx/ragflow.conf:/etc/nginx/conf.d/ragflow.conf
+      - ./nginx/proxy.conf:/etc/nginx/proxy.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./service_conf.yaml.template:/ragflow/conf/service_conf.yaml.template
+      - ./entrypoint.sh:/ragflow/entrypoint.sh
+      # 工单14：覆盖镜像里的 LLM 调度代码，关闭 deepseek 推理模型的思维链。
+      # 原文件从镜像里 docker cp 出来的（附件源码与镜像不是同一版本，不能直接挂），
+      # 改动见 ../../patches/rag/llm/chat_model.py 里的「工单14 改动」段。
+      - ../../patches/rag/llm/chat_model.py:/ragflow/rag/llm/chat_model.py
+      # 工单14：图纸描述提示词 —— 原提示词禁止描述「顺序/过程」，
+      # 工业专利附图最要紧的部件左右次序和气流箭头朝向因此丢失。
+      - ../../patches/rag/prompts/vision_llm_figure_describe_prompt.md:/ragflow/rag/prompts/vision_llm_figure_describe_prompt.md
+      # 工单15：给图纸块打「图号+页码」标记（检索层据此定位图纸）
+      - ../../patches/deepdoc/parser/figure_parser.py:/ragflow/deepdoc/parser/figure_parser.py
+      # 工单15：跨模态检索 —— 查询理解 + 视觉条件下的分数融合
+      - ../../patches/rag/nlp/search.py:/ragflow/rag/nlp/search.py
+      - ../../patches/rag/nlp/visual_query.py:/ragflow/rag/nlp/visual_query.py
+      # 工单15：跨模态检索的外部配置（融合权重、开关）
+      - ../../conf/visual_rag.json:/ragflow/conf/visual_rag.json
+    env_file: .env
+    networks:
+      - ragflow
+    restart: unless-stopped
+    # https://docs.docker.com/engine/daemon/prometheus/#create-a-prometheus-configuration
+    # If you use Docker Desktop, the --add-host flag is optional. This flag ensures that the host's internal IP is exposed to the Prometheus container.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+
+  # executor:
+  #   depends_on:
+  #     mysql:
+  #       condition: service_healthy
+  #   image: ${RAGFLOW_IMAGE}
+  #   volumes:
+  #     - ./ragflow-logs:/ragflow/logs
+  #     - ./nginx/ragflow.conf:/etc/nginx/conf.d/ragflow.conf
+  #   env_file: .env
+  #   entrypoint: "/ragflow/entrypoint_task_executor.sh 1 3"
+  #   networks:
+  #     - ragflow
+  #   restart: unless-stopped
+  #   # https://docs.docker.com/engine/daemon/prometheus/#create-a-prometheus-configuration
+  #   # If you're using Docker Desktop, the --add-host flag is optional. This flag makes sure that the host's internal IP gets exposed to the Prometheus container.
+  #   extra_hosts:
+  #     - "host.docker.internal:host-gateway"
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             count: all
+  #             capabilities: [gpu]

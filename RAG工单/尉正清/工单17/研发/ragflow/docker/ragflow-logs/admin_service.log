@@ -1,0 +1,210 @@
+2026-10-12 13:38:35,700 INFO     25 admin_service log path: /ragflow/logs/admin_service.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-12 13:38:35,701 INFO     25 
+        ____  ___   ______________                 ___       __          _     
+       / __ \/   | / ____/ ____/ /___ _      __   /   | ____/ /___ ___  (_)___ 
+      / /_/ / /| |/ / __/ /_  / / __ \ | /| / /  / /| |/ __  / __ `__ \/ / __ \
+     / _, _/ ___ / /_/ / __/ / / /_/ / |/ |/ /  / ___ / /_/ / / / / / / / / / /
+    /_/ |_/_/  |_\____/_/   /_/\____/|__/|__/  /_/  |_\__,_/_/ /_/ /_/_/_/ /_/ 
+    
+2026-10-12 13:38:35,755 INFO     25 RAGFlow version: v0.23.1
+2026-10-12 13:38:35,756 INFO     25 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3306, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'chat_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}, 'embedding_model': {'name': 'bge-m3', 'api_key': 'sk-local', 'base_url': 'http://host.docker.internal:9997/v1'}, 'image2text_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}}}
+2026-10-12 13:38:35,758 WARNING  25 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-12 13:38:35,764 INFO     25 GET http://es01:9200/ [status:200 duration:0.004s]
+2026-10-12 13:38:35,766 INFO     25 HEAD http://es01:9200/ [status:200 duration:0.001s]
+2026-10-12 13:38:35,766 INFO     25 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-12 13:38:35,767 INFO     25 Elasticsearch http://es01:9200 is healthy.
+2026-10-12 13:38:35,768 INFO     25 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-12 13:38:35,769 INFO     25 Elasticsearch http://es01:9200 is healthy.
+2026-10-12 13:38:35,771 WARNING  25 Load term.freq FAIL!
+2026-10-12 13:38:35,775 WARNING  25 Realtime synonym is disabled, since no redis connection.
+2026-10-12 13:38:35,780 WARNING  25 Load term.freq FAIL!
+2026-10-12 13:38:35,785 WARNING  25 Realtime synonym is disabled, since no redis connection.
+2026-10-12 13:38:35,819 WARNING  25 Unknown configuration key: os
+2026-10-12 13:38:35,821 WARNING  25 Unknown configuration key: oceanbase
+2026-10-12 13:38:35,821 WARNING  25 Unknown configuration key: seekdb
+2026-10-12 13:38:35,822 WARNING  25 Unknown configuration key: user_default_llm
+2026-10-12 13:38:35,823 INFO     25 RAGFlow Admin service start...
+2026-10-12 13:38:35,839 INFO     25 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:9381
+ * Running on http://172.20.0.5:9381
+2026-10-12 13:38:35,839 INFO     25 [33mPress CTRL+C to quit[0m
+2026-10-12 14:15:38,436 INFO     6327 admin_service log path: /ragflow/logs/admin_service.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-12 14:15:38,438 INFO     6327 
+        ____  ___   ______________                 ___       __          _     
+       / __ \/   | / ____/ ____/ /___ _      __   /   | ____/ /___ ___  (_)___ 
+      / /_/ / /| |/ / __/ /_  / / __ \ | /| / /  / /| |/ __  / __ `__ \/ / __ \
+     / _, _/ ___ / /_/ / __/ / / /_/ / |/ |/ /  / ___ / /_/ / / / / / / / / / /
+    /_/ |_/_/  |_\____/_/   /_/\____/|__/|__/  /_/  |_\__,_/_/ /_/ /_/_/_/ /_/ 
+    
+2026-10-12 14:15:38,493 INFO     6327 RAGFlow version: v0.23.1
+2026-10-12 14:15:38,495 INFO     6327 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3306, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'chat_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}, 'embedding_model': {'name': 'bge-m3', 'api_key': 'sk-local', 'base_url': 'http://host.docker.internal:9997/v1'}, 'image2text_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}}}
+2026-10-12 14:15:38,497 WARNING  6327 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-12 14:15:38,505 INFO     6327 GET http://es01:9200/ [status:200 duration:0.004s]
+2026-10-12 14:15:38,510 INFO     6327 HEAD http://es01:9200/ [status:200 duration:0.002s]
+2026-10-12 14:15:38,512 INFO     6327 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-12 14:15:38,513 INFO     6327 Elasticsearch http://es01:9200 is healthy.
+2026-10-12 14:15:38,514 INFO     6327 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-12 14:15:38,515 INFO     6327 Elasticsearch http://es01:9200 is healthy.
+2026-10-12 14:15:38,518 WARNING  6327 Load term.freq FAIL!
+2026-10-12 14:15:38,522 WARNING  6327 Realtime synonym is disabled, since no redis connection.
+2026-10-12 14:15:38,531 WARNING  6327 Load term.freq FAIL!
+2026-10-12 14:15:38,536 WARNING  6327 Realtime synonym is disabled, since no redis connection.
+2026-10-12 14:15:38,553 WARNING  6327 Unknown configuration key: os
+2026-10-12 14:15:38,554 WARNING  6327 Unknown configuration key: oceanbase
+2026-10-12 14:15:38,555 WARNING  6327 Unknown configuration key: seekdb
+2026-10-12 14:15:38,555 WARNING  6327 Unknown configuration key: user_default_llm
+2026-10-12 14:15:38,556 INFO     6327 RAGFlow Admin service start...
+2026-10-12 14:15:38,572 INFO     6327 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:9381
+ * Running on http://172.20.0.5:9381
+2026-10-12 14:15:38,573 INFO     6327 [33mPress CTRL+C to quit[0m
+2026-10-12 14:26:12,787 INFO     24 admin_service log path: /ragflow/logs/admin_service.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-12 14:26:12,788 INFO     24 
+        ____  ___   ______________                 ___       __          _     
+       / __ \/   | / ____/ ____/ /___ _      __   /   | ____/ /___ ___  (_)___ 
+      / /_/ / /| |/ / __/ /_  / / __ \ | /| / /  / /| |/ __  / __ `__ \/ / __ \
+     / _, _/ ___ / /_/ / __/ / / /_/ / |/ |/ /  / ___ / /_/ / / / / / / / / / /
+    /_/ |_/_/  |_\____/_/   /_/\____/|__/|__/  /_/  |_\__,_/_/ /_/ /_/_/_/ /_/ 
+    
+2026-10-12 14:26:12,830 INFO     24 RAGFlow version: v0.23.1
+2026-10-12 14:26:12,831 INFO     24 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3306, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'chat_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}, 'embedding_model': {'name': 'bge-m3', 'api_key': 'sk-local', 'base_url': 'http://host.docker.internal:9997/v1'}, 'image2text_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}}}
+2026-10-12 14:26:12,833 WARNING  24 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-12 14:26:12,839 INFO     24 GET http://es01:9200/ [status:200 duration:0.004s]
+2026-10-12 14:26:12,841 INFO     24 HEAD http://es01:9200/ [status:200 duration:0.002s]
+2026-10-12 14:26:12,842 INFO     24 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-12 14:26:12,843 INFO     24 Elasticsearch http://es01:9200 is healthy.
+2026-10-12 14:26:12,843 INFO     24 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-12 14:26:12,844 INFO     24 Elasticsearch http://es01:9200 is healthy.
+2026-10-12 14:26:12,846 WARNING  24 Load term.freq FAIL!
+2026-10-12 14:26:12,850 WARNING  24 Realtime synonym is disabled, since no redis connection.
+2026-10-12 14:26:12,855 WARNING  24 Load term.freq FAIL!
+2026-10-12 14:26:12,858 WARNING  24 Realtime synonym is disabled, since no redis connection.
+2026-10-12 14:26:12,869 WARNING  24 Unknown configuration key: os
+2026-10-12 14:26:12,869 WARNING  24 Unknown configuration key: oceanbase
+2026-10-12 14:26:12,870 WARNING  24 Unknown configuration key: seekdb
+2026-10-12 14:26:12,870 WARNING  24 Unknown configuration key: user_default_llm
+2026-10-12 14:26:12,871 INFO     24 RAGFlow Admin service start...
+2026-10-12 14:26:12,884 INFO     24 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:9381
+ * Running on http://172.20.0.5:9381
+2026-10-12 14:26:12,885 INFO     24 [33mPress CTRL+C to quit[0m
+2026-10-12 14:30:43,085 INFO     24 admin_service log path: /ragflow/logs/admin_service.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-12 14:30:43,086 INFO     24 
+        ____  ___   ______________                 ___       __          _     
+       / __ \/   | / ____/ ____/ /___ _      __   /   | ____/ /___ ___  (_)___ 
+      / /_/ / /| |/ / __/ /_  / / __ \ | /| / /  / /| |/ __  / __ `__ \/ / __ \
+     / _, _/ ___ / /_/ / __/ / / /_/ / |/ |/ /  / ___ / /_/ / / / / / / / / / /
+    /_/ |_/_/  |_\____/_/   /_/\____/|__/|__/  /_/  |_\__,_/_/ /_/ /_/_/_/ /_/ 
+    
+2026-10-12 14:30:43,129 INFO     24 RAGFlow version: v0.23.1
+2026-10-12 14:30:43,130 INFO     24 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3306, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'chat_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}, 'embedding_model': {'name': 'bge-m3', 'api_key': 'sk-local', 'base_url': 'http://host.docker.internal:9997/v1'}, 'image2text_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}}}
+2026-10-12 14:30:43,132 WARNING  24 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-12 14:30:43,137 INFO     24 GET http://es01:9200/ [status:200 duration:0.003s]
+2026-10-12 14:30:43,139 INFO     24 HEAD http://es01:9200/ [status:200 duration:0.001s]
+2026-10-12 14:30:43,140 INFO     24 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-12 14:30:43,140 INFO     24 Elasticsearch http://es01:9200 is healthy.
+2026-10-12 14:30:43,141 INFO     24 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-12 14:30:43,142 INFO     24 Elasticsearch http://es01:9200 is healthy.
+2026-10-12 14:30:43,144 WARNING  24 Load term.freq FAIL!
+2026-10-12 14:30:43,149 WARNING  24 Realtime synonym is disabled, since no redis connection.
+2026-10-12 14:30:43,155 WARNING  24 Load term.freq FAIL!
+2026-10-12 14:30:43,159 WARNING  24 Realtime synonym is disabled, since no redis connection.
+2026-10-12 14:30:43,172 WARNING  24 Unknown configuration key: os
+2026-10-12 14:30:43,173 WARNING  24 Unknown configuration key: oceanbase
+2026-10-12 14:30:43,174 WARNING  24 Unknown configuration key: seekdb
+2026-10-12 14:30:43,174 WARNING  24 Unknown configuration key: user_default_llm
+2026-10-12 14:30:43,175 INFO     24 RAGFlow Admin service start...
+2026-10-12 14:30:43,189 INFO     24 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:9381
+ * Running on http://172.20.0.5:9381
+2026-10-12 14:30:43,190 INFO     24 [33mPress CTRL+C to quit[0m
+2026-10-12 14:56:59,395 INFO     24 admin_service log path: /ragflow/logs/admin_service.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-12 14:56:59,396 INFO     24 
+        ____  ___   ______________                 ___       __          _     
+       / __ \/   | / ____/ ____/ /___ _      __   /   | ____/ /___ ___  (_)___ 
+      / /_/ / /| |/ / __/ /_  / / __ \ | /| / /  / /| |/ __  / __ `__ \/ / __ \
+     / _, _/ ___ / /_/ / __/ / / /_/ / |/ |/ /  / ___ / /_/ / / / / / / / / / /
+    /_/ |_/_/  |_\____/_/   /_/\____/|__/|__/  /_/  |_\__,_/_/ /_/ /_/_/_/ /_/ 
+    
+2026-10-12 14:56:59,433 INFO     24 RAGFlow version: v0.23.1
+2026-10-12 14:56:59,435 INFO     24 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3306, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'chat_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}, 'embedding_model': {'name': 'bge-m3', 'api_key': 'sk-local', 'base_url': 'http://host.docker.internal:9997/v1'}, 'image2text_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}}}
+2026-10-12 14:56:59,437 WARNING  24 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-12 14:56:59,442 INFO     24 GET http://es01:9200/ [status:200 duration:0.003s]
+2026-10-12 14:56:59,444 INFO     24 HEAD http://es01:9200/ [status:200 duration:0.001s]
+2026-10-12 14:56:59,445 INFO     24 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-12 14:56:59,446 INFO     24 Elasticsearch http://es01:9200 is healthy.
+2026-10-12 14:56:59,447 INFO     24 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-12 14:56:59,447 INFO     24 Elasticsearch http://es01:9200 is healthy.
+2026-10-12 14:56:59,451 WARNING  24 Load term.freq FAIL!
+2026-10-12 14:56:59,455 WARNING  24 Realtime synonym is disabled, since no redis connection.
+2026-10-12 14:56:59,461 WARNING  24 Load term.freq FAIL!
+2026-10-12 14:56:59,465 WARNING  24 Realtime synonym is disabled, since no redis connection.
+2026-10-12 14:56:59,475 WARNING  24 Unknown configuration key: os
+2026-10-12 14:56:59,476 WARNING  24 Unknown configuration key: oceanbase
+2026-10-12 14:56:59,477 WARNING  24 Unknown configuration key: seekdb
+2026-10-12 14:56:59,477 WARNING  24 Unknown configuration key: user_default_llm
+2026-10-12 14:56:59,478 INFO     24 RAGFlow Admin service start...
+2026-10-12 14:56:59,489 INFO     24 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:9381
+ * Running on http://172.20.0.5:9381
+2026-10-12 14:56:59,490 INFO     24 [33mPress CTRL+C to quit[0m

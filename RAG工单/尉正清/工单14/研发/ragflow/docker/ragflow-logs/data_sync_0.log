@@ -1,0 +1,1136 @@
+2026-10-09 16:04:29,033 INFO     21 data_sync_0 log path: /ragflow/logs/data_sync_0.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-09 16:04:29,055 INFO     21 
+  _____        _           _____
+ |  __ \      | |         / ____|
+ | |  | | __ _| |_ __ _  | (___  _   _ _ __   ___
+ | |  | |/ _` | __/ _` |  \___ \| | | | '_ \ / __|
+ | |__| | (_| | || (_| |  ____) | |_| | | | | (__
+ |_____/ \__,_|\__\__,_| |_____/ \__, |_| |_|\___|
+                                  __/ |
+                                 |___/
+    
+2026-10-09 16:04:29,058 INFO     21 RAGFlow version: v0.23.1
+2026-10-09 16:04:29,059 INFO     21 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3307, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'embedding_model': {'api_key': 'xxx', 'base_url': 'http://tei:80'}}}
+2026-10-09 16:04:29,076 WARNING  21 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-09 16:04:39,942 INFO     21 GET http://es01:9200/ [status:N/A duration:10.856s]
+2026-10-09 16:04:40,351 WARNING  21 Node <Urllib3HttpNode(http://es01:9200)> has failed for 1 times in a row, putting on 1 second timeout
+2026-10-09 16:04:40,413 WARNING  21 Retrying request after failure (attempt 0 of 3)
+Traceback (most recent call last):
+  File "/ragflow/.venv/lib/python3.12/site-packages/elastic_transport/_transport.py", line 328, in perform_request
+    meta, raw_data = node.perform_request(
+                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/ragflow/.venv/lib/python3.12/site-packages/elastic_transport/_node/_http_urllib3.py", line 202, in perform_request
+    raise err from None
+elastic_transport.ConnectionError: Connection error caused by: NameResolutionError(HTTPConnection(host='es01', port=9200): Failed to resolve 'es01' ([Errno -3] Temporary failure in name resolution))
+2026-10-09 16:04:41,568 INFO     21 Resurrected node <Urllib3HttpNode(http://es01:9200)> (force=False)
+2026-10-09 16:04:52,586 INFO     21 GET http://es01:9200/ [status:N/A duration:10.532s]
+2026-10-09 16:04:52,669 WARNING  21 Node <Urllib3HttpNode(http://es01:9200)> has failed for 2 times in a row, putting on 2 second timeout
+2026-10-09 16:04:52,689 WARNING  21 Retrying request after failure (attempt 1 of 3)
+Traceback (most recent call last):
+  File "/ragflow/.venv/lib/python3.12/site-packages/elastic_transport/_transport.py", line 328, in perform_request
+    meta, raw_data = node.perform_request(
+                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/ragflow/.venv/lib/python3.12/site-packages/elastic_transport/_node/_http_urllib3.py", line 202, in perform_request
+    raise err from None
+elastic_transport.ConnectionError: Connection error caused by: NameResolutionError(HTTPConnection(host='es01', port=9200): Failed to resolve 'es01' ([Errno -3] Temporary failure in name resolution))
+2026-10-09 16:05:03,403 INFO     21 GET http://es01:9200/ [status:N/A duration:10.665s]
+2026-10-09 16:05:03,556 WARNING  21 Node <Urllib3HttpNode(http://es01:9200)> has failed for 3 times in a row, putting on 4 second timeout
+2026-10-09 16:05:03,636 WARNING  21 Retrying request after failure (attempt 2 of 3)
+Traceback (most recent call last):
+  File "/ragflow/.venv/lib/python3.12/site-packages/elastic_transport/_transport.py", line 328, in perform_request
+    meta, raw_data = node.perform_request(
+                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/ragflow/.venv/lib/python3.12/site-packages/elastic_transport/_node/_http_urllib3.py", line 202, in perform_request
+    raise err from None
+elastic_transport.ConnectionError: Connection error caused by: NameResolutionError(HTTPConnection(host='es01', port=9200): Failed to resolve 'es01' ([Errno -3] Temporary failure in name resolution))
+2026-10-09 16:05:03,659 INFO     21 Resurrected node <Urllib3HttpNode(http://es01:9200)> (force=False)
+2026-10-09 16:05:14,794 INFO     21 GET http://es01:9200/ [status:N/A duration:11.114s]
+2026-10-09 16:05:15,679 WARNING  21 Node <Urllib3HttpNode(http://es01:9200)> has failed for 4 times in a row, putting on 8 second timeout
+2026-10-09 16:05:15,782 WARNING  21 Connection error caused by: ConnectionError(Connection error caused by: NameResolutionError(HTTPConnection(host='es01', port=9200): Failed to resolve 'es01' ([Errno -3] Temporary failure in name resolution))). Waiting Elasticsearch http://es01:9200 to be healthy.
+2026-10-09 16:05:31,181 INFO     21 GET http://es01:9200/ [status:N/A duration:10.275s]
+2026-10-09 16:05:31,370 WARNING  21 Node <Urllib3HttpNode(http://es01:9200)> has failed for 1 times in a row, putting on 1 second timeout
+2026-10-09 16:05:31,371 WARNING  21 Retrying request after failure (attempt 0 of 3)
+Traceback (most recent call last):
+  File "/ragflow/.venv/lib/python3.12/site-packages/elastic_transport/_transport.py", line 328, in perform_request
+    meta, raw_data = node.perform_request(
+                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/ragflow/.venv/lib/python3.12/site-packages/elastic_transport/_node/_http_urllib3.py", line 202, in perform_request
+    raise err from None
+elastic_transport.ConnectionError: Connection error caused by: NameResolutionError(HTTPConnection(host='es01', port=9200): Failed to resolve 'es01' ([Errno -3] Temporary failure in name resolution))
+2026-10-09 16:05:41,732 INFO     21 GET http://es01:9200/ [status:N/A duration:10.307s]
+2026-10-09 16:05:42,113 WARNING  21 Node <Urllib3HttpNode(http://es01:9200)> has failed for 2 times in a row, putting on 2 second timeout
+2026-10-09 16:05:42,117 WARNING  21 Retrying request after failure (attempt 1 of 3)
+Traceback (most recent call last):
+  File "/ragflow/.venv/lib/python3.12/site-packages/elastic_transport/_transport.py", line 328, in perform_request
+    meta, raw_data = node.perform_request(
+                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/ragflow/.venv/lib/python3.12/site-packages/elastic_transport/_node/_http_urllib3.py", line 202, in perform_request
+    raise err from None
+elastic_transport.ConnectionError: Connection error caused by: NameResolutionError(HTTPConnection(host='es01', port=9200): Failed to resolve 'es01' ([Errno -3] Temporary failure in name resolution))
+2026-10-09 16:05:43,896 INFO     21 Resurrected node <Urllib3HttpNode(http://es01:9200)> (force=False)
+2026-10-09 16:05:54,358 INFO     21 GET http://es01:9200/ [status:N/A duration:10.402s]
+2026-10-09 16:05:54,873 WARNING  21 Node <Urllib3HttpNode(http://es01:9200)> has failed for 3 times in a row, putting on 4 second timeout
+2026-10-09 16:05:54,893 WARNING  21 Retrying request after failure (attempt 2 of 3)
+Traceback (most recent call last):
+  File "/ragflow/.venv/lib/python3.12/site-packages/elastic_transport/_transport.py", line 328, in perform_request
+    meta, raw_data = node.perform_request(
+                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/ragflow/.venv/lib/python3.12/site-packages/elastic_transport/_node/_http_urllib3.py", line 202, in perform_request
+    raise err from None
+elastic_transport.ConnectionError: Connection error caused by: NameResolutionError(HTTPConnection(host='es01', port=9200): Failed to resolve 'es01' ([Errno -3] Temporary failure in name resolution))
+2026-10-09 16:05:55,273 INFO     21 Resurrected node <Urllib3HttpNode(http://es01:9200)> (force=False)
+2026-10-09 16:06:07,025 INFO     21 GET http://es01:9200/ [status:N/A duration:11.649s]
+2026-10-09 16:06:08,018 WARNING  21 Node <Urllib3HttpNode(http://es01:9200)> has failed for 4 times in a row, putting on 8 second timeout
+2026-10-09 16:06:08,113 WARNING  21 Connection error caused by: ConnectionError(Connection error caused by: NameResolutionError(HTTPConnection(host='es01', port=9200): Failed to resolve 'es01' ([Errno -3] Temporary failure in name resolution))). Waiting Elasticsearch http://es01:9200 to be healthy.
+2026-10-09 16:06:13,190 INFO     21 Resurrected node <Urllib3HttpNode(http://es01:9200)> (force=False)
+2026-10-09 16:06:26,632 INFO     21 HEAD http://es01:9200/ [status:N/A duration:10.693s]
+2026-10-09 16:06:26,747 WARNING  21 Node <Urllib3HttpNode(http://es01:9200)> has failed for 5 times in a row, putting on 16 second timeout
+2026-10-09 16:06:26,749 WARNING  21 Retrying request after failure (attempt 0 of 3)
+Traceback (most recent call last):
+  File "/ragflow/.venv/lib/python3.12/site-packages/elastic_transport/_transport.py", line 328, in perform_request
+    meta, raw_data = node.perform_request(
+                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/ragflow/.venv/lib/python3.12/site-packages/elastic_transport/_node/_http_urllib3.py", line 202, in perform_request
+    raise err from None
+elastic_transport.ConnectionError: Connection error caused by: NameResolutionError(HTTPConnection(host='es01', port=9200): Failed to resolve 'es01' ([Errno -3] Temporary failure in name resolution))
+2026-10-09 16:06:26,784 INFO     21 Resurrected node <Urllib3HttpNode(http://es01:9200)> (force=False)
+2026-10-09 16:06:37,116 INFO     21 HEAD http://es01:9200/ [status:N/A duration:10.265s]
+2026-10-09 16:06:37,211 WARNING  21 Node <Urllib3HttpNode(http://es01:9200)> has failed for 6 times in a row, putting on 30 second timeout
+2026-10-09 16:06:37,218 WARNING  21 Retrying request after failure (attempt 1 of 3)
+Traceback (most recent call last):
+  File "/ragflow/.venv/lib/python3.12/site-packages/elastic_transport/_transport.py", line 328, in perform_request
+    meta, raw_data = node.perform_request(
+                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/ragflow/.venv/lib/python3.12/site-packages/elastic_transport/_node/_http_urllib3.py", line 202, in perform_request
+    raise err from None
+elastic_transport.ConnectionError: Connection error caused by: NameResolutionError(HTTPConnection(host='es01', port=9200): Failed to resolve 'es01' ([Errno -3] Temporary failure in name resolution))
+2026-10-09 16:06:48,546 INFO     21 HEAD http://es01:9200/ [status:N/A duration:11.158s]
+2026-10-09 16:06:48,828 WARNING  21 Node <Urllib3HttpNode(http://es01:9200)> has failed for 7 times in a row, putting on 30 second timeout
+2026-10-09 16:06:48,828 WARNING  21 Retrying request after failure (attempt 2 of 3)
+Traceback (most recent call last):
+  File "/ragflow/.venv/lib/python3.12/site-packages/elastic_transport/_transport.py", line 328, in perform_request
+    meta, raw_data = node.perform_request(
+                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/ragflow/.venv/lib/python3.12/site-packages/elastic_transport/_node/_http_urllib3.py", line 202, in perform_request
+    raise err from None
+elastic_transport.ConnectionError: Connection error caused by: NameResolutionError(HTTPConnection(host='es01', port=9200): Failed to resolve 'es01' ([Errno -3] Temporary failure in name resolution))
+2026-10-09 16:06:49,044 INFO     21 Resurrected node <Urllib3HttpNode(http://es01:9200)> (force=False)
+2026-10-09 16:06:59,439 INFO     21 HEAD http://es01:9200/ [status:N/A duration:10.380s]
+2026-10-09 16:07:00,637 WARNING  21 Node <Urllib3HttpNode(http://es01:9200)> has failed for 8 times in a row, putting on 30 second timeout
+2026-10-09 16:07:00,697 ERROR    21 Elasticsearch http://es01:9200 is unhealthy in 10s.
+2026-10-09 16:08:20,777 INFO     110 data_sync_0 log path: /ragflow/logs/data_sync_0.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-09 16:08:20,778 INFO     110 
+  _____        _           _____
+ |  __ \      | |         / ____|
+ | |  | | __ _| |_ __ _  | (___  _   _ _ __   ___
+ | |  | |/ _` | __/ _` |  \___ \| | | | '_ \ / __|
+ | |__| | (_| | || (_| |  ____) | |_| | | | | (__
+ |_____/ \__,_|\__\__,_| |_____/ \__, |_| |_|\___|
+                                  __/ |
+                                 |___/
+    
+2026-10-09 16:08:20,779 INFO     110 RAGFlow version: v0.23.1
+2026-10-09 16:08:20,780 INFO     110 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3307, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'embedding_model': {'api_key': 'xxx', 'base_url': 'http://tei:80'}}}
+2026-10-09 16:08:20,788 WARNING  110 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-09 16:08:20,828 INFO     110 GET http://es01:9200/ [status:200 duration:0.032s]
+2026-10-09 16:08:20,835 INFO     110 HEAD http://es01:9200/ [status:200 duration:0.006s]
+2026-10-09 16:08:20,837 INFO     110 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 16:08:20,838 INFO     110 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 16:08:20,839 INFO     110 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 16:08:20,839 INFO     110 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 16:08:20,844 WARNING  110 Load term.freq FAIL!
+2026-10-09 16:08:20,849 WARNING  110 Realtime synonym is disabled, since no redis connection.
+2026-10-09 16:08:21,559 WARNING  110 Load term.freq FAIL!
+2026-10-09 16:08:21,565 WARNING  110 Realtime synonym is disabled, since no redis connection.
+2026-10-09 16:08:21,572 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:08:21,574 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:08:24,609 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:08:24,620 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:08:28,102 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:08:28,165 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:08:41,933 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:08:42,007 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:08:56,881 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:08:57,521 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:09:11,898 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:09:12,266 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:09:26,082 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:09:26,108 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:09:29,214 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:09:29,225 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:09:32,435 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:09:32,438 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:09:35,443 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:09:35,444 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:09:38,451 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:09:38,452 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:09:41,481 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:09:41,482 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:09:44,503 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:09:44,504 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:09:47,555 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:09:47,557 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:09:50,687 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:09:50,688 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:10:06,915 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:10:07,215 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:10:21,851 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:10:22,127 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:10:37,055 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:10:38,395 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:10:53,211 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:10:54,971 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:11:09,703 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:11:10,160 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:11:26,714 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:11:26,900 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:11:43,175 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:11:43,251 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:11:58,455 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:11:59,478 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:12:14,512 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:12:15,632 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:12:31,726 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:12:32,132 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:12:47,660 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:12:47,805 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:13:04,008 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:13:04,227 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:13:19,951 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:13:20,137 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:13:36,933 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:13:37,050 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:13:52,351 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:13:52,514 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:14:08,445 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:14:08,722 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:14:25,351 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:14:25,700 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:14:48,016 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:14:48,565 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:15:04,491 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:15:06,457 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:15:24,375 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:15:25,189 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:15:42,304 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:15:44,384 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:15:58,594 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:15:58,909 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:16:25,662 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:16:25,695 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:16:42,641 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:16:43,311 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:17:00,148 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:17:00,382 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:17:15,708 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:17:15,788 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:17:31,385 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:17:31,488 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:17:47,604 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:17:47,734 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:18:01,484 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:18:01,767 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:18:16,967 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:18:17,274 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:18:32,981 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:18:33,391 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:18:49,930 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:18:51,273 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:19:06,604 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:19:06,963 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:19:21,225 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:19:22,465 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:19:39,390 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:19:39,875 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:19:55,256 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:19:56,518 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:20:21,302 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:20:21,941 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:20:36,661 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:20:37,077 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:20:52,222 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:20:53,383 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:21:09,688 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:21:09,827 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:21:23,804 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:21:24,153 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:21:39,576 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:21:42,167 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:21:55,834 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:21:56,574 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:22:13,828 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:22:20,069 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:22:36,077 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:22:42,016 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:23:07,789 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:23:11,757 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:23:31,794 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:23:35,993 WARNING  110 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:24:01,415 ERROR    110 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno -3] Temporary failure in name resolution)")
+2026-10-09 16:26:31,621 INFO     22 data_sync_0 log path: /ragflow/logs/data_sync_0.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-09 16:26:31,622 INFO     22 
+  _____        _           _____
+ |  __ \      | |         / ____|
+ | |  | | __ _| |_ __ _  | (___  _   _ _ __   ___
+ | |  | |/ _` | __/ _` |  \___ \| | | | '_ \ / __|
+ | |__| | (_| | || (_| |  ____) | |_| | | | | (__
+ |_____/ \__,_|\__\__,_| |_____/ \__, |_| |_|\___|
+                                  __/ |
+                                 |___/
+    
+2026-10-09 16:26:31,623 INFO     22 RAGFlow version: v0.23.1
+2026-10-09 16:26:31,624 INFO     22 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3307, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'embedding_model': {'api_key': 'xxx', 'base_url': 'http://tei:80'}}}
+2026-10-09 16:26:31,627 WARNING  22 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-09 16:26:31,636 INFO     22 GET http://es01:9200/ [status:200 duration:0.007s]
+2026-10-09 16:26:31,639 INFO     22 HEAD http://es01:9200/ [status:200 duration:0.002s]
+2026-10-09 16:26:31,640 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 16:26:31,641 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 16:26:31,642 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 16:26:31,642 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 16:26:31,646 WARNING  22 Load term.freq FAIL!
+2026-10-09 16:26:31,651 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-09 16:26:32,083 WARNING  22 Load term.freq FAIL!
+2026-10-09 16:26:32,088 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-09 16:26:32,092 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:26:32,093 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:26:35,099 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:26:35,100 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:26:38,107 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:26:38,108 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:26:41,112 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:26:41,113 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:26:44,119 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:26:44,120 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:26:47,126 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:26:47,127 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:26:50,133 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:26:50,134 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:26:53,141 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:26:53,142 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:26:56,148 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:26:56,149 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:26:59,155 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:26:59,158 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:02,157 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:02,158 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:05,163 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:05,163 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:08,169 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:08,171 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:11,177 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:11,178 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:14,183 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:14,184 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:17,191 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:17,193 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:20,200 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:20,201 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:23,205 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:23,206 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:26,210 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:26,211 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:29,214 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:29,215 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:32,219 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:32,221 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:35,226 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:35,228 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:38,234 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:38,236 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:41,239 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:41,241 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:44,246 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:44,248 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:47,253 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:47,255 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:50,258 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:50,259 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:53,265 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:53,266 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:56,272 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:56,274 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:59,279 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:27:59,283 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:02,286 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:02,287 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:05,292 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:05,293 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:08,299 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:08,300 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:11,308 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:11,309 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:14,315 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:14,316 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:17,322 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:17,323 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:20,329 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:20,329 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:23,334 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:23,335 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:26,341 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:26,342 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:29,347 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:29,348 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:32,352 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:32,353 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:35,359 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:35,360 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:38,365 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:38,366 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:41,371 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:41,374 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:44,379 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:44,380 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:47,387 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:47,388 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:50,394 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:50,395 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:53,399 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:53,400 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:56,404 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:56,405 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:59,411 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:28:59,412 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:02,416 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:02,417 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:05,422 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:05,424 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:08,429 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:08,429 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:11,436 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:11,437 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:14,441 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:14,442 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:17,448 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:17,449 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:20,454 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:20,455 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:23,458 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:23,459 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:26,465 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:26,466 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:29,469 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:29,470 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:32,474 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:32,476 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:35,482 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:35,483 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:38,486 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:38,487 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:41,491 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:41,492 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:44,497 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:44,498 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:47,502 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:47,503 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:50,510 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:50,511 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:53,514 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:53,515 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:56,521 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:56,522 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:59,526 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:29:59,527 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:02,528 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:02,529 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:05,534 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:05,535 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:08,540 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:08,541 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:11,544 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:11,546 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:14,552 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:14,553 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:17,558 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:17,559 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:20,565 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:20,566 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:23,571 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:23,572 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:26,576 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:26,577 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:29,583 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:29,585 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:32,588 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:32,589 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:35,594 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:35,594 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:38,598 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:38,599 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:41,606 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:41,607 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:44,612 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:44,613 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:47,616 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:47,617 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:50,623 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:50,624 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:53,629 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:53,632 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:56,638 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:56,639 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:59,645 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:30:59,646 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:02,648 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:02,649 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:05,654 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:05,655 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:08,660 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:08,661 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:11,664 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:11,665 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:14,670 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:14,672 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:17,677 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:17,678 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:20,683 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:20,687 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:23,693 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:23,695 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:26,701 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:26,702 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:29,708 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:29,709 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:32,713 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:32,714 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:35,718 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:35,719 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:38,723 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:38,724 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:41,730 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:41,732 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:44,738 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:44,739 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:47,744 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:47,745 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:50,751 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:50,752 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:53,758 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:53,759 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:56,765 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:56,766 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:59,770 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:31:59,771 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:02,774 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:02,775 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:05,780 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:05,781 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:08,784 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:08,785 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:11,791 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:11,792 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:14,797 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:14,797 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:17,803 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:17,804 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:20,810 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:20,811 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:23,818 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:23,819 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:26,824 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:26,825 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:29,829 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:29,830 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:32,835 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:32,836 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:35,842 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:35,843 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:38,846 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:38,847 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:41,850 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:41,851 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:44,854 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:44,855 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:47,861 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:47,863 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:50,868 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:50,869 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:53,874 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:53,875 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:56,879 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:56,880 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:59,885 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:32:59,886 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:02,893 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:02,894 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:05,901 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:05,902 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:08,906 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:08,907 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:11,913 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:11,913 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:14,916 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:14,917 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:17,922 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:17,924 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:20,930 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:20,931 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:23,938 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:23,939 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:26,945 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:26,946 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:29,951 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:29,952 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:32,955 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:32,957 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:35,963 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:35,964 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:38,970 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:38,971 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:41,976 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:41,977 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:44,983 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:44,986 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:47,990 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:47,991 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:50,998 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:51,000 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:54,003 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:54,007 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:57,012 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:33:57,013 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:00,019 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:00,020 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:03,021 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:03,024 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:06,030 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:06,032 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:09,038 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:09,039 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:12,046 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:12,048 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:15,054 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:15,056 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:18,061 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:18,065 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:21,070 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:21,071 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:24,075 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:24,077 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:27,081 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:27,082 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:30,086 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:30,088 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:33,092 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:33,093 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:36,099 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:36,101 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:39,107 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:39,108 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:42,113 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:42,114 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:45,119 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:45,121 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:48,124 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:48,125 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:51,130 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:51,131 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:54,136 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:54,138 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:57,144 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:34:57,145 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:00,148 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:00,148 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:03,153 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:03,154 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:06,160 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:06,161 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:09,168 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:09,169 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:12,174 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:12,177 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:15,183 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:15,185 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:18,191 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:18,192 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:21,197 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:21,198 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:24,204 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:24,205 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:27,210 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:27,211 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:30,217 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:30,218 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:33,221 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:33,222 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:36,225 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:36,226 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:39,230 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:39,232 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:42,238 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:42,239 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:45,245 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:45,246 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:48,251 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:48,252 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:51,257 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:51,258 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:54,263 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:54,265 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:57,271 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:35:57,273 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:00,280 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:00,282 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:03,288 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:03,297 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:06,303 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:06,304 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:09,309 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:09,310 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:12,314 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:12,315 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:15,321 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:15,322 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:18,327 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:18,328 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:21,335 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:21,337 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:24,343 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:24,344 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:27,351 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:27,352 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:30,358 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:30,359 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:33,364 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:33,366 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:36,370 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:36,372 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:39,378 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:39,379 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:42,384 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:42,385 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:45,390 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:45,391 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:48,397 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:48,399 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:51,402 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:51,404 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:54,410 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:54,413 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:57,418 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:36:57,419 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:00,425 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:00,426 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:03,427 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:03,428 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:06,434 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:06,435 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:09,441 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:09,446 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:12,451 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:12,452 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:15,456 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:15,457 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:18,463 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:18,467 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:21,472 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:21,473 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:24,479 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:24,481 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:27,486 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:27,488 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:30,496 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:30,498 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:33,501 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:33,503 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:36,509 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:36,511 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:39,517 ERROR    22 DB execution failure: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:37:39,519 WARNING  22 DB is not ready yet: (2003, "Can't connect to MySQL server on 'mysql' ([Errno 111] Connection refused)")
+2026-10-09 16:38:28,102 INFO     22 data_sync_0 log path: /ragflow/logs/data_sync_0.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-09 16:38:28,103 INFO     22 
+  _____        _           _____
+ |  __ \      | |         / ____|
+ | |  | | __ _| |_ __ _  | (___  _   _ _ __   ___
+ | |  | |/ _` | __/ _` |  \___ \| | | | '_ \ / __|
+ | |__| | (_| | || (_| |  ____) | |_| | | | | (__
+ |_____/ \__,_|\__\__,_| |_____/ \__, |_| |_|\___|
+                                  __/ |
+                                 |___/
+    
+2026-10-09 16:38:28,104 INFO     22 RAGFlow version: v0.23.1
+2026-10-09 16:38:28,105 INFO     22 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3306, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'embedding_model': {'api_key': 'xxx', 'base_url': 'http://tei:80'}}}
+2026-10-09 16:38:28,109 WARNING  22 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-09 16:38:28,117 INFO     22 GET http://es01:9200/ [status:200 duration:0.006s]
+2026-10-09 16:38:28,122 INFO     22 HEAD http://es01:9200/ [status:200 duration:0.003s]
+2026-10-09 16:38:28,123 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 16:38:28,124 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 16:38:28,124 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 16:38:28,125 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 16:38:28,128 WARNING  22 Load term.freq FAIL!
+2026-10-09 16:38:28,132 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-09 16:38:28,606 WARNING  22 Load term.freq FAIL!
+2026-10-09 16:38:28,612 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-09 16:38:28,618 WARNING  22 DB is not ready yet: (1146, "Table 'rag_flow.sync_logs' doesn't exist")
+2026-10-09 16:38:31,622 WARNING  22 DB is not ready yet: (1146, "Table 'rag_flow.sync_logs' doesn't exist")
+2026-10-09 16:38:34,628 WARNING  22 DB is not ready yet: (1146, "Table 'rag_flow.sync_logs' doesn't exist")
+2026-10-09 16:38:37,634 WARNING  22 DB is not ready yet: (1146, "Table 'rag_flow.sync_logs' doesn't exist")
+2026-10-09 16:38:40,638 WARNING  22 DB is not ready yet: (1146, "Table 'rag_flow.sync_logs' doesn't exist")
+2026-10-09 16:38:43,643 WARNING  22 DB is not ready yet: (1146, "Table 'rag_flow.sync_logs' doesn't exist")
+2026-10-09 16:38:46,647 WARNING  22 DB is not ready yet: (1146, "Table 'rag_flow.sync_logs' doesn't exist")
+2026-10-09 16:38:49,650 WARNING  22 DB is not ready yet: (1146, "Table 'rag_flow.sync_logs' doesn't exist")
+2026-10-09 16:56:44,584 ERROR    22 DB execution failure: (1053, 'Server shutdown in progress')
+2026-10-09 16:56:44,585 WARNING  22 DB is not ready yet: (1053, 'Server shutdown in progress')
+2026-10-09 16:57:26,751 INFO     22 data_sync_0 log path: /ragflow/logs/data_sync_0.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-09 16:57:26,752 INFO     22 
+  _____        _           _____
+ |  __ \      | |         / ____|
+ | |  | | __ _| |_ __ _  | (___  _   _ _ __   ___
+ | |  | |/ _` | __/ _` |  \___ \| | | | '_ \ / __|
+ | |__| | (_| | || (_| |  ____) | |_| | | | | (__
+ |_____/ \__,_|\__\__,_| |_____/ \__, |_| |_|\___|
+                                  __/ |
+                                 |___/
+    
+2026-10-09 16:57:26,753 INFO     22 RAGFlow version: v0.23.1
+2026-10-09 16:57:26,753 INFO     22 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3306, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'embedding_model': {'api_key': 'xxx', 'base_url': 'http://tei:80'}}}
+2026-10-09 16:57:26,756 WARNING  22 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-09 16:57:26,765 INFO     22 GET http://es01:9200/ [status:200 duration:0.006s]
+2026-10-09 16:57:26,768 INFO     22 HEAD http://es01:9200/ [status:200 duration:0.002s]
+2026-10-09 16:57:26,768 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 16:57:26,769 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 16:57:26,770 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 16:57:26,771 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 16:57:26,774 WARNING  22 Load term.freq FAIL!
+2026-10-09 16:57:26,781 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-09 16:57:27,361 WARNING  22 Load term.freq FAIL!
+2026-10-09 16:57:27,367 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-09 16:58:28,762 INFO     22 data_sync_0 log path: /ragflow/logs/data_sync_0.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-09 16:58:28,763 INFO     22 
+  _____        _           _____
+ |  __ \      | |         / ____|
+ | |  | | __ _| |_ __ _  | (___  _   _ _ __   ___
+ | |  | |/ _` | __/ _` |  \___ \| | | | '_ \ / __|
+ | |__| | (_| | || (_| |  ____) | |_| | | | | (__
+ |_____/ \__,_|\__\__,_| |_____/ \__, |_| |_|\___|
+                                  __/ |
+                                 |___/
+    
+2026-10-09 16:58:28,764 INFO     22 RAGFlow version: v0.23.1
+2026-10-09 16:58:28,765 INFO     22 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3306, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'chat_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}, 'embedding_model': {'name': 'bge-m3', 'api_key': 'sk-local', 'base_url': 'http://host.docker.internal:9997/v1'}, 'image2text_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}}}
+2026-10-09 16:58:28,769 WARNING  22 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-09 16:58:28,779 INFO     22 GET http://es01:9200/ [status:200 duration:0.007s]
+2026-10-09 16:58:28,783 INFO     22 HEAD http://es01:9200/ [status:200 duration:0.003s]
+2026-10-09 16:58:28,785 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 16:58:28,786 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 16:58:28,787 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 16:58:28,789 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 16:58:28,793 WARNING  22 Load term.freq FAIL!
+2026-10-09 16:58:28,798 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-09 16:58:29,301 WARNING  22 Load term.freq FAIL!
+2026-10-09 16:58:29,307 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-09 19:20:12,105 INFO     22 data_sync_0 log path: /ragflow/logs/data_sync_0.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-09 19:20:12,106 INFO     22 
+  _____        _           _____
+ |  __ \      | |         / ____|
+ | |  | | __ _| |_ __ _  | (___  _   _ _ __   ___
+ | |  | |/ _` | __/ _` |  \___ \| | | | '_ \ / __|
+ | |__| | (_| | || (_| |  ____) | |_| | | | | (__
+ |_____/ \__,_|\__\__,_| |_____/ \__, |_| |_|\___|
+                                  __/ |
+                                 |___/
+    
+2026-10-09 19:20:12,107 INFO     22 RAGFlow version: v0.23.1
+2026-10-09 19:20:12,108 INFO     22 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3306, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'chat_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}, 'embedding_model': {'name': 'bge-m3', 'api_key': 'sk-local', 'base_url': 'http://host.docker.internal:9997/v1'}, 'image2text_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}}}
+2026-10-09 19:20:12,113 WARNING  22 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-09 19:20:12,123 INFO     22 GET http://es01:9200/ [status:200 duration:0.007s]
+2026-10-09 19:20:12,127 INFO     22 HEAD http://es01:9200/ [status:200 duration:0.002s]
+2026-10-09 19:20:12,128 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 19:20:12,129 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 19:20:12,130 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 19:20:12,130 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 19:20:12,135 WARNING  22 Load term.freq FAIL!
+2026-10-09 19:20:12,141 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-09 19:20:12,646 WARNING  22 Load term.freq FAIL!
+2026-10-09 19:20:12,655 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-09 19:32:12,446 INFO     22 data_sync_0 log path: /ragflow/logs/data_sync_0.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-09 19:32:12,447 INFO     22 
+  _____        _           _____
+ |  __ \      | |         / ____|
+ | |  | | __ _| |_ __ _  | (___  _   _ _ __   ___
+ | |  | |/ _` | __/ _` |  \___ \| | | | '_ \ / __|
+ | |__| | (_| | || (_| |  ____) | |_| | | | | (__
+ |_____/ \__,_|\__\__,_| |_____/ \__, |_| |_|\___|
+                                  __/ |
+                                 |___/
+    
+2026-10-09 19:32:12,448 INFO     22 RAGFlow version: v0.23.1
+2026-10-09 19:32:12,449 INFO     22 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3306, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'chat_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}, 'embedding_model': {'name': 'bge-m3', 'api_key': 'sk-local', 'base_url': 'http://host.docker.internal:9997/v1'}, 'image2text_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}}}
+2026-10-09 19:32:12,453 WARNING  22 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-09 19:32:12,462 INFO     22 GET http://es01:9200/ [status:200 duration:0.007s]
+2026-10-09 19:32:12,465 INFO     22 HEAD http://es01:9200/ [status:200 duration:0.002s]
+2026-10-09 19:32:12,466 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 19:32:12,467 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 19:32:12,468 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 19:32:12,469 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 19:32:12,473 WARNING  22 Load term.freq FAIL!
+2026-10-09 19:32:12,478 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-09 19:32:12,911 WARNING  22 Load term.freq FAIL!
+2026-10-09 19:32:12,917 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-09 20:02:04,319 INFO     22 data_sync_0 log path: /ragflow/logs/data_sync_0.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-09 20:02:04,320 INFO     22 
+  _____        _           _____
+ |  __ \      | |         / ____|
+ | |  | | __ _| |_ __ _  | (___  _   _ _ __   ___
+ | |  | |/ _` | __/ _` |  \___ \| | | | '_ \ / __|
+ | |__| | (_| | || (_| |  ____) | |_| | | | | (__
+ |_____/ \__,_|\__\__,_| |_____/ \__, |_| |_|\___|
+                                  __/ |
+                                 |___/
+    
+2026-10-09 20:02:04,321 INFO     22 RAGFlow version: v0.23.1
+2026-10-09 20:02:04,322 INFO     22 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3306, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'chat_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}, 'embedding_model': {'name': 'bge-m3', 'api_key': 'sk-local', 'base_url': 'http://host.docker.internal:9997/v1'}, 'image2text_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}}}
+2026-10-09 20:02:04,324 WARNING  22 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-09 20:02:04,332 INFO     22 GET http://es01:9200/ [status:200 duration:0.006s]
+2026-10-09 20:02:04,335 INFO     22 HEAD http://es01:9200/ [status:200 duration:0.002s]
+2026-10-09 20:02:04,337 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 20:02:04,339 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 20:02:04,341 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 20:02:04,343 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 20:02:04,346 WARNING  22 Load term.freq FAIL!
+2026-10-09 20:02:04,352 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-09 20:02:04,786 WARNING  22 Load term.freq FAIL!
+2026-10-09 20:02:04,805 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-09 20:36:39,997 INFO     22 data_sync_0 log path: /ragflow/logs/data_sync_0.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-09 20:36:39,999 INFO     22 
+  _____        _           _____
+ |  __ \      | |         / ____|
+ | |  | | __ _| |_ __ _  | (___  _   _ _ __   ___
+ | |  | |/ _` | __/ _` |  \___ \| | | | '_ \ / __|
+ | |__| | (_| | || (_| |  ____) | |_| | | | | (__
+ |_____/ \__,_|\__\__,_| |_____/ \__, |_| |_|\___|
+                                  __/ |
+                                 |___/
+    
+2026-10-09 20:36:40,000 INFO     22 RAGFlow version: v0.23.1
+2026-10-09 20:36:40,001 INFO     22 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3306, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'chat_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}, 'embedding_model': {'name': 'bge-m3', 'api_key': 'sk-local', 'base_url': 'http://host.docker.internal:9997/v1'}, 'image2text_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}}}
+2026-10-09 20:36:40,004 WARNING  22 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-09 20:36:40,014 INFO     22 GET http://es01:9200/ [status:200 duration:0.006s]
+2026-10-09 20:36:40,018 INFO     22 HEAD http://es01:9200/ [status:200 duration:0.003s]
+2026-10-09 20:36:40,019 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 20:36:40,020 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 20:36:40,021 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 20:36:40,022 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 20:36:40,026 WARNING  22 Load term.freq FAIL!
+2026-10-09 20:36:40,032 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-09 20:36:40,492 WARNING  22 Load term.freq FAIL!
+2026-10-09 20:36:40,501 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-09 20:48:52,998 INFO     19 data_sync_0 log path: /ragflow/logs/data_sync_0.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-09 20:48:52,999 INFO     19 
+  _____        _           _____
+ |  __ \      | |         / ____|
+ | |  | | __ _| |_ __ _  | (___  _   _ _ __   ___
+ | |  | |/ _` | __/ _` |  \___ \| | | | '_ \ / __|
+ | |__| | (_| | || (_| |  ____) | |_| | | | | (__
+ |_____/ \__,_|\__\__,_| |_____/ \__, |_| |_|\___|
+                                  __/ |
+                                 |___/
+    
+2026-10-09 20:48:53,000 INFO     19 RAGFlow version: v0.23.1
+2026-10-09 20:48:53,000 INFO     19 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3306, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'chat_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}, 'embedding_model': {'name': 'bge-m3', 'api_key': 'sk-local', 'base_url': 'http://host.docker.internal:9997/v1'}, 'image2text_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}}}
+2026-10-09 20:48:53,003 WARNING  19 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-09 20:48:53,009 INFO     19 GET http://es01:9200/ [status:200 duration:0.004s]
+2026-10-09 20:48:53,012 INFO     19 HEAD http://es01:9200/ [status:200 duration:0.001s]
+2026-10-09 20:48:53,013 INFO     19 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 20:48:53,013 INFO     19 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 20:48:53,014 INFO     19 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 20:48:53,015 INFO     19 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 20:48:53,018 WARNING  19 Load term.freq FAIL!
+2026-10-09 20:48:53,023 WARNING  19 Realtime synonym is disabled, since no redis connection.
+2026-10-09 20:48:53,442 WARNING  19 Load term.freq FAIL!
+2026-10-09 20:48:53,447 WARNING  19 Realtime synonym is disabled, since no redis connection.
+2026-10-09 21:13:23,983 INFO     22 data_sync_0 log path: /ragflow/logs/data_sync_0.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-09 21:13:23,985 INFO     22 
+  _____        _           _____
+ |  __ \      | |         / ____|
+ | |  | | __ _| |_ __ _  | (___  _   _ _ __   ___
+ | |  | |/ _` | __/ _` |  \___ \| | | | '_ \ / __|
+ | |__| | (_| | || (_| |  ____) | |_| | | | | (__
+ |_____/ \__,_|\__\__,_| |_____/ \__, |_| |_|\___|
+                                  __/ |
+                                 |___/
+    
+2026-10-09 21:13:23,986 INFO     22 RAGFlow version: v0.23.1
+2026-10-09 21:13:23,987 INFO     22 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3306, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'chat_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}, 'embedding_model': {'name': 'bge-m3', 'api_key': 'sk-local', 'base_url': 'http://host.docker.internal:9997/v1'}, 'image2text_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}}}
+2026-10-09 21:13:23,990 WARNING  22 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-09 21:13:23,999 INFO     22 GET http://es01:9200/ [status:200 duration:0.006s]
+2026-10-09 21:13:24,003 INFO     22 HEAD http://es01:9200/ [status:200 duration:0.002s]
+2026-10-09 21:13:24,004 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 21:13:24,004 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 21:13:24,005 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-09 21:13:24,005 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-09 21:13:24,008 WARNING  22 Load term.freq FAIL!
+2026-10-09 21:13:24,012 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-09 21:13:24,488 WARNING  22 Load term.freq FAIL!
+2026-10-09 21:13:24,493 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-09 21:16:20,581 ERROR    22 DB execution failure: (1053, 'Server shutdown in progress')
+2026-10-09 21:16:20,582 WARNING  22 DB is not ready yet: (1053, 'Server shutdown in progress')
+2026-10-10 07:45:23,482 INFO     22 data_sync_0 log path: /ragflow/logs/data_sync_0.log, log levels: {'peewee': 'WARNING', 'pdfminer': 'WARNING', 'root': 'INFO'}
+2026-10-10 07:45:23,483 INFO     22 
+  _____        _           _____
+ |  __ \      | |         / ____|
+ | |  | | __ _| |_ __ _  | (___  _   _ _ __   ___
+ | |  | |/ _` | __/ _` |  \___ \| | | | '_ \ / __|
+ | |__| | (_| | || (_| |  ____) | |_| | | | | (__
+ |_____/ \__,_|\__\__,_| |_____/ \__, |_| |_|\___|
+                                  __/ |
+                                 |___/
+    
+2026-10-10 07:45:23,484 INFO     22 RAGFlow version: v0.23.1
+2026-10-10 07:45:23,485 INFO     22 Current configs, from /ragflow/conf/service_conf.yaml:
+	ragflow: {'host': '0.0.0.0', 'http_port': 9380}
+	admin: {'host': '0.0.0.0', 'http_port': 9381}
+	mysql: {'name': 'rag_flow', 'user': 'root', 'password': '********', 'host': 'mysql', 'port': 3306, 'max_connections': 900, 'stale_timeout': 300, 'max_allowed_packet': 1073741824}
+	minio: {'user': 'minioadmin', 'password': '********', 'host': 'host.docker.internal:9000', 'bucket': '', 'prefix_path': ''}
+	es: {'hosts': 'http://es01:9200', 'username': 'elastic', 'password': '********'}
+	os: {'hosts': 'http://opensearch01:9201', 'username': 'admin', 'password': '********'}
+	infinity: {'uri': 'infinity:23817', 'postgres_port': 5432, 'db_name': 'default_db'}
+	oceanbase: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root@ragflow', 'password': 'infini_rag_flow', 'host': 'oceanbase', 'port': 2881}}
+	seekdb: {'scheme': 'oceanbase', 'config': {'db_name': 'ragflow_doc', 'user': 'root', 'password': 'infini_rag_flow', 'host': 'seekdb', 'port': 2881}}
+	redis: {'db': 1, 'username': '', 'password': '********', 'host': 'redis:6379'}
+	user_default_llm: {'default_models': {'chat_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}, 'embedding_model': {'name': 'bge-m3', 'api_key': 'sk-local', 'base_url': 'http://host.docker.internal:9997/v1'}, 'image2text_model': {'name': 'deepseek-flash', 'factory': 'DeepSeek', 'api_key': 'sk-a7e79ebda6f043faa15f9f599ec37679', 'base_url': 'https://api.deepseek.com'}}}
+2026-10-10 07:45:23,490 WARNING  22 SECURITY WARNING: Using auto-generated SECRET_KEY.
+2026-10-10 07:45:23,513 INFO     22 GET http://es01:9200/ [status:200 duration:0.019s]
+2026-10-10 07:45:23,521 INFO     22 HEAD http://es01:9200/ [status:200 duration:0.006s]
+2026-10-10 07:45:23,522 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-10 07:45:23,523 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-10 07:45:23,524 INFO     22 Use Elasticsearch http://es01:9200 as the doc engine.
+2026-10-10 07:45:23,525 INFO     22 Elasticsearch http://es01:9200 is healthy.
+2026-10-10 07:45:23,528 WARNING  22 Load term.freq FAIL!
+2026-10-10 07:45:23,539 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-10 07:45:24,065 WARNING  22 Load term.freq FAIL!
+2026-10-10 07:45:24,070 WARNING  22 Realtime synonym is disabled, since no redis connection.
+2026-10-10 08:10:24,714 ERROR    22 DB execution failure: (1053, 'Server shutdown in progress')
+2026-10-10 08:10:24,724 WARNING  22 DB is not ready yet: (1053, 'Server shutdown in progress')

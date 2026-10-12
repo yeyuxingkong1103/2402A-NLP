@@ -1,0 +1,59 @@
+{
+  "_说明": "工单16 LoRA 微调配置。改这个文件即可，不用动 finetune.py。",
+  "model": {
+    "_base": "基座模型（本地路径，从 ModelScope 下载）",
+    "base": "D:/Pycharm/yzq/models/Qwen2-VL-2B-Instruct",
+    "_load_in_4bit": "6GB 显存跑不动 bf16 全量，用 4-bit QLoRA",
+    "load_in_4bit": true,
+    "bnb_compute_dtype": "bfloat16",
+    "_attn": "sdpa 在本机比 flash_attention_2 稳（后者要另装并挑显卡）",
+    "attn_implementation": "sdpa"
+  },
+  "image": {
+    "_max_pixels": "图像分辨率上限。Qwen2-VL 默认放到 1280*28*28，一张 A4 图纸能吃掉 2GB 显存。开了视觉塔 LoRA 之后显存更紧，从 602112 收到 451584（≈672×672）腾地方",
+    "max_pixels": 451584,
+    "min_pixels": 12544
+  },
+  "lora": {
+    "_target": "LLM 侧的注意力/MLP 投影",
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.05,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "_vision_lora": "视觉塔要不要一起训。**这个开关是本工单的关键**：前两版把视觉塔冻死，语言侧只能学到「答案多半在 B」的位置先验（选项一打乱，增益就归零）。要让模型真的会读图，视觉塔必须可训",
+    "vision_lora": true,
+    "_vision_modules": "挂到视觉塔块的注意力投影上。peft 传列表时按**叶子名**精确匹配，而 qkv/proj 这两个名字只有视觉塔在用（语言侧叫 q_proj/o_proj），所以不会误伤",
+    "vision_modules": [
+      "qkv",
+      "proj"
+    ]
+  },
+  "train": {
+    "_epochs": "2 轮：1 轮时 loss 到收尾仍在降（6.80 -> 6.67），说明没训够；2 轮是实测下来术语指标最好的",
+    "epochs": 2,
+    "batch_size": 1,
+    "grad_accum": 8,
+    "lr": 0.0001,
+    "weight_decay": 0.01,
+    "warmup_ratio": 0.03,
+    "max_grad_norm": 1.0,
+    "max_length": 1536,
+    "logging_steps": 5,
+    "save_steps": 100,
+    "seed": 42,
+    "gradient_checkpointing": true
+  },
+  "data": {
+    "train": "data/train.jsonl",
+    "eval": "data/eval.jsonl"
+  },
+  "output": "output/qwen2vl-2b-lora-imdr"
+}

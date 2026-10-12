@@ -1,0 +1,58 @@
+# 工单编号：人工智能NLP-RAG-解决API服务并发瓶颈与资源泄漏
+# 监控栈：Prometheus（抓指标）+ Grafana（画面板）
+#
+# 这个 compose **独立于 RAGFlow 那套**，用不同的项目名（wo17-monitoring），
+# 起停互不影响：
+#
+#   cd 部署/monitoring
+#   docker compose up -d          # 起监控，约 30 秒后面板可用
+#   docker compose down           # 停掉（数据留在卷里）
+#
+# 起来之后：
+#   · Grafana    http://localhost:3001   admin / ragflow17（已预配好数据源和面板）
+#   · Prometheus http://localhost:9090   「Status → Targets」能看到抓取状态
+#
+# 注意：RAGFlow 那边必须暴露 9390 端口（见 研发/ragflow/docker/docker-compose.yml），
+# 否则 Prometheus 抓不到，面板会是空的。
+name: wo17-monitoring
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: wo17-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prom_data:/prometheus
+    # RAGFlow 的指标发布在宿主机上，容器里要用 host.docker.internal 访问
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --web.enable-lifecycle          # 允许 HTTP 触发配置热重载
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: wo17-grafana
+    depends_on:
+      - prometheus
+    ports:
+      # 宿主 3000 已被别的服务占用（Milvus 那套的 Web 界面），换 3001
+      - "3001:3000"
+    environment:
+      # 不给匿名访问：录屏时登进去能看到账号，更像个正经部署
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: ragflow17
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana_data:/var/lib/grafana
+    restart: unless-stopped
+
+volumes:
+  prom_data:
+  grafana_data:

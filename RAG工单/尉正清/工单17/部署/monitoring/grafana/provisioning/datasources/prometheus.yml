@@ -1,0 +1,12 @@
+# Grafana 数据源：自动指向同 compose 里的 Prometheus
+# 有了它，打开 Grafana 不用手动配数据源，面板直接能出图。
+apiVersion: 1
+datasources:
+  - name: Prometheus
+    uid: prometheus        # 固定 uid，面板 JSON 里靠它引用
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    jsonData:
+      timeInterval: 5s
