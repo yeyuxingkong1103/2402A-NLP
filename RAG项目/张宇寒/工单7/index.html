@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>工单7 · CCF年报RAG评测</title>
+  <style>
+    :root{--ink:#172033;--muted:#667085;--line:#e4e7ec;--brand:#3157d5;--soft:#f5f7ff;--ok:#067647;--warn:#b54708}
+    *{box-sizing:border-box}body{margin:0;background:#f5f6f8;color:var(--ink);font:14px/1.6 "Microsoft YaHei",sans-serif}
+    header{background:linear-gradient(125deg,#111a35,#3157d5);color:#fff;padding:36px 0 30px}main,header>div{width:min(1180px,calc(100% - 32px));margin:auto}
+    h1{margin:0 0 8px;font-size:28px}h2{margin:0 0 14px;font-size:18px}.sub{opacity:.82}.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,1fr);margin-top:-18px}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 5px 18px rgba(16,24,40,.05)}
+    .stat b{display:block;font-size:26px;color:var(--brand)}.stat span{color:var(--muted)}section{margin:20px 0}.toolbar{display:flex;gap:14px;align-items:end;flex-wrap:wrap}.field{display:grid;gap:6px}.field label{color:var(--muted)}select{height:40px;border:1px solid #cfd4dc;border-radius:8px;padding:0 36px 0 12px;background:#fff}
+    button,a.button{height:40px;border:0;border-radius:8px;padding:0 18px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;cursor:pointer;font-weight:600}.primary{background:var(--brand);color:#fff}.secondary{background:var(--soft);color:var(--brand)}button:disabled{opacity:.55;cursor:wait}
+    #status{margin-left:auto;color:var(--muted)}#summary{grid-template-columns:repeat(6,1fr)}.metric{text-align:center}.metric b{font-size:22px;display:block}.metric small{color:var(--muted)}
+    .result{margin-top:14px}.result-head{display:flex;gap:10px;align-items:flex-start}.qid{color:var(--brand);background:var(--soft);padding:2px 8px;border-radius:999px;font-weight:700}.question{font-weight:700;font-size:16px;flex:1}.tag{font-size:12px;padding:2px 8px;border-radius:999px;background:#ecfdf3;color:var(--ok)}
+    .columns{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}.panel{background:#f8fafc;border-radius:10px;padding:12px;white-space:pre-wrap}.panel strong{display:block;margin-bottom:6px}.hits{margin-top:10px}.hit{border-top:1px solid var(--line);padding:10px 0}.hit-meta{color:var(--brand);font-weight:600}.error{color:#b42318}.empty{text-align:center;color:var(--muted);padding:40px}.hide{display:none}
+    @media(max-width:850px){.stats,#summary{grid-template-columns:repeat(2,1fr)}.columns{grid-template-columns:1fr}#status{width:100%;margin:0}}
+  </style>
+</head>
+<body>
+<header><div><h1>工单7 · CCF年报 RAG 评测</h1><div class="sub">固定10道可重复测试题，展示真实检索证据、答案质量与响应时间</div></div></header>
+<main>
+  <section class="grid stats">
+    <div class="card stat"><b>9</b><span>份金融机构年报</span></div>
+    <div class="card stat"><b>10</b><span>道固定评测题</span></div>
+    <div class="card stat"><b>3</b><span>种检索模式</span></div>
+    <div class="card stat"><b id="indexState">检查中</b><span>本地索引状态</span></div>
+  </section>
+  <section class="card">
+    <h2>运行评测</h2>
+    <div class="toolbar">
+      <div class="field"><label for="retrievalMode">检索方式</label><select id="retrievalMode"><option value="hybrid">混合检索</option><option value="vector">向量检索</option><option value="fulltext">全文检索</option></select></div>
+      <div class="field"><label for="topK">Top K</label><select id="topK"><option>3</option><option selected>5</option><option>8</option><option>10</option></select></div>
+      <button class="primary" id="runEvaluation">一键运行固定10题</button>
+      <a class="button secondary hide" id="downloadReport" href="/api/evaluation/export">下载JSON报告</a>
+      <div id="status">正在检查项目状态…</div>
+    </div>
+  </section>
+  <section><h2>汇总指标</h2><div id="summary" class="grid"><div class="card empty" style="grid-column:1/-1">运行评测后显示 Hit@K、Recall@K、MRR、事实准确率和耗时</div></div></section>
+  <section><h2>逐题结果</h2><div id="results"><div class="card empty">尚未运行评测</div></div></section>
+</main>
+<script>
+const el=id=>document.getElementById(id);const pct=v=>(Number(v||0)*100).toFixed(1)+'%';
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+async function health(){try{const r=await fetch('/api/health');const d=await r.json();el('indexState').textContent=d.index_ready?'已就绪':'未建库';el('status').textContent=d.message+(d.llm_ready?' · DeepSeek模式':' · 证据摘要模式');}catch(e){el('status').textContent='服务状态读取失败';}}
+function metrics(s){const items=[['Hit@K',pct(s.hit_at_k)],['Recall@K',pct(s.recall_at_k)],['MRR',s.mrr.toFixed(3)],['事实准确率',pct(s.fact_accuracy)],['平均耗时',s.average_ms+' ms'],['P95耗时',s.p95_ms+' ms']];el('summary').innerHTML=items.map(([k,v])=>`<div class="card metric"><b>${v}</b><small>${k}</small></div>`).join('');}
+function render(rows){el('results').innerHTML=rows.map((r,i)=>{if(r.status==='error')return `<article class="card result"><div class="result-head"><span class="qid">${r.id}</span><div class="question">${esc(r.question)}</div></div><p class="error">${esc(r.error)}</p></article>`;const hits=(r.hits||[]).map(h=>`<div class="hit"><div class="hit-meta">#${h.rank||'-'} ${esc(h.document||h.stock_code)} · 第${h.page}页 · ${Number(h.score||0).toFixed(4)} <a href="/api/pdf/${h.stock_code}" target="_blank">查看PDF</a></div><div>${esc(h.text)}</div></div>`).join('');return `<article class="card result"><div class="result-head"><span class="qid">${r.id}</span><div class="question">${esc(r.question)}</div><span class="tag">${r.mode==='deepseek'?'DeepSeek':'证据摘要'}</span></div><div class="columns"><div class="panel"><strong>参考答案</strong>${esc(r.reference_answer)}</div><div class="panel"><strong>RAG答案</strong>${esc(r.answer)}</div></div><div class="hits"><b>检索证据</b>${hits}</div><p>命中：${r.retrieval_score.hit?'是':'否'}　Recall：${pct(r.retrieval_score.recall)}　倒数排名：${r.retrieval_score.reciprocal_rank}　事实覆盖：${pct(r.fact_score.accuracy)}　总耗时：${r.total_ms} ms</p></article>`}).join('');}
+el('runEvaluation').onclick=async()=>{const b=el('runEvaluation');b.disabled=true;b.textContent='正在运行10题…';el('status').textContent='逐题检索与评测中';try{const r=await fetch('/api/evaluation/run',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:el('retrievalMode').value,top_k:Number(el('topK').value)})});const d=await r.json();if(!r.ok)throw new Error(d.detail||'评测失败');metrics(d.summary);render(d.results);el('downloadReport').classList.remove('hide');el('status').textContent=`已完成 ${d.summary.completed}/${d.summary.total} 题`;}catch(e){el('status').textContent=e.message;}finally{b.disabled=false;b.textContent='一键运行固定10题';}};
+health();
+</script>
+</body>
+</html>
