@@ -1,0 +1,21 @@
+# ---- 输入数据（体积大，不入库）----
+*.pdf
+需求开发.docx
+
+# ---- 运行期产物 ----
+# 注：仓库根 .gitignore 已全局忽略 data/ 与 logs/；此处重申便于单独阅读。
+data/
+models/
+logs/
+*.log
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+_scratch/
+
+# 例外（用 `git add -f` 强制入库）：data/test_questions.json
+#   —— 工单要求的 16 题测试问题列表，仅 2.4KB，也是 tests/ 冒烟测试的输入；
+#   其余 data/ 内容（Qdrant 向量库、解析产物、图集，约 1.5GB）由 build_index.py 重建。
