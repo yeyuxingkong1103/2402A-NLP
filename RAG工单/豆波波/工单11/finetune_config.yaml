@@ -1,0 +1,7 @@
+model_name_or_path: BAAI/bge-m3
+train_file: dataset.jsonl
+loss: MultipleNegativesRankingLoss
+epochs: 1
+batch_size: 16
+learning_rate: 0.00002
+output_dir: output/embedding-lora
