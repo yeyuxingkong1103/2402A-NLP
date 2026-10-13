@@ -1,0 +1,58 @@
+# 工单编号：人工智能 NLP-RAG-实现文档质量评估 Skill 并集成至智能体工作流工单
+# 文档质量评估 Skill 配置
+
+# 扫描型 PDF 判定阈值
+scan_detection:
+  # 每页字符数低于此阈值，视为扫描页
+  char_threshold: 50
+  # 扫描页占比超过此值，整个文件标记为扫描型
+  scan_ratio_threshold: 0.7
+  # 混合型阈值（介于 scan 和 text 之间）
+  mixed_ratio_threshold: 0.3
+
+# 文档长度分位数
+length_distribution:
+  percentiles: [25, 50, 75, 90, 99]
+  bins: [0, 1000, 5000, 20000, 50000, 100000, 999999999]
+  bin_labels: ["<1K", "1K-5K", "5K-20K", "20K-50K", "50K-100K", ">100K"]
+
+# 重复检测
+duplicate_detection:
+  # MD5 精确匹配
+  md5_enabled: true
+  # SimHash 相似度检测
+  simhash_enabled: true
+  # SimHash 汉明距离阈值（小于此值视为相似）
+  simhash_hamming_threshold: 5
+
+# 敏感信息检测
+sensitive_detection:
+  phone:
+    enabled: true
+    # 中国大陆手机号
+    pattern: "1[3-9]\\d{9}"
+  email:
+    enabled: true
+    pattern: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
+  id_card:
+    enabled: true
+    # 18 位身份证
+    pattern: "[1-9]\\d{5}(19|20)\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])\\d{3}[0-9Xx]"
+  bank_card:
+    enabled: false
+    pattern: "\\d{16,19}"
+  # 上下文长度
+  context_chars: 30
+
+# 支持的文件格式
+supported_formats:
+  - .pdf
+  - .docx
+  - .md
+  - .txt
+
+# 输出
+output:
+  json_report: true
+  html_report: true
+  include_pending_lists: true
