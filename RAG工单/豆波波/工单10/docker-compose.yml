@@ -1,0 +1,9 @@
+services:
+  rag-api:
+    image: ragflow/ragflow:latest
+    ports: ["9380:9380"]
+    env_file: [.env]
+    depends_on: [redis]
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
