@@ -1,0 +1,67 @@
+{
+  "skill": "DocumentQualityAssessmentSkill",
+  "generated_at": "2026-10-12T11:36:52.526774+00:00",
+  "config": {
+    "scan_text_threshold": 32,
+    "scan_ratio_threshold": 0.7,
+    "simhash_max_distance": 8,
+    "simhash_max_pairs": 500,
+    "context_radius": 48,
+    "sensitive_patterns": {
+      "phone": "(?<!\\d)(?:1[3-9]\\d{9})(?!\\d)",
+      "email": "(?i)(?<![\\w.+-])([\\w.+-]+@[\\w-]+(?:\\.[\\w-]+)+)(?![\\w.-])",
+      "id_card": "(?<!\\d)(?:\\d{17}[\\dXx])(?!\\d)"
+    },
+    "enable_bank_card": false
+  },
+  "summary": {
+    "files": 1,
+    "formats": {
+      "pdf": 1
+    },
+    "exact_duplicate_groups": 0,
+    "similar_version_conflicts": 0,
+    "sensitive_matches": 0
+  },
+  "documents": [
+    {
+      "path": "工单18\\规格说明.pdf",
+      "extension": "pdf",
+      "size_bytes": 786371,
+      "characters": 0,
+      "md5": "7a5b1a8997498aab8a8faf87f25918da",
+      "pages": 0,
+      "scanned_pages": 0,
+      "scanned_ratio": 1.0,
+      "pdf_type": "unknown",
+      "parse_error": "ModuleNotFoundError: No module named 'pypdf'",
+      "needs_confirmation": true
+    }
+  ],
+  "length_distribution": {
+    "count": 1,
+    "percentiles": {
+      "p25": 0.0,
+      "p50": 0.0,
+      "p75": 0.0,
+      "p90": 0.0,
+      "p99": 0.0
+    },
+    "values": [
+      0
+    ]
+  },
+  "exact_duplicates": [],
+  "version_conflicts": [],
+  "sensitive_review": [],
+  "workflow": {
+    "name": "document_ingestion_workflow",
+    "routes": [
+      {
+        "path": "工单18\\规格说明.pdf",
+        "parser": "deepdoc",
+        "reason": "unknown"
+      }
+    ]
+  }
+}
