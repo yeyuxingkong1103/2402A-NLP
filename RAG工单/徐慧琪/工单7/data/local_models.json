@@ -1,0 +1,369 @@
+{
+  "workorder": "人工智能NLP-RAG-功能测试及评估",
+  "scanned_at": "2026-10-13T12:20:01",
+  "checked_locations": [
+    {
+      "label": "HuggingFace 缓存 ~/.cache/huggingface/hub/",
+      "path": "C:\\Users\\35071\\.cache\\huggingface\\hub",
+      "exists": true,
+      "n_entries": 2
+    },
+    {
+      "label": "HuggingFace 缓存 %USERPROFILE%\\.cache\\huggingface\\hub\\",
+      "path": "C:\\Users\\35071\\.cache\\huggingface\\hub",
+      "exists": true,
+      "n_entries": 0
+    },
+    {
+      "label": "torch 缓存 ~/.cache/torch/",
+      "path": "C:\\Users\\35071\\.cache\\torch",
+      "exists": false,
+      "n_entries": 0
+    },
+    {
+      "label": "torch hub checkpoints ~/.cache/torch/hub/checkpoints/",
+      "path": "C:\\Users\\35071\\.cache\\torch\\hub\\checkpoints",
+      "exists": false,
+      "n_entries": 0
+    },
+    {
+      "label": "ModelScope 缓存 ~/.cache/modelscope/hub/",
+      "path": "C:\\Users\\35071\\.cache\\modelscope\\hub",
+      "exists": false,
+      "n_entries": 0
+    },
+    {
+      "label": "ModelScope 缓存 ~/.cache/modelscope/models/",
+      "path": "C:\\Users\\35071\\.cache\\modelscope\\models",
+      "exists": true,
+      "n_entries": 2
+    },
+    {
+      "label": "ModelScope 缓存 %USERPROFILE%\\...\\modelscope\\hub\\",
+      "path": "C:\\Users\\35071\\.cache\\modelscope\\hub",
+      "exists": false,
+      "n_entries": 0
+    },
+    {
+      "label": "项目目录 models/",
+      "path": "D:\\xinzg6\\zy-gq\\工单7\\models",
+      "exists": false,
+      "n_entries": 0
+    },
+    {
+      "label": "项目目录 checkpoints/",
+      "path": "D:\\xinzg6\\zy-gq\\工单7\\checkpoints",
+      "exists": false,
+      "n_entries": 0
+    },
+    {
+      "label": "项目目录 pretrained/",
+      "path": "D:\\xinzg6\\zy-gq\\工单7\\pretrained",
+      "exists": false,
+      "n_entries": 0
+    },
+    {
+      "label": "项目目录 weights/",
+      "path": "D:\\xinzg6\\zy-gq\\工单7\\weights",
+      "exists": false,
+      "n_entries": 0
+    },
+    {
+      "label": "本工单 data/models/（随工程落盘）",
+      "path": "D:\\xinzg6\\zy-gq\\工单7\\data\\models",
+      "exists": true,
+      "n_entries": 1
+    },
+    {
+      "label": "上游工单4 data/models（随工程落盘）",
+      "path": "D:\\xinzg6\\zy-gq\\工单4\\data\\models",
+      "exists": true,
+      "n_entries": 2
+    },
+    {
+      "label": "自定义权重目录 D:\\model",
+      "path": "D:\\model",
+      "exists": true,
+      "n_entries": 6
+    }
+  ],
+  "models": [
+    {
+      "role": "unknown",
+      "name": "models--opendatalab--PDF-Extract-Kit",
+      "path": "C:\\Users\\35071\\.cache\\huggingface\\hub\\models--opendatalab--PDF-Extract-Kit",
+      "size_bytes": 0,
+      "version": "空壳（无权重文件，不可用）",
+      "usable": false,
+      "origin": "HuggingFace 缓存 ~/.cache/huggingface/hub/"
+    },
+    {
+      "role": "embedding",
+      "name": "models--sentence-transformers--all-MiniLM-L6-v2",
+      "path": "C:\\Users\\35071\\.cache\\huggingface\\hub\\models--sentence-transformers--all-MiniLM-L6-v2",
+      "size_bytes": 91578455,
+      "version": "（无 config.json）",
+      "usable": true,
+      "origin": "HuggingFace 缓存 ~/.cache/huggingface/hub/"
+    },
+    {
+      "role": "multimodal",
+      "name": "OpenDataLab--MinerU2.5-Pro-2605-1.2B",
+      "path": "C:\\Users\\35071\\.cache\\modelscope\\models\\OpenDataLab--MinerU2.5-Pro-2605-1.2B",
+      "size_bytes": 2328029182,
+      "version": "（无 config.json）",
+      "usable": true,
+      "origin": "ModelScope 缓存 ~/.cache/modelscope/models/"
+    },
+    {
+      "role": "multimodal",
+      "name": "OpenDataLab--PDF-Extract-Kit-1.0",
+      "path": "C:\\Users\\35071\\.cache\\modelscope\\models\\OpenDataLab--PDF-Extract-Kit-1.0",
+      "size_bytes": 1702030007,
+      "version": "（无 config.json）",
+      "usable": true,
+      "origin": "ModelScope 缓存 ~/.cache/modelscope/models/"
+    },
+    {
+      "role": "reranker",
+      "name": "bge-reranker-base",
+      "path": "D:\\xinzg6\\zy-gq\\工单7\\data\\models\\bge-reranker-base",
+      "size_bytes": 1134419740,
+      "version": "XLMRobertaForSequenceClassification model_type=xlm-roberta hidden_size=768 num_hidden_layers=12",
+      "usable": true,
+      "origin": "本工单 data/models/（随工程落盘）"
+    },
+    {
+      "role": "reranker",
+      "name": "bge-reranker-base",
+      "path": "D:\\xinzg6\\zy-gq\\工单4\\data\\models\\bge-reranker-base",
+      "size_bytes": 1134419740,
+      "version": "XLMRobertaForSequenceClassification model_type=xlm-roberta hidden_size=768 num_hidden_layers=12",
+      "usable": true,
+      "origin": "上游工单4 data/models（随工程落盘）"
+    },
+    {
+      "role": "multimodal",
+      "name": "clip-vit-base-patch32",
+      "path": "D:\\xinzg6\\zy-gq\\工单4\\data\\models\\clip-vit-base-patch32",
+      "size_bytes": 608863580,
+      "version": "CLIPModel model_type=clip",
+      "usable": true,
+      "origin": "上游工单4 data/models（随工程落盘）"
+    },
+    {
+      "role": "unknown",
+      "name": "Paddle-OCR",
+      "path": "D:\\model\\Paddle-OCR",
+      "size_bytes": 0,
+      "version": "空壳（无权重文件，不可用）",
+      "usable": false,
+      "origin": "自定义权重目录 D:\\model"
+    },
+    {
+      "role": "embedding",
+      "name": "bge-m3",
+      "path": "D:\\model\\bge-m3",
+      "size_bytes": 3524220670,
+      "version": "XLMRobertaModel model_type=xlm-roberta hidden_size=1024 num_hidden_layers=24",
+      "usable": true,
+      "origin": "自定义权重目录 D:\\model"
+    },
+    {
+      "role": "embedding",
+      "name": "bge-m3-ft-v1",
+      "path": "D:\\model\\bge-m3-ft-v1",
+      "size_bytes": 2288151028,
+      "version": "XLMRobertaModel model_type=xlm-roberta hidden_size=1024 num_hidden_layers=24",
+      "usable": true,
+      "origin": "自定义权重目录 D:\\model"
+    },
+    {
+      "role": "embedding",
+      "name": "bge-m3-ft-v1-r32",
+      "path": "D:\\model\\bge-m3-ft-v1-r32",
+      "size_bytes": 4564380634,
+      "version": "XLMRobertaModel model_type=xlm-roberta hidden_size=1024 num_hidden_layers=24",
+      "usable": true,
+      "origin": "自定义权重目录 D:\\model"
+    },
+    {
+      "role": "reranker",
+      "name": "reranker",
+      "path": "D:\\model\\reranker",
+      "size_bytes": 2293567816,
+      "version": "XLMRobertaForSequenceClassification model_type=xlm-roberta hidden_size=1024 num_hidden_layers=24",
+      "usable": true,
+      "origin": "自定义权重目录 D:\\model"
+    },
+    {
+      "role": "reranker",
+      "name": "reranker_ms",
+      "path": "D:\\model\\reranker_ms",
+      "size_bytes": 2293567620,
+      "version": "XLMRobertaForSequenceClassification model_type=xlm-roberta hidden_size=1024 num_hidden_layers=24",
+      "usable": true,
+      "origin": "自定义权重目录 D:\\model"
+    },
+    {
+      "role": "embedding",
+      "name": "registry.ollama.ai:dengcao/bge-large-zh-v1.5/latest",
+      "path": "ollama://registry.ollama.ai:dengcao/bge-large-zh-v1.5/latest",
+      "size_bytes": 651021661,
+      "version": "ollama manifest a5442ccf88b4",
+      "usable": true,
+      "origin": "Ollama 本地仓库"
+    },
+    {
+      "role": "embedding",
+      "name": "registry.ollama.ai:library/bge-m3/latest",
+      "path": "ollama://registry.ollama.ai:library/bge-m3/latest",
+      "size_bytes": 1157672268,
+      "version": "ollama manifest 0c4c9c2a325f",
+      "usable": true,
+      "origin": "Ollama 本地仓库"
+    },
+    {
+      "role": "embedding",
+      "name": "registry.ollama.ai:library/nomic-embed-text/latest",
+      "path": "ollama://registry.ollama.ai:library/nomic-embed-text/latest",
+      "size_bytes": 274302030,
+      "version": "ollama manifest 31df23ea7daa",
+      "usable": true,
+      "origin": "Ollama 本地仓库"
+    },
+    {
+      "role": "llm",
+      "name": "registry.ollama.ai:library/qwen2.5/0.5b",
+      "path": "ollama://registry.ollama.ai:library/qwen2.5/0.5b",
+      "size_bytes": 397820829,
+      "version": "ollama manifest 005f95c74751",
+      "usable": true,
+      "origin": "Ollama 本地仓库"
+    },
+    {
+      "role": "llm",
+      "name": "registry.ollama.ai:library/qwen2.5/3b",
+      "path": "ollama://registry.ollama.ai:library/qwen2.5/3b",
+      "size_bytes": 1929911945,
+      "version": "ollama manifest 161ddde4c9cd",
+      "usable": true,
+      "origin": "Ollama 本地仓库"
+    }
+  ],
+  "roles": {
+    "embedding": {
+      "desc": "向量嵌入（把年报语料内容与 Query 转成向量）",
+      "need": "≥2 种可切换（bge 系列、m3e 系列等）",
+      "have": [
+        {
+          "name": "models--sentence-transformers--all-MiniLM-L6-v2",
+          "path": "C:\\Users\\35071\\.cache\\huggingface\\hub\\models--sentence-transformers--all-MiniLM-L6-v2",
+          "size": "87.3 MB"
+        },
+        {
+          "name": "bge-m3",
+          "path": "D:\\model\\bge-m3",
+          "size": "3.3 GB"
+        },
+        {
+          "name": "bge-m3-ft-v1",
+          "path": "D:\\model\\bge-m3-ft-v1",
+          "size": "2.1 GB"
+        },
+        {
+          "name": "bge-m3-ft-v1-r32",
+          "path": "D:\\model\\bge-m3-ft-v1-r32",
+          "size": "4.3 GB"
+        },
+        {
+          "name": "registry.ollama.ai:dengcao/bge-large-zh-v1.5/latest",
+          "path": "ollama://registry.ollama.ai:dengcao/bge-large-zh-v1.5/latest",
+          "size": "620.9 MB"
+        },
+        {
+          "name": "registry.ollama.ai:library/bge-m3/latest",
+          "path": "ollama://registry.ollama.ai:library/bge-m3/latest",
+          "size": "1.1 GB"
+        },
+        {
+          "name": "registry.ollama.ai:library/nomic-embed-text/latest",
+          "path": "ollama://registry.ollama.ai:library/nomic-embed-text/latest",
+          "size": "261.6 MB"
+        }
+      ],
+      "satisfied": true,
+      "n_have": 7
+    },
+    "reranker": {
+      "desc": "Reranker 精排（召回结果 cross-encoder 重排序）",
+      "need": "≥2 种可切换（bge-reranker-large/base 或 cross-encoder 系列）",
+      "have": [
+        {
+          "name": "bge-reranker-base",
+          "path": "D:\\xinzg6\\zy-gq\\工单7\\data\\models\\bge-reranker-base",
+          "size": "1.1 GB"
+        },
+        {
+          "name": "bge-reranker-base",
+          "path": "D:\\xinzg6\\zy-gq\\工单4\\data\\models\\bge-reranker-base",
+          "size": "1.1 GB"
+        },
+        {
+          "name": "reranker",
+          "path": "D:\\model\\reranker",
+          "size": "2.1 GB"
+        },
+        {
+          "name": "reranker_ms",
+          "path": "D:\\model\\reranker_ms",
+          "size": "2.1 GB"
+        }
+      ],
+      "satisfied": true,
+      "n_have": 4
+    },
+    "llm": {
+      "desc": "LLM（答案生成 + LLM 重排器）",
+      "need": "≥1（本地优先）",
+      "have": [
+        {
+          "name": "registry.ollama.ai:library/qwen2.5/0.5b",
+          "path": "ollama://registry.ollama.ai:library/qwen2.5/0.5b",
+          "size": "379.4 MB"
+        },
+        {
+          "name": "registry.ollama.ai:library/qwen2.5/3b",
+          "path": "ollama://registry.ollama.ai:library/qwen2.5/3b",
+          "size": "1.8 GB"
+        }
+      ],
+      "satisfied": true,
+      "n_have": 2
+    },
+    "multimodal": {
+      "desc": "多模态模型（图像/图表语义解析，上游工单04 能力）",
+      "need": "≥1（本机模型在位即可；注意：工单06 随工程落盘的 VLM 描述缓存是招股书专用产物，本语料需重新解析，见工单07 docs/06）",
+      "have": [
+        {
+          "name": "OpenDataLab--MinerU2.5-Pro-2605-1.2B",
+          "path": "C:\\Users\\35071\\.cache\\modelscope\\models\\OpenDataLab--MinerU2.5-Pro-2605-1.2B",
+          "size": "2.2 GB"
+        },
+        {
+          "name": "OpenDataLab--PDF-Extract-Kit-1.0",
+          "path": "C:\\Users\\35071\\.cache\\modelscope\\models\\OpenDataLab--PDF-Extract-Kit-1.0",
+          "size": "1.6 GB"
+        },
+        {
+          "name": "clip-vit-base-patch32",
+          "path": "D:\\xinzg6\\zy-gq\\工单4\\data\\models\\clip-vit-base-patch32",
+          "size": "580.7 MB"
+        }
+      ],
+      "satisfied": true,
+      "n_have": 3
+    }
+  },
+  "download_performed": false
+}

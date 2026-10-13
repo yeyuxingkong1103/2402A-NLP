@@ -1,0 +1,42 @@
+# ---------------------------------------------------------------------------
+# 工单编号：人工智能NLP-RAG-功能测试及评估
+# 上传到仓库时的排除清单（工程本体 1.4GB，其中绝大部分是"环境产物"而非交付物）
+# ---------------------------------------------------------------------------
+
+# === 老师提供的输入文档（不重复上传）===
+需求开发.docx
+
+# === 运行环境：模型权重（单文件 1.1GB，且超 GitHub 100MB 单文件硬限制）===
+data/models/
+*.bin
+*.safetensors
+*.gguf
+
+# === 运行环境：索引产物（可由 build_index.py 重建，见 README）===
+data/qdrant/
+data/index/
+data/chunks/
+data/parsed_mineru/
+data/figures/
+data/vlm_cache/
+data/tables/
+data/feedback/
+
+# === 语料（体积大；由附件 ccf_competition.zip 经 scripts/setup_project.py 还原）===
+ccf_competition/
+data/corpus/
+
+# === 运行期日志与缓存 ===
+logs/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+_stale/
+_scratch/
+
+# === 编辑器 / 系统 ===
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini

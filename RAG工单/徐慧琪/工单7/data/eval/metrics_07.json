@@ -1,0 +1,1960 @@
+{
+ "top_k": 5,
+ "aggregate": {
+  "hybrid": {
+   "precision@k": 0.2,
+   "recall@k": 0.2462,
+   "fact_coverage@k": 0.68,
+   "hit_rate@k": 0.8,
+   "mrr": 0.5117,
+   "ndcg@k": 0.5888,
+   "answer_accuracy": 0.3417,
+   "n_questions": 10,
+   "avg_retrieval_ms": 841.0
+  },
+  "vector": {
+   "precision@k": 0.14,
+   "recall@k": 0.2312,
+   "fact_coverage@k": 0.48,
+   "hit_rate@k": 0.6,
+   "mrr": 0.4033,
+   "ndcg@k": 0.4588,
+   "answer_accuracy": 0.2695,
+   "n_questions": 10,
+   "avg_retrieval_ms": 742.1
+  },
+  "fulltext": {
+   "precision@k": 0.12,
+   "recall@k": 0.215,
+   "fact_coverage@k": 0.4,
+   "hit_rate@k": 0.5,
+   "mrr": 0.3167,
+   "ndcg@k": 0.3631,
+   "answer_accuracy": 0.3528,
+   "n_questions": 10,
+   "avg_retrieval_ms": 374.7
+  }
+ },
+ "rows": [
+  {
+   "id": 1,
+   "strategy": "hybrid",
+   "qtype": "事实型",
+   "question": "平安银行2019年年度报告的董事长致辞中，提到其盈利增长的关键因素有哪些？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 1,
+    "precision@k": 0.2,
+    "recall@k": 0.0625,
+    "fact_coverage@k": 0.8,
+    "fact_all_covered@k": false,
+    "facts_total": 5,
+    "facts_covered": [
+     "零售进一步巩固收入贡献的支柱地位",
+     "六四占比",
+     "营收、净利润增速创转型以来新高",
+     "数据驱动"
+    ],
+    "facts_missed": [
+     "逾期60天以上贷款占比"
+    ],
+    "hit_rate@k": 1.0,
+    "mrr": 1.0,
+    "ndcg@k": 1.0,
+    "n_relevant_in_corpus": 16,
+    "rel_flags": [
+     1,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 6,
+    "facts_hit": [],
+    "facts_missed": [
+     "零售进一步巩固收入贡献的支柱地位",
+     "对公",
+     "资金同业",
+     "逾期60天以上贷款占比",
+     "拨备覆盖率",
+     "数据驱动"
+    ],
+    "coverage": 0.0,
+    "all_hit": false
+   },
+   "answer": "平安银行2019年年度报告的董事长致辞中，提到其盈利增长的关键因素有：均衡结构、资产质量夯实后方防线、数据化能力促进模式创新。",
+   "retrieval_ms": 1547.4,
+   "timings": {
+    "analyze_ms": 0.6,
+    "retrieve_ms": 958.9,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 588.0,
+    "retrieval_total_ms": 1547.4
+   },
+   "doc_route": {
+    "sources": [
+     "2020-02-14__平安银行__000001__2019年度报告.pdf"
+    ],
+    "matched": [
+     "2020-02-14__平安银行__000001__2019年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2020-02-14__平安银行__000001__2019年度报告.pdf》"
+   }
+  },
+  {
+   "id": 2,
+   "strategy": "hybrid",
+   "qtype": "事实型",
+   "question": "招商银行在其2019年年度报告中提到的创新商业模式有哪些？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 0,
+    "precision@k": 0.0,
+    "recall@k": 0.0,
+    "fact_coverage@k": 0.0,
+    "fact_all_covered@k": false,
+    "facts_total": 3,
+    "facts_covered": [],
+    "facts_missed": [
+     "逾越者联盟",
+     "咖啡零售",
+     "影票销售"
+    ],
+    "hit_rate@k": 0.0,
+    "mrr": 0.0,
+    "ndcg@k": 0.0,
+    "n_relevant_in_corpus": 1,
+    "rel_flags": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 5,
+    "facts_hit": [],
+    "facts_missed": [
+     "高频生活场景",
+     "逾越者联盟",
+     "咖啡零售",
+     "出行预订",
+     "影票销售"
+    ],
+    "coverage": 0.0,
+    "all_hit": false
+   },
+   "answer": "根据已有资料无法确定。",
+   "retrieval_ms": 635.3,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 349.4,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 285.9,
+    "retrieval_total_ms": 635.3
+   },
+   "doc_route": {
+    "sources": [
+     "2020-03-21__招商银行__600036__2019年度报告.pdf"
+    ],
+    "matched": [
+     "2020-03-21__招商银行__600036__2019年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2020-03-21__招商银行__600036__2019年度报告.pdf》"
+   }
+  },
+  {
+   "id": 3,
+   "strategy": "hybrid",
+   "qtype": "数值型",
+   "question": "中国邮政储蓄银行2019年末的不良贷款率和拨备覆盖率分别是多少？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 2,
+    "precision@k": 0.4,
+    "recall@k": 0.3333,
+    "fact_coverage@k": 1.0,
+    "fact_all_covered@k": true,
+    "facts_total": 2,
+    "facts_covered": [
+     "0.86%",
+     "389.45%"
+    ],
+    "facts_missed": [],
+    "hit_rate@k": 1.0,
+    "mrr": 1.0,
+    "ndcg@k": 1.0,
+    "n_relevant_in_corpus": 6,
+    "rel_flags": [
+     1,
+     1,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 2,
+    "facts_hit": [
+     "389.45"
+    ],
+    "facts_missed": [
+     "0.86"
+    ],
+    "coverage": 0.5,
+    "all_hit": false
+   },
+   "answer": "中国邮政储蓄银行2019年末的不良贷款率为0.89%，拨备覆盖率为389.45%。[3]",
+   "retrieval_ms": 828.7,
+   "timings": {
+    "analyze_ms": 0.5,
+    "retrieve_ms": 540.7,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 287.4,
+    "retrieval_total_ms": 828.7
+   },
+   "doc_route": {
+    "sources": [
+     "2020-03-26__邮储银行__601658__2019年度报告.pdf"
+    ],
+    "matched": [
+     "2020-03-26__邮储银行__601658__2019年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2020-03-26__邮储银行__601658__2019年度报告.pdf》"
+   }
+  },
+  {
+   "id": 4,
+   "strategy": "hybrid",
+   "qtype": "数值型",
+   "question": "中国平安2019年的营业收入和归属于母公司股东的净利润分别是多少？同比增长率是多少？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 2,
+    "precision@k": 0.4,
+    "recall@k": 0.1333,
+    "fact_coverage@k": 1.0,
+    "fact_all_covered@k": true,
+    "facts_total": 2,
+    "facts_covered": [
+     "1,168,867",
+     "149,407"
+    ],
+    "facts_missed": [],
+    "hit_rate@k": 1.0,
+    "mrr": 0.3333,
+    "ndcg@k": 0.5706,
+    "n_relevant_in_corpus": 15,
+    "rel_flags": [
+     0,
+     0,
+     1,
+     1,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 4,
+    "facts_hit": [
+     "39.1"
+    ],
+    "facts_missed": [
+     "1,168,867",
+     "149,407",
+     "19.7"
+    ],
+    "coverage": 0.25,
+    "all_hit": false
+   },
+   "answer": "【片段1】来源：2020-02-21__中国平安__601318__2019年度报告.pdf 第20页（2019年，集团实现归属于母公司股东的净利润1,494.07亿元，同比增长39.1%。",
+   "retrieval_ms": 898.2,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 614.9,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 283.3,
+    "retrieval_total_ms": 898.2
+   },
+   "doc_route": {
+    "sources": [
+     "2020-02-21__中国平安__601318__2019年度报告.pdf"
+    ],
+    "matched": [
+     "2020-02-21__中国平安__601318__2019年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2020-02-21__中国平安__601318__2019年度报告.pdf》"
+   }
+  },
+  {
+   "id": 5,
+   "strategy": "hybrid",
+   "qtype": "表格型",
+   "question": "根据年度报告中的主要会计数据表，中信证券2020年的营业收入和归属于母公司股东的净利润分别是多少？表内金额的列示单位是什么？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 1,
+    "precision@k": 0.2,
+    "recall@k": 0.1111,
+    "fact_coverage@k": 1.0,
+    "fact_all_covered@k": true,
+    "facts_total": 2,
+    "facts_covered": [
+     "54,382,730,241.56",
+     "14,902,324,215.75"
+    ],
+    "facts_missed": [],
+    "hit_rate@k": 1.0,
+    "mrr": 1.0,
+    "ndcg@k": 1.0,
+    "n_relevant_in_corpus": 9,
+    "rel_flags": [
+     1,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 4,
+    "facts_hit": [
+     "54,382,730,241.56",
+     "14,902,324,215.75"
+    ],
+    "facts_missed": [
+     "26.06",
+     "21.86"
+    ],
+    "coverage": 0.5,
+    "all_hit": false
+   },
+   "answer": "中信证券2020年的营业收入为54,382,730,241.56元，归属于母公司股东的净利润为14,902,324,215.75元。表内金额的列示单位是元。",
+   "retrieval_ms": 796.0,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 510.4,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 284.6,
+    "retrieval_total_ms": 796.0
+   },
+   "doc_route": {
+    "sources": [
+     "2021-03-19__中信证券__600030__2020年度报告.pdf"
+    ],
+    "matched": [
+     "2021-03-19__中信证券__600030__2020年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2021-03-19__中信证券__600030__2020年度报告.pdf》"
+   }
+  },
+  {
+   "id": 6,
+   "strategy": "hybrid",
+   "qtype": "表格型",
+   "question": "根据中国人寿2020年年度报告的主要会计数据，2020年末的资产总计和负债合计分别是多少？列示单位是什么？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 1,
+    "precision@k": 0.2,
+    "recall@k": 0.25,
+    "fact_coverage@k": 1.0,
+    "fact_all_covered@k": true,
+    "facts_total": 2,
+    "facts_covered": [
+     "4,252,410",
+     "3,795,479"
+    ],
+    "facts_missed": [],
+    "hit_rate@k": 1.0,
+    "mrr": 0.2,
+    "ndcg@k": 0.3869,
+    "n_relevant_in_corpus": 4,
+    "rel_flags": [
+     0,
+     0,
+     0,
+     0,
+     1
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 2,
+    "facts_hit": [],
+    "facts_missed": [
+     "4,252,410",
+     "3,795,479"
+    ],
+    "coverage": 0.0,
+    "all_hit": false
+   },
+   "answer": "中国人寿2020年末资产总计和负债合计分别是148,213（单位：人民币百万元）。[1]",
+   "retrieval_ms": 835.9,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 548.0,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 287.9,
+    "retrieval_total_ms": 835.9
+   },
+   "doc_route": {
+    "sources": [
+     "2021-03-26__中国人寿__601628__2020年度报告.pdf"
+    ],
+    "matched": [
+     "2021-03-26__中国人寿__601628__2020年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2021-03-26__中国人寿__601628__2020年度报告.pdf》"
+   }
+  },
+  {
+   "id": 7,
+   "strategy": "hybrid",
+   "qtype": "数值型",
+   "question": "招商证券2021年的经纪业务手续费净收入和投资银行业务手续费净收入分别是多少？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 1,
+    "precision@k": 0.2,
+    "recall@k": 0.5,
+    "fact_coverage@k": 0.5,
+    "fact_all_covered@k": false,
+    "facts_total": 2,
+    "facts_covered": [
+     "2,542,112,537.22"
+    ],
+    "facts_missed": [
+     "7,915,918,578.66"
+    ],
+    "hit_rate@k": 1.0,
+    "mrr": 0.3333,
+    "ndcg@k": 0.5,
+    "n_relevant_in_corpus": 2,
+    "rel_flags": [
+     0,
+     0,
+     1,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 2,
+    "facts_hit": [
+     "2,542,112,537.22"
+    ],
+    "facts_missed": [
+     "7,915,918,578.66"
+    ],
+    "coverage": 0.5,
+    "all_hit": false
+   },
+   "answer": "招商证券2021年的经纪业务手续费净收入为7,462,425,722.69元，投资银行业务手续费净收入为2,542,112,537.22元。[2][3]",
+   "retrieval_ms": 768.9,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 481.6,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 287.3,
+    "retrieval_total_ms": 768.9
+   },
+   "doc_route": {
+    "sources": [
+     "2022-03-28__招商证券__600999__2021年度报告.pdf"
+    ],
+    "matched": [
+     "2022-03-28__招商证券__600999__2021年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2022-03-28__招商证券__600999__2021年度报告.pdf》"
+   }
+  },
+  {
+   "id": 8,
+   "strategy": "hybrid",
+   "qtype": "数值型",
+   "question": "中国太保2021年集团实现的营业收入和保险业务收入分别是多少？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 1,
+    "precision@k": 0.2,
+    "recall@k": 1.0,
+    "fact_coverage@k": 1.0,
+    "fact_all_covered@k": true,
+    "facts_total": 2,
+    "facts_covered": [
+     "4,406.43",
+     "3,667.82"
+    ],
+    "facts_missed": [],
+    "hit_rate@k": 1.0,
+    "mrr": 1.0,
+    "ndcg@k": 1.0,
+    "n_relevant_in_corpus": 1,
+    "rel_flags": [
+     1,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 3,
+    "facts_hit": [
+     "4,406.43",
+     "3,667.82",
+     "1.3"
+    ],
+    "facts_missed": [],
+    "coverage": 1.0,
+    "all_hit": true
+   },
+   "answer": "2021 年，集团实现营业收入4,406.43 亿元，其中保险业务收入3,667.82 亿元，同比增长1.3%。",
+   "retrieval_ms": 774.4,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 484.1,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 290.3,
+    "retrieval_total_ms": 774.4
+   },
+   "doc_route": {
+    "sources": [
+     "2022-03-28__中国太保__601601__2021年度报告.pdf"
+    ],
+    "matched": [
+     "2022-03-28__中国太保__601601__2021年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2022-03-28__中国太保__601601__2021年度报告.pdf》"
+   }
+  },
+  {
+   "id": 9,
+   "strategy": "hybrid",
+   "qtype": "多跳推理型",
+   "question": "对比平安银行2019年末与招商银行2019年末的不良贷款率，哪一家更低？两家分别是多少？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 1,
+    "precision@k": 0.2,
+    "recall@k": 0.0714,
+    "fact_coverage@k": 0.5,
+    "fact_all_covered@k": false,
+    "facts_total": 2,
+    "facts_covered": [
+     "1.65%"
+    ],
+    "facts_missed": [
+     "1.16%"
+    ],
+    "hit_rate@k": 1.0,
+    "mrr": 0.25,
+    "ndcg@k": 0.4307,
+    "n_relevant_in_corpus": 14,
+    "rel_flags": [
+     0,
+     0,
+     0,
+     1,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 3,
+    "facts_hit": [
+     "1.65",
+     "招商银行"
+    ],
+    "facts_missed": [
+     "1.16"
+    ],
+    "coverage": 0.6667,
+    "all_hit": false
+   },
+   "answer": "平安银行2019年末不良贷款率为1.65%，招商银行2019年末不良贷款率为1.21%。平安银行更高。[1]",
+   "retrieval_ms": 544.0,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 283.8,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 260.2,
+    "retrieval_total_ms": 544.0
+   },
+   "doc_route": {
+    "sources": null,
+    "matched": [
+     "2020-02-14__平安银行__000001__2019年度报告.pdf",
+     "2020-03-21__招商银行__600036__2019年度报告.pdf"
+    ],
+    "reason": "同时命中 2 家公司 → 全库检索"
+   }
+  },
+  {
+   "id": 10,
+   "strategy": "hybrid",
+   "qtype": "图像型",
+   "question": "根据邮储银行2019年年度报告的组织结构图，总行内设部门及直属单位分为哪几个板块？个人金融板块下设有哪几个部门？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 0,
+    "precision@k": 0.0,
+    "recall@k": 0.0,
+    "fact_coverage@k": 0.0,
+    "fact_all_covered@k": false,
+    "facts_total": 1,
+    "facts_covered": [],
+    "facts_missed": [
+     "组织结构图"
+    ],
+    "hit_rate@k": 0.0,
+    "mrr": 0.0,
+    "ndcg@k": 0.0,
+    "n_relevant_in_corpus": 5,
+    "rel_flags": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 9,
+    "facts_hit": [],
+    "facts_missed": [
+     "个人金融板块",
+     "普惠金融板块",
+     "公司金融板块",
+     "资金资管板块",
+     "风险管理板块",
+     "信息科技板块",
+     "综合支撑板块",
+     "信用卡中心",
+     "代理金融管理部"
+    ],
+    "coverage": 0.0,
+    "all_hit": false
+   },
+   "answer": "根据已有资料无法确定",
+   "retrieval_ms": 780.9,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 498.6,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 282.3,
+    "retrieval_total_ms": 780.9
+   },
+   "doc_route": {
+    "sources": [
+     "2020-03-26__邮储银行__601658__2019年度报告.pdf"
+    ],
+    "matched": [
+     "2020-03-26__邮储银行__601658__2019年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2020-03-26__邮储银行__601658__2019年度报告.pdf》"
+   }
+  },
+  {
+   "id": 1,
+   "strategy": "vector",
+   "qtype": "事实型",
+   "question": "平安银行2019年年度报告的董事长致辞中，提到其盈利增长的关键因素有哪些？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 1,
+    "precision@k": 0.2,
+    "recall@k": 0.0625,
+    "fact_coverage@k": 0.8,
+    "fact_all_covered@k": false,
+    "facts_total": 5,
+    "facts_covered": [
+     "零售进一步巩固收入贡献的支柱地位",
+     "六四占比",
+     "营收、净利润增速创转型以来新高",
+     "数据驱动"
+    ],
+    "facts_missed": [
+     "逾期60天以上贷款占比"
+    ],
+    "hit_rate@k": 1.0,
+    "mrr": 1.0,
+    "ndcg@k": 1.0,
+    "n_relevant_in_corpus": 16,
+    "rel_flags": [
+     1,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 6,
+    "facts_hit": [],
+    "facts_missed": [
+     "零售进一步巩固收入贡献的支柱地位",
+     "对公",
+     "资金同业",
+     "逾期60天以上贷款占比",
+     "拨备覆盖率",
+     "数据驱动"
+    ],
+    "coverage": 0.0,
+    "all_hit": false
+   },
+   "answer": "平安银行2019年年度报告的董事长致辞中，提到其盈利增长的关键因素有：均衡结构、资产质量夯实后方防线、数据化能力促进模式创新。",
+   "retrieval_ms": 1285.8,
+   "timings": {
+    "analyze_ms": 0.5,
+    "retrieve_ms": 877.8,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 407.5,
+    "retrieval_total_ms": 1285.8
+   },
+   "doc_route": {
+    "sources": [
+     "2020-02-14__平安银行__000001__2019年度报告.pdf"
+    ],
+    "matched": [
+     "2020-02-14__平安银行__000001__2019年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2020-02-14__平安银行__000001__2019年度报告.pdf》"
+   }
+  },
+  {
+   "id": 2,
+   "strategy": "vector",
+   "qtype": "事实型",
+   "question": "招商银行在其2019年年度报告中提到的创新商业模式有哪些？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 0,
+    "precision@k": 0.0,
+    "recall@k": 0.0,
+    "fact_coverage@k": 0.0,
+    "fact_all_covered@k": false,
+    "facts_total": 3,
+    "facts_covered": [],
+    "facts_missed": [
+     "逾越者联盟",
+     "咖啡零售",
+     "影票销售"
+    ],
+    "hit_rate@k": 0.0,
+    "mrr": 0.0,
+    "ndcg@k": 0.0,
+    "n_relevant_in_corpus": 1,
+    "rel_flags": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 5,
+    "facts_hit": [],
+    "facts_missed": [
+     "高频生活场景",
+     "逾越者联盟",
+     "咖啡零售",
+     "出行预订",
+     "影票销售"
+    ],
+    "coverage": 0.0,
+    "all_hit": false
+   },
+   "answer": "招商银行在其2019年年度报告中提到的创新商业模式有招商银行App和掌上生活App。[1]",
+   "retrieval_ms": 544.3,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 255.5,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 288.8,
+    "retrieval_total_ms": 544.3
+   },
+   "doc_route": {
+    "sources": [
+     "2020-03-21__招商银行__600036__2019年度报告.pdf"
+    ],
+    "matched": [
+     "2020-03-21__招商银行__600036__2019年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2020-03-21__招商银行__600036__2019年度报告.pdf》"
+   }
+  },
+  {
+   "id": 3,
+   "strategy": "vector",
+   "qtype": "数值型",
+   "question": "中国邮政储蓄银行2019年末的不良贷款率和拨备覆盖率分别是多少？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 0,
+    "precision@k": 0.0,
+    "recall@k": 0.0,
+    "fact_coverage@k": 0.0,
+    "fact_all_covered@k": false,
+    "facts_total": 2,
+    "facts_covered": [],
+    "facts_missed": [
+     "0.86%",
+     "389.45%"
+    ],
+    "hit_rate@k": 0.0,
+    "mrr": 0.0,
+    "ndcg@k": 0.0,
+    "n_relevant_in_corpus": 6,
+    "rel_flags": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 2,
+    "facts_hit": [],
+    "facts_missed": [
+     "0.86",
+     "389.45"
+    ],
+    "coverage": 0.0,
+    "all_hit": false
+   },
+   "answer": "中国邮政储蓄银行2019年末的不良贷款率为4.79%，拨备覆盖率为175.64%。【表格数据】\n|  | 中国邮政储蓄银行股份有限公司 |\n| --- | --- |\n|  | 2019 年度财务报表附注 |\n|  | (除特别注明外，金额单位均为人民币百万元) |\n| 十二 | 金融风险管理(续) |\n| 3 | 信用风险(续) |\n| 3.4 | 发放贷款和垫款(续) |\n| (1) | 发放贷款和垫款风险集中度(续) |\n| (d) | 发放贷款和垫款按担保方式分布 | 情况列示如下： |\n|  | 合并 2019 年12 月31 | 日 | 2018 年12 月31 | 日 |\n|  | 金额 | 占比 | 金额 | 占比 |\n|  | 信用贷款 | 1,255,903 | 25% | 1,089,195 | 25% |\n|  | 保证贷款 | 298,011 | 6% | 282,088 | 7% |\n|  | 抵押贷款 | 2,476,942 | 50% | 2,128,232 | 50% |\n|  | 质押贷款 | 460,496 | 9% | 372,727 | 9% |\n|  | 票据贴现 | 482,834 | 10% | 404,623 | 9% |\n|  | 总额 | 4,974,186 | 100% | 4,276,865 | 100% |\n| 十二 | 金融风险管理(续) |\n| 3 | 信用风险(续) |\n| 3.3 | 信用风险敞口(续) |\n| (2) | 最大信用风险敞口——纳入减值评估范围的金融工具(续) |\n|  | 合",
+   "retrieval_ms": 718.3,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 427.6,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 290.7,
+    "retrieval_total_ms": 718.3
+   },
+   "doc_route": {
+    "sources": [
+     "2020-03-26__邮储银行__601658__2019年度报告.pdf"
+    ],
+    "matched": [
+     "2020-03-26__邮储银行__601658__2019年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2020-03-26__邮储银行__601658__2019年度报告.pdf》"
+   }
+  },
+  {
+   "id": 4,
+   "strategy": "vector",
+   "qtype": "数值型",
+   "question": "中国平安2019年的营业收入和归属于母公司股东的净利润分别是多少？同比增长率是多少？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 1,
+    "precision@k": 0.2,
+    "recall@k": 0.0667,
+    "fact_coverage@k": 0.5,
+    "fact_all_covered@k": false,
+    "facts_total": 2,
+    "facts_covered": [
+     "149,407"
+    ],
+    "facts_missed": [
+     "1,168,867"
+    ],
+    "hit_rate@k": 1.0,
+    "mrr": 0.2,
+    "ndcg@k": 0.3869,
+    "n_relevant_in_corpus": 15,
+    "rel_flags": [
+     0,
+     0,
+     0,
+     0,
+     1
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 4,
+    "facts_hit": [
+     "39.1"
+    ],
+    "facts_missed": [
+     "1,168,867",
+     "149,407",
+     "19.7"
+    ],
+    "coverage": 0.25,
+    "all_hit": false
+   },
+   "answer": "中国平安2019年的营业收入为1,329.55（单位同原表），同比增长18.1%；归属于母公司股东的净利润为1,494.07（单位同原表），同比增长39.1%。[1][2]",
+   "retrieval_ms": 741.2,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 451.0,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 290.2,
+    "retrieval_total_ms": 741.2
+   },
+   "doc_route": {
+    "sources": [
+     "2020-02-21__中国平安__601318__2019年度报告.pdf"
+    ],
+    "matched": [
+     "2020-02-21__中国平安__601318__2019年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2020-02-21__中国平安__601318__2019年度报告.pdf》"
+   }
+  },
+  {
+   "id": 5,
+   "strategy": "vector",
+   "qtype": "表格型",
+   "question": "根据年度报告中的主要会计数据表，中信证券2020年的营业收入和归属于母公司股东的净利润分别是多少？表内金额的列示单位是什么？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 1,
+    "precision@k": 0.2,
+    "recall@k": 0.1111,
+    "fact_coverage@k": 1.0,
+    "fact_all_covered@k": true,
+    "facts_total": 2,
+    "facts_covered": [
+     "54,382,730,241.56",
+     "14,902,324,215.75"
+    ],
+    "facts_missed": [],
+    "hit_rate@k": 1.0,
+    "mrr": 1.0,
+    "ndcg@k": 1.0,
+    "n_relevant_in_corpus": 9,
+    "rel_flags": [
+     1,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 4,
+    "facts_hit": [
+     "54,382,730,241.56",
+     "14,902,324,215.75"
+    ],
+    "facts_missed": [
+     "26.06",
+     "21.86"
+    ],
+    "coverage": 0.5,
+    "all_hit": false
+   },
+   "answer": "中信证券2020年的营业收入为54,382,730,241.56元，归属于母公司股东的净利润为14,902,324,215.75元。表内金额的列示单位是元。",
+   "retrieval_ms": 731.0,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 437.6,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 293.4,
+    "retrieval_total_ms": 731.0
+   },
+   "doc_route": {
+    "sources": [
+     "2021-03-19__中信证券__600030__2020年度报告.pdf"
+    ],
+    "matched": [
+     "2021-03-19__中信证券__600030__2020年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2021-03-19__中信证券__600030__2020年度报告.pdf》"
+   }
+  },
+  {
+   "id": 6,
+   "strategy": "vector",
+   "qtype": "表格型",
+   "question": "根据中国人寿2020年年度报告的主要会计数据，2020年末的资产总计和负债合计分别是多少？列示单位是什么？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 0,
+    "precision@k": 0.0,
+    "recall@k": 0.0,
+    "fact_coverage@k": 0.0,
+    "fact_all_covered@k": false,
+    "facts_total": 2,
+    "facts_covered": [],
+    "facts_missed": [
+     "4,252,410",
+     "3,795,479"
+    ],
+    "hit_rate@k": 0.0,
+    "mrr": 0.0,
+    "ndcg@k": 0.0,
+    "n_relevant_in_corpus": 4,
+    "rel_flags": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 2,
+    "facts_hit": [],
+    "facts_missed": [
+     "4,252,410",
+     "3,795,479"
+    ],
+    "coverage": 0.0,
+    "all_hit": false
+   },
+   "answer": "中国人寿2020年末资产总计为82,017（单位：千元），负债合计为68,807（单位：千元）。[1]",
+   "retrieval_ms": 722.3,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 434.1,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 288.2,
+    "retrieval_total_ms": 722.3
+   },
+   "doc_route": {
+    "sources": [
+     "2021-03-26__中国人寿__601628__2020年度报告.pdf"
+    ],
+    "matched": [
+     "2021-03-26__中国人寿__601628__2020年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2021-03-26__中国人寿__601628__2020年度报告.pdf》"
+   }
+  },
+  {
+   "id": 7,
+   "strategy": "vector",
+   "qtype": "数值型",
+   "question": "招商证券2021年的经纪业务手续费净收入和投资银行业务手续费净收入分别是多少？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 2,
+    "precision@k": 0.4,
+    "recall@k": 1.0,
+    "fact_coverage@k": 1.0,
+    "fact_all_covered@k": true,
+    "facts_total": 2,
+    "facts_covered": [
+     "7,915,918,578.66",
+     "2,542,112,537.22"
+    ],
+    "facts_missed": [],
+    "hit_rate@k": 1.0,
+    "mrr": 0.3333,
+    "ndcg@k": 0.5706,
+    "n_relevant_in_corpus": 2,
+    "rel_flags": [
+     0,
+     0,
+     1,
+     1,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 2,
+    "facts_hit": [
+     "2,542,112,537.22"
+    ],
+    "facts_missed": [
+     "7,915,918,578.66"
+    ],
+    "coverage": 0.5,
+    "all_hit": false
+   },
+   "answer": "招商证券2021年的经纪业务手续费净收入为7,462,425,722.69元，投资银行业务手续费净收入为2,542,112,537.22元。[2][3]",
+   "retrieval_ms": 730.3,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 431.8,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 298.4,
+    "retrieval_total_ms": 730.3
+   },
+   "doc_route": {
+    "sources": [
+     "2022-03-28__招商证券__600999__2021年度报告.pdf"
+    ],
+    "matched": [
+     "2022-03-28__招商证券__600999__2021年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2022-03-28__招商证券__600999__2021年度报告.pdf》"
+   }
+  },
+  {
+   "id": 8,
+   "strategy": "vector",
+   "qtype": "数值型",
+   "question": "中国太保2021年集团实现的营业收入和保险业务收入分别是多少？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 1,
+    "precision@k": 0.2,
+    "recall@k": 1.0,
+    "fact_coverage@k": 1.0,
+    "fact_all_covered@k": true,
+    "facts_total": 2,
+    "facts_covered": [
+     "4,406.43",
+     "3,667.82"
+    ],
+    "facts_missed": [],
+    "hit_rate@k": 1.0,
+    "mrr": 1.0,
+    "ndcg@k": 1.0,
+    "n_relevant_in_corpus": 1,
+    "rel_flags": [
+     1,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 3,
+    "facts_hit": [
+     "4,406.43",
+     "3,667.82"
+    ],
+    "facts_missed": [
+     "1.3"
+    ],
+    "coverage": 0.6667,
+    "all_hit": false
+   },
+   "answer": "中国太保2021年集团实现营业收入4,406.43亿元，保险业务收入3,667.82亿元。[1]",
+   "retrieval_ms": 734.1,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 436.3,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 297.8,
+    "retrieval_total_ms": 734.1
+   },
+   "doc_route": {
+    "sources": [
+     "2022-03-28__中国太保__601601__2021年度报告.pdf"
+    ],
+    "matched": [
+     "2022-03-28__中国太保__601601__2021年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2022-03-28__中国太保__601601__2021年度报告.pdf》"
+   }
+  },
+  {
+   "id": 9,
+   "strategy": "vector",
+   "qtype": "多跳推理型",
+   "question": "对比平安银行2019年末与招商银行2019年末的不良贷款率，哪一家更低？两家分别是多少？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 1,
+    "precision@k": 0.2,
+    "recall@k": 0.0714,
+    "fact_coverage@k": 0.5,
+    "fact_all_covered@k": false,
+    "facts_total": 2,
+    "facts_covered": [
+     "1.65%"
+    ],
+    "facts_missed": [
+     "1.16%"
+    ],
+    "hit_rate@k": 1.0,
+    "mrr": 0.5,
+    "ndcg@k": 0.6309,
+    "n_relevant_in_corpus": 14,
+    "rel_flags": [
+     0,
+     1,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 3,
+    "facts_hit": [
+     "1.65",
+     "招商银行"
+    ],
+    "facts_missed": [
+     "1.16"
+    ],
+    "coverage": 0.6667,
+    "all_hit": false
+   },
+   "answer": "平安银行2019年末不良贷款率为1.65%。招商银行2019年末不良贷款率数据缺失，无法确定。[1]",
+   "retrieval_ms": 494.3,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 205.6,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 288.7,
+    "retrieval_total_ms": 494.3
+   },
+   "doc_route": {
+    "sources": null,
+    "matched": [
+     "2020-02-14__平安银行__000001__2019年度报告.pdf",
+     "2020-03-21__招商银行__600036__2019年度报告.pdf"
+    ],
+    "reason": "同时命中 2 家公司 → 全库检索"
+   }
+  },
+  {
+   "id": 10,
+   "strategy": "vector",
+   "qtype": "图像型",
+   "question": "根据邮储银行2019年年度报告的组织结构图，总行内设部门及直属单位分为哪几个板块？个人金融板块下设有哪几个部门？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 0,
+    "precision@k": 0.0,
+    "recall@k": 0.0,
+    "fact_coverage@k": 0.0,
+    "fact_all_covered@k": false,
+    "facts_total": 1,
+    "facts_covered": [],
+    "facts_missed": [
+     "组织结构图"
+    ],
+    "hit_rate@k": 0.0,
+    "mrr": 0.0,
+    "ndcg@k": 0.0,
+    "n_relevant_in_corpus": 5,
+    "rel_flags": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 9,
+    "facts_hit": [
+     "个人金融板块"
+    ],
+    "facts_missed": [
+     "普惠金融板块",
+     "公司金融板块",
+     "资金资管板块",
+     "风险管理板块",
+     "信息科技板块",
+     "综合支撑板块",
+     "信用卡中心",
+     "代理金融管理部"
+    ],
+    "coverage": 0.1111,
+    "all_hit": false
+   },
+   "answer": "邮储银行2019年年度报告的组织结构图中，总行内设部门及直属单位分为个人银行、公司银行、资金业务和其他业务四个板块。个人金融板块下设有个人银行业务一个部门。",
+   "retrieval_ms": 719.7,
+   "timings": {
+    "analyze_ms": 0.5,
+    "retrieve_ms": 428.9,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 290.3,
+    "retrieval_total_ms": 719.7
+   },
+   "doc_route": {
+    "sources": [
+     "2020-03-26__邮储银行__601658__2019年度报告.pdf"
+    ],
+    "matched": [
+     "2020-03-26__邮储银行__601658__2019年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2020-03-26__邮储银行__601658__2019年度报告.pdf》"
+   }
+  },
+  {
+   "id": 1,
+   "strategy": "fulltext",
+   "qtype": "事实型",
+   "question": "平安银行2019年年度报告的董事长致辞中，提到其盈利增长的关键因素有哪些？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 0,
+    "precision@k": 0.0,
+    "recall@k": 0.0,
+    "fact_coverage@k": 0.0,
+    "fact_all_covered@k": false,
+    "facts_total": 5,
+    "facts_covered": [],
+    "facts_missed": [
+     "零售进一步巩固收入贡献的支柱地位",
+     "六四占比",
+     "营收、净利润增速创转型以来新高",
+     "逾期60天以上贷款占比",
+     "数据驱动"
+    ],
+    "hit_rate@k": 0.0,
+    "mrr": 0.0,
+    "ndcg@k": 0.0,
+    "n_relevant_in_corpus": 16,
+    "rel_flags": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 6,
+    "facts_hit": [],
+    "facts_missed": [
+     "零售进一步巩固收入贡献的支柱地位",
+     "对公",
+     "资金同业",
+     "逾期60天以上贷款占比",
+     "拨备覆盖率",
+     "数据驱动"
+    ],
+    "coverage": 0.0,
+    "all_hit": false
+   },
+   "answer": "平安银行2019年年末总资产为8,222,929（单位同原表），总负债为7,370,559（单位同原表），归属于母公司股东权益为673,161（单位同原表），归属于母公司股东的净利润为149,407（单位同原表）；财务报表主要项目变动分析中，结算备付金为6,203（单位同原表），应收分保账款为11,495（单位同原表），其他债权投资为458,165（单位同原表），长期股权投资为204,135（单位同原表），使用权资产为16,553（单位同原表），以公允价值计量且其变动计入当期损益为39,458（单位同原表），当期损益的金融负债为代理买卖证券款38,645（单位同原表），应付分保账款为14,012（单位同原表），应交税费为20,841（单位同原表），长期借款为217,087（单位同原表），租赁负债为16,553（单位同原表），公允价值变动损益为44,091（单位同原表），提取保险责任准备金为287,028（单位同原表），其他业务成本为65,439（单位同原表），所得税为20,374（单位同原表），其他综合收益为9,232（单位同原表）；同表其余相关行还有：（人民币百万元）、（人民币百万元）。",
+   "retrieval_ms": 879.3,
+   "timings": {
+    "analyze_ms": 0.5,
+    "retrieve_ms": 88.2,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 790.5,
+    "retrieval_total_ms": 879.3
+   },
+   "doc_route": {
+    "sources": [
+     "2020-02-14__平安银行__000001__2019年度报告.pdf"
+    ],
+    "matched": [
+     "2020-02-14__平安银行__000001__2019年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2020-02-14__平安银行__000001__2019年度报告.pdf》",
+    "fallback_opened": true
+   }
+  },
+  {
+   "id": 2,
+   "strategy": "fulltext",
+   "qtype": "事实型",
+   "question": "招商银行在其2019年年度报告中提到的创新商业模式有哪些？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 0,
+    "precision@k": 0.0,
+    "recall@k": 0.0,
+    "fact_coverage@k": 0.0,
+    "fact_all_covered@k": false,
+    "facts_total": 3,
+    "facts_covered": [],
+    "facts_missed": [
+     "逾越者联盟",
+     "咖啡零售",
+     "影票销售"
+    ],
+    "hit_rate@k": 0.0,
+    "mrr": 0.0,
+    "ndcg@k": 0.0,
+    "n_relevant_in_corpus": 1,
+    "rel_flags": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 5,
+    "facts_hit": [],
+    "facts_missed": [
+     "高频生活场景",
+     "逾越者联盟",
+     "咖啡零售",
+     "出行预订",
+     "影票销售"
+    ],
+    "coverage": 0.0,
+    "all_hit": false
+   },
+   "answer": "招商银行股份有限公司2019年12月31日止年度",
+   "retrieval_ms": 329.1,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 41.8,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 286.3,
+    "retrieval_total_ms": 329.1
+   },
+   "doc_route": {
+    "sources": [
+     "2020-03-21__招商银行__600036__2019年度报告.pdf"
+    ],
+    "matched": [
+     "2020-03-21__招商银行__600036__2019年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2020-03-21__招商银行__600036__2019年度报告.pdf》"
+   }
+  },
+  {
+   "id": 3,
+   "strategy": "fulltext",
+   "qtype": "数值型",
+   "question": "中国邮政储蓄银行2019年末的不良贷款率和拨备覆盖率分别是多少？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 2,
+    "precision@k": 0.4,
+    "recall@k": 0.3333,
+    "fact_coverage@k": 1.0,
+    "fact_all_covered@k": true,
+    "facts_total": 2,
+    "facts_covered": [
+     "0.86%",
+     "389.45%"
+    ],
+    "facts_missed": [],
+    "hit_rate@k": 1.0,
+    "mrr": 1.0,
+    "ndcg@k": 1.0,
+    "n_relevant_in_corpus": 6,
+    "rel_flags": [
+     1,
+     1,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 2,
+    "facts_hit": [
+     "0.86",
+     "389.45"
+    ],
+    "facts_missed": [],
+    "coverage": 1.0,
+    "all_hit": true
+   },
+   "answer": "中国邮政储蓄银行2019年末的不良贷款率为0.86%，拨备覆盖率为389.45%。[3]",
+   "retrieval_ms": 285.5,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 26.5,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 259.0,
+    "retrieval_total_ms": 285.5
+   },
+   "doc_route": {
+    "sources": [
+     "2020-03-26__邮储银行__601658__2019年度报告.pdf"
+    ],
+    "matched": [
+     "2020-03-26__邮储银行__601658__2019年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2020-03-26__邮储银行__601658__2019年度报告.pdf》"
+   }
+  },
+  {
+   "id": 4,
+   "strategy": "fulltext",
+   "qtype": "数值型",
+   "question": "中国平安2019年的营业收入和归属于母公司股东的净利润分别是多少？同比增长率是多少？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 1,
+    "precision@k": 0.2,
+    "recall@k": 0.0667,
+    "fact_coverage@k": 0.5,
+    "fact_all_covered@k": false,
+    "facts_total": 2,
+    "facts_covered": [
+     "149,407"
+    ],
+    "facts_missed": [
+     "1,168,867"
+    ],
+    "hit_rate@k": 1.0,
+    "mrr": 0.3333,
+    "ndcg@k": 0.5,
+    "n_relevant_in_corpus": 15,
+    "rel_flags": [
+     0,
+     0,
+     1,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 4,
+    "facts_hit": [
+     "39.1"
+    ],
+    "facts_missed": [
+     "1,168,867",
+     "149,407",
+     "19.7"
+    ],
+    "coverage": 0.25,
+    "all_hit": false
+   },
+   "answer": "【片段1】来源：2020-02-21__中国平安__601318__2019年度报告.pdf 第20页（2019年，集团实现归属于母公司股东的净利润1,494.07亿元，同比增长39.1%。",
+   "retrieval_ms": 302.5,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 43.9,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 258.6,
+    "retrieval_total_ms": 302.5
+   },
+   "doc_route": {
+    "sources": [
+     "2020-02-21__中国平安__601318__2019年度报告.pdf"
+    ],
+    "matched": [
+     "2020-02-21__中国平安__601318__2019年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2020-02-21__中国平安__601318__2019年度报告.pdf》"
+   }
+  },
+  {
+   "id": 5,
+   "strategy": "fulltext",
+   "qtype": "表格型",
+   "question": "根据年度报告中的主要会计数据表，中信证券2020年的营业收入和归属于母公司股东的净利润分别是多少？表内金额的列示单位是什么？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 0,
+    "precision@k": 0.0,
+    "recall@k": 0.0,
+    "fact_coverage@k": 0.0,
+    "fact_all_covered@k": false,
+    "facts_total": 2,
+    "facts_covered": [],
+    "facts_missed": [
+     "54,382,730,241.56",
+     "14,902,324,215.75"
+    ],
+    "hit_rate@k": 0.0,
+    "mrr": 0.0,
+    "ndcg@k": 0.0,
+    "n_relevant_in_corpus": 9,
+    "rel_flags": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 4,
+    "facts_hit": [],
+    "facts_missed": [
+     "54,382,730,241.56",
+     "14,902,324,215.75",
+     "26.06",
+     "21.86"
+    ],
+    "coverage": 0.0,
+    "all_hit": false
+   },
+   "answer": "中信证券2020年的营业收入为12345600.00（单位：千元），归属于母公司股东的净利润为95094300.00（单位：千元）。表内金额的列示单位是千元。",
+   "retrieval_ms": 335.8,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 74.5,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 261.2,
+    "retrieval_total_ms": 335.8
+   },
+   "doc_route": {
+    "sources": [
+     "2021-03-19__中信证券__600030__2020年度报告.pdf"
+    ],
+    "matched": [
+     "2021-03-19__中信证券__600030__2020年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2021-03-19__中信证券__600030__2020年度报告.pdf》"
+   }
+  },
+  {
+   "id": 6,
+   "strategy": "fulltext",
+   "qtype": "表格型",
+   "question": "根据中国人寿2020年年度报告的主要会计数据，2020年末的资产总计和负债合计分别是多少？列示单位是什么？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 1,
+    "precision@k": 0.2,
+    "recall@k": 0.25,
+    "fact_coverage@k": 1.0,
+    "fact_all_covered@k": true,
+    "facts_total": 2,
+    "facts_covered": [
+     "4,252,410",
+     "3,795,479"
+    ],
+    "facts_missed": [],
+    "hit_rate@k": 1.0,
+    "mrr": 0.5,
+    "ndcg@k": 0.6309,
+    "n_relevant_in_corpus": 4,
+    "rel_flags": [
+     0,
+     1,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 2,
+    "facts_hit": [
+     "4,252,410",
+     "3,795,479"
+    ],
+    "facts_missed": [],
+    "coverage": 1.0,
+    "all_hit": true
+   },
+   "answer": "中国人寿2020年末资产总计为4,252,410万元，负债合计为3,795,479万元，单位均为万元。[2]",
+   "retrieval_ms": 375.3,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 88.6,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 286.6,
+    "retrieval_total_ms": 375.3
+   },
+   "doc_route": {
+    "sources": [
+     "2021-03-26__中国人寿__601628__2020年度报告.pdf"
+    ],
+    "matched": [
+     "2021-03-26__中国人寿__601628__2020年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2021-03-26__中国人寿__601628__2020年度报告.pdf》"
+   }
+  },
+  {
+   "id": 7,
+   "strategy": "fulltext",
+   "qtype": "数值型",
+   "question": "招商证券2021年的经纪业务手续费净收入和投资银行业务手续费净收入分别是多少？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 1,
+    "precision@k": 0.2,
+    "recall@k": 0.5,
+    "fact_coverage@k": 0.5,
+    "fact_all_covered@k": false,
+    "facts_total": 2,
+    "facts_covered": [
+     "2,542,112,537.22"
+    ],
+    "facts_missed": [
+     "7,915,918,578.66"
+    ],
+    "hit_rate@k": 1.0,
+    "mrr": 0.3333,
+    "ndcg@k": 0.5,
+    "n_relevant_in_corpus": 2,
+    "rel_flags": [
+     0,
+     0,
+     1,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 2,
+    "facts_hit": [
+     "2,542,112,537.22"
+    ],
+    "facts_missed": [
+     "7,915,918,578.66"
+    ],
+    "coverage": 0.5,
+    "all_hit": false
+   },
+   "answer": "招商证券2021年的经纪业务手续费净收入为7,462,425,722.69元，投资银行业务手续费净收入为2,542,112,537.22元。[2][3]",
+   "retrieval_ms": 328.4,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 45.9,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 282.5,
+    "retrieval_total_ms": 328.4
+   },
+   "doc_route": {
+    "sources": [
+     "2022-03-28__招商证券__600999__2021年度报告.pdf"
+    ],
+    "matched": [
+     "2022-03-28__招商证券__600999__2021年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2022-03-28__招商证券__600999__2021年度报告.pdf》"
+   }
+  },
+  {
+   "id": 8,
+   "strategy": "fulltext",
+   "qtype": "数值型",
+   "question": "中国太保2021年集团实现的营业收入和保险业务收入分别是多少？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 1,
+    "precision@k": 0.2,
+    "recall@k": 1.0,
+    "fact_coverage@k": 1.0,
+    "fact_all_covered@k": true,
+    "facts_total": 2,
+    "facts_covered": [
+     "4,406.43",
+     "3,667.82"
+    ],
+    "facts_missed": [],
+    "hit_rate@k": 1.0,
+    "mrr": 1.0,
+    "ndcg@k": 1.0,
+    "n_relevant_in_corpus": 1,
+    "rel_flags": [
+     1,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 3,
+    "facts_hit": [
+     "4,406.43",
+     "3,667.82"
+    ],
+    "facts_missed": [
+     "1.3"
+    ],
+    "coverage": 0.6667,
+    "all_hit": false
+   },
+   "answer": "中国太保2021年集团实现的营业收入为4,406.43亿元，保险业务收入为3,667.82亿元。[3][4][15][26][27][41][42][43][44][45][46][47][48][49][50][51][52][53][54][55][56][57]",
+   "retrieval_ms": 337.5,
+   "timings": {
+    "analyze_ms": 0.5,
+    "retrieve_ms": 49.0,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 288.0,
+    "retrieval_total_ms": 337.5
+   },
+   "doc_route": {
+    "sources": [
+     "2022-03-28__中国太保__601601__2021年度报告.pdf"
+    ],
+    "matched": [
+     "2022-03-28__中国太保__601601__2021年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2022-03-28__中国太保__601601__2021年度报告.pdf》"
+   }
+  },
+  {
+   "id": 9,
+   "strategy": "fulltext",
+   "qtype": "多跳推理型",
+   "question": "对比平安银行2019年末与招商银行2019年末的不良贷款率，哪一家更低？两家分别是多少？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 0,
+    "precision@k": 0.0,
+    "recall@k": 0.0,
+    "fact_coverage@k": 0.0,
+    "fact_all_covered@k": false,
+    "facts_total": 2,
+    "facts_covered": [],
+    "facts_missed": [
+     "1.65%",
+     "1.16%"
+    ],
+    "hit_rate@k": 0.0,
+    "mrr": 0.0,
+    "ndcg@k": 0.0,
+    "n_relevant_in_corpus": 14,
+    "rel_flags": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 3,
+    "facts_hit": [],
+    "facts_missed": [
+     "1.65",
+     "1.16",
+     "招商银行"
+    ],
+    "coverage": 0.0,
+    "all_hit": false
+   },
+   "answer": "平安银行2019年末不良贷款率为0.89%，较上年末上升0.11个百分点。\n273.32 亿元，较上年末增加 25.23 亿元，\n2019 年12 月31 日\n金额 占比（\n总行 2,142\n长江三角洲 5,803\n珠江三角洲 3,180\n环渤海地区 4,226\n中部地区 7,496\n西部地区 15,683\n东北地区 4,314\n合计 42,844\n截至报告期末，本行不良贷款余额\n156.83 亿元；不良贷款增加较多的两个区\n分别较上年末增加41.24 亿元和11.41 亿；同表其余相关行还有：按地区划分的不良贷款分布情况。",
+   "retrieval_ms": 323.5,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 41.3,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 282.2,
+    "retrieval_total_ms": 323.5
+   },
+   "doc_route": {
+    "sources": null,
+    "matched": [
+     "2020-02-14__平安银行__000001__2019年度报告.pdf",
+     "2020-03-21__招商银行__600036__2019年度报告.pdf"
+    ],
+    "reason": "同时命中 2 家公司 → 全库检索"
+   }
+  },
+  {
+   "id": 10,
+   "strategy": "fulltext",
+   "qtype": "图像型",
+   "question": "根据邮储银行2019年年度报告的组织结构图，总行内设部门及直属单位分为哪几个板块？个人金融板块下设有哪几个部门？",
+   "metrics": {
+    "k": 5,
+    "n_hits": 5,
+    "n_relevant_in_topk": 0,
+    "precision@k": 0.0,
+    "recall@k": 0.0,
+    "fact_coverage@k": 0.0,
+    "fact_all_covered@k": false,
+    "facts_total": 1,
+    "facts_covered": [],
+    "facts_missed": [
+     "组织结构图"
+    ],
+    "hit_rate@k": 0.0,
+    "mrr": 0.0,
+    "ndcg@k": 0.0,
+    "n_relevant_in_corpus": 5,
+    "rel_flags": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "answer_accuracy": {
+    "facts_total": 9,
+    "facts_hit": [
+     "个人金融板块"
+    ],
+    "facts_missed": [
+     "普惠金融板块",
+     "公司金融板块",
+     "资金资管板块",
+     "风险管理板块",
+     "信息科技板块",
+     "综合支撑板块",
+     "信用卡中心",
+     "代理金融管理部"
+    ],
+    "coverage": 0.1111,
+    "all_hit": false
+   },
+   "answer": "邮储银行2019年年度报告中未直接提及总行内设部门及直属单位分为哪几个板块，以及个人金融板块下设有哪几个部门。根据现有信息，无法确定答案。根据已有资料无法确定。[1]",
+   "retrieval_ms": 250.5,
+   "timings": {
+    "analyze_ms": 0.0,
+    "retrieve_ms": 66.7,
+    "recall_ms": null,
+    "fusion_ms": null,
+    "rerank_ms": 183.8,
+    "retrieval_total_ms": 250.5
+   },
+   "doc_route": {
+    "sources": [
+     "2020-03-26__邮储银行__601658__2019年度报告.pdf"
+    ],
+    "matched": [
+     "2020-03-26__邮储银行__601658__2019年度报告.pdf"
+    ],
+    "reason": "命中公司别名 → 限定《2020-03-26__邮储银行__601658__2019年度报告.pdf》"
+   }
+  }
+ ]
+}

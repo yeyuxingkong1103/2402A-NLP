@@ -1,0 +1,147 @@
+{
+ "workorder": "人工智能NLP-RAG-功能测试及评估",
+ "timestamp": "2026-10-13 13:57:49",
+ "strategy": "hybrid",
+ "n_samples": 10,
+ "metrics": [
+  "faithfulness",
+  "answer_relevancy",
+  "context_precision",
+  "context_recall"
+ ],
+ "judge": {
+  "llm": "qwen2.5:3b",
+  "embeddings": "bge-m3:latest",
+  "host": "http://127.0.0.1:11434"
+ },
+ "summary": {
+  "faithfulness": 0.457,
+  "answer_relevancy": 0.709,
+  "context_precision": 0.733,
+  "context_recall": 0.7
+ },
+ "summary_n_valid": {
+  "faithfulness": 10,
+  "answer_relevancy": 10,
+  "context_precision": 10,
+  "context_recall": 10
+ },
+ "per_question": [
+  {
+   "id": 1,
+   "question": "平安银行2019年年度报告的董事长致辞中，提到其盈利增长的关键因素有哪些？",
+   "answer": "平安银行2019年年度报告的董事长致辞中，提到其盈利增长的关键因素有：业务结构优化、资产质量夯实、数据化经营能力提升。[1]",
+   "mode": "rag",
+   "n_contexts": 5,
+   "faithfulness": 0.0,
+   "answer_relevancy": 0.957,
+   "context_precision": 1.0,
+   "context_recall": 0.667
+  },
+  {
+   "id": 2,
+   "question": "招商银行在其2019年年度报告中提到的创新商业模式有哪些？",
+   "answer": "根据已有资料无法确定。",
+   "mode": "rag",
+   "n_contexts": 4,
+   "faithfulness": 0.0,
+   "answer_relevancy": 0.0,
+   "context_precision": 0.0,
+   "context_recall": 0.0
+  },
+  {
+   "id": 3,
+   "question": "中国邮政储蓄银行2019年末的不良贷款率和拨备覆盖率分别是多少？",
+   "answer": "中国邮政储蓄银行2019年末的不良贷款率为0.89%，拨备覆盖率为389.45%。[3]",
+   "mode": "rag",
+   "n_contexts": 4,
+   "faithfulness": 0.0,
+   "answer_relevancy": 0.998,
+   "context_precision": 1.0,
+   "context_recall": 0.0
+  },
+  {
+   "id": 4,
+   "question": "中国平安2019年的营业收入和归属于母公司股东的净利润分别是多少？同比增长率是多少？",
+   "answer": "【片段1】来源：2020-02-21__中国平安__601318__2019年度报告.pdf 第20页（2019年，集团实现归属于母公司股东的净利润1,494.07亿元，同比增长39.1%。",
+   "mode": "rag",
+   "n_contexts": 5,
+   "faithfulness": 1.0,
+   "answer_relevancy": 0.575,
+   "context_precision": 1.0,
+   "context_recall": 1.0
+  },
+  {
+   "id": 5,
+   "question": "根据年度报告中的主要会计数据表，中信证券2020年的营业收入和归属于母公司股东的净利润分别是多少？表内金额的列示单位是什么？",
+   "answer": "中信证券2020年的营业收入为54,382,730,241.56元，归属于母公司股东的净利润为14,902,324,215.75元。表内金额的列示单位是元。",
+   "mode": "rag",
+   "n_contexts": 3,
+   "faithfulness": 0.667,
+   "answer_relevancy": 0.934,
+   "context_precision": 0.833,
+   "context_recall": 1.0
+  },
+  {
+   "id": 6,
+   "question": "根据中国人寿2020年年度报告的主要会计数据，2020年末的资产总计和负债合计分别是多少？列示单位是什么？",
+   "answer": "中国人寿2020年末资产总计和负债合计分别是148,213（单位：人民币百万元）。[1]",
+   "mode": "rag",
+   "n_contexts": 4,
+   "faithfulness": 0.0,
+   "answer_relevancy": 0.928,
+   "context_precision": 0.75,
+   "context_recall": 1.0
+  },
+  {
+   "id": 7,
+   "question": "招商证券2021年的经纪业务手续费净收入和投资银行业务手续费净收入分别是多少？",
+   "answer": "招商证券2021年的经纪业务手续费净收入为7,462,425,722.69元，投资银行业务手续费净收入为2,542,112,537.22元。[2][3]",
+   "mode": "rag",
+   "n_contexts": 3,
+   "faithfulness": 1.0,
+   "answer_relevancy": 0.991,
+   "context_precision": 0.333,
+   "context_recall": 0.667
+  },
+  {
+   "id": 8,
+   "question": "中国太保2021年集团实现的营业收入和保险业务收入分别是多少？",
+   "answer": "2021 年，集团实现营业收入4,406.43 亿元，其中保险业务收入3,667.82 亿元，同比增长1.3%。",
+   "mode": "rag",
+   "n_contexts": 4,
+   "faithfulness": 1.0,
+   "answer_relevancy": 0.782,
+   "context_precision": 0.917,
+   "context_recall": 1.0
+  },
+  {
+   "id": 9,
+   "question": "对比平安银行2019年末与招商银行2019年末的不良贷款率，哪一家更低？两家分别是多少？",
+   "answer": "平安银行2019年末不良贷款率为1.65%，招商银行2019年末不良贷款率为1.21%。平安银行更高。平安银行1.65%，招商银行1.21%。[1]\n273.32 亿元，较上年末增加 25.23 亿元，个百分点。按地区划分的不良贷款分布情况2019 年12 月31 日金额 占比（总行 2,142长江三角洲 5,803珠江三角洲 3,180环渤海地区 4,226中部地区 7,496西部地区 15,683东北地区 4,314合计 42,844截至报告期末，本行不良贷款余额156.83 亿元；不良贷款增加较多的两个区分别较上年末增加41.24 亿元和11.41 亿。",
+   "mode": "rag",
+   "n_contexts": 4,
+   "faithfulness": 0.571,
+   "answer_relevancy": 0.926,
+   "context_precision": 0.5,
+   "context_recall": 0.667
+  },
+  {
+   "id": 10,
+   "question": "根据邮储银行2019年年度报告的组织结构图，总行内设部门及直属单位分为哪几个板块？个人金融板块下设有哪几个部门？",
+   "answer": "邮储银行2019年年度报告中未直接提及总行内设部门及直属单位分为哪几个板块，以及个人金融板块下设有哪几个部门。根据现有信息，无法确定答案。[1][2]",
+   "mode": "rag",
+   "n_contexts": 4,
+   "faithfulness": 0.333,
+   "answer_relevancy": 0.0,
+   "context_precision": 1.0,
+   "context_recall": 1.0
+  }
+ ],
+ "skipped_no_gt": [],
+ "failed_questions": [],
+ "errors": [],
+ "stage_file": "D:\\xinzg6\\zy-gq\\工单7\\data\\eval\\ragas_answers.json",
+ "eval_elapsed_s": 133.1,
+ "total_elapsed_s": 224.7
+}
