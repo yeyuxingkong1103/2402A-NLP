@@ -1,0 +1,819 @@
+{
+  "test_samples": 50,
+  "before": {
+    "accuracy": 0.36,
+    "correct": 18,
+    "total": 50,
+    "details": [
+      {
+        "idx": 0,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00164_CN216511924U_p7.png",
+        "expected": "C. 固定槽(47)",
+        "predicted": "在文件中第7页的绕线机示意图中，固定棒(48)位于绕线轴(43)的内部。\n\n答案是：D. 绕线轴(43)",
+        "correct": false,
+        "time": 19.39
+      },
+      {
+        "idx": 1,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00383_CN212109623U_p6.png",
+        "expected": "B. 下冷风室",
+        "predicted": "在图1中，编号为7的部件位于下室的内部，因此选项A是正确的。",
+        "correct": false,
+        "time": 15.51
+      },
+      {
+        "idx": 2,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00045_CN211539534U_p1.png",
+        "expected": "B. 机箱",
+        "predicted": "根据文本信息，该工业自动化设备中，机箱的内部中空，可以增设废料收集箱。因此，正确答案是：\n\nB. 机箱",
+        "correct": true,
+        "time": 17.46
+      },
+      {
+        "idx": 3,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00156_CN218086621U_p6.png",
+        "expected": "A. 部件6",
+        "predicted": "在第6页的示意图中，编号7的部件在编号11的部件的正上方。\n\n答案是：C. 部件11",
+        "correct": false,
+        "time": 17.34
+      },
+      {
+        "idx": 4,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00053_CN202545998U_p1.png",
+        "expected": "C. 螺钉（5）",
+        "predicted": "答案是C. 螺钉（5）。",
+        "correct": true,
+        "time": 14.11
+      },
+      {
+        "idx": 5,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00072_CN213828140U_p5.png",
+        "expected": "C. 上料管道呈S型连接",
+        "predicted": "在金属屑吸取系统中，编号为1的上料管道相对于编号为5的上料口的位置关系是上料管道在上方。因此，正确答案是B. 上料管道在上方。",
+        "correct": false,
+        "time": 19.72
+      },
+      {
+        "idx": 6,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00315_CN211385887U_p6.png",
+        "expected": "B. 推送块",
+        "predicted": "答案是D. 螺纹杆。",
+        "correct": false,
+        "time": 13.01
+      },
+      {
+        "idx": 7,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00209_CN211826406U_p6.png",
+        "expected": "A. 与门U3",
+        "predicted": "触发器U1的CLK端连接到与门U3的输入端。因此，正确答案是：\n\nA. 与门U3",
+        "correct": true,
+        "time": 17.27
+      },
+      {
+        "idx": 8,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00074_CN113818704A_p1.png",
+        "expected": "B. 天幕牵引移动组件",
+        "predicted": "根据文本信息，控制防尘天幕网移动的部件是天幕牵引移动组件。因此，正确答案是：\n\nB. 天幕牵引移动组件",
+        "correct": true,
+        "time": 17.77
+      },
+      {
+        "idx": 9,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00333_CN218179594U_p6.png",
+        "expected": "D. 部件7位于部件2的下方",
+        "predicted": "在图中，部件7位于部件2的下方。因此，正确答案是：\n\nD. 部件7位于部件2的下方",
+        "correct": true,
+        "time": 16.81
+      },
+      {
+        "idx": 10,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00403_CN115139020A_p1.png",
+        "expected": "B. 安装板(2)",
+        "predicted": "根据文本信息，以下哪个部件负责将弧焊机安装在移动机构上？\nA. 移动机构(3)\nB. 安装板(2)\nC. 轨道组件(4)\nD. 固定组件(5)\n\n答案是B. 安装板(2)。",
+        "correct": true,
+        "time": 22.84
+      },
+      {
+        "idx": 11,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00415_CN214006713U_p1.png",
+        "expected": "B. 金属棒与金属套筒接触，控制器控制显示灯亮起。",
+        "predicted": "根据专利文本，当模板发生倾斜时，倾斜报警组件的工作原理是：\n\nB. 金属棒与金属套筒接触，控制器控制显示灯亮起。\n\n具体来说，当模板发生倾斜时，倾斜报警组件会检测到倾斜角度，然后通过控制器控制显示灯亮起，提醒工作人员注意模板的倾斜情况。",
+        "correct": true,
+        "time": 25.25
+      },
+      {
+        "idx": 12,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00092_CN218294923U_p6.png",
+        "expected": "A. 部件16是部件17的支撑结构",
+        "predicted": "答案是C，部件16在部件17的下方。",
+        "correct": false,
+        "time": 14.75
+      },
+      {
+        "idx": 13,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00215_CN202405961U_p1.png",
+        "expected": "B. 实现刷握自动翻身，无需人工翻身",
+        "predicted": "根据专利文本，刷握翻身装置的发明目的是实现刷握自动翻身，无需人工翻身。因此，正确答案是：\n\nB. 实现刷握自动翻身，无需人工翻身",
+        "correct": true,
+        "time": 18.57
+      },
+      {
+        "idx": 14,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00479_CN202829744U_p7.png",
+        "expected": "B. 部件6",
+        "predicted": "在文件中第7页的示意图中，部件10位于部件6的正下方。\n\n答案是：B. 部件6",
+        "correct": true,
+        "time": 17.96
+      },
+      {
+        "idx": 15,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00059_CN110741214B_p8.png",
+        "expected": "C. 循环装置17",
+        "predicted": "图1中，最近的部件位于烘炉内部空间3的下方，因此答案是：\n\nC. 循环装置17",
+        "correct": true,
+        "time": 16.25
+      },
+      {
+        "idx": 16,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00368_CN202213116U_p7.png",
+        "expected": "B. 机械挤压带式输送线（3）",
+        "predicted": "根据第7页的示意图，聚氨酯发泡产品经过机械式破泡机构（4）处理后，下一步骤最可能是进入出料带式输送线（7）。因此，正确答案是：\n\nC. 出料带式输送线（7）",
+        "correct": false,
+        "time": 20.98
+      },
+      {
+        "idx": 17,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00163_CN101216629B_p11.png",
+        "expected": "A. 驱动马达",
+        "predicted": "在图5中，部件21是一个黑色的圆柱形部件，位于直线导轨24的上方。根据图5的描述，21可能是驱动马达或其他类似的可动部件。因此，正确答案是：\n\nB. 可动部件",
+        "correct": false,
+        "time": 21.08
+      },
+      {
+        "idx": 18,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00210_CN202479596U_p5.png",
+        "expected": "A. 切断机（1）的驱动装置在上方",
+        "predicted": "根据第5页的图片，切断机（1）的驱动装置在下方。",
+        "correct": false,
+        "time": 14.07
+      },
+      {
+        "idx": 19,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00251_CN202786314U_p5.png",
+        "expected": "B. 打模架（编号4）",
+        "predicted": "根据文件中的第5页的图片，抓取装置（编号1）完成对打包机（编号2）上的探头抓取后，下一步最有可能移动到探头架（编号3）上方，因为探头架是探头的固定位置，完成抓取后需要将其移动到下一个操作位置。因此，正确答案是：\n\nD. 探头架（编号3）",
+        "correct": false,
+        "time": 26.85
+      },
+      {
+        "idx": 20,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00443_CN216473405U_p1.png",
+        "expected": "D. 喷头(21)",
+        "predicted": "根据文本信息，中和液被喷头(21)喷出，以对废气进行中和处理。因此，正确答案是：\n\nD. 喷头(21)",
+        "correct": true,
+        "time": 19.11
+      },
+      {
+        "idx": 21,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00320_CN217541621U_p6.png",
+        "expected": "D. 以上所有选项都是",
+        "predicted": "在第6页的示意图中，如果需要调节换热器本体（编号9）的位置，可能需要调整的部件是连接杆（编号13）。连接杆通常用于连接不同部件，以便在需要时进行调整。因此，正确答案是：\n\nB. 连接杆（编号13）",
+        "correct": false,
+        "time": 24.65
+      },
+      {
+        "idx": 22,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00289_CN215973562U_p1.png",
+        "expected": "C. 对不同粒径大小的煤炭进行挑选",
+        "predicted": "根据专利文本，该煤炭质检用采集传输装置的主要功能是“对不同粒径大小的煤炭进行挑选”。因此，正确答案是：\n\nC. 对不同粒径大小的煤炭进行挑选",
+        "correct": true,
+        "time": 18.22
+      },
+      {
+        "idx": 23,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00389_CN201598761U_p5.png",
+        "expected": "B. 花篮螺栓",
+        "predicted": "在图1中，编号为3的部件是钢索卡子。钢索卡子用于固定钢索，确保其在使用过程中不会滑动或松动。",
+        "correct": false,
+        "time": 18.07
+      },
+      {
+        "idx": 24,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00007_CN218164909U_p6.png",
+        "expected": "A. 加热棒",
+        "predicted": "在第6页的图片中，编号14的部件位于编号13的部件上方。\n\n1. **编号14的部件**：位于饮水机的右侧，具体位置在图2的右侧。\n2. **编号13的部件**：位于饮水机的左侧，具体位置在图1的左侧。\n\n因此，编号14的部件位于编号13的部件上方。正确答案是：\n\nD. 饮水机外壳",
+        "correct": false,
+        "time": 29.11
+      },
+      {
+        "idx": 25,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00462_CN202336417U_p6.png",
+        "expected": "B. 弯管（110）与阀体（70）",
+        "predicted": "答案是B。在图1中，更换针筒（90）时，首先需要关注的是弯管（110）与阀体（70）的连接状态，因为弯管（110）是连接阀体（70）的部件。",
+        "correct": false,
+        "time": 20.57
+      },
+      {
+        "idx": 26,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00249_CN102563095A_p5.png",
+        "expected": "B. 部件11位于部件6的内部",
+        "predicted": "在图1中，结晶机放料阀的部件11和部件6是相对位置的。根据图中的标注，11和6之间没有直接接触，它们之间有间隙。因此，正确答案是：\n\nC. 部件11和部件6没有直接接触",
+        "correct": false,
+        "time": 24.24
+      },
+      {
+        "idx": 27,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00228_CN100347506C_p1.png",
+        "expected": "B. 链条",
+        "predicted": "根据专利文本，本发明的分散装置包含以下组件：螺旋推进器。因此，正确答案是A. 螺旋推进器。",
+        "correct": false,
+        "time": 17.05
+      },
+      {
+        "idx": 28,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00245_CN201711107U_p5.png",
+        "expected": "B. 转动支架（1）",
+        "predicted": "根据图示，电动机（14）连接到转动支架（1），如果电动机发生故障，直接影响转动支架（1）的转动。因此，正确答案是B. 转动支架（1）。",
+        "correct": true,
+        "time": 21.15
+      },
+      {
+        "idx": 29,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00211_CN218224799U_p6.png",
+        "expected": "D. XYZ轴伺服控制机雕台架(2)",
+        "predicted": "根据图1和图2的描述，编号为8的部件是“双侧滑槽(6)”。在文件中第6页的图中，编号为8的部件可在“双侧滑槽(6)”上面滑动。\n\n所以，正确答案是：\nB. 双侧滑槽(6)",
+        "correct": false,
+        "time": 25.77
+      },
+      {
+        "idx": 30,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00129_CN102913915A_p6.png",
+        "expected": "B. 推料活塞(4)",
+        "predicted": "答案是B。液压油缸(11)直接与推料活塞(4)相连。",
+        "correct": false,
+        "time": 15.27
+      },
+      {
+        "idx": 31,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00162_CN102862310A_p7.png",
+        "expected": "B. 滑板（部件“11”）",
+        "predicted": "根据文件中第7页的水份挤出机示意图，支撑着辊子定位架（部件“9”）的部件是支撑架（部件“5”）。\n\n所以，正确答案是：\nA. 支撑架（部件“5”）",
+        "correct": false,
+        "time": 22.34
+      },
+      {
+        "idx": 32,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00223_CN214344067U_p1.png",
+        "expected": "B. 用于防火阀安装位置的定位。",
+        "predicted": "根据专利文本，组合模块定位工装的主要作用是用于防火阀安装位置的定位。因此，正确答案是：\n\nB. 用于防火阀安装位置的定位。",
+        "correct": true,
+        "time": 17.45
+      },
+      {
+        "idx": 33,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00041_CN211517426U_p5.png",
+        "expected": "C. 合页",
+        "predicted": "答案是B. 万向轮。",
+        "correct": false,
+        "time": 12.49
+      },
+      {
+        "idx": 34,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00278_CN202278826U_p1.png",
+        "expected": "A. 包括旋转体、旋转轴心、连接座、连接法兰、转换接头及气管。",
+        "predicted": "根据专利文本，本实用新型的真空旋转轴包含的主要部件包括：\n\nA. 包括旋转体、旋转轴心、连接座、连接法兰、转换接头及气管。",
+        "correct": true,
+        "time": 20.5
+      },
+      {
+        "idx": 35,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00021_CN211547926U_p1.png",
+        "expected": "C. U型存水弯",
+        "predicted": "根据专利文本，以下哪个部件的设置可以阻止排水管道内污染气体进入室内？\n\nA. 检查口\nB. 空气储罐\nC. U型存水弯\nD. 滤水板\n\n答案是C. U型存水弯。",
+        "correct": true,
+        "time": 23.82
+      },
+      {
+        "idx": 36,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00434_CN211225361U_p1.png",
+        "expected": "B. 机架和两个输送机构",
+        "predicted": "根据文本信息，移载机包含的主要部件包括机架和两个输送机构。因此，正确答案是：\n\nB. 机架和两个输送机构",
+        "correct": true,
+        "time": 17.43
+      },
+      {
+        "idx": 37,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00068_CN215752548U_p7.png",
+        "expected": "B. 连杆(46)",
+        "predicted": "根据文件中第7页图示，如果需要调节第一滑板(13)和第二滑板(14)的间距，需要操作的是把手(7)。\n\n具体步骤如下：\n1. 将把手(7)向左或向右旋转，以调整第一滑板(13)和第二滑板(14)之间的间距。\n2. 调整完成后，将把手(7)恢复到初始位置。\n\n因此，正确答案是C. 把手(7)。",
+        "correct": false,
+        "time": 33.19
+      },
+      {
+        "idx": 38,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00227_CN213923005U_p6.png",
+        "expected": "A. 部件6在部件4的上方",
+        "predicted": "根据图片中的描述，部件6和部件4的位置关系是：\n\n- 部件6在部件4的右侧\n\n所以正确答案是：\n\nC. 部件6在部件4的右侧",
+        "correct": false,
+        "time": 19.78
+      },
+      {
+        "idx": 39,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00151_CN215892353U_p6.png",
+        "expected": "B. 部件8、部件4、部件3",
+        "predicted": "这道题目考察的是对示意图中空气和燃气混合气体的路径分析。根据示意图，空气和燃气混合气体从部件6进入，依次经过部件7、部件8、部件4、部件3后喷出并燃烧。\n\n因此，正确答案是：\n\nC. 部件7、部件4、部件3",
+        "correct": false,
+        "time": 24.96
+      },
+      {
+        "idx": 40,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00369_CN216687323U_p6.png",
+        "expected": "B. 部件8位于部件7的内部",
+        "predicted": "在第6页的图片中，部件8位于部件7的右侧。",
+        "correct": false,
+        "time": 14.95
+      },
+      {
+        "idx": 41,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00217_CN214266255U_p6.png",
+        "expected": "D. 部件“7”位于部件“4”的右侧",
+        "predicted": "在第6页的图片中，部件“7”位于部件“4”的下方。因此，正确答案是：\n\nB. 部件“7”位于部件“4”的下方",
+        "correct": false,
+        "time": 17.89
+      },
+      {
+        "idx": 42,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00154_CN202297332U_p1.png",
+        "expected": "C. 滤布",
+        "predicted": "根据专利文本，带式浓缩脱水一体机清扫装置的组成部分包括：\n\nA. 驱动电机\nB. 清扫机构\nC. 滤布\nD. 连杆\n\n根据以上分析，驱动电机和滤布是带式浓缩脱水一体机清扫装置的组成部分，而连杆不是。因此，正确答案是D. 连杆。",
+        "correct": false,
+        "time": 26.24
+      },
+      {
+        "idx": 43,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00177_CN202070728U_p4.png",
+        "expected": "A. 部件2",
+        "predicted": "根据第4页的示意图，部件1（结晶器本体）的外侧是部件3。",
+        "correct": false,
+        "time": 16.29
+      },
+      {
+        "idx": 44,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00397_CN202831714U_p1.png",
+        "expected": "D. 显著提升停车速度",
+        "predicted": "根据专利文本，以下哪项不是该链条防松装置的优点？\n\nA. 结构简单\nB. 无需人工操作\nC. 减少链条损坏\nD. 显著提升停车速度\n\n答案是D。",
+        "correct": true,
+        "time": 20.66
+      },
+      {
+        "idx": 45,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00139_CN103010727B_p1.png",
+        "expected": "C. 护栏",
+        "predicted": "根据专利文本，气动小幅垂直升降移栽机的组成部分包括：\n\nA. 机架\nB. 传送皮带\nC. 护栏\nD. 照明装置\n\n根据上述分析，护栏不属于气动小幅垂直升降移栽机的组成部分。因此，正确答案是C。",
+        "correct": false,
+        "time": 26.35
+      },
+      {
+        "idx": 46,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00141_CN202493681U_p5.png",
+        "expected": "A. 部件1",
+        "predicted": "在图1中，部件13位于部件2的内下方。",
+        "correct": false,
+        "time": 14.72
+      },
+      {
+        "idx": 47,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00326_CN213270077U_p1.png",
+        "expected": "B. 提供一种能够节省油量的超声波氢氧机。",
+        "predicted": "答案是B。",
+        "correct": false,
+        "time": 11.1
+      },
+      {
+        "idx": 48,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00175_CN217626022U_p6.png",
+        "expected": "B. 限位杆(6)",
+        "predicted": "答案是D. 夹紧组件(7)。",
+        "correct": false,
+        "time": 14.08
+      },
+      {
+        "idx": 49,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00170_CN211574905U_p6.png",
+        "expected": "B. 照射灯6",
+        "predicted": "根据示意图，编号为7的部件位于编号为1的部件下方。因此，正确答案是：\n\nC. 安装座1",
+        "correct": false,
+        "time": 16.66
+      }
+    ]
+  },
+  "after": {
+    "accuracy": 0.5,
+    "correct": 25,
+    "total": 50,
+    "details": [
+      {
+        "idx": 0,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00164_CN216511924U_p7.png",
+        "expected": "C. 固定槽(47)",
+        "predicted": "根据专利文本和附图，正确选项是 C. 固定槽(47)。\n答案：C. 固定槽(47)",
+        "correct": true,
+        "time": 27.24
+      },
+      {
+        "idx": 1,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00383_CN212109623U_p6.png",
+        "expected": "B. 下冷风室",
+        "predicted": "根据专利文本和附图，正确选项是 B. 下冷风室。\n答案：B. 下冷风室",
+        "correct": true,
+        "time": 17.65
+      },
+      {
+        "idx": 2,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00045_CN211539534U_p1.png",
+        "expected": "B. 机箱",
+        "predicted": "根据专利文本和附图，正确选项是 B. 机箱。\n答案：B. 机箱",
+        "correct": true,
+        "time": 16.59
+      },
+      {
+        "idx": 3,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00156_CN218086621U_p6.png",
+        "expected": "A. 部件6",
+        "predicted": "根据专利文本和附图，正确选项是 B. 部件1。\n答案：B. 部件1",
+        "correct": false,
+        "time": 18.82
+      },
+      {
+        "idx": 4,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00053_CN202545998U_p1.png",
+        "expected": "C. 螺钉（5）",
+        "predicted": "根据专利文本和附图，正确选项是 B. 卡圈（4）。\n答案：B. 卡圈（4）",
+        "correct": false,
+        "time": 16.27
+      },
+      {
+        "idx": 5,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00072_CN213828140U_p5.png",
+        "expected": "C. 上料管道呈S型连接",
+        "predicted": "根据专利文本和附图，正确选项是 C. 上料管道呈S型连接。\n答案：C. 上料管道呈S型连接",
+        "correct": true,
+        "time": 20.79
+      },
+      {
+        "idx": 6,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00315_CN211385887U_p6.png",
+        "expected": "B. 推送块",
+        "predicted": "根据专利文本和附图，正确选项是 B. 推送块。\n答案：B. 推送块",
+        "correct": true,
+        "time": 15.03
+      },
+      {
+        "idx": 7,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00209_CN211826406U_p6.png",
+        "expected": "A. 与门U3",
+        "predicted": "根据电路图和选项，正确选项是 C. 反相器U7。\n答案：C. 反相器U7",
+        "correct": false,
+        "time": 19.04
+      },
+      {
+        "idx": 8,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00074_CN113818704A_p1.png",
+        "expected": "B. 天幕牵引移动组件",
+        "predicted": "根据文本内容和选项，正确选项是 B. 天幕牵引移动组件。\n答案：B. 天幕牵引移动组件",
+        "correct": true,
+        "time": 18.47
+      },
+      {
+        "idx": 9,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00333_CN218179594U_p6.png",
+        "expected": "D. 部件7位于部件2的下方",
+        "predicted": "根据专利文本和附图，正确选项是 B. 部件7位于部件2的右侧。\n答案：B. 部件7位于部件2的右侧",
+        "correct": false,
+        "time": 21.58
+      },
+      {
+        "idx": 10,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00403_CN115139020A_p1.png",
+        "expected": "B. 安装板(2)",
+        "predicted": "根据专利文本和附图，正确选项是 B. 安装板(2)。\n答案：B. 安装板(2)",
+        "correct": true,
+        "time": 19.96
+      },
+      {
+        "idx": 11,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00415_CN214006713U_p1.png",
+        "expected": "B. 金属棒与金属套筒接触，控制器控制显示灯亮起。",
+        "predicted": "根据专利文本和附图，正确选项是 B. 金属棒与金属套筒接触，控制器控制显示灯亮起。\n答案：B. 金属棒与金属套筒接触，控制器控制显示灯亮起。",
+        "correct": true,
+        "time": 23.85
+      },
+      {
+        "idx": 12,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00092_CN218294923U_p6.png",
+        "expected": "A. 部件16是部件17的支撑结构",
+        "predicted": "根据专利文本和附图，正确选项是 C. 部件16在部件17的下方。\n答案：C. 部件16在部件17的下方",
+        "correct": false,
+        "time": 23.21
+      },
+      {
+        "idx": 13,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00215_CN202405961U_p1.png",
+        "expected": "B. 实现刷握自动翻身，无需人工翻身",
+        "predicted": "根据专利文本和附图，正确选项是 B. 实现刷握自动翻身，无需人工翻身。\n答案：B. 实现刷握自动翻身，无需人工翻身",
+        "correct": true,
+        "time": 20.78
+      },
+      {
+        "idx": 14,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00479_CN202829744U_p7.png",
+        "expected": "B. 部件6",
+        "predicted": "根据专利文本和附图，正确选项是 A. 部件5。\n答案：A. 部件5",
+        "correct": false,
+        "time": 18.56
+      },
+      {
+        "idx": 15,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00059_CN110741214B_p8.png",
+        "expected": "C. 循环装置17",
+        "predicted": "根据专利文本和附图，正确选项是 B. 排气室6。\n答案：B. 排气室6",
+        "correct": false,
+        "time": 18.93
+      },
+      {
+        "idx": 16,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00368_CN202213116U_p7.png",
+        "expected": "B. 机械挤压带式输送线（3）",
+        "predicted": "根据专利文本和附图，正确选项是 B. 机械挤压带式输送线（3）。\n答案：B. 机械挤压带式输送线（3）",
+        "correct": true,
+        "time": 21.23
+      },
+      {
+        "idx": 17,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00163_CN101216629B_p11.png",
+        "expected": "A. 驱动马达",
+        "predicted": "根据专利文本和附图，正确选项是 B. 可动部件。\n答案：B. 可动部件",
+        "correct": false,
+        "time": 19.32
+      },
+      {
+        "idx": 18,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00210_CN202479596U_p5.png",
+        "expected": "A. 切断机（1）的驱动装置在上方",
+        "predicted": "根据专利文本和附图，正确选项是 B. 切断机（1）的驱动装置在下方。\n答案：B. 切断机（1）的驱动装置在下方",
+        "correct": false,
+        "time": 21.99
+      },
+      {
+        "idx": 19,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00251_CN202786314U_p5.png",
+        "expected": "B. 打模架（编号4）",
+        "predicted": "根据专利文本和附图，正确选项是 B. 打模架（编号4）。\n答案：B. 打模架（编号4）",
+        "correct": true,
+        "time": 21.19
+      },
+      {
+        "idx": 20,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00443_CN216473405U_p1.png",
+        "expected": "D. 喷头(21)",
+        "predicted": "根据专利文本和附图，正确选项是 D. 喷头(21)。\n答案：D. 喷头(21)",
+        "correct": true,
+        "time": 20.53
+      },
+      {
+        "idx": 21,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00320_CN217541621U_p6.png",
+        "expected": "D. 以上所有选项都是",
+        "predicted": "根据专利文本和附图，正确选项是 D. 以上所有选项都是。\n答案：D. 以上所有选项都是",
+        "correct": true,
+        "time": 19.36
+      },
+      {
+        "idx": 22,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00289_CN215973562U_p1.png",
+        "expected": "C. 对不同粒径大小的煤炭进行挑选",
+        "predicted": "根据专利文本和附图，正确选项是 C. 对不同粒径大小的煤炭进行挑选。\n答案：C. 对不同粒径大小的煤炭进行挑选",
+        "correct": true,
+        "time": 20.26
+      },
+      {
+        "idx": 23,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00389_CN201598761U_p5.png",
+        "expected": "B. 花篮螺栓",
+        "predicted": "根据专利文本和附图，正确选项是 B. 花篮螺栓。\n答案：B. 花篮螺栓",
+        "correct": true,
+        "time": 18.08
+      },
+      {
+        "idx": 24,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00007_CN218164909U_p6.png",
+        "expected": "A. 加热棒",
+        "predicted": "根据专利文本和附图，正确选项是 A. 加热棒。\n答案：A. 加热棒",
+        "correct": true,
+        "time": 17.03
+      },
+      {
+        "idx": 25,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00462_CN202336417U_p6.png",
+        "expected": "B. 弯管（110）与阀体（70）",
+        "predicted": "根据专利文本和附图，正确选项是 B. 弯管（110）与阀体（70）。\n答案：B. 弯管（110）与阀体（70）",
+        "correct": true,
+        "time": 23.36
+      },
+      {
+        "idx": 26,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00249_CN102563095A_p5.png",
+        "expected": "B. 部件11位于部件6的内部",
+        "predicted": "根据专利文本和附图，正确选项是 B. 部件11位于部件6的内部。\n答案：B. 部件11位于部件6的内部",
+        "correct": true,
+        "time": 20.52
+      },
+      {
+        "idx": 27,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00228_CN100347506C_p1.png",
+        "expected": "B. 链条",
+        "predicted": "根据专利文本和附图，正确选项是 A. 螺旋推进器。\n答案：A. 螺旋推进器",
+        "correct": false,
+        "time": 17.39
+      },
+      {
+        "idx": 28,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00245_CN201711107U_p5.png",
+        "expected": "B. 转动支架（1）",
+        "predicted": "根据专利文本和附图，正确选项是 C. 固定齿轮（11）。\n答案：C. 固定齿轮（11）",
+        "correct": false,
+        "time": 19.38
+      },
+      {
+        "idx": 29,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00211_CN218224799U_p6.png",
+        "expected": "D. XYZ轴伺服控制机雕台架(2)",
+        "predicted": "根据专利文本和附图，正确选项是 B. 双侧滑槽(6)。\n答案：B. 双侧滑槽(6)",
+        "correct": false,
+        "time": 19.12
+      },
+      {
+        "idx": 30,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00129_CN102913915A_p6.png",
+        "expected": "B. 推料活塞(4)",
+        "predicted": "根据专利文本和附图，正确选项是 B. 推料活塞(4)。\n答案：B. 推料活塞(4)",
+        "correct": true,
+        "time": 19.46
+      },
+      {
+        "idx": 31,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00162_CN102862310A_p7.png",
+        "expected": "B. 滑板（部件“11”）",
+        "predicted": "根据专利文本和附图，正确选项是 C. 气缸底座（部件“3”）。\n答案：C. 气缸底座（部件“3”）",
+        "correct": false,
+        "time": 21.4
+      },
+      {
+        "idx": 32,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00223_CN214344067U_p1.png",
+        "expected": "B. 用于防火阀安装位置的定位。",
+        "predicted": "根据专利文本和附图，正确选项是 B. 用于防火阀安装位置的定位。\n答案：B. 用于防火阀安装位置的定位。",
+        "correct": true,
+        "time": 20.02
+      },
+      {
+        "idx": 33,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00041_CN211517426U_p5.png",
+        "expected": "C. 合页",
+        "predicted": "根据专利文本和附图，正确选项是 B. 万向轮。\n答案：B. 万向轮",
+        "correct": false,
+        "time": 17.09
+      },
+      {
+        "idx": 34,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00278_CN202278826U_p1.png",
+        "expected": "A. 包括旋转体、旋转轴心、连接座、连接法兰、转换接头及气管。",
+        "predicted": "根据专利文本和附图，正确选项是 A. 包括旋转体、旋转轴心、连接座、连接法兰、转换接头及气管。\n答案：A. 包括旋转体、旋转轴心、连接座、连接法兰、转换接头及气管。",
+        "correct": true,
+        "time": 26.55
+      },
+      {
+        "idx": 35,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00021_CN211547926U_p1.png",
+        "expected": "C. U型存水弯",
+        "predicted": "根据专利文本和附图，正确选项是 C. U型存水弯。\n答案：C. U型存水弯",
+        "correct": true,
+        "time": 17.81
+      },
+      {
+        "idx": 36,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00434_CN211225361U_p1.png",
+        "expected": "B. 机架和两个输送机构",
+        "predicted": "根据专利文本和附图，正确选项是 B. 机架和两个输送机构。\n答案：B. 机架和两个输送机构",
+        "correct": true,
+        "time": 18.09
+      },
+      {
+        "idx": 37,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00068_CN215752548U_p7.png",
+        "expected": "B. 连杆(46)",
+        "predicted": "根据专利文本和附图，正确选项是 C. 把手(7)。\n答案：C. 把手(7)",
+        "correct": false,
+        "time": 18.47
+      },
+      {
+        "idx": 38,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00227_CN213923005U_p6.png",
+        "expected": "A. 部件6在部件4的上方",
+        "predicted": "根据专利文本和附图，正确选项是 B. 部件6在部件4的左侧。\n答案：B. 部件6在部件4的左侧",
+        "correct": false,
+        "time": 19.33
+      },
+      {
+        "idx": 39,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00151_CN215892353U_p6.png",
+        "expected": "B. 部件8、部件4、部件3",
+        "predicted": "根据专利文本和附图，正确选项是 C. 部件7、部件4、部件3。\n答案：C. 部件7、部件4、部件3",
+        "correct": false,
+        "time": 20.8
+      },
+      {
+        "idx": 40,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00369_CN216687323U_p6.png",
+        "expected": "B. 部件8位于部件7的内部",
+        "predicted": "根据专利文本和附图，正确选项是 C. 部件8位于部件7的左侧。\n答案：C. 部件8位于部件7的左侧",
+        "correct": false,
+        "time": 20.12
+      },
+      {
+        "idx": 41,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00217_CN214266255U_p6.png",
+        "expected": "D. 部件“7”位于部件“4”的右侧",
+        "predicted": "根据专利文本和附图，正确选项是 C. 部件“7”位于部件“4”的左侧。\n答案：C. 部件“7”位于部件“4”的左侧",
+        "correct": false,
+        "time": 22.26
+      },
+      {
+        "idx": 42,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00154_CN202297332U_p1.png",
+        "expected": "C. 滤布",
+        "predicted": "根据专利文本和附图，正确选项是 B. 清扫机构。\n答案：B. 清扫机构",
+        "correct": false,
+        "time": 16.39
+      },
+      {
+        "idx": 43,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00177_CN202070728U_p4.png",
+        "expected": "A. 部件2",
+        "predicted": "根据专利文本和附图，正确选项是 B. 部件3。\n答案：B. 部件3",
+        "correct": false,
+        "time": 18.36
+      },
+      {
+        "idx": 44,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00397_CN202831714U_p1.png",
+        "expected": "D. 显著提升停车速度",
+        "predicted": "根据专利文本和附图，正确选项是 C. 减少链条损坏。\n答案：C. 减少链条损坏",
+        "correct": false,
+        "time": 17.62
+      },
+      {
+        "idx": 45,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00139_CN103010727B_p1.png",
+        "expected": "C. 护栏",
+        "predicted": "根据专利文本和附图，正确选项是 C. 护栏。\n答案：C. 护栏",
+        "correct": true,
+        "time": 17.24
+      },
+      {
+        "idx": 46,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00141_CN202493681U_p5.png",
+        "expected": "A. 部件1",
+        "predicted": "根据专利文本和附图，正确选项是 B. 部件2。\n答案：B. 部件2",
+        "correct": false,
+        "time": 17.39
+      },
+      {
+        "idx": 47,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00326_CN213270077U_p1.png",
+        "expected": "B. 提供一种能够节省油量的超声波氢氧机。",
+        "predicted": "根据专利文本和附图，正确选项是 B. 提供一种能够节省油量的超声波氢氧机。\n答案：B. 提供一种能够节省油量的超声波氢氧机。",
+        "correct": true,
+        "time": 22.83
+      },
+      {
+        "idx": 48,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00175_CN217626022U_p6.png",
+        "expected": "B. 限位杆(6)",
+        "predicted": "根据专利文本和附图，正确选项是 D. 夹紧组件(7)。\n答案：D. 夹紧组件(7)",
+        "correct": false,
+        "time": 19.27
+      },
+      {
+        "idx": 49,
+        "image": "/root/LLaMA-Factory/data/imdr_images/imdr_00170_CN211574905U_p6.png",
+        "expected": "B. 照射灯6",
+        "predicted": "根据专利文本和附图，正确选项是 A. 保护罩3。\n答案：A. 保护罩3",
+        "correct": false,
+        "time": 17.09
+      }
+    ]
+  },
+  "improvement": 0.14,
+  "improvement_pct": 14.0
+}

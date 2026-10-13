@@ -1,0 +1,33 @@
+# 工单编号：人工智能 NLP-RAG-微调专用视觉语言模型工单
+# Qwen2-VL-2B LoRA 微调（CPU 版，无量化）
+
+model_name_or_path: /root/models/Qwen2-VL-2B-Instruct
+trust_remote_code: true
+
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 8
+lora_target: all
+
+dataset: imdr_500
+template: qwen2_vl
+cutoff_len: 1024
+max_samples: 2
+overwrite_cache: true
+preprocessing_num_workers: 1
+
+output_dir: /root/LLaMA-Factory/saves/qwen2vl-2b-lora
+logging_steps: 5
+save_steps: 1
+plot_loss: true
+overwrite_output_dir: true
+
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 1
+learning_rate: 1.0e-4
+num_train_epochs: 1.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: false
+fp16: false
