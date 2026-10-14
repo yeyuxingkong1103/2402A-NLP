@@ -1,0 +1,29 @@
+services:
+  rag:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: financial-graphrag:workorder10
+    container_name: financial-graphrag-workorder10
+    restart: unless-stopped
+    ports:
+      - "8021:8020"
+    environment:
+      DEEPSEEK_API_KEY: "${DEEPSEEK_API_KEY:-}"
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 2g
+    cpus: 2.0
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import json,urllib.request; assert json.load(urllib.request.urlopen('http://127.0.0.1:8020/api/health',timeout=5))['ready']"
+      interval: 15s
+      timeout: 5s
+      start_period: 25s
+      retries: 5

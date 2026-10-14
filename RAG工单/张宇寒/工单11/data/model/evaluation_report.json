@@ -1,0 +1,186 @@
+{
+  "before": {
+    "count": 3,
+    "top_k": 3,
+    "recall_at_k": 0.0,
+    "mrr": 0.0888,
+    "mean_positive_similarity": 0.4551,
+    "mean_top_negative_similarity": 0.6422,
+    "similarity_gap": -0.1871,
+    "queries": [
+      {
+        "question_id": 5,
+        "query": "中信证券2020年的营业收入和归属于公司股东的净利润分别是多少？",
+        "positive_id": "600030-p11-1",
+        "rank": 73,
+        "positive_similarity": 0.3358,
+        "top_negative_similarity": 0.5149,
+        "retrieved_ids": [
+          "600030-p301-1",
+          "600030-p1-1",
+          "601601-p262-1"
+        ]
+      },
+      {
+        "question_id": 1,
+        "query": "平安银行2019年实现的营业收入和净利润分别是多少？",
+        "positive_id": "000001-p5-1",
+        "rank": 5,
+        "positive_similarity": 0.5745,
+        "top_negative_similarity": 0.7389,
+        "retrieved_ids": [
+          "000001-p5-2",
+          "000001-p8-1",
+          "000001-p7-1"
+        ]
+      },
+      {
+        "question_id": 2,
+        "query": "中国平安2019年的营业收入和归属于母公司股东的净利润分别是多少？",
+        "positive_id": "601318-p10-1",
+        "rank": 19,
+        "positive_similarity": 0.4549,
+        "top_negative_similarity": 0.6729,
+        "retrieved_ids": [
+          "601318-p336-1",
+          "601318-p277-1",
+          "600036-p74-2"
+        ]
+      }
+    ]
+  },
+  "after": {
+    "count": 3,
+    "top_k": 3,
+    "recall_at_k": 0.0,
+    "mrr": 0.1056,
+    "mean_positive_similarity": 0.4517,
+    "mean_top_negative_similarity": 0.6322,
+    "similarity_gap": -0.1805,
+    "queries": [
+      {
+        "question_id": 5,
+        "query": "中信证券2020年的营业收入和归属于公司股东的净利润分别是多少？",
+        "positive_id": "600030-p11-1",
+        "rank": 70,
+        "positive_similarity": 0.332,
+        "top_negative_similarity": 0.5239,
+        "retrieved_ids": [
+          "600030-p1-1",
+          "600030-p301-1",
+          "600030-p17-2"
+        ]
+      },
+      {
+        "question_id": 1,
+        "query": "平安银行2019年实现的营业收入和净利润分别是多少？",
+        "positive_id": "000001-p5-1",
+        "rank": 4,
+        "positive_similarity": 0.5733,
+        "top_negative_similarity": 0.7078,
+        "retrieved_ids": [
+          "000001-p5-2",
+          "000001-p8-1",
+          "000001-p1-1"
+        ]
+      },
+      {
+        "question_id": 2,
+        "query": "中国平安2019年的营业收入和归属于母公司股东的净利润分别是多少？",
+        "positive_id": "601318-p10-1",
+        "rank": 19,
+        "positive_similarity": 0.4499,
+        "top_negative_similarity": 0.6649,
+        "retrieved_ids": [
+          "601318-p336-1",
+          "601318-p277-1",
+          "000001-p264-1"
+        ]
+      }
+    ]
+  },
+  "delta": {
+    "recall_at_k": 0.0,
+    "mrr": 0.0168,
+    "similarity_gap": 0.0066
+  },
+  "training": {
+    "base_model": "TF-IDF字符嵌入 + TruncatedSVD",
+    "adapter": "可训练线性投影层",
+    "loss_name": "Triplet Loss",
+    "train_samples": 7,
+    "evaluation_samples": 3,
+    "document_count": 4705,
+    "actual_dimension": 96,
+    "config": {
+      "dimension": 96,
+      "epochs": 60,
+      "learning_rate": 0.03,
+      "margin": 0.5,
+      "top_k": 3,
+      "seed": 42
+    },
+    "loss_history": [
+      0.3688318,
+      0.31596621,
+      0.27684115,
+      0.25108809,
+      0.22527546,
+      0.20016156,
+      0.18321696,
+      0.16631816,
+      0.14945628,
+      0.13262253,
+      0.11580821,
+      0.10486182,
+      0.09681925,
+      0.08886171,
+      0.08098519,
+      0.07318581,
+      0.06545974,
+      0.05802877,
+      0.05052449,
+      0.04298574,
+      0.03550605,
+      0.02808195,
+      0.02071007,
+      0.01338706,
+      0.00610968,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  }
+}

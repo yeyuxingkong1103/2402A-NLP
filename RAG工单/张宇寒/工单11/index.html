@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>工单11 · 金融领域Embedding微调</title>
+  <style>
+    :root{--ink:#172033;--muted:#687289;--line:#dfe5ef;--blue:#3267e3;--cyan:#1ba8a0;--bg:#f4f7fb;--card:#fff;--orange:#f28b3c}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei",system-ui,sans-serif}.wrap{max-width:1180px;margin:auto;padding:34px 22px 70px}
+    header{background:linear-gradient(135deg,#172b55,#315fd3 65%,#20a9a1);border-radius:24px;padding:34px;color:#fff;box-shadow:0 18px 45px #1d3f8330}header small{opacity:.82;letter-spacing:.15em}h1{margin:9px 0 8px;font-size:34px}header p{margin:0;max-width:800px;line-height:1.8;opacity:.9}
+    .badge{display:inline-flex;margin-top:20px;padding:8px 13px;border-radius:999px;background:#ffffff22;border:1px solid #ffffff40}.section{margin-top:28px}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:12px}.section h2{margin:0;font-size:21px}.hint{color:var(--muted);font-size:13px}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.step,.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 5px 18px #293c6910}.step{display:flex;gap:13px;align-items:center}.num{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:#e9efff;color:var(--blue);font-weight:800}.step.done .num{background:#dcf6ef;color:#0a8c70}.step b{display:block;font-size:14px}.step span{font-size:12px;color:var(--muted)}
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.metric strong{font-size:28px;display:block;margin:8px 0 4px}.metric .delta{color:#0a8c70;font-weight:700;font-size:13px}.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px}.compare h3{margin-top:0}.before{border-top:4px solid #9aa6bb}.after{border-top:4px solid var(--cyan)}
+    #lossChart{height:170px;width:100%;background:linear-gradient(#fff,#f7f9fd);border:1px solid var(--line);border-radius:12px}.grid2{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.controls{display:flex;gap:10px}.controls input,.controls select{border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit;background:#fff}.controls input{flex:1}.controls button{border:0;border-radius:10px;background:var(--blue);color:#fff;padding:0 20px;font-weight:700;cursor:pointer}.controls button:disabled{opacity:.55}
+    .hits{display:grid;gap:10px;margin-top:14px}.hit{padding:14px;border-radius:12px;background:#f8faff;border:1px solid var(--line)}.hit b{font-size:13px}.hit p{margin:8px 0 0;line-height:1.65;color:#46516a;font-size:13px}.score{float:right;color:var(--blue)}
+    table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:11px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--muted)}td{max-width:330px}.truncate{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.empty{color:var(--muted);padding:30px;text-align:center}
+    @media(max-width:850px){.steps,.metrics{grid-template-columns:1fr 1fr}.grid2,.compare{grid-template-columns:1fr}}@media(max-width:560px){.steps,.metrics{grid-template-columns:1fr}.controls{flex-direction:column}.controls button{padding:12px}}
+  </style>
+</head>
+<body><main class="wrap">
+  <header><small>WORK ORDER 11 · DOMAIN EMBEDDING</small><h1>金融领域 Embedding 微调台</h1><p>从年报语料生成问答三元组，以 Triplet Loss 训练轻量投影适配器，并直观比较微调前后的检索表现。</p><div class="badge" id="statusBadge">正在读取训练状态…</div></header>
+
+  <section class="section"><div class="section-head"><h2>六步微调流程</h2><span class="hint">每一步均有可重复运行的代码与产物</span></div><div class="steps" id="stepGrid"></div></section>
+
+  <section class="section"><div class="section-head"><h2>微调前后指标</h2><span class="hint" id="datasetHint"></span></div><div class="metrics" id="metricGrid"></div></section>
+
+  <section class="section grid2">
+    <div class="card"><div class="section-head"><h2>损失曲线</h2><span class="hint">Triplet Loss</span></div><canvas id="lossChart"></canvas></div>
+    <div class="card"><h2>训练配置</h2><div id="trainingConfig" class="hits"></div></div>
+  </section>
+
+  <section class="section"><div class="section-head"><h2>微调数据样例</h2><span class="hint">查询 · 正例 · 难负例</span></div><div class="card" style="overflow:auto"><table><thead><tr><th>查询</th><th>正例文本</th><th>难负例</th></tr></thead><tbody id="exampleTable"></tbody></table></div></section>
+
+  <section class="section"><div class="section-head"><h2>检索效果体验</h2><span class="hint">可切换微调前/后</span></div><div class="card"><div class="controls"><input id="queryInput" value="平安银行2019年的营业收入是多少？" aria-label="查询"><select id="modeSelect"><option value="after">微调后</option><option value="before">微调前</option></select><button id="searchButton">开始检索</button></div><div id="searchResults" class="hits"><div class="empty">输入问题后查看检索结果</div></div></div></section>
+</main>
+<script>
+const fmt=n=>Number(n??0).toFixed(4);
+async function getJSON(url,options){const r=await fetch(url,options);const d=await r.json();if(!r.ok)throw new Error(d.detail||'请求失败');return d}
+function metric(label,before,after){const delta=after-before;return `<div class="card metric"><span class="hint">${label}</span><strong>${fmt(after)}</strong><div>微调前 ${fmt(before)}</div><div class="delta">变化 ${delta>=0?'+':''}${fmt(delta)}</div></div>`}
+function drawLoss(values){const c=document.getElementById('lossChart'),dpr=devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;c.width=w*dpr;c.height=h*dpr;const x=c.getContext('2d');x.scale(dpr,dpr);x.clearRect(0,0,w,h);if(!values.length)return;const max=Math.max(...values,1e-8),pad=22;x.strokeStyle='#3267e3';x.lineWidth=3;x.beginPath();values.forEach((v,i)=>{const px=pad+i*(w-pad*2)/Math.max(values.length-1,1),py=h-pad-v/max*(h-pad*2);i?x.lineTo(px,py):x.moveTo(px,py)});x.stroke();x.fillStyle='#687289';x.font='12px sans-serif';x.fillText(`初始 ${values[0].toFixed(4)}`,pad,16);x.fillText(`最终 ${values.at(-1).toFixed(4)}`,Math.max(pad,w-105),h-7)}
+async function load(){const [s,e]=await Promise.all([getJSON('/api/status'),getJSON('/api/examples')]);document.getElementById('statusBadge').textContent=s.message;document.getElementById('stepGrid').innerHTML=s.steps.map(v=>`<div class="step ${v.done?'done':''}"><div class="num">${v.done?'✓':v.id}</div><div><b>${v.name}</b><span>${v.done?'已完成':'待执行'}</span></div></div>`).join('');const r=s.evaluation,b=r.before||{},a=r.after||{};document.getElementById('metricGrid').innerHTML=metric('Recall@3',b.recall_at_k,a.recall_at_k)+metric('MRR',b.mrr,a.mrr)+metric('正负相似度间隔',b.similarity_gap,a.similarity_gap)+metric('平均正例相似度',b.mean_positive_similarity,a.mean_positive_similarity);document.getElementById('datasetHint').textContent=`${s.dataset.source_chunks||0}个文本块 · ${s.dataset.train_triplets||0}条训练 · ${s.dataset.evaluation_triplets||0}条评估`;const t=r.training||{};document.getElementById('trainingConfig').innerHTML=[['基础模型',t.base_model],['适配器',t.adapter],['损失函数',t.loss_name],['向量维度',t.actual_dimension],['训练轮次',t.config?.epochs]].map(v=>`<div class="hit"><b>${v[0]}</b><span class="score">${v[1]??'-'}</span></div>`).join('');drawLoss(t.loss_history||[]);document.getElementById('exampleTable').innerHTML=e.items.map(v=>`<tr><td>${v.query}</td><td><div class="truncate">${v.positive}</div></td><td><div class="truncate">${v.negative}</div></td></tr>`).join('')}
+document.getElementById('searchButton').onclick=async()=>{const btn=document.getElementById('searchButton'),box=document.getElementById('searchResults');btn.disabled=true;box.innerHTML='<div class="empty">正在生成向量并检索…</div>';try{const d=await getJSON('/api/search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:document.getElementById('queryInput').value,top_k:5,mode:document.getElementById('modeSelect').value})});box.innerHTML=`<div class="hint">耗时 ${d.elapsed_ms} ms</div>`+d.hits.map((v,i)=>`<div class="hit"><b>${i+1}. ${v.document} · 第${v.page}页</b><span class="score">${v.score}</span><p>${v.text}</p></div>`).join('')}catch(e){box.innerHTML=`<div class="empty">${e.message}</div>`}finally{btn.disabled=false}};
+load().catch(e=>document.getElementById('statusBadge').textContent=e.message);addEventListener('resize',()=>load());
+</script></body></html>

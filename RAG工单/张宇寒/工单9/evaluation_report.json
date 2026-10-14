@@ -1,0 +1,18 @@
+{
+  "project": "工单9 GraphRAG优化评测",
+  "benchmark_source": "sample_questions.pdf",
+  "question_count": 4,
+  "top_k": 5,
+  "metric_definition": {
+    "context_precision": "排序感知平均精度",
+    "context_recall": "参考事实覆盖率"
+  },
+  "targets": {"context_precision": 0.8, "context_recall": 0.9, "response_ms": 3000},
+  "optimized_average": {"context_precision": 1.0, "context_recall": 1.0, "all_under_3_seconds": true},
+  "results": [
+    {"id": 1, "baseline_precision": 0.0, "baseline_recall": 0.0, "optimized_precision": 1.0, "optimized_recall": 1.0, "response_ms": 459.18},
+    {"id": 2, "baseline_precision": 0.2, "baseline_recall": 0.6667, "optimized_precision": 1.0, "optimized_recall": 1.0, "response_ms": 77.0},
+    {"id": 3, "baseline_precision": 1.0, "baseline_recall": 1.0, "optimized_precision": 1.0, "optimized_recall": 1.0, "response_ms": 99.4},
+    {"id": 4, "baseline_precision": 1.0, "baseline_recall": 0.8333, "optimized_precision": 1.0, "optimized_recall": 1.0, "response_ms": 97.63}
+  ]
+}

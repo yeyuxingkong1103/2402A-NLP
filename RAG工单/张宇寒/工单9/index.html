@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>工单9 · GraphRAG 优化评测</title>
+  <style>
+    :root{--ink:#172033;--muted:#667085;--line:#dce3ee;--blue:#315bd6;--cyan:#15a5a0;--green:#178a62;--red:#ca4d55;--bg:#f3f6fb;--card:#fff}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 system-ui,"Microsoft YaHei",sans-serif}.wrap{width:min(1200px,94vw);margin:auto}
+    header{padding:30px 0;color:#fff;background:linear-gradient(120deg,#111f42,#315bd6 62%,#15a5a0)}h1{margin:0;font-size:27px}.sub{opacity:.82;margin-top:5px}
+    .panel{margin:18px 0;padding:20px;background:var(--card);border:1px solid var(--line);border-radius:15px;box-shadow:0 8px 26px #20335b0b}h2{font-size:18px;margin:0 0 14px}
+    label{display:block;font-weight:700;margin:8px 0 6px}select,textarea,input{width:100%;padding:10px;border:1px solid #cbd4e3;border-radius:9px;background:#fff}textarea{min-height:88px;resize:vertical}
+    .controls{display:grid;grid-template-columns:1fr 120px;gap:14px}.actions{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}button{border:0;border-radius:9px;padding:10px 18px;background:var(--blue);color:#fff;font-weight:700;cursor:pointer}button.alt{background:var(--cyan)}button:disabled{opacity:.5}.status,.meta,.empty{color:var(--muted)}
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.metric{border:1px solid var(--line);border-radius:12px;padding:15px;background:#fbfcff}.metric b{display:block;font-size:25px}.metric small{color:var(--muted)}.good{color:var(--green)}.bad{color:var(--red)}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.answer,.reference{white-space:pre-wrap;border-radius:9px;padding:14px;min-height:110px}.answer{background:#f5f8ff;border-left:4px solid var(--blue)}.reference{background:#f1fbf8;border-left:4px solid var(--cyan)}
+    .layers{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.layer{padding:12px;border-radius:10px;background:#f7f9fd;border:1px solid var(--line)}.layer b{color:var(--blue)}
+    .source{border-top:1px solid var(--line);padding:12px 0}.source:first-child{border-top:0}.badge{display:inline-block;padding:2px 7px;border-radius:12px;background:#eaf0ff;color:#315bb7;margin:3px 5px 3px 0;font-size:12px}
+    #graphCanvas{width:100%;height:380px;border:1px solid var(--line);border-radius:10px;background:#fbfcff}.legend{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);margin-bottom:8px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}
+    @media(max-width:850px){.grid,.controls,.metrics,.layers{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap"><h1>GraphRAG 优化与评测</h1><div class="sub">工单9 · 参考答案对照 · 上下文精度 / 召回率 · 四层优化</div></div></header>
+  <main class="wrap">
+    <section class="panel">
+      <label for="preset">sample_questions.pdf 参考问题</label><select id="preset"><option>正在加载…</option></select>
+      <label for="question">问题</label><textarea id="question" placeholder="选择参考问题，或输入自定义金融年报问题"></textarea>
+      <div class="controls"><div></div><div><label for="topK">Top K</label><input id="topK" type="number" min="1" max="10" value="5"></div></div>
+      <div class="actions"><button id="evaluateBtn">运行优化前后评测</button><button id="allBtn" class="alt">评测全部参考题</button><span id="status" class="status"></span></div>
+    </section>
+    <section class="panel"><h2>评测指标</h2><div id="metricCards" class="metrics"><div class="empty">运行评测后显示 context precision、context recall 和耗时。</div></div></section>
+    <section class="panel"><h2>四层优化方案</h2><div id="optimizationLayers" class="layers"><div class="layer"><b>Prompt</b><br>限定证据与答案结构</div><div class="layer"><b>实体关系</b><br>消歧并识别主题关系</div><div class="layer"><b>检索</b><br>查询改写与图节点加权</div><div class="layer"><b>生成</b><br>多跳证据与引用回退</div></div></section>
+    <div class="grid">
+      <section class="panel"><h2>GraphRAG 回答</h2><div id="answer" class="answer empty">等待评测。</div><div id="timing" class="meta"></div></section>
+      <section class="panel"><h2>参考答案</h2><div id="reference" class="reference empty">自定义问题不显示参考答案。</div><div id="queryOptimization" class="meta"></div></section>
+    </div>
+    <section class="panel"><h2>优化后相关知识图谱</h2><div class="legend"><span><i class="dot" style="background:#315bd6"></i>公司</span><span><i class="dot" style="background:#7857d8"></i>年报</span><span><i class="dot" style="background:#ed9a32"></i>年份</span><span><i class="dot" style="background:#df5261"></i>指标</span><span><i class="dot" style="background:#15a5a0"></i>文本块</span></div><svg id="graphCanvas" viewBox="0 0 900 380"></svg></section>
+    <div class="grid">
+      <section class="panel"><h2>优化前：基线检索</h2><div id="baselineSources" class="empty">等待评测。</div></section>
+      <section class="panel"><h2>优化后：GraphRAG 检索</h2><div id="optimizedSources" class="empty">等待评测。</div></section>
+    </div>
+  </main>
+  <script>
+    const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));let benchmarks=[];
+    async function loadBenchmarks(){const r=await fetch('/api/benchmarks'),d=await r.json();benchmarks=d.questions;$('preset').innerHTML='<option value="">自定义问题</option>'+benchmarks.map(q=>`<option value="${q.id}">${q.id}. ${esc(q.question)}</option>`).join('');$('preset').onchange=()=>{const q=benchmarks.find(x=>String(x.id)==$('preset').value);$('question').value=q?q.question:''}}
+    function sources(hits){return (hits||[]).map(h=>`<article class="source"><b>${h.rank||''}. ${esc(h.document||'文本证据')} 第${esc(h.page||'-')}页</b><div class="meta">得分 ${esc(h.score??'-')} · 文本分 ${esc(h.lexical_score??'-')}</div><div>${esc(h.text)}</div></article>`).join('')||'<span class="empty">没有检索结果。</span>'}
+    function metric(label,before,after,target){const ok=after>=target;return `<div class="metric"><small>${label}</small><b class="${ok?'good':'bad'}">${(after*100).toFixed(1)}%</b><div>优化前 ${(before*100).toFixed(1)}% · 目标 ≥ ${(target*100).toFixed(0)}%</div></div>`}
+    function drawGraph(graph){const svg=$('graphCanvas'),nodes=graph?.nodes||[],edges=graph?.edges||[],colors={company:'#315bd6',report:'#7857d8',year:'#ed9a32',metric:'#df5261',chunk:'#15a5a0'};svg.innerHTML='';if(!nodes.length){svg.innerHTML='<text x="450" y="190" text-anchor="middle" fill="#667085">没有可展示的图谱节点</text>';return}const pos={};nodes.forEach((n,i)=>{const a=2*Math.PI*i/nodes.length;pos[n.id]={x:450+315*Math.cos(a),y:190+135*Math.sin(a)}});edges.forEach(e=>{const a=pos[e.source],b=pos[e.target];if(a&&b)svg.insertAdjacentHTML('beforeend',`<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="#cbd3e1"/><text x="${(a.x+b.x)/2}" y="${(a.y+b.y)/2-3}" text-anchor="middle" font-size="9" fill="#8a94a6">${esc(e.relation)}</text>`)});nodes.forEach(n=>{const p=pos[n.id],label=n.label.length>13?n.label.slice(0,13)+'…':n.label;svg.insertAdjacentHTML('beforeend',`<circle cx="${p.x}" cy="${p.y}" r="${n.type==='chunk'?12:16}" fill="${colors[n.type]||'#999'}"/><text x="${p.x}" y="${p.y+28}" text-anchor="middle" font-size="10" fill="#344054">${esc(label)}</text>`)})}
+    function show(d){$('answer').textContent=d.answer;$('answer').classList.remove('empty');$('reference').textContent=d.reference||'这是自定义问题，没有参考答案，因此不生成虚假评测分数。';$('reference').classList.remove('empty');$('baselineSources').innerHTML=sources(d.baseline.hits);$('optimizedSources').innerHTML=sources(d.optimized.hits);$('timing').textContent=`基线 ${d.baseline.retrieval_ms} ms · 优化 ${d.optimized.retrieval_ms} ms · 总耗时 ${d.total_ms} ms · ${d.answer_mode}`;const q=d.optimized.query_optimization||{};$('queryOptimization').textContent=q.rewritten_query?'改写后的检索问题：'+q.rewritten_query:'';drawGraph(d.optimized.graph);if(d.reference){const b=d.baseline.metrics,o=d.optimized.metrics;$('metricCards').innerHTML=metric('Context Precision',b.context_precision,o.context_precision,.8)+metric('Context Recall',b.context_recall,o.context_recall,.9)+`<div class="metric"><small>Precision 变化</small><b class="${d.delta.context_precision>=0?'good':'bad'}">${d.delta.context_precision>=0?'+':''}${(d.delta.context_precision*100).toFixed(1)}%</b><div>相关证据占比变化</div></div><div class="metric"><small>响应时间</small><b class="${d.total_ms<3000?'good':'bad'}">${d.total_ms.toFixed(0)} ms</b><div>目标 &lt; 3000 ms</div></div>`}else $('metricCards').innerHTML='<div class="empty">自定义问题没有参考答案，仅展示检索与回答。</div>'}
+    async function evaluateOne(){const question=$('question').value.trim(),id=Number($('preset').value)||null;if(!id&&!question)return alert('请选择参考问题或输入自定义问题');setBusy(true,'正在运行基线与优化检索…');try{const r=await fetch('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question_id:id,question,top_k:Number($('topK').value)})}),d=await r.json();if(!r.ok)throw Error(d.detail||'评测失败');show(d);$('status').textContent='评测完成'}catch(e){$('status').textContent=e.message}finally{setBusy(false)}}
+    async function evaluateAll(){setBusy(true,'正在评测全部参考题…');try{const r=await fetch('/api/evaluate-all?top_k='+Number($('topK').value),{method:'POST'}),d=await r.json();if(!r.ok)throw Error(d.detail||'评测失败');$('metricCards').innerHTML=metric('平均 Context Precision',0,d.average_context_precision,.8)+metric('平均 Context Recall',0,d.average_context_recall,.9)+`<div class="metric"><small>问题数量</small><b>${d.count}</b><div>sample_questions.pdf</div></div><div class="metric"><small>响应时间</small><b class="${d.under_3_seconds?'good':'bad'}">${d.under_3_seconds?'全部达标':'存在超时'}</b><div>单题目标 &lt; 3秒</div></div>`;$('status').textContent='全部评测完成'}catch(e){$('status').textContent=e.message}finally{setBusy(false)}}
+    function setBusy(value,text=''){$('evaluateBtn').disabled=value;$('allBtn').disabled=value;if(text)$('status').textContent=text}$('evaluateBtn').onclick=evaluateOne;$('allBtn').onclick=evaluateAll;loadBenchmarks().catch(e=>$('status').textContent=e.message);
+  </script>
+</body>
+</html>

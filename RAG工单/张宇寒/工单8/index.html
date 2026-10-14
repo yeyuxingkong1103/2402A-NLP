@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>金融年报 Graph RAG</title>
+  <style>
+    :root{--ink:#172033;--muted:#667085;--line:#dfe4ee;--blue:#356ae6;--bg:#f4f6fa;--card:#fff}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 system-ui,"Microsoft YaHei",sans-serif}
+    header{background:linear-gradient(120deg,#13264b,#356ae6);color:#fff;padding:28px 0}.wrap{width:min(1180px,94vw);margin:auto}
+    h1{margin:0 0 4px;font-size:25px}.sub{opacity:.82}.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin:18px 0;box-shadow:0 8px 28px #24345b0d}
+    label{font-weight:700;display:block;margin:10px 0 6px}select,textarea,input{width:100%;border:1px solid #cdd5e3;border-radius:9px;padding:10px;background:#fff}textarea{min-height:86px;resize:vertical}
+    .controls{display:grid;grid-template-columns:1fr 130px;gap:14px}.actions{display:flex;gap:10px;align-items:center;margin-top:14px}button{border:0;border-radius:9px;padding:10px 18px;background:var(--blue);color:#fff;font-weight:700;cursor:pointer}button:disabled{opacity:.5}.status{color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.answer{white-space:pre-wrap;background:#f8faff;border-left:4px solid var(--blue);padding:14px;border-radius:8px;min-height:110px}
+    #graphCanvas{width:100%;height:420px;border:1px solid var(--line);border-radius:10px;background:#fbfcff}.legend{display:flex;flex-wrap:wrap;gap:12px;margin:8px 0;color:var(--muted)}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}
+    .source{border-top:1px solid var(--line);padding:13px 0}.source:first-child{border-top:0}.badge{display:inline-block;padding:2px 7px;border-radius:12px;background:#eaf0ff;color:#315bb7;margin-right:6px;font-size:12px}.meta{color:var(--muted);font-size:12px;margin:5px 0}.empty{color:var(--muted)}
+    @media(max-width:800px){.grid,.controls{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap"><h1>金融年报 Graph RAG</h1><div class="sub">9份金融年报 · 10道固定问题 · 文本证据与知识图谱同步展示</div></div></header>
+  <main class="wrap">
+    <section class="panel">
+      <label for="preset">固定评测问题</label><select id="preset"><option>正在加载...</option></select>
+      <label for="question">问题</label><textarea id="question" placeholder="请输入金融年报相关问题"></textarea>
+      <div class="controls"><div></div><div><label for="topK">Top K</label><input id="topK" type="number" min="1" max="10" value="5"></div></div>
+      <div class="actions"><button id="askBtn">开始 Graph RAG 检索</button><span id="status" class="status"></span></div>
+    </section>
+    <div class="grid">
+      <section class="panel"><h2>回答</h2><div id="answer" class="answer empty">提交问题后显示答案。</div><div id="timing" class="meta"></div></section>
+      <section class="panel"><h2>查询理解</h2><div id="intent" class="empty">等待检索。</div></section>
+    </div>
+    <section class="panel"><h2>相关知识图谱</h2><div class="legend"><span><i class="dot" style="background:#356ae6"></i>公司</span><span><i class="dot" style="background:#7c5ce6"></i>年报</span><span><i class="dot" style="background:#f29f3d"></i>年份</span><span><i class="dot" style="background:#eb5757"></i>指标</span><span><i class="dot" style="background:#2db79b"></i>文本块</span></div><svg id="graphCanvas" viewBox="0 0 900 420"></svg><div id="nodeDetail" class="meta">点击节点查看详情</div></section>
+    <section class="panel"><h2>检索文本块</h2><div id="sources" class="empty">等待检索。</div></section>
+  </main>
+  <script>
+    const $=id=>document.getElementById(id), colors={company:'#356ae6',report:'#7c5ce6',year:'#f29f3d',metric:'#eb5757',chunk:'#2db79b'};
+    async function loadQuestions(){const r=await fetch('/api/questions'),d=await r.json();$('preset').innerHTML='<option value="">选择一道固定问题</option>'+d.questions.map(q=>`<option value="${q.id}">${q.id}. ${q.question}</option>`).join('');$('preset').onchange=()=>{const q=d.questions.find(x=>String(x.id)==$('preset').value);if(q)$('question').value=q.question}}
+    function drawGraph(graph){const svg=$('graphCanvas');svg.innerHTML='';const nodes=graph.nodes||[],edges=graph.edges||[];if(!nodes.length){svg.innerHTML='<text x="450" y="210" text-anchor="middle" fill="#667085">没有可展示的图谱节点</text>';return}const pos={};nodes.forEach((n,i)=>{const a=2*Math.PI*i/nodes.length;pos[n.id]={x:450+310*Math.cos(a),y:210+155*Math.sin(a)}});edges.forEach(e=>{const a=pos[e.source],b=pos[e.target];if(!a||!b)return;svg.insertAdjacentHTML('beforeend',`<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="#cbd3e1"/><text x="${(a.x+b.x)/2}" y="${(a.y+b.y)/2-4}" text-anchor="middle" font-size="9" fill="#8a94a6">${e.relation}</text>`)});nodes.forEach(n=>{const p=pos[n.id],label=n.label.length>14?n.label.slice(0,14)+'…':n.label;const group=document.createElementNS('http://www.w3.org/2000/svg','g');group.style.cursor='pointer';group.innerHTML=`<circle cx="${p.x}" cy="${p.y}" r="${n.type==='chunk'?13:17}" fill="${colors[n.type]||'#999'}"/><text x="${p.x}" y="${p.y+30}" text-anchor="middle" font-size="11" fill="#344054">${label}</text>`;group.onclick=()=>{$('nodeDetail').textContent=`${n.type} · ${n.label} · ${JSON.stringify(n.metadata||{})}`};svg.appendChild(group)})}
+    function show(d){$('answer').classList.remove('empty');$('answer').textContent=d.answer;$('timing').textContent=`检索 ${d.retrieval_ms} ms · 总耗时 ${d.total_ms} ms · ${d.answer_mode}`;$('intent').innerHTML=`<span class="badge">公司 ${(d.intent.stocks||[]).join('、')||'未指定'}</span><span class="badge">年份 ${(d.intent.years||[]).join('、')||'未指定'}</span><span class="badge">指标 ${(d.intent.metrics||[]).join('、')||'未指定'}</span>`;$('sources').innerHTML=d.hits.map(h=>`<article class="source"><b>${h.rank}. ${h.document} 第${h.page}页</b><div class="meta">图增强分 ${h.score} · 文本分 ${h.lexical_score}</div><div>${h.text.replaceAll('<','&lt;')}</div></article>`).join('');drawGraph(d.graph)}
+    $('askBtn').onclick=async()=>{const question=$('question').value.trim();if(!question)return alert('请输入问题');$('askBtn').disabled=true;$('status').textContent='正在检索知识图谱...';try{const r=await fetch('/api/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,top_k:Number($('topK').value)})});const d=await r.json();if(!r.ok)throw Error(d.detail||'请求失败');show(d);$('status').textContent='完成'}catch(e){$('status').textContent=e.message}finally{$('askBtn').disabled=false}};
+    loadQuestions().catch(e=>$('status').textContent=e.message);
+  </script>
+</body>
+</html>
+
