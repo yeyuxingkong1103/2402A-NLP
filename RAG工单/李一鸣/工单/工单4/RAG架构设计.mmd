@@ -1,0 +1,12 @@
+flowchart LR
+    A[News PDF / Web Documents] --> B[Parser]
+    B --> C[Chunker]
+    C --> D[Embedding Model]
+    D --> E[(Vector Store)]
+    Q[User Query] --> F[Query Understanding]
+    F --> E
+    E --> G[Top-k Evidence]
+    G --> H[Prompt Builder]
+    H --> I[LLM]
+    I --> J[Answer + Citations]
+    J --> K[Ragas Evaluation]

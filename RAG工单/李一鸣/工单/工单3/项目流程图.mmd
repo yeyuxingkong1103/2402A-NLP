@@ -1,0 +1,7 @@
+flowchart LR
+    A[Cron] --> B[RSS Read]
+    B --> C[HTTP Request]
+    C --> D[Scrape]
+    D --> E[AI Agent]
+    E --> F[Aggregate]
+    F --> G[Write data.json]

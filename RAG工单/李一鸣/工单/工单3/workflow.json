@@ -1,0 +1,21 @@
+{
+  "name": "company-news-collection",
+  "active": false,
+  "nodes": [
+    {"name": "Cron", "type": "n8n-nodes-base.cron", "parameters": {"rule": {"interval": [{"field": "hours", "hoursInterval": 6}]}}},
+    {"name": "RSS Read", "type": "n8n-nodes-base.rssFeedRead", "parameters": {"url": "https://example.com/feed.xml"}},
+    {"name": "HTTP Request", "type": "n8n-nodes-base.httpRequest", "parameters": {"url": "={{$json.link}}", "options": {}}},
+    {"name": "Filter", "type": "n8n-nodes-base.if", "parameters": {"conditions": {"string": [{"value1": "={{$json.title}}", "operation": "isNotEmpty"}]}}},
+    {"name": "AI Agent", "type": "@n8n/n8n-nodes-langchain.agent", "parameters": {"promptType": "define", "text": "Extract title, company, date, source and summary as JSON."}},
+    {"name": "Aggregate", "type": "n8n-nodes-base.itemLists", "parameters": {"operation": "aggregateItems", "fieldsToAggregate": [{"fieldToAggregate": "json"}]}},
+    {"name": "Write data.json", "type": "n8n-nodes-base.writeBinaryFile", "parameters": {"fileName": "D:/假期工单/工单3/data.json"}}
+  ],
+  "connections": {
+    "Cron": {"main": [[{"node": "RSS Read", "type": "main", "index": 0}]]},
+    "RSS Read": {"main": [[{"node": "HTTP Request", "type": "main", "index": 0}]]},
+    "HTTP Request": {"main": [[{"node": "Filter", "type": "main", "index": 0}]]},
+    "Filter": {"main": [[{"node": "AI Agent", "type": "main", "index": 0}]]},
+    "AI Agent": {"main": [[{"node": "Aggregate", "type": "main", "index": 0}]]},
+    "Aggregate": {"main": [[{"node": "Write data.json", "type": "main", "index": 0}]]}
+  }
+}

@@ -1,0 +1,10 @@
+flowchart LR
+    A[RSS Read / Cron / Webhook] --> B[HTTP Request]
+    B --> C[Scrape / FireCrawl]
+    C --> D[Filter]
+    D --> E[AI Agent: entity extraction]
+    E --> F[Code: normalize fields]
+    F --> G[Aggregate / Item Lists]
+    G --> H[data.json]
+    G --> I[MySQL or PostgreSQL]
+    G --> J[Email notification]

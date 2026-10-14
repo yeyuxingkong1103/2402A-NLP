@@ -1,0 +1,11 @@
+flowchart TB
+    REG[Agent Registry] --> COORD[Coordinator]
+    BUS[Message Bus] <--> COORD
+    COORD --> PRODUCT[Product Agent]
+    COORD --> ORDER[Order Agent]
+    COORD --> AFTER[After-sales Agent]
+    PRODUCT --> TOOLS[Tool Layer]
+    ORDER --> TOOLS
+    AFTER --> TOOLS
+    TOOLS --> DATA[(Business Data)]
+    COORD --> AUDIT[Audit and Metrics]

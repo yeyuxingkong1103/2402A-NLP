@@ -1,0 +1,10 @@
+flowchart TB
+    UI[Editor UI] --> WF[Workflow JSON]
+    WF --> ENGINE[Execution Engine]
+    ENGINE --> TRIGGER[Trigger Nodes]
+    ENGINE --> ACTION[Action Nodes]
+    ENGINE --> LOGIC[Logic Nodes]
+    TRIGGER --> ACTION
+    ACTION --> LOGIC
+    LOGIC --> STORE[Data / Database / File]
+    ENGINE --> LOG[Execution Logs]

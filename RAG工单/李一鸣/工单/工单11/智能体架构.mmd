@@ -1,0 +1,12 @@
+flowchart LR
+    U[User] --> C[Coordinator Agent]
+    C --> M[Marketing Agent]
+    C --> O[Order Agent]
+    C --> A[After-sales Agent]
+    M --> DB[(Product Data)]
+    O --> DB2[(Order Data)]
+    A --> DB2
+    M --> C
+    O --> C
+    A --> C
+    C --> U

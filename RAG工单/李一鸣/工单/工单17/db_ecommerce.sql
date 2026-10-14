@@ -1,0 +1,15 @@
+CREATE TABLE products (
+  sku VARCHAR(32) PRIMARY KEY,
+  name VARCHAR(200) NOT NULL,
+  price DECIMAL(12, 2) NOT NULL,
+  stock INT NOT NULL,
+  category VARCHAR(80) NOT NULL
+);
+
+CREATE TABLE orders (
+  order_id VARCHAR(64) PRIMARY KEY,
+  phone VARCHAR(32) NOT NULL,
+  sku VARCHAR(32) NOT NULL,
+  status VARCHAR(40) NOT NULL,
+  FOREIGN KEY (sku) REFERENCES products(sku)
+);
