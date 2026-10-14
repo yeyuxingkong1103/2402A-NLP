@@ -1,0 +1,285 @@
+{
+  "workorder": "人工智能NLP-RAG-基于GraphRAG实现金融问答",
+  "checked_locations": [
+    {
+      "label": "HuggingFace 缓存 ~/.cache/huggingface/hub/",
+      "path": "C:\\Users\\35071\\.cache\\huggingface\\hub",
+      "exists": true,
+      "n_entries": 5
+    },
+    {
+      "label": "torch 缓存 ~/.cache/torch/",
+      "path": "C:\\Users\\35071\\.cache\\torch",
+      "exists": false,
+      "n_entries": 0
+    },
+    {
+      "label": "ModelScope 缓存 ~/.cache/modelscope/hub/",
+      "path": "C:\\Users\\35071\\.cache\\modelscope\\hub",
+      "exists": false,
+      "n_entries": 0
+    },
+    {
+      "label": "ModelScope 模型 ~/.cache/modelscope/models/",
+      "path": "C:\\Users\\35071\\.cache\\modelscope\\models",
+      "exists": true,
+      "n_entries": 2
+    },
+    {
+      "label": "HF_HOME 环境变量",
+      "path": "",
+      "exists": false,
+      "n_entries": 0
+    },
+    {
+      "label": "TRANSFORMERS_CACHE 环境变量",
+      "path": "",
+      "exists": false,
+      "n_entries": 0
+    },
+    {
+      "label": "MODELSCOPE_CACHE 环境变量",
+      "path": "",
+      "exists": false,
+      "n_entries": 0
+    },
+    {
+      "label": "工程 models/",
+      "path": "D:\\xinzg6\\zy-gq\\工单8\\models",
+      "exists": false,
+      "n_entries": 0
+    },
+    {
+      "label": "工程 checkpoints/",
+      "path": "D:\\xinzg6\\zy-gq\\工单8\\checkpoints",
+      "exists": false,
+      "n_entries": 0
+    },
+    {
+      "label": "工程 pretrained/",
+      "path": "D:\\xinzg6\\zy-gq\\工单8\\pretrained",
+      "exists": false,
+      "n_entries": 0
+    },
+    {
+      "label": "工程 weights/",
+      "path": "D:\\xinzg6\\zy-gq\\工单8\\weights",
+      "exists": false,
+      "n_entries": 0
+    },
+    {
+      "label": "工程 data/models/",
+      "path": "D:\\xinzg6\\zy-gq\\工单8\\data\\models",
+      "exists": true,
+      "n_entries": 1
+    },
+    {
+      "label": "上游 07 data/models/",
+      "path": "D:\\xinzg6\\zy-gq\\工单7\\data\\models",
+      "exists": true,
+      "n_entries": 1
+    },
+    {
+      "label": "上游 04 data/models/",
+      "path": "D:\\xinzg6\\zy-gq\\工单4\\data\\models",
+      "exists": true,
+      "n_entries": 2
+    },
+    {
+      "label": "自定义权重库 D:\\model",
+      "path": "D:\\model",
+      "exists": true,
+      "n_entries": 9
+    }
+  ],
+  "models": [
+    {
+      "role": "unknown",
+      "name": ".locks",
+      "path": "C:\\Users\\35071\\.cache\\huggingface\\hub\\.locks",
+      "size_bytes": 0,
+      "usable": false,
+      "marker": "",
+      "origin": "HuggingFace 缓存 ~/.cache/huggingface/hub/"
+    },
+    {
+      "role": "multimodal",
+      "name": "models--opendatalab--PDF-Extract-Kit",
+      "path": "C:\\Users\\35071\\.cache\\huggingface\\hub\\models--opendatalab--PDF-Extract-Kit",
+      "size_bytes": 40,
+      "usable": false,
+      "marker": "",
+      "origin": "HuggingFace 缓存 ~/.cache/huggingface/hub/"
+    },
+    {
+      "role": "embedding",
+      "name": "models--sentence-transformers--all-MiniLM-L6-v2",
+      "path": "C:\\Users\\35071\\.cache\\huggingface\\hub\\models--sentence-transformers--all-MiniLM-L6-v2",
+      "size_bytes": 91578455,
+      "usable": false,
+      "marker": "",
+      "origin": "HuggingFace 缓存 ~/.cache/huggingface/hub/"
+    },
+    {
+      "role": "embedding",
+      "name": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+      "path": "C:\\Users\\35071\\.cache\\huggingface\\hub\\models--sentence-transformers--all-MiniLM-L6-v2\\snapshots\\1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+      "size_bytes": 91578415,
+      "usable": true,
+      "marker": "config.json",
+      "origin": "HuggingFace 缓存 ~/.cache/huggingface/hub//snapshots"
+    },
+    {
+      "role": "multimodal",
+      "name": "OpenDataLab--MinerU2.5-Pro-2605-1.2B",
+      "path": "C:\\Users\\35071\\.cache\\modelscope\\models\\OpenDataLab--MinerU2.5-Pro-2605-1.2B",
+      "size_bytes": 2328029182,
+      "usable": false,
+      "marker": "",
+      "origin": "ModelScope 模型 ~/.cache/modelscope/models/"
+    },
+    {
+      "role": "multimodal",
+      "name": "OpenDataLab--PDF-Extract-Kit-1.0",
+      "path": "C:\\Users\\35071\\.cache\\modelscope\\models\\OpenDataLab--PDF-Extract-Kit-1.0",
+      "size_bytes": 1702030007,
+      "usable": false,
+      "marker": "",
+      "origin": "ModelScope 模型 ~/.cache/modelscope/models/"
+    },
+    {
+      "role": "reranker",
+      "name": "bge-reranker-base",
+      "path": "D:\\xinzg6\\zy-gq\\工单8\\data\\models\\bge-reranker-base",
+      "size_bytes": 1134419740,
+      "usable": true,
+      "marker": "config.json",
+      "origin": "工程 data/models/"
+    },
+    {
+      "role": "reranker",
+      "name": "bge-reranker-base",
+      "path": "D:\\xinzg6\\zy-gq\\工单7\\data\\models\\bge-reranker-base",
+      "size_bytes": 1134419740,
+      "usable": true,
+      "marker": "config.json",
+      "origin": "上游 07 data/models/"
+    },
+    {
+      "role": "reranker",
+      "name": "bge-reranker-base",
+      "path": "D:\\xinzg6\\zy-gq\\工单4\\data\\models\\bge-reranker-base",
+      "size_bytes": 1134419740,
+      "usable": true,
+      "marker": "config.json",
+      "origin": "上游 04 data/models/"
+    },
+    {
+      "role": "multimodal",
+      "name": "clip-vit-base-patch32",
+      "path": "D:\\xinzg6\\zy-gq\\工单4\\data\\models\\clip-vit-base-patch32",
+      "size_bytes": 608863580,
+      "usable": true,
+      "marker": "config.json",
+      "origin": "上游 04 data/models/"
+    },
+    {
+      "role": "multimodal",
+      "name": "Paddle-OCR",
+      "path": "D:\\model\\Paddle-OCR",
+      "size_bytes": 10923599138,
+      "usable": false,
+      "marker": "",
+      "origin": "自定义权重库 D:\\model"
+    },
+    {
+      "role": "embedding",
+      "name": "bge-m3",
+      "path": "D:\\model\\bge-m3",
+      "size_bytes": 3524220670,
+      "usable": true,
+      "marker": "config.json",
+      "origin": "自定义权重库 D:\\model"
+    },
+    {
+      "role": "embedding",
+      "name": "bge-m3-ft-v1",
+      "path": "D:\\model\\bge-m3-ft-v1",
+      "size_bytes": 2288151028,
+      "usable": true,
+      "marker": "config.json",
+      "origin": "自定义权重库 D:\\model"
+    },
+    {
+      "role": "embedding",
+      "name": "bge-m3-ft-v1-r32",
+      "path": "D:\\model\\bge-m3-ft-v1-r32",
+      "size_bytes": 4564380634,
+      "usable": true,
+      "marker": "config.json",
+      "origin": "自定义权重库 D:\\model"
+    },
+    {
+      "role": "unknown",
+      "name": "finalshell",
+      "path": "D:\\model\\finalshell",
+      "size_bytes": 199130233,
+      "usable": true,
+      "marker": "config.json",
+      "origin": "自定义权重库 D:\\model"
+    },
+    {
+      "role": "multimodal",
+      "name": "mineru-venv",
+      "path": "D:\\model\\mineru-venv",
+      "size_bytes": 188711990,
+      "usable": false,
+      "marker": "",
+      "origin": "自定义权重库 D:\\model"
+    },
+    {
+      "role": "reranker",
+      "name": "reranker",
+      "path": "D:\\model\\reranker",
+      "size_bytes": 2293567816,
+      "usable": true,
+      "marker": "config.json",
+      "origin": "自定义权重库 D:\\model"
+    },
+    {
+      "role": "reranker",
+      "name": "reranker_ms",
+      "path": "D:\\model\\reranker_ms",
+      "size_bytes": 2293567620,
+      "usable": true,
+      "marker": "config.json",
+      "origin": "自定义权重库 D:\\model"
+    }
+  ],
+  "ollama": {
+    "ok": true,
+    "host": "http://127.0.0.1:11434",
+    "models": [
+      {
+        "name": "bge-m3:latest",
+        "size_bytes": 1157672605
+      },
+      {
+        "name": "nomic-embed-text:latest",
+        "size_bytes": 274302450
+      },
+      {
+        "name": "qwen2.5:3b",
+        "size_bytes": 1929912432
+      },
+      {
+        "name": "dengcao/bge-large-zh-v1.5:latest",
+        "size_bytes": 651022072
+      },
+      {
+        "name": "qwen2.5:0.5b",
+        "size_bytes": 397821319
+      }
+    ]
+  }
+}
