@@ -1,0 +1,36 @@
+# 工单编号：人工智能NLP-RAG-Graph RAG优化任务
+# 本机实测可用的依赖版本（2026-10-15）
+# 注意：模型权重全部来自本机，不通过 pip 或网络下载（见 docs/01-本机模型扫描报告.md）
+
+# 核心检索 / 图
+qdrant-client==1.18.0
+networkx==3.6.1
+FlagEmbedding==1.4.2
+sentence-transformers==5.7.0
+jieba==0.42.1
+
+# 模型与推理
+torch==2.13.0+cu126
+transformers==5.15.0
+accelerate==1.14.0
+
+# 评估
+ragas==0.2.15
+datasets==5.0.1
+langchain-ollama==1.1.0
+langchain-core==1.5.2
+
+# PDF 解析（复用工单 01~04）
+PyMuPDF==1.25.5
+pdfplumber==0.11.10
+opencv-python==5.0.0.93
+pillow==12.3.0
+
+# 界面与服务
+streamlit==1.61.1
+fastapi==0.115.14
+requests
+
+# 工具
+pyyaml
+psutil

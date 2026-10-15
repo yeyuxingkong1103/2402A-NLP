@@ -1,0 +1,29 @@
+# 工单编号：人工智能NLP-RAG-Graph RAG优化任务
+# 上传只含「代码 + 文档」，不含环境与大数据产物。
+
+# 运行环境 / 缓存
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# 数据产物（体积大，且可由脚本重建）
+data/qdrant/          # 向量索引（97MB，可由 build_index 重建）
+data/index/           # 倒排索引（31MB，进程启动时自动重建）
+data/logs/            # 运行日志
+data/*.json           # 模型扫描快照、只读取证快照（本机相关）
+data/corpus/          # 语料 PDF（版权归属原披露方）
+data/chunks/
+data/kg09/kg.pkl
+data/kg09/kg.graphml
+
+# 工单/需求原始文档与临时抽取文件
+*.docx
+人工智能NLP-RAG项目-*.pdf
+sample_questions.pdf
+_docx_extract.txt
+_pdf_extract_*.txt
+
+# 内部过程文档（非交付物）
+docs/superpowers/
