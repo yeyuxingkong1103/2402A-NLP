@@ -1,0 +1,44 @@
+{
+  "judge_model": "qwen2.5:3b",
+  "metrics": "core",
+  "n": 4,
+  "scores": {
+    "context_precision": 0.8641,
+    "context_recall": 1.0
+  },
+  "per_question": [
+    {
+      "id": "SQ1",
+      "question": "平安银行在2019年的董事长致辞中，提到其盈利增长的关键因素有哪些？",
+      "context_precision": 0.8693578643491707,
+      "context_recall": 1.0
+    },
+    {
+      "id": "SQ2",
+      "question": "招商银行在其2019年年报中提到的创新商业模式有哪些？",
+      "context_precision": 0.7499999999625,
+      "context_recall": 1.0
+    },
+    {
+      "id": "SQ3",
+      "question": "平安银行的风险管理体系如何体现其应对宏观经济周期波动的能力？结合年报中的拨备覆盖率动态调整、资产质量控制，以及贷款结构优",
+      "context_precision": 0.8371618280633085,
+      "context_recall": 1.0
+    },
+    {
+      "id": "SQ4",
+      "question": "分析这些银行和保险公司在面对经济周期波动时的共同策略与差异化策略，重点关注其在风险管理、资本结构优化和新兴领域（如绿色金",
+      "context_precision": 0.99999999998,
+      "context_recall": 1.0
+    }
+  ],
+  "nan_counts": {
+    "context_precision": 0,
+    "context_recall": 0
+  },
+  "adapted_prompts": [
+    "ContextPrecision",
+    "ContextRecall"
+  ],
+  "elapsed_s": 45.3
+}

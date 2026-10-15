@@ -1,0 +1,60 @@
+{
+  "n_pass": 9,
+  "n_total": 9,
+  "results": [
+    {
+      "name": "中文问答（答案正确性）",
+      "ok": true,
+      "detail": "答案含 0.86%/389.45%：True；3.85s；引用块 4",
+      "elapsed_s": 3.85
+    },
+    {
+      "name": "多语言：英文问答",
+      "ok": true,
+      "detail": "数字正确=True ASCII 占比=0.92 (>0.6 视为英文作答) lang=en",
+      "elapsed_s": 3.09
+    },
+    {
+      "name": "界面中英文案键一一对应",
+      "ok": true,
+      "detail": "zh 26 项 / en 26 项；英文缺失 无；中文缺失 无",
+      "elapsed_s": 0.01
+    },
+    {
+      "name": "上传 PDF：解析+索引+检索",
+      "ok": true,
+      "detail": "索引 40 块；检索命中 3 条；首条页码 2",
+      "elapsed_s": 1.63
+    },
+    {
+      "name": "上传 PDF：非法文件容错",
+      "ok": true,
+      "detail": "按预期抛出可读错误：不是有效的 PDF 文件（缺少 %PDF 文件头），请上传 PDF 格式的文档。",
+      "elapsed_s": 0.0
+    },
+    {
+      "name": "知识图谱可视化：DOT 生成",
+      "ok": true,
+      "detail": "渲染路径 OK（真实问答子图）：节点 60 / 边 60；DOT 6299 字符，括号配平=True",
+      "elapsed_s": 2.77
+    },
+    {
+      "name": "优化前后对比：两链路均可答",
+      "ok": true,
+      "detail": "08 答案 169 字 / 09 答案 394 字；两者均非空=True",
+      "elapsed_s": 5.73
+    },
+    {
+      "name": "输入容错：空/超长",
+      "ok": true,
+      "detail": "请输入问题后再提交。 / 请输入问题后再提交。 / 问题过长（3000 字），请控制在 2000 字以内。",
+      "elapsed_s": 0.0
+    },
+    {
+      "name": "健康检查",
+      "ok": true,
+      "detail": "graph=True qdrant=True llm=True reuse=True",
+      "elapsed_s": 0.01
+    }
+  ]
+}

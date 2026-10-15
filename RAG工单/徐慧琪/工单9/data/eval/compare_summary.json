@@ -1,0 +1,166 @@
+{
+  "set": "main",
+  "systems": {
+    "wo08": {
+      "n": 4,
+      "n_ok": 4,
+      "time_mean_s": 4.742,
+      "time_max_s": 6.702,
+      "n_over_budget": 4,
+      "ragas": {
+        "context_precision": 0.5009,
+        "context_recall": 1.0
+      },
+      "ragas_nan": {
+        "context_precision": 0,
+        "context_recall": 3
+      },
+      "aux": {
+        "n": 4,
+        "precision@k": 0.625,
+        "recall@k": 0.0,
+        "hit_rate@k": 0.75,
+        "mrr": 0.7679,
+        "ndcg@k": 0.75,
+        "truth_coverage": 0.0
+      },
+      "aux_per_question": [
+        {
+          "id": "SQ1",
+          "k": 8,
+          "n_hits": 63,
+          "n_relevant": 63,
+          "precision@k": 1.0,
+          "recall@k": 0.0,
+          "hit_rate@k": 1.0,
+          "mrr": 1.0,
+          "ndcg@k": 1.0,
+          "truth_coverage": 0.0
+        },
+        {
+          "id": "SQ2",
+          "k": 8,
+          "n_hits": 64,
+          "n_relevant": 64,
+          "precision@k": 1.0,
+          "recall@k": 0.0,
+          "hit_rate@k": 1.0,
+          "mrr": 1.0,
+          "ndcg@k": 1.0,
+          "truth_coverage": 0.0
+        },
+        {
+          "id": "SQ3",
+          "k": 8,
+          "n_hits": 64,
+          "n_relevant": 7,
+          "precision@k": 0.0,
+          "recall@k": 0.0,
+          "hit_rate@k": 0.0,
+          "mrr": 0.0714,
+          "ndcg@k": 0.0,
+          "truth_coverage": 0.0
+        },
+        {
+          "id": "SQ4",
+          "k": 8,
+          "n_hits": 4,
+          "n_relevant": 2,
+          "precision@k": 0.5,
+          "recall@k": 0.0,
+          "hit_rate@k": 1.0,
+          "mrr": 1.0,
+          "ndcg@k": 1.0,
+          "truth_coverage": 0.0
+        }
+      ],
+      "per_question_time": {
+        "SQ1": 3.238,
+        "SQ2": 3.165,
+        "SQ3": 6.702,
+        "SQ4": 5.864
+      }
+    },
+    "wo09": {
+      "n": 4,
+      "n_ok": 4,
+      "time_mean_s": 2.841,
+      "time_max_s": 3.334,
+      "n_over_budget": 1,
+      "ragas": {
+        "context_precision": 0.8641,
+        "context_recall": 1.0
+      },
+      "ragas_nan": {
+        "context_precision": 0,
+        "context_recall": 0
+      },
+      "aux": {
+        "n": 4,
+        "precision@k": 0.6625,
+        "recall@k": 0.0,
+        "hit_rate@k": 1.0,
+        "mrr": 0.8,
+        "ndcg@k": 0.8332,
+        "truth_coverage": 0.0
+      },
+      "aux_per_question": [
+        {
+          "id": "SQ1",
+          "k": 8,
+          "n_hits": 12,
+          "n_relevant": 11,
+          "precision@k": 1.0,
+          "recall@k": 0.0,
+          "hit_rate@k": 1.0,
+          "mrr": 1.0,
+          "ndcg@k": 1.0,
+          "truth_coverage": 0.0
+        },
+        {
+          "id": "SQ2",
+          "k": 8,
+          "n_hits": 5,
+          "n_relevant": 5,
+          "precision@k": 1.0,
+          "recall@k": 0.0,
+          "hit_rate@k": 1.0,
+          "mrr": 1.0,
+          "ndcg@k": 1.0,
+          "truth_coverage": 0.0
+        },
+        {
+          "id": "SQ3",
+          "k": 8,
+          "n_hits": 13,
+          "n_relevant": 3,
+          "precision@k": 0.25,
+          "recall@k": 0.0,
+          "hit_rate@k": 1.0,
+          "mrr": 0.2,
+          "ndcg@k": 0.4556,
+          "truth_coverage": 0.0
+        },
+        {
+          "id": "SQ4",
+          "k": 8,
+          "n_hits": 5,
+          "n_relevant": 2,
+          "precision@k": 0.4,
+          "recall@k": 0.0,
+          "hit_rate@k": 1.0,
+          "mrr": 1.0,
+          "ndcg@k": 0.8772,
+          "truth_coverage": 0.0
+        }
+      ],
+      "per_question_time": {
+        "SQ1": 3.334,
+        "SQ2": 2.444,
+        "SQ3": 2.896,
+        "SQ4": 2.691
+      }
+    }
+  },
+  "n": 4
+}

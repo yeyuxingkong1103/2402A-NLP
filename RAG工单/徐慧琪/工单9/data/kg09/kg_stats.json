@@ -1,0 +1,80 @@
+{
+  "baseline_08": {
+    "n_nodes": 560,
+    "n_edges": 873,
+    "by_type": {
+      "Company": 9,
+      "Industry": 3,
+      "Institution": 19,
+      "Metric": 436,
+      "Time": 24,
+      "Department": 69
+    },
+    "by_relation": {
+      "IN_INDUSTRY": 9,
+      "HAS_METRIC": 440,
+      "REPORTED_IN": 361,
+      "BELONGS_TO": 63
+    },
+    "edges_with_provenance": 873,
+    "n_docs": 9
+  },
+  "merged_09": {
+    "n_nodes": 594,
+    "n_edges": 912,
+    "by_type": {
+      "Company": 20,
+      "Industry": 3,
+      "Institution": 19,
+      "Metric": 436,
+      "Time": 24,
+      "Department": 69,
+      "Person": 23
+    },
+    "by_relation": {
+      "IN_INDUSTRY": 9,
+      "HAS_METRIC": 440,
+      "REPORTED_IN": 361,
+      "INVESTS_IN": 1,
+      "SHAREHOLDER_OF": 2,
+      "BELONGS_TO": 63,
+      "SERVES_AS": 36
+    },
+    "edges_with_provenance": 912,
+    "n_docs": 9
+  },
+  "merge": {
+    "blocks": 349,
+    "ent_in": 2110,
+    "ent_kept": 43,
+    "ent_dropped_isolated": 2067,
+    "rel_in": 127,
+    "rel_kept": 39,
+    "reject": {
+      "闸门4 SHAREHOLDER_OF 证据未表达该关系": 24,
+      "闸门5 SERVES_AS 证据未提及关系对象": 25,
+      "闸门4 SERVES_AS 证据未表达该关系": 10,
+      "自环关系": 7,
+      "闸门4 COMPETES_WITH 证据未表达该关系": 3,
+      "实体被归一规则剔除": 55,
+      "端点实体无法归一": 3,
+      "第1层已确定性覆盖，跳过LLM边": 2,
+      "闸门5 SHAREHOLDER_OF 证据未提及关系对象": 2,
+      "闸门6 SHAREHOLDER_OF 方向与证据相反": 2,
+      "重复边": 10
+    },
+    "by_type_added": {
+      "Person": 23,
+      "Company": 20
+    },
+    "by_rel_added": {
+      "SERVES_AS": 36,
+      "INVESTS_IN": 1,
+      "SHAREHOLDER_OF": 2
+    },
+    "coref_resolved": 15,
+    "alias_merged": 103,
+    "chunk_text_miss": 0
+  },
+  "elapsed_s": 0.11
+}
