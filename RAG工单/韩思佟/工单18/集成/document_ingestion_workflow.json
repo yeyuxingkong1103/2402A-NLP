@@ -1,0 +1,130 @@
+{
+  "_说明": "工单18 · RAGFlow Agent 画布 DSL。字段与 agent/canvas.py:40 Graph 的 schema 一致，可写入 user_canvas.dsl 字段，或在画布界面导入。",
+  "components": {
+    "begin": {
+      "obj": {
+        "component_name": "Begin",
+        "params": {
+          "prologue": "文档入库质检工作流：先对文件夹做质量评估，再按标签路由到不同解析器。"
+        }
+      },
+      "downstream": ["quality_0"],
+      "upstream": []
+    },
+    "quality_0": {
+      "obj": {
+        "component_name": "DocumentQualityAssessment",
+        "params": {
+          "path": "{sys.query}",
+          "limit": 200,
+          "return_labels": true
+        }
+      },
+      "downstream": ["categorize_0"],
+      "upstream": ["begin"]
+    },
+    "categorize_0": {
+      "obj": {
+        "component_name": "Categorize",
+        "params": {
+          "category_description": {
+            "扫描型PDF": "文档无法直接提取文本，页均字符数极低，必须先做 OCR。",
+            "混合型PDF": "部分页是扫描件、部分页有文本，需要 OCR + 文本双通道。",
+            "文字型PDF": "可直接提取文本的 PDF。",
+            "表格类": "Excel/CSV 等结构化表格文件。",
+            "超长文档": "字符数超过阈值，需要父子分块。"
+          },
+          "llm_id": "",
+          "input": "{quality_0@tags}"
+        }
+      },
+      "downstream": ["switch_0"],
+      "upstream": ["quality_0"]
+    },
+    "switch_0": {
+      "obj": {
+        "component_name": "Switch",
+        "params": {
+          "conditions": [
+            {"items": [{"value": "扫描型PDF", "cmp": "equal"}],
+             "to": ["parse_ocr"]},
+            {"items": [{"value": "混合型PDF", "cmp": "equal"}],
+             "to": ["parse_ocr"]},
+            {"items": [{"value": "表格类", "cmp": "equal"}],
+             "to": ["parse_table"]},
+            {"items": [{"value": "超长文档", "cmp": "equal"}],
+             "to": ["parse_parent_child"]}
+          ],
+          "default_to": ["parse_default"],
+          "input": "{categorize_0@answer}"
+        }
+      },
+      "downstream": ["parse_ocr", "parse_table", "parse_parent_child", "parse_default"],
+      "upstream": ["categorize_0"]
+    },
+    "parse_ocr": {
+      "obj": {
+        "component_name": "Message",
+        "params": {
+          "messages": [
+            "【路由结果】扫描型/混合型 PDF → 使用 OCR 解析器（PaddleOCR / DeepDoc-OCR），并在 parser_config 中开启 image_context_size。"
+          ]
+        }
+      },
+      "downstream": ["answer_0"],
+      "upstream": ["switch_0"]
+    },
+    "parse_table": {
+      "obj": {
+        "component_name": "Message",
+        "params": {
+          "messages": ["【路由结果】表格类 → 使用 RAGFlowExcelParser，每行一个 chunk。"]
+        }
+      },
+      "downstream": ["answer_0"],
+      "upstream": ["switch_0"]
+    },
+    "parse_parent_child": {
+      "obj": {
+        "component_name": "Message",
+        "params": {
+          "messages": ["【路由结果】超长文档 → 父子分块（Parent-Child）+ Raptor 增强。"]
+        }
+      },
+      "downstream": ["answer_0"],
+      "upstream": ["switch_0"]
+    },
+    "parse_default": {
+      "obj": {
+        "component_name": "Message",
+        "params": {
+          "messages": ["【路由结果】文字型/通用文档 → 默认 naive 文本解析器。"]
+        }
+      },
+      "downstream": ["answer_0"],
+      "upstream": ["switch_0"]
+    },
+    "answer_0": {
+      "obj": {
+        "component_name": "Message",
+        "params": {
+          "messages": [
+            "质检结论：\n{quality_0@summary}\n\n待确认列表：{quality_0@pending}"
+          ]
+        }
+      },
+      "downstream": [],
+      "upstream": ["parse_ocr", "parse_table", "parse_parent_child", "parse_default"]
+    }
+  },
+  "history": [],
+  "path": ["begin"],
+  "retrieval": {"chunks": [], "doc_aggs": []},
+  "globals": {
+    "sys.query": "",
+    "sys.user_id": "",
+    "sys.conversation_turns": 0,
+    "sys.files": []
+  },
+  "_落地说明": "DocumentQualityAssessment 组件的注册方式：把 集成/document_quality_assessment_tool.py 放到 RAGFlow 仓库的 agent/tools/ 下，agent/tools/__init__.py 会自动扫描导入（与 arxiv.py/google.py 等一致的 ToolParamBase + ToolBase 约定式结构）。"
+}

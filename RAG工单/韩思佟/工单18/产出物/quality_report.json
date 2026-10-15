@@ -1,0 +1,1283 @@
+{
+  "报告类型": "文档质量评估报告",
+  "工单": "人工智能NLP-RAG-实现文档质量评估Skill并集成至智能体工作流",
+  "生成时间": "2026-09-29 07:33:20",
+  "输入目录": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60",
+  "耗时秒": 1.68,
+  "配置": {
+    "input": "D:/网页下载/RAG工单交付/data/imdr/sample60",
+    "output": "",
+    "extensions": [
+      ".pdf",
+      ".docx",
+      ".doc",
+      ".md",
+      ".markdown",
+      ".txt",
+      ".xlsx",
+      ".xls",
+      ".csv",
+      ".pptx",
+      ".ppt"
+    ],
+    "pdf": {
+      "min_chars_per_page": 50,
+      "scan_ratio_threshold": 0.7,
+      "mixed_ratio_threshold": 0.15,
+      "max_pages_per_pdf": 40
+    },
+    "length": {
+      "long_doc_threshold": 50000
+    },
+    "dedup": {
+      "enable_simhash": true,
+      "simhash_threshold": 0.9
+    },
+    "sensitive": {
+      "enable": {
+        "手机号": true,
+        "邮箱": true,
+        "身份证": true,
+        "银行卡": false
+      }
+    },
+    "limits": {
+      "max_files": null,
+      "checkpoint_every": 50
+    }
+  },
+  "总览": {
+    "文件总数": 60,
+    "总大小MB": 40.52,
+    "PDF扫描型": 60,
+    "PDF混合型": 0,
+    "PDF文字型": 0,
+    "MD5精确重复可清理": 0,
+    "版本冲突待确认": 0,
+    "敏感信息待审核": 0,
+    "需要OCR路由": 60
+  },
+  "一_格式分布统计": {
+    "根目录": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60",
+    "文件总数": 60,
+    "总大小MB": 40.52,
+    "按扩展名": {
+      ".pdf": {
+        "数量": 60,
+        "占比": 1.0
+      }
+    },
+    "按类别": {
+      "PDF": {
+        "数量": 60,
+        "占比": 1.0
+      }
+    }
+  },
+  "二_PDF页面类型识别": {
+    "PDF总数": 60,
+    "类型分布": {
+      "scanned": {
+        "数量": 60,
+        "占比": 1.0
+      }
+    },
+    "待确认列表": [
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100342976C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100347506C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100364694C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100391686C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100398667C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100408139C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100408987C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100457304C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100469721C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100475718C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100484837C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100519503C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100531869C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100532294C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100532581C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100542713C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100577326C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100581923C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100582067C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100587559C.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN1006163B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN1007281B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101014519A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101015855A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101024828B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101029671A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101032731A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101042144A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101069989B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101073748A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101096413B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101105190A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101112759B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101134389B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101148689A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101161570A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101172343A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101178500B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101181964A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101200113B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101206065B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101207523A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101216629B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101219352B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101220141B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101224511A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101235824B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101274145B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101275580B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101347682A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101396623A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101398011A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101423600A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101445293B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101456278A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101481974A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101508902A.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101554691B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101555243B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101570253B.pdf",
+        "type": "scanned",
+        "scanned_ratio": 1.0,
+        "avg_chars": 0.0,
+        "reason": "启发式边界（扫描占比靠近阈值或平均字符数偏低）"
+      }
+    ],
+    "扫描型样例": [
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100342976C.pdf",
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100347506C.pdf",
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100364694C.pdf",
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100391686C.pdf",
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100398667C.pdf",
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100408139C.pdf",
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100408987C.pdf",
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100457304C.pdf",
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100469721C.pdf",
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100475718C.pdf",
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100484837C.pdf",
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100519503C.pdf",
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100531869C.pdf",
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100532294C.pdf",
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100532581C.pdf",
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100542713C.pdf",
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100577326C.pdf",
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100581923C.pdf",
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100582067C.pdf",
+      "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100587559C.pdf"
+    ]
+  },
+  "三_文档长度分布": {
+    "统计文件数": 60,
+    "跳过文件数": 0,
+    "跳过原因样例": [],
+    "总字符数": 0,
+    "平均字符数": 0.0,
+    "P25": 0.0,
+    "P50": 0.0,
+    "P75": 0.0,
+    "P90": 0.0,
+    "P99": 0.0,
+    "最小值": 0,
+    "最大值": 0,
+    "长度区间分布": [
+      {
+        "区间": "极短(<200)",
+        "数量": 60,
+        "占比": 1.0
+      },
+      {
+        "区间": "短(200-1k)",
+        "数量": 0,
+        "占比": 0.0
+      },
+      {
+        "区间": "中(1k-5k)",
+        "数量": 0,
+        "占比": 0.0
+      },
+      {
+        "区间": "长(5k-2w)",
+        "数量": 0,
+        "占比": 0.0
+      },
+      {
+        "区间": "很长(2w-10w)",
+        "数量": 0,
+        "占比": 0.0
+      },
+      {
+        "区间": "超长(>10w)",
+        "数量": 0,
+        "占比": 0.0
+      }
+    ]
+  },
+  "四_重复检测": {
+    "参与检测文件数": 60,
+    "MD5精确重复组数": 0,
+    "MD5可清理文件数": 0,
+    "MD5重复组": [],
+    "待确认的版本冲突列表": [],
+    "待确认数量": 0,
+    "SimHash阈值": 0.9
+  },
+  "五_敏感信息检测": {
+    "检测文件数": 60,
+    "启用类型": [
+      "手机号",
+      "邮箱",
+      "身份证"
+    ],
+    "各类型命中数": {
+      "手机号": 0,
+      "邮箱": 0,
+      "身份证": 0,
+      "银行卡": 0
+    },
+    "命中文件数": 0,
+    "待审核敏感信息列表": [],
+    "待审核总数": 0,
+    "银行卡检测": false,
+    "说明": "银行卡检测默认关闭（误报率高）；如需开启请改配置 enable.银行卡=true"
+  },
+  "六_文档分类标签": {
+    "标注文件数": 60,
+    "未标注文件数": 0,
+    "标签分布": {
+      "Scan_PDF": 60,
+      "Empty_Content": 60,
+      "专利": 60
+    },
+    "需要OCR路由的文件数": 60,
+    "标签清单": [
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100342976C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100347506C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100364694C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100391686C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100398667C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100408139C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100408987C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100457304C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100469721C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100475718C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100484837C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100519503C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100531869C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100532294C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100532581C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100542713C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100577326C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100581923C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100582067C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN100587559C.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN1006163B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN1007281B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101014519A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101015855A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101024828B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101029671A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101032731A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101042144A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101069989B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101073748A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101096413B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101105190A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101112759B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101134389B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101148689A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101161570A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101172343A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101178500B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101181964A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101200113B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101206065B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101207523A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101216629B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101219352B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101220141B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101224511A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101235824B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101274145B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101275580B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101347682A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101396623A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101398011A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101423600A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101445293B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101456278A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101481974A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101508902A.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101554691B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101555243B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      },
+      {
+        "file": "D:\\网页下载\\RAG工单交付\\data\\imdr\\sample60\\CN101570253B.pdf",
+        "tags": [
+          "Scan_PDF",
+          "Empty_Content",
+          "专利"
+        ],
+        "domain": "专利",
+        "chars": 0,
+        "route": "OCR解析器（PaddleOCR / DeepDoc-OCR）"
+      }
+    ],
+    "字段说明": {
+      "file": "文件路径",
+      "tags": "标签数组",
+      "domain": "领域标签",
+      "route": "建议的解析路由",
+      "chars": "字符数"
+    }
+  }
+}

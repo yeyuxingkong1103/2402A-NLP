@@ -1,0 +1,83 @@
+# DocumentQualityAssessmentSkill 配置文件
+# 人工智能NLP-RAG-实现文档质量评估 Skill 并集成至智能体工作流工单
+# 所有阈值均配置化，代码中不硬编码
+
+input: ""                 # 待评估文件夹（也可由 --input 传入）
+output: ""                # 报告输出目录（默认 产出物/）
+
+extensions:               # 参与统计的扩展名
+  - .pdf
+  - .docx
+  - .doc
+  - .md
+  - .markdown
+  - .txt
+  - .xlsx
+  - .xls
+  - .csv
+  - .pptx
+  - .ppt
+
+pdf:
+  # 按页判断：每页字符数低于此值 → 记为该页是扫描页
+  min_chars_per_page: 50
+  # 扫描页占比达到此阈值 → 整个文件判为 scanned（扫描型）
+  scan_ratio_threshold: 0.70
+  # 扫描页占比达到此阈值但未到 scan_ratio → 判为 mixed（混合型）
+  mixed_ratio_threshold: 0.15
+  # 每份 PDF 最多抽样多少页（1700 份文档时的性能保护）
+  max_pages_per_pdf: 40
+  # 抽样步长：1=全抽，2=隔页抽
+  sample_step: 1
+
+length:
+  # 超过此字符数 → 打 Long_Doc 标签，建议走父子分块
+  long_doc_threshold: 50000
+  # 长度区间划分（用于区间分布直方图）
+  bins:
+    - {min: 0,     max: 200,     label: "极短(<200)"}
+    - {min: 200,   max: 1000,    label: "短(200-1k)"}
+    - {min: 1000,  max: 5000,    label: "中(1k-5k)"}
+    - {min: 5000,  max: 20000,   label: "长(5k-2w)"}
+    - {min: 20000, max: 100000,  label: "很长(2w-10w)"}
+    - {min: 100000,max: 99999999999, label: "超长(>10w)"}
+
+dedup:
+  # 第一层：MD5 精确重复（无需人工确认）
+  enable_md5: true
+  # 第二层：SimHash 近似重复（需人工确认，输出"待确认的版本冲突列表"）
+  enable_simhash: true
+  simhash_threshold: 0.90      # 相似度 ≥ 此值进入待确认列表
+  simhash_bits: 64
+  min_text_length: 100         # 文本短于此值不做相似度比较（误报高）
+
+sensitive:
+  # 支持：手机号 / 邮箱 / 身份证 / 银行卡
+  # 银行卡默认关闭：专利号、标准编号等长数字误报率太高
+  enable:
+    手机号: true
+    邮箱: true
+    身份证: true
+    银行卡: false
+  # 命中项上下文截取长度（前后各取多少字符，便于人工判断真假）
+  context_pad: 40
+  # 单条报告最多列出多少条待审核项
+  max_review_items: 500
+
+classifier:
+  # 领域识别规则（按命中顺序取第一个）
+  domains:
+    - {tag: "专利",        keys: ["专利", "CN10", "CN20", "申请公布号", "权利要求"]}
+    - {tag: "年报/招股书", keys: ["年报", "年度报告", "招股", "募集说明书"]}
+    - {tag: "标准/规范",   keys: ["GB/T", "GB ", "国标", "技术规范", "规范"]}
+    - {tag: "技术图纸/工艺", keys: ["图纸", "工艺流程", "装配", "淬火", "公差", "工序"]}
+    - {tag: "手册/说明书", keys: ["说明书", "手册", "操作指南", "用户指南"]}
+  default_domain: "通用文档"
+
+limits:
+  max_files: null          # null=不限；设为数字则只处理前 N 个文件
+  checkpoint_every: 1      # 每个模块结束即落盘检查点（支持中断恢复）
+
+report:
+  max_rows_per_table: 60   # HTML/Markdown 报告中每张表最多展示多少行
+  title: "知识库文档质量评估报告"

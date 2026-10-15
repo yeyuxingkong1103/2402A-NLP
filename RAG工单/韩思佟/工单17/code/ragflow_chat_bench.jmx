@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  工单17 —— RAGFlow 问答接口并发压测脚本（JMeter 5.6）
+  用法：
+    jmeter -n -t ragflow_chat_bench.jmx -l result_scenarioA.jtl -e -o report_scenarioA
+  参数（命令行可覆盖）：
+    -JBASE_URL=http://127.0.0.1:9380
+    -JAPI_KEY=<你的 RAGFlow API Key>
+    -JCHAT_ID=<chat 的 id>
+    -JTHREADS=20 -JDURATION=600
+-->
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="RAGFlow 问答接口压测" enabled="true">
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="BASE_URL" elementType="Argument">
+            <stringProp name="Argument.name">BASE_URL</stringProp>
+            <stringProp name="Argument.value">${__P(BASE_URL,http://127.0.0.1:9380)}</stringProp>
+          </elementProp>
+          <elementProp name="API_KEY" elementType="Argument">
+            <stringProp name="Argument.name">API_KEY</stringProp>
+            <stringProp name="Argument.value">${__P(API_KEY,PUT_YOUR_KEY_HERE)}</stringProp>
+          </elementProp>
+          <elementProp name="CHAT_ID" elementType="Argument">
+            <stringProp name="Argument.name">CHAT_ID</stringProp>
+            <stringProp name="Argument.value">${__P(CHAT_ID,PUT_YOUR_CHAT_ID)}</stringProp>
+          </elementProp>
+        </collectionProp>
+      </elementProp>
+    </TestPlan>
+    <hashTree>
+
+      <!-- ==================== 场景A：20 并发高频问答 ==================== -->
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup"
+                   testname="场景A-20并发问答" enabled="true">
+        <stringProp name="ThreadGroup.num_threads">${__P(THREADS,20)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">10</stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">${__P(DURATION,600)}</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController">
+          <boolProp name="LoopController.continue_forever">true</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP头" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Content-Type</stringProp>
+              <stringProp name="Header.value">application/json</stringProp>
+            </elementProp>
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Authorization</stringProp>
+              <stringProp name="Header.value">Bearer ${API_KEY}</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree>
+          <!-- 问答请求 1 -->
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy"
+                            testname="问答-问题1" enabled="true">
+            <stringProp name="HTTPSampler.domain">${__BeanShell(System.getProperty("BASE_URL").replace("http://","").split(":")[0])}</stringProp>
+            <stringProp name="HTTPSampler.path">/api/v1/chats_openai/${CHAT_ID}/chat/completions</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <stringProp name="HTTPSampler.postBodyRaw">true</stringProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{"model":"model","messages":[{"role":"user","content":"根据文本信息，该静电除尘器的发明人是："}],"stream":false}</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="断言200" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+
+          <!-- 问答请求 2 -->
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy"
+                            testname="问答-问题2" enabled="true">
+            <stringProp name="HTTPSampler.path">/api/v1/chats_openai/${CHAT_ID}/chat/completions</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <stringProp name="HTTPSampler.postBodyRaw">true</stringProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{"model":"model","messages":[{"role":"user","content":"根据文本信息，以下哪个描述符合该静电除尘器的特征？"}],"stream":false}</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+
+          <!-- 记录响应时间 -->
+          <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector"
+                           testname="聚合报告" enabled="true">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time><latency>true</latency><timestamp>true</timestamp>
+                <success>true</success><label>true</label><code>true</code>
+                <message>true</message><threadName>true</threadName>
+                <dataType>false</dataType><encoding>false</encoding>
+                <assertions>true</assertions><subresults>false</subresults>
+                <responseData>false</responseData><samplerData>false</samplerData>
+                <xml>false</xml><fieldNames>true</fieldNames>
+              </value>
+            </objProp>
+            <stringProp name="filename">result_scenarioA.jtl</stringProp>
+          </ResultCollector>
+          <hashTree/>
+        </hashTree>
+      </HashTree>
+
+      <!-- ==================== 场景B：10 并发混合负载 ==================== -->
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup"
+                   testname="场景B-10并发混合(5问答+5上传解析)" enabled="false">
+        <stringProp name="ThreadGroup.num_threads">10</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">10</stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">600</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController">
+          <boolProp name="LoopController.continue_forever">true</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP头" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Authorization</stringProp>
+              <stringProp name="Header.value">Bearer ${API_KEY}</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree>
+          <IfController guiclass="IfControllerPanel" testclass="IfController"
+                        testname="前5个线程=问答" enabled="true">
+            <stringProp name="IfController.condition">${__threadNum} &lt;= 5</stringProp>
+          </IfController>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy"
+                              testname="B-问答" enabled="true">
+              <stringProp name="HTTPSampler.path">/api/v1/chats_openai/${CHAT_ID}/chat/completions</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <stringProp name="HTTPSampler.postBodyRaw">true</stringProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <stringProp name="Argument.value">{"model":"model","messages":[{"role":"user","content":"该静电除尘器的发明人是谁？"}],"stream":false}</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+            </HTTPSamplerProxy>
+            <hashTree/>
+          </hashTree>
+
+          <IfController guiclass="IfControllerPanel" testclass="IfController"
+                        testname="后5个线程=上传解析" enabled="true">
+            <stringProp name="IfController.condition">${__threadNum} &gt; 5</stringProp>
+          </IfController>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy"
+                              testname="B-上传文档" enabled="true">
+              <stringProp name="HTTPSampler.path">/api/v1/datasets/${__P(DATASET_ID,PUT_DATASET_ID)}/documents</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">true</boolProp>
+              <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
+                <collectionProp name="HTTPFileArgs.files">
+                  <elementProp name="" elementType="HTTPFileArg">
+                    <stringProp name="File.path">${__P(UPLOAD_PDF,D:/ragflow/doc.pdf)}</stringProp>
+                    <stringProp name="File.paramname">file</stringProp>
+                    <stringProp name="File.mimetype">application/pdf</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+            </HTTPSamplerProxy>
+            <hashTree/>
+          </hashTree>
+
+          <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector"
+                           testname="聚合报告B" enabled="true">
+            <objProp><name>saveConfig</name><value class="SampleSaveConfiguration">
+              <time>true</time><latency>true</latency><timestamp>true</timestamp>
+              <success>true</success><label>true</label><code>true</code>
+            </value></objProp>
+            <stringProp name="filename">result_scenarioB.jtl</stringProp>
+          </ResultCollector>
+          <hashTree/>
+        </hashTree>
+      </HashTree>
+
+      <!-- GUI 用：结果树（默认关闭，避免压测时吃内存） -->
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector"
+                       testname="查看结果树" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
