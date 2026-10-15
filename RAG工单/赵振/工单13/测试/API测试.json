@@ -1,0 +1,32 @@
+[
+  {
+    "endpoint": "/health",
+    "status": 200,
+    "passed": true
+  },
+  {
+    "endpoint": "/stats",
+    "status": 200,
+    "passed": true
+  },
+  {
+    "endpoint": "/report",
+    "status": 200,
+    "passed": true
+  },
+  {
+    "endpoint": "/",
+    "status": 200,
+    "passed": true
+  },
+  {
+    "invalid_length": 1,
+    "status": 400,
+    "passed": true
+  },
+  {
+    "invalid_length": 501,
+    "status": 400,
+    "passed": true
+  }
+]

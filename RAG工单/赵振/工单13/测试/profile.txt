@@ -1,0 +1,43 @@
+         28864 function calls (28139 primitive calls) in 0.044 seconds
+
+   Ordered by: cumulative time
+   List reduced from 652 to 35 due to restriction <35>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+      231    0.001    0.000    0.044    0.000 D:\an\Lib\asyncio\base_events.py:1909(_run_once)
+      442    0.000    0.000    0.042    0.000 D:\an\Lib\asyncio\events.py:86(_run)
+      442    0.000    0.000    0.042    0.000 {method 'run' of '_contextvars.Context' objects}
+        1    0.000    0.000    0.027    0.027 C:\Users\ZhuanZ\Desktop\工单\tmp\venv1112\Lib\site-packages\lightrag\utils.py:726(worker)
+        3    0.000    0.000    0.027    0.009 D:\an\Lib\asyncio\tasks.py:472(wait_for)
+        1    0.000    0.000    0.026    0.026 C:\Users\ZhuanZ\Desktop\工单\赵振\工单13\研发\perf.py:60(baseline)
+        1    0.000    0.000    0.026    0.026 D:\an\Lib\site-packages\sentence_transformers\SentenceTransformer.py:220(encode)
+        1    0.000    0.000    0.022    0.022 D:\an\Lib\site-packages\torch\nn\modules\container.py:248(forward)
+     81/2    0.000    0.000    0.022    0.011 D:\an\Lib\site-packages\torch\nn\modules\module.py:1774(_wrapped_call_impl)
+     81/2    0.000    0.000    0.022    0.011 D:\an\Lib\site-packages\torch\nn\modules\module.py:1782(_call_impl)
+        1    0.000    0.000    0.022    0.022 D:\an\Lib\site-packages\sentence_transformers\models\Transformer.py:92(forward)
+        1    0.000    0.000    0.022    0.022 D:\an\Lib\site-packages\transformers\models\bert\modeling_bert.py:878(forward)
+        1    0.000    0.000    0.018    0.018 D:\an\Lib\site-packages\transformers\models\bert\modeling_bert.py:608(forward)
+        4    0.000    0.000    0.018    0.005 D:\an\Lib\site-packages\transformers\modeling_layers.py:60(__call__)
+     12/4    0.000    0.000    0.018    0.005 D:\an\Lib\site-packages\transformers\utils\deprecation.py:120(wrapped_func)
+        4    0.000    0.000    0.018    0.005 D:\an\Lib\site-packages\transformers\models\bert\modeling_bert.py:546(forward)
+       25    0.000    0.000    0.015    0.001 D:\an\Lib\site-packages\torch\nn\modules\linear.py:130(forward)
+       25    0.015    0.001    0.015    0.001 {built-in method torch._C._nn.linear}
+       43    0.000    0.000    0.012    0.000 C:\Users\ZhuanZ\Desktop\工单\赵振\工单13\研发\perf.py:93(run)
+        4    0.000    0.000    0.012    0.003 D:\an\Lib\site-packages\transformers\pytorch_utils.py:182(apply_chunking_to_forward)
+       42    0.000    0.000    0.011    0.000 D:\an\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py:420(run_asgi)
+       42    0.000    0.000    0.011    0.000 D:\an\Lib\site-packages\uvicorn\middleware\proxy_headers.py:28(__call__)
+       42    0.000    0.000    0.011    0.000 C:\Users\ZhuanZ\Desktop\工单\tmp\venv1112\Lib\site-packages\fastapi\applications.py:1051(__call__)
+       42    0.000    0.000    0.011    0.000 C:\Users\ZhuanZ\Desktop\工单\tmp\venv1112\Lib\site-packages\starlette\applications.py:108(__call__)
+       42    0.000    0.000    0.011    0.000 C:\Users\ZhuanZ\Desktop\工单\tmp\venv1112\Lib\site-packages\starlette\middleware\errors.py:150(__call__)
+       42    0.000    0.000    0.011    0.000 C:\Users\ZhuanZ\Desktop\工单\tmp\venv1112\Lib\site-packages\starlette\middleware\exceptions.py:46(__call__)
+    84/42    0.000    0.000    0.011    0.000 C:\Users\ZhuanZ\Desktop\工单\tmp\venv1112\Lib\site-packages\starlette\_exception_handler.py:31(wrapped_app)
+       42    0.000    0.000    0.011    0.000 C:\Users\ZhuanZ\Desktop\工单\tmp\venv1112\Lib\site-packages\starlette\routing.py:710(__call__)
+       42    0.000    0.000    0.011    0.000 C:\Users\ZhuanZ\Desktop\工单\tmp\venv1112\Lib\site-packages\starlette\routing.py:716(app)
+       42    0.000    0.000    0.011    0.000 C:\Users\ZhuanZ\Desktop\工单\tmp\venv1112\Lib\site-packages\starlette\routing.py:279(handle)
+       42    0.000    0.000    0.011    0.000 C:\Users\ZhuanZ\Desktop\工单\tmp\venv1112\Lib\site-packages\starlette\routing.py:69(app)
+        4    0.000    0.000    0.011    0.003 D:\an\Lib\site-packages\transformers\models\bert\modeling_bert.py:595(feed_forward_chunk)
+       42    0.000    0.000    0.011    0.000 C:\Users\ZhuanZ\Desktop\工单\tmp\venv1112\Lib\site-packages\starlette\routing.py:72(app)
+       42    0.000    0.000    0.011    0.000 C:\Users\ZhuanZ\Desktop\工单\tmp\venv1112\Lib\site-packages\fastapi\routing.py:240(app)
+       42    0.000    0.000    0.011    0.000 C:\Users\ZhuanZ\Desktop\工单\tmp\venv1112\Lib\site-packages\fastapi\routing.py:204(run_endpoint_function)
+
+
