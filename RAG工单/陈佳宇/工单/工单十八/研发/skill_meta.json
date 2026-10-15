@@ -1,0 +1,9 @@
+{
+    "skill_name":"DocumentQualityAssessmentSkill",
+    "skill_version":"v1.1",
+    "skill_description":"知识库文档入库前质量评估Skill；执行格式统计、PDF扫描识别、长度分布、重复检测、敏感信息检测，输出文档分类标签与质检报告",
+    "input":{"doc_dir":"字符串，待质检文档文件夹路径"},
+    "output":{"quality_report":"结构化json质检报告"},
+    "author":"RAG‑Project",
+    "tags":["document‑ingest","quality‑check","agent‑skill"]
+}
