@@ -1,0 +1,17 @@
+{
+  "imdr_vlm_sft": {
+    "file_name": "vlm_sft_sharegpt.jsonl",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "messages",
+      "images": "images"
+    },
+    "tags": {
+      "role_tag": "role",
+      "content_tag": "content",
+      "user_tag": "user",
+      "assistant_tag": "assistant"
+    }
+  },
+  "_说明": "把本对象合并进 LLaMA-Factory 的 data/dataset_info.json；file_name 指向 vlm_sft_sharegpt.jsonl（可写绝对路径）。images 列里放的是图片绝对路径。"
+}

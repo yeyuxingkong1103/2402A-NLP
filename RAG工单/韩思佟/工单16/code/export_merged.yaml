@@ -1,0 +1,12 @@
+### 工单16 —— 合并 LoRA 并导出
+### 用法：llamafactory-cli export 工单16/code/export_merged.yaml
+
+model_name_or_path: Qwen/Qwen2-VL-2B-Instruct        # 与训练时的基座一致
+adapter_name_or_path: saves/qwen2vl-2b/lora/imdr-qlora   # 训练输出目录
+template: qwen2_vl
+trust_remote_code: true
+finetuning_type: lora
+export_dir: saves/qwen2vl-2b/lora/imdr-merged
+export_size: 4
+export_device: cpu
+export_legacy_format: false

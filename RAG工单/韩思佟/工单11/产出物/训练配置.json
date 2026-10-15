@@ -1,0 +1,12 @@
+{
+  "epochs": 3,
+  "batch_size": 8,
+  "steps_per_epoch": 40,
+  "total_steps": 120,
+  "warmup_steps": 12,
+  "learning_rate": 0.0001,
+  "loss": "MultipleNegativesRankingLoss（对比损失族）",
+  "base_model": "bge-small-zh-v1.5",
+  "train_pairs": 320,
+  "构造方式": "弱监督合成"
+}

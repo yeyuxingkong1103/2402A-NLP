@@ -1,0 +1,25 @@
+# 工单10 —— 金融问答系统运行时依赖
+# CPU 版 torch，避免镜像体积过大（GPU 环境把 torch 换成带 CUDA 的版本即可）
+
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# 深度学习与向量化
+torch>=2.0
+transformers>=4.35
+sentence-transformers>=2.2
+
+# 数值与检索
+numpy>=1.24
+rank-bm25>=0.2.2
+jieba>=0.42
+networkx>=3.0
+
+# PDF 解析
+pymupdf>=1.23
+pypdf>=4.0
+pdfplumber>=0.11
+
+# 配置与工具
+pyyaml>=6.0
+requests>=2.31
+tqdm>=4.65

@@ -1,0 +1,83 @@
+# 工单10 —— 金融问答系统部署
+# 人工智能NLP-RAG-金融问答系统部署
+#
+# 启动： docker compose up -d
+# 停止： docker compose down
+# 日志： docker compose logs -f rag-api
+
+services:
+  rag-api:
+    build: .
+    image: rag-fin-qa:1.0
+    container_name: rag-fin-qa
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      # LLM（DeepSeek）
+      LLM_BASE_URL: https://api.deepseek.com/v1
+      LLM_MODEL: deepseek-chat
+      LLM_API_KEY: ${LLM_API_KEY}
+      # 检索参数
+      RAG_CHUNK_SIZE: 500
+      RAG_TOP_K_RECALL: 20
+      RAG_TOP_K_FINAL: 5
+      RAG_RERANK_ENABLED: "true"
+      RAG_EMBEDDING_DEVICE: cpu
+      # 知识库
+      KB_NAME: ccf
+    volumes:
+      # 1) 关键数据持久化：模型缓存 / 知识库 / 输出 / 日志
+      - rag-models:/app/.cache
+      - rag-outputs:/app/outputs
+      - rag-logs:/app/logs
+      - rag-kb:/app/cache
+      # 2) 只读挂载外部文档（如需换成自己的数据，改这里）
+      - ${HOST_DATA_DIR:-./data}:/app/data:ro
+    # 3) 容器网络：固定网段，便于与向量库/Redis 等一起编排
+    networks:
+      - rag-net
+    # 4) 资源限制（工单17 也要求模拟生产约束）
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 4g
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/healthz"]
+      interval: 30s
+      timeout: 5s
+      start_period: 60s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "5"
+
+  # 可选：与外部向量库互通时打开（工单验收第3条要求"能与其他服务正常通信"）
+  redis:
+    image: redis:7-alpine
+    container_name: rag-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - rag-redis:/data
+    networks:
+      - rag-net
+    ports:
+      - "6379:6379"
+
+volumes:
+  rag-models:
+  rag-outputs:
+  rag-logs:
+  rag-kb:
+  rag-redis:
+
+networks:
+  rag-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16

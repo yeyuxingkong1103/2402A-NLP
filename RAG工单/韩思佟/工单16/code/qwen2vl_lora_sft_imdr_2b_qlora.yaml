@@ -1,0 +1,51 @@
+### 工单16 —— 低显存档（RTX 3060 Laptop 6GB）Qwen2-VL-2B + 4bit QLoRA
+### 用法：llamafactory-cli train 工单16/code/qwen2vl_lora_sft_imdr_2b_qlora.yaml
+
+model_name_or_path: Qwen/Qwen2-VL-2B-Instruct
+trust_remote_code: true
+
+stage: sft
+do_train: true
+finetuning_type: lora
+quantization_bit: 4            # QLoRA：权重 4bit，显存约降到 1/4
+quantization_method: bnb
+lora_rank: 8
+lora_alpha: 16
+lora_dropout: 0.05
+lora_target: all
+
+dataset: imdr_vlm_sft
+dataset_dir: data
+template: qwen2_vl
+cutoff_len: 1536
+max_samples: 1000
+overwrite_cache: true
+preprocessing_num_workers: 2
+
+# ---- 图像预处理（显存紧张时同时下调像素上限）----
+image_max_pixels: 301056       # ≈ 548*548
+image_min_pixels: 200704
+image_resize: nearest
+
+# ---- 训练参数 ----
+output_dir: saves/qwen2vl-2b/lora/imdr-qlora
+logging_steps: 5
+save_steps: 100
+plot_loss: true
+overwrite_output_dir: true
+report_to: none
+
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+learning_rate: 1.0e-4
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+gradient_checkpointing: true
+flash_attn: disabled
+
+val_size: 0.1
+per_device_eval_batch_size: 1
+eval_strategy: steps
+eval_steps: 100
