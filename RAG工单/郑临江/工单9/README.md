@@ -1,0 +1,39 @@
+# 工单9：GraphRAG优化
+
+按设计、研发、测试、优化、部署五部分保存。
+
+策略hybrid：Hit@5=100.0%，MRR@5=0.875，事实关键词覆盖代理=100.0%。
+策略graph：Hit@5=100.0%，MRR@5=0.783，事实关键词覆盖代理=100.0%。
+策略graph_optimized：Hit@5=100.0%，MRR@5=0.783，事实关键词覆盖代理=100.0%。
+真实生成10题，完整稳态耗时843.18-2172.07ms；当前样本3秒目标通过。不包含模型冷启动。
+
+一键启动：双击一键启动.cmd，打开http://127.0.0.1:8773 。
+
+所有源PDF、嵌入模型、索引、图谱、图像、测试集与日志均位于本工单目录。本项目运行时不访问其他工单文件。LLM调用本机已有Ollama服务，其环境与模型名称单独记录；主目录无公共数据。
+
+各项是否满足验收阈值以测试/实测结果与专项记录为准。未通过不冒称通过。
+
+专项结果 RAGAS指标汇总.json
+{
+  "graph_optimized": {
+    "context_precision": 0.80833333327875,
+    "context_precision_valid_samples": 10,
+    "context_recall": 0.925,
+    "context_recall_valid_samples": 10
+  },
+  "hybrid": {
+    "context_precision": 0.8005555555060371,
+    "context_precision_valid_samples": 10,
+    "context_recall": 1.0,
+    "context_recall_valid_samples": 10
+  },
+  "graph": {
+    "context_precision": 0.7616666666217777,
+    "context_precision_valid_samples": 10,
+    "context_recall": 1.0,
+    "context_recall_valid_samples": 10
+  }
+}
+
+## 验收范围说明
+功能、材料和短时回归已交付；仍有部分指定问题完整耗时超过3秒。检索命中和关键词指标不是90%问答准确率或95%全事实召回率的证明。生产高并发、24小时稳定性及真人语音未全部验证；全部原始结果见本项目测试目录。

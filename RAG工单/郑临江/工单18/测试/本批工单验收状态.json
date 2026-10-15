@@ -1,0 +1,38 @@
+{
+  "14": {
+    "data_and_code": "saved",
+    "qa_core_fact_human_assisted": "6/6",
+    "formal_ragflow_deployed": false,
+    "all_latency_under_3s": false
+  },
+  "15": {
+    "data_and_code": "saved",
+    "qa_core_fact_human_assisted": "6/6",
+    "visual_top1_page_11": "4/4",
+    "formal_ragflow_deployed": false
+  },
+  "16": {
+    "trained_epochs": 2,
+    "heldout_mcq_accuracy_before": 0.25,
+    "heldout_mcq_accuracy_after": 0.375,
+    "terminology_mcq_before": 0.25,
+    "terminology_mcq_after": 0.5,
+    "test_samples": 8,
+    "open_terminology_generation_validated": false
+  },
+  "17": {
+    "jmeter_600s_A_and_B": "independent_real_retrieval_and_upload_passed_after_fixes",
+    "formal_ragflow_chat_stress_validated": false,
+    "twelve_hours": "running_after_warmup",
+    "note": "不能把检索/缓存耗时替代完整LLM生成"
+  },
+  "18": {
+    "files_assessed": 1700,
+    "skill_tests_passed": 6,
+    "sample_agreement": "9/9 under operational definition",
+    "standalone_api_ocr_routing": "executed 8 pages",
+    "formal_agent_canvas_validated": false
+  },
+  "overall": "implemented_and_documented_with_unfinished_acceptance_items",
+  "formal_stack_blocker": "镜像下载极慢；MinIO原仓库401；华为备用TLS超时；阿里备用镜像too many requests"
+}

@@ -1,0 +1,167 @@
+{
+  "total_files": 1,
+  "format_distribution": {
+    ".pdf": {
+      "count": 1,
+      "ratio": 1.0
+    }
+  },
+  "label_counts": {
+    "Scan_PDF": 1,
+    "Patent": 1
+  },
+  "length_quantiles": {
+    "P25": 7.0,
+    "P50": 7.0,
+    "P75": 7.0,
+    "P90": 7.0,
+    "P99": 7.0
+  },
+  "length_distribution": [
+    {
+      "min": 0,
+      "max_exclusive": 1000,
+      "count": 1
+    },
+    {
+      "min": 1000,
+      "max_exclusive": 5000,
+      "count": 0
+    },
+    {
+      "min": 5000,
+      "max_exclusive": 20000,
+      "count": 0
+    },
+    {
+      "min": 20000,
+      "max_exclusive": 100000,
+      "count": 0
+    },
+    {
+      "min": 100000,
+      "max_exclusive": 1000000,
+      "count": 0
+    },
+    {
+      "min": 1000000,
+      "max_exclusive": null,
+      "count": 0
+    }
+  ],
+  "exact_duplicates": [],
+  "version_conflicts": [],
+  "pending_confirmation": [
+    {
+      "path": "D:\\桌面D\\专高\\专高六\\工单\\工单18\\研发\\original_problems\\documents\\CN100342976C.pdf",
+      "labels": [
+        "Scan_PDF",
+        "Patent"
+      ],
+      "reasons": [
+        "低文本页也可能是图纸/空白，需OCR或抽样确认"
+      ],
+      "scan_ratio": 1.0
+    }
+  ],
+  "sensitive_review": [],
+  "files": [
+    {
+      "path": "D:\\桌面D\\专高\\专高六\\工单\\工单18\\研发\\original_problems\\documents\\CN100342976C.pdf",
+      "name": "CN100342976C.pdf",
+      "format": ".pdf",
+      "bytes": 407591,
+      "md5": "51ac11ccb34c3fd1bd95aa690f585fcc",
+      "sha256": "4d2a0ef6a4d2519aa80538e264c9baa9fb2b7ff2135a114c28dccb629f9b8e9f",
+      "labels": [
+        "Scan_PDF",
+        "Patent"
+      ],
+      "pages": 8,
+      "page_characters": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "scanned_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "review_reasons": [
+        "低文本页也可能是图纸/空白，需OCR或抽样确认"
+      ],
+      "scan_ratio": 1.0,
+      "image_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "route": "OCR",
+      "characters": 7,
+      "length_measure": "embedded_text_only;扫描页未执行OCR，0字符不是空文档",
+      "sensitive_matches": [],
+      "simhash": null,
+      "text_preview": "\n\n\n\n\n\n\n"
+    }
+  ],
+  "config": {
+    "page_character_threshold": 40,
+    "scan_ratio_threshold": 0.7,
+    "text_ratio_threshold": 0.8,
+    "classification_review_margin": 0.1,
+    "simhash_max_hamming": 3,
+    "simhash_min_chars": 100,
+    "simhash_sample_chars": 30000,
+    "length_bins": [
+      0,
+      1000,
+      5000,
+      20000,
+      100000,
+      1000000
+    ],
+    "context_characters": 40,
+    "max_sensitive_matches_per_file": 300,
+    "sensitive": {
+      "phone": true,
+      "email": true,
+      "identity_card": true,
+      "bank_card": false,
+      "bank_card_min_digits": 16,
+      "bank_card_max_digits": 19
+    },
+    "classification": {
+      "tiny_file_bytes": 0,
+      "title_keywords": {
+        "Patent": [
+          "专利",
+          "CN1",
+          "CN2"
+        ],
+        "Technical_Document": [
+          "技术",
+          "图纸",
+          "说明书"
+        ]
+      }
+    }
+  },
+  "elapsed_s": 0.004113399998459499,
+  "scope": "全页内嵌文本质检；图像中的敏感信息尚需OCR后复检，不声称已读取全部扫描文字"
+}

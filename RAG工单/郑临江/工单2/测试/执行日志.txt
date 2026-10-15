@@ -1,0 +1,22 @@
+Loading weights:   0%|          | 0/71 [00:00<?, ?it/s]Loading weights:  46%|████▋     | 33/71 [00:00<00:00, 325.53it/s]Loading weights: 100%|██████████| 71/71 [00:00<00:00, 675.79it/s]
+baseline Hit@5 0.6
+dense Hit@5 0.8
+fulltext Hit@5 0.7
+hybrid Hit@5 1
+工单 2 问题 260 llm 9976
+工单 2 问题 95 llm 1466
+工单 2 问题 33 llm 3657
+工单 2 问题 34 llm 809
+工单 2 问题 957 llm 2204
+工单 2 问题 793 llm 902
+工单 2 问题 795 llm 3230
+工单 2 问题 543 llm 1436
+工单 2 问题 531 llm 1576
+工单 2 问题 207 llm 2004
+DONE 2
+Exception ignored in: <function ResourceTracker.__del__ at 0x000002144EECA340>
+Traceback (most recent call last):
+  File "D:\an\envs\rags_\Lib\site-packages\multiprocess\resource_tracker.py", line 80, in __del__
+  File "D:\an\envs\rags_\Lib\site-packages\multiprocess\resource_tracker.py", line 89, in _stop
+  File "D:\an\envs\rags_\Lib\site-packages\multiprocess\resource_tracker.py", line 102, in _stop_locked
+AttributeError: '_thread.RLock' object has no attribute '_recursion_count'

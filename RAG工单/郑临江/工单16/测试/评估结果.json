@@ -1,0 +1,206 @@
+{
+  "status": "real_lora_training_completed",
+  "before": {
+    "accuracy": 0.25,
+    "count": 8,
+    "samples": [
+      {
+        "document": "CN103486283A.pdf",
+        "question": "根据专利文本，以下哪项是双阀瓣蝶阀优于传统蝶阀的特性？",
+        "group": 1,
+        "expected": "C",
+        "prediction": "D",
+        "raw_output": "D. 请在答题卡上",
+        "correct": false,
+        "raw_generation_character_BLEU1": 0.0,
+        "raw_generation_character_ROUGE_L": 0.0
+      },
+      {
+        "document": "CN103486283A.pdf",
+        "question": "根据文件中第5页图示，编号为4的部件是什么？",
+        "group": 2,
+        "expected": "B",
+        "prediction": "A",
+        "raw_output": "A. 阀体\nB",
+        "correct": false,
+        "raw_generation_character_BLEU1": 0.0,
+        "raw_generation_character_ROUGE_L": 0.0
+      },
+      {
+        "document": "CN211836816U.pdf",
+        "question": "根据文本信息，以下哪个部件的功能是用于在灰斗内粉尘积聚过多时及时提醒工作人员清理？",
+        "group": 1,
+        "expected": "B",
+        "prediction": null,
+        "raw_output": "E. 请在选项中选择",
+        "correct": false,
+        "raw_generation_character_BLEU1": 0.0,
+        "raw_generation_character_ROUGE_L": 0.0
+      },
+      {
+        "document": "CN211836816U.pdf",
+        "question": "在文件中第6页的图片中，部件编号为4的滤袋位于哪个部件的下方？",
+        "group": 2,
+        "expected": "B",
+        "prediction": "A",
+        "raw_output": "A. 电机（8）\nB",
+        "correct": false,
+        "raw_generation_character_BLEU1": 0.2,
+        "raw_generation_character_ROUGE_L": 0.25
+      },
+      {
+        "document": "CN1021467C.pdf",
+        "question": "根据专利文本，以下哪项是等直径钢制高烟囱顶升倒装法的主要特征？",
+        "group": 1,
+        "expected": "B",
+        "prediction": "A",
+        "raw_output": "A. 采用液压系统作为顶",
+        "correct": false,
+        "raw_generation_character_BLEU1": 0.4166666666666667,
+        "raw_generation_character_ROUGE_L": 0.45454545454545453
+      },
+      {
+        "document": "CN1021467C.pdf",
+        "question": "在文件中第13页提供的图片中，编号为5的部件相对于编号为6的部件的位置关系是？",
+        "group": 2,
+        "expected": "B",
+        "prediction": "B",
+        "raw_output": "B. 位于右侧\nC.",
+        "correct": true,
+        "raw_generation_character_BLEU1": 0.2,
+        "raw_generation_character_ROUGE_L": 0.2857142857142857
+      },
+      {
+        "document": "CN103121950A.pdf",
+        "question": "根据文本信息，粗对苯二甲酸精制过程中，加氢反应器中填充的催化剂的主要作用是什么？",
+        "group": 1,
+        "expected": "B",
+        "prediction": "B",
+        "raw_output": "B. 甲酸的酸度",
+        "correct": true,
+        "raw_generation_character_BLEU1": 0.0410424993119494,
+        "raw_generation_character_ROUGE_L": 0.2222222222222222
+      },
+      {
+        "document": "CN103121950A.pdf",
+        "question": "观察文件中第15页的图片，在粗对苯二甲酸精制工序(ii)中，部件4相对于部件3的位置是什么？",
+        "group": 2,
+        "expected": "D",
+        "prediction": null,
+        "raw_output": "",
+        "correct": false,
+        "raw_generation_character_BLEU1": 0.0,
+        "raw_generation_character_ROUGE_L": 0.0
+      }
+    ],
+    "terminology_accuracy": 0.25,
+    "drawing_reasoning_accuracy": 0.25,
+    "mean_character_BLEU1": 0.10721364574732702,
+    "mean_character_ROUGE_L": 0.1515602453102453
+  },
+  "after": {
+    "accuracy": 0.375,
+    "count": 8,
+    "samples": [
+      {
+        "document": "CN103486283A.pdf",
+        "question": "根据专利文本，以下哪项是双阀瓣蝶阀优于传统蝶阀的特性？",
+        "group": 1,
+        "expected": "C",
+        "prediction": "D",
+        "raw_output": "D. 请在答题卡上",
+        "correct": false,
+        "raw_generation_character_BLEU1": 0.0,
+        "raw_generation_character_ROUGE_L": 0.0
+      },
+      {
+        "document": "CN103486283A.pdf",
+        "question": "根据文件中第5页图示，编号为4的部件是什么？",
+        "group": 2,
+        "expected": "B",
+        "prediction": "A",
+        "raw_output": "A. 阀体\nB",
+        "correct": false,
+        "raw_generation_character_BLEU1": 0.0,
+        "raw_generation_character_ROUGE_L": 0.0
+      },
+      {
+        "document": "CN211836816U.pdf",
+        "question": "根据文本信息，以下哪个部件的功能是用于在灰斗内粉尘积聚过多时及时提醒工作人员清理？",
+        "group": 1,
+        "expected": "B",
+        "prediction": "B",
+        "raw_output": "B. 请在选项中选择",
+        "correct": true,
+        "raw_generation_character_BLEU1": 0.0,
+        "raw_generation_character_ROUGE_L": 0.0
+      },
+      {
+        "document": "CN211836816U.pdf",
+        "question": "在文件中第6页的图片中，部件编号为4的滤袋位于哪个部件的下方？",
+        "group": 2,
+        "expected": "B",
+        "prediction": "A",
+        "raw_output": "A. 电机（8）\nB",
+        "correct": false,
+        "raw_generation_character_BLEU1": 0.2,
+        "raw_generation_character_ROUGE_L": 0.25
+      },
+      {
+        "document": "CN1021467C.pdf",
+        "question": "根据专利文本，以下哪项是等直径钢制高烟囱顶升倒装法的主要特征？",
+        "group": 1,
+        "expected": "B",
+        "prediction": "A",
+        "raw_output": "A. 采用液压系统作为顶",
+        "correct": false,
+        "raw_generation_character_BLEU1": 0.4166666666666667,
+        "raw_generation_character_ROUGE_L": 0.45454545454545453
+      },
+      {
+        "document": "CN1021467C.pdf",
+        "question": "在文件中第13页提供的图片中，编号为5的部件相对于编号为6的部件的位置关系是？",
+        "group": 2,
+        "expected": "B",
+        "prediction": "B",
+        "raw_output": "B. 位于右侧\nC.",
+        "correct": true,
+        "raw_generation_character_BLEU1": 0.2,
+        "raw_generation_character_ROUGE_L": 0.2857142857142857
+      },
+      {
+        "document": "CN103121950A.pdf",
+        "question": "根据文本信息，粗对苯二甲酸精制过程中，加氢反应器中填充的催化剂的主要作用是什么？",
+        "group": 1,
+        "expected": "B",
+        "prediction": "B",
+        "raw_output": "B. 甲酸的酸度",
+        "correct": true,
+        "raw_generation_character_BLEU1": 0.0410424993119494,
+        "raw_generation_character_ROUGE_L": 0.2222222222222222
+      },
+      {
+        "document": "CN103121950A.pdf",
+        "question": "观察文件中第15页的图片，在粗对苯二甲酸精制工序(ii)中，部件4相对于部件3的位置是什么？",
+        "group": 2,
+        "expected": "D",
+        "prediction": null,
+        "raw_output": "",
+        "correct": false,
+        "raw_generation_character_BLEU1": 0.0,
+        "raw_generation_character_ROUGE_L": 0.0
+      }
+    ],
+    "terminology_accuracy": 0.5,
+    "drawing_reasoning_accuracy": 0.25,
+    "mean_character_BLEU1": 0.10721364574732702,
+    "mean_character_ROUGE_L": 0.1515602453102453
+  },
+  "epochs": 2,
+  "definitions": {
+    "terminology_accuracy": "group=1的专业文本选择题正确字母比例；不是开放术语生成准确率",
+    "drawing_reasoning_accuracy": "group=2图纸题选择字母正确率",
+    "BLEU1": "原始生成与参考选项内容的字符级BLEU-1，非标准词级多阶BLEU",
+    "ROUGE_L": "原始生成与参考选项内容的字符级LCS-F1；选项字母正确仍可能生成无关后缀，单独检查原文"
+  }
+}

@@ -1,0 +1,15 @@
+--- a/api/db/services/task_service.py
++++ b/api/db/services/task_service.py
+@@ -402,10 +402,9 @@
+         if doc["parser_id"] in ["one", "knowledge_graph"] or do_layout != "DeepDOC" or doc["parser_config"].get("toc_extraction", False):
+             page_size = 10 ** 9
+         page_ranges = doc["parser_config"].get("pages") or [(1, 10 ** 5)]
++        from common.industrial_page_ranges import normalize_pdf_page_range
+         for s, e in page_ranges:
+-            s -= 1
+-            s = max(0, s)
+-            e = min(e - 1, pages)
++            s, e = normalize_pdf_page_range(s, e, pages)
+             for p in range(s, e, page_size):
+                 task = new_task()
+                 task["from_page"] = p

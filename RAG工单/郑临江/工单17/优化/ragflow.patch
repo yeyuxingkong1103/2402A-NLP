@@ -1,0 +1,21 @@
+--- a/rag/svr/task_executor.py
++++ b/rag/svr/task_executor.py
+@@ -971,7 +971,7 @@
+     task_parser_config = task["parser_config"]
+     task_start_ts = timer()
+     toc_thread = None
+-    executor = concurrent.futures.ThreadPoolExecutor()
++    # 工单17：仅在TOC需要时创建，并由上下文确保线程池释放。
+ 
+     # prepare the progress callback function
+     progress_callback = partial(set_progress, task_id, task_from_page, task_to_page)
+@@ -1124,7 +1124,8 @@
+         logging.info(progress_message)
+         progress_callback(msg=progress_message)
+         if task["parser_id"].lower() == "naive" and task["parser_config"].get("toc_extraction", False):
+-            toc_thread = executor.submit(build_TOC, task, chunks, progress_callback)
++            with concurrent.futures.ThreadPoolExecutor(max_workers=1, thread_name_prefix="rag-toc") as toc_executor:
++                toc_thread = toc_executor.submit(build_TOC, task, chunks, progress_callback)
+ 
+     chunk_count = len(set([chunk["id"] for chunk in chunks]))
+     start_ts = timer()

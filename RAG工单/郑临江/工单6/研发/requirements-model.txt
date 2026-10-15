@@ -1,0 +1,5 @@
+-r requirements.txt
+sentence-transformers>=3,<7
+torch>=2.2,<3
+
+# 可选第二模型：Ollama中已安装bge-m3:567m；切换需独立重建索引

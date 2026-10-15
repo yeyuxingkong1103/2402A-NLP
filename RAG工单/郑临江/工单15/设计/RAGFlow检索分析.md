@@ -1,0 +1,11 @@
+# RAGFlow多模态检索链路
+
+本快照的api/db/services/dialog_service.py绑定租户Embedding、Chat或Image2Text模型、可选重排和TTS模型，在问题精炼/多轮处理后调用retriever.retrieval；再按TOC、父子片段或图谱配置做拓展，组装知识与Prompt，交给生成模型。模型封装不等于每个请求都从磁盘加载一份GPU权重，必须对具体provider查证。
+
+rag/nlp/search.py的Dealer.retrieval构造包含question、kb_ids/doc_ids、vector、topk、similarity的请求，并把召回候选交给重排。Dealer.search构造关键词MatchText和Embedding MatchDense表达式，通过FusionExpr融合；有rerank模型时再精排，无模型时按后端处理分数。Infinity有其自身规范化融合，不能照搬Elasticsearch的分数语义。
+
+返回字段包括img_id、position_int、page_num_int、content_with_weight。即使召回了图纸相关文本，也仍需要img_id指向正确图像，且生成链路真实传入图片或图像描述；只有“PDF第11页”字符串并不证明模型看到了图3。
+
+本次common/visual_reference.py提取页码/图号，Dealer.search增加显式物理页过滤；可选工业解析将整页原图与坐标保留，减少无字图块丢失。独立扩展同时注入同文档部件定义、原图和人工校验描述。没有声称训练了跨模态向量模型；页码是约束，描述是额外可检索文本，不是图像Embedding。
+
+验证为六题逐次基准/优化，保存Top-K、原模型与约束后答案。核心图文题四个Top1均为物理页11；source页与图3本身经原图核对。正式RAGFlow源码挂钩尚须在完整运行栈回归，独立UI不是其通过截图。

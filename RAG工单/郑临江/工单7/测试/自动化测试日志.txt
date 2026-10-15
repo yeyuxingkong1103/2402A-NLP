@@ -1,0 +1,21 @@
+Loading weights:   0%|          | 0/71 [00:00<?, ?it/s]Loading weights: 100%|██████████| 71/71 [00:00<00:00, 1417.49it/s]
+test_boolean_fulltext (__main__.Tests.test_boolean_fulltext) ... ok
+test_company_switch (__main__.Tests.test_company_switch) ... ok
+test_document_filters (__main__.Tests.test_document_filters) ... ok
+test_empty_input (__main__.Tests.test_empty_input) ... ok
+test_graph_provenance (__main__.Tests.test_graph_provenance) ... ok
+test_image_data_when_required (__main__.Tests.test_image_data_when_required) ... ok
+test_local_paths (__main__.Tests.test_local_paths) ... ok
+test_pronoun_resolution (__main__.Tests.test_pronoun_resolution) ... ok
+test_tables_exist (__main__.Tests.test_tables_exist) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 32.724s
+
+OK
+Exception ignored in: <function ResourceTracker.__del__ at 0x00000269C3307740>
+Traceback (most recent call last):
+  File "D:\an\envs\rags_\Lib\site-packages\multiprocess\resource_tracker.py", line 80, in __del__
+  File "D:\an\envs\rags_\Lib\site-packages\multiprocess\resource_tracker.py", line 89, in _stop
+  File "D:\an\envs\rags_\Lib\site-packages\multiprocess\resource_tracker.py", line 102, in _stop_locked
+AttributeError: '_thread.RLock' object has no attribute '_recursion_count'

@@ -1,0 +1,33 @@
+         136877 function calls (131187 primitive calls) in 1.009 seconds
+
+   Ordered by: cumulative time
+   List reduced from 538 to 25 due to restriction <25>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+       10    0.000    0.000    0.911    0.091 D:\桌面D\专高\专高六\工单\工单2\研发\app\base.py:67(encode)
+       10    0.000    0.000    0.910    0.091 D:\an\envs\rags_\Lib\site-packages\torch\utils\_contextlib.py:120(decorate_context)
+       10    0.000    0.000    0.824    0.082 D:\an\envs\rags_\Lib\site-packages\torch\autograd\grad_mode.py:294(__exit__)
+       10    0.000    0.000    0.824    0.082 D:\an\envs\rags_\Lib\site-packages\sentence_transformers\util\decorators.py:34(wrapper)
+       10    0.002    0.000    0.823    0.082 D:\an\envs\rags_\Lib\site-packages\sentence_transformers\sentence_transformer\model.py:752(encode)
+   820/10    0.003    0.000    0.744    0.074 D:\an\envs\rags_\Lib\site-packages\torch\nn\modules\module.py:1779(_wrapped_call_impl)
+   820/10    0.008    0.000    0.744    0.074 D:\an\envs\rags_\Lib\site-packages\torch\nn\modules\module.py:1787(_call_impl)
+       10    0.000    0.000    0.743    0.074 D:\an\envs\rags_\Lib\site-packages\sentence_transformers\base\model.py:554(forward)
+       10    0.000    0.000    0.739    0.074 D:\an\envs\rags_\Lib\site-packages\sentence_transformers\base\modules\transformer.py:1594(forward)
+       10    0.000    0.000    0.738    0.074 D:\an\envs\rags_\Lib\site-packages\transformers\utils\generic.py:1006(wrapper)
+       10    0.000    0.000    0.738    0.074 D:\an\envs\rags_\Lib\site-packages\transformers\utils\output_capturing.py:249(wrapper)
+       10    0.000    0.000    0.737    0.074 D:\an\envs\rags_\Lib\site-packages\transformers\models\bert\modeling_bert.py:620(forward)
+       10    0.001    0.000    0.703    0.070 D:\an\envs\rags_\Lib\site-packages\transformers\models\bert\modeling_bert.py:425(forward)
+       40    0.000    0.000    0.701    0.018 D:\an\envs\rags_\Lib\site-packages\transformers\modeling_layers.py:80(__call__)
+       40    0.001    0.000    0.700    0.017 D:\an\envs\rags_\Lib\site-packages\transformers\models\bert\modeling_bert.py:374(forward)
+      250    0.001    0.000    0.481    0.002 D:\an\envs\rags_\Lib\site-packages\torch\nn\modules\linear.py:130(forward)
+      250    0.479    0.002    0.479    0.002 {built-in method torch._C._nn.linear}
+       40    0.001    0.000    0.353    0.009 D:\an\envs\rags_\Lib\site-packages\transformers\pytorch_utils.py:124(apply_chunking_to_forward)
+       40    0.001    0.000    0.346    0.009 D:\an\envs\rags_\Lib\site-packages\transformers\models\bert\modeling_bert.py:304(forward)
+       40    0.000    0.000    0.344    0.009 D:\an\envs\rags_\Lib\site-packages\transformers\models\bert\modeling_bert.py:413(feed_forward_chunk)
+       40    0.004    0.000    0.246    0.006 D:\an\envs\rags_\Lib\site-packages\transformers\models\bert\modeling_bert.py:164(forward)
+       40    0.001    0.000    0.187    0.005 D:\an\envs\rags_\Lib\site-packages\transformers\models\bert\modeling_bert.py:334(forward)
+       40    0.006    0.000    0.155    0.004 D:\an\envs\rags_\Lib\site-packages\transformers\models\bert\modeling_bert.py:347(forward)
+       40    0.005    0.000    0.098    0.002 D:\an\envs\rags_\Lib\site-packages\transformers\models\bert\modeling_bert.py:289(forward)
+       90    0.000    0.000    0.075    0.001 D:\an\envs\rags_\Lib\site-packages\torch\nn\modules\normalization.py:227(forward)
+
+

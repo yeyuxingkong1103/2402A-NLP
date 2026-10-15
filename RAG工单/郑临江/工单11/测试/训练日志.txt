@@ -1,0 +1,26 @@
+
+Loading weights:   0%|          | 0/71 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 71/71 [00:00<00:00, 975.83it/s]
+
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]
+Writing model shards: 100%|██████████| 1/1 [00:00<00:00,  9.87it/s]
+Writing model shards: 100%|██████████| 1/1 [00:00<00:00,  9.82it/s]
+epoch 1 loss 0.32412972549597424 validation {'sample_count': 5, 'recall_at_1': 0.4, 'recall_at_5': 0.8, 'mrr': 0.6004694835680751, 'ranks': [1, 2, 1, 426, 2], 'candidate_count': 445}
+
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]
+Writing model shards: 100%|██████████| 1/1 [00:00<00:00,  7.14it/s]
+Writing model shards: 100%|██████████| 1/1 [00:00<00:00,  7.14it/s]
+epoch 2 loss 0.16154867317527533 validation {'sample_count': 5, 'recall_at_1': 0.6, 'recall_at_5': 0.8, 'mrr': 0.7004950495049505, 'ranks': [1, 2, 1, 404, 1], 'candidate_count': 445}
+epoch 3 loss 0.051535147067625076 validation {'sample_count': 5, 'recall_at_1': 0.6, 'recall_at_5': 0.8, 'mrr': 0.6505221932114883, 'ranks': [1, 4, 1, 383, 1], 'candidate_count': 445}
+epoch 4 loss 0.033861391770187765 validation {'sample_count': 5, 'recall_at_1': 0.6, 'recall_at_5': 0.8, 'mrr': 0.6505361930294906, 'ranks': [1, 4, 1, 373, 1], 'candidate_count': 445}
+epoch 5 loss 0.01270869211293757 validation {'sample_count': 5, 'recall_at_1': 0.6, 'recall_at_5': 0.8, 'mrr': 0.6505390835579515, 'ranks': [1, 4, 1, 371, 1], 'candidate_count': 445}
+
+Loading weights:   0%|          | 0/71 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 71/71 [00:00<00:00, 849.22it/s]
+FINETUNE {'sample_count': 8, 'recall_at_1': 0.75, 'recall_at_5': 0.875, 'mrr': 0.8238636363636364, 'ranks': [11, 1, 1, 1, 2, 1, 1, 1], 'candidate_count': 445} {'sample_count': 8, 'recall_at_1': 0.875, 'recall_at_5': 0.875, 'mrr': 0.8828125, 'ranks': [16, 1, 1, 1, 1, 1, 1, 1], 'candidate_count': 445}
+Exception ignored in: <function ResourceTracker.__del__ at 0x0000026B55BABD80>
+Traceback (most recent call last):
+  File "D:\an\envs\rags_\Lib\site-packages\multiprocess\resource_tracker.py", line 80, in __del__
+  File "D:\an\envs\rags_\Lib\site-packages\multiprocess\resource_tracker.py", line 89, in _stop
+  File "D:\an\envs\rags_\Lib\site-packages\multiprocess\resource_tracker.py", line 102, in _stop_locked
+AttributeError: '_thread.RLock' object has no attribute '_recursion_count'

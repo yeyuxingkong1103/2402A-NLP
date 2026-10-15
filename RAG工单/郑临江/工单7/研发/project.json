@@ -1,0 +1,18 @@
+{
+  "number": 7,
+  "title": "金融年报功能测试及评估",
+  "ticket": "人工智能NLP-RAG-金融年报功能测试及评估",
+  "port": 8771,
+  "data_isolation": "所有数据、索引、反馈、配置、测试均在当前项目内",
+  "embedding_model": "models/bge-small-zh-v1.5",
+  "default_strategy": "hybrid",
+  "default_reranker": "tfidf",
+  "llm_model": "Qwen3.5:4B",
+  "llm_provider": "ollama",
+  "llm_base_url": "http://127.0.0.1:11434",
+  "llm_timeout": 120,
+  "dataset": "annual_reports",
+  "graph": false,
+  "multimodal": false,
+  "baseline_snapshot": "工单1实现的独立源码快照"
+}

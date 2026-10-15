@@ -1,0 +1,123 @@
+WARNING: pypinyin is not installed. Chinese pinyin sorting will use simple string sorting.
+
+Loading weights:   0%|          | 0/71 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 71/71 [00:00<00:00, 1284.37it/s]
+
+Loading weights:   0%|          | 0/71 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 71/71 [00:00<00:00, 841.95it/s]
+INFO: [] Loaded graph from D:\桌面D\专高\专高六\工单\工单12\研发\data\lightrag-v3\graph_chunk_entity_relation.graphml with 16 nodes, 22 edges
+INFO:nano-vectordb:Load (16, 512) data
+INFO:nano-vectordb:Init {'embedding_dim': 512, 'metric': 'cosine', 'storage_file': 'D:\\桌面D\\专高\\专高六\\工单\\工单12\\研发\\data\\lightrag-v3\\vdb_entities.json'} 16 data
+INFO:nano-vectordb:Load (22, 512) data
+INFO:nano-vectordb:Init {'embedding_dim': 512, 'metric': 'cosine', 'storage_file': 'D:\\桌面D\\专高\\专高六\\工单\\工单12\\研发\\data\\lightrag-v3\\vdb_relationships.json'} 22 data
+INFO:nano-vectordb:Load (2435, 512) data
+INFO:nano-vectordb:Init {'embedding_dim': 512, 'metric': 'cosine', 'storage_file': 'D:\\桌面D\\专高\\专高六\\工单\\工单12\\研发\\data\\lightrag-v3\\vdb_chunks.json'} 2435 data
+INFO: Role LLM Configuration (initialized):
+INFO:  - extract: None/None, host=None, max_async=1, timeout=120
+INFO:  - keyword: None/None, host=None, max_async=1, timeout=120
+INFO:  - query: None/None, host=None, max_async=1, timeout=120
+INFO:  - vlm: None/None, host=None, max_async=1, timeout=120
+INFO: [] Process 30284 KV load full_docs with 0 records
+INFO: [] Process 30284 KV load text_chunks with 2435 records
+INFO: [] Process 30284 KV load full_entities with 0 records
+INFO: [] Process 30284 KV load full_relations with 0 records
+INFO: [] Process 30284 KV load entity_chunks with 0 records
+INFO: [] Process 30284 KV load relation_chunks with 0 records
+INFO: [] Process 30284 KV load llm_response_cache with 0 records
+INFO: [] Process 30284 doc status load doc_status with 0 records
+INFO: Embedding func: 1 new workers initialized (Timeouts: Func: 30s, Worker: 60s, Health Check: 75s)
+INFO: Query nodes: 武汉兴图新科电子股份有限公司, 注册资本 (top_k:4, cosine:0.05)
+INFO: Local query: 4 entites, 22 relations
+INFO: Query edges: 注册资本 (top_k:4, cosine:0.05)
+INFO: Global query: 5 entites, 4 relations
+INFO: Naive query: 5 chunks (chunk_top_k:5 cosine:0.05)
+INFO: Raw search results: 5 entities, 22 relations, 5 vector chunks
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (5533 > 512). Running this sequence through the model will result in indexing errors
+INFO: After truncation: 5 entities, 4 relations
+INFO: Selecting 4 from 4 entity-related chunks by vector similarity
+INFO: Find 1 additional chunks in 1 relations (deduplicated 2)
+INFO: Selecting 1 from 1 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 10 -> 10 (deduplicated 0)
+INFO: Rerank func: 4 new workers initialized (Timeouts: Func: 30s, Worker: 60s, Health Check: 75s)
+INFO: Successfully reranked: 5 chunks from 10 original chunks
+INFO: Final context: 5 entities, 4 relations, 5 chunks
+INFO: Final chunks S+F/O: E2/1 C1/3 C1/2 C1/4 E1/2
+INFO: Query nodes: 武汉兴图新科电子股份有限公司, 注册资本 (top_k:4, cosine:0.05)
+INFO: Local query: 4 entites, 22 relations
+INFO: Query edges: 注册资本 (top_k:4, cosine:0.05)
+INFO: Global query: 5 entites, 4 relations
+INFO: Naive query: 5 chunks (chunk_top_k:5 cosine:0.05)
+INFO: Raw search results: 5 entities, 22 relations, 5 vector chunks
+INFO: After truncation: 5 entities, 4 relations
+INFO: Selecting 4 from 4 entity-related chunks by vector similarity
+INFO: Find 1 additional chunks in 1 relations (deduplicated 2)
+INFO: Selecting 1 from 1 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 10 -> 10 (deduplicated 0)
+INFO: Successfully reranked: 5 chunks from 10 original chunks
+INFO: Final context: 5 entities, 4 relations, 5 chunks
+INFO: Final chunks S+F/O: E2/1 C1/3 C1/2 C1/4 E1/2
+543 hits 5 generation llm
+INFO: Query nodes: 武汉力源信息技术股份有限公司 (top_k:4, cosine:0.05)
+INFO: Local query: 4 entites, 22 relations
+INFO: Query edges: 公司 (top_k:4, cosine:0.05)
+INFO: Global query: 6 entites, 4 relations
+INFO: Naive query: 5 chunks (chunk_top_k:5 cosine:0.05)
+INFO: Raw search results: 8 entities, 22 relations, 5 vector chunks
+INFO: After truncation: 8 entities, 4 relations
+INFO: Selecting 7 from 7 entity-related chunks by vector similarity
+INFO: Find 2 additional chunks in 2 relations (deduplicated 2)
+INFO: Selecting 2 from 2 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 14 -> 14 (deduplicated 0)
+INFO: Successfully reranked: 5 chunks from 14 original chunks
+INFO: Final context: 8 entities, 4 relations, 5 chunks
+INFO: Final chunks S+F/O: C1/3 C1/4 E1/2 E1/3 R1/2
+INFO: Query nodes: 武汉力源信息技术股份有限公司 (top_k:4, cosine:0.05)
+INFO: Local query: 4 entites, 22 relations
+INFO: Query edges: 公司 (top_k:4, cosine:0.05)
+INFO: Global query: 6 entites, 4 relations
+INFO: Naive query: 5 chunks (chunk_top_k:5 cosine:0.05)
+INFO: Raw search results: 8 entities, 22 relations, 5 vector chunks
+INFO: After truncation: 8 entities, 4 relations
+INFO: Selecting 7 from 7 entity-related chunks by vector similarity
+INFO: Find 2 additional chunks in 2 relations (deduplicated 2)
+INFO: Selecting 2 from 2 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 14 -> 14 (deduplicated 0)
+INFO: Successfully reranked: 5 chunks from 14 original chunks
+INFO: Final context: 8 entities, 4 relations, 5 chunks
+INFO: Final chunks S+F/O: C1/3 C1/4 E1/2 E1/3 R1/2
+1 hits 5 generation llm
+INFO: Query nodes: 武汉力源信息技术股份有限公司, 募集资金 (top_k:4, cosine:0.05)
+INFO: Local query: 4 entites, 22 relations
+INFO: Query edges: 募集资金 (top_k:4, cosine:0.05)
+INFO: Global query: 5 entites, 4 relations
+INFO: Naive query: 5 chunks (chunk_top_k:5 cosine:0.05)
+INFO: Raw search results: 5 entities, 22 relations, 5 vector chunks
+INFO: After truncation: 5 entities, 4 relations
+INFO: Selecting 5 from 5 entity-related chunks by vector similarity
+INFO: Find 2 additional chunks in 2 relations (deduplicated 1)
+INFO: Selecting 2 from 2 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 12 -> 12 (deduplicated 0)
+INFO: Successfully reranked: 5 chunks from 12 original chunks
+INFO: Final context: 5 entities, 4 relations, 5 chunks
+INFO: Final chunks S+F/O: R1/1 R2/2 E1/3 C1/2 C1/1
+INFO: Query nodes: 武汉力源信息技术股份有限公司, 募集资金 (top_k:4, cosine:0.05)
+INFO: Local query: 4 entites, 22 relations
+INFO: Query edges: 募集资金 (top_k:4, cosine:0.05)
+INFO: Global query: 5 entites, 4 relations
+INFO: Naive query: 5 chunks (chunk_top_k:5 cosine:0.05)
+INFO: Raw search results: 5 entities, 22 relations, 5 vector chunks
+INFO: After truncation: 5 entities, 4 relations
+INFO: Selecting 5 from 5 entity-related chunks by vector similarity
+INFO: Find 2 additional chunks in 2 relations (deduplicated 1)
+INFO: Selecting 2 from 2 relation-related chunks by vector similarity
+INFO: Round-robin merged chunks: 12 -> 12 (deduplicated 0)
+INFO: Successfully reranked: 5 chunks from 12 original chunks
+INFO: Final context: 5 entities, 4 relations, 5 chunks
+INFO: Final chunks S+F/O: R1/1 R2/2 E1/3 C1/2 C1/1
+2 hits 5 generation llm
+Exception ignored in: <function ResourceTracker.__del__ at 0x000001DF971D2660>
+Traceback (most recent call last):
+  File "D:\an\envs\rags_\Lib\site-packages\multiprocess\resource_tracker.py", line 80, in __del__
+  File "D:\an\envs\rags_\Lib\site-packages\multiprocess\resource_tracker.py", line 89, in _stop
+  File "D:\an\envs\rags_\Lib\site-packages\multiprocess\resource_tracker.py", line 102, in _stop_locked
+AttributeError: '_thread.RLock' object has no attribute '_recursion_count'

@@ -1,0 +1,33 @@
+         195928 function calls (184530 primitive calls) in 0.879 seconds
+
+   Ordered by: cumulative time
+   List reduced from 543 to 25 due to restriction <25>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+       20    0.000    0.000    0.451    0.023 D:\an\envs\rags_\Lib\site-packages\torch\autograd\grad_mode.py:294(__exit__)
+       20    0.001    0.000    0.449    0.022 D:\an\envs\rags_\Lib\site-packages\sentence_transformers\util\decorators.py:34(wrapper)
+       20    0.002    0.000    0.449    0.022 D:\an\envs\rags_\Lib\site-packages\sentence_transformers\sentence_transformer\model.py:752(encode)
+  1640/20    0.004    0.000    0.350    0.018 D:\an\envs\rags_\Lib\site-packages\torch\nn\modules\module.py:1779(_wrapped_call_impl)
+  1640/20    0.007    0.000    0.350    0.017 D:\an\envs\rags_\Lib\site-packages\torch\nn\modules\module.py:1787(_call_impl)
+       20    0.000    0.000    0.350    0.017 D:\an\envs\rags_\Lib\site-packages\sentence_transformers\base\model.py:554(forward)
+       20    0.001    0.000    0.344    0.017 D:\an\envs\rags_\Lib\site-packages\sentence_transformers\base\modules\transformer.py:1594(forward)
+       20    0.000    0.000    0.342    0.017 D:\an\envs\rags_\Lib\site-packages\transformers\utils\generic.py:1006(wrapper)
+       20    0.001    0.000    0.341    0.017 D:\an\envs\rags_\Lib\site-packages\transformers\utils\output_capturing.py:249(wrapper)
+       20    0.001    0.000    0.339    0.017 D:\an\envs\rags_\Lib\site-packages\transformers\models\bert\modeling_bert.py:620(forward)
+       20    0.001    0.000    0.322    0.016 D:\an\envs\rags_\Lib\site-packages\transformers\models\bert\modeling_bert.py:425(forward)
+       80    0.000    0.000    0.319    0.004 D:\an\envs\rags_\Lib\site-packages\transformers\modeling_layers.py:80(__call__)
+       80    0.001    0.000    0.318    0.004 D:\an\envs\rags_\Lib\site-packages\transformers\models\bert\modeling_bert.py:374(forward)
+       20    0.000    0.000    0.265    0.013 D:\an\envs\rags_\Lib\site-packages\scipy\sparse\_base.py:1006(__matmul__)
+       20    0.000    0.000    0.265    0.013 D:\an\envs\rags_\Lib\site-packages\scipy\sparse\_base.py:875(_matmul_dispatch)
+       20    0.001    0.000    0.265    0.013 D:\an\envs\rags_\Lib\site-packages\scipy\sparse\_compressed.py:415(_matmul_sparse)
+      500    0.001    0.000    0.242    0.000 D:\an\envs\rags_\Lib\site-packages\torch\nn\modules\linear.py:130(forward)
+      500    0.241    0.000    0.241    0.000 {built-in method torch._C._nn.linear}
+       80    0.001    0.000    0.185    0.002 D:\an\envs\rags_\Lib\site-packages\transformers\pytorch_utils.py:124(apply_chunking_to_forward)
+       80    0.000    0.000    0.177    0.002 D:\an\envs\rags_\Lib\site-packages\transformers\models\bert\modeling_bert.py:413(feed_forward_chunk)
+       20    0.131    0.007    0.131    0.007 {built-in method scipy.sparse._sparsetools.csr_matmat_maxnnz}
+       80    0.001    0.000    0.131    0.002 D:\an\envs\rags_\Lib\site-packages\transformers\models\bert\modeling_bert.py:304(forward)
+       20    0.121    0.006    0.121    0.006 {built-in method scipy.sparse._sparsetools.csr_matmat}
+     2780    0.002    0.000    0.118    0.000 D:\an\envs\rags_\Lib\re\__init__.py:179(sub)
+     2800    0.114    0.000    0.114    0.000 {method 'sub' of 're.Pattern' objects}
+
+

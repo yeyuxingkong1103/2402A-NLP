@@ -1,0 +1,7 @@
+[console_scripts]
+lightrag-clean-llmqc = lightrag.tools.clean_llm_query_cache:main
+lightrag-download-cache = lightrag.tools.download_cache:main
+lightrag-gunicorn = lightrag.api.run_with_gunicorn:main
+lightrag-hash-password = lightrag.tools.hash_password:main
+lightrag-rebuild-vdb = lightrag.tools.rebuild_vdb:main
+lightrag-server = lightrag.api.lightrag_server:main

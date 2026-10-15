@@ -1,0 +1,58 @@
+{
+  "scope": "独立扩展、人工校验摘要辅助下的指定六题核心事实检查；不等同正式RAGFlow全栈自动化验收",
+  "sample_count": 6,
+  "core_fact_correct": 6,
+  "core_fact_accuracy": 1.0,
+  "reviews": [
+    {
+      "question": "根据专利文本，本发明主要涉及哪种物料的分配装置？",
+      "answer": "本发明主要涉及用于将一种块状散料（尤其是至少部分经预还原的铁矿石）分配在一个伸展平面上的装置。该装置通过装料装置中的落料架，并利用附加的分散装置使散料在径向和/或切向方向上进行分配。",
+      "core_fact_correct": true,
+      "note": "物料为块状散料。",
+      "source": "原图+OCR文本人工核对",
+      "guard_applied": false
+    },
+    {
+      "question": "根据专利文本，本发明的分散装置包含以下哪个组件？",
+      "answer": "根据提供的文本证据，本发明的分散装置包含栓钉、链条以及接点（或称分散元件）。这些组件被描述为安装在落料架的内侧面上，用于使散料减速并实现径向和切向的均匀分配。",
+      "core_fact_correct": true,
+      "note": "分散组件包含链条；正文亦提及栓钉与接点。",
+      "source": "原图+OCR文本人工核对",
+      "guard_applied": false
+    },
+    {
+      "question": "在文件中第11页图3中，编号13的部件相对于编号12的部件的位置关系是？",
+      "answer": "编号13的链条位于编号12的保护管内部，属于包含关系。",
+      "core_fact_correct": true,
+      "note": "13在12内，需图3和物理页8正文交叉复核。",
+      "source": "原图+OCR文本人工核对",
+      "guard_applied": false
+    },
+    {
+      "question": "在文件中第11页图3中，编号14的部件位于整个装置的哪个位置？",
+      "answer": "在图3中，编号14的输入管位于整个装置的顶部/上部。",
+      "core_fact_correct": true,
+      "note": "14输入管位于顶部。",
+      "source": "原图+OCR文本人工核对",
+      "guard_applied": false
+    },
+    {
+      "question": "根据文件中第11页图3，散料从部件14进入后，下一步会经过哪个部件？",
+      "answer": "经输入管14导入落料架后，散料接触并经过链条13（或链条的接点），由其减速和分散；落料架10是承载外壳。",
+      "core_fact_correct": true,
+      "note": "散料经14导入10内，随后接触链条13减速分散；10是承载结构。",
+      "source": "原图+OCR文本人工核对",
+      "guard_applied": true
+    },
+    {
+      "question": "在文件中第11页图3的装置中，如果需要调整链条的位置，需要操作哪个部件?",
+      "answer": "根据图3及文档证据，调整链条位置需要操作紧固机构11。",
+      "core_fact_correct": true,
+      "note": "紧固机构11用于链条的固定/调整。",
+      "source": "原图+OCR文本人工核对",
+      "guard_applied": false
+    }
+  ],
+  "strict_raw_model_accuracy": "未将校验后正确率冒充原始VLM正确率；原始输出在raw_model_answer中",
+  "performance_pass": true
+}

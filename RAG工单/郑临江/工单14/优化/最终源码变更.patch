@@ -1,0 +1,72 @@
+--- a/common/industrial_page_ranges.py
++++ b/common/industrial_page_ranges.py
+@@ -0,0 +1,5 @@
++"""工单14：用户页码[1,N]闭区间转换为Python[0,N)半开区间，不丢末页。"""
++def normalize_pdf_page_range(start,end,total):
++    if total<0:raise ValueError('total不能为负数')
++    left=max(0,int(start)-1);right=min(int(end),int(total))
++    return min(left,total),max(min(left,total),right)
+--- a/api/db/services/task_service.py
++++ b/api/db/services/task_service.py
+@@ -402,10 +402,9 @@
+         if doc["parser_id"] in ["one", "knowledge_graph"] or do_layout != "DeepDOC" or doc["parser_config"].get("toc_extraction", False):
+             page_size = 10 ** 9
+         page_ranges = doc["parser_config"].get("pages") or [(1, 10 ** 5)]
++        from common.industrial_page_ranges import normalize_pdf_page_range
+         for s, e in page_ranges:
+-            s -= 1
+-            s = max(0, s)
+-            e = min(e - 1, pages)
++            s, e = normalize_pdf_page_range(s, e, pages)
+             for p in range(s, e, page_size):
+                 task = new_task()
+                 task["from_page"] = p
+--- a/deepdoc/parser/industrial_pdf_parser.py
++++ b/deepdoc/parser/industrial_pdf_parser.py
+@@ -0,0 +1,30 @@
++"""工单编号：人工智能NLP-RAG-修复低质量工业PDF的解析与信息丢失。
++保留每页图像作为RAGFlow表图块；低文本页采用DeepDoc OCR，图号/物理页码写入caption。
++"""
++from io import BytesIO
++import re
++import pymupdf
++import numpy as np
++from PIL import Image
++from deepdoc.vision import OCR
++from functools import lru_cache
++import threading
++_ocr_lock=threading.Lock()
++@lru_cache(maxsize=1)
++def get_ocr():return OCR()
++class IndustrialPdfParser:
++    def __call__(self,filename,binary=None,from_page=0,to_page=100000,callback=None,**kwargs):
++        sections=[];figures=[]
++        with pymupdf.open(stream=binary,filetype='pdf') if binary else pymupdf.open(filename) as document:
++            for index in range(from_page,min(to_page,len(document))):
++                page=document[index];pix=page.get_pixmap(matrix=pymupdf.Matrix(2,2));image=Image.open(BytesIO(pix.tobytes('png'))).convert('RGB')
++                text=page.get_text()
++                if len(text.strip())<40:
++                    with _ocr_lock:result=get_ocr()(np.array(image))
++                    text='\n'.join(item[1][0] for item in (result or []) if isinstance(item,(list,tuple)) and len(item)==2)
++                position=[(index,0,float(page.rect.width),0,float(page.rect.height))]
++                caption=f'文档{filename}，PDF物理第{index+1}页。图号：'+','.join(re.findall(r'图\s*\d+',text))+'\n'+text
++                figures.append(((image,caption),position))
++                if text.strip():sections.append((text,f'@@{index+1}\t0\t{page.rect.width}\t0\t{page.rect.height}##'))
++                if callback:callback((index+1)/len(document),f'工业PDF保留页面图像 {index+1}')
++        return sections,figures,None
+--- a/rag/app/naive.py
++++ b/rag/app/naive.py
+@@ -831,6 +831,13 @@
+         if isinstance(layout_recognizer, bool):
+             layout_recognizer = "DeepDOC" if layout_recognizer else "Plain Text"
+ 
++        # 工单14/15：可选工业图文保真，保持默认解析器不变。
++        if parser_config.get('industrial_page_preservation', False):
++            from deepdoc.parser.industrial_pdf_parser import IndustrialPdfParser
++            def industrial_parser(filename, binary=None, **options):
++                return IndustrialPdfParser()(filename, binary=binary, **options)
++            PARSERS['industrial'] = industrial_parser
++            layout_recognizer = 'industrial'
+         name = layout_recognizer.strip().lower()
+         parser = PARSERS.get(name, by_plaintext)
+         callback(0.1, "Start to parse.")

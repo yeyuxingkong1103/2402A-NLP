@@ -1,0 +1,142 @@
+{
+  "project": 17,
+  "page_errors": [],
+  "results": [
+    {
+      "ok": true,
+      "project": 17,
+      "build": "process-isolated",
+      "project_root": "D:\\桌面D\\专高\\专高六\\工单\\工单17\\研发",
+      "metrics": {
+        "requests": 0,
+        "errors": 0,
+        "cache_hits": 0,
+        "queue_rejects": 0
+      },
+      "rss_mb": 201.31640625
+    },
+    {
+      "scope": "独立真实检索/缓存API，未包含每请求LLM生成或正式RAGFlow全栈；修改前后实验有部分并行负载，存在干扰因素",
+      "scenarios": {
+        "A": {
+          "duration_s": 599.713,
+          "requests": 55004,
+          "errors": 0,
+          "samples": {
+            "真实证据检索": {
+              "requests": 55004,
+              "errors": 0,
+              "p50_ms": 5,
+              "p95_ms": 15,
+              "max_ms": 1684,
+              "response_codes": {
+                "200": 55004
+              }
+            }
+          },
+          "file": "jmeter-A.jtl",
+          "complete_600s": true
+        },
+        "B": {
+          "duration_s": 599.74,
+          "requests": 14270,
+          "errors": 197,
+          "samples": {
+            "真实证据检索": {
+              "requests": 13975,
+              "errors": 0,
+              "p50_ms": 3,
+              "p95_ms": 8,
+              "max_ms": 288,
+              "response_codes": {
+                "200": 13975
+              }
+            },
+            "上传真实一页PDF并入队": {
+              "requests": 295,
+              "errors": 197,
+              "p50_ms": 4,
+              "p95_ms": 9,
+              "max_ms": 176,
+              "response_codes": {
+                "200": 98,
+                "429": 197
+              }
+            }
+          },
+          "file": "jmeter-B.jtl",
+          "complete_600s": true
+        },
+        "A-after": {
+          "duration_s": 599.772,
+          "requests": 55613,
+          "errors": 2,
+          "samples": {
+            "真实证据检索": {
+              "requests": 55613,
+              "errors": 2,
+              "p50_ms": 6,
+              "p95_ms": 14,
+              "max_ms": 400,
+              "response_codes": {
+                "200": 55611,
+                "Non HTTP response code: java.net.BindException": 2
+              }
+            }
+          },
+          "file": "jmeter-A-after.jtl",
+          "complete_600s": true
+        },
+        "B-after": {
+          "duration_s": 599.688,
+          "requests": 14383,
+          "errors": 0,
+          "samples": {
+            "真实证据检索": {
+              "requests": 14088,
+              "errors": 0,
+              "p50_ms": 4,
+              "p95_ms": 9,
+              "max_ms": 45,
+              "response_codes": {
+                "200": 14088
+              }
+            },
+            "上传真实一页PDF并入队": {
+              "requests": 295,
+              "errors": 0,
+              "p50_ms": 5,
+              "p95_ms": 11,
+              "max_ms": 32,
+              "response_codes": {
+                "200": 295
+              }
+            }
+          },
+          "file": "jmeter-B-after.jtl",
+          "complete_600s": true
+        },
+        "A-final": {
+          "duration_s": 599.719,
+          "requests": 56397,
+          "errors": 0,
+          "samples": {
+            "真实证据检索": {
+              "requests": 56397,
+              "errors": 0,
+              "p50_ms": 3,
+              "p95_ms": 9,
+              "max_ms": 46,
+              "response_codes": {
+                "200": 56397
+              }
+            }
+          },
+          "file": "jmeter-A-final.jtl",
+          "complete_600s": true
+        }
+      }
+    }
+  ],
+  "recording": "真实网页/API，4fps无配音；与正式RAGFlow栈验收分开"
+}

@@ -1,9 +1,0 @@
-# 工单编号：人工智能NLP-RAG项目-RAG性能瓶颈识别与优化
-# Prometheus 抓取配置：监控 RAG 服务的性能指标端点
-global:
-  scrape_interval: 5s
-
-scrape_configs:
-  - job_name: "rag"
-    static_configs:
-      - targets: ["host.docker.internal:8000"]  # RAG 服务暴露 /metrics 的地址

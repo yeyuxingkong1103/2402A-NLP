@@ -1,0 +1,23 @@
+
+Loading weights:   0%|          | 0/71 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 71/71 [00:00<00:00, 1860.13it/s]
+test_ambiguous_question_requests_clarification (test_system.SystemTests.test_ambiguous_question_requests_clarification) ... ok
+test_capital_has_evidence_and_correct_unit (test_system.SystemTests.test_capital_has_evidence_and_correct_unit) ... ok
+test_compound_question_is_split (test_system.SystemTests.test_compound_question_is_split) ... ok
+test_empty_input_rejected (test_system.SystemTests.test_empty_input_rejected) ... ok
+test_english_question_retrieves_chinese_evidence (test_system.SystemTests.test_english_question_retrieves_chinese_evidence) ... ok
+test_invalid_pdf_rejected (test_system.SystemTests.test_invalid_pdf_rejected) ... ok
+test_llm_request_separates_baseline_and_evidence (test_system.SystemTests.test_llm_request_separates_baseline_and_evidence) ... ok
+test_table_structure_preserved (test_system.SystemTests.test_table_structure_preserved) ... ok
+test_unrelated_question_refused (test_system.SystemTests.test_unrelated_question_refused) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 21.066s
+
+OK
+Exception ignored in: <function ResourceTracker.__del__ at 0x000001A26FED1580>
+Traceback (most recent call last):
+  File "D:\an\envs\rags_\Lib\site-packages\multiprocess\resource_tracker.py", line 80, in __del__
+  File "D:\an\envs\rags_\Lib\site-packages\multiprocess\resource_tracker.py", line 89, in _stop
+  File "D:\an\envs\rags_\Lib\site-packages\multiprocess\resource_tracker.py", line 102, in _stop_locked
+AttributeError: '_thread.RLock' object has no attribute '_recursion_count'

@@ -1,0 +1,37 @@
+WARNING: pypinyin is not installed. Chinese pinyin sorting will use simple string sorting.
+
+Loading weights:   0%|          | 0/71 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 71/71 [00:00<00:00, 1027.26it/s]
+INFO: Creating working directory D:\桌面D\专高\专高六\工单\工单12\研发\data\lightrag-v3
+INFO: [] Created new empty graph file: D:\桌面D\专高\专高六\工单\工单12\研发\data\lightrag-v3\graph_chunk_entity_relation.graphml
+INFO:nano-vectordb:Init {'embedding_dim': 512, 'metric': 'cosine', 'storage_file': 'D:\\桌面D\\专高\\专高六\\工单\\工单12\\研发\\data\\lightrag-v3\\vdb_entities.json'} 0 data
+INFO:nano-vectordb:Init {'embedding_dim': 512, 'metric': 'cosine', 'storage_file': 'D:\\桌面D\\专高\\专高六\\工单\\工单12\\研发\\data\\lightrag-v3\\vdb_relationships.json'} 0 data
+INFO:nano-vectordb:Init {'embedding_dim': 512, 'metric': 'cosine', 'storage_file': 'D:\\桌面D\\专高\\专高六\\工单\\工单12\\研发\\data\\lightrag-v3\\vdb_chunks.json'} 0 data
+INFO: Role LLM Configuration (initialized):
+INFO:  - extract: None/None, host=None, max_async=1, timeout=240
+INFO:  - keyword: None/None, host=None, max_async=1, timeout=240
+INFO:  - query: None/None, host=None, max_async=1, timeout=240
+INFO:  - vlm: None/None, host=None, max_async=1, timeout=240
+INFO: [] Process 28632 KV load full_docs with 0 records
+INFO: [] Process 28632 KV load text_chunks with 0 records
+INFO: [] Process 28632 KV load full_entities with 0 records
+INFO: [] Process 28632 KV load full_relations with 0 records
+INFO: [] Process 28632 KV load entity_chunks with 0 records
+INFO: [] Process 28632 KV load relation_chunks with 0 records
+INFO: [] Process 28632 KV load llm_response_cache with 0 records
+INFO: [] Process 28632 doc status load doc_status with 0 records
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (626 > 512). Running this sequence through the model will result in indexing errors
+INFO: [] entities flush: embedding 16 vectors in 2 batch(es) (batch_num=8)
+INFO: [] relationships flush: applied 0 deferred deletes (22 queued, 0 awaiting save)
+INFO: [] relationships flush: embedding 22 vectors in 3 batch(es) (batch_num=8)
+INFO: [] chunks flush: embedding 2435 vectors in 305 batch(es) (batch_num=8)
+INFO: Embedding func: 1 new workers initialized (Timeouts: Func: 30s, Worker: 60s, Health Check: 75s)
+INFO: [] Writing graph with 16 nodes, 22 edges
+INFO: In memory DB persist to disk
+official LightRAG build done 2435 16 22
+Exception ignored in: <function ResourceTracker.__del__ at 0x00000242780CB560>
+Traceback (most recent call last):
+  File "D:\an\envs\rags_\Lib\site-packages\multiprocess\resource_tracker.py", line 80, in __del__
+  File "D:\an\envs\rags_\Lib\site-packages\multiprocess\resource_tracker.py", line 89, in _stop
+  File "D:\an\envs\rags_\Lib\site-packages\multiprocess\resource_tracker.py", line 102, in _stop_locked
+AttributeError: '_thread.RLock' object has no attribute '_recursion_count'
