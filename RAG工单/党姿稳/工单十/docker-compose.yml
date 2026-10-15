@@ -1,0 +1,71 @@
+# 工单编号：人工智能NLP-RAG-金融问答系统部署
+# 编排说明：一键拉起金融问答服务与配套服务，配置数据卷持久化与自定义容器网络
+# 启动命令：docker compose up -d     查看日志：docker compose logs -f rag-api
+# 显式声明项目名：本目录名为中文，compose 从目录名推导项目名时会得到空串并报
+# 「project name must not be empty」，显式指定可避免该问题（与 -p rag-finance 等效）
+name: rag-finance
+
+services:
+  # -------------------------------------------------------------------------
+  # 一、金融问答服务（核心服务）
+  # -------------------------------------------------------------------------
+  rag-api:
+    build:                                                      # 构建配置
+      context: .                                                # 以本目录为构建上下文
+      dockerfile: Dockerfile                                    # 指定 Dockerfile
+    image: rag-finance-qa:1.0.0                                 # 镜像标签
+    container_name: rag-finance-api                             # 固定容器名便于运维
+    ports:
+      - "8000:8000"                                             # 宿主机 8000 映射到容器 8000，对外提供服务
+    environment:
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-sk-REDACTED}  # 大模型密钥（建议用环境变量注入）
+      - RAG_DATA_DIR=/app/data                                  # 数据目录指向挂载卷
+      - RAG_LOG_DIR=/app/logs                                   # 日志目录指向挂载卷
+      - RAG_CORPUS_DIR=/app/corpus                              # 语料目录（镜像内置，可覆盖）
+      - EMBED_MODEL_PATH=/models/m3e-base                       # 嵌入模型挂载点
+      - EMBED_ENABLED=true                                      # 启用向量检索（模型未挂载时自动降级为 BM25）
+      - SERVICE_PORT=8000                                       # 服务端口
+      - FINAL_TOP_K=5                                           # 送入生成的上下文条数
+    volumes:
+      - rag-data:/app/data                                      # 命名卷：索引缓存与问答历史，重启不丢失
+      - rag-logs:/app/logs                                      # 命名卷：服务日志，便于事后排查
+      - rag-shared:/app/shared                                  # 命名卷：容器间数据共享目录
+      - ${MODEL_DIR:-C:/Users/dang5/Desktop/zongwenjianjia/zhuangao4/m3e-base}:/models/m3e-base:ro  # 只读挂载本地嵌入模型
+    networks:
+      - rag-net                                                 # 加入自定义桥接网络
+    depends_on:
+      - rtmp-server                                             # 声明依赖，保证启动顺序（验证容器间网络）
+    restart: unless-stopped                                     # 异常退出自动重启，保证服务高可用
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health',timeout=5).status==200 else 1)"]
+      interval: 30s                                             # 每 30 秒检查一次
+      timeout: 10s                                              # 单次检查超时 10 秒
+      retries: 3                                                # 连续失败 3 次判定为不健康
+      start_period: 600s                                        # 启动宽限期须大于冷启动建索引耗时（实测约 440s）
+
+  # -------------------------------------------------------------------------
+  # 二、配套服务（RTMP 服务器）：用于验证容器网络互通与容器间数据共享
+  # -------------------------------------------------------------------------
+  rtmp-server:
+    image: alfg/nginx-rtmp:latest                               # 轻量 RTMP 流媒体服务
+    container_name: rag-rtmp-server                             # 固定容器名
+    ports:
+      - "1935:1935"                                             # RTMP 默认端口映射到宿主机
+      - "8080:80"                                               # HTTP 状态页端口（注意与常见 Web 端口区分）
+    volumes:
+      - rag-shared:/shared                                      # 与 rag-api 共享同一命名卷，验证容器间数据共享
+    networks:
+      - rag-net                                                 # 与 rag-api 处于同一自定义网络，可按服务名互相访问
+    restart: unless-stopped                                     # 异常退出自动重启
+
+volumes:
+  rag-data:                                                     # 索引缓存与问答历史持久化卷
+    driver: local                                               # 使用本地驱动
+  rag-logs:                                                     # 服务日志持久化卷
+    driver: local                                               # 使用本地驱动
+  rag-shared:                                                   # 容器间共享数据卷
+    driver: local                                               # 使用本地驱动
+
+networks:
+  rag-net:                                                      # 自定义桥接网络
+    driver: bridge                                              # 桥接驱动，容器间可通过服务名解析通信

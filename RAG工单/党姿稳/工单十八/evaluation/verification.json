@@ -1,0 +1,1004 @@
+{
+  "classification_check": {
+    "sample_size": 60,
+    "agree": 60,
+    "rate": 1.0,
+    "threshold": 0.3
+  },
+  "sensitive_check": {
+    "total_items": 0
+  },
+  "label_review": [
+    {
+      "label": "Text_PDF",
+      "count": 1078,
+      "ratio": 0.6341,
+      "reason": "逐页字符数达标，可直接抽取文本层"
+    },
+    {
+      "label": "Scan_PDF",
+      "count": 622,
+      "ratio": 0.3659,
+      "reason": "逐页字符数低于阈值，需先 OCR 才能抽取文本"
+    }
+  ],
+  "classification_sample": [
+    {
+      "name": "CN101134389B.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN202183575U.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN202113742U.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN202471058U.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN103407426A.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN102951768A.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN202186660U.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN2562075Y.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN102269213A.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN202804058U.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN202105646U.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN100347506C.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN202467148U.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN202632102U.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN101148689A.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN1061690C.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN1183007C.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN103434828A.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN202793813U.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN102730799A.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN202786312U.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN202781174U.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN202780424U.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN103505918A.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN202022870U.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN202828828U.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN102001905A.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN202186857U.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN202074849U.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN101029671A.pdf",
+      "label": "Scan_PDF",
+      "scan_ratio": 1.0,
+      "big_image_page_ratio": 1.0,
+      "fontless_page_ratio": 1.0,
+      "signal": "图像型",
+      "agree": true
+    },
+    {
+      "name": "CN215356983U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.1429,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN217981007U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN216695312U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN217424064U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN112027883B.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.125,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN213041174U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.2857,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN108803318B.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0769,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN216482338U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN213828868U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN213226155U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.2857,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN108816324B.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN215281019U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN211215111U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.1667,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN214913612U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN216162013U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN113008486A.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN216606273U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN211551588U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN111617987A.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN214996075U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN215488279U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN212569346U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.25,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN216524654U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN216511924U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN112427725A.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.2857,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN216159042U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN111940574B.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN212083488U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN216064000U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    },
+    {
+      "name": "CN212003769U.pdf",
+      "label": "Text_PDF",
+      "scan_ratio": 0.0,
+      "big_image_page_ratio": 0.0,
+      "fontless_page_ratio": 0.0,
+      "signal": "文字型",
+      "agree": true
+    }
+  ],
+  "control_check": {
+    "rows": [
+      {
+        "type": "手机号",
+        "value": "13812345678",
+        "found": true,
+        "context": "度高，用于各 种车灯的涂装线，可装夹不同联系信息如下：手机号13812345678，邮箱zhangsan.patent@example.com"
+      },
+      {
+        "type": "邮箱",
+        "value": "zhangsan.patent@example.com",
+        "found": true,
+        "context": "，可装夹不同联系信息如下：手机号13812345678，邮箱zhangsan.patent@example.com，身份证号11010519491231002X，银行卡号62"
+      },
+      {
+        "type": "身份证号",
+        "value": "11010519491231002X",
+        "found": true,
+        "context": "angsan.patent@example.com，身份证号11010519491231002X，银行卡号6222021234567894。品种、不同形状、"
+      },
+      {
+        "type": "银行卡号",
+        "value": "6222021234567894",
+        "found": true,
+        "context": "om，身份证号11010519491231002X，银行卡号6222021234567894。品种、不同形状、不 同规格的车灯，车灯可根据喷涂需要进行不"
+      }
+    ],
+    "found": 4,
+    "total": 4,
+    "rate": 1.0,
+    "source": "CN106475256B.pdf"
+  },
+  "ocr_route": {
+    "rows": [
+      {
+        "name": "CN100342976C.pdf",
+        "parser": "ocr_parser",
+        "pages": 1,
+        "chars": 723,
+        "preview": "[19］中华人民共和国国家知识产权局[51] Int. Cl.B03C 3/011 (2006.01)B03C 3/36 (2006.01 )[12]发明专利说明书B03C 3/019(2006.01 )B03C 3/82 (2006.01 )专利号ZL01813417.3[45]授权公告日2007年10月17日[11]授权公告号CN100342976C[22]申请日2001.5.25［21]申请"
+      },
+      {
+        "name": "CN100347506C.pdf",
+        "parser": "ocr_parser",
+        "pages": 1,
+        "chars": 885,
+        "preview": "[19］中华人民共和国国家知识产权局[51] Int. Cl.F27B 1/20 (2006.01 )C21B 7/20 (2006.01 )[12]发明专利说明书C21B 13/00 (2006.01 )专利号ZL01816120.0[45]授权公告日2007年11月7日[11]授权公告号CN100347506C[22]申请日2001.8.27[21]申请号01816120.0FR1367391"
+      },
+      {
+        "name": "CN100364694C.pdf",
+        "parser": "ocr_parser",
+        "pages": 1,
+        "chars": 770,
+        "preview": "[19］中华人民共和国国家知识产权局[51] Int. Cl.B22D 11/128(2006.01)F28F 5/02 (2006.01)[12]发明专利说明书专利号ZL200480020716.2[45]授权公告日2008年1月30日[11]授权公告号CN100364694C[22]申请日2004.7.7US4442883A1984.4.17[21]申请号200480020716.2CN228"
+      }
+    ],
+    "workflow": "DocumentIngestionWorkflow"
+  },
+  "version_check": {
+    "总候选": 16,
+    "一案两报": 12,
+    "同日姊妹申请": 3,
+    "同申请人_不同申请日": 1,
+    "不同申请人": 0,
+    "著录项缺失": 0,
+    "可用候选率": 1.0
+  },
+  "version_rows": [
+    {
+      "similarity": 0.9688,
+      "hamming": 2,
+      "a": {
+        "name": "CN111807012A.pdf",
+        "applicant": "迈得医疗工业设备股份有限公司",
+        "apply_date": "2020.08.14",
+        "kind": "发明申请",
+        "apply_no": "202010821370.7",
+        "same_day": false,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)发明专利申请\n(10)申请公布号 \n(43)申请公布日 \n(21)申请号 202010821370.7\n(22)申请日 2020.08.14\n(71)申请人 迈得医疗工业设备股份有限公司\n地址 "
+      },
+      "b": {
+        "name": "CN212607783U.pdf",
+        "applicant": "迈得医疗工业设备股份有限公司",
+        "apply_date": "2020.08.14",
+        "kind": "实用新型",
+        "apply_no": "202021704109.0",
+        "same_day": true,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)实用新型专利\n(10)授权公告号 \n(45)授权公告日 \n(21)申请号 202021704109.0\n(22)申请日 2020.08.14\n(73)专利权人 迈得医疗工业设备股份有限公司\n地址"
+      },
+      "verdict": "真实版本冲突（一案两报）：同一申请人同一申请日，且一方标注同日申请"
+    },
+    {
+      "similarity": 0.9688,
+      "hamming": 2,
+      "a": {
+        "name": "CN112427725A.pdf",
+        "applicant": "苏州冠科工业设备有限公司",
+        "apply_date": "2020.10.15",
+        "kind": "发明申请",
+        "apply_no": "202011100427.0",
+        "same_day": false,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)发明专利申请\n(10)申请公布号 \n(43)申请公布日 \n(21)申请号 202011100427.0\n(22)申请日 2020.10.15\n(71)申请人 苏州冠科工业设备有限公司\n地址 21"
+      },
+      "b": {
+        "name": "CN214109028U.pdf",
+        "applicant": "苏州冠科工业设备有限公司",
+        "apply_date": "2020.10.15",
+        "kind": "实用新型",
+        "apply_no": "202022290390.4",
+        "same_day": true,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)实用新型专利\n(10)授权公告号 \n(45)授权公告日 \n(21)申请号 202022290390.4\n(22)申请日 2020.10.15\n(73)专利权人 苏州冠科工业设备有限公司\n地址 2"
+      },
+      "verdict": "真实版本冲突（一案两报）：同一申请人同一申请日，且一方标注同日申请"
+    },
+    {
+      "similarity": 0.9688,
+      "hamming": 2,
+      "a": {
+        "name": "CN216095465U.pdf",
+        "applicant": "戴纳智造河北工业设备有限公司",
+        "apply_date": "2021.10.11",
+        "kind": "实用新型",
+        "apply_no": "202122440502.4",
+        "same_day": true,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)实用新型专利\n(10)授权公告号 \n(45)授权公告日 \n(21)申请号 202122440502.4\n(22)申请日 2021.10.11\n(73)专利权人 戴纳智造河北工业设备有限公司\n地址"
+      },
+      "b": {
+        "name": "CN216095466U.pdf",
+        "applicant": "戴纳智造河北工业设备有限公司",
+        "apply_date": "2021.10.21",
+        "kind": "实用新型",
+        "apply_no": "202122536412.5",
+        "same_day": true,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)实用新型专利\n(10)授权公告号 \n(45)授权公告日 \n(21)申请号 202122536412.5\n(22)申请日 2021.10.21\n(73)专利权人 戴纳智造河北工业设备有限公司\n地址"
+      },
+      "verdict": "同一申请人的关联申请（申请日不同），需人工判断是否保留"
+    },
+    {
+      "similarity": 0.9531,
+      "hamming": 3,
+      "a": {
+        "name": "CN110744482A.pdf",
+        "applicant": "山西省工业设备安装集团有限公司",
+        "apply_date": "2019.11.18",
+        "kind": "发明申请",
+        "apply_no": "201911127797.0",
+        "same_day": false,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)发明专利申请\n(10)申请公布号 \n(43)申请公布日 \n(21)申请号 201911127797.0\n(22)申请日 2019.11.18\n(71)申请人 山西省工业设备安装集团有限公司\n地址"
+      },
+      "b": {
+        "name": "CN211306133U.pdf",
+        "applicant": "山西省工业设备安装集团有限公司",
+        "apply_date": "2019.11.18",
+        "kind": "实用新型",
+        "apply_no": "201921989943.6",
+        "same_day": true,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)实用新型专利\n(10)授权公告号 \n(45)授权公告日 \n(21)申请号 201921989943.6\n(22)申请日 2019.11.18\n(73)专利权人 山西省工业设备安装集团有限公\n司\n"
+      },
+      "verdict": "真实版本冲突（一案两报）：同一申请人同一申请日，且一方标注同日申请"
+    },
+    {
+      "similarity": 0.9531,
+      "hamming": 3,
+      "a": {
+        "name": "CN110758510A.pdf",
+        "applicant": "苏州千律工业设备有限公司",
+        "apply_date": "2019.11.08",
+        "kind": "发明申请",
+        "apply_no": "201911085602.0",
+        "same_day": false,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)发明专利申请\n(10)申请公布号 \n(43)申请公布日 \n(21)申请号 201911085602.0\n(22)申请日 2019.11.08\n(71)申请人 苏州千律工业设备有限公司\n地址 21"
+      },
+      "b": {
+        "name": "CN211223499U.pdf",
+        "applicant": "苏州千律工业设备有限公司",
+        "apply_date": "2019.11.08",
+        "kind": "实用新型",
+        "apply_no": "201921919206.9",
+        "same_day": true,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)实用新型专利\n(10)授权公告号 \n(45)授权公告日 \n(21)申请号 201921919206.9\n(22)申请日 2019.11.08\n(73)专利权人 苏州千律工业设备有限公司\n地址 2"
+      },
+      "verdict": "真实版本冲突（一案两报）：同一申请人同一申请日，且一方标注同日申请"
+    },
+    {
+      "similarity": 0.9531,
+      "hamming": 3,
+      "a": {
+        "name": "CN111959972A.pdf",
+        "applicant": "浙江万家工业设备有限公司",
+        "apply_date": "2020.09.18",
+        "kind": "发明申请",
+        "apply_no": "202010986974.7",
+        "same_day": false,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)发明专利申请\n(10)申请公布号 \n(43)申请公布日 \n(21)申请号 202010986974.7\n(22)申请日 2020.09.18\n(71)申请人 浙江万家工业设备有限公司\n地址 31"
+      },
+      "b": {
+        "name": "CN212530865U.pdf",
+        "applicant": "浙江万家工业设备有限公司",
+        "apply_date": "2020.09.18",
+        "kind": "实用新型",
+        "apply_no": "202022056035.0",
+        "same_day": true,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)实用新型专利\n(10)授权公告号 \n(45)授权公告日 \n(21)申请号 202022056035.0\n(22)申请日 2020.09.18\n(73)专利权人 浙江万家工业设备有限公司\n地址 3"
+      },
+      "verdict": "真实版本冲突（一案两报）：同一申请人同一申请日，且一方标注同日申请"
+    },
+    {
+      "similarity": 0.9531,
+      "hamming": 3,
+      "a": {
+        "name": "CN113291879A.pdf",
+        "applicant": "无锡维邦工业设备成套技术有限公司",
+        "apply_date": "2021.06.16",
+        "kind": "发明申请",
+        "apply_no": "202110668630.6",
+        "same_day": false,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)发明专利申请\n(10)申请公布号 \n(43)申请公布日 \n(21)申请号 202110668630.6\n(22)申请日 2021.06.16\n(71)申请人 无锡维邦工业设备成套技术有限公\n司\n"
+      },
+      "b": {
+        "name": "CN215325799U.pdf",
+        "applicant": "无锡维邦工业设备成套技术有限公司",
+        "apply_date": "2021.06.16",
+        "kind": "实用新型",
+        "apply_no": "202121336667.0",
+        "same_day": true,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)实用新型专利\n(10)授权公告号 \n(45)授权公告日 \n(21)申请号 202121336667.0\n(22)申请日 2021.06.16\n(73)专利权人 无锡维邦工业设备成套技术有限\n公司"
+      },
+      "verdict": "真实版本冲突（一案两报）：同一申请人同一申请日，且一方标注同日申请"
+    },
+    {
+      "similarity": 0.9375,
+      "hamming": 4,
+      "a": {
+        "name": "CN111318330A.pdf",
+        "applicant": "山西省工业设备安装集团有限公司",
+        "apply_date": "2020.03.24",
+        "kind": "发明申请",
+        "apply_no": "202010215742.1",
+        "same_day": false,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)发明专利申请\n(10)申请公布号 \n(43)申请公布日 \n(21)申请号 202010215742.1\n(22)申请日 2020.03.24\n(71)申请人 山西省工业设备安装集团有限公司\n地址"
+      },
+      "b": {
+        "name": "CN211937133U.pdf",
+        "applicant": "山西省工业设备安装集团有限公司",
+        "apply_date": "2020.03.24",
+        "kind": "实用新型",
+        "apply_no": "202020389873.7",
+        "same_day": false,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)实用新型专利\n(10)授权公告号 \n(45)授权公告日 \n(21)申请号 202020389873.7\n(22)申请日 2020.03.24\n(73)专利权人 山西省工业设备安装集团有限公\n司\n"
+      },
+      "verdict": "同日申请的关联件（种类不同但未见同日申请标记），需人工核验是否一案两报"
+    },
+    {
+      "similarity": 0.9375,
+      "hamming": 4,
+      "a": {
+        "name": "CN111558622A.pdf",
+        "applicant": "科赫工业设备技术（上海）有限公司",
+        "apply_date": "2020.06.05",
+        "kind": "发明申请",
+        "apply_no": "202010502603.7",
+        "same_day": false,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)发明专利申请\n(10)申请公布号 \n(43)申请公布日 \n(21)申请号 202010502603.7\n(22)申请日 2020.06.05\n(71)申请人 科赫工业设备技术（上海）有限公司\n地"
+      },
+      "b": {
+        "name": "CN212310433U.pdf",
+        "applicant": "科赫工业设备技术（上海）有限公司",
+        "apply_date": "2020.06.05",
+        "kind": "实用新型",
+        "apply_no": "202021014548.9",
+        "same_day": true,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)实用新型专利\n(10)授权公告号 \n(45)授权公告日 \n(21)申请号 202021014548.9\n(22)申请日 2020.06.05\n(73)专利权人 科赫工业设备技术（上海）有限公\n司"
+      },
+      "verdict": "真实版本冲突（一案两报）：同一申请人同一申请日，且一方标注同日申请"
+    },
+    {
+      "similarity": 0.9375,
+      "hamming": 4,
+      "a": {
+        "name": "CN114347086A.pdf",
+        "applicant": "戴纳智造河北工业设备有限公司",
+        "apply_date": "2022.02.08",
+        "kind": "发明申请",
+        "apply_no": "202210117331.8",
+        "same_day": false,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)发明专利申请\n(10)申请公布号 \n(43)申请公布日 \n(21)申请号 202210117331.8\n(22)申请日 2022.02.08\n(71)申请人 戴纳智造河北工业设备有限公司\n地址 "
+      },
+      "b": {
+        "name": "CN216913885U.pdf",
+        "applicant": "戴纳智造河北工业设备有限公司",
+        "apply_date": "2022.02.08",
+        "kind": "实用新型",
+        "apply_no": "202220253306.8",
+        "same_day": true,
+        "excerpt": "(19)国家知识产权局\n(12)实用新型专利\n(10)授权公告号 \n(45)授权公告日 \n(21)申请号 202220253306.8\n(22)申请日 2022.02.08\n(73)专利权人 戴纳智造河北工业设备有限公司\n地址 072550"
+      },
+      "verdict": "真实版本冲突（一案两报）：同一申请人同一申请日，且一方标注同日申请"
+    },
+    {
+      "similarity": 0.9219,
+      "hamming": 5,
+      "a": {
+        "name": "CN111320313A.pdf",
+        "applicant": "埃尔博工业设备（北京）有限公司",
+        "apply_date": "2020.03.31",
+        "kind": "发明申请",
+        "apply_no": "202010242164.0",
+        "same_day": false,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)发明专利申请\n(10)申请公布号 \n(43)申请公布日 \n(21)申请号 202010242164.0\n(22)申请日 2020.03.31\n(71)申请人 埃尔博工业设备（北京）有限公司\n地址"
+      },
+      "b": {
+        "name": "CN212025042U.pdf",
+        "applicant": "埃尔博工业设备（北京）有限公司",
+        "apply_date": "2020.03.31",
+        "kind": "实用新型",
+        "apply_no": "202020449974.9",
+        "same_day": true,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)实用新型专利\n(10)授权公告号 \n(45)授权公告日 \n(21)申请号 202020449974.9\n(22)申请日 2020.03.31\n(73)专利权人 埃尔博工业设备（北京）有限公司\n地"
+      },
+      "verdict": "真实版本冲突（一案两报）：同一申请人同一申请日，且一方标注同日申请"
+    },
+    {
+      "similarity": 0.9219,
+      "hamming": 5,
+      "a": {
+        "name": "CN111392926A.pdf",
+        "applicant": "埃尔博工业设备（北京）有限公司",
+        "apply_date": "2020.03.31",
+        "kind": "发明申请",
+        "apply_no": "202010242170.6",
+        "same_day": false,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)发明专利申请\n(10)申请公布号 \n(43)申请公布日 \n(21)申请号 202010242170.6\n(22)申请日 2020.03.31\n(71)申请人 埃尔博工业设备（北京）有限公司\n地址"
+      },
+      "b": {
+        "name": "CN212269731U.pdf",
+        "applicant": "埃尔博工业设备（北京）有限公司",
+        "apply_date": "2020.03.31",
+        "kind": "实用新型",
+        "apply_no": "202020483038.",
+        "same_day": true,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)实用新型专利\n(10)授权公告号 \n(45)授权公告日 \n(21)申请号 202020483038.X\n(22)申请日 2020.03.31\n(73)专利权人 埃尔博工业设备（北京）有限公司\n地"
+      },
+      "verdict": "真实版本冲突（一案两报）：同一申请人同一申请日，且一方标注同日申请"
+    },
+    {
+      "similarity": 0.9219,
+      "hamming": 5,
+      "a": {
+        "name": "CN111976305A.pdf",
+        "applicant": "上海联昊工业设备有限公司",
+        "apply_date": "2020.08.13",
+        "kind": "发明申请",
+        "apply_no": "202010810556.2",
+        "same_day": false,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)发明专利申请\n(10)申请公布号 \n(43)申请公布日 \n(21)申请号 202010810556.2\n(22)申请日 2020.08.13\n(71)申请人 上海联昊工业设备有限公司\n地址 20"
+      },
+      "b": {
+        "name": "CN212242672U.pdf",
+        "applicant": "上海联昊工业设备有限公司",
+        "apply_date": "2020.08.13",
+        "kind": "实用新型",
+        "apply_no": "202021678734.2",
+        "same_day": true,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)实用新型专利\n(10)授权公告号 \n(45)授权公告日 \n(21)申请号 202021678734.2\n(22)申请日 2020.08.13\n(73)专利权人 上海联昊工业设备有限公司\n地址 2"
+      },
+      "verdict": "真实版本冲突（一案两报）：同一申请人同一申请日，且一方标注同日申请"
+    },
+    {
+      "similarity": 0.9219,
+      "hamming": 5,
+      "a": {
+        "name": "CN112516680A.pdf",
+        "applicant": "上海阿美泰克工业设备苏州股份有限公司",
+        "apply_date": "2020.10.26",
+        "kind": "发明申请",
+        "apply_no": "202011153978.3",
+        "same_day": false,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)发明专利申请\n(10)申请公布号 \n(43)申请公布日 \n(21)申请号 202011153978.3\n(22)申请日 2020.10.26\n(71)申请人 上海阿美泰克工业设备苏州股份有\n限公"
+      },
+      "b": {
+        "name": "CN214130685U.pdf",
+        "applicant": "上海阿美泰克工业设备苏州股份有限公司",
+        "apply_date": "2020.10.26",
+        "kind": "实用新型",
+        "apply_no": "202022399014.9",
+        "same_day": true,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)实用新型专利\n(10)授权公告号 \n(45)授权公告日 \n(21)申请号 202022399014.9\n(22)申请日 2020.10.26\n(73)专利权人 上海阿美泰克工业设备苏州股份\n有限"
+      },
+      "verdict": "真实版本冲突（一案两报）：同一申请人同一申请日，且一方标注同日申请"
+    },
+    {
+      "similarity": 0.9219,
+      "hamming": 5,
+      "a": {
+        "name": "CN112593736A.pdf",
+        "applicant": "戴纳智造河北工业设备有限公司",
+        "apply_date": "2020.12.30",
+        "kind": "发明申请",
+        "apply_no": "202011609486.0",
+        "same_day": false,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)发明专利申请\n(10)申请公布号 \n(43)申请公布日 \n(21)申请号 202011609486.0\n(22)申请日 2020.12.30\n(71)申请人 戴纳智造河北工业设备有限公司\n地址 "
+      },
+      "b": {
+        "name": "CN112593737A.pdf",
+        "applicant": "戴纳智造河北工业设备有限公司",
+        "apply_date": "2020.12.30",
+        "kind": "发明申请",
+        "apply_no": "202011612412.2",
+        "same_day": false,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)发明专利申请\n(10)申请公布号 \n(43)申请公布日 \n(21)申请号 202011612412.2\n(22)申请日 2020.12.30\n(71)申请人 戴纳智造河北工业设备有限公司\n地址 "
+      },
+      "verdict": "同一申请人同日申请的姊妹件（文献种类相同），需人工判断是否各自保留"
+    },
+    {
+      "similarity": 0.9219,
+      "hamming": 5,
+      "a": {
+        "name": "CN112593737A.pdf",
+        "applicant": "戴纳智造河北工业设备有限公司",
+        "apply_date": "2020.12.30",
+        "kind": "发明申请",
+        "apply_no": "202011612412.2",
+        "same_day": false,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)发明专利申请\n(10)申请公布号 \n(43)申请公布日 \n(21)申请号 202011612412.2\n(22)申请日 2020.12.30\n(71)申请人 戴纳智造河北工业设备有限公司\n地址 "
+      },
+      "b": {
+        "name": "CN112696060A.pdf",
+        "applicant": "戴纳智造河北工业设备有限公司",
+        "apply_date": "2020.12.30",
+        "kind": "发明申请",
+        "apply_no": "202011612021.0",
+        "same_day": false,
+        "excerpt": "(19)中华人民共和国国家知识产权局\n(12)发明专利申请\n(10)申请公布号 \n(43)申请公布日 \n(21)申请号 202011612021.0\n(22)申请日 2020.12.30\n(71)申请人 戴纳智造河北工业设备有限公司\n地址 "
+      },
+      "verdict": "同一申请人同日申请的姊妹件（文献种类相同），需人工判断是否各自保留"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+# 工单编号：人工智能NLP-RAG-金融问答系统部署
+# 作用：排除无需进入构建上下文的文件，减小上下文体积并避免把本地缓存打进镜像
+
+# 本地运行时产生的缓存与日志（容器内使用命名卷，不应固化进镜像）
+data/
+logs/
+scripts/
+
+# 文档与部署说明（镜像内不需要）
+*.md
+
+# 版本控制与编辑器
+.git/
+.gitignore
+.idea/
+.vscode/
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/

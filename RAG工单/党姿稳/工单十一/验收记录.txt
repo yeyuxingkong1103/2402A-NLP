@@ -1,0 +1,75 @@
+工单十一 Embedding 模型微调 —— 验收记录
+============================================================
+
+一、工单八个步骤实现情况
+  [OK] 步骤 1  数据集生成           corpus.py + gen_dataset.py   1625 块 / 651652 字
+  [OK] 步骤 2  运行问答对生成        gen_dataset.py               194 条（训练 158 / 评估 36）
+  [OK] 步骤 3  数据集与模型加载      build_dataset.py             158 条三元组，0 条丢弃
+  [OK] 步骤 4  定义损失函数          train_model.py               TripletLoss(cosine, margin=0.5) + MatryoshkaLoss[768,384,192]
+  [OK] 步骤 5  定义训练参数          train_model.py               epochs=3, batch=16, lr=2e-5, warmup=0.1, AdamW+warmuplinear
+  [OK] 步骤 6  创建评估器            evaluator.py                 Recall@1/5/10, MRR, nDCG@10, 平均排名
+  [OK] 步骤 7  微调前评估模型        run_eval.py                  recall@1=0.2222 recall@5=0.5278 recall@10=0.6389
+  [OK] 步骤 8  微调后评估模型        run_eval.py                  recall@1=0.2500 recall@5=0.5833 recall@10=0.7222
+
+二、训练过程
+  训练方式   : 自实现 PyTorch 训练循环（本机已装环境不含 datasets，无法使用 model.fit）
+  训练耗时   : 1826.5 秒
+  训练样本   : 158 条三元组，每轮 10 批，共 30 步
+  逐轮损失   : 1.481549 -> 1.285257 -> 1.112846
+  同口径损失 : 微调前 0.521756 -> 微调后 0.342153（下降 0.179603）
+  模型输出   : model/m3e-base-finance/（11 个文件）
+
+三、微调前后检索效果对比（评估集 36 题，候选池 1625 块）
+  指标            微调前        微调后         变化 结论
+  recall@1       0.2222       0.2500       0.0278 改善
+  recall@5       0.5278       0.5833       0.0555 改善
+  recall@10      0.6389       0.7222       0.0833 改善
+  mrr            0.3591       0.3850       0.0259 改善
+  ndcg@10        0.4166       0.4617       0.0451 改善
+  mean_rank     22.9200     150.5800     127.6600 未改善
+  ------------------------------------------------------------
+  改善指标：5/6
+
+  稳健分布指标对照（用于判断 mean_rank 恶化的性质）
+  排名中位数                      4.0  ->  4.0（持平）
+  排名 < 10 的问题数           23/36  ->  26/36（增加）
+
+四、验收标准核对
+  工单要求：微调后的 Embedding 模型的检索效果比微调前要好，要有数据指标支撑
+  [PASS] Recall@1 / Recall@5 / Recall@10 / MRR / nDCG@10 五项指标全部改善
+  [PASS] 微调前后使用同一候选池、同一评估集、同一查询前缀，对比口径公平
+  [PASS] mean_rank 未改善的原因已定位到 3 条异常样本，并补充分布指标说明（详见 微调报告.md 第六节）
+
+五、微调模型可用性冒烟测试
+  SentenceTransformer 加载 model/m3e-base-finance/ 成功
+  编码输出维度 = (2, 768)，与基础模型一致，可直接替换线上检索模型
+
+六、产出物清单
+  微调报告.md                     实现步骤 + 数据集 + 训练过程 + 前后评估对比
+  过程问题记录.md                 10 个问题的现象 / 原因 / 处理
+  验收记录.txt                    本文件
+  data/chunks.json                1625 块 / 651652 字
+  data/qa_pairs.json              训练 158 + 评估 36
+  data/triplets.json              158 条
+  data/train_log.json             训练参数 + 30 个损失点
+  data/eval_result.json           前后指标 + 逐题明细 + 案例对照
+  data/embeddings_base.npy        1625 x 768
+  data/embeddings_finetuned.npy   1625 x 768
+  model/m3e-base-finance/         微调后模型
+
+七、代码规范核对
+  全部 .py 文件行数 <= 300
+  全部 .py 文件逐行带注释
+  全部 .py 文件顶部注释含工单编号
+  全部 .py 文件 py_compile 通过
+  路径均由 os.path.dirname(os.path.abspath(__file__)) 推导，无硬编码
+
+八、复现方式
+  cd C:\Users\dang5\Desktop\工单十一
+  python run_all.py          # 全流程
+  python train_model.py      # 仅重新微调
+  python run_eval.py         # 仅重新评估
+
+============================================================
+结论：工单十一全部八个步骤实现完成，微调后检索效果优于微调前，
+      验收标准达成。

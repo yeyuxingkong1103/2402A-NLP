@@ -1,0 +1,130 @@
+# -*- coding: utf-8 -*-
+# 工单编号：人工智能NLP-RAG-18-实现文档质量评估Skill并集成至智能体工作流
+# 文件职责：DocumentQualityAssessmentSkill 的全部可调参数。所有核心判断阈值都在此配置，
+#           代码中不硬编码；修改本文件即可调整分流口径而无需改代码。
+
+# ---------------------------------------------------------------------------
+# 一、输入输出
+# ---------------------------------------------------------------------------
+paths:
+  # 默认评估目标（IMDR 数据集的 documents/ 文件夹）
+  default_target: "C:/Users/dang5/Desktop/新工单/14-17附件/original_problems/original_problems/documents"
+  output_dir: "data"                 # 报告与中间缓存的落盘目录（相对工单根目录）
+  state_file: "data/assessment_state.json"   # 断点续跑状态文件
+
+scan:                                 # 支持的文件后缀（格式分布统计口径）
+  # 受支持的后缀（小写，含点）
+  extensions:
+    - ".pdf"
+    - ".docx"
+    - ".doc"
+    - ".md"
+    - ".txt"
+    - ".xlsx"
+    - ".csv"
+    - ".pptx"
+  recursive: true                     # 是否递归子目录
+
+# ---------------------------------------------------------------------------
+# 二、PDF 页面类型识别（文字型 / 扫描型 / 混合型）
+# ---------------------------------------------------------------------------
+pdf_triage:
+  char_threshold: 30                  # 单页可提取字符数低于该值 → 判为“扫描页”
+  scan_ratio_threshold: 0.70          # 扫描页占比 ≥ 该值 → 整个文件判为“扫描型”
+  text_ratio_threshold: 0.30          # 扫描页占比 ≤ 该值 → 整个文件判为“文字型”
+  # 介于两者之间 → “混合型”
+  borderline_margin: 0.10             # 占比落在阈值 ±该范围内时，额外列入“待确认”列表
+  max_pages_probe: 0                  # 逐页探测的最大页数；0 表示全部页都探测
+  text_extract_flags: "text"          # PyMuPDF get_text 的取文本模式
+
+# ---------------------------------------------------------------------------
+# 三、文档长度分布
+# ---------------------------------------------------------------------------
+length:
+  percentiles: [25, 50, 75, 90, 99]   # 需要输出的分位数
+  bins: [0, 200, 1000, 3000, 10000, 50000, 1000000000]   # 长度区间边界（字符）
+  bin_labels: ["<200", "200-1k", "1k-3k", "3k-10k", "10k-50k", ">50k"]
+
+# ---------------------------------------------------------------------------
+# 四、重复检测（MD5 精确 + SimHash 近似）
+# ---------------------------------------------------------------------------
+dedup:
+  md5_enabled: true                   # 精确重复（完全相同文件）
+  simhash_enabled: true               # 近似重复（不同版本的同一份文件）
+  simhash_bits: 64                    # SimHash 位宽
+  hamming_threshold: 5                # 汉明距离 ≤ 该值 → 疑似同一文档的不同版本
+                                      # （64 位指纹，5/64 ≈ 92% 相似；阈值已在真实语料上实测校准）
+  simhash_min_chars: 200              # 文本少于该长度的文档不参与 SimHash（太短无意义）
+  band_count: 4                       # 分桶数：把指纹切成 N 段做候选筛选，避免 O(n^2) 全比对
+  max_context_chars: 120              # 版本冲突列表中展示的相似片段长度
+
+# ---------------------------------------------------------------------------
+# 五、敏感信息检测
+# ---------------------------------------------------------------------------
+sensitive:
+  enabled_types:                      # 默认开启的检测类型
+    mobile: true                      # 手机号
+    email: true                       # 邮箱
+    id_card: true                     # 身份证号
+    bank_card: false                  # 银行卡：误报率太高，默认关闭
+  context_chars: 30                   # 每条命中记录前后附带的上下文字符数
+  max_hits_per_type: 200              # 单类型最多保留的命中条数（防止报告爆炸）
+  exclude_patterns:                   # 命中值若匹配下列任一正则则丢弃（降低误报）
+    - "^0{6,}"                        # 全零串
+    - "^(\\d)\\1{7,}"                 # 单字符重复 8 次以上
+
+# ---------------------------------------------------------------------------
+# 六、文档分类标签体系
+# ---------------------------------------------------------------------------
+classify:
+  # 主标签（互斥，取自文档类型与解析来源）
+  primary_labels:
+    - Scan_PDF          # 扫描型 PDF：需先 OCR
+    - Text_PDF          # 文字型 PDF：可直接抽取文本
+    - Mixed_PDF         # 混合型 PDF：逐页分流
+    - DOCX              # Word 文档
+    - Markdown          # Markdown 文档
+    - Text              # 纯文本
+    - Spreadsheet       # 表格类
+    - Presentation      # 演示文稿
+    - Other             # 其他
+  # 质量标签（可多选，附加在主标签之上）
+  quality_tags:
+    - Duplicate_Exact   # 与其他文件完全重复（MD5 相同）
+    - Duplicate_Near    # 与其他文件高相似（SimHash 近邻）
+    - Sensitive_Info    # 命中敏感信息
+    - Too_Short         # 有效文本长度低于阈值
+    - Empty_Text        # 无可提取文本
+    - Corrupted         # 解析失败
+  too_short_chars: 200                # “Too_Short” 的长度阈值
+  empty_text_chars: 10                # 低于该字符数视为“Empty_Text”
+
+# ---------------------------------------------------------------------------
+# 七、工作流路由（document_ingestion_workflow 的决策依据）
+# ---------------------------------------------------------------------------
+routing:
+  # 主标签 → 解析器名。工作流按此表把文档分发到不同解析器。
+  label_to_parser:
+    Scan_PDF: ocr_parser
+    Mixed_PDF: hybrid_parser
+    Text_PDF: text_parser
+    DOCX: docx_parser
+    Markdown: markdown_parser
+    Text: text_parser
+    Spreadsheet: table_parser
+    Presentation: pptx_parser
+    Other: passthrough_parser
+  # 命中以下质量标签时，优先路由到人工复核分支，不再自动解析
+  review_first_tags: ["Corrupted"]
+  # OCR 解析器的并发上限（用于工作流限流）
+  ocr_max_workers: 2
+
+# ---------------------------------------------------------------------------
+# 八、运行控制
+# ---------------------------------------------------------------------------
+runtime:
+  resume: true                        # 支持中断恢复：已处理文件跳过
+  progress_every: 100                 # 每处理 N 个文件打印一次进度
+  html_report: true                   # 是否额外输出 HTML 简报
+  json_indent: 2                      # JSON 缩进
+  error_sample_limit: 50              # 报告中最多保留的解析失败样例数

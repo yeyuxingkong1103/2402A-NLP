@@ -1,0 +1,22 @@
+# 工单编号：人工智能NLP-RAG-金融问答系统部署
+# 说明：容器内运行依赖清单。torch 使用 CPU 版并指定官方 CPU 源，避免拉取数 GB 的 CUDA 依赖
+
+# --- Web 服务框架 ---
+fastapi==0.115.6                 # HTTP 服务框架，提供 /ask /retrieve /health 等接口
+uvicorn[standard]==0.32.1        # ASGI 服务器，用于承载 FastAPI 应用
+pydantic==2.10.4                 # 请求体数据校验（FastAPI 依赖）
+python-multipart==0.0.20         # 表单/文件上传支持（FastAPI 依赖）
+
+# --- 向量检索（可选能力，未挂载模型时服务自动降级为 BM25）---
+# 必须写全 "+cpu" 本地版本号：若只写 torch==2.4.1，pip 在解析 sentence-transformers 的
+# torch>=1.11.0 依赖时会从 PyPI 拉取 797MB 的 CUDA 版，覆盖 Dockerfile 预置的 CPU wheel
+torch==2.4.1+cpu                 # 深度学习框架 CPU 版（wheel 由 Dockerfile 预置到 /wheels）
+transformers==4.46.3             # 预训练模型加载库
+sentence-transformers==3.2.1     # 句向量模型封装（m3e-base）
+
+# --- 检索与数据处理 ---
+numpy==1.24.4                    # 向量矩阵运算
+jieba==0.42.1                    # 中文分词（BM25 检索所需）
+
+# --- 大模型调用 ---
+openai==2.2.0                    # OpenAI 兼容客户端，用于调用 DeepSeek
