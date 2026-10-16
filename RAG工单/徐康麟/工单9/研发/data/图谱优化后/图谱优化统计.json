@@ -1,0 +1,685 @@
+{
+  "work_order": "人工智能NLP-RAG-Graph RAG 优化任务",
+  "built_at": "2026-10-13 18:06:49",
+  "输入": {
+    "graph_dir": "E:\\gao6gongdan\\工单8\\研发\\data\\graph",
+    "节点": 9817,
+    "边": 4861,
+    "平均度数": 0.9903
+  },
+  "输出": {
+    "graph_dir": "E:\\gao6gongdan\\工单9\\研发\\data\\图谱优化后",
+    "节点": 6717,
+    "边": 3807,
+    "平均度数": 1.1335
+  },
+  "别名归并": {
+    "R1_公司后缀归并组": 103,
+    "R2_人名前缀归并组": 1,
+    "R3_数值写法归并组": 0,
+    "归并组数": 104,
+    "被并入实体数": 208
+  },
+  "关系规范化": {
+    "输入边数": 4861,
+    "关系名归并数": 0,
+    "方向反转数": 0,
+    "方向无法判定保留数": 22,
+    "自环剪除数": 12,
+    "非法关系剪除数": 0,
+    "低置信度剪除数": 0,
+    "重复边合并数": 24,
+    "规范关系覆盖率": 1.0,
+    "输出边数": 4825
+  },
+  "噪声剪枝": {
+    "通用刻度剪除数": 2,
+    "抽取碎片剪除数": 1249,
+    "度数超限剪除数": 0,
+    "过短实体剪除数": 0,
+    "孤立节点剪除数": 1745,
+    "随节点剪除的边数": 1018,
+    "输出节点数": 6717,
+    "输出边数": 3807
+  },
+  "度数阈值": 371,
+  "entities_by_type": {
+    "机构": 759,
+    "产品/业务": 628,
+    "公司": 944,
+    "日期": 623,
+    "指标": 2442,
+    "金额": 457,
+    "比例": 830,
+    "人物": 26,
+    "地区": 8
+  },
+  "relations_by_type": {
+    "任职": 23,
+    "归属于": 62,
+    "发行": 205,
+    "持股": 198,
+    "披露": 1277,
+    "拥有": 764,
+    "指标取值": 475,
+    "位于": 20,
+    "同比变动": 243,
+    "母子公司": 540
+  },
+  "归并组样例": [
+    {
+      "canonical": "上海农村商业银行股份有限公司",
+      "aliases": [
+        "上海农村商业银行"
+      ],
+      "canonical_count": 9,
+      "type": "company"
+    },
+    {
+      "canonical": "上海数据交易所有限公司",
+      "aliases": [
+        "上海数据交易所"
+      ],
+      "canonical_count": 2,
+      "type": "company"
+    },
+    {
+      "canonical": "上海浦东发展银行",
+      "aliases": [
+        "上海浦东发展银行股份有限公司"
+      ],
+      "canonical_count": 8,
+      "type": "institution"
+    },
+    {
+      "canonical": "上海银行",
+      "aliases": [
+        "上海银行股份有限公司"
+      ],
+      "canonical_count": 10,
+      "type": "institution"
+    },
+    {
+      "canonical": "上海银行股份有限公司和苏州银行股份有限公司",
+      "aliases": [
+        "上海银行股份有限公司和苏州银行"
+      ],
+      "canonical_count": 1,
+      "type": "company"
+    },
+    {
+      "canonical": "中信建投证券股份有限公司",
+      "aliases": [
+        "中信建投证券有限责任公司"
+      ],
+      "canonical_count": 9,
+      "type": "company"
+    },
+    {
+      "canonical": "中信证券股份有限公司",
+      "aliases": [
+        "中信证券有限责任公司"
+      ],
+      "canonical_count": 93,
+      "type": "company"
+    },
+    {
+      "canonical": "中信银行",
+      "aliases": [
+        "中信银行股份有限公司"
+      ],
+      "canonical_count": 13,
+      "type": "institution"
+    },
+    {
+      "canonical": "中信集团",
+      "aliases": [
+        "中信股份有限公司"
+      ],
+      "canonical_count": 22,
+      "type": "company"
+    },
+    {
+      "canonical": "中国中信有限公司",
+      "aliases": [
+        "中国中信股份有限公司"
+      ],
+      "canonical_count": 10,
+      "type": "company"
+    },
+    {
+      "canonical": "中国交通建设集团",
+      "aliases": [
+        "中国交通建设股份有限公司"
+      ],
+      "canonical_count": 16,
+      "type": "company"
+    },
+    {
+      "canonical": "中国人寿保险股份有限公司",
+      "aliases": [
+        "中国人寿保险公司"
+      ],
+      "canonical_count": 293,
+      "type": "company"
+    },
+    {
+      "canonical": "中国人民保险集团",
+      "aliases": [
+        "中国人民保险公司"
+      ],
+      "canonical_count": 1,
+      "type": "company"
+    },
+    {
+      "canonical": "中国光大银行",
+      "aliases": [
+        "中国光大银行股份有限公司"
+      ],
+      "canonical_count": 4,
+      "type": "institution"
+    },
+    {
+      "canonical": "中国农业银行",
+      "aliases": [
+        "中国农业银行股份有限公司"
+      ],
+      "canonical_count": 6,
+      "type": "institution"
+    },
+    {
+      "canonical": "中国国际金融股份有限公司",
+      "aliases": [
+        "中国国际金融有限公司"
+      ],
+      "canonical_count": 3,
+      "type": "company"
+    },
+    {
+      "canonical": "中国工商银行",
+      "aliases": [
+        "中国工商银行股份有限公司"
+      ],
+      "canonical_count": 20,
+      "type": "institution"
+    },
+    {
+      "canonical": "中国平安保险公司",
+      "aliases": [
+        "中国平安保险股份有限公司"
+      ],
+      "canonical_count": 3,
+      "type": "institution"
+    },
+    {
+      "canonical": "中国建设银行",
+      "aliases": [
+        "中国建设银行股份有限公司"
+      ],
+      "canonical_count": 11,
+      "type": "institution"
+    },
+    {
+      "canonical": "中国民生银行",
+      "aliases": [
+        "中国民生银行股份有限公司"
+      ],
+      "canonical_count": 5,
+      "type": "institution"
+    },
+    {
+      "canonical": "中国邮政储蓄银行",
+      "aliases": [
+        "中国邮政储蓄银行股份有限公司"
+      ],
+      "canonical_count": 233,
+      "type": "institution"
+    },
+    {
+      "canonical": "中国金融期货交易所",
+      "aliases": [
+        "中国金融期货交易所股份有限公司"
+      ],
+      "canonical_count": 4,
+      "type": "institution"
+    },
+    {
+      "canonical": "中国银保监会同意本行向瑞士银行有限公司",
+      "aliases": [
+        "中国银保监会同意本行向瑞士银行"
+      ],
+      "canonical_count": 1,
+      "type": "company"
+    },
+    {
+      "canonical": "中国银行",
+      "aliases": [
+        "中国银行股份有限公司"
+      ],
+      "canonical_count": 27,
+      "type": "institution"
+    },
+    {
+      "canonical": "于吸收合并控股子公司平安银行股份有限公司",
+      "aliases": [
+        "于吸收合并控股子公司平安银行"
+      ],
+      "canonical_count": 1,
+      "type": "company"
+    },
+    {
+      "canonical": "于香港联合交易所有限公司",
+      "aliases": [
+        "于香港联合交易所"
+      ],
+      "canonical_count": 4,
+      "type": "company"
+    },
+    {
+      "canonical": "交通银行",
+      "aliases": [
+        "交通银行股份有限公司"
+      ],
+      "canonical_count": 23,
+      "type": "institution"
+    },
+    {
+      "canonical": "伍先生亦为恒生银行有限公司",
+      "aliases": [
+        "伍先生亦为恒生银行"
+      ],
+      "canonical_count": 1,
+      "type": "company"
+    },
+    {
+      "canonical": "作为中国邮政储蓄银行股份有限公司",
+      "aliases": [
+        "作为中国邮政储蓄银行"
+      ],
+      "canonical_count": 2,
+      "type": "company"
+    },
+    {
+      "canonical": "保险股份有限公司",
+      "aliases": [
+        "保险有限公司"
+      ],
+      "canonical_count": 5,
+      "type": "company"
+    }
+  ],
+  "剪除样例": [
+    {
+      "name": "2020年度",
+      "type": "date",
+      "degree": 62,
+      "count": 593,
+      "mentions": 6,
+      "reason": "通用刻度（出现 593 次 > 阈值 371，类型 date）"
+    },
+    {
+      "name": "2021年12月31日",
+      "type": "date",
+      "degree": 19,
+      "count": 528,
+      "mentions": 6,
+      "reason": "通用刻度（出现 528 次 > 阈值 371，类型 date）"
+    },
+    {
+      "name": "是指本集团",
+      "type": "company",
+      "degree": 10,
+      "count": 36,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "当本集团",
+      "type": "company",
+      "degree": 12,
+      "count": 23,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "如果本集团",
+      "type": "company",
+      "degree": 9,
+      "count": 18,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「如果」）"
+    },
+    {
+      "name": "因此本集团",
+      "type": "company",
+      "degree": 7,
+      "count": 17,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "对于本集团",
+      "type": "company",
+      "degree": 11,
+      "count": 17,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "于本集团",
+      "type": "company",
+      "degree": 12,
+      "count": 16,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "在本集团",
+      "type": "company",
+      "degree": 12,
+      "count": 14,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "且本集团",
+      "type": "company",
+      "degree": 6,
+      "count": 13,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "下表列示了本集团",
+      "type": "company",
+      "degree": 4,
+      "count": 12,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "则本集团",
+      "type": "company",
+      "degree": 8,
+      "count": 12,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "指本集团",
+      "type": "company",
+      "degree": 9,
+      "count": 11,
+      "mentions": 3,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "由本集团",
+      "type": "company",
+      "degree": 3,
+      "count": 11,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "占本集团",
+      "type": "company",
+      "degree": 10,
+      "count": 10,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "如本集团",
+      "type": "company",
+      "degree": 1,
+      "count": 10,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "下表列出所示期间本集团",
+      "type": "company",
+      "degree": 4,
+      "count": 8,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "本集团银行",
+      "type": "institution",
+      "degree": 4,
+      "count": 8,
+      "mentions": 5,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "对本集团",
+      "type": "company",
+      "degree": 7,
+      "count": 7,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "按照本集团",
+      "type": "company",
+      "degree": 7,
+      "count": 7,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "由于本集团",
+      "type": "company",
+      "degree": 9,
+      "count": 7,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「由于」）"
+    },
+    {
+      "name": "除本集团",
+      "type": "company",
+      "degree": 5,
+      "count": 7,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "风险管理与消费者权益保护委员会",
+      "type": "institution",
+      "degree": 3,
+      "count": 7,
+      "mentions": 5,
+      "reason": "抽取碎片（含并列连词「与」且长度 15 ≥ 12）"
+    },
+    {
+      "name": "香港联交所及上海证券交易所",
+      "type": "institution",
+      "degree": 0,
+      "count": 7,
+      "mentions": 5,
+      "reason": "抽取碎片（含并列连词「及」且长度 13 ≥ 12）"
+    },
+    {
+      "name": "上海陆家嘴国际金融资产交易市场股份有限公司",
+      "type": "company",
+      "degree": 4,
+      "count": 6,
+      "mentions": 4,
+      "reason": "抽取碎片（公司/机构名 21 字 > 16）"
+    },
+    {
+      "name": "和谐健康保险股份有限公司",
+      "type": "company",
+      "degree": 3,
+      "count": 6,
+      "mentions": 5,
+      "reason": "抽取碎片（含并列连词「和」且长度 12 ≥ 12）"
+    },
+    {
+      "name": "在判断本集团",
+      "type": "company",
+      "degree": 3,
+      "count": 6,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "战略与资产负债管理委员会",
+      "type": "institution",
+      "degree": 1,
+      "count": 6,
+      "mentions": 5,
+      "reason": "抽取碎片（含并列连词「与」且长度 12 ≥ 12）"
+    },
+    {
+      "name": "日本集团",
+      "type": "company",
+      "degree": 3,
+      "count": 6,
+      "mentions": 6,
+      "reason": "抽取碎片（含句级连词/指示词「本集团」）"
+    },
+    {
+      "name": "本公司执行委员会",
+      "type": "institution",
+      "degree": 6,
+      "count": 6,
+      "mentions": 4,
+      "reason": "抽取碎片（含句级连词/指示词「本公司」）"
+    }
+  ],
+  "方向无法判定样例": [
+    {
+      "head": "中国邮政储蓄银行",
+      "relation": "归属于",
+      "tail": "净利润",
+      "head_type": "institution",
+      "tail_type": "metric"
+    },
+    {
+      "head": "中国邮政储蓄银行",
+      "relation": "归属于",
+      "tail": "净资产",
+      "head_type": "institution",
+      "tail_type": "metric"
+    },
+    {
+      "head": "中国邮政储蓄银行",
+      "relation": "归属于",
+      "tail": "股东权益",
+      "head_type": "institution",
+      "tail_type": "metric"
+    },
+    {
+      "head": "平安银行",
+      "relation": "归属于",
+      "tail": "净资产收益率",
+      "head_type": "institution",
+      "tail_type": "metric"
+    },
+    {
+      "head": "平安银行",
+      "relation": "归属于",
+      "tail": "基本每股收益",
+      "head_type": "institution",
+      "tail_type": "metric"
+    },
+    {
+      "head": "招商银行",
+      "relation": "归属于",
+      "tail": "归属于本行股东的净利润",
+      "head_type": "institution",
+      "tail_type": "metric"
+    },
+    {
+      "head": "招商银行",
+      "relation": "归属于",
+      "tail": "归属于母公司股东的净利润",
+      "head_type": "institution",
+      "tail_type": "metric"
+    },
+    {
+      "head": "招商银行",
+      "relation": "归属于",
+      "tail": "经营活动产生的现金流量净额",
+      "head_type": "institution",
+      "tail_type": "metric"
+    },
+    {
+      "head": "招商银行",
+      "relation": "归属于",
+      "tail": "股东权益",
+      "head_type": "institution",
+      "tail_type": "metric"
+    },
+    {
+      "head": "净利润",
+      "relation": "归属于",
+      "tail": "中国邮政储蓄银行",
+      "head_type": "metric",
+      "tail_type": "institution"
+    }
+  ],
+  "配置": {
+    "enabled": true,
+    "alias_merge": true,
+    "org_suffixes": [
+      "股份有限公司",
+      "有限责任公司",
+      "有限公司",
+      "集团公司",
+      "集团",
+      "公司"
+    ],
+    "person_prefix_len_diff": 1,
+    "person_prefix_count_ratio": 0.3,
+    "normalize_numeric_names": true,
+    "relation_canonical": true,
+    "relation_direction_fix": true,
+    "drop_invalid_relation": true,
+    "drop_self_loop": true,
+    "dedupe_edges": true,
+    "uninformative_ratio_max": 10.0,
+    "prune_types": [
+      "date",
+      "ratio",
+      "amount"
+    ],
+    "max_doc_ratio": 0.05,
+    "min_absolute_count": 200,
+    "prune_fragments": true,
+    "fragment_max_len": 16,
+    "fragment_markers": [
+      "之后",
+      "同受",
+      "其中",
+      "上述",
+      "以下",
+      "根据",
+      "但是",
+      "并且",
+      "或者",
+      "以及",
+      "分别",
+      "同时",
+      "由于",
+      "如果",
+      "本集团",
+      "本公司"
+    ],
+    "fragment_joiners": [
+      "和",
+      "与",
+      "及"
+    ],
+    "fragment_joiner_min_len": 12,
+    "min_confidence": 0.6,
+    "min_edge_confidence": 0.55,
+    "mentions_per_entity": 4,
+    "min_entity_len": 2,
+    "max_degree": 400
+  },
+  "elapsed_ms": 549.65
+}

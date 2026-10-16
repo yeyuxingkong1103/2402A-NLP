@@ -1,0 +1,65 @@
+{
+  "工单": "人工智能NLP-RAG-Graph RAG 优化任务",
+  "PDF": "E:\\gao6gongdan\\工单9\\输入\\sample_questions.pdf",
+  "PDF页数": 3,
+  "PDF参考问答条数": 4,
+  "评估集题数": 17,
+  "PDF核对匹配阈值": 0.75,
+  "PDF核对匹配数": 4,
+  "评估集中有PDF原文支撑的题数": 4,
+  "映射": [
+    {
+      "pdf_question": "xx银行在2019年的董事⻓致辞中,提到其盈利增⻓的关键因素有哪些?",
+      "pdf_pages": [
+        1,
+        1
+      ],
+      "matched_id": "Q01",
+      "similarity": 0.6047,
+      "containment": 0.8125,
+      "matched": true
+    },
+    {
+      "pdf_question": "xx银行在其2019年年报中提到的创新商业模式有哪些?",
+      "pdf_pages": [
+        1,
+        1
+      ],
+      "matched_id": "Q02",
+      "similarity": 0.8462,
+      "containment": 0.8462,
+      "matched": true
+    },
+    {
+      "pdf_question": "平安银行的⻛险管理体系如何体现其应对宏观经济周期波动的能力?结合年报中的拨备覆盖率动态调整、资产质量 控制,以及贷款结构优化策略,分析其应对经济下行周期的准备程",
+      "pdf_pages": [
+        1,
+        2
+      ],
+      "matched_id": "Q03",
+      "similarity": 0.9881,
+      "containment": 0.9881,
+      "matched": true
+    },
+    {
+      "pdf_question": "分析这些银行和保险公司在面对经济周期波动时的共同策略与差异化策略,重点关注其在⻛险管理、资本结构优化 和新兴领域(如绿色金融或科技金融)投资上的表现。如何评估这",
+      "pdf_pages": [
+        2,
+        3
+      ],
+      "matched_id": "Q04",
+      "similarity": 0.9891,
+      "containment": 0.9891,
+      "matched": true
+    }
+  ],
+  "NFKC归一化": {
+    "原因": "sample_questions.pdf 文本层使用 Kangxi 部首码位（⾏/⼀/⾦/⻓），不做 NFKC 会导致关键词与索引正文不同码位、命中率恒为 0",
+    "示例": {
+      "原始": "银⾏",
+      "归一化后": "银行"
+    },
+    "实现": "unicodedata.normalize('NFKC', text)"
+  },
+  "结论": "PDF 原文的 4 条问答与评估集 Q01~Q04 一一对应，其余 13 题为工单7 扩充题（不在 PDF 原文中，判分仍用其人工关键词）"
+}

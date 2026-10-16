@@ -1,0 +1,369 @@
+{
+  "工单": "人工智能NLP-RAG-Graph RAG 优化任务",
+  "生成时间": "2026-10-13 18:36:15",
+  "口径": {
+    "问题集": "E:\\gao6gongdan\\工单9\\研发\\评估\\参考答案集.jsonl",
+    "指标": "自研 RAGAS 近似器（关键词/页码近似口径，非 LLM 裁判）",
+    "上下文主口径": "进生成阶段的证据块",
+    "上下文附口径": "检索 Top-K",
+    "use_cache": false,
+    "生成模型": "qwen2.5:3b（优化后仅在快路径不达标时调用）",
+    "配置指纹": "2379d7e16f576b2c",
+    "融合权重": {
+      "base": 0.62,
+      "graph": 0.23,
+      "feature": 0.15
+    },
+    "生成方式分布": {
+      "grounded_template": 17
+    },
+    "图谱规模": {
+      "优化前": {
+        "节点": 9817,
+        "边": 4861
+      },
+      "优化后": {
+        "节点": 6717,
+        "边": 3807
+      }
+    }
+  },
+  "核心指标对比": {
+    "context_precision": {
+      "优化前": 0.7765,
+      "优化后": 0.8025,
+      "变化": 0.026,
+      "相对提升": "3.35%"
+    },
+    "context_precision_rank": {
+      "优化前": 0.8846,
+      "优化后": 0.9491,
+      "变化": 0.0645,
+      "相对提升": "7.29%"
+    },
+    "context_recall": {
+      "优化前": 0.7563,
+      "优化后": 0.8739,
+      "变化": 0.1176,
+      "相对提升": "15.55%"
+    },
+    "topk_context_precision": {
+      "优化前": 0.7588,
+      "优化后": 0.7765,
+      "变化": 0.0177,
+      "相对提升": "2.33%"
+    },
+    "topk_context_recall": {
+      "优化前": 0.8025,
+      "优化后": 0.7908,
+      "变化": -0.0117,
+      "相对提升": "-1.46%"
+    },
+    "faithfulness": {
+      "优化前": 0.9632,
+      "优化后": 0.944,
+      "变化": -0.0192,
+      "相对提升": "-1.99%"
+    },
+    "answer_relevancy": {
+      "优化前": 0.5767,
+      "优化后": 0.5802,
+      "变化": 0.0035,
+      "相对提升": "0.61%"
+    }
+  },
+  "响应时间对比": {
+    "平均ms": {
+      "优化前": 3745.3859,
+      "优化后": 171.1859,
+      "变化": -3574.2
+    },
+    "P90ms": {
+      "优化前": 5017.1,
+      "优化后": 183.59
+    },
+    "P95ms": {
+      "优化前": 5056.51,
+      "优化后": 210.07
+    },
+    "最大ms": {
+      "优化前": 9898.41,
+      "优化后": 328.0
+    },
+    "生成段_平均ms": {
+      "优化前": 3421.8218,
+      "优化后": 0.0
+    },
+    "SLA达标率": {
+      "优化前": 0.4118,
+      "优化后": 1.0
+    }
+  },
+  "验收达标判定": {
+    "阈值": {
+      "context_precision": 0.8,
+      "context_recall": 0.9,
+      "响应时间ms": 3000.0
+    },
+    "context_precision": {
+      "优化前": 0.7765,
+      "优化后": 0.8025,
+      "是否达标": true
+    },
+    "context_recall": {
+      "优化前": 0.7563,
+      "优化后": 0.8739,
+      "是否达标": false
+    },
+    "响应时间SLA": {
+      "优化前达标率": 0.4118,
+      "优化后达标率": 1.0,
+      "P95是否≤阈值": true
+    }
+  },
+  "严格准确率": {
+    "优化前": 0.2941,
+    "优化后": 0.4118,
+    "变化": 0.1177
+  },
+  "逐题对照": [
+    {
+      "id": "Q01",
+      "question_type": "定性题",
+      "before_precision": 0.8,
+      "after_precision": 0.7857,
+      "before_recall": 1.0,
+      "after_recall": 1.0,
+      "before_topk_precision": 0.9,
+      "after_topk_precision": 0.9,
+      "before_ms": 9898.41,
+      "after_ms": 328.0,
+      "before_method": "draft_fallback",
+      "after_method": "grounded_template"
+    },
+    {
+      "id": "Q02",
+      "question_type": "定性题",
+      "before_precision": 0.4,
+      "after_precision": 0.2143,
+      "before_recall": 0.8333,
+      "after_recall": 0.8333,
+      "before_topk_precision": 0.3,
+      "after_topk_precision": 0.3,
+      "before_ms": 2344.84,
+      "after_ms": 135.2,
+      "before_method": "draft_fallback",
+      "after_method": "grounded_template"
+    },
+    {
+      "id": "Q03",
+      "question_type": "定性题",
+      "before_precision": 0.2,
+      "after_precision": 0.6429,
+      "before_recall": 0.2857,
+      "after_recall": 0.5714,
+      "before_topk_precision": 0.2,
+      "after_topk_precision": 0.2,
+      "before_ms": 4976.81,
+      "after_ms": 169.31,
+      "before_method": "draft_fallback",
+      "after_method": "grounded_template"
+    },
+    {
+      "id": "Q04",
+      "question_type": "跨文档对比题",
+      "before_precision": 0.8,
+      "after_precision": 0.8571,
+      "before_recall": 0.0,
+      "after_recall": 0.2857,
+      "before_topk_precision": 0.9,
+      "after_topk_precision": 0.9,
+      "before_ms": 5017.1,
+      "after_ms": 155.28,
+      "before_method": "draft_fallback",
+      "after_method": "grounded_template"
+    },
+    {
+      "id": "Q05",
+      "question_type": "数值题",
+      "before_precision": 1.0,
+      "after_precision": 1.0,
+      "before_recall": 1.0,
+      "after_recall": 1.0,
+      "before_topk_precision": 1.0,
+      "after_topk_precision": 1.0,
+      "before_ms": 2401.07,
+      "after_ms": 143.42,
+      "before_method": "draft_fallback",
+      "after_method": "grounded_template"
+    },
+    {
+      "id": "Q06",
+      "question_type": "定性题",
+      "before_precision": 1.0,
+      "after_precision": 0.9286,
+      "before_recall": 1.0,
+      "after_recall": 1.0,
+      "before_topk_precision": 0.9,
+      "after_topk_precision": 0.9,
+      "before_ms": 1322.32,
+      "after_ms": 165.48,
+      "before_method": "draft_fallback",
+      "after_method": "grounded_template"
+    },
+    {
+      "id": "Q07",
+      "question_type": "数值题",
+      "before_precision": 1.0,
+      "after_precision": 1.0,
+      "before_recall": 0.7143,
+      "after_recall": 1.0,
+      "before_topk_precision": 0.8,
+      "after_topk_precision": 1.0,
+      "before_ms": 4885.53,
+      "after_ms": 137.69,
+      "before_method": "draft_fallback",
+      "after_method": "grounded_template"
+    },
+    {
+      "id": "Q08",
+      "question_type": "数值题",
+      "before_precision": 0.8,
+      "after_precision": 0.9286,
+      "before_recall": 0.8571,
+      "after_recall": 1.0,
+      "before_topk_precision": 0.7,
+      "after_topk_precision": 0.7,
+      "before_ms": 4999.53,
+      "after_ms": 151.63,
+      "before_method": "draft_fallback",
+      "after_method": "grounded_template"
+    },
+    {
+      "id": "Q09",
+      "question_type": "跨文档对比题",
+      "before_precision": 0.6,
+      "after_precision": 0.5714,
+      "before_recall": 0.5,
+      "after_recall": 0.5,
+      "before_topk_precision": 0.7,
+      "after_topk_precision": 0.6,
+      "before_ms": 2073.31,
+      "after_ms": 148.23,
+      "before_method": "draft_fallback",
+      "after_method": "grounded_template"
+    },
+    {
+      "id": "Q10",
+      "question_type": "数值题",
+      "before_precision": 0.8,
+      "after_precision": 0.7857,
+      "before_recall": 0.8333,
+      "after_recall": 1.0,
+      "before_topk_precision": 0.7,
+      "after_topk_precision": 0.8,
+      "before_ms": 2067.75,
+      "after_ms": 156.56,
+      "before_method": "draft_fallback",
+      "after_method": "grounded_template"
+    },
+    {
+      "id": "Q11",
+      "question_type": "数值题",
+      "before_precision": 1.0,
+      "after_precision": 1.0,
+      "before_recall": 1.0,
+      "after_recall": 1.0,
+      "before_topk_precision": 1.0,
+      "after_topk_precision": 1.0,
+      "before_ms": 3161.5,
+      "after_ms": 156.59,
+      "before_method": "draft_fallback",
+      "after_method": "grounded_template"
+    },
+    {
+      "id": "Q12",
+      "question_type": "数值题",
+      "before_precision": 1.0,
+      "after_precision": 1.0,
+      "before_recall": 0.8333,
+      "after_recall": 1.0,
+      "before_topk_precision": 1.0,
+      "after_topk_precision": 1.0,
+      "before_ms": 1985.69,
+      "after_ms": 178.84,
+      "before_method": "draft_fallback",
+      "after_method": "grounded_template"
+    },
+    {
+      "id": "Q13",
+      "question_type": "英文题",
+      "before_precision": 0.4,
+      "after_precision": 0.3571,
+      "before_recall": 0.0,
+      "after_recall": 0.6667,
+      "before_topk_precision": 0.7,
+      "after_topk_precision": 0.5,
+      "before_ms": 4402.39,
+      "after_ms": 183.59,
+      "before_method": "draft_fallback",
+      "after_method": "grounded_template"
+    },
+    {
+      "id": "Q14",
+      "question_type": "数值题",
+      "before_precision": 1.0,
+      "after_precision": 1.0,
+      "before_recall": 1.0,
+      "after_recall": 1.0,
+      "before_topk_precision": 0.9,
+      "after_topk_precision": 1.0,
+      "before_ms": 3069.77,
+      "after_ms": 210.07,
+      "before_method": "draft_fallback",
+      "after_method": "grounded_template"
+    },
+    {
+      "id": "Q15",
+      "question_type": "数值题",
+      "before_precision": 0.4,
+      "after_precision": 0.5714,
+      "before_recall": 1.0,
+      "after_recall": 1.0,
+      "before_topk_precision": 0.3,
+      "after_topk_precision": 0.5,
+      "before_ms": 3933.63,
+      "after_ms": 175.64,
+      "before_method": "draft_fallback",
+      "after_method": "grounded_template"
+    },
+    {
+      "id": "Q16",
+      "question_type": "数值题",
+      "before_precision": 1.0,
+      "after_precision": 1.0,
+      "before_recall": 1.0,
+      "after_recall": 1.0,
+      "before_topk_precision": 0.9,
+      "after_topk_precision": 0.9,
+      "before_ms": 2075.4,
+      "after_ms": 157.1,
+      "before_method": "draft_fallback",
+      "after_method": "grounded_template"
+    },
+    {
+      "id": "Q17",
+      "question_type": "定性题",
+      "before_precision": 1.0,
+      "after_precision": 1.0,
+      "before_recall": 1.0,
+      "after_recall": 1.0,
+      "before_topk_precision": 1.0,
+      "after_topk_precision": 1.0,
+      "before_ms": 5056.51,
+      "after_ms": 157.53,
+      "before_method": "draft_fallback",
+      "after_method": "grounded_template"
+    }
+  ]
+}

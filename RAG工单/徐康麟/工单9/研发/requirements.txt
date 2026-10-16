@@ -1,0 +1,42 @@
+# 工单9 运行依赖（全部为**已装**包；本工单未新增任何第三方依赖）
+# 工单编号：人工智能NLP-RAG-Graph RAG 优化任务
+#
+# 环境：E:\gao6gongdan\工单1\.venv\Scripts\python.exe （Python 3.11.15）
+#
+# ⚠️ 本机**没有**以下包，本工单的设计已全部规避（不要尝试安装，pip 会写进只读 venv）：
+#     ragas / pandas / matplotlib / gradio / streamlit / loguru / cv2 / pytesseract /
+#     pdfplumber / onnxruntime
+#   替代方案：
+#     ragas        → 自研近似器 研发/评估/ragas近似.py（公式见 设计/评估指标定义.md）
+#     matplotlib   → PIL 手绘 测试/生成截图.py
+#     gradio/st.   → 标准库 http.server 研发/app/ui/serve_fallback.py
+#     pandas       → 标准库 csv / json
+
+# ---- 检索与索引（复用 工单7 已建索引，不再重新嵌入）----
+numpy>=1.24
+faiss-cpu>=1.7          # 工单7 已建 FAISS 索引（bge-m3 1024 维 / 8847 块）
+
+# ---- 中文与文本处理 ----
+jieba>=0.42
+
+# ---- PDF 抽取（参考答案集；C 盘 PDF 先复制到 输入/ 再用）----
+pymupdf>=1.23
+
+# ---- HTTP 客户端（调用本机 Ollama 127.0.0.1:11434）----
+requests>=2.31
+
+# ---- 图像渲染（测试截图；字体走 Windows 自带 msyh/simhei）----
+Pillow>=10.0
+
+# ---- 测试 ----
+pytest>=7.4
+
+# ---- 复用 工单7/工单8 代码时需要的运行时（由 工单1 venv 提供，这里只作声明）----
+torch>=2.0              # 工单7 索引/嵌入链路依赖（CPU 版）
+transformers>=4.38
+sentence-transformers>=2.6
+scikit-learn>=1.3
+fastapi>=0.110
+uvicorn>=0.27
+openai>=1.0
+huggingface_hub>=0.20

@@ -1,0 +1,5158 @@
+{
+  "profile": "before",
+  "题数": 17,
+  "异常题数": 0,
+  "指标": {
+    "题数": 17,
+    "context_precision": 0.7765,
+    "context_precision_rank": 0.8846,
+    "context_recall": 0.7563,
+    "topk_context_precision": 0.7588,
+    "topk_context_precision_rank": 0.8511,
+    "topk_context_recall": 0.8025,
+    "faithfulness": 0.9632,
+    "answer_relevancy": 0.5767,
+    "达标": {
+      "阈值": {
+        "context_precision": 0.8,
+        "context_recall": 0.9,
+        "sla_ms": 3000.0
+      },
+      "context_precision达标": false,
+      "context_recall达标": false,
+      "context_precision_rank达标": true,
+      "响应时间达标率": 0.4118,
+      "SLA达标题数": 7
+    },
+    "响应时间ms": {
+      "平均": 3745.39,
+      "P50": 3161.5,
+      "P90": 5017.1,
+      "P95": 5056.51,
+      "最大": 9898.41,
+      "最小": 1322.32
+    },
+    "口径": "关键词/页码近似口径（非 LLM 裁判）；上下文主口径 = 生成阶段证据块，附口径 = 检索 Top-K。详见 研发/评估/ragas近似.py 模块 docstring。"
+  },
+  "判分": {
+    "严格判对题数": 5,
+    "严格准确率": 0.2941,
+    "判对题号": [
+      "Q05",
+      "Q06",
+      "Q15",
+      "Q16",
+      "Q17"
+    ],
+    "部分正确题数": 8,
+    "宽松准确率": 0.7647,
+    "平均关键词覆盖率": 0.3997
+  },
+  "响应时间ms": {
+    "样本数": 17,
+    "平均": 3745.3859,
+    "P50": 3161.5,
+    "P90": 5017.1,
+    "P95": 5056.51,
+    "最大": 9898.41,
+    "最小": 1322.32,
+    "检索_平均": 318.5553,
+    "图谱_平均": 4.0465,
+    "生成_平均": 3421.8218
+  },
+  "SLA": {
+    "阈值ms": 3000.0,
+    "达标题数": 7,
+    "达标率": 0.4118,
+    "超时题号": [
+      "Q01",
+      "Q03",
+      "Q04",
+      "Q07",
+      "Q08",
+      "Q11",
+      "Q13",
+      "Q14",
+      "Q15",
+      "Q17"
+    ]
+  },
+  "生成方式分布": {
+    "draft_fallback": 17
+  },
+  "拒答": {
+    "题数": 0,
+    "题号": []
+  },
+  "页命中": {
+    "命中题数": 15,
+    "命中率": 0.8824
+  },
+  "跨语料泄漏": {
+    "题数": 1,
+    "题号": [
+      "Q09"
+    ]
+  },
+  "按题型": {
+    "定性题": {
+      "题数": 5,
+      "平均上下文精度": 0.68,
+      "平均上下文召回": 0.8238,
+      "平均响应ms": 4719.78,
+      "严格判对题数": 2
+    },
+    "跨文档对比题": {
+      "题数": 2,
+      "平均上下文精度": 0.7,
+      "平均上下文召回": 0.25,
+      "平均响应ms": 3545.2,
+      "严格判对题数": 0
+    },
+    "数值题": {
+      "题数": 9,
+      "平均上下文精度": 0.8889,
+      "平均上下文召回": 0.9153,
+      "平均响应ms": 3175.54,
+      "严格判对题数": 3
+    },
+    "英文题": {
+      "题数": 1,
+      "平均上下文精度": 0.4,
+      "平均上下文召回": 0.0,
+      "平均响应ms": 4402.39,
+      "严格判对题数": 0
+    }
+  },
+  "运行元信息": {
+    "profile": "before",
+    "use_llm": true,
+    "top_k": 10,
+    "config_fingerprint": "2379d7e16f576b2c",
+    "config_source": "defaults + 优化配置.json",
+    "interpreter": "E:\\gao6gongdan\\工单1\\.venv\\Scripts\\python.exe",
+    "cwd": "E:\\gao6gongdan\\工单9",
+    "started_at": "2026-10-13 18:35:03",
+    "graph_nodes": 9817,
+    "graph_edges": 4861
+  },
+  "逐题明细": [
+    {
+      "id": "Q01",
+      "question_type": "定性题",
+      "lang": "zh",
+      "refused": false,
+      "generation_method": "draft_fallback",
+      "latency_total_ms": 9898.41,
+      "latency_retrieve_ms": 3307.57,
+      "latency_graph_ms": 5.42,
+      "latency_generate_ms": 6580.93,
+      "evidence_count": 5,
+      "hit_count": 15,
+      "graph_used": true,
+      "error": null,
+      "metrics": {
+        "id": "Q01",
+        "context_precision": 0.8,
+        "context_precision_rank": 0.8875,
+        "context_recall": 1.0,
+        "context_size": 5,
+        "context_relevant_count": 4,
+        "context_keyword_hit": [
+          "零售进一步巩固收入贡献的支柱地位",
+          "对公、资金同业",
+          "营收、净利润增速创转型以来新高",
+          "逾期60天以上贷款占比",
+          "拨备覆盖率不断提升",
+          "1,379.58",
+          "281.95"
+        ],
+        "context_keyword_miss": [],
+        "context_detail": {
+          "context_size": 5,
+          "context_relevant_count": 4,
+          "context_precision": 0.8,
+          "context_precision_rank": 0.8875,
+          "context_recall": 1.0,
+          "context_keyword_hit": [
+            "零售进一步巩固收入贡献的支柱地位",
+            "对公、资金同业",
+            "营收、净利润增速创转型以来新高",
+            "逾期60天以上贷款占比",
+            "拨备覆盖率不断提升",
+            "1,379.58",
+            "281.95"
+          ],
+          "context_keyword_miss": [],
+          "context_page_rel_count": 4,
+          "context_keyword_rel_count": 2,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200214-p5-x1",
+              "page": 5,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "零售进一步巩固收入贡献的支柱地位",
+                "对公、资金同业",
+                "营收、净利润增速创转型以来新高",
+                "逾期60天以上贷款占比",
+                "拨备覆盖率不断提升"
+              ]
+            },
+            {
+              "chunk_id": "20200214-p5-x0",
+              "page": 5,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1,379.58",
+                "281.95"
+              ]
+            },
+            {
+              "chunk_id": "20200214-p81-t0-0",
+              "page": 81,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p39-t0-0",
+              "page": 39,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p23-t0-0",
+              "page": 23,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "topk_context_precision": 0.9,
+        "topk_context_precision_rank": 0.8783,
+        "topk_context_recall": 1.0,
+        "topk_context_size": 10,
+        "topk_context_relevant_count": 9,
+        "topk_context_detail": {
+          "context_size": 10,
+          "context_relevant_count": 9,
+          "context_precision": 0.9,
+          "context_precision_rank": 0.8783,
+          "context_recall": 1.0,
+          "context_keyword_hit": [
+            "零售进一步巩固收入贡献的支柱地位",
+            "对公、资金同业",
+            "营收、净利润增速创转型以来新高",
+            "逾期60天以上贷款占比",
+            "拨备覆盖率不断提升",
+            "1,379.58",
+            "281.95"
+          ],
+          "context_keyword_miss": [],
+          "context_page_rel_count": 9,
+          "context_keyword_rel_count": 2,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200214-p5-x1",
+              "page": 5,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "零售进一步巩固收入贡献的支柱地位",
+                "对公、资金同业",
+                "营收、净利润增速创转型以来新高",
+                "逾期60天以上贷款占比",
+                "拨备覆盖率不断提升"
+              ]
+            },
+            {
+              "chunk_id": "20200214-p5-x0",
+              "page": 5,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1,379.58",
+                "281.95"
+              ]
+            },
+            {
+              "chunk_id": "20200214-p81-t0-0",
+              "page": 81,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p39-t0-0",
+              "page": 39,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p23-t0-0",
+              "page": 23,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p19-t1-0",
+              "page": 19,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p20-t1-0",
+              "page": 20,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p37-t1-0",
+              "page": 37,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p30-t0-0",
+              "page": 30,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p24-t2-0",
+              "page": 24,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "faithfulness_detail": {
+          "faithfulness": 1.0,
+          "mode": "numeric_atom",
+          "supported": [
+            "77%",
+            "2019年",
+            "1,379.58亿元",
+            "18.2%",
+            "281.95亿元",
+            "13.6%",
+            "2016年"
+          ],
+          "unsupported": [],
+          "total": 7
+        },
+        "answer_relevancy_detail": {
+          "answer_relevancy": 0.5,
+          "keyword_coverage": 0.2857,
+          "length_score": 1.0,
+          "keyword_hit": [
+            "1,379.58",
+            "281.95"
+          ],
+          "keyword_miss": [
+            "零售进一步巩固收入贡献的支柱地位",
+            "对公、资金同业",
+            "营收、净利润增速创转型以来新高",
+            "逾期60天以上贷款占比",
+            "拨备覆盖率不断提升"
+          ],
+          "keyword_total": 7,
+          "answer_chars": 654
+        }
+      },
+      "judge": {
+        "keyword_hit_count": 2,
+        "keyword_total": 7,
+        "keyword_coverage": 0.2857,
+        "keyword_hit": [
+          "1,379.58",
+          "281.95"
+        ],
+        "keyword_miss": [
+          "零售进一步巩固收入贡献的支柱地位",
+          "对公、资金同业",
+          "营收、净利润增速创转型以来新高",
+          "逾期60天以上贷款占比",
+          "拨备覆盖率不断提升"
+        ],
+        "atomic_coverage": 0.6667,
+        "atomic_hit": [
+          "1379.58",
+          "281.95"
+        ],
+        "atomic_miss": [
+          "60"
+        ],
+        "threshold": 0.6,
+        "is_correct": false,
+        "partial_correct": true
+      }
+    },
+    {
+      "id": "Q02",
+      "question_type": "定性题",
+      "lang": "zh",
+      "refused": false,
+      "generation_method": "draft_fallback",
+      "latency_total_ms": 2344.84,
+      "latency_retrieve_ms": 139.47,
+      "latency_graph_ms": 4.43,
+      "latency_generate_ms": 2201.45,
+      "evidence_count": 5,
+      "hit_count": 15,
+      "graph_used": true,
+      "error": null,
+      "metrics": {
+        "id": "Q02",
+        "context_precision": 0.4,
+        "context_precision_rank": 0.75,
+        "context_recall": 0.8333,
+        "context_size": 5,
+        "context_relevant_count": 2,
+        "context_keyword_hit": [
+          "聚焦高频生活场景",
+          "逾越者联盟",
+          "咖啡零售、出行预订、影票销售",
+          "开放的新生态模式",
+          "蛋壳平台"
+        ],
+        "context_keyword_miss": [
+          "联合合作伙伴共同为用户提供优质服务"
+        ],
+        "context_detail": {
+          "context_size": 5,
+          "context_relevant_count": 2,
+          "context_precision": 0.4,
+          "context_precision_rank": 0.75,
+          "context_recall": 0.8333,
+          "context_keyword_hit": [
+            "聚焦高频生活场景",
+            "逾越者联盟",
+            "咖啡零售、出行预订、影票销售",
+            "开放的新生态模式",
+            "蛋壳平台"
+          ],
+          "context_keyword_miss": [
+            "联合合作伙伴共同为用户提供优质服务"
+          ],
+          "context_page_rel_count": 2,
+          "context_keyword_rel_count": 2,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200321-p5-x0",
+              "page": 5,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "聚焦高频生活场景"
+              ]
+            },
+            {
+              "chunk_id": "20200321-p83-x0",
+              "page": 83,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p207-t1-0",
+              "page": 207,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p5-x1",
+              "page": 5,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "逾越者联盟",
+                "咖啡零售、出行预订、影票销售",
+                "开放的新生态模式",
+                "蛋壳平台"
+              ]
+            },
+            {
+              "chunk_id": "20200321-p55-x0",
+              "page": 55,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "topk_context_precision": 0.3,
+        "topk_context_precision_rank": 0.6111,
+        "topk_context_recall": 0.8333,
+        "topk_context_size": 10,
+        "topk_context_relevant_count": 3,
+        "topk_context_detail": {
+          "context_size": 10,
+          "context_relevant_count": 3,
+          "context_precision": 0.3,
+          "context_precision_rank": 0.6111,
+          "context_recall": 0.8333,
+          "context_keyword_hit": [
+            "聚焦高频生活场景",
+            "逾越者联盟",
+            "咖啡零售、出行预订、影票销售",
+            "开放的新生态模式",
+            "蛋壳平台"
+          ],
+          "context_keyword_miss": [
+            "联合合作伙伴共同为用户提供优质服务"
+          ],
+          "context_page_rel_count": 3,
+          "context_keyword_rel_count": 2,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200321-p5-x0",
+              "page": 5,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "聚焦高频生活场景"
+              ]
+            },
+            {
+              "chunk_id": "20200321-p83-x0",
+              "page": 83,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p207-t1-0",
+              "page": 207,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p5-x1",
+              "page": 5,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "逾越者联盟",
+                "咖啡零售、出行预订、影票销售",
+                "开放的新生态模式",
+                "蛋壳平台"
+              ]
+            },
+            {
+              "chunk_id": "20200321-p55-x0",
+              "page": 55,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p6-x0",
+              "page": 6,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p42-x0",
+              "page": 42,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p54-x0",
+              "page": 54,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p5-x2",
+              "page": 5,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p246-t1-0",
+              "page": 246,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "faithfulness_detail": {
+          "faithfulness": 1.0,
+          "mode": "numeric_atom",
+          "supported": [
+            "2019年度",
+            "2019年"
+          ],
+          "unsupported": [],
+          "total": 2
+        },
+        "answer_relevancy_detail": {
+          "answer_relevancy": 0.3,
+          "keyword_coverage": 0.0,
+          "length_score": 1.0,
+          "keyword_hit": [],
+          "keyword_miss": [
+            "聚焦高频生活场景",
+            "联合合作伙伴共同为用户提供优质服务",
+            "逾越者联盟",
+            "咖啡零售、出行预订、影票销售",
+            "开放的新生态模式",
+            "蛋壳平台"
+          ],
+          "keyword_total": 6,
+          "answer_chars": 455
+        }
+      },
+      "judge": {
+        "keyword_hit_count": 0,
+        "keyword_total": 6,
+        "keyword_coverage": 0.0,
+        "keyword_hit": [],
+        "keyword_miss": [
+          "聚焦高频生活场景",
+          "联合合作伙伴共同为用户提供优质服务",
+          "逾越者联盟",
+          "咖啡零售、出行预订、影票销售",
+          "开放的新生态模式",
+          "蛋壳平台"
+        ],
+        "atomic_coverage": 0.0,
+        "atomic_hit": [],
+        "atomic_miss": [],
+        "threshold": 0.6,
+        "is_correct": false,
+        "partial_correct": false
+      }
+    },
+    {
+      "id": "Q03",
+      "question_type": "定性题",
+      "lang": "zh",
+      "refused": false,
+      "generation_method": "draft_fallback",
+      "latency_total_ms": 4976.81,
+      "latency_retrieve_ms": 139.54,
+      "latency_graph_ms": 4.84,
+      "latency_generate_ms": 4833.02,
+      "evidence_count": 5,
+      "hit_count": 15,
+      "graph_used": true,
+      "error": null,
+      "metrics": {
+        "id": "Q03",
+        "context_precision": 0.2,
+        "context_precision_rank": 0.3333,
+        "context_recall": 0.2857,
+        "context_size": 5,
+        "context_relevant_count": 1,
+        "context_keyword_hit": [
+          "拨备覆盖率",
+          "183.12"
+        ],
+        "context_keyword_miss": [
+          "不良贷款率",
+          "1.65",
+          "逾期60天以上贷款占比",
+          "绿色信贷",
+          "赤道原则"
+        ],
+        "context_detail": {
+          "context_size": 5,
+          "context_relevant_count": 1,
+          "context_precision": 0.2,
+          "context_precision_rank": 0.3333,
+          "context_recall": 0.2857,
+          "context_keyword_hit": [
+            "拨备覆盖率",
+            "183.12"
+          ],
+          "context_keyword_miss": [
+            "不良贷款率",
+            "1.65",
+            "逾期60天以上贷款占比",
+            "绿色信贷",
+            "赤道原则"
+          ],
+          "context_page_rel_count": 1,
+          "context_keyword_rel_count": 1,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200214-p125-t0-0",
+              "page": 125,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p227-x0",
+              "page": 227,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p43-x1",
+              "page": 43,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "拨备覆盖率",
+                "183.12"
+              ]
+            },
+            {
+              "chunk_id": "20200214-p125-x0",
+              "page": 125,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p227-x1",
+              "page": 227,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "topk_context_precision": 0.2,
+        "topk_context_precision_rank": 0.3333,
+        "topk_context_recall": 0.4286,
+        "topk_context_size": 10,
+        "topk_context_relevant_count": 2,
+        "topk_context_detail": {
+          "context_size": 10,
+          "context_relevant_count": 2,
+          "context_precision": 0.2,
+          "context_precision_rank": 0.3333,
+          "context_recall": 0.4286,
+          "context_keyword_hit": [
+            "拨备覆盖率",
+            "183.12",
+            "逾期60天以上贷款占比"
+          ],
+          "context_keyword_miss": [
+            "不良贷款率",
+            "1.65",
+            "绿色信贷",
+            "赤道原则"
+          ],
+          "context_page_rel_count": 2,
+          "context_keyword_rel_count": 2,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200214-p125-t0-0",
+              "page": 125,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p227-x0",
+              "page": 227,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p43-x1",
+              "page": 43,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "拨备覆盖率",
+                "183.12"
+              ]
+            },
+            {
+              "chunk_id": "20200214-p125-x0",
+              "page": 125,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p227-x1",
+              "page": 227,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p5-x1",
+              "page": 5,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "拨备覆盖率",
+                "逾期60天以上贷款占比"
+              ]
+            },
+            {
+              "chunk_id": "20200214-p229-x0",
+              "page": 229,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p71-x0",
+              "page": 71,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p128-x0",
+              "page": 128,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p236-x0",
+              "page": 236,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "faithfulness_detail": {
+          "faithfulness": 1.0,
+          "mode": "numeric_atom",
+          "supported": [
+            "2019年",
+            "2,328,909百万元",
+            "70,013百万元",
+            "183.12%",
+            "190.34%",
+            "222.89%",
+            "63.44个百分点"
+          ],
+          "unsupported": [],
+          "total": 7
+        },
+        "answer_relevancy_detail": {
+          "answer_relevancy": 0.5,
+          "keyword_coverage": 0.2857,
+          "length_score": 1.0,
+          "keyword_hit": [
+            "拨备覆盖率",
+            "183.12"
+          ],
+          "keyword_miss": [
+            "不良贷款率",
+            "1.65",
+            "逾期60天以上贷款占比",
+            "绿色信贷",
+            "赤道原则"
+          ],
+          "keyword_total": 7,
+          "answer_chars": 746
+        }
+      },
+      "judge": {
+        "keyword_hit_count": 2,
+        "keyword_total": 7,
+        "keyword_coverage": 0.2857,
+        "keyword_hit": [
+          "拨备覆盖率",
+          "183.12"
+        ],
+        "keyword_miss": [
+          "不良贷款率",
+          "1.65",
+          "逾期60天以上贷款占比",
+          "绿色信贷",
+          "赤道原则"
+        ],
+        "atomic_coverage": 0.6667,
+        "atomic_hit": [
+          "183.12",
+          "60"
+        ],
+        "atomic_miss": [
+          "1.65"
+        ],
+        "threshold": 0.6,
+        "is_correct": false,
+        "partial_correct": true
+      }
+    },
+    {
+      "id": "Q04",
+      "question_type": "跨文档对比题",
+      "lang": "zh",
+      "refused": false,
+      "generation_method": "draft_fallback",
+      "latency_total_ms": 5017.1,
+      "latency_retrieve_ms": 150.85,
+      "latency_graph_ms": 1.78,
+      "latency_generate_ms": 4861.38,
+      "evidence_count": 5,
+      "hit_count": 15,
+      "graph_used": true,
+      "error": null,
+      "metrics": {
+        "id": "Q04",
+        "context_precision": 0.8,
+        "context_precision_rank": 1.0,
+        "context_recall": 0.0,
+        "context_size": 5,
+        "context_relevant_count": 4,
+        "context_keyword_hit": [],
+        "context_keyword_miss": [
+          "拨备覆盖率",
+          "核心一级资本充足率",
+          "资产负债匹配",
+          "负债久期",
+          "大数据风控",
+          "绿色金融",
+          "金融科技"
+        ],
+        "context_detail": {
+          "context_size": 5,
+          "context_relevant_count": 4,
+          "context_precision": 0.8,
+          "context_precision_rank": 1.0,
+          "context_recall": 0.0,
+          "context_keyword_hit": [],
+          "context_keyword_miss": [
+            "拨备覆盖率",
+            "核心一级资本充足率",
+            "资产负债匹配",
+            "负债久期",
+            "大数据风控",
+            "绿色金融",
+            "金融科技"
+          ],
+          "context_page_rel_count": 4,
+          "context_keyword_rel_count": 0,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200321-p48-x1",
+              "page": 48,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210326-p29-x3",
+              "page": 29,
+              "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p48-x0",
+              "page": 48,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210326-p29-x0",
+              "page": 29,
+              "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210319-p26-x1",
+              "page": 26,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "topk_context_precision": 0.9,
+        "topk_context_precision_rank": 0.9283,
+        "topk_context_recall": 0.1429,
+        "topk_context_size": 10,
+        "topk_context_relevant_count": 9,
+        "topk_context_detail": {
+          "context_size": 10,
+          "context_relevant_count": 9,
+          "context_precision": 0.9,
+          "context_precision_rank": 0.9283,
+          "context_recall": 0.1429,
+          "context_keyword_hit": [
+            "绿色金融"
+          ],
+          "context_keyword_miss": [
+            "拨备覆盖率",
+            "核心一级资本充足率",
+            "资产负债匹配",
+            "负债久期",
+            "大数据风控",
+            "金融科技"
+          ],
+          "context_page_rel_count": 9,
+          "context_keyword_rel_count": 1,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200321-p48-x1",
+              "page": 48,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210326-p29-x3",
+              "page": 29,
+              "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p48-x0",
+              "page": 48,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210326-p29-x0",
+              "page": 29,
+              "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210319-p26-x1",
+              "page": 26,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p68-x1",
+              "page": 68,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p49-x0",
+              "page": 49,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "绿色金融"
+              ]
+            },
+            {
+              "chunk_id": "20200221-p76-x1",
+              "page": 76,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p28-x0",
+              "page": 28,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p296-x1",
+              "page": 296,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "faithfulness_detail": {
+          "faithfulness": 1.0,
+          "mode": "numeric_atom",
+          "supported": [
+            "2017年",
+            "2020年"
+          ],
+          "unsupported": [],
+          "total": 2
+        },
+        "answer_relevancy_detail": {
+          "answer_relevancy": 0.3,
+          "keyword_coverage": 0.0,
+          "length_score": 1.0,
+          "keyword_hit": [],
+          "keyword_miss": [
+            "拨备覆盖率",
+            "核心一级资本充足率",
+            "资产负债匹配",
+            "负债久期",
+            "大数据风控",
+            "绿色金融",
+            "金融科技"
+          ],
+          "keyword_total": 7,
+          "answer_chars": 610
+        }
+      },
+      "judge": {
+        "keyword_hit_count": 0,
+        "keyword_total": 7,
+        "keyword_coverage": 0.0,
+        "keyword_hit": [],
+        "keyword_miss": [
+          "拨备覆盖率",
+          "核心一级资本充足率",
+          "资产负债匹配",
+          "负债久期",
+          "大数据风控",
+          "绿色金融",
+          "金融科技"
+        ],
+        "atomic_coverage": 0.0,
+        "atomic_hit": [],
+        "atomic_miss": [],
+        "threshold": 0.6,
+        "is_correct": false,
+        "partial_correct": false
+      }
+    },
+    {
+      "id": "Q05",
+      "question_type": "数值题",
+      "lang": "zh",
+      "refused": false,
+      "generation_method": "draft_fallback",
+      "latency_total_ms": 2401.07,
+      "latency_retrieve_ms": 132.69,
+      "latency_graph_ms": 5.08,
+      "latency_generate_ms": 2264.02,
+      "evidence_count": 5,
+      "hit_count": 15,
+      "graph_used": true,
+      "error": null,
+      "metrics": {
+        "id": "Q05",
+        "context_precision": 1.0,
+        "context_precision_rank": 1.0,
+        "context_recall": 1.0,
+        "context_size": 5,
+        "context_relevant_count": 5,
+        "context_keyword_hit": [
+          "李建红",
+          "田惠宇",
+          "行长兼首席执行官",
+          "1.20元",
+          "860.85亿元",
+          "100.02亿元"
+        ],
+        "context_keyword_miss": [],
+        "context_detail": {
+          "context_size": 5,
+          "context_relevant_count": 5,
+          "context_precision": 1.0,
+          "context_precision_rank": 1.0,
+          "context_recall": 1.0,
+          "context_keyword_hit": [
+            "李建红",
+            "田惠宇",
+            "行长兼首席执行官",
+            "1.20元",
+            "860.85亿元",
+            "100.02亿元"
+          ],
+          "context_keyword_miss": [],
+          "context_page_rel_count": 5,
+          "context_keyword_rel_count": 3,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200321-p3-x0",
+              "page": 3,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "李建红",
+                "田惠宇",
+                "行长兼首席执行官",
+                "860.85亿元"
+              ]
+            },
+            {
+              "chunk_id": "20200321-p251-t2-0",
+              "page": 251,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p3-x1",
+              "page": 3,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1.20元",
+                "100.02亿元"
+              ]
+            },
+            {
+              "chunk_id": "20200321-p251-t3-0",
+              "page": 251,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1.20元"
+              ]
+            },
+            {
+              "chunk_id": "20200321-p251-x0",
+              "page": 251,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "topk_context_precision": 1.0,
+        "topk_context_precision_rank": 1.0,
+        "topk_context_recall": 1.0,
+        "topk_context_size": 10,
+        "topk_context_relevant_count": 10,
+        "topk_context_detail": {
+          "context_size": 10,
+          "context_relevant_count": 10,
+          "context_precision": 1.0,
+          "context_precision_rank": 1.0,
+          "context_recall": 1.0,
+          "context_keyword_hit": [
+            "李建红",
+            "田惠宇",
+            "行长兼首席执行官",
+            "1.20元",
+            "860.85亿元",
+            "100.02亿元"
+          ],
+          "context_keyword_miss": [],
+          "context_page_rel_count": 10,
+          "context_keyword_rel_count": 4,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200321-p3-x0",
+              "page": 3,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "李建红",
+                "田惠宇",
+                "行长兼首席执行官",
+                "860.85亿元"
+              ]
+            },
+            {
+              "chunk_id": "20200321-p251-t2-0",
+              "page": 251,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p3-x1",
+              "page": 3,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1.20元",
+                "100.02亿元"
+              ]
+            },
+            {
+              "chunk_id": "20200321-p251-t3-0",
+              "page": 251,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1.20元"
+              ]
+            },
+            {
+              "chunk_id": "20200321-p251-x0",
+              "page": 251,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p251-t0-0",
+              "page": 251,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p93-x0",
+              "page": 93,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "李建红",
+                "田惠宇",
+                "行长兼首席执行官"
+              ]
+            },
+            {
+              "chunk_id": "20200321-p75-x0",
+              "page": 75,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p121-x0",
+              "page": 121,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p251-t1-0",
+              "page": 251,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "faithfulness_detail": {
+          "faithfulness": 1.0,
+          "mode": "numeric_atom",
+          "supported": [
+            "1.20元",
+            "2019年度",
+            "860.85亿元",
+            "10%",
+            "0.94元",
+            "2019年",
+            "2018年",
+            "0.84元"
+          ],
+          "unsupported": [],
+          "total": 8
+        },
+        "answer_relevancy_detail": {
+          "answer_relevancy": 0.8833,
+          "keyword_coverage": 0.8333,
+          "length_score": 1.0,
+          "keyword_hit": [
+            "李建红",
+            "田惠宇",
+            "行长兼首席执行官",
+            "1.20元",
+            "860.85亿元"
+          ],
+          "keyword_miss": [
+            "100.02亿元"
+          ],
+          "keyword_total": 6,
+          "answer_chars": 373
+        }
+      },
+      "judge": {
+        "keyword_hit_count": 5,
+        "keyword_total": 6,
+        "keyword_coverage": 0.8333,
+        "keyword_hit": [
+          "李建红",
+          "田惠宇",
+          "行长兼首席执行官",
+          "1.20元",
+          "860.85亿元"
+        ],
+        "keyword_miss": [
+          "100.02亿元"
+        ],
+        "atomic_coverage": 1.0,
+        "atomic_hit": [
+          "1.20",
+          "860.85",
+          "100.02"
+        ],
+        "atomic_miss": [],
+        "threshold": 0.6,
+        "is_correct": true,
+        "partial_correct": false
+      }
+    },
+    {
+      "id": "Q06",
+      "question_type": "定性题",
+      "lang": "zh",
+      "refused": false,
+      "generation_method": "draft_fallback",
+      "latency_total_ms": 1322.32,
+      "latency_retrieve_ms": 139.72,
+      "latency_graph_ms": 1.17,
+      "latency_generate_ms": 1178.32,
+      "evidence_count": 5,
+      "hit_count": 10,
+      "graph_used": true,
+      "error": null,
+      "metrics": {
+        "id": "Q06",
+        "context_precision": 1.0,
+        "context_precision_rank": 1.0,
+        "context_recall": 1.0,
+        "context_size": 5,
+        "context_relevant_count": 5,
+        "context_keyword_hit": [
+          "张佑君",
+          "李冏",
+          "史本良",
+          "每10股派发现金红利人民币4.00元",
+          "第七届董事会第二十一次会议"
+        ],
+        "context_keyword_miss": [],
+        "context_detail": {
+          "context_size": 5,
+          "context_relevant_count": 5,
+          "context_precision": 1.0,
+          "context_precision_rank": 1.0,
+          "context_recall": 1.0,
+          "context_keyword_hit": [
+            "张佑君",
+            "李冏",
+            "史本良",
+            "每10股派发现金红利人民币4.00元",
+            "第七届董事会第二十一次会议"
+          ],
+          "context_keyword_miss": [],
+          "context_page_rel_count": 5,
+          "context_keyword_rel_count": 3,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20210319-p2-x0",
+              "page": 2,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "张佑君",
+                "李冏",
+                "史本良",
+                "每10股派发现金红利人民币4.00元",
+                "第七届董事会第二十一次会议"
+              ]
+            },
+            {
+              "chunk_id": "20210319-p83-t0-0",
+              "page": 83,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "张佑君",
+                "李冏"
+              ]
+            },
+            {
+              "chunk_id": "20210319-p2-x1",
+              "page": 2,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210319-p100-t0-0",
+              "page": 100,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210319-p83-x0",
+              "page": 83,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "张佑君"
+              ]
+            }
+          ]
+        },
+        "topk_context_precision": 0.9,
+        "topk_context_precision_rank": 0.9765,
+        "topk_context_recall": 1.0,
+        "topk_context_size": 10,
+        "topk_context_relevant_count": 9,
+        "topk_context_detail": {
+          "context_size": 10,
+          "context_relevant_count": 9,
+          "context_precision": 0.9,
+          "context_precision_rank": 0.9765,
+          "context_recall": 1.0,
+          "context_keyword_hit": [
+            "张佑君",
+            "李冏",
+            "史本良",
+            "每10股派发现金红利人民币4.00元",
+            "第七届董事会第二十一次会议"
+          ],
+          "context_keyword_miss": [],
+          "context_page_rel_count": 9,
+          "context_keyword_rel_count": 3,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20210319-p2-x0",
+              "page": 2,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "张佑君",
+                "李冏",
+                "史本良",
+                "每10股派发现金红利人民币4.00元",
+                "第七届董事会第二十一次会议"
+              ]
+            },
+            {
+              "chunk_id": "20210319-p83-t0-0",
+              "page": 83,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "张佑君",
+                "李冏"
+              ]
+            },
+            {
+              "chunk_id": "20210319-p2-x1",
+              "page": 2,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210319-p100-t0-0",
+              "page": 100,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210319-p83-x0",
+              "page": 83,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "张佑君"
+              ]
+            },
+            {
+              "chunk_id": "20210319-p46-x2",
+              "page": 46,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210319-p106-x0",
+              "page": 106,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210319-p363-x0",
+              "page": 363,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210319-p103-t1-0",
+              "page": 103,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210319-p94-x2",
+              "page": 94,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "faithfulness_detail": {
+          "faithfulness": 1.0,
+          "mode": "numeric_atom",
+          "supported": [
+            "4.00元",
+            "2020年",
+            "2019年度",
+            "2019年",
+            "2020年度"
+          ],
+          "unsupported": [],
+          "total": 5
+        },
+        "answer_relevancy_detail": {
+          "answer_relevancy": 0.72,
+          "keyword_coverage": 0.6,
+          "length_score": 1.0,
+          "keyword_hit": [
+            "李冏",
+            "每10股派发现金红利人民币4.00元",
+            "第七届董事会第二十一次会议"
+          ],
+          "keyword_miss": [
+            "张佑君",
+            "史本良"
+          ],
+          "keyword_total": 5,
+          "answer_chars": 644
+        }
+      },
+      "judge": {
+        "keyword_hit_count": 3,
+        "keyword_total": 5,
+        "keyword_coverage": 0.6,
+        "keyword_hit": [
+          "李冏",
+          "每10股派发现金红利人民币4.00元",
+          "第七届董事会第二十一次会议"
+        ],
+        "keyword_miss": [
+          "张佑君",
+          "史本良"
+        ],
+        "atomic_coverage": 1.0,
+        "atomic_hit": [
+          "10",
+          "4.00"
+        ],
+        "atomic_miss": [],
+        "threshold": 0.6,
+        "is_correct": true,
+        "partial_correct": false
+      }
+    },
+    {
+      "id": "Q07",
+      "question_type": "数值题",
+      "lang": "zh",
+      "refused": false,
+      "generation_method": "draft_fallback",
+      "latency_total_ms": 4885.53,
+      "latency_retrieve_ms": 147.27,
+      "latency_graph_ms": 4.34,
+      "latency_generate_ms": 4733.66,
+      "evidence_count": 5,
+      "hit_count": 15,
+      "graph_used": true,
+      "error": null,
+      "metrics": {
+        "id": "Q07",
+        "context_precision": 1.0,
+        "context_precision_rank": 1.0,
+        "context_recall": 0.7143,
+        "context_size": 5,
+        "context_relevant_count": 5,
+        "context_keyword_hit": [
+          "18.2%",
+          "13.6%",
+          "1.65",
+          "183.12",
+          "155.24"
+        ],
+        "context_keyword_miss": [
+          "1,379.58",
+          "281.95"
+        ],
+        "context_detail": {
+          "context_size": 5,
+          "context_relevant_count": 5,
+          "context_precision": 1.0,
+          "context_precision_rank": 1.0,
+          "context_recall": 0.7143,
+          "context_keyword_hit": [
+            "18.2%",
+            "13.6%",
+            "1.65",
+            "183.12",
+            "155.24"
+          ],
+          "context_keyword_miss": [
+            "1,379.58",
+            "281.95"
+          ],
+          "context_page_rel_count": 5,
+          "context_keyword_rel_count": 4,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200214-p19-t1-0",
+              "page": 19,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "18.2%",
+                "13.6%"
+              ]
+            },
+            {
+              "chunk_id": "20200214-p44-t0-0",
+              "page": 44,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1.65",
+                "183.12",
+                "155.24"
+              ]
+            },
+            {
+              "chunk_id": "20200214-p20-t1-0",
+              "page": 20,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p24-t0-0",
+              "page": 24,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1.65"
+              ]
+            },
+            {
+              "chunk_id": "20200214-p43-x1",
+              "page": 43,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "183.12"
+              ]
+            }
+          ]
+        },
+        "topk_context_precision": 0.8,
+        "topk_context_precision_rank": 0.9861,
+        "topk_context_recall": 0.7143,
+        "topk_context_size": 10,
+        "topk_context_relevant_count": 8,
+        "topk_context_detail": {
+          "context_size": 10,
+          "context_relevant_count": 8,
+          "context_precision": 0.8,
+          "context_precision_rank": 0.9861,
+          "context_recall": 0.7143,
+          "context_keyword_hit": [
+            "18.2%",
+            "13.6%",
+            "1.65",
+            "183.12",
+            "155.24"
+          ],
+          "context_keyword_miss": [
+            "1,379.58",
+            "281.95"
+          ],
+          "context_page_rel_count": 8,
+          "context_keyword_rel_count": 6,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200214-p19-t1-0",
+              "page": 19,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "18.2%",
+                "13.6%"
+              ]
+            },
+            {
+              "chunk_id": "20200214-p44-t0-0",
+              "page": 44,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1.65",
+                "183.12",
+                "155.24"
+              ]
+            },
+            {
+              "chunk_id": "20200214-p20-t1-0",
+              "page": 20,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p24-t0-0",
+              "page": 24,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1.65"
+              ]
+            },
+            {
+              "chunk_id": "20200214-p43-x1",
+              "page": 43,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "183.12"
+              ]
+            },
+            {
+              "chunk_id": "20200214-p19-t0-0",
+              "page": 19,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p44-t1-0",
+              "page": 44,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1.65"
+              ]
+            },
+            {
+              "chunk_id": "20200214-p95-t1-0",
+              "page": 95,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p43-t1-0",
+              "page": 43,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1.65"
+              ]
+            },
+            {
+              "chunk_id": "20200214-p260-x0",
+              "page": 260,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "faithfulness_detail": {
+          "faithfulness": 0.875,
+          "mode": "numeric_atom",
+          "supported": [
+            "183.12%",
+            "190.34%",
+            "222.89%",
+            "63.44个百分点",
+            "155.24%",
+            "27.88个百分点",
+            "159.45%",
+            "141.24%",
+            "49.10个百分点",
+            "18.2%",
+            "2019年",
+            "2018年",
+            "2017年",
+            "17.3%"
+          ],
+          "unsupported": [
+            "30796.34%",
+            "07295.52%"
+          ],
+          "total": 16
+        },
+        "answer_relevancy_detail": {
+          "answer_relevancy": 0.6,
+          "keyword_coverage": 0.4286,
+          "length_score": 1.0,
+          "keyword_hit": [
+            "18.2%",
+            "183.12",
+            "155.24"
+          ],
+          "keyword_miss": [
+            "1,379.58",
+            "281.95",
+            "13.6%",
+            "1.65"
+          ],
+          "keyword_total": 7,
+          "answer_chars": 477
+        }
+      },
+      "judge": {
+        "keyword_hit_count": 3,
+        "keyword_total": 7,
+        "keyword_coverage": 0.4286,
+        "keyword_hit": [
+          "18.2%",
+          "183.12",
+          "155.24"
+        ],
+        "keyword_miss": [
+          "1,379.58",
+          "281.95",
+          "13.6%",
+          "1.65"
+        ],
+        "atomic_coverage": 0.5714,
+        "atomic_hit": [
+          "1379.58",
+          "18.2",
+          "183.12",
+          "155.24"
+        ],
+        "atomic_miss": [
+          "281.95",
+          "13.6",
+          "1.65"
+        ],
+        "threshold": 0.6,
+        "is_correct": false,
+        "partial_correct": true
+      }
+    },
+    {
+      "id": "Q08",
+      "question_type": "数值题",
+      "lang": "zh",
+      "refused": false,
+      "generation_method": "draft_fallback",
+      "latency_total_ms": 4999.53,
+      "latency_retrieve_ms": 130.9,
+      "latency_graph_ms": 5.21,
+      "latency_generate_ms": 4864.1,
+      "evidence_count": 5,
+      "hit_count": 15,
+      "graph_used": true,
+      "error": null,
+      "metrics": {
+        "id": "Q08",
+        "context_precision": 0.8,
+        "context_precision_rank": 1.0,
+        "context_recall": 0.8571,
+        "context_size": 5,
+        "context_relevant_count": 4,
+        "context_keyword_hit": [
+          "2,697.03",
+          "928.67",
+          "7.42万亿",
+          "8.51%",
+          "15.28%",
+          "9.95%"
+        ],
+        "context_keyword_miss": [
+          "1.20元"
+        ],
+        "context_detail": {
+          "context_size": 5,
+          "context_relevant_count": 4,
+          "context_precision": 0.8,
+          "context_precision_rank": 1.0,
+          "context_recall": 0.8571,
+          "context_keyword_hit": [
+            "2,697.03",
+            "928.67",
+            "7.42万亿",
+            "8.51%",
+            "15.28%",
+            "9.95%"
+          ],
+          "context_keyword_miss": [
+            "1.20元"
+          ],
+          "context_page_rel_count": 4,
+          "context_keyword_rel_count": 4,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200321-p15-t0-0",
+              "page": 15,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "8.51%",
+                "15.28%"
+              ]
+            },
+            {
+              "chunk_id": "20200321-p15-x0",
+              "page": 15,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "8.51%",
+                "15.28%"
+              ]
+            },
+            {
+              "chunk_id": "20200321-p7-x0",
+              "page": 7,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "2,697.03",
+                "928.67",
+                "7.42万亿",
+                "8.51%",
+                "15.28%",
+                "9.95%"
+              ]
+            },
+            {
+              "chunk_id": "20200321-p19-x0",
+              "page": 19,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "928.67",
+                "15.28%",
+                "9.95%"
+              ]
+            },
+            {
+              "chunk_id": "20200321-p257-t0-0",
+              "page": 257,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "topk_context_precision": 0.7,
+        "topk_context_precision_rank": 0.9095,
+        "topk_context_recall": 0.8571,
+        "topk_context_size": 10,
+        "topk_context_relevant_count": 7,
+        "topk_context_detail": {
+          "context_size": 10,
+          "context_relevant_count": 7,
+          "context_precision": 0.7,
+          "context_precision_rank": 0.9095,
+          "context_recall": 0.8571,
+          "context_keyword_hit": [
+            "2,697.03",
+            "928.67",
+            "7.42万亿",
+            "8.51%",
+            "15.28%",
+            "9.95%"
+          ],
+          "context_keyword_miss": [
+            "1.20元"
+          ],
+          "context_page_rel_count": 7,
+          "context_keyword_rel_count": 4,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200321-p15-t0-0",
+              "page": 15,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "8.51%",
+                "15.28%"
+              ]
+            },
+            {
+              "chunk_id": "20200321-p15-x0",
+              "page": 15,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "8.51%",
+                "15.28%"
+              ]
+            },
+            {
+              "chunk_id": "20200321-p7-x0",
+              "page": 7,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "2,697.03",
+                "928.67",
+                "7.42万亿",
+                "8.51%",
+                "15.28%",
+                "9.95%"
+              ]
+            },
+            {
+              "chunk_id": "20200321-p19-x0",
+              "page": 19,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "928.67",
+                "15.28%",
+                "9.95%"
+              ]
+            },
+            {
+              "chunk_id": "20200321-p15-x1",
+              "page": 15,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p257-t0-0",
+              "page": 257,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p257-t2-0",
+              "page": 257,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p257-t1-0",
+              "page": 257,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p19-t0-0",
+              "page": 19,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p19-x1",
+              "page": 19,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "faithfulness_detail": {
+          "faithfulness": 1.0,
+          "mode": "numeric_atom",
+          "supported": [
+            "1.31%",
+            "16.84%",
+            "0.27个百分点",
+            "2019年",
+            "928.67亿元",
+            "15.28%",
+            "2013年",
+            "0.07个百分点",
+            "0.23个百分点"
+          ],
+          "unsupported": [],
+          "total": 9
+        },
+        "answer_relevancy_detail": {
+          "answer_relevancy": 0.5982,
+          "keyword_coverage": 0.4286,
+          "length_score": 0.9938,
+          "keyword_hit": [
+            "928.67",
+            "8.51%",
+            "15.28%"
+          ],
+          "keyword_miss": [
+            "2,697.03",
+            "7.42万亿",
+            "9.95%",
+            "1.20元"
+          ],
+          "keyword_total": 7,
+          "answer_chars": 805
+        }
+      },
+      "judge": {
+        "keyword_hit_count": 3,
+        "keyword_total": 7,
+        "keyword_coverage": 0.4286,
+        "keyword_hit": [
+          "928.67",
+          "8.51%",
+          "15.28%"
+        ],
+        "keyword_miss": [
+          "2,697.03",
+          "7.42万亿",
+          "9.95%",
+          "1.20元"
+        ],
+        "atomic_coverage": 0.7143,
+        "atomic_hit": [
+          "2697.03",
+          "928.67",
+          "8.51",
+          "15.28",
+          "9.95"
+        ],
+        "atomic_miss": [
+          "7.42",
+          "1.20"
+        ],
+        "threshold": 0.6,
+        "is_correct": false,
+        "partial_correct": true
+      }
+    },
+    {
+      "id": "Q09",
+      "question_type": "跨文档对比题",
+      "lang": "zh",
+      "refused": false,
+      "generation_method": "draft_fallback",
+      "latency_total_ms": 2073.31,
+      "latency_retrieve_ms": 113.26,
+      "latency_graph_ms": 2.48,
+      "latency_generate_ms": 1955.15,
+      "evidence_count": 5,
+      "hit_count": 15,
+      "graph_used": true,
+      "error": null,
+      "metrics": {
+        "id": "Q09",
+        "context_precision": 0.6,
+        "context_precision_rank": 0.9167,
+        "context_recall": 0.5,
+        "context_size": 5,
+        "context_relevant_count": 3,
+        "context_keyword_hit": [
+          "1,379.58",
+          "18.2%"
+        ],
+        "context_keyword_miss": [
+          "2,697.03",
+          "8.51%"
+        ],
+        "context_detail": {
+          "context_size": 5,
+          "context_relevant_count": 3,
+          "context_precision": 0.6,
+          "context_precision_rank": 0.9167,
+          "context_recall": 0.5,
+          "context_keyword_hit": [
+            "1,379.58",
+            "18.2%"
+          ],
+          "context_keyword_miss": [
+            "2,697.03",
+            "8.51%"
+          ],
+          "context_page_rel_count": 2,
+          "context_keyword_rel_count": 1,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200321-p19-x0",
+              "page": 19,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200221-p40-x0",
+              "page": 40,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": false,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1,379.58",
+                "18.2%"
+              ]
+            },
+            {
+              "chunk_id": "20200214-p1-x0",
+              "page": 1,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p19-t0-0",
+              "page": 19,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200221-p41-x2",
+              "page": 41,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "topk_context_precision": 0.7,
+        "topk_context_precision_rank": 0.7726,
+        "topk_context_recall": 0.5,
+        "topk_context_size": 10,
+        "topk_context_relevant_count": 7,
+        "topk_context_detail": {
+          "context_size": 10,
+          "context_relevant_count": 7,
+          "context_precision": 0.7,
+          "context_precision_rank": 0.7726,
+          "context_recall": 0.5,
+          "context_keyword_hit": [
+            "1,379.58",
+            "18.2%"
+          ],
+          "context_keyword_miss": [
+            "2,697.03",
+            "8.51%"
+          ],
+          "context_page_rel_count": 5,
+          "context_keyword_rel_count": 3,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200321-p19-x0",
+              "page": 19,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200221-p40-x0",
+              "page": 40,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": false,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1,379.58",
+                "18.2%"
+              ]
+            },
+            {
+              "chunk_id": "20200214-p1-x0",
+              "page": 1,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200321-p19-t0-0",
+              "page": 19,
+              "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200221-p41-x2",
+              "page": 41,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200221-p40-x1",
+              "page": 40,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": false,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1,379.58",
+                "18.2%"
+              ]
+            },
+            {
+              "chunk_id": "20200221-p9-x0",
+              "page": 9,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p19-t1-0",
+              "page": 19,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "18.2%"
+              ]
+            },
+            {
+              "chunk_id": "20200214-p23-t0-0",
+              "page": 23,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200214-p20-t1-0",
+              "page": 20,
+              "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "faithfulness_detail": {
+          "faithfulness": 1.0,
+          "mode": "numeric_atom",
+          "supported": [
+            "29.2%",
+            "13.8%",
+            "58.0%",
+            "69.1%",
+            "2019年",
+            "799.73亿元",
+            "1,379.58亿元",
+            "18.2%",
+            "27.89亿元",
+            "13.2%",
+            "2019年度",
+            "928.67亿元",
+            "15.28%",
+            "2013年",
+            "1.65%",
+            "2.01%",
+            "1.58%",
+            "1.35%",
+            "0.35个百分点"
+          ],
+          "unsupported": [],
+          "total": 19
+        },
+        "answer_relevancy_detail": {
+          "answer_relevancy": 0.65,
+          "keyword_coverage": 0.5,
+          "length_score": 1.0,
+          "keyword_hit": [
+            "1,379.58",
+            "18.2%"
+          ],
+          "keyword_miss": [
+            "2,697.03",
+            "8.51%"
+          ],
+          "keyword_total": 4,
+          "answer_chars": 554
+        }
+      },
+      "judge": {
+        "keyword_hit_count": 2,
+        "keyword_total": 4,
+        "keyword_coverage": 0.5,
+        "keyword_hit": [
+          "1,379.58",
+          "18.2%"
+        ],
+        "keyword_miss": [
+          "2,697.03",
+          "8.51%"
+        ],
+        "atomic_coverage": 0.5,
+        "atomic_hit": [
+          "1379.58",
+          "18.2"
+        ],
+        "atomic_miss": [
+          "2697.03",
+          "8.51"
+        ],
+        "threshold": 0.6,
+        "is_correct": false,
+        "partial_correct": true
+      }
+    },
+    {
+      "id": "Q10",
+      "question_type": "数值题",
+      "lang": "zh",
+      "refused": false,
+      "generation_method": "draft_fallback",
+      "latency_total_ms": 2067.75,
+      "latency_retrieve_ms": 134.94,
+      "latency_graph_ms": 5.17,
+      "latency_generate_ms": 1926.55,
+      "evidence_count": 5,
+      "hit_count": 14,
+      "graph_used": true,
+      "error": null,
+      "metrics": {
+        "id": "Q10",
+        "context_precision": 0.8,
+        "context_precision_rank": 0.95,
+        "context_recall": 0.8333,
+        "context_size": 5,
+        "context_relevant_count": 4,
+        "context_keyword_hit": [
+          "543.83",
+          "26.06%",
+          "149.02",
+          "21.86%",
+          "8.43%"
+        ],
+        "context_keyword_miss": [
+          "1.05万亿"
+        ],
+        "context_detail": {
+          "context_size": 5,
+          "context_relevant_count": 4,
+          "context_precision": 0.8,
+          "context_precision_rank": 0.95,
+          "context_recall": 0.8333,
+          "context_keyword_hit": [
+            "543.83",
+            "26.06%",
+            "149.02",
+            "21.86%",
+            "8.43%"
+          ],
+          "context_keyword_miss": [
+            "1.05万亿"
+          ],
+          "context_page_rel_count": 3,
+          "context_keyword_rel_count": 3,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20210319-p115-x1",
+              "page": 115,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "543.83"
+              ]
+            },
+            {
+              "chunk_id": "20210319-p115-x0",
+              "page": 115,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210319-p11-t1-0",
+              "page": 11,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": false,
+              "by_keyword": true,
+              "hit_keywords": [
+                "26.06%",
+                "21.86%"
+              ]
+            },
+            {
+              "chunk_id": "20210319-p12-t0-0",
+              "page": 12,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210319-p30-x0",
+              "page": 30,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "149.02",
+                "21.86%",
+                "8.43%"
+              ]
+            }
+          ]
+        },
+        "topk_context_precision": 0.7,
+        "topk_context_precision_rank": 0.9094,
+        "topk_context_recall": 1.0,
+        "topk_context_size": 10,
+        "topk_context_relevant_count": 7,
+        "topk_context_detail": {
+          "context_size": 10,
+          "context_relevant_count": 7,
+          "context_precision": 0.7,
+          "context_precision_rank": 0.9094,
+          "context_recall": 1.0,
+          "context_keyword_hit": [
+            "1.05万亿",
+            "543.83",
+            "26.06%",
+            "149.02",
+            "21.86%",
+            "8.43%"
+          ],
+          "context_keyword_miss": [],
+          "context_page_rel_count": 5,
+          "context_keyword_rel_count": 5,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20210319-p115-x1",
+              "page": 115,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "543.83"
+              ]
+            },
+            {
+              "chunk_id": "20210319-p115-x0",
+              "page": 115,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210319-p11-t1-0",
+              "page": 11,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": false,
+              "by_keyword": true,
+              "hit_keywords": [
+                "26.06%",
+                "21.86%"
+              ]
+            },
+            {
+              "chunk_id": "20210319-p12-t0-0",
+              "page": 12,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210319-p30-x0",
+              "page": 30,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "149.02",
+                "21.86%",
+                "8.43%"
+              ]
+            },
+            {
+              "chunk_id": "20210319-p11-t2-0",
+              "page": 11,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": false,
+              "by_keyword": true,
+              "hit_keywords": [
+                "8.43%"
+              ]
+            },
+            {
+              "chunk_id": "20210319-p17-x1",
+              "page": 17,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1.05万亿",
+                "543.83",
+                "26.06%",
+                "149.02",
+                "21.86%",
+                "8.43%"
+              ]
+            },
+            {
+              "chunk_id": "20210319-p130-t0-0",
+              "page": 130,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210319-p11-t0-0",
+              "page": 11,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210319-p12-t1-0",
+              "page": 12,
+              "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "faithfulness_detail": {
+          "faithfulness": 1.0,
+          "mode": "numeric_atom",
+          "supported": [
+            "2018年",
+            "2019年",
+            "2020年",
+            "372.21亿元",
+            "431.40亿元",
+            "543.83亿元",
+            "93.90亿元",
+            "122.29亿元",
+            "2020年度"
+          ],
+          "unsupported": [],
+          "total": 9
+        },
+        "answer_relevancy_detail": {
+          "answer_relevancy": 0.5333,
+          "keyword_coverage": 0.3333,
+          "length_score": 1.0,
+          "keyword_hit": [
+            "543.83",
+            "21.86%"
+          ],
+          "keyword_miss": [
+            "1.05万亿",
+            "26.06%",
+            "149.02",
+            "8.43%"
+          ],
+          "keyword_total": 6,
+          "answer_chars": 786
+        }
+      },
+      "judge": {
+        "keyword_hit_count": 2,
+        "keyword_total": 6,
+        "keyword_coverage": 0.3333,
+        "keyword_hit": [
+          "543.83",
+          "21.86%"
+        ],
+        "keyword_miss": [
+          "1.05万亿",
+          "26.06%",
+          "149.02",
+          "8.43%"
+        ],
+        "atomic_coverage": 0.5,
+        "atomic_hit": [
+          "543.83",
+          "149.02",
+          "21.86"
+        ],
+        "atomic_miss": [
+          "1.05",
+          "26.06",
+          "8.43"
+        ],
+        "threshold": 0.6,
+        "is_correct": false,
+        "partial_correct": true
+      }
+    },
+    {
+      "id": "Q11",
+      "question_type": "数值题",
+      "lang": "zh",
+      "refused": false,
+      "generation_method": "draft_fallback",
+      "latency_total_ms": 3161.5,
+      "latency_retrieve_ms": 148.81,
+      "latency_graph_ms": 4.74,
+      "latency_generate_ms": 3008.29,
+      "evidence_count": 5,
+      "hit_count": 15,
+      "graph_used": true,
+      "error": null,
+      "metrics": {
+        "id": "Q11",
+        "context_precision": 1.0,
+        "context_precision_rank": 1.0,
+        "context_recall": 1.0,
+        "context_size": 5,
+        "context_relevant_count": 5,
+        "context_keyword_hit": [
+          "824961",
+          "745165",
+          "10.7%",
+          "604666",
+          "50268",
+          "-13.8%"
+        ],
+        "context_keyword_miss": [],
+        "context_detail": {
+          "context_size": 5,
+          "context_relevant_count": 5,
+          "context_precision": 1.0,
+          "context_precision_rank": 1.0,
+          "context_recall": 1.0,
+          "context_keyword_hit": [
+            "824961",
+            "745165",
+            "10.7%",
+            "604666",
+            "50268",
+            "-13.8%"
+          ],
+          "context_keyword_miss": [],
+          "context_page_rel_count": 5,
+          "context_keyword_rel_count": 4,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20210326-p8-x0",
+              "page": 8,
+              "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "824961",
+                "745165",
+                "10.7%",
+                "604666",
+                "50268",
+                "-13.8%"
+              ]
+            },
+            {
+              "chunk_id": "20210326-p8-t0-0",
+              "page": 8,
+              "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "824961",
+                "745165",
+                "10.7%",
+                "604666",
+                "50268",
+                "-13.8%"
+              ]
+            },
+            {
+              "chunk_id": "20210326-p11-t0-0",
+              "page": 11,
+              "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "604666",
+                "50268",
+                "-13.8%"
+              ]
+            },
+            {
+              "chunk_id": "20210326-p15-t0-0",
+              "page": 15,
+              "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "50268"
+              ]
+            },
+            {
+              "chunk_id": "20210326-p9-x0",
+              "page": 9,
+              "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "topk_context_precision": 1.0,
+        "topk_context_precision_rank": 1.0,
+        "topk_context_recall": 1.0,
+        "topk_context_size": 10,
+        "topk_context_relevant_count": 10,
+        "topk_context_detail": {
+          "context_size": 10,
+          "context_relevant_count": 10,
+          "context_precision": 1.0,
+          "context_precision_rank": 1.0,
+          "context_recall": 1.0,
+          "context_keyword_hit": [
+            "824961",
+            "745165",
+            "10.7%",
+            "604666",
+            "50268",
+            "-13.8%"
+          ],
+          "context_keyword_miss": [],
+          "context_page_rel_count": 10,
+          "context_keyword_rel_count": 6,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20210326-p8-x0",
+              "page": 8,
+              "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "824961",
+                "745165",
+                "10.7%",
+                "604666",
+                "50268",
+                "-13.8%"
+              ]
+            },
+            {
+              "chunk_id": "20210326-p8-t0-0",
+              "page": 8,
+              "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "824961",
+                "745165",
+                "10.7%",
+                "604666",
+                "50268",
+                "-13.8%"
+              ]
+            },
+            {
+              "chunk_id": "20210326-p11-t0-0",
+              "page": 11,
+              "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "604666",
+                "50268",
+                "-13.8%"
+              ]
+            },
+            {
+              "chunk_id": "20210326-p8-x1",
+              "page": 8,
+              "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210326-p15-t0-0",
+              "page": 15,
+              "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "50268"
+              ]
+            },
+            {
+              "chunk_id": "20210326-p9-x0",
+              "page": 9,
+              "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210326-p8-x2",
+              "page": 8,
+              "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20210326-p15-x0",
+              "page": 15,
+              "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "50268"
+              ]
+            },
+            {
+              "chunk_id": "20210326-p7-x0",
+              "page": 7,
+              "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "50268"
+              ]
+            },
+            {
+              "chunk_id": "20210326-p25-t1-0",
+              "page": 25,
+              "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "faithfulness_detail": {
+          "faithfulness": 1.0,
+          "mode": "numeric_atom",
+          "supported": [
+            "2020年",
+            "2019年",
+            "2018年"
+          ],
+          "unsupported": [],
+          "total": 3
+        },
+        "answer_relevancy_detail": {
+          "answer_relevancy": 0.3,
+          "keyword_coverage": 0.0,
+          "length_score": 1.0,
+          "keyword_hit": [],
+          "keyword_miss": [
+            "824961",
+            "745165",
+            "10.7%",
+            "604666",
+            "50268",
+            "-13.8%"
+          ],
+          "keyword_total": 6,
+          "answer_chars": 471
+        }
+      },
+      "judge": {
+        "keyword_hit_count": 0,
+        "keyword_total": 6,
+        "keyword_coverage": 0.0,
+        "keyword_hit": [],
+        "keyword_miss": [
+          "824961",
+          "745165",
+          "10.7%",
+          "604666",
+          "50268",
+          "-13.8%"
+        ],
+        "atomic_coverage": 0.0,
+        "atomic_hit": [],
+        "atomic_miss": [
+          "824961",
+          "745165",
+          "10.7",
+          "604666",
+          "50268",
+          "13.8"
+        ],
+        "threshold": 0.6,
+        "is_correct": false,
+        "partial_correct": false
+      }
+    },
+    {
+      "id": "Q12",
+      "question_type": "数值题",
+      "lang": "zh",
+      "refused": false,
+      "generation_method": "draft_fallback",
+      "latency_total_ms": 1985.69,
+      "latency_retrieve_ms": 123.36,
+      "latency_graph_ms": 4.35,
+      "latency_generate_ms": 1858.51,
+      "evidence_count": 5,
+      "hit_count": 11,
+      "graph_used": true,
+      "error": null,
+      "metrics": {
+        "id": "Q12",
+        "context_precision": 1.0,
+        "context_precision_rank": 1.0,
+        "context_recall": 0.8333,
+        "context_size": 5,
+        "context_relevant_count": 5,
+        "context_keyword_hit": [
+          "440,643",
+          "26,834",
+          "2.79",
+          "23.57",
+          "基本每股收益"
+        ],
+        "context_keyword_miss": [
+          "1,946,164"
+        ],
+        "context_detail": {
+          "context_size": 5,
+          "context_relevant_count": 5,
+          "context_precision": 1.0,
+          "context_precision_rank": 1.0,
+          "context_recall": 0.8333,
+          "context_keyword_hit": [
+            "440,643",
+            "26,834",
+            "2.79",
+            "23.57",
+            "基本每股收益"
+          ],
+          "context_keyword_miss": [
+            "1,946,164"
+          ],
+          "context_page_rel_count": 5,
+          "context_keyword_rel_count": 5,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20220328-13ed9d5b-p152-t0-0",
+              "page": 152,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "440,643",
+                "26,834",
+                "2.79",
+                "基本每股收益"
+              ]
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p43-t0-0",
+              "page": 43,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "26,834",
+                "2.79",
+                "23.57",
+                "基本每股收益"
+              ]
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p39-t2-0",
+              "page": 39,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "2.79",
+                "基本每股收益"
+              ]
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p223-t1-0",
+              "page": 223,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "26,834",
+                "2.79",
+                "基本每股收益"
+              ]
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p223-t2-0",
+              "page": 223,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "26,834",
+                "2.79"
+              ]
+            }
+          ]
+        },
+        "topk_context_precision": 1.0,
+        "topk_context_precision_rank": 1.0,
+        "topk_context_recall": 0.8333,
+        "topk_context_size": 10,
+        "topk_context_relevant_count": 10,
+        "topk_context_detail": {
+          "context_size": 10,
+          "context_relevant_count": 10,
+          "context_precision": 1.0,
+          "context_precision_rank": 1.0,
+          "context_recall": 0.8333,
+          "context_keyword_hit": [
+            "440,643",
+            "26,834",
+            "2.79",
+            "23.57",
+            "基本每股收益"
+          ],
+          "context_keyword_miss": [
+            "1,946,164"
+          ],
+          "context_page_rel_count": 10,
+          "context_keyword_rel_count": 7,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20220328-13ed9d5b-p152-t0-0",
+              "page": 152,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "440,643",
+                "26,834",
+                "2.79",
+                "基本每股收益"
+              ]
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p43-t0-0",
+              "page": 43,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "26,834",
+                "2.79",
+                "23.57",
+                "基本每股收益"
+              ]
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p39-t2-0",
+              "page": 39,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "2.79",
+                "基本每股收益"
+              ]
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p223-t1-0",
+              "page": 223,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "26,834",
+                "2.79",
+                "基本每股收益"
+              ]
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p223-t2-0",
+              "page": 223,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "26,834",
+                "2.79"
+              ]
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p157-t0-0",
+              "page": 157,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p152-x0",
+              "page": 152,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "440,643"
+              ]
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p43-x0",
+              "page": 43,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p42-x0",
+              "page": 42,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p26-img-x-0",
+              "page": 26,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "440,643",
+                "26,834"
+              ]
+            }
+          ]
+        },
+        "faithfulness_detail": {
+          "faithfulness": 0.5,
+          "mode": "keyword_fallback",
+          "supported": [
+            "26,834",
+            "2.79",
+            "基本每股收益"
+          ],
+          "unsupported": [
+            "440,643",
+            "23.57",
+            "1,946,164"
+          ],
+          "total": 6
+        },
+        "answer_relevancy_detail": {
+          "answer_relevancy": 0.65,
+          "keyword_coverage": 0.5,
+          "length_score": 1.0,
+          "keyword_hit": [
+            "26,834",
+            "2.79",
+            "基本每股收益"
+          ],
+          "keyword_miss": [
+            "440,643",
+            "23.57",
+            "1,946,164"
+          ],
+          "keyword_total": 6,
+          "answer_chars": 779
+        }
+      },
+      "judge": {
+        "keyword_hit_count": 3,
+        "keyword_total": 6,
+        "keyword_coverage": 0.5,
+        "keyword_hit": [
+          "26,834",
+          "2.79",
+          "基本每股收益"
+        ],
+        "keyword_miss": [
+          "440,643",
+          "23.57",
+          "1,946,164"
+        ],
+        "atomic_coverage": 0.4,
+        "atomic_hit": [
+          "26834",
+          "2.79"
+        ],
+        "atomic_miss": [
+          "440643",
+          "23.57",
+          "1946164"
+        ],
+        "threshold": 0.6,
+        "is_correct": false,
+        "partial_correct": true
+      }
+    },
+    {
+      "id": "Q13",
+      "question_type": "英文题",
+      "lang": "en",
+      "refused": false,
+      "generation_method": "draft_fallback",
+      "latency_total_ms": 4402.39,
+      "latency_retrieve_ms": 121.65,
+      "latency_graph_ms": 1.1,
+      "latency_generate_ms": 4276.35,
+      "evidence_count": 5,
+      "hit_count": 10,
+      "graph_used": false,
+      "error": null,
+      "metrics": {
+        "id": "Q13",
+        "context_precision": 0.4,
+        "context_precision_rank": 0.3667,
+        "context_recall": 0.0,
+        "context_size": 5,
+        "context_relevant_count": 2,
+        "context_keyword_hit": [],
+        "context_keyword_miss": [
+          "610.36亿元",
+          "16.52%",
+          "0.86%",
+          "389.45%",
+          "81.80亿元",
+          "2.96%"
+        ],
+        "context_detail": {
+          "context_size": 5,
+          "context_relevant_count": 2,
+          "context_precision": 0.4,
+          "context_precision_rank": 0.3667,
+          "context_recall": 0.0,
+          "context_keyword_hit": [],
+          "context_keyword_miss": [
+            "610.36亿元",
+            "16.52%",
+            "0.86%",
+            "389.45%",
+            "81.80亿元",
+            "2.96%"
+          ],
+          "context_page_rel_count": 2,
+          "context_keyword_rel_count": 0,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200326-p8-t0-0",
+              "page": 8,
+              "file_name": "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200326-p8-x0",
+              "page": 8,
+              "file_name": "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200326-p104-t1-0",
+              "page": 104,
+              "file_name": "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200326-p13-t0-0",
+              "page": 13,
+              "file_name": "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200326-p104-t0-0",
+              "page": 104,
+              "file_name": "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "topk_context_precision": 0.7,
+        "topk_context_precision_rank": 0.5423,
+        "topk_context_recall": 0.3333,
+        "topk_context_size": 10,
+        "topk_context_relevant_count": 7,
+        "topk_context_detail": {
+          "context_size": 10,
+          "context_relevant_count": 7,
+          "context_precision": 0.7,
+          "context_precision_rank": 0.5423,
+          "context_recall": 0.3333,
+          "context_keyword_hit": [
+            "0.86%",
+            "389.45%"
+          ],
+          "context_keyword_miss": [
+            "610.36亿元",
+            "16.52%",
+            "81.80亿元",
+            "2.96%"
+          ],
+          "context_page_rel_count": 6,
+          "context_keyword_rel_count": 1,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200326-p8-t0-0",
+              "page": 8,
+              "file_name": "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200326-p8-x0",
+              "page": 8,
+              "file_name": "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200326-p104-t1-0",
+              "page": 104,
+              "file_name": "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200326-p13-t0-0",
+              "page": 13,
+              "file_name": "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200326-p104-t0-0",
+              "page": 104,
+              "file_name": "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200326-p105-t0-0",
+              "page": 105,
+              "file_name": "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200326-p104-x1",
+              "page": 104,
+              "file_name": "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200326-p27-t0-0",
+              "page": 27,
+              "file_name": "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200326-p13-t1-0",
+              "page": 13,
+              "file_name": "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": false,
+              "by_keyword": true,
+              "hit_keywords": [
+                "0.86%",
+                "389.45%"
+              ]
+            },
+            {
+              "chunk_id": "20200326-p36-t0-0",
+              "page": 36,
+              "file_name": "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "faithfulness_detail": {
+          "faithfulness": 1.0,
+          "mode": "numeric_atom",
+          "supported": [
+            "2019年",
+            "2018年",
+            "2017年"
+          ],
+          "unsupported": [],
+          "total": 3
+        },
+        "answer_relevancy_detail": {
+          "answer_relevancy": 0.3,
+          "keyword_coverage": 0.0,
+          "length_score": 1.0,
+          "keyword_hit": [],
+          "keyword_miss": [
+            "610.36亿元",
+            "16.52%",
+            "0.86%",
+            "389.45%",
+            "81.80亿元",
+            "2.96%"
+          ],
+          "keyword_total": 6,
+          "answer_chars": 267
+        }
+      },
+      "judge": {
+        "keyword_hit_count": 0,
+        "keyword_total": 6,
+        "keyword_coverage": 0.0,
+        "keyword_hit": [],
+        "keyword_miss": [
+          "610.36亿元",
+          "16.52%",
+          "0.86%",
+          "389.45%",
+          "81.80亿元",
+          "2.96%"
+        ],
+        "atomic_coverage": 0.0,
+        "atomic_hit": [],
+        "atomic_miss": [
+          "610.36",
+          "16.52",
+          "0.86",
+          "389.45",
+          "81.80",
+          "2.96"
+        ],
+        "threshold": 0.6,
+        "is_correct": false,
+        "partial_correct": false
+      }
+    },
+    {
+      "id": "Q14",
+      "question_type": "数值题",
+      "lang": "zh",
+      "refused": false,
+      "generation_method": "draft_fallback",
+      "latency_total_ms": 3069.77,
+      "latency_retrieve_ms": 116.98,
+      "latency_graph_ms": 4.7,
+      "latency_generate_ms": 2947.89,
+      "evidence_count": 5,
+      "hit_count": 14,
+      "graph_used": true,
+      "error": null,
+      "metrics": {
+        "id": "Q14",
+        "context_precision": 1.0,
+        "context_precision_rank": 1.0,
+        "context_recall": 1.0,
+        "context_size": 5,
+        "context_relevant_count": 5,
+        "context_keyword_hit": [
+          "29,428,896,087.24",
+          "24,277,670,240.59",
+          "21.22",
+          "11,645,065,137.15",
+          "9,491,638,796.98",
+          "22.69"
+        ],
+        "context_keyword_miss": [],
+        "context_detail": {
+          "context_size": 5,
+          "context_relevant_count": 5,
+          "context_precision": 1.0,
+          "context_precision_rank": 1.0,
+          "context_recall": 1.0,
+          "context_keyword_hit": [
+            "29,428,896,087.24",
+            "24,277,670,240.59",
+            "21.22",
+            "11,645,065,137.15",
+            "9,491,638,796.98",
+            "22.69"
+          ],
+          "context_keyword_miss": [],
+          "context_page_rel_count": 5,
+          "context_keyword_rel_count": 3,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20220328-4a2b168a-p17-t1-0",
+              "page": 17,
+              "file_name": "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "29,428,896,087.24",
+                "24,277,670,240.59",
+                "21.22",
+                "11,645,065,137.15",
+                "9,491,638,796.98",
+                "22.69"
+              ]
+            },
+            {
+              "chunk_id": "20220328-4a2b168a-p34-t0-0",
+              "page": 34,
+              "file_name": "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "21.22",
+                "22.69"
+              ]
+            },
+            {
+              "chunk_id": "20220328-4a2b168a-p44-t1-0",
+              "page": 44,
+              "file_name": "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220328-4a2b168a-p231-t0-0",
+              "page": 231,
+              "file_name": "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "11,645,065,137.15",
+                "9,491,638,796.98"
+              ]
+            },
+            {
+              "chunk_id": "20220328-4a2b168a-p241-t1-0",
+              "page": 241,
+              "file_name": "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "topk_context_precision": 0.9,
+        "topk_context_precision_rank": 0.9765,
+        "topk_context_recall": 1.0,
+        "topk_context_size": 10,
+        "topk_context_relevant_count": 9,
+        "topk_context_detail": {
+          "context_size": 10,
+          "context_relevant_count": 9,
+          "context_precision": 0.9,
+          "context_precision_rank": 0.9765,
+          "context_recall": 1.0,
+          "context_keyword_hit": [
+            "29,428,896,087.24",
+            "24,277,670,240.59",
+            "21.22",
+            "11,645,065,137.15",
+            "9,491,638,796.98",
+            "22.69"
+          ],
+          "context_keyword_miss": [],
+          "context_page_rel_count": 9,
+          "context_keyword_rel_count": 4,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20220328-4a2b168a-p17-t1-0",
+              "page": 17,
+              "file_name": "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "29,428,896,087.24",
+                "24,277,670,240.59",
+                "21.22",
+                "11,645,065,137.15",
+                "9,491,638,796.98",
+                "22.69"
+              ]
+            },
+            {
+              "chunk_id": "20220328-4a2b168a-p34-t0-0",
+              "page": 34,
+              "file_name": "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "21.22",
+                "22.69"
+              ]
+            },
+            {
+              "chunk_id": "20220328-4a2b168a-p44-t1-0",
+              "page": 44,
+              "file_name": "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220328-4a2b168a-p231-t0-0",
+              "page": 231,
+              "file_name": "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "11,645,065,137.15",
+                "9,491,638,796.98"
+              ]
+            },
+            {
+              "chunk_id": "20220328-4a2b168a-p241-t1-0",
+              "page": 241,
+              "file_name": "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220328-4a2b168a-p17-t0-0",
+              "page": 17,
+              "file_name": "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220328-4a2b168a-p34-x0",
+              "page": 34,
+              "file_name": "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220328-4a2b168a-p277-t1-0",
+              "page": 277,
+              "file_name": "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220328-4a2b168a-p149-t0-0",
+              "page": 149,
+              "file_name": "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "29,428,896,087.24",
+                "24,277,670,240.59",
+                "11,645,065,137.15",
+                "9,491,638,796.98"
+              ]
+            },
+            {
+              "chunk_id": "20220328-4a2b168a-p143-t2-0",
+              "page": 143,
+              "file_name": "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "faithfulness_detail": {
+          "faithfulness": 1.0,
+          "mode": "numeric_atom",
+          "supported": [
+            "2021年",
+            "2020年",
+            "2019年"
+          ],
+          "unsupported": [],
+          "total": 3
+        },
+        "answer_relevancy_detail": {
+          "answer_relevancy": 0.65,
+          "keyword_coverage": 0.5,
+          "length_score": 1.0,
+          "keyword_hit": [
+            "11,645,065,137.15",
+            "9,491,638,796.98",
+            "22.69"
+          ],
+          "keyword_miss": [
+            "29,428,896,087.24",
+            "24,277,670,240.59",
+            "21.22"
+          ],
+          "keyword_total": 6,
+          "answer_chars": 405
+        }
+      },
+      "judge": {
+        "keyword_hit_count": 3,
+        "keyword_total": 6,
+        "keyword_coverage": 0.5,
+        "keyword_hit": [
+          "11,645,065,137.15",
+          "9,491,638,796.98",
+          "22.69"
+        ],
+        "keyword_miss": [
+          "29,428,896,087.24",
+          "24,277,670,240.59",
+          "21.22"
+        ],
+        "atomic_coverage": 0.5,
+        "atomic_hit": [
+          "11645065137.15",
+          "9491638796.98",
+          "22.69"
+        ],
+        "atomic_miss": [
+          "29428896087.24",
+          "24277670240.59",
+          "21.22"
+        ],
+        "threshold": 0.6,
+        "is_correct": false,
+        "partial_correct": true
+      }
+    },
+    {
+      "id": "Q15",
+      "question_type": "数值题",
+      "lang": "zh",
+      "refused": false,
+      "generation_method": "draft_fallback",
+      "latency_total_ms": 3933.63,
+      "latency_retrieve_ms": 118.75,
+      "latency_graph_ms": 4.67,
+      "latency_generate_ms": 3810.75,
+      "evidence_count": 5,
+      "hit_count": 15,
+      "graph_used": true,
+      "error": null,
+      "metrics": {
+        "id": "Q15",
+        "context_precision": 0.4,
+        "context_precision_rank": 0.8333,
+        "context_recall": 1.0,
+        "context_size": 5,
+        "context_relevant_count": 2,
+        "context_keyword_hit": [
+          "428亿元",
+          "150亿元",
+          "22%和35%",
+          "11.05%",
+          "连续14年获得A类AA级监管评级"
+        ],
+        "context_keyword_miss": [],
+        "context_detail": {
+          "context_size": 5,
+          "context_relevant_count": 2,
+          "context_precision": 0.4,
+          "context_precision_rank": 0.8333,
+          "context_recall": 1.0,
+          "context_keyword_hit": [
+            "428亿元",
+            "150亿元",
+            "22%和35%",
+            "11.05%",
+            "连续14年获得A类AA级监管评级"
+          ],
+          "context_keyword_miss": [],
+          "context_page_rel_count": 2,
+          "context_keyword_rel_count": 2,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20220331-p4-x0",
+              "page": 4,
+              "file_name": "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "428亿元",
+                "150亿元",
+                "22%和35%",
+                "11.05%"
+              ]
+            },
+            {
+              "chunk_id": "20220331-p39-x1",
+              "page": 39,
+              "file_name": "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220331-p4-x1",
+              "page": 4,
+              "file_name": "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "连续14年获得A类AA级监管评级"
+              ]
+            },
+            {
+              "chunk_id": "20220331-p229-t2-0",
+              "page": 229,
+              "file_name": "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220331-p236-t2-0",
+              "page": 236,
+              "file_name": "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "topk_context_precision": 0.3,
+        "topk_context_precision_rank": 0.6556,
+        "topk_context_recall": 1.0,
+        "topk_context_size": 10,
+        "topk_context_relevant_count": 3,
+        "topk_context_detail": {
+          "context_size": 10,
+          "context_relevant_count": 3,
+          "context_precision": 0.3,
+          "context_precision_rank": 0.6556,
+          "context_recall": 1.0,
+          "context_keyword_hit": [
+            "428亿元",
+            "150亿元",
+            "22%和35%",
+            "11.05%",
+            "连续14年获得A类AA级监管评级"
+          ],
+          "context_keyword_miss": [],
+          "context_page_rel_count": 3,
+          "context_keyword_rel_count": 2,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20220331-p4-x0",
+              "page": 4,
+              "file_name": "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "428亿元",
+                "150亿元",
+                "22%和35%",
+                "11.05%"
+              ]
+            },
+            {
+              "chunk_id": "20220331-p39-x1",
+              "page": 39,
+              "file_name": "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220331-p4-x1",
+              "page": 4,
+              "file_name": "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "连续14年获得A类AA级监管评级"
+              ]
+            },
+            {
+              "chunk_id": "20220331-p229-t2-0",
+              "page": 229,
+              "file_name": "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220331-p236-t2-0",
+              "page": 236,
+              "file_name": "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220331-p228-t1-0",
+              "page": 228,
+              "file_name": "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220331-p39-t0-0",
+              "page": 39,
+              "file_name": "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220331-p107-x0",
+              "page": 107,
+              "file_name": "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220331-p145-t0-0",
+              "page": 145,
+              "file_name": "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220331-p16-t3-0",
+              "page": 16,
+              "file_name": "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "faithfulness_detail": {
+          "faithfulness": 1.0,
+          "mode": "numeric_atom",
+          "supported": [
+            "428亿元",
+            "150亿元",
+            "22%",
+            "35%",
+            "2021年",
+            "17.70亿元",
+            "0.97亿元",
+            "0.62亿元",
+            "22.80亿元",
+            "7.66亿元"
+          ],
+          "unsupported": [],
+          "total": 10
+        },
+        "answer_relevancy_detail": {
+          "answer_relevancy": 0.72,
+          "keyword_coverage": 0.6,
+          "length_score": 1.0,
+          "keyword_hit": [
+            "428亿元",
+            "150亿元",
+            "22%和35%"
+          ],
+          "keyword_miss": [
+            "11.05%",
+            "连续14年获得A类AA级监管评级"
+          ],
+          "keyword_total": 5,
+          "answer_chars": 500
+        }
+      },
+      "judge": {
+        "keyword_hit_count": 3,
+        "keyword_total": 5,
+        "keyword_coverage": 0.6,
+        "keyword_hit": [
+          "428亿元",
+          "150亿元",
+          "22%和35%"
+        ],
+        "keyword_miss": [
+          "11.05%",
+          "连续14年获得A类AA级监管评级"
+        ],
+        "atomic_coverage": 0.6667,
+        "atomic_hit": [
+          "428",
+          "150",
+          "22",
+          "35"
+        ],
+        "atomic_miss": [
+          "11.05",
+          "14"
+        ],
+        "threshold": 0.6,
+        "is_correct": true,
+        "partial_correct": false
+      }
+    },
+    {
+      "id": "Q16",
+      "question_type": "数值题",
+      "lang": "zh",
+      "refused": false,
+      "generation_method": "draft_fallback",
+      "latency_total_ms": 2075.4,
+      "latency_retrieve_ms": 119.65,
+      "latency_graph_ms": 4.76,
+      "latency_generate_ms": 1950.38,
+      "evidence_count": 5,
+      "hit_count": 15,
+      "graph_used": true,
+      "error": null,
+      "metrics": {
+        "id": "Q16",
+        "context_precision": 1.0,
+        "context_precision_rank": 1.0,
+        "context_recall": 1.0,
+        "context_size": 5,
+        "context_relevant_count": 5,
+        "context_keyword_hit": [
+          "1,329.55",
+          "18.1%",
+          "1,494.07",
+          "39.1%",
+          "2.05元",
+          "50亿元A股股份回购"
+        ],
+        "context_keyword_miss": [],
+        "context_detail": {
+          "context_size": 5,
+          "context_relevant_count": 5,
+          "context_precision": 1.0,
+          "context_precision_rank": 1.0,
+          "context_recall": 1.0,
+          "context_keyword_hit": [
+            "1,329.55",
+            "18.1%",
+            "1,494.07",
+            "39.1%",
+            "2.05元",
+            "50亿元A股股份回购"
+          ],
+          "context_keyword_miss": [],
+          "context_page_rel_count": 5,
+          "context_keyword_rel_count": 5,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200221-p20-x0",
+              "page": 20,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1,329.55",
+                "18.1%",
+                "1,494.07",
+                "39.1%",
+                "2.05元",
+                "50亿元A股股份回购"
+              ]
+            },
+            {
+              "chunk_id": "20200221-p7-x0",
+              "page": 7,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1,329.55",
+                "18.1%",
+                "1,494.07",
+                "39.1%",
+                "2.05元",
+                "50亿元A股股份回购"
+              ]
+            },
+            {
+              "chunk_id": "20200221-p131-x0",
+              "page": 131,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1,494.07"
+              ]
+            },
+            {
+              "chunk_id": "20200221-p6-x0",
+              "page": 6,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "18.1%"
+              ]
+            },
+            {
+              "chunk_id": "20200221-p20-x1",
+              "page": 20,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "39.1%"
+              ]
+            }
+          ]
+        },
+        "topk_context_precision": 0.9,
+        "topk_context_precision_rank": 0.9889,
+        "topk_context_recall": 1.0,
+        "topk_context_size": 10,
+        "topk_context_relevant_count": 9,
+        "topk_context_detail": {
+          "context_size": 10,
+          "context_relevant_count": 9,
+          "context_precision": 0.9,
+          "context_precision_rank": 0.9889,
+          "context_recall": 1.0,
+          "context_keyword_hit": [
+            "1,329.55",
+            "18.1%",
+            "1,494.07",
+            "39.1%",
+            "2.05元",
+            "50亿元A股股份回购"
+          ],
+          "context_keyword_miss": [],
+          "context_page_rel_count": 9,
+          "context_keyword_rel_count": 6,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20200221-p20-x0",
+              "page": 20,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1,329.55",
+                "18.1%",
+                "1,494.07",
+                "39.1%",
+                "2.05元",
+                "50亿元A股股份回购"
+              ]
+            },
+            {
+              "chunk_id": "20200221-p7-x0",
+              "page": 7,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1,329.55",
+                "18.1%",
+                "1,494.07",
+                "39.1%",
+                "2.05元",
+                "50亿元A股股份回购"
+              ]
+            },
+            {
+              "chunk_id": "20200221-p131-x0",
+              "page": 131,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1,494.07"
+              ]
+            },
+            {
+              "chunk_id": "20200221-p6-x0",
+              "page": 6,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "18.1%"
+              ]
+            },
+            {
+              "chunk_id": "20200221-p20-x1",
+              "page": 20,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "39.1%"
+              ]
+            },
+            {
+              "chunk_id": "20200221-p9-x0",
+              "page": 9,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200221-p21-x0",
+              "page": 21,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "1,329.55",
+                "18.1%"
+              ]
+            },
+            {
+              "chunk_id": "20200221-p131-x1",
+              "page": 131,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200221-p162-x0",
+              "page": 162,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": false,
+              "by_page": false,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20200221-p63-x0",
+              "page": 63,
+              "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "faithfulness_detail": {
+          "faithfulness": 1.0,
+          "mode": "numeric_atom",
+          "supported": [
+            "2019年",
+            "1,329.55亿元",
+            "18.1%",
+            "0.2个百分点",
+            "3.5个百分点",
+            "2.05元",
+            "19.2%",
+            "2018年",
+            "21.7%",
+            "1,494.07亿元",
+            "39.1%",
+            "1.30元"
+          ],
+          "unsupported": [],
+          "total": 12
+        },
+        "answer_relevancy_detail": {
+          "answer_relevancy": 0.8833,
+          "keyword_coverage": 0.8333,
+          "length_score": 1.0,
+          "keyword_hit": [
+            "1,329.55",
+            "18.1%",
+            "1,494.07",
+            "39.1%",
+            "2.05元"
+          ],
+          "keyword_miss": [
+            "50亿元A股股份回购"
+          ],
+          "keyword_total": 6,
+          "answer_chars": 607
+        }
+      },
+      "judge": {
+        "keyword_hit_count": 5,
+        "keyword_total": 6,
+        "keyword_coverage": 0.8333,
+        "keyword_hit": [
+          "1,329.55",
+          "18.1%",
+          "1,494.07",
+          "39.1%",
+          "2.05元"
+        ],
+        "keyword_miss": [
+          "50亿元A股股份回购"
+        ],
+        "atomic_coverage": 0.8333,
+        "atomic_hit": [
+          "1329.55",
+          "18.1",
+          "1494.07",
+          "39.1",
+          "2.05"
+        ],
+        "atomic_miss": [
+          "50"
+        ],
+        "threshold": 0.6,
+        "is_correct": true,
+        "partial_correct": false
+      }
+    },
+    {
+      "id": "Q17",
+      "question_type": "定性题",
+      "lang": "zh",
+      "refused": false,
+      "generation_method": "draft_fallback",
+      "latency_total_ms": 5056.51,
+      "latency_retrieve_ms": 130.03,
+      "latency_graph_ms": 4.55,
+      "latency_generate_ms": 4920.22,
+      "evidence_count": 5,
+      "hit_count": 15,
+      "graph_used": true,
+      "error": null,
+      "metrics": {
+        "id": "Q17",
+        "context_precision": 1.0,
+        "context_precision_rank": 1.0,
+        "context_recall": 1.0,
+        "context_size": 5,
+        "context_relevant_count": 5,
+        "context_keyword_hit": [
+          "服务官",
+          "太保家园",
+          "颐养、乐养、康养三大产品线",
+          "太保蓝本",
+          "太医管家",
+          "保险产品+养老社区+专业服务"
+        ],
+        "context_keyword_miss": [],
+        "context_detail": {
+          "context_size": 5,
+          "context_relevant_count": 5,
+          "context_precision": 1.0,
+          "context_precision_rank": 1.0,
+          "context_recall": 1.0,
+          "context_keyword_hit": [
+            "服务官",
+            "太保家园",
+            "颐养、乐养、康养三大产品线",
+            "太保蓝本",
+            "太医管家",
+            "保险产品+养老社区+专业服务"
+          ],
+          "context_keyword_miss": [],
+          "context_page_rel_count": 5,
+          "context_keyword_rel_count": 3,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20220328-13ed9d5b-p3-x0",
+              "page": 3,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "服务官",
+                "太保家园",
+                "颐养、乐养、康养三大产品线",
+                "太保蓝本",
+                "太医管家",
+                "保险产品+养老社区+专业服务"
+              ]
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p3-x1",
+              "page": 3,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "太保家园"
+              ]
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p31-x0",
+              "page": 31,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p56-img-x-0",
+              "page": 56,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p5-x0",
+              "page": 5,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "太医管家"
+              ]
+            }
+          ]
+        },
+        "topk_context_precision": 1.0,
+        "topk_context_precision_rank": 1.0,
+        "topk_context_recall": 1.0,
+        "topk_context_size": 10,
+        "topk_context_relevant_count": 10,
+        "topk_context_detail": {
+          "context_size": 10,
+          "context_relevant_count": 10,
+          "context_precision": 1.0,
+          "context_precision_rank": 1.0,
+          "context_recall": 1.0,
+          "context_keyword_hit": [
+            "服务官",
+            "太保家园",
+            "颐养、乐养、康养三大产品线",
+            "太保蓝本",
+            "太医管家",
+            "保险产品+养老社区+专业服务"
+          ],
+          "context_keyword_miss": [],
+          "context_page_rel_count": 10,
+          "context_keyword_rel_count": 4,
+          "per_chunk_relevance": [
+            {
+              "chunk_id": "20220328-13ed9d5b-p3-x0",
+              "page": 3,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "服务官",
+                "太保家园",
+                "颐养、乐养、康养三大产品线",
+                "太保蓝本",
+                "太医管家",
+                "保险产品+养老社区+专业服务"
+              ]
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p3-x1",
+              "page": 3,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "太保家园"
+              ]
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p31-x0",
+              "page": 31,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p56-img-x-0",
+              "page": 56,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p5-x0",
+              "page": 5,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "太医管家"
+              ]
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p61-x0",
+              "page": 61,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": true,
+              "hit_keywords": [
+                "太保家园",
+                "太保蓝本",
+                "太医管家"
+              ]
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p56-t0-0",
+              "page": 56,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p52-img-x-0",
+              "page": 52,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p48-img-x-0",
+              "page": 48,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            },
+            {
+              "chunk_id": "20220328-13ed9d5b-p64-img-x-0",
+              "page": 64,
+              "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+              "relevant": true,
+              "by_page": true,
+              "by_keyword": false,
+              "hit_keywords": []
+            }
+          ]
+        },
+        "faithfulness_detail": {
+          "faithfulness": 1.0,
+          "mode": "numeric_atom",
+          "supported": [
+            "2021年",
+            "2021年度"
+          ],
+          "unsupported": [],
+          "total": 2
+        },
+        "answer_relevancy_detail": {
+          "answer_relevancy": 0.7159,
+          "keyword_coverage": 0.6667,
+          "length_score": 0.8307,
+          "keyword_hit": [
+            "服务官",
+            "太保家园",
+            "太医管家",
+            "保险产品+养老社区+专业服务"
+          ],
+          "keyword_miss": [
+            "颐养、乐养、康养三大产品线",
+            "太保蓝本"
+          ],
+          "keyword_total": 6,
+          "answer_chars": 963
+        }
+      },
+      "judge": {
+        "keyword_hit_count": 4,
+        "keyword_total": 6,
+        "keyword_coverage": 0.6667,
+        "keyword_hit": [
+          "服务官",
+          "太保家园",
+          "太医管家",
+          "保险产品+养老社区+专业服务"
+        ],
+        "keyword_miss": [
+          "颐养、乐养、康养三大产品线",
+          "太保蓝本"
+        ],
+        "atomic_coverage": 0.0,
+        "atomic_hit": [],
+        "atomic_miss": [],
+        "threshold": 0.6,
+        "is_correct": true,
+        "partial_correct": false
+      }
+    }
+  ]
+}

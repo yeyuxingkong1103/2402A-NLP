@@ -1,0 +1,117 @@
+{
+  "工单": "人工智能NLP-RAG-Graph RAG 优化任务",
+  "场景": "容错与降级",
+  "生成时间": "2026-10-13 18:26:04",
+  "用例数": 8,
+  "崩溃数": 0,
+  "判定": {
+    "全部不崩": true,
+    "崩溃明细": []
+  },
+  "用例": [
+    {
+      "场景": "T1-空query",
+      "期望": "拒绝并给提示，不崩",
+      "问题长度": 0,
+      "抛出异常": null,
+      "ok": true,
+      "refused": true,
+      "generation_method": "refusal_guard",
+      "answer_chars": 37,
+      "answer_head": "现有年报证据不足以回答该问题（未在检索到的证据中找到与该问题相关的内容）。",
+      "有错误字段": false,
+      "耗时ms": 596.61
+    },
+    {
+      "场景": "T2-纯空白",
+      "期望": "拒绝并给提示，不崩",
+      "问题长度": 7,
+      "抛出异常": null,
+      "ok": true,
+      "refused": true,
+      "generation_method": "refusal_guard",
+      "answer_chars": 37,
+      "answer_head": "现有年报证据不足以回答该问题（未在检索到的证据中找到与该问题相关的内容）。",
+      "有错误字段": false,
+      "耗时ms": 623.33
+    },
+    {
+      "场景": "T3-超长query",
+      "期望": "截断后正常作答或拒答，不崩",
+      "问题长度": 6800,
+      "抛出异常": null,
+      "ok": true,
+      "refused": false,
+      "generation_method": "grounded_template",
+      "answer_chars": 804,
+      "answer_head": "【结论】平安银行全年股价上涨77%，全行2019年实现营业收入1,379.58亿元，同比增长18.2%，净利润281.95亿元，同比增长13.6%；其他非利息净",
+      "有错误字段": false,
+      "耗时ms": 1196.88
+    },
+    {
+      "场景": "T4-非法字符",
+      "期望": "清洗后正常作答或拒答，不崩",
+      "问题长度": 29,
+      "抛出异常": null,
+      "ok": true,
+      "refused": true,
+      "generation_method": "refusal_guard",
+      "answer_chars": 37,
+      "answer_head": "现有年报证据不足以回答该问题（未在检索到的证据中找到与该问题相关的内容）。",
+      "有错误字段": false,
+      "耗时ms": 591.25
+    },
+    {
+      "场景": "T5-注入样式文本",
+      "期望": "当作普通问题检索，不崩、不泄露提示词",
+      "问题长度": 44,
+      "抛出异常": null,
+      "ok": true,
+      "refused": false,
+      "generation_method": "grounded_template",
+      "answer_chars": 823,
+      "answer_head": "【结论】联营公司及合营公司小计1,0400.021,6960.04合计159,8353.27120,7222.74(4)本集团的关键管理人员是指有权力及责任直接",
+      "有错误字段": false,
+      "耗时ms": 532.08
+    },
+    {
+      "场景": "T6-单字符",
+      "期望": "拒绝或空结果，不崩",
+      "问题长度": 1,
+      "抛出异常": null,
+      "ok": true,
+      "refused": true,
+      "generation_method": "refusal_guard",
+      "answer_chars": 37,
+      "answer_head": "现有年报证据不足以回答该问题（未在检索到的证据中找到与该问题相关的内容）。",
+      "有错误字段": false,
+      "耗时ms": 591.16
+    },
+    {
+      "场景": "T7-Ollama不可达",
+      "期望": "生成层降级为模板/草稿，仍返回答案与证据",
+      "问题长度": 17,
+      "抛出异常": null,
+      "ok": true,
+      "refused": false,
+      "generation_method": "grounded_template",
+      "answer_chars": 804,
+      "answer_head": "【结论】平安银行全年股价上涨77%，全行2019年实现营业收入1,379.58亿元，同比增长18.2%，净利润281.95亿元，同比增长13.6%；其他非利息净",
+      "有错误字段": false,
+      "耗时ms": 587.08
+    },
+    {
+      "场景": "T8-索引缺失",
+      "期望": "返回结构化错误（不抛异常）",
+      "问题长度": 17,
+      "抛出异常": null,
+      "ok": true,
+      "refused": true,
+      "generation_method": "error",
+      "answer_chars": 153,
+      "answer_head": "检索失败：索引不可用：IndexMissingError: [RAG-3100/index] 索引块文件缺失：E:\\gao6gongdan\\工单9\\研发\\dat",
+      "有错误字段": false,
+      "耗时ms": 346.29
+    }
+  ]
+}
