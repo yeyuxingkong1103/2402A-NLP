@@ -1,0 +1,376 @@
+{
+  "nodes": 664,
+  "edges": 386,
+  "entity_types_used": 17,
+  "entity_types_declared": 17,
+  "relation_types_used": 14,
+  "relation_types_declared": 16,
+  "entity_type_distribution": {
+    "公司": 202,
+    "金额": 106,
+    "产品": 56,
+    "自然人": 52,
+    "专利与技术标准": 43,
+    "机构": 40,
+    "客户": 40,
+    "财务指标": 25,
+    "比例": 24,
+    "行业": 21,
+    "日期": 19,
+    "子公司": 13,
+    "股东": 12,
+    "参股公司": 5,
+    "募投项目": 3,
+    "供应商": 2,
+    "资质": 1
+  },
+  "relation_type_distribution": {
+    "披露指标": 181,
+    "母子公司": 42,
+    "销售": 33,
+    "投资": 29,
+    "控股": 25,
+    "任职": 19,
+    "持有股份": 16,
+    "制定标准": 15,
+    "参股": 13,
+    "募投": 4,
+    "参与工程": 3,
+    "关联方": 3,
+    "采购": 2,
+    "获奖": 1
+  },
+  "entity_multi_alias_nodes": 19,
+  "entity_type_conflicts": 24,
+  "edges_constraint_ok": 126,
+  "edges_constraint_flagged": 260,
+  "edge_weight_total": 486,
+  "top_nodes_by_degree": [
+    {
+      "name": "武汉兴图新科电子股份有限公司",
+      "type": "公司",
+      "degree": 238,
+      "freq": 67
+    },
+    {
+      "name": "国防客户",
+      "type": "客户",
+      "degree": 59,
+      "freq": 1
+    },
+    {
+      "name": "武汉力源信息技术股份有限公司",
+      "type": "公司",
+      "degree": 31,
+      "freq": 17
+    },
+    {
+      "name": "发行人",
+      "type": "公司",
+      "degree": 23,
+      "freq": 19
+    },
+    {
+      "name": "客户",
+      "type": "公司",
+      "degree": 18,
+      "freq": 0
+    },
+    {
+      "name": "投资活动产生的现金流量净额",
+      "type": "财务指标",
+      "degree": 12,
+      "freq": 3
+    },
+    {
+      "name": "上海博丰",
+      "type": "机构",
+      "degree": 11,
+      "freq": 3
+    },
+    {
+      "name": "2016年第一次临时股东大会",
+      "type": "公司",
+      "degree": 10,
+      "freq": 10
+    },
+    {
+      "name": "赵马克(MarkZhao)",
+      "type": "自然人",
+      "degree": 9,
+      "freq": 7
+    },
+    {
+      "name": "国信证券股份有限公司",
+      "type": "公司",
+      "degree": 8,
+      "freq": 1
+    },
+    {
+      "name": "军用领域的收入",
+      "type": "公司",
+      "degree": 8,
+      "freq": 0
+    },
+    {
+      "name": "武汉博润",
+      "type": "子公司",
+      "degree": 7,
+      "freq": 4
+    },
+    {
+      "name": "占比",
+      "type": "公司",
+      "degree": 7,
+      "freq": 0
+    },
+    {
+      "name": "40,584.83万元",
+      "type": "金额",
+      "degree": 6,
+      "freq": 2
+    },
+    {
+      "name": "国防领域",
+      "type": "产品",
+      "degree": 6,
+      "freq": 2
+    }
+  ],
+  "top_edges_by_weight": [
+    {
+      "head": "武汉兴图新科电子股份有限公司",
+      "rel": "销售",
+      "tail": "国防客户",
+      "weight": 59
+    },
+    {
+      "head": "武汉兴图新科电子股份有限公司",
+      "rel": "销售",
+      "tail": "客户",
+      "weight": 13
+    },
+    {
+      "head": "武汉兴图新科电子股份有限公司",
+      "rel": "披露指标",
+      "tail": "军用领域的收入",
+      "weight": 5
+    },
+    {
+      "head": "发行人",
+      "rel": "披露指标",
+      "tail": "披露指标",
+      "weight": 4
+    },
+    {
+      "head": "武汉兴图新科电子股份有限公司",
+      "rel": "披露指标",
+      "tail": "注册资本",
+      "weight": 4
+    },
+    {
+      "head": "骆驼集团股份有限公司",
+      "rel": "持有股份",
+      "tail": "武汉光谷创业投资基金有限公司",
+      "weight": 4
+    },
+    {
+      "head": "武汉兴图新科电子股份有限公司",
+      "rel": "销售",
+      "tail": "供应商",
+      "weight": 3
+    },
+    {
+      "head": "武汉力源信息技术股份有限公司",
+      "rel": "披露指标",
+      "tail": "军用领域的收入",
+      "weight": 3
+    },
+    {
+      "head": "14,884.48",
+      "rel": "披露指标",
+      "tail": "2017年度",
+      "weight": 2
+    },
+    {
+      "head": "军品业务",
+      "rel": "销售",
+      "tail": "军队客户",
+      "weight": 2
+    },
+    {
+      "head": "发行人",
+      "rel": "投资",
+      "tail": "云联邦架构的军用视频指挥平台",
+      "weight": 2
+    },
+    {
+      "head": "国防领域",
+      "rel": "披露指标",
+      "tail": "100.00%",
+      "weight": 2
+    },
+    {
+      "head": "杜成城",
+      "rel": "持有股份",
+      "tail": "武汉兴图新科电子股份有限公司",
+      "weight": 2
+    },
+    {
+      "head": "武汉兴图新科电子股份有限公司",
+      "rel": "参与工程",
+      "tail": "某情报、指挥、控制与通信网络一体化工程",
+      "weight": 2
+    },
+    {
+      "head": "武汉兴图新科电子股份有限公司",
+      "rel": "披露指标",
+      "tail": "10.13%",
+      "weight": 2
+    }
+  ],
+  "entity_type_mention_total": 812,
+  "entity_type_exact_mentions": 741,
+  "entity_merge": {
+    "mentions_raw": 596,
+    "nodes": 566,
+    "merged_by_alias_table": 19,
+    "extra_merges_dice": 47,
+    "merge_pairs_sample": [
+      [
+        "40,584.83",
+        "40,584.83万元",
+        0.8889
+      ],
+      [
+        "522.50",
+        "522.50万元",
+        0.8333
+      ],
+      [
+        "6,464.51",
+        "6,464.51万元",
+        0.875
+      ],
+      [
+        "2016年第一次临时股东大会",
+        "2016年第三次临时股东大会",
+        0.8462
+      ],
+      [
+        "2016年第一次临时股东大会",
+        "2016年第二次临时股东大会",
+        0.8462
+      ],
+      [
+        "2016年第一次临时股东大会",
+        "2016年第五次临时股东大会",
+        0.8462
+      ],
+      [
+        "2016年第一次临时股东大会",
+        "2016年第六次临时股东大会",
+        0.8462
+      ],
+      [
+        "2016年第一次临时股东大会",
+        "2016年第四次临时股东大会",
+        0.8462
+      ],
+      [
+        "2016年第一次临时股东大会",
+        "2017年第一次临时股东大会",
+        0.8462
+      ],
+      [
+        "2016年第三次临时股东大会",
+        "2016年第二次临时股东大会",
+        0.8462
+      ]
+    ],
+    "type_conflicts": 24,
+    "declared_entity_types": 17
+  },
+  "relation_build": {
+    "relations_raw": 486,
+    "deduped": 386,
+    "type_inexact": 38,
+    "constraint_violations": 278,
+    "self_loops": 0,
+    "endpoint_added": 98,
+    "endpoint_nodes_added": 98,
+    "declared_relation_types": 16
+  },
+  "relation_violations_sample": [
+    {
+      "head": "发行人",
+      "head_type": "公司",
+      "rel": "销售",
+      "tail": "投资者",
+      "tail_type": "自然人"
+    },
+    {
+      "head": "发行人",
+      "head_type": "公司",
+      "rel": "投资",
+      "tail": "科创板",
+      "tail_type": "行业"
+    },
+    {
+      "head": "发行人",
+      "head_type": "公司",
+      "rel": "披露指标",
+      "tail": "披露指标",
+      "tail_type": "公司"
+    },
+    {
+      "head": "发行人",
+      "head_type": "公司",
+      "rel": "披露指标",
+      "tail": "披露指标",
+      "tail_type": "公司"
+    },
+    {
+      "head": "发行人",
+      "head_type": "公司",
+      "rel": "披露指标",
+      "tail": "披露指标",
+      "tail_type": "公司"
+    },
+    {
+      "head": "武汉兴图新科电子股份有限公司",
+      "head_type": "公司",
+      "rel": "持有股份",
+      "tail": "中泰证券股份有限公司",
+      "tail_type": "机构"
+    },
+    {
+      "head": "武汉兴图新科电子股份有限公司",
+      "head_type": "公司",
+      "rel": "母子公司",
+      "tail": "中泰证券股份有限公司",
+      "tail_type": "机构"
+    },
+    {
+      "head": "武汉兴图新科电子股份有限公司",
+      "head_type": "公司",
+      "rel": "披露指标",
+      "tail": "归属于母公司所有者净利润(万元)",
+      "tail_type": "公司"
+    },
+    {
+      "head": "武汉兴图新科电子股份有限公司",
+      "head_type": "公司",
+      "rel": "披露指标",
+      "tail": "扣除非经常性损益后归属于母公司所有者净利润(万元)",
+      "tail_type": "公司"
+    },
+    {
+      "head": "武汉兴图新科电子股份有限公司",
+      "head_type": "公司",
+      "rel": "披露指标",
+      "tail": "基本每股收益(元)",
+      "tail_type": "公司"
+    }
+  ]
+}
