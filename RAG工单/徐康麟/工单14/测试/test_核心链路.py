@@ -127,3 +127,41 @@ def test_设计文档与RAGFlow分析齐备():
     # 三问的关键锚点必须在文中（防止空壳文档）
     for key in ("FACTORY", "queue_product", "do_handle_task", "deepdoc/parser", "page_size"):
         assert key in txt, f"RAGFlow 分析缺少关键锚点 {key}"
+
+
+# ==================== 完善期新增（守护百度 OCR 结论） ====================
+OCR_DIR = ROOT / "研发" / "data" / "ocr"
+OCR_ANSWER = OCR_DIR / "答题复现.json"
+
+NEEDED_MARKS = ["4","5","6","6'","6''","X1","X2","X3","h1","h2","D","7","10","1"]
+
+
+def _ocr_text() -> str:
+    parts = []
+    for f in sorted(OCR_DIR.glob("page*.ocr.json")):
+        parts.append(json.loads(f.read_text(encoding="utf-8"))["text"])
+    return "\n".join(parts)
+
+
+def test_百度OCR产物齐全():
+    files = sorted(OCR_DIR.glob("page*.ocr.json"))
+    assert len(files) == 8, f"应识别 8 页（工单14 全页），实得 {len(files)}"
+
+
+def test_OCR里程碑_附图标记恢复不少于13个():
+    """守护 2026-10-16 的结论：百度 OCR 把所需标记恢复从 7/14 提升到 13/14。"""
+    txt = _ocr_text()
+    got = [m for m in NEEDED_MARKS if m in txt]
+    assert len(got) >= 13, f"恢复数退化：{len(got)}/14（交付时 7/14，接入 OCR 后 13/14），缺 {[m for m in NEEDED_MARKS if m not in txt]}"
+
+
+def test_OCR里程碑_六题可机器判定且全对():
+    d = json.loads(OCR_ANSWER.read_text(encoding="utf-8"))
+    s = d["汇总"]
+    assert s["题数"] == 6 and s["答对"] == 6, f"机器判定应 6/6，实得 {s['答对']}/{s['题数']}"
+    assert d["附图标记恢复"]["本次恢复数"] >= 13
+
+
+def test_坐标推理证据存在():
+    d = json.loads(OCR_ANSWER.read_text(encoding="utf-8"))
+    assert "坐标" in d["坐标推理证据"], "题3 的判定依据应为坐标比较"
