@@ -1,0 +1,524 @@
+{
+ "suite": "异常/边界输入",
+ "criterion": "不崩溃（无异常）+ 返回非空字符串 + HTTP 层不 5xx；能给出「不清楚」或友好追问均算通过；不比对语料真值",
+ "source": "E:\\gao6gongdan\\工单5\\测试\\测试数据\\异常输入用例.jsonl",
+ "n_cases": 12,
+ "n_passed": 12,
+ "pass_rate": 1.0,
+ "dimension_pass": {
+  "http_not_5xx": {
+   "passed": 12,
+   "total": 12,
+   "rate": 1.0
+  },
+  "no_exception": {
+   "passed": 12,
+   "total": 12,
+   "rate": 1.0
+  },
+  "answer_nonempty": {
+   "passed": 12,
+   "total": 12,
+   "rate": 1.0
+  },
+  "friendly_handled": {
+   "passed": 12,
+   "total": 12,
+   "rate": 1.0
+  }
+ },
+ "items": [
+  {
+   "id": "AB1",
+   "expect": "friendly",
+   "expect_note": "应友好处理：给出『不清楚/无法确定』或向用户追问澄清；不得编造、不得崩溃",
+   "note": "空字符串：不得 500、不得抛异常；应返回友好提示（如『请输入问题』）或空改写标记 empty_input。",
+   "passed": true,
+   "checks": [
+    {
+     "name": "http_not_5xx",
+     "title": "http_not_5xx",
+     "passed": true,
+     "detail": "无 HTTP 状态（local 直调）"
+    },
+    {
+     "name": "no_exception",
+     "title": "no_exception",
+     "passed": true,
+     "detail": "未抛异常"
+    },
+    {
+     "name": "answer_nonempty",
+     "title": "answer_nonempty",
+     "passed": true,
+     "detail": "答案非空（72 字）"
+    },
+    {
+     "name": "friendly_handled",
+     "title": "friendly_handled",
+     "passed": true,
+     "detail": "命中友好表达: ['请输入']"
+    }
+   ],
+   "reasons": [],
+   "question_repr": "''",
+   "question_len": 0,
+   "answer": "请输入您想问的问题。例如：「武汉兴图新科电子股份有限公司的法定代表人是谁？」或者先问一家公司，再用「他」「这个公司」「那另一家公司呢？」来追问。",
+   "refused": false,
+   "http_status": null,
+   "error": null,
+   "elapsed_ms": 0.9
+  },
+  {
+   "id": "AB2",
+   "expect": "friendly",
+   "expect_note": "应友好处理：给出『不清楚/无法确定』或向用户追问澄清；不得编造、不得崩溃",
+   "note": "纯空白（含全角空格 U+3000）：等价于空输入；normalize 后为空 → strategy=empty_input。",
+   "passed": true,
+   "checks": [
+    {
+     "name": "http_not_5xx",
+     "title": "http_not_5xx",
+     "passed": true,
+     "detail": "无 HTTP 状态（local 直调）"
+    },
+    {
+     "name": "no_exception",
+     "title": "no_exception",
+     "passed": true,
+     "detail": "未抛异常"
+    },
+    {
+     "name": "answer_nonempty",
+     "title": "answer_nonempty",
+     "passed": true,
+     "detail": "答案非空（72 字）"
+    },
+    {
+     "name": "friendly_handled",
+     "title": "friendly_handled",
+     "passed": true,
+     "detail": "命中友好表达: ['请输入']"
+    }
+   ],
+   "reasons": [],
+   "question_repr": "'    \\u3000\\u3000\\u3000   '",
+   "question_len": 10,
+   "answer": "请输入您想问的问题。例如：「武汉兴图新科电子股份有限公司的法定代表人是谁？」或者先问一家公司，再用「他」「这个公司」「那另一家公司呢？」来追问。",
+   "refused": false,
+   "http_status": null,
+   "error": null,
+   "elapsed_ms": 0.9
+  },
+  {
+   "id": "AB3",
+   "expect": "friendly",
+   "expect_note": "应友好处理：给出『不清楚/无法确定』或向用户追问澄清；不得编造、不得崩溃",
+   "note": "纯标点：无实体无槽位无指代 → 不得误答；应友好追问或说明无法理解。",
+   "passed": true,
+   "checks": [
+    {
+     "name": "http_not_5xx",
+     "title": "http_not_5xx",
+     "passed": true,
+     "detail": "无 HTTP 状态（local 直调）"
+    },
+    {
+     "name": "no_exception",
+     "title": "no_exception",
+     "passed": true,
+     "detail": "未抛异常"
+    },
+    {
+     "name": "answer_nonempty",
+     "title": "answer_nonempty",
+     "passed": true,
+     "detail": "答案非空（72 字）"
+    },
+    {
+     "name": "friendly_handled",
+     "title": "friendly_handled",
+     "passed": true,
+     "detail": "命中友好表达: ['请输入']"
+    }
+   ],
+   "reasons": [],
+   "question_repr": "'？？？'",
+   "question_len": 3,
+   "answer": "请输入您想问的问题。例如：「武汉兴图新科电子股份有限公司的法定代表人是谁？」或者先问一家公司，再用「他」「这个公司」「那另一家公司呢？」来追问。",
+   "refused": false,
+   "http_status": null,
+   "error": null,
+   "elapsed_ms": 0.9
+  },
+  {
+   "id": "AB4",
+   "expect": "friendly",
+   "expect_note": "应友好处理：给出『不清楚/无法确定』或向用户追问澄清；不得编造、不得崩溃",
+   "note": "乱码/无意义串：不得编造答案、不得 500；应友好处理。",
+   "passed": true,
+   "checks": [
+    {
+     "name": "http_not_5xx",
+     "title": "http_not_5xx",
+     "passed": true,
+     "detail": "无 HTTP 状态（local 直调）"
+    },
+    {
+     "name": "no_exception",
+     "title": "no_exception",
+     "passed": true,
+     "detail": "未抛异常"
+    },
+    {
+     "name": "answer_nonempty",
+     "title": "answer_nonempty",
+     "passed": true,
+     "detail": "答案非空（3 字）"
+    },
+    {
+     "name": "friendly_handled",
+     "title": "friendly_handled",
+     "passed": true,
+     "detail": "命中友好表达: ['不清楚']"
+    }
+   ],
+   "reasons": [],
+   "question_repr": "'asdkjfh#$%^&*'",
+   "question_len": 13,
+   "answer": "不清楚",
+   "refused": true,
+   "http_status": null,
+   "error": null,
+   "elapsed_ms": 45.6
+  },
+  {
+   "id": "AB5",
+   "expect": "friendly",
+   "expect_note": "应友好处理：给出『不清楚/无法确定』或向用户追问澄清；不得编造、不得崩溃",
+   "note": "超长重复串（500+ 字）：不得超时/内存爆掉/500；应快速返回友好提示。",
+   "passed": true,
+   "checks": [
+    {
+     "name": "http_not_5xx",
+     "title": "http_not_5xx",
+     "passed": true,
+     "detail": "无 HTTP 状态（local 直调）"
+    },
+    {
+     "name": "no_exception",
+     "title": "no_exception",
+     "passed": true,
+     "detail": "未抛异常"
+    },
+    {
+     "name": "answer_nonempty",
+     "title": "answer_nonempty",
+     "passed": true,
+     "detail": "答案非空（3 字）"
+    },
+    {
+     "name": "friendly_handled",
+     "title": "friendly_handled",
+     "passed": true,
+     "detail": "命中友好表达: ['不清楚']"
+    }
+   ],
+   "reasons": [],
+   "question_repr": "'的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的的'",
+   "question_len": 539,
+   "answer": "不清楚",
+   "refused": true,
+   "http_status": null,
+   "error": null,
+   "elapsed_ms": 109.0
+  },
+  {
+   "id": "AB6",
+   "expect": "friendly",
+   "expect_note": "应友好处理：给出『不清楚/无法确定』或向用户追问澄清；不得编造、不得崩溃",
+   "note": "纯 emoji：非中文非英文、无实体无槽位；不得抛 UnicodeError、不得 500。",
+   "passed": true,
+   "checks": [
+    {
+     "name": "http_not_5xx",
+     "title": "http_not_5xx",
+     "passed": true,
+     "detail": "无 HTTP 状态（local 直调）"
+    },
+    {
+     "name": "no_exception",
+     "title": "no_exception",
+     "passed": true,
+     "detail": "未抛异常"
+    },
+    {
+     "name": "answer_nonempty",
+     "title": "answer_nonempty",
+     "passed": true,
+     "detail": "答案非空（72 字）"
+    },
+    {
+     "name": "friendly_handled",
+     "title": "friendly_handled",
+     "passed": true,
+     "detail": "命中友好表达: ['请输入']"
+    }
+   ],
+   "reasons": [],
+   "question_repr": "'😀😀😀🐱🐱🐱🎉🎉🎉'",
+   "question_len": 9,
+   "answer": "请输入您想问的问题。例如：「武汉兴图新科电子股份有限公司的法定代表人是谁？」或者先问一家公司，再用「他」「这个公司」「那另一家公司呢？」来追问。",
+   "refused": false,
+   "http_status": null,
+   "error": null,
+   "elapsed_ms": 1.1
+  },
+  {
+   "id": "AB7",
+   "expect": "friendly",
+   "expect_note": "应友好处理：给出『不清楚/无法确定』或向用户追问澄清；不得编造、不得崩溃",
+   "note": "单个指代词且**无历史**：必须友好处理（追问是哪家公司或说明不确定），不得崩溃、不得凭空断言。",
+   "passed": true,
+   "checks": [
+    {
+     "name": "http_not_5xx",
+     "title": "http_not_5xx",
+     "passed": true,
+     "detail": "无 HTTP 状态（local 直调）"
+    },
+    {
+     "name": "no_exception",
+     "title": "no_exception",
+     "passed": true,
+     "detail": "未抛异常"
+    },
+    {
+     "name": "answer_nonempty",
+     "title": "answer_nonempty",
+     "passed": true,
+     "detail": "答案非空（3 字）"
+    },
+    {
+     "name": "friendly_handled",
+     "title": "friendly_handled",
+     "passed": true,
+     "detail": "命中友好表达: ['不清楚']"
+    }
+   ],
+   "reasons": [],
+   "question_repr": "'他'",
+   "question_len": 1,
+   "answer": "不清楚",
+   "refused": true,
+   "http_status": null,
+   "error": null,
+   "elapsed_ms": 64.6
+  },
+  {
+   "id": "AB8",
+   "expect": "friendly",
+   "expect_note": "应友好处理：给出『不清楚/无法确定』或向用户追问澄清；不得编造、不得崩溃",
+   "note": "既无实体也无槽位的省略句：不得瞎猜上一轮之外的内容；应友好追问。",
+   "passed": true,
+   "checks": [
+    {
+     "name": "http_not_5xx",
+     "title": "http_not_5xx",
+     "passed": true,
+     "detail": "无 HTTP 状态（local 直调）"
+    },
+    {
+     "name": "no_exception",
+     "title": "no_exception",
+     "passed": true,
+     "detail": "未抛异常"
+    },
+    {
+     "name": "answer_nonempty",
+     "title": "answer_nonempty",
+     "passed": true,
+     "detail": "答案非空（3 字）"
+    },
+    {
+     "name": "friendly_handled",
+     "title": "friendly_handled",
+     "passed": true,
+     "detail": "命中友好表达: ['不清楚']"
+    }
+   ],
+   "reasons": [],
+   "question_repr": "'那呢？'",
+   "question_len": 3,
+   "answer": "不清楚",
+   "refused": true,
+   "http_status": null,
+   "error": null,
+   "elapsed_ms": 39.4
+  },
+  {
+   "id": "AB9",
+   "expect": "friendly",
+   "expect_note": "应友好处理：给出『不清楚/无法确定』或向用户追问澄清；不得编造、不得崩溃",
+   "note": "只有指代词且**无历史**：应友好追问『您指的是哪家公司』或说明不确定；不得 500。",
+   "passed": true,
+   "checks": [
+    {
+     "name": "http_not_5xx",
+     "title": "http_not_5xx",
+     "passed": true,
+     "detail": "无 HTTP 状态（local 直调）"
+    },
+    {
+     "name": "no_exception",
+     "title": "no_exception",
+     "passed": true,
+     "detail": "未抛异常"
+    },
+    {
+     "name": "answer_nonempty",
+     "title": "answer_nonempty",
+     "passed": true,
+     "detail": "答案非空（3 字）"
+    },
+    {
+     "name": "friendly_handled",
+     "title": "friendly_handled",
+     "passed": true,
+     "detail": "命中友好表达: ['不清楚']"
+    }
+   ],
+   "reasons": [],
+   "question_repr": "'这个公司呢？'",
+   "question_len": 6,
+   "answer": "不清楚",
+   "refused": true,
+   "http_status": null,
+   "error": null,
+   "elapsed_ms": 582.0
+  },
+  {
+   "id": "AB10",
+   "expect": "no_crash",
+   "expect_note": "底线口径：不崩溃、返回非空字符串、HTTP 层不 500（内容不作强判）",
+   "note": "HTML/脚本注入样式串：不得 500、不得把脚本内容回显成可执行 HTML；应按普通文本处理。",
+   "passed": true,
+   "checks": [
+    {
+     "name": "http_not_5xx",
+     "title": "http_not_5xx",
+     "passed": true,
+     "detail": "无 HTTP 状态（local 直调）"
+    },
+    {
+     "name": "no_exception",
+     "title": "no_exception",
+     "passed": true,
+     "detail": "未抛异常"
+    },
+    {
+     "name": "answer_nonempty",
+     "title": "answer_nonempty",
+     "passed": true,
+     "detail": "答案非空（3 字）"
+    },
+    {
+     "name": "friendly_handled",
+     "title": "friendly_handled",
+     "passed": true,
+     "detail": "命中友好表达: ['不清楚']"
+    }
+   ],
+   "reasons": [],
+   "question_repr": "'<script>alert(1)</script>'",
+   "question_len": 25,
+   "answer": "不清楚",
+   "refused": true,
+   "http_status": null,
+   "error": null,
+   "elapsed_ms": 66.1
+  },
+  {
+   "id": "AB11",
+   "expect": "no_crash",
+   "expect_note": "底线口径：不崩溃、返回非空字符串、HTTP 层不 500（内容不作强判）",
+   "note": "换行+制表符+SQL/iframe 注入混合：正常部分仍应可答（注册资本 5,520.00 万元），注入片段不得影响落库/会话存储。",
+   "passed": true,
+   "checks": [
+    {
+     "name": "http_not_5xx",
+     "title": "http_not_5xx",
+     "passed": true,
+     "detail": "无 HTTP 状态（local 直调）"
+    },
+    {
+     "name": "no_exception",
+     "title": "no_exception",
+     "passed": true,
+     "detail": "未抛异常"
+    },
+    {
+     "name": "answer_nonempty",
+     "title": "answer_nonempty",
+     "passed": true,
+     "detail": "答案非空（3 字）"
+    },
+    {
+     "name": "friendly_handled",
+     "title": "friendly_handled",
+     "passed": true,
+     "detail": "命中友好表达: ['不清楚']"
+    }
+   ],
+   "reasons": [],
+   "question_repr": "\"武汉兴图新科电子股份有限公司注册资本是多少？\\n\\t\\t<iframe src=javascript:alert(2)></iframe>\\r\\n'; DROP TABLE sessions;--\"",
+   "question_len": 93,
+   "answer": "不清楚",
+   "refused": true,
+   "http_status": null,
+   "error": null,
+   "elapsed_ms": 106.6
+  },
+  {
+   "id": "AB12",
+   "expect": "no_crash",
+   "expect_note": "底线口径：不崩溃、返回非空字符串、HTTP 层不 500（内容不作强判）",
+   "note": "控制字符/ANSI 转义包裹的正常问题：应清洗后照常作答（程家明），不得 500、不得把控制字符写进会话存储。",
+   "passed": true,
+   "checks": [
+    {
+     "name": "http_not_5xx",
+     "title": "http_not_5xx",
+     "passed": true,
+     "detail": "无 HTTP 状态（local 直调）"
+    },
+    {
+     "name": "no_exception",
+     "title": "no_exception",
+     "passed": true,
+     "detail": "未抛异常"
+    },
+    {
+     "name": "answer_nonempty",
+     "title": "answer_nonempty",
+     "passed": true,
+     "detail": "答案非空（32 字）"
+    },
+    {
+     "name": "friendly_handled",
+     "title": "friendly_handled",
+     "passed": true,
+     "detail": "未命中友好表达词，但答案非空（异常输入不作强判）"
+    }
+   ],
+   "reasons": [],
+   "question_repr": "'\\x07\\x08武汉兴图新科电子股份有限公司的法定代表人是谁？\\x1b[31m'",
+   "question_len": 30,
+   "answer": "法定代表人是陈爱民。\n引用：[招股说明书1.pdf: 第64页]",
+   "refused": false,
+   "http_status": null,
+   "error": null,
+   "elapsed_ms": 409.0
+  }
+ ]
+}

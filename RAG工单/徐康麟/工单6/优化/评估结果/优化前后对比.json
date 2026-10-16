@@ -1,0 +1,262 @@
+{
+ "work_order": "人工智能NLP-RAG-图像内容解析及检索优化",
+ "baseline_source": "T6 实测（测试/测试报告.md §5/§7.1/§8.1）与本脚本复现的优化前跑（同一评测协议）",
+ "protocol": "测试/在线/run_16q_eval.py（16 题 + 负例 + 中英同题；--no-cache 全量）",
+ "before": {
+  "n_questions": 16,
+  "accuracy": 1.0,
+  "n_correct": 16,
+  "hit_complete": 14,
+  "hit_bm25": 14,
+  "hit_vector": 11,
+  "citation_ok": 16,
+  "latency_wall_p50_ms": 840.3,
+  "latency_wall_p95_ms": 1269.6,
+  "latency_wall_max_ms": 1694.2,
+  "latency_server_p50_ms": 824.2,
+  "latency_server_p95_ms": 1253.0,
+  "latency_server_max_ms": 1674.4,
+  "n_over_3000ms": 0,
+  "first_token_min_ms": 192.68,
+  "first_token_max_ms": 730.74,
+  "negatives_passed": 3,
+  "negatives_total": 4,
+  "negatives_failed_ids": [
+   "N1"
+  ],
+  "bilingual_zh_passed": 3,
+  "bilingual_en_passed": 1,
+  "bilingual_en_total": 3,
+  "run_tag": "t7-before",
+  "use_cache": false,
+  "index_chunk_total": 2676
+ },
+ "after": {
+  "n_questions": 16,
+  "accuracy": 1.0,
+  "n_correct": 16,
+  "hit_complete": 14,
+  "hit_bm25": 14,
+  "hit_vector": 12,
+  "citation_ok": 16,
+  "latency_wall_p50_ms": 810.1,
+  "latency_wall_p95_ms": 1519.4,
+  "latency_wall_max_ms": 2017.8,
+  "latency_server_p50_ms": 776.1,
+  "latency_server_p95_ms": 1483.8,
+  "latency_server_max_ms": 1980.4,
+  "n_over_3000ms": 0,
+  "first_token_min_ms": 68.48,
+  "first_token_max_ms": 579.19,
+  "negatives_passed": 4,
+  "negatives_total": 4,
+  "negatives_failed_ids": [],
+  "bilingual_zh_passed": 3,
+  "bilingual_en_passed": 3,
+  "bilingual_en_total": 3,
+  "run_tag": "t7-after-run1",
+  "use_cache": false,
+  "index_chunk_total": 2676
+ },
+ "t6_baseline": {
+  "n_questions": 16,
+  "accuracy": 1.0,
+  "n_correct": 16,
+  "hit_complete": 14,
+  "hit_bm25": 14,
+  "hit_vector": 11,
+  "citation_ok": 16,
+  "latency_wall_p50_ms": 595.8,
+  "latency_wall_p95_ms": 929.8,
+  "latency_wall_max_ms": 1062.8,
+  "latency_server_p50_ms": 582.8,
+  "latency_server_p95_ms": 903.2,
+  "latency_server_max_ms": 1049.5,
+  "n_over_3000ms": 0,
+  "first_token_min_ms": 132.87,
+  "first_token_max_ms": 484.17,
+  "negatives_passed": 3,
+  "negatives_total": 4,
+  "negatives_failed_ids": [],
+  "bilingual_zh_passed": 0,
+  "bilingual_en_passed": 0,
+  "bilingual_en_total": 3,
+  "run_tag": null,
+  "use_cache": null,
+  "index_chunk_total": null
+ },
+ "rows": [
+  {
+   "metric": "准确率（判对题数）",
+   "key": "n_correct",
+   "before": 16,
+   "after": 16,
+   "gain": "0"
+  },
+  {
+   "metric": "准确率",
+   "key": "accuracy",
+   "before": 1.0,
+   "after": 1.0,
+   "gain": "0"
+  },
+  {
+   "metric": "权威层命中（总数）",
+   "key": "hit_complete",
+   "before": 14,
+   "after": 14,
+   "gain": "0"
+  },
+  {
+   "metric": "权威层命中（BM25 通道）",
+   "key": "hit_bm25",
+   "before": 14,
+   "after": 14,
+   "gain": "0"
+  },
+  {
+   "metric": "权威层命中（向量通道）",
+   "key": "hit_vector",
+   "before": 11,
+   "after": 12,
+   "gain": "+1.0"
+  },
+  {
+   "metric": "引用可回溯",
+   "key": "citation_ok",
+   "before": 16,
+   "after": 16,
+   "gain": "0"
+  },
+  {
+   "metric": "拒答负例通过（/4）",
+   "key": "negatives_passed",
+   "before": 3,
+   "after": 4,
+   "gain": "+1.0"
+  },
+  {
+   "metric": "英文路径通过（/3）",
+   "key": "bilingual_en_passed",
+   "before": 1,
+   "after": 3,
+   "gain": "+2.0"
+  },
+  {
+   "metric": "中文路径通过（/3）",
+   "key": "bilingual_zh_passed",
+   "before": 3,
+   "after": 3,
+   "gain": "0"
+  },
+  {
+   "metric": "延迟 wall P50 (ms)",
+   "key": "latency_wall_p50_ms",
+   "before": 840.3,
+   "after": 810.1,
+   "gain": "+30.2"
+  },
+  {
+   "metric": "延迟 wall P95 (ms)",
+   "key": "latency_wall_p95_ms",
+   "before": 1269.6,
+   "after": 1519.4,
+   "gain": "-249.8"
+  },
+  {
+   "metric": "延迟 wall 最大 (ms)",
+   "key": "latency_wall_max_ms",
+   "before": 1694.2,
+   "after": 2017.8,
+   "gain": "-323.6"
+  },
+  {
+   "metric": "延迟 server P50 (ms)",
+   "key": "latency_server_p50_ms",
+   "before": 824.2,
+   "after": 776.1,
+   "gain": "+48.1"
+  },
+  {
+   "metric": "延迟 server P95 (ms)",
+   "key": "latency_server_p95_ms",
+   "before": 1253.0,
+   "after": 1483.8,
+   "gain": "-230.8"
+  },
+  {
+   "metric": "延迟 server 最大 (ms)",
+   "key": "latency_server_max_ms",
+   "before": 1674.4,
+   "after": 1980.4,
+   "gain": "-306.0"
+  },
+  {
+   "metric": "超 3000 ms 题数",
+   "key": "n_over_3000ms",
+   "before": 0,
+   "after": 0,
+   "gain": "0"
+  },
+  {
+   "metric": "首字最小 (ms)",
+   "key": "first_token_min_ms",
+   "before": 192.68,
+   "after": 68.48,
+   "gain": "+124.2"
+  },
+  {
+   "metric": "首字最大 (ms)",
+   "key": "first_token_max_ms",
+   "before": 730.74,
+   "after": 579.19,
+   "gain": "+151.5"
+  }
+ ],
+ "all_passed": true,
+ "unmet": [],
+ "after_run2": {
+  "n_questions": 16,
+  "accuracy": 1.0,
+  "n_correct": 16,
+  "hit_complete": 14,
+  "hit_bm25": 14,
+  "hit_vector": 12,
+  "citation_ok": 16,
+  "latency_wall_p50_ms": 710.9,
+  "latency_wall_p95_ms": 1472.5,
+  "latency_wall_max_ms": 1971.1,
+  "latency_server_p50_ms": 685.0,
+  "latency_server_p95_ms": 1446.2,
+  "latency_server_max_ms": 1957.9,
+  "n_over_3000ms": 0,
+  "first_token_min_ms": 66.66,
+  "first_token_max_ms": 540.77,
+  "negatives_passed": 4,
+  "negatives_total": 4,
+  "negatives_failed_ids": [],
+  "bilingual_zh_passed": 3,
+  "bilingual_en_passed": 3,
+  "bilingual_en_total": 3,
+  "run_tag": "t7-after-run2",
+  "use_cache": false,
+  "index_chunk_total": 2676
+ },
+ "stability": {
+  "run1": {
+   "n_correct": 16,
+   "bilingual_en_passed": 3,
+   "negatives_passed": 4,
+   "hit_vector": 12,
+   "citation_ok": 16
+  },
+  "run2": {
+   "n_correct": 16,
+   "bilingual_en_passed": 3,
+   "negatives_passed": 4,
+   "hit_vector": 12,
+   "citation_ok": 16
+  },
+  "consistent": true
+ }
+}

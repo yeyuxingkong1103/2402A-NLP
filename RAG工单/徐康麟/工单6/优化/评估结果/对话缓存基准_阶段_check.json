@@ -1,0 +1,244 @@
+{
+ "phase": "check",
+ "warmup_ms": 3560.92,
+ "warmup": {
+  "base": {
+   "index_chunks": 2676,
+   "tokenizer": {
+    "cold_ms": 0.16,
+    "warm_ms": 0.1,
+    "tokens": 9,
+    "backend": "jieba"
+   },
+   "entity_tagger": {
+    "ok": true,
+    "sample_nouns": [
+     "武汉",
+     "新科",
+     "电子",
+     "股份",
+     "有限公司",
+     "注册资本"
+    ],
+    "elapsed_ms": 1656.04
+   },
+   "embedding": {
+    "backend": "ollama",
+    "model": "bge-m3:latest",
+    "dim": 1024,
+    "cold_ms": 29.04,
+    "warm_ms": 23.1,
+    "total_ms": 119.47
+   },
+   "generate": {
+    "ok": true,
+    "elapsed_ms": 231.86,
+    "model": "qwen2.5:3b",
+    "response_head": "你好！有什么我可以"
+   },
+   "elapsed_ms": 3552.8
+  },
+  "entities": 6,
+  "corpora": [
+   "pdf1",
+   "pdf2"
+  ],
+  "max_turns": 3,
+  "elapsed_ms": 3560.91
+ },
+ "session_id": "bench-check",
+ "rows": [
+  {
+   "round": 1,
+   "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+   "一致": true,
+   "差异字段": [],
+   "软字段差异": [],
+   "命中来源": "engine",
+   "wrapped_ms": 1202.08,
+   "direct_ms": 4.08,
+   "wrapped": {
+    "rewritten_query": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+    "strategy": "none",
+    "focus_entity": "武汉兴图新科电子股份有限公司",
+    "refused": false,
+    "turn_index": 1,
+    "cited_pages": [
+     129
+    ],
+    "answer": "发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的收入分别为6,464.51万元、14,414.16万元、18,780.67万元和4,627.14万元。\n引用：[招股说明书1.pdf: 第129页]",
+    "answer_head": "发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的收入分别为6,464.51万元、14,414.16万元、18,780.67万元和4,627.14万元。\n引用：[招股说明书1.pdf:",
+    "engine_total_ms": 1200.8
+   },
+   "direct": {
+    "rewritten_query": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+    "strategy": "none",
+    "focus_entity": "武汉兴图新科电子股份有限公司",
+    "refused": false,
+    "turn_index": 2,
+    "cited_pages": [
+     129
+    ],
+    "answer": "发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的收入分别为6,464.51万元、14,414.16万元、18,780.67万元和4,627.14万元。\n引用：[招股说明书1.pdf: 第129页]",
+    "answer_head": "发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的收入分别为6,464.51万元、14,414.16万元、18,780.67万元和4,627.14万元。\n引用：[招股说明书1.pdf:",
+    "engine_total_ms": 2.96
+   }
+  },
+  {
+   "round": 2,
+   "question": "他参与的哪个工程荣获了国家科技进步一等奖？",
+   "一致": true,
+   "差异字段": [],
+   "软字段差异": [],
+   "命中来源": "engine",
+   "wrapped_ms": 1000.3,
+   "direct_ms": 3.98,
+   "wrapped": {
+    "rewritten_query": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+    "strategy": "pronoun",
+    "focus_entity": "武汉兴图新科电子股份有限公司",
+    "refused": false,
+    "turn_index": 3,
+    "cited_pages": [
+     181
+    ],
+    "answer": "某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统）荣获国家科技进步一等奖。\n引用：[招股说明书1.pdf: 第181页]",
+    "answer_head": "某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统）荣获国家科技进步一等奖。\n引用：[招股说明书1.pdf: 第181页]",
+    "engine_total_ms": 999.13
+   },
+   "direct": {
+    "rewritten_query": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+    "strategy": "pronoun",
+    "focus_entity": "武汉兴图新科电子股份有限公司",
+    "refused": false,
+    "turn_index": 4,
+    "cited_pages": [
+     181
+    ],
+    "answer": "某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统）荣获国家科技进步一等奖。\n引用：[招股说明书1.pdf: 第181页]",
+    "answer_head": "某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统）荣获国家科技进步一等奖。\n引用：[招股说明书1.pdf: 第181页]",
+    "engine_total_ms": 2.85
+   }
+  },
+  {
+   "round": 3,
+   "question": "这个公司的法定代表人是谁？",
+   "一致": false,
+   "差异字段": [
+    "answer"
+   ],
+   "软字段差异": [
+    "cited_pages"
+   ],
+   "命中来源": "engine",
+   "wrapped_ms": 220.85,
+   "direct_ms": 4.27,
+   "wrapped": {
+    "rewritten_query": "武汉兴图新科电子股份有限公司的法定代表人是谁？",
+    "strategy": "pronoun",
+    "focus_entity": "武汉兴图新科电子股份有限公司",
+    "refused": false,
+    "turn_index": 5,
+    "cited_pages": [
+     68
+    ],
+    "answer": "法定代表人是程家明。\n引用：[招股说明书1.pdf: 第68页 表格]",
+    "answer_head": "法定代表人是程家明。\n引用：[招股说明书1.pdf: 第68页 表格]",
+    "engine_total_ms": 219.62
+   },
+   "direct": {
+    "rewritten_query": "武汉兴图新科电子股份有限公司的法定代表人是谁？",
+    "strategy": "pronoun",
+    "focus_entity": "武汉兴图新科电子股份有限公司",
+    "refused": false,
+    "turn_index": 6,
+    "cited_pages": [
+     52
+    ],
+    "answer": "法定代表人是程家明。\n引用：[招股说明书1.pdf: 第52页]",
+    "answer_head": "法定代表人是程家明。\n引用：[招股说明书1.pdf: 第52页]",
+    "engine_total_ms": 3.15
+   }
+  },
+  {
+   "round": 4,
+   "question": "那武汉力源信息技术股份有限公司呢？",
+   "一致": true,
+   "差异字段": [],
+   "软字段差异": [],
+   "命中来源": "engine",
+   "wrapped_ms": 212.55,
+   "direct_ms": 3.79,
+   "wrapped": {
+    "rewritten_query": "武汉力源信息技术股份有限公司的法定代表人是谁？",
+    "strategy": "ellipsis_entity_switch",
+    "focus_entity": "武汉力源信息技术股份有限公司",
+    "refused": false,
+    "turn_index": 7,
+    "cited_pages": [
+     23
+    ],
+    "answer": "法定代表人是赵马克。\n引用：[招股说明书2.pdf: 第23页]",
+    "answer_head": "法定代表人是赵马克。\n引用：[招股说明书2.pdf: 第23页]",
+    "engine_total_ms": 211.27
+   },
+   "direct": {
+    "rewritten_query": "武汉力源信息技术股份有限公司的法定代表人是谁？",
+    "strategy": "ellipsis_entity_switch",
+    "focus_entity": "武汉力源信息技术股份有限公司",
+    "refused": false,
+    "turn_index": 8,
+    "cited_pages": [
+     23
+    ],
+    "answer": "法定代表人是赵马克。\n引用：[招股说明书2.pdf: 第23页]",
+    "answer_head": "法定代表人是赵马克。\n引用：[招股说明书2.pdf: 第23页]",
+    "engine_total_ms": 2.45
+   }
+  },
+  {
+   "round": 5,
+   "question": "武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有哪些销售处？",
+   "一致": true,
+   "差异字段": [],
+   "软字段差异": [],
+   "命中来源": "engine",
+   "wrapped_ms": 789.49,
+   "direct_ms": 4.7,
+   "wrapped": {
+    "rewritten_query": "武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有哪些销售处？",
+    "strategy": "none",
+    "focus_entity": "武汉力源信息技术股份有限公司",
+    "refused": false,
+    "turn_index": 9,
+    "cited_pages": [
+     39
+    ],
+    "answer": "销售部由4个部门构成：国际贸易部、大客户销售部、渠道销售部、电话及网络销售部；其中大客户销售部由6个销售处构成：北京销售处、广州销售处、成都销售处、武汉销售处、深圳销售处、珠海销售处。\n引用：[招股说明书2.pdf: 第39页 组织结构图]",
+    "answer_head": "销售部由4个部门构成：国际贸易部、大客户销售部、渠道销售部、电话及网络销售部；其中大客户销售部由6个销售处构成：北京销售处、广州销售处、成都销售处、武汉销售处、深圳销售处、珠海销售处。\n引用：[招股说",
+    "engine_total_ms": 788.2
+   },
+   "direct": {
+    "rewritten_query": "武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有哪些销售处？",
+    "strategy": "none",
+    "focus_entity": "武汉力源信息技术股份有限公司",
+    "refused": false,
+    "turn_index": 10,
+    "cited_pages": [
+     39
+    ],
+    "answer": "销售部由4个部门构成：国际贸易部、大客户销售部、渠道销售部、电话及网络销售部；其中大客户销售部由6个销售处构成：北京销售处、广州销售处、成都销售处、武汉销售处、深圳销售处、珠海销售处。\n引用：[招股说明书2.pdf: 第39页 组织结构图]",
+    "answer_head": "销售部由4个部门构成：国际贸易部、大客户销售部、渠道销售部、电话及网络销售部；其中大客户销售部由6个销售处构成：北京销售处、广州销售处、成都销售处、武汉销售处、深圳销售处、珠海销售处。\n引用：[招股说",
+    "engine_total_ms": 3.48
+   }
+  }
+ ],
+ "aligned": 4,
+ "total": 5,
+ "diffs": [
+  "第3轮字段不一致：['answer']"
+ ],
+ "soft_diffs": [
+  "第3轮：['cited_pages']（模型侧随机性，非缓存差异）"
+ ]
+}

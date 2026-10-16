@@ -1,0 +1,8 @@
+# 工单4 离线「图像内容解析」阶段的重依赖（**API 服务不需要**，默认不装进镜像）
+# 说明：多模态编码（研发/app/core/multimodal_encoder.py）在运行时才 import torch，
+#      故 FastAPI 服务镜像不装这几项；只有要重建图像块/重跑 extract_images.py 时才需要：
+#          docker build -f 部署/docker/Dockerfile --build-arg WITH_MULTIMODAL=1 -t gongdan4-rag-full .
+torch==2.11.0+cpu
+transformers==4.57.6
+Pillow==12.1.1
+huggingface_hub==0.36.2

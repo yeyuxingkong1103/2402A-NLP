@@ -1,0 +1,270 @@
+{
+ "generated_by": "研发/data/eval/构建_golden_qa.py",
+ "purpose": "检索命中三层口径的『诊断层A（任证证据命中）』证据：complete ＋ supporting 的逐字证据",
+ "authoritative_note": "命中率主指标只认 golden 的 retrieval_evidence（完整证据，① 权威层）；本文件的 supporting 证据仅用于诊断层A/B，禁止用作命中率",
+ "evidence_pages_definition": {
+  "evidence_pages_complete": "承载完整答案证据（进入 ① 权威层）",
+  "evidence_pages": "complete + supporting（进入 ② 诊断层A / ③ 诊断层B）",
+  "related_pages": "相关但无本题证据原句（不进入任何命中层）"
+ },
+ "items": [
+  {
+   "id": 5,
+   "order": 1,
+   "complete_pages": [
+    39
+   ],
+   "supporting_pages": [
+    40,
+    113
+   ],
+   "related_pages": [],
+   "supporting": [
+    {
+     "page": 40,
+     "kind": "verbatim",
+     "source": "PDF2 物理 40 正文②销售部（4 个部门的正文互证）",
+     "text": "销售部下设渠道销售部、电话及网络销售部、大客户销售部和国际贸易部"
+    },
+    {
+     "page": 113,
+     "kind": "verbatim",
+     "source": "PDF2 物理 113 正文（1 家分公司 vs 6 家销售处的正文互证）",
+     "text": "公司目前在上海设立有1家分公司，在北京、广州、成都、深圳、武汉、珠海各设有1家销售处"
+    }
+   ],
+   "used_by": "测试/common/golden.py::check_retrieval_hit_layers 的『诊断层A（任证证据命中）』"
+  },
+  {
+   "id": 6,
+   "order": 2,
+   "complete_pages": [
+    72
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "supporting": [
+    {
+     "page": 72,
+     "kind": "verbatim",
+     "source": "PDF2 物理 72 正文（图表结论的文字交叉验证：工控 10.5% 位列第二、仅次于汽车）",
+     "text": "根据赛迪顾问发布的《2008年中国集成电路市场回顾与展望》，2008年，国内IC市场中，工业控制领域所占的比例虽然仅为7%，但其增长率达10.5%，在所有应用行业中位列第二，仅次于汽车电子"
+    }
+   ],
+   "used_by": "测试/common/golden.py::check_retrieval_hit_layers 的『诊断层A（任证证据命中）』"
+  },
+  {
+   "id": 1,
+   "order": 3,
+   "complete_pages": [
+    22,
+    24
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "supporting": [],
+   "used_by": "测试/common/golden.py::check_retrieval_hit_layers 的『诊断层A（任证证据命中）』"
+  },
+  {
+   "id": 2,
+   "order": 4,
+   "complete_pages": [
+    22,
+    306
+   ],
+   "supporting_pages": [
+    30,
+    144
+   ],
+   "related_pages": [],
+   "supporting": [
+    {
+     "page": 30,
+     "kind": "verbatim",
+     "source": "PDF2 物理 30『募集资金投资项目风险』（5 个项目名称的正文互证，不含金额）",
+     "text": "公司本次发行募集资金拟投资的项目分别为“仓储及物流中心”、“研发中心”、“电子商务平台”、“扩充产品种类和数量”、“其他与主营业务相关的营运资金”"
+    },
+    {
+     "page": 144,
+     "kind": "verbatim",
+     "source": "PDF2 物理 144（项目落地位置旁证）",
+     "text": "本次募集资金投资建设的仓储及物流中心、研发中心、及电子商务平台均位于公司拟建的综合大楼内"
+    }
+   ],
+   "used_by": "测试/common/golden.py::check_retrieval_hit_layers 的『诊断层A（任证证据命中）』"
+  },
+  {
+   "id": 3,
+   "order": 5,
+   "complete_pages": [
+    21,
+    157
+   ],
+   "supporting_pages": [
+    158
+   ],
+   "related_pages": [],
+   "supporting": [
+    {
+     "page": 158,
+     "kind": "verbatim",
+     "source": "PDF2 物理 158（关联方关系图示；补充说明性证据，不含本题答案数值）",
+     "text": "4、公司的关联方关系图示"
+    }
+   ],
+   "used_by": "测试/common/golden.py::check_retrieval_hit_layers 的『诊断层A（任证证据命中）』"
+  },
+  {
+   "id": 4,
+   "order": 6,
+   "complete_pages": [
+    157
+   ],
+   "supporting_pages": [
+    158
+   ],
+   "related_pages": [],
+   "supporting": [
+    {
+     "page": 158,
+     "kind": "verbatim",
+     "source": "PDF2 物理 158（普芯达详述，7 家中的第 7 家的旁证）",
+     "text": "报告期内，赵依军控制的法人或组织为普芯达和力源科技"
+    }
+   ],
+   "used_by": "测试/common/golden.py::check_retrieval_hit_layers 的『诊断层A（任证证据命中）』"
+  },
+  {
+   "id": 260,
+   "order": 7,
+   "complete_pages": [
+    129
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "supporting": [],
+   "used_by": "测试/common/golden.py::check_retrieval_hit_layers 的『诊断层A（任证证据命中）』"
+  },
+  {
+   "id": 95,
+   "order": 8,
+   "complete_pages": [
+    27,
+    160
+   ],
+   "supporting_pages": [
+    332
+   ],
+   "related_pages": [],
+   "supporting": [
+    {
+     "page": 332,
+     "kind": "verbatim",
+     "source": "PDF1 物理 332 正文（标准参与身份的旁证）",
+     "text": "公司是军方视频指挥系统标准（《某视频指挥系统技术规范（1.0 版）》）主要参与单位、系统验证单位"
+    }
+   ],
+   "used_by": "测试/common/golden.py::check_retrieval_hit_layers 的『诊断层A（任证证据命中）』"
+  },
+  {
+   "id": 33,
+   "order": 9,
+   "complete_pages": [
+    129
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "supporting": [],
+   "used_by": "测试/common/golden.py::check_retrieval_hit_layers 的『诊断层A（任证证据命中）』"
+  },
+  {
+   "id": 34,
+   "order": 10,
+   "complete_pages": [
+    152
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "supporting": [],
+   "used_by": "测试/common/golden.py::check_retrieval_hit_layers 的『诊断层A（任证证据命中）』"
+  },
+  {
+   "id": 957,
+   "order": 11,
+   "complete_pages": [
+    26,
+    27,
+    154,
+    160
+   ],
+   "supporting_pages": [],
+   "related_pages": [
+    332
+   ],
+   "supporting": [],
+   "used_by": "测试/common/golden.py::check_retrieval_hit_layers 的『诊断层A（任证证据命中）』"
+  },
+  {
+   "id": 793,
+   "order": 12,
+   "complete_pages": [
+    152
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "supporting": [],
+   "used_by": "测试/common/golden.py::check_retrieval_hit_layers 的『诊断层A（任证证据命中）』"
+  },
+  {
+   "id": 795,
+   "order": 13,
+   "complete_pages": [
+    27,
+    155,
+    157,
+    181,
+    182,
+    241
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "supporting": [],
+   "used_by": "测试/common/golden.py::check_retrieval_hit_layers 的『诊断层A（任证证据命中）』"
+  },
+  {
+   "id": 543,
+   "order": 14,
+   "complete_pages": [
+    22
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "supporting": [],
+   "used_by": "测试/common/golden.py::check_retrieval_hit_layers 的『诊断层A（任证证据命中）』"
+  },
+  {
+   "id": 531,
+   "order": 15,
+   "complete_pages": [
+    22
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "supporting": [],
+   "used_by": "测试/common/golden.py::check_retrieval_hit_layers 的『诊断层A（任证证据命中）』"
+  },
+  {
+   "id": 207,
+   "order": 16,
+   "complete_pages": [
+    30,
+    479,
+    490
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "supporting": [],
+   "used_by": "测试/common/golden.py::check_retrieval_hit_layers 的『诊断层A（任证证据命中）』"
+  }
+ ]
+}

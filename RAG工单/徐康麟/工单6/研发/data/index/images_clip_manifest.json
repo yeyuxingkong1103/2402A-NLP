@@ -1,0 +1,47 @@
+{
+  "available": true,
+  "model_name": "OFA-Sys/chinese-clip-vit-base-patch16",
+  "model_dir": "E:\\gao6gongdan\\工单4\\研发\\data\\models\\chinese-clip-vit-base-patch16",
+  "device": "cpu",
+  "n_total": 150,
+  "corpora": [
+    {
+      "corpus": "招股说明书1.pdf",
+      "available": true,
+      "reason": "",
+      "model_dir": "E:\\gao6gongdan\\工单4\\研发\\data\\models\\chinese-clip-vit-base-patch16",
+      "model_name": "OFA-Sys/chinese-clip-vit-base-patch16",
+      "device": "cpu",
+      "load_seconds": 0.56,
+      "projection_dim": 512,
+      "weight_sha256": "3b8ca5a9ba36830e008bef8f980184cf29eeff986f1f3c1be9e5153f8712e7cc",
+      "missing_files": [],
+      "text_encoder_workaround": true,
+      "encoded": 56,
+      "encode_seconds": 9.28,
+      "n_failures": 0
+    },
+    {
+      "corpus": "招股说明书2.pdf",
+      "available": true,
+      "reason": "",
+      "model_dir": "E:\\gao6gongdan\\工单4\\研发\\data\\models\\chinese-clip-vit-base-patch16",
+      "model_name": "OFA-Sys/chinese-clip-vit-base-patch16",
+      "device": "cpu",
+      "load_seconds": 0.72,
+      "projection_dim": 512,
+      "weight_sha256": "3b8ca5a9ba36830e008bef8f980184cf29eeff986f1f3c1be9e5153f8712e7cc",
+      "missing_files": [],
+      "text_encoder_workaround": true,
+      "encoded": 94,
+      "encode_seconds": 20.18,
+      "n_failures": 0
+    }
+  ],
+  "text_encoder_workaround": true,
+  "note": "每个 id 的 bbox/xref/page 见 images_clip_ids.json；相似度只用于排名融合（RRF），禁止与 bge-m3 分数相加",
+  "npy": "E:\\gao6gongdan\\工单4\\研发\\data\\index\\images_clip.npy",
+  "ids": "E:\\gao6gongdan\\工单4\\研发\\data\\index\\images_clip_ids.json",
+  "n": 150,
+  "dim": 512
+}

@@ -1,0 +1,261 @@
+{
+  "work_order": "人工智能NLP-RAG-混合检索任务",
+  "generated_at": "2026-10-07T19:03:28+08:00",
+  "index_dir": "E:\\gao6gongdan\\工单6\\研发\\data\\index\\bge-m3_1024",
+  "chunk_count": 2676,
+  "question_ids": [
+    5,
+    6,
+    1,
+    2,
+    3,
+    4,
+    260,
+    95,
+    33,
+    34
+  ],
+  "per_question": {
+    "5": {
+      "question": "武汉力源信息技术股份有限公司组织结构图中，销售部有几个部门构成，其中大客户销售部有几个销售处构成？",
+      "evidence_pages": [
+        39,
+        40,
+        113
+      ],
+      "reachable": true,
+      "evidence": [
+        {
+          "kind": "diagram_text_layer",
+          "page": 39,
+          "mode": "substring",
+          "text_len": 54,
+          "reachable": true,
+          "chunk_id": "pdf2-p39-img-x-0",
+          "text_head": "电话及网络销售部渠道销售部大客户销售部国际贸易部珠海销售处深圳销售处北京销售处武汉销售处广州销售处成都销售处"
+        }
+      ]
+    },
+    "6": {
+      "question": "武汉力源信息技术股份有限公司招股意向书中，从2008年中国IC市场应用结构与增长图中可以看出，增长率最快的是哪个行业？负增长的是哪个行业？",
+      "evidence_pages": [
+        72
+      ],
+      "reachable": true,
+      "evidence": [
+        {
+          "kind": "chart_pairs",
+          "page": 72,
+          "mode": "pairs",
+          "text_len": 13,
+          "reachable": true,
+          "chunk_id": "pdf2-p72-img-1692-0",
+          "text_head": "汽车+14.0 / IC卡+-2.0"
+        }
+      ]
+    },
+    "1": {
+      "question": "武汉力源信息技术股份有限公司本次发行股数是多少，占发行后总股本的比例是多少？",
+      "evidence_pages": [
+        22,
+        24
+      ],
+      "reachable": true,
+      "evidence": [
+        {
+          "kind": "verbatim",
+          "page": 22,
+          "mode": "substring",
+          "text_len": 28,
+          "reachable": true,
+          "chunk_id": "pdf2-p22-x0",
+          "text_head": "发行股数1670万股,占发行后总股本的比例为25.04%"
+        },
+        {
+          "kind": "verbatim",
+          "page": 24,
+          "mode": "substring",
+          "text_len": 38,
+          "reachable": true,
+          "chunk_id": "pdf2-p24-x0",
+          "text_head": "发行股数及占发行后总股本比例1670万股,占发行后总股本的比例为25.04%"
+        }
+      ]
+    },
+    "2": {
+      "question": "武汉力源信息技术股份有限公司本次募集资金拟投资哪些项目？",
+      "evidence_pages": [
+        22,
+        30,
+        144,
+        306
+      ],
+      "reachable": true,
+      "evidence": [
+        {
+          "kind": "verbatim",
+          "page": 22,
+          "mode": "substring",
+          "text_len": 88,
+          "reachable": true,
+          "chunk_id": "pdf2-p22-x0",
+          "text_head": "序号项目名称计划总投资(万元)1仓储及物流中心3393.402研发中心1526.383电子商务平台2492.784扩充产品种类和数量9000"
+        },
+        {
+          "kind": "pairs",
+          "page": 306,
+          "mode": "pairs",
+          "text_len": 68,
+          "reachable": true,
+          "chunk_id": "pdf2-p22-t2-0",
+          "text_head": "仓储及物流中心+3393.40 / 研发中心+1526.38 / 电子商务平台+2492.78 / 扩充产品种类和数量+9000.00 / "
+        }
+      ]
+    },
+    "3": {
+      "question": "与武汉力源信息技术股份有限公司存在控制关系的关联方是谁，持股比例和本公司关系是什么？",
+      "evidence_pages": [
+        21,
+        157,
+        158
+      ],
+      "reachable": true,
+      "evidence": [
+        {
+          "kind": "verbatim",
+          "page": 21,
+          "mode": "substring",
+          "text_len": 73,
+          "reachable": true,
+          "chunk_id": "pdf2-p38-img-x-0",
+          "text_head": "截至本招股意向书签署日,赵马克(MarkZhao)先生持有本公司股份2117.70万股,占本公司总股本的42.35%,为本公司控股股东及实际"
+        },
+        {
+          "kind": "verbatim",
+          "page": 157,
+          "mode": "substring",
+          "text_len": 42,
+          "reachable": true,
+          "chunk_id": "pdf2-p157-x0",
+          "text_head": "1、存在控制关系的关联方关联方名称持股比例与本公司关系赵马克42.35%公司控股股东"
+        }
+      ]
+    },
+    "4": {
+      "question": "与武汉力源信息技术股份有限公司不存在控制关系的关联方企业有哪些？",
+      "evidence_pages": [
+        157,
+        158
+      ],
+      "reachable": false,
+      "evidence": [
+        {
+          "kind": "verbatim",
+          "page": 157,
+          "mode": "substring",
+          "text_len": 140,
+          "reachable": false,
+          "chunk_id": null,
+          "text_head": "2、不存在控制关系的关联方企业名称与本公司关系融冰投资持有公司股份5%以上的股东武汉博润持有公司股份5%以上的股东上海博润持有公司股份5%以"
+        }
+      ]
+    },
+    "260": {
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+      "evidence_pages": [
+        129
+      ],
+      "reachable": true,
+      "evidence": [
+        {
+          "kind": "verbatim",
+          "page": 129,
+          "mode": "substring",
+          "text_len": 119,
+          "reachable": true,
+          "chunk_id": "pdf1-p129-x2",
+          "text_head": "发行人产品主要应用于军队的信息化建设,报告期内,公司来自军用领域的收入分别为6464.51万元、14414.16万元、18780.67万元和"
+        }
+      ]
+    },
+    "95": {
+      "question": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+      "evidence_pages": [
+        27,
+        160,
+        332
+      ],
+      "reachable": true,
+      "evidence": [
+        {
+          "kind": "verbatim",
+          "page": 27,
+          "mode": "substring",
+          "text_len": 35,
+          "reachable": true,
+          "chunk_id": "pdf1-p26-x1",
+          "text_head": "参与制定了全军第一个视频指挥系统技术标准(即《某视频技术规范1.0》)"
+        },
+        {
+          "kind": "verbatim",
+          "page": 160,
+          "mode": "substring",
+          "text_len": 110,
+          "reachable": true,
+          "chunk_id": "pdf1-p160-x0",
+          "text_head": "公司目前已经成为军队视频指挥领域的重要供应商,参与制定了全军第一个视频指挥系统技术标准(即2019年制订的《某视频指挥系统技术规范(1.0版"
+        }
+      ]
+    },
+    "33": {
+      "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别是多少？",
+      "evidence_pages": [
+        129
+      ],
+      "reachable": true,
+      "evidence": [
+        {
+          "kind": "verbatim",
+          "page": 129,
+          "mode": "substring",
+          "text_len": 100,
+          "reachable": true,
+          "chunk_id": "pdf1-p129-x2",
+          "text_head": "报告期内,公司来自军用领域的收入分别为6464.51万元、14414.16万元、18780.67万元和4627.14万元,占主营业务收入比重"
+        }
+      ]
+    },
+    "34": {
+      "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+      "evidence_pages": [
+        152
+      ],
+      "reachable": true,
+      "evidence": [
+        {
+          "kind": "verbatim",
+          "page": 152,
+          "mode": "substring",
+          "text_len": 102,
+          "reachable": true,
+          "chunk_id": "pdf1-p152-x2",
+          "text_head": "1、行业上下游情况电子信息行业的上游涉及信息系统相关的电子元器件制造企业,以及机箱、机柜等金属壳体制造企业,竞争充分,采购便利。下游行业为各"
+        }
+      ]
+    }
+  },
+  "summary": {
+    "questions": 10,
+    "questions_reachable": 9,
+    "questions_unreachable": 1,
+    "unreachable_question_ids": [
+      4
+    ],
+    "evidence_items": 14,
+    "evidence_items_reachable": 13,
+    "reachability_rate": 90.0,
+    "definition": "题级可达 = 该题**至少一条** retrieval_evidence 能在某个已索引块里被完整满足；不可达的题，任何检索策略/任何 Top-K 都不可能命中权威层 hit_complete。",
+    "predicate": "与 common.golden._layer_hit 权威层同口径：verbatim 用连续子串；chart_pairs/pairs/labels 用「每个 pair 的每个分量同块出现」。",
+    "normalize_note": "使用 golden 的 normalize（去空白/全角转半角/统一引号），与命中判定同口径。"
+  }
+}

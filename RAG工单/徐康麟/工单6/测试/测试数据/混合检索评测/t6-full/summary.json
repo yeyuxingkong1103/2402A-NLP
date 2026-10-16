@@ -1,0 +1,405 @@
+{
+  "per_strategy": {
+    "vector": {
+      "label": "向量检索（嵌入召回 + 重排）",
+      "n": 10,
+      "correct": 7,
+      "accuracy": 70.0,
+      "hit_complete": 6,
+      "recall": 60.0,
+      "hit_any_evidence": 9,
+      "recall_any_evidence": 90.0,
+      "n_reachable": 9,
+      "hit_on_reachable": 6,
+      "recall_on_reachable": 66.67,
+      "refused": 1,
+      "retrieval_ms": {
+        "n": 10,
+        "p50": 38.22,
+        "p95": 69.83,
+        "mean": 45.86,
+        "max": 69.83,
+        "over_3000": 0
+      },
+      "wall_ms": {
+        "n": 10,
+        "p50": 818.39,
+        "p95": 2418.87,
+        "mean": 1091.01,
+        "max": 2418.87,
+        "over_3000": 0
+      },
+      "per_question": [
+        {
+          "id": 5,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 59.15,
+          "wall_ms": 1277.64
+        },
+        {
+          "id": 6,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 69.83,
+          "wall_ms": 573.2
+        },
+        {
+          "id": 1,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 36.89,
+          "wall_ms": 582.14
+        },
+        {
+          "id": 2,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 57.89,
+          "wall_ms": 2418.87
+        },
+        {
+          "id": 3,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 36.15,
+          "wall_ms": 639.76
+        },
+        {
+          "id": 4,
+          "correct": true,
+          "hit_complete": false,
+          "retrieval_ms": 55.2,
+          "wall_ms": 1705.83
+        },
+        {
+          "id": 260,
+          "correct": false,
+          "hit_complete": false,
+          "retrieval_ms": 32.0,
+          "wall_ms": 1243.21
+        },
+        {
+          "id": 95,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 39.79,
+          "wall_ms": 818.39
+        },
+        {
+          "id": 33,
+          "correct": false,
+          "hit_complete": false,
+          "retrieval_ms": 38.22,
+          "wall_ms": 991.53
+        },
+        {
+          "id": 34,
+          "correct": false,
+          "hit_complete": false,
+          "retrieval_ms": 33.47,
+          "wall_ms": 659.49
+        }
+      ]
+    },
+    "fulltext": {
+      "label": "全文检索（倒排索引 + 布尔/短语/模糊）",
+      "n": 10,
+      "correct": 10,
+      "accuracy": 100.0,
+      "hit_complete": 9,
+      "recall": 90.0,
+      "hit_any_evidence": 10,
+      "recall_any_evidence": 100.0,
+      "n_reachable": 9,
+      "hit_on_reachable": 9,
+      "recall_on_reachable": 100.0,
+      "refused": 0,
+      "retrieval_ms": {
+        "n": 10,
+        "p50": 8.49,
+        "p95": 13.74,
+        "mean": 9.32,
+        "max": 13.74,
+        "over_3000": 0
+      },
+      "wall_ms": {
+        "n": 10,
+        "p50": 899.89,
+        "p95": 2269.06,
+        "mean": 1026.21,
+        "max": 2269.06,
+        "over_3000": 0
+      },
+      "per_question": [
+        {
+          "id": 5,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 10.31,
+          "wall_ms": 899.89
+        },
+        {
+          "id": 6,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 13.01,
+          "wall_ms": 466.55
+        },
+        {
+          "id": 1,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 8.72,
+          "wall_ms": 496.36
+        },
+        {
+          "id": 2,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 7.5,
+          "wall_ms": 2269.06
+        },
+        {
+          "id": 3,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 5.73,
+          "wall_ms": 437.1
+        },
+        {
+          "id": 4,
+          "correct": true,
+          "hit_complete": false,
+          "retrieval_ms": 8.38,
+          "wall_ms": 1635.29
+        },
+        {
+          "id": 260,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 8.49,
+          "wall_ms": 954.04
+        },
+        {
+          "id": 95,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 8.43,
+          "wall_ms": 735.84
+        },
+        {
+          "id": 33,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 8.84,
+          "wall_ms": 1353.58
+        },
+        {
+          "id": 34,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 13.74,
+          "wall_ms": 1014.39
+        }
+      ]
+    },
+    "hybrid": {
+      "label": "混合检索（向量 + 全文 融合）",
+      "n": 10,
+      "correct": 10,
+      "accuracy": 100.0,
+      "hit_complete": 9,
+      "recall": 90.0,
+      "hit_any_evidence": 10,
+      "recall_any_evidence": 100.0,
+      "n_reachable": 9,
+      "hit_on_reachable": 9,
+      "recall_on_reachable": 100.0,
+      "refused": 0,
+      "retrieval_ms": {
+        "n": 10,
+        "p50": 42.78,
+        "p95": 65.67,
+        "mean": 46.6,
+        "max": 65.67,
+        "over_3000": 0
+      },
+      "wall_ms": {
+        "n": 10,
+        "p50": 908.72,
+        "p95": 2392.43,
+        "mean": 1061.3,
+        "max": 2392.43,
+        "over_3000": 0
+      },
+      "per_question": [
+        {
+          "id": 5,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 65.67,
+          "wall_ms": 908.72
+        },
+        {
+          "id": 6,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 34.73,
+          "wall_ms": 443.98
+        },
+        {
+          "id": 1,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 34.92,
+          "wall_ms": 511.93
+        },
+        {
+          "id": 2,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 51.89,
+          "wall_ms": 2392.43
+        },
+        {
+          "id": 3,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 44.71,
+          "wall_ms": 430.68
+        },
+        {
+          "id": 4,
+          "correct": true,
+          "hit_complete": false,
+          "retrieval_ms": 63.53,
+          "wall_ms": 1677.19
+        },
+        {
+          "id": 260,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 42.78,
+          "wall_ms": 1074.03
+        },
+        {
+          "id": 95,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 44.39,
+          "wall_ms": 737.32
+        },
+        {
+          "id": 33,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 40.58,
+          "wall_ms": 1315.16
+        },
+        {
+          "id": 34,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 42.77,
+          "wall_ms": 1121.56
+        }
+      ]
+    }
+  },
+  "hybrid_gains": {
+    "hybrid_vs_vector": {
+      "accuracy_delta_pp": 30.0,
+      "recall_delta_pp": 30.0,
+      "fixed_ids": [
+        33,
+        34,
+        260
+      ],
+      "broken_ids": []
+    },
+    "hybrid_vs_fulltext": {
+      "accuracy_delta_pp": 0.0,
+      "recall_delta_pp": 0.0,
+      "fixed_ids": [],
+      "broken_ids": []
+    }
+  },
+  "overall": {
+    "n_runs": 30,
+    "accuracy": 90.0,
+    "recall": 80.0,
+    "retrieval_ms": {
+      "n": 30,
+      "p50": 36.15,
+      "p95": 65.67,
+      "mean": 33.92,
+      "max": 69.83,
+      "over_3000": 0
+    },
+    "wall_ms": {
+      "n": 30,
+      "p50": 908.72,
+      "p95": 2392.43,
+      "mean": 1059.51,
+      "max": 2418.87,
+      "over_3000": 0
+    }
+  },
+  "targets": {
+    "accuracy_ge": 90.0,
+    "recall_ge": 95.0,
+    "latency_le_ms": 3000
+  },
+  "reachability": {
+    "questions": 10,
+    "questions_reachable": 9,
+    "questions_unreachable": 1,
+    "unreachable_question_ids": [
+      4
+    ],
+    "evidence_items": 14,
+    "evidence_items_reachable": 13,
+    "reachability_rate": 90.0,
+    "definition": "题级可达 = 该题**至少一条** retrieval_evidence 能在某个已索引块里被完整满足；不可达的题，任何检索策略/任何 Top-K 都不可能命中权威层 hit_complete。",
+    "predicate": "与 common.golden._layer_hit 权威层同口径：verbatim 用连续子串；chart_pairs/pairs/labels 用「每个 pair 的每个分量同块出现」。",
+    "normalize_note": "使用 golden 的 normalize（去空白/全角转半角/统一引号），与命中判定同口径。"
+  },
+  "meta": {
+    "run_tag": "t6-full",
+    "work_order": "人工智能NLP-RAG-混合检索任务",
+    "generated_at": "2026-10-07T16:21:51+08:00",
+    "strategies": [
+      "vector",
+      "fulltext",
+      "hybrid"
+    ],
+    "question_ids": [
+      5,
+      6,
+      1,
+      2,
+      3,
+      4,
+      260,
+      95,
+      33,
+      34
+    ],
+    "cached": false,
+    "warmup": {
+      "elapsed_ms": 8360.67,
+      "fulltext_index": {
+        "chunks": 2676,
+        "fields": {
+          "content": 23607,
+          "title": 970,
+          "keywords": 14471,
+          "summary": 17366
+        },
+        "ms": 4158.09
+      }
+    },
+    "elapsed_s": 88.49
+  }
+}

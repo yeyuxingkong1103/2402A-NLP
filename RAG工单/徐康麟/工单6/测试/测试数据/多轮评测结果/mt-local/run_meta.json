@@ -1,0 +1,202 @@
+{
+ "work_order": "人工智能NLP-RAG-Query 理解优化",
+ "run_tag": "mt-local",
+ "engine": "local",
+ "base_url": "http://127.0.0.1:8123",
+ "started_at": "2026-10-07T14:37:49",
+ "finished_at": "2026-10-07T14:38:11",
+ "use_cache": true,
+ "warmup": true,
+ "out_dir": "E:\\gao6gongdan\\工单5\\测试\\测试数据\\多轮评测结果\\mt-local",
+ "timeout_s": 180.0,
+ "python": "3.11.15",
+ "executable": "E:\\gao6gongdan\\工单1\\.venv\\Scripts\\python.exe",
+ "suites": [
+  "abnormal",
+  "isolated",
+  "multiturn",
+  "regression"
+ ],
+ "cases": {
+  "multiturn": "E:\\gao6gongdan\\工单5\\测试\\测试数据\\工单5多轮用例.jsonl",
+  "isolated": "E:\\gao6gongdan\\工单5\\测试\\测试数据\\工单5多轮用例_独立会话.jsonl",
+  "abnormal": "E:\\gao6gongdan\\工单5\\测试\\测试数据\\异常输入用例.jsonl"
+ },
+ "normalizer": "测试/common/golden.py::normalize（单一实现来源）+ 追加 CJK 逗号/全角空格规整",
+ "judge": "测试/测试数据/多轮判分.py::judge_case（确定性，非 LLM 自评）",
+ "skeleton_ready": true,
+ "synthetic": false,
+ "NOT_FOR_ACCEPTANCE": false,
+ "synthetic_warning": null,
+ "module_import": {
+  "app": "ok",
+  "app.multiturn_engine": "ok",
+  "app.core.dialogue_state": "ok",
+  "app.core.query_rewriter": "ok"
+ },
+ "health": {
+  "status": "ok",
+  "work_order": "人工智能NLP-RAG-Query 理解优化",
+  "max_turns": 3,
+  "stats": {
+   "asked": 0,
+   "rewritten": 0,
+   "refused": 0,
+   "empty": 0,
+   "cache_hit": 0,
+   "dialogue_cache": {
+    "hits": 0,
+    "misses": 0,
+    "hit_rate": 0.0,
+    "size": 0,
+    "evictions": 0,
+    "expired": 0,
+    "max_size": 512,
+    "ttl_s": 1800.0,
+    "puts": 0,
+    "invalidations": 0,
+    "sessions": 0,
+    "loaded": 0,
+    "load_errors": 0,
+    "save_errors": 0,
+    "persist_path": null
+   },
+   "sessions": {
+    "sessions": 0,
+    "turns": 0,
+    "resets": 0,
+    "max_turns": 3,
+    "live_sessions": 0,
+    "persist_dir": "E:\\gao6gongdan\\工单5\\研发\\data\\runtime\\sessions"
+   }
+  },
+  "index": {
+   "status": "ok",
+   "checks": {
+    "interpreter": {
+     "ok": true,
+     "python": "3.11.15",
+     "executable": "E:\\gao6gongdan\\工单1\\.venv\\Scripts\\python.exe"
+    },
+    "index": {
+     "ok": true,
+     "chunks": 2676,
+     "dim": 1024,
+     "faiss": true,
+     "image_chunks": 77,
+     "path": "E:\\gao6gongdan\\工单5\\研发\\data\\index\\bge-m3_1024",
+     "bm25_vocab": 23607
+    },
+    "llm": {
+     "ok": true,
+     "backend": "ollama",
+     "model": "qwen2.5:3b",
+     "base_url": "http://127.0.0.1:11434",
+     "available": true,
+     "probe_ms": 21.0
+    },
+    "index_meta": {
+     "ok": true,
+     "path": "E:\\gao6gongdan\\工单5\\研发\\data\\index\\bge-m3_1024",
+     "model": "bge-m3:latest",
+     "dim": 1024,
+     "count": 2676,
+     "updated_at": "2026-10-06T20:42:06+08:00",
+     "normalized": true,
+     "dtype": "float32",
+     "page_basis": "1-based-physical",
+     "faiss": true,
+     "faiss_index_type": "IndexFlatIP",
+     "faiss_file": "faiss.index",
+     "faiss_note": "faiss.write_index 在本机非 ASCII 路径不可用（1.7.4 窄字符 fopen），已改用 faiss.serialize_index 字节序列化",
+     "by_modality": {
+      "text": 1981,
+      "table": 618,
+      "image": 77
+     },
+     "chunk_count": 2676,
+     "embed_backend": "reuse",
+     "incremental": {
+      "enabled": true,
+      "reused": 2676,
+      "embedded": 0,
+      "chunks": 2676,
+      "reuse_ratio": 1.0,
+      "verify": {
+       "samples": 5,
+       "rows": [
+        0,
+        535,
+        1070,
+        1605,
+        2140
+       ],
+       "min_cosine": 1.0,
+       "max_cosine": 1.0,
+       "method": "抽样重嵌入 + 余弦比对（bge-m3 本地 Ollama，实测确定性）"
+      },
+      "elapsed_ms": 439.45
+     },
+     "images": {
+      "enabled": true,
+      "source_file": "E:\\gao6gongdan\\工单4\\研发\\data\\processed\\image_blocks.jsonl",
+      "records": 138,
+      "skipped_files": [
+       "images.jsonl"
+      ],
+      "fallback": false,
+      "merged_groups": 77,
+      "merged_from_records": 138,
+      "chunks": 77,
+      "by_corpus": {
+       "招股说明书1.pdf": 38,
+       "招股说明书2.pdf": 39
+      },
+      "corpora_without_image_blocks": [],
+      "coverage_note": "图像内容解析范围 = 招股说明书1.pdf、招股说明书2.pdf（图像题证据页所在语料）；未纳入图像块 = 无。说明：招股说明书1 的 image_blocks/charts/diagrams 均为 0（T2 未提供该语料的图像块），本索引只收录 T2 实际产出的图像块，**不代为声明 PDF1 的图像已被解析**；对 16 题无影响（第 5、6 题的证据页 39/72 均在招股说明书2）。如需全语料图像解析，属 T2 的 extract_images.py --all 范畴，代价须由 T2 实测给出。",
+      "evidence_weight_policy": "文本/表格块 evidence_weight=1.0；图像块 diagram/chart=1.0、picture=0.4。依据：picture（页眉 banner、签章页大图等）只有 CLIP 零样本标签，属**弱证据**（T2 实测提醒），与 diagram/chart 同权会挤掉正文证据。该字段只是**建议权重**，是否使用由检索层（T5）决定；检索层也可改用 modality=true 的硬过滤或单独通道（设计/接口设计.md §3.4 的 modality 参数）。"
+     },
+     "content_snapshot": "chunks_indexed.jsonl",
+     "content_sha1_sample": [
+      [
+       "pdf1-p1-img-18-0",
+       "d8bf6d26c33fbc879c1103021d3379a8357b20a3"
+      ],
+      [
+       "pdf1-p1-x0",
+       "02915236b7ec1c360b6527956a9c3ef8ddb433d9"
+      ],
+      [
+       "pdf1-p2-x0",
+       "4af5dcc4deb5a3af85d989de5ec62d452f5decdb"
+      ]
+     ]
+    }
+   },
+   "stats": {
+    "asked": 0,
+    "refused": 0,
+    "cache_hit": 0
+   },
+   "config": {
+    "top_k": 5,
+    "prompt_top_k": 3,
+    "embed_model": "bge-m3:latest",
+    "gen_model": "qwen2.5:3b",
+    "backend_cfg": "auto"
+   }
+  },
+  "entities": [
+   "pdf1",
+   "pdf2"
+  ]
+ },
+ "warmup_done": true,
+ "warmup_error": null,
+ "cold_start_ms": 2168.3,
+ "warmup_id": "MT1·预热",
+ "timing_scope": "预热 1 次（不计入统计）+ 正式跑 1 次（计时）",
+ "warmup_question": "武汉兴图新科电子股份有限公司的注册资本是多少？",
+ "cold_start_scope": "预热轮 wall 耗时（含冷启动：模型/索引/首轮加载），**不计入正式延迟统计**",
+ "duration_s": 22.1
+}

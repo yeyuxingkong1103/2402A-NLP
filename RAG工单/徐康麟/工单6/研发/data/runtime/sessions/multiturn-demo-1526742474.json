@@ -1,0 +1,60 @@
+{
+ "session_id": "multiturn-demo-1526742474",
+ "focus_entity": "武汉力源信息技术股份有限公司",
+ "last_slot": "法定代表人是谁？",
+ "last_query": "武汉力源信息技术股份有限公司的法定代表人是谁？",
+ "entity_stack": [
+  "武汉兴图新科电子股份有限公司",
+  "武汉力源信息技术股份有限公司"
+ ],
+ "total_turns": 4,
+ "created_at": 1791362034.979323,
+ "updated_at": 1791362037.2374992,
+ "turns": [
+  {
+   "question": "它的法定代表人是谁？",
+   "rewritten_query": "武汉兴图新科电子股份有限公司的法定代表人是谁？",
+   "answer": "法定代表人是程家明。\n引用：[招股说明书1.pdf: 第68页 表格]",
+   "ts": 1791362036.524572,
+   "trace_id": "6c078ba7f1ee",
+   "cited_pages": [
+    68
+   ],
+   "focus_entity": "武汉兴图新科电子股份有限公司",
+   "strategy": "pronoun",
+   "refused": false,
+   "latency_ms": 308.57,
+   "slot": "法定代表人是谁？"
+  },
+  {
+   "question": "那武汉力源信息技术股份有限公司呢？",
+   "rewritten_query": "武汉力源信息技术股份有限公司的法定代表人是谁？",
+   "answer": "法定代表人是赵马克。\n引用：[招股说明书2.pdf: 第23页]",
+   "ts": 1791362037.0209973,
+   "trace_id": "b0652a915383",
+   "cited_pages": [
+    23
+   ],
+   "focus_entity": "武汉力源信息技术股份有限公司",
+   "strategy": "ellipsis_entity_switch",
+   "refused": false,
+   "latency_ms": 484.83,
+   "slot": "法定代表人是谁？"
+  },
+  {
+   "question": "法定代表人是谁？",
+   "rewritten_query": "武汉力源信息技术股份有限公司的法定代表人是谁？",
+   "answer": "法定代表人是赵马克。\n引用：[招股说明书2.pdf: 第23页]",
+   "ts": 1791362037.2374992,
+   "trace_id": "3d8111acc222",
+   "cited_pages": [
+    23
+   ],
+   "focus_entity": "武汉力源信息技术股份有限公司",
+   "strategy": "topic_carry",
+   "refused": false,
+   "latency_ms": 200.71,
+   "slot": "法定代表人是谁？"
+  }
+ ]
+}
