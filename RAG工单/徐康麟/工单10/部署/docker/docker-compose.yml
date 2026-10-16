@@ -1,0 +1,299 @@
+# =============================================================================
+# 工单编号：人工智能NLP-RAG 项目-金融问答系统部署
+# 文件：部署/docker/docker-compose.yml —— 金融问答系统整套运行编排
+#
+# 用法（在 工单10/ 目录下）：
+#     pwsh -NoProfile -File 部署/脚本/build.ps1 -Tag 1.0.0        # 构建镜像
+#     pwsh -NoProfile -File 部署/脚本/up.ps1                      # 起全部服务
+#     pwsh -NoProfile -File 部署/脚本/health.ps1                  # 健康检查
+#     pwsh -NoProfile -File 部署/脚本/logs.ps1                    # 跟日志
+#     pwsh -NoProfile -File 部署/脚本/down.ps1                    # 停服务（卷保留）
+#
+# 服务全景：
+#     rag-api    :8200  FastAPI 正式对外 API（POST /api/v1/ask、GET /health）
+#     rag-ui     :8201  工单7 中文 Web 界面（复用同一镜像，换启动命令）
+#     redis      :6379  会话/缓存共享（rag-api 与 rag-ui 共用；挂了自动降级文件卷）
+#     prometheus :9090  指标采集（rag-api 的 /metrics）
+#
+# 四条验收标准在文件里的落点：
+#     ① 服务测试通过        → rag-api 的 /health、/healthz、/readyz 三档探针
+#     ② 指定端口 + 无异常日志 → ports 8200/8201 + logging 驱动 json-file（日志卷另有业务日志）
+#     ③ 卷持久化 + 容器间共享 → 见文末 volumes 段（具名卷 + 绑定挂载，逐卷注释用途）
+#     ④ 网络配置             → 自定义 bridge 网络 rag-net，host.docker.internal 访问宿主机 Ollama，
+#                              extra_hosts 显式声明（Linux 上 host-gateway 必需）
+#
+# ⚠️ 注意：不要写顶层 `version:` 字段 —— Compose V2 已废弃它并会打印
+#    "the attribute `version` is obsolete" 警告，而本工单验收项②要求"运行过程无异常日志输出"。
+# =============================================================================
+
+name: rag-finqa
+
+# --------------------------------------------------------------------------- #
+# 公共片段：日志轮转 + 重启策略 + 网络（YAML 锚点，减少重复）
+# --------------------------------------------------------------------------- #
+x-common: &common
+  restart: unless-stopped
+  networks:
+    - rag-net
+  logging:
+    driver: json-file
+    options:
+      max-size: "20m"      # 单文件 20MB 轮转，防止长跑撑爆宿主磁盘
+      max-file: "5"
+      tag: "{{.Name}}"
+
+x-env-common: &env-common
+  TZ: ${TZ:-Asia/Shanghai}
+  DEPLOY_BUILD_REF: ${DEPLOY_BUILD_REF:-local-1.0.0}
+  # 宿主机 Ollama（Windows/macOS 用 host.docker.internal；Linux 见 extra_hosts）
+  RAG_LLM__OLLAMA_BASE_URL: ${RAG_LLM__OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+  RAG_LLM__OLLAMA_EMBED_MODEL: ${RAG_LLM__OLLAMA_EMBED_MODEL:-bge-m3:latest}
+  RAG_LLM__OLLAMA_GEN_MODEL: ${RAG_LLM__OLLAMA_GEN_MODEL:-qwen2.5:3b}
+  RAG_LOG__LEVEL: ${RAG_LOG_LEVEL:-INFO}
+  DEPLOY_LOG_JSON: ${DEPLOY_LOG_JSON:-1}
+  # 索引/模型/语料一律从卷读取，容器内路径固定
+  RAG_DATA__INDEX_DIR: /app/data/index
+  RAG_DATA__RAW_DIR: /app/data/raw
+  RAG_DATA__PROCESSED_DIR: /app/data/processed
+  RAG_LOG__DIR: /app/logs
+  DEPLOY_LOG_DIR: /app/logs
+  DEPLOY_SESSION_DIR: /app/sessions
+  DEPLOY_UPLOAD_DIR: /app/data/uploads
+  DEPLOY_MODEL_DIR: /app/data/models
+  # Redis（会话共享）；把 DEPLOY_REDIS_ENABLED 设为 0 可完全关闭走文件卷
+  DEPLOY_REDIS_URL: ${DEPLOY_REDIS_URL:-redis://:${REDIS_PASSWORD:-ragfinqa}@redis:6379/0}
+  DEPLOY_REDIS_ENABLED: ${DEPLOY_REDIS_ENABLED:-1}
+  DEPLOY_REDIS_TIMEOUT_S: ${DEPLOY_REDIS_TIMEOUT_S:-0.5}
+  DEPLOY_SESSION_TTL_S: ${DEPLOY_SESSION_TTL_S:-86400}
+  DEPLOY_MAX_CONCURRENCY: ${DEPLOY_MAX_CONCURRENCY:-4}
+
+x-extra-hosts: &extra-hosts
+  # Linux 上 host.docker.internal 不会自动存在，必须显式映射到宿主网关；
+  # Docker Desktop（Windows/macOS）自带该域名，这一行是幂等的。
+  host.docker.internal: host-gateway
+
+# --------------------------------------------------------------------------- #
+services:
+
+  # ===== ① 正式对外 API（FastAPI，端口 8200）============================== #
+  rag-api:
+    <<: *common
+    build:
+      # ⚠️ 相对路径以**本 compose 文件所在目录**为基准（部署/docker/），不是当前工作目录。
+      #    故工单根目录 = ../..，Dockerfile 字段则以 context 为基准 → 部署/docker/Dockerfile。
+      #    （这是实测踩过的坑：写 context: .. 会把构建上下文变成 部署/，
+      #     导致 Dockerfile 里的 COPY 研发/app 找不到文件，见 部署/过程问题记录.md 问题6）
+      context: ../..
+      dockerfile: 部署/docker/Dockerfile
+      args:
+        PIP_INDEX_URL: ${PIP_INDEX_URL:-https://pypi.tuna.tsinghua.edu.cn/simple}
+        PIP_TRUSTED_HOST: ${PIP_TRUSTED_HOST:-pypi.tuna.tsinghua.edu.cn}
+    image: ${IMAGE_TAG:-rag-finqa:1.0.0}
+    container_name: rag-api
+    hostname: rag-api
+    command: ["uvicorn", "service.api:app", "--host", "0.0.0.0", "--port", "8200", "--no-access-log"]
+    ports:
+      # 左=宿主，右=容器。**指定端口 8200**（验收项②）
+      - "${API_PORT:-8200}:8200"
+    environment:
+      <<: *env-common
+      DEPLOY_API_PORT: "8200"
+      DEPLOY_UI_PORT: "8201"
+      # 索引只读挂载 → 运行期 sqlite（问答历史/答案缓存）必须落到可写的具名卷
+      DEPLOY_INDEX_DIR: /app/data/index
+      DEPLOY_RUNTIME_DIR: /app/data/runtime
+      DEPLOY_METRICS_ENABLED: "1"
+      DEPLOY_WARMUP: ${DEPLOY_WARMUP:-1}
+      DEPLOY_WARMUP_WITH_GENERATE: ${DEPLOY_WARMUP_WITH_GENERATE:-0}
+    extra_hosts: *extra-hosts
+    volumes:
+      # —— 具名卷（主）——
+      - rag-index:/app/data/index:ro           # 8847 块索引（faiss/BM25/chunks），只读
+      - rag-log:/app/logs                      # 业务日志 + 访问日志
+      - rag-session:/app/sessions              # 多轮会话（与 rag-ui 共享 → 容器间数据共享）
+      - rag-model:/app/data/models             # 模型/权重缓存
+      - rag-upload:/app/data/uploads           # 用户上传语料
+      - rag-runtime:/app/data/runtime          # qa_runtime.sqlite3 + 答案缓存
+      # —— 绑定挂载（宿主机直连，便于人工查看/备份；同时演示具名卷+绑定挂载混用）——
+      # 相对路径基准 = 本 compose 文件目录（部署/docker/），故工单根下的路径要写 ../../
+      - ../../部署/日志:/app/logs-host:rw      # 宿主：工单10/部署/日志
+      # —— 绑定挂载：宿主机上已建好的索引原样只读接入（§共享约定 3「索引不复制」）——
+      - ${HOST_INDEX_DIR:-../../工单7索引}:/app/data/index-host:ro
+    healthcheck:
+      test: ["CMD", "python", "/usr/local/bin/healthcheck.py"]
+      interval: 30s
+      timeout: 5s
+      start_period: 120s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: "${API_CPUS:-2.0}"
+          memory: ${API_MEMORY:-2g}
+        reservations:
+          cpus: "0.25"
+          memory: 256m
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  # ===== ② 中文 Web 界面（工单7 基座 UI，端口 8201）======================== #
+  rag-ui:
+    <<: *common
+    image: ${IMAGE_TAG:-rag-finqa:1.0.0}
+    container_name: rag-ui
+    hostname: rag-ui
+    # 同一镜像，换启动命令 → 起工单7 的纯标准库 Web 界面（复用同一 QAEngine，零逻辑复制）
+    command: ["python", "/app/app/main.py", "--serve", "--host", "0.0.0.0", "--port", "8201"]
+    ports:
+      - "${UI_PORT:-8201}:8201"
+    environment:
+      <<: *env-common
+      DEPLOY_UI_PORT: "8201"
+      RAG_SERVER__FALLBACK_PORT: "8201"
+      DEPLOY_INDEX_DIR: /app/data/index
+    extra_hosts: *extra-hosts
+    volumes:
+      - rag-index:/app/data/index:ro
+      - rag-log:/app/logs
+      - rag-session:/app/sessions              # ← 与 rag-api 挂**同一个卷**：容器间数据共享
+      - rag-model:/app/data/models
+      - rag-upload:/app/data/uploads
+      - rag-runtime:/app/data/runtime
+    healthcheck:
+      test: ["CMD", "python", "-c",
+             "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8201/health',timeout=4).status==200 else 1)"]
+      interval: 30s
+      timeout: 8s
+      start_period: 150s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: "${UI_CPUS:-1.0}"
+          memory: ${UI_MEMORY:-1g}
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  # ===== ③ Redis：会话/缓存共享（容器间数据共享的第二条通路）============== #
+  redis:
+    <<: *common
+    image: ${REDIS_IMAGE:-redis:7-alpine}
+    container_name: rag-redis
+    hostname: redis
+    command: >
+      redis-server --appendonly yes --appendfsync everysec
+      --requirepass ${REDIS_PASSWORD:-ragfinqa}
+      --maxmemory ${REDIS_MAXMEMORY:-256mb} --maxmemory-policy allkeys-lru
+    ports:
+      - "${REDIS_PORT:-6379}:6379"     # 只在需要宿主直连时暴露；生产可注释掉
+    volumes:
+      - rag-redis:/data                # 具名卷：AOF/RDB 落盘，容器重建会话不丢
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-ragfinqa}", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: "${REDIS_CPUS:-0.5}"
+          memory: ${REDIS_MEMORY:-320m}
+
+  # ===== ④ Prometheus：指标采集（工单17 并发压测要用同一套指标）========== #
+  prometheus:
+    <<: *common
+    image: ${PROM_IMAGE:-prom/prometheus:v2.55.1}
+    container_name: rag-prometheus
+    hostname: prometheus
+    profiles: ["monitoring"]            # 默认不起；`docker compose --profile monitoring up -d`
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=15d"
+      - "--web.enable-lifecycle"
+    ports:
+      - "${PROM_PORT:-9090}:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - rag-prometheus:/prometheus
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:9090/-/healthy"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    depends_on:
+      - rag-api
+    deploy:
+      resources:
+        limits:
+          cpus: "${PROM_CPUS:-0.5}"
+          memory: ${PROM_MEMORY:-512m}
+
+# --------------------------------------------------------------------------- #
+# 网络：自定义 bridge（验收项④）
+#   * 固定子网避免与宿主机/公司网段冲突；
+#   * 服务名即 DNS 名（rag-api / rag-ui / redis / prometheus 互相可直接解析）；
+#   * 与 RTMPServer 等外部服务的通信：把 RTMP 容器也接进 rag-net 即可用服务名互访，
+#     宿主机上的服务用 host.docker.internal（见 extra_hosts）。
+# --------------------------------------------------------------------------- #
+networks:
+  rag-net:
+    name: ${NETWORK_NAME:-rag-net}
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: ${NETWORK_SUBNET:-172.28.0.0/16}
+    labels:
+      work_order: "人工智能NLP-RAG 项目-金融问答系统部署"
+
+# --------------------------------------------------------------------------- #
+# 卷：验收项③「持久化关键数据，数据不丢失 + 容器间数据共享」
+#   具名卷（Docker 管理，跨容器/跨重建稳定）：
+#     rag-index    索引（8847 块：faiss + BM25 + chunks）  rag-api:ro  rag-ui:ro
+#     rag-log      日志（业务/访问/容器）                  rag-api    rag-ui
+#     rag-session  多轮会话（JSON 文件）                   rag-api    rag-ui   ← 共享
+#     rag-model    模型/权重缓存                           rag-api    rag-ui   ← 共享
+#     rag-upload   用户上传语料                            rag-api    rag-ui   ← 共享
+#     rag-runtime  运行期 sqlite（问答历史/答案缓存）      rag-api    rag-ui   ← 共享
+#     rag-redis    Redis AOF/RDB                           redis
+#     rag-prometheus TSDB                                  prometheus
+#   绑定挂载（宿主机路径直连，便于人工查看/备份）：
+#     ./../部署/日志 → /app/logs-host（宿主机可直接打开，见 设计/数据持久化设计.md）
+# --------------------------------------------------------------------------- #
+volumes:
+  rag-index:
+    name: ${VOL_PREFIX:-rag-finqa}-index
+    labels:
+      purpose: "RAG 索引（faiss.index + vectors.npy + bm25.pkl + chunks_indexed.jsonl）"
+  rag-log:
+    name: ${VOL_PREFIX:-rag-finqa}-log
+    labels:
+      purpose: "运行日志（容器启动快照/业务日志/访问日志）"
+  rag-session:
+    name: ${VOL_PREFIX:-rag-finqa}-session
+    labels:
+      purpose: "多轮会话（JSON），rag-api 与 rag-ui 共享 → 验收项③ 容器间数据共享"
+  rag-model:
+    name: ${VOL_PREFIX:-rag-finqa}-model
+    labels:
+      purpose: "模型/权重缓存目录（当前嵌入与生成走宿主机 Ollama，此处留扩展位）"
+  rag-upload:
+    name: ${VOL_PREFIX:-rag-finqa}-upload
+    labels:
+      purpose: "用户上传语料（增量建索引用）"
+  rag-runtime:
+    name: ${VOL_PREFIX:-rag-finqa}-runtime
+    labels:
+      purpose: "运行期 sqlite（qa_runtime.sqlite3）与答案缓存"
+  rag-redis:
+    name: ${VOL_PREFIX:-rag-finqa}-redis
+    labels:
+      purpose: "Redis 持久化（appendonly AOF + RDB）"
+  rag-prometheus:
+    name: ${VOL_PREFIX:-rag-finqa}-prometheus
+    labels:
+      purpose: "Prometheus TSDB 指标数据"

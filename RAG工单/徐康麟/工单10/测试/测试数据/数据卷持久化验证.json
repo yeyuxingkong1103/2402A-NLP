@@ -1,0 +1,16 @@
+{
+  "说明": "索引卷只读语义检查（本次会话期内新建 sqlite 数必须为 0）",
+  "会话起点_unix": 1791889553.379,
+  "本次会话新建的sqlite": [],
+  "历史残留（不判失败）": [
+    {
+      "文件": "qa_runtime.sqlite3",
+      "mtime": "2026-10-13 19:03:18"
+    }
+  ],
+  "runtime卷里的sqlite": [
+    "qa_runtime.sqlite3"
+  ],
+  "历史残留成因": "基座 2026-10-08 测试期写入，以及本工单早期漏设 DEPLOY_RUNTIME_DIR 时写入；文件被宿主常驻进程持有句柄，沙箱内 taskkill 被拒（Access denied），故保留并如实登记",
+  "修复动作": "① 脚本补设 DEPLOY_RUNTIME_DIR/ DEPLOY_INDEX_DIR；② 启动前清洁索引卷；③ 健康检查新增 checks.volume_runtime 写探针；④ 本条回归断言"
+}

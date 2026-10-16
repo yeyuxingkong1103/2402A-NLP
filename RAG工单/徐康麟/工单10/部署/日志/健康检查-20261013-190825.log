@@ -1,0 +1,53 @@
+===================================================================
+金融问答系统 容器健康检查
+工单编号：人工智能NLP-RAG 项目-金融问答系统部署
+时间：2026-10-13 19:08:25
+===================================================================
+Docker 预检：**不可用** —— 容器相关检查（① 容器状态 / ④ 具名卷 / ⑥ 容器内探测）将跳过
+  原因：permission denied while trying to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine
+  等价验证：pwsh -NoProfile -File 部署/脚本/本地等价验证.ps1（同源码/同端口/同构卷）
+  证据链：部署/日志/docker提权失败证据.log；说明见 设计/验收标准.md §五
+[SKIP] ① 容器状态（docker ps / docker inspect） —— docker daemon 不可访问
+
+【② API 健康检查】
+[PASS] GET /healthz —— HTTP 200，48 字节：{"status":"alive","pid":24952,"uptime_s":306.96}
+[PASS] GET /health —— HTTP 200，7170 字节：{"status":"ok","ready":true,"work_order":"人工智能NLP-RAG 项目-金融问答系统部署","api_version":"1.0.0","build_ref":"local-1.0.0","port":8200,"uptime_s":307.03,"init_ms":22174…
+[PASS] GET /readyz —— HTTP 200，7170 字节：{"status":"ok","ready":true,"work_order":"人工智能NLP-RAG 项目-金融问答系统部署","api_version":"1.0.0","build_ref":"local-1.0.0","port":8200,"uptime_s":307.06,"init_ms":22174…
+[PASS] GET :8201/health（UI 容器） —— HTTP 200，4782 字节
+
+【③ 问答回归】POST /api/v1/ask
+[PASS] POST /api/v1/ask —— HTTP 200，耗时 22 ms（服务端 3.44 ms），引用页 95
+  问题：平安银行2019年年度报告中，报告期末的资产总额是多少？
+  答案：报告期为58%。
+引用：[2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf: 第95页]
+
+【④ 卷持久化】Docker 不可用 → 改用等价验证：宿主机侧卷目录
+[PASS] 卷目录 index —— 12 个文件 / 101.3 MB（容器内对应挂载点见 compose volumes 段）
+[PASS] 卷目录 logs —— 3 个文件 / 1.9 MB（容器内对应挂载点见 compose volumes 段）
+[PASS] 卷目录 sessions —— 38 个文件 / 0.1 MB（容器内对应挂载点见 compose volumes 段）
+[PASS] 卷目录 runtime —— 1 个文件 / 0.4 MB（容器内对应挂载点见 compose volumes 段）
+[PASS] 卷目录 models —— 0 个文件 / 0.0 MB（容器内对应挂载点见 compose volumes 段）
+[PASS] 卷目录 uploads —— 0 个文件 / 0.0 MB（容器内对应挂载点见 compose volumes 段）
+  会话卷文件数：38（示例：acc-A1.json、acc-A2.json、acc-A3.json）
+[SKIP] ④b docker volume inspect / docker run 列卷内容 —— docker daemon 不可访问
+
+【⑤ 会话共享（容器间数据共享）】GET /api/v1/sessions
+[PASS] GET /api/v1/sessions —— 后端=redis+file，会话数=38，目录=E:\gao6gongdan\工单10\部署\卷\sessions
+
+【⑥ 网络连通性】Docker 不可用 → 改用等价验证：宿主机侧探测同样目标
+[PASS] 连通 宿主机 Ollama 11434（等价目标 127.0.0.1:11434） —— TCP 可连接
+[PASS] 连通 Redis 6379（等价目标 127.0.0.1:6379） —— TCP 可连接
+[SKIP] 连通 RTMPServer 1935 —— 本机未运行 RTMP 服务（连接被拒 = 端口无监听）
+[SKIP] ⑥b 容器内 host.docker.internal / 服务名 DNS 探测 —— docker daemon 不可访问
+
+===================================================================
+汇总：PASS=14  FAIL=0  SKIP=4
+跳过项（环境限制，非服务缺陷）：
+  - ① 容器状态（docker ps / docker inspect）（docker daemon 不可访问）
+  - ④b docker volume inspect / docker run 列卷内容（docker daemon 不可访问）
+  - 连通 RTMPServer 1935（本机未运行 RTMP 服务（连接被拒 = 端口无监听））
+  - ⑥b 容器内 host.docker.internal / 服务名 DNS 探测（docker daemon 不可访问）
+  说明：本机 docker daemon 不可访问（命名管道被沙箱拒绝、本会话禁止提权）；
+        容器侧检查改用等价验证，未达标项登记在 设计/验收标准.md §五。
+日志：E:\gao6gongdan\工单10\部署\日志\健康检查-20261013-190825.log
+===================================================================

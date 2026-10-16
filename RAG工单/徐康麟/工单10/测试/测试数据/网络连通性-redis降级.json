@@ -1,0 +1,37 @@
+{
+  "说明": "Redis 连通性、客户端种类与降级行为（用 Redis 协议 PING 判定，避免端口误判）",
+  "redis_协议探测": {
+    "is_redis": true,
+    "detail": "PING → b'+PONG\\r\\n'（真 Redis）",
+    "port": 6379
+  },
+  "session_store": {
+    "ok": true,
+    "backend": "redis+file",
+    "file": {
+      "ok": true,
+      "detail": "可写：E:\\gao6gongdan\\工单10\\部署\\卷\\sessions",
+      "sessions": 31
+    },
+    "redis": {
+      "ok": true,
+      "detail": "PING 成功：redis://127.0.0.1:6379/15（客户端：内置 MiniRedis/RESP，无需 redis 包）",
+      "client": "miniredis",
+      "url": "redis://127.0.0.1:6379/15",
+      "prefix": "rag:finqa:",
+      "session_keys": 25,
+      "sample": [
+        "rag:finqa:session:contract-check-5c692a39",
+        "rag:finqa:session:refusal-check",
+        "rag:finqa:session:acc-A1",
+        "rag:finqa:session:multiturn-1791888801",
+        "rag:finqa:session:opt-probe"
+      ]
+    },
+    "degraded_reason": "",
+    "session_dir": "E:\\gao6gongdan\\工单10\\部署\\卷\\sessions",
+    "sessions_on_disk": 31,
+    "redis_enabled": true
+  },
+  "客户端说明": "session_store 自带标准库 RESP 客户端（MiniRedis），不依赖 redis PyPI 包；容器内若装了 redis 包则优先用官方客户端。"
+}

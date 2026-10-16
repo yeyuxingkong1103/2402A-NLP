@@ -1,0 +1,544 @@
+{
+  "说明": "docker compose config --format json 的真实输出（Docker 官方解析器，客户端侧不需 daemon）",
+  "命令": "docker compose --env-file 部署/配置/.env.example -f 部署/docker/docker-compose.yml config --format json",
+  "name": "rag-finqa",
+  "networks": {
+    "rag-net": {
+      "name": "rag-net",
+      "driver": "bridge",
+      "ipam": {
+        "driver": "default",
+        "config": [
+          {
+            "subnet": "172.28.0.0/16"
+          }
+        ]
+      },
+      "labels": {
+        "work_order": "人工智能NLP-RAG 项目-金融问答系统部署"
+      }
+    }
+  },
+  "services": {
+    "prometheus": {
+      "profiles": [
+        "monitoring"
+      ],
+      "command": [
+        "--config.file=/etc/prometheus/prometheus.yml",
+        "--storage.tsdb.path=/prometheus",
+        "--storage.tsdb.retention.time=15d",
+        "--web.enable-lifecycle"
+      ],
+      "container_name": "rag-prometheus",
+      "depends_on": {
+        "rag-api": {
+          "condition": "service_started",
+          "required": true
+        }
+      },
+      "deploy": {
+        "resources": {
+          "limits": {
+            "cpus": 0.5,
+            "memory": "536870912"
+          }
+        },
+        "placement": {}
+      },
+      "entrypoint": null,
+      "hostname": "prometheus",
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "wget",
+          "-qO-",
+          "http://127.0.0.1:9090/-/healthy"
+        ],
+        "timeout": "5s",
+        "interval": "30s",
+        "retries": 3
+      },
+      "image": "prom/prometheus:v2.55.1",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-file": "5",
+          "max-size": "20m",
+          "tag": "{{.Name}}"
+        }
+      },
+      "networks": {
+        "rag-net": null
+      },
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 9090,
+          "published": "9090",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped",
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "E:\\gao6gongdan\\工单10\\部署\\docker\\prometheus.yml",
+          "target": "/etc/prometheus/prometheus.yml",
+          "read_only": true,
+          "bind": {}
+        },
+        {
+          "type": "volume",
+          "source": "rag-prometheus",
+          "target": "/prometheus",
+          "volume": {}
+        }
+      ]
+    },
+    "rag-api": {
+      "build": {
+        "context": "E:\\gao6gongdan\\工单10",
+        "dockerfile": "部署/docker/Dockerfile",
+        "args": {
+          "PIP_INDEX_URL": "https://pypi.tuna.tsinghua.edu.cn/simple",
+          "PIP_TRUSTED_HOST": "pypi.tuna.tsinghua.edu.cn"
+        }
+      },
+      "command": [
+        "uvicorn",
+        "service.api:app",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8200",
+        "--no-access-log"
+      ],
+      "container_name": "rag-api",
+      "depends_on": {
+        "redis": {
+          "condition": "service_healthy",
+          "required": true
+        }
+      },
+      "deploy": {
+        "resources": {
+          "limits": {
+            "cpus": 2,
+            "memory": "2147483648"
+          },
+          "reservations": {
+            "cpus": 0.25,
+            "memory": "268435456"
+          }
+        },
+        "placement": {}
+      },
+      "entrypoint": null,
+      "environment": {
+        "DEPLOY_API_PORT": "8200",
+        "DEPLOY_BUILD_REF": "local-1.0.0",
+        "DEPLOY_INDEX_DIR": "/app/data/index",
+        "DEPLOY_LOG_DIR": "/app/logs",
+        "DEPLOY_LOG_JSON": "1",
+        "DEPLOY_MAX_CONCURRENCY": "4",
+        "DEPLOY_METRICS_ENABLED": "1",
+        "DEPLOY_MODEL_DIR": "/app/data/models",
+        "DEPLOY_REDIS_ENABLED": "1",
+        "DEPLOY_REDIS_TIMEOUT_S": "0.5",
+        "DEPLOY_REDIS_URL": "redis://:ragfinqa@redis:6379/0",
+        "DEPLOY_RUNTIME_DIR": "/app/data/runtime",
+        "DEPLOY_SESSION_DIR": "/app/sessions",
+        "DEPLOY_SESSION_TTL_S": "86400",
+        "DEPLOY_UI_PORT": "8201",
+        "DEPLOY_UPLOAD_DIR": "/app/data/uploads",
+        "DEPLOY_WARMUP": "1",
+        "DEPLOY_WARMUP_WITH_GENERATE": "0",
+        "RAG_DATA__INDEX_DIR": "/app/data/index",
+        "RAG_DATA__PROCESSED_DIR": "/app/data/processed",
+        "RAG_DATA__RAW_DIR": "/app/data/raw",
+        "RAG_LLM__OLLAMA_BASE_URL": "http://host.docker.internal:11434",
+        "RAG_LLM__OLLAMA_EMBED_MODEL": "bge-m3:latest",
+        "RAG_LLM__OLLAMA_GEN_MODEL": "qwen2.5:3b",
+        "RAG_LOG__DIR": "/app/logs",
+        "RAG_LOG__LEVEL": "INFO",
+        "TZ": "Asia/Shanghai"
+      },
+      "extra_hosts": [
+        "host.docker.internal=host-gateway"
+      ],
+      "hostname": "rag-api",
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python",
+          "/usr/local/bin/healthcheck.py"
+        ],
+        "timeout": "5s",
+        "interval": "30s",
+        "retries": 3,
+        "start_period": "2m0s"
+      },
+      "image": "rag-finqa:1.0.0",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-file": "5",
+          "max-size": "20m",
+          "tag": "{{.Name}}"
+        }
+      },
+      "networks": {
+        "rag-net": null
+      },
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 8200,
+          "published": "8200",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped",
+      "volumes": [
+        {
+          "type": "volume",
+          "source": "rag-index",
+          "target": "/app/data/index",
+          "read_only": true,
+          "volume": {}
+        },
+        {
+          "type": "volume",
+          "source": "rag-log",
+          "target": "/app/logs",
+          "volume": {}
+        },
+        {
+          "type": "volume",
+          "source": "rag-session",
+          "target": "/app/sessions",
+          "volume": {}
+        },
+        {
+          "type": "volume",
+          "source": "rag-model",
+          "target": "/app/data/models",
+          "volume": {}
+        },
+        {
+          "type": "volume",
+          "source": "rag-upload",
+          "target": "/app/data/uploads",
+          "volume": {}
+        },
+        {
+          "type": "volume",
+          "source": "rag-runtime",
+          "target": "/app/data/runtime",
+          "volume": {}
+        },
+        {
+          "type": "bind",
+          "source": "E:\\gao6gongdan\\工单10\\部署\\日志",
+          "target": "/app/logs-host",
+          "bind": {}
+        },
+        {
+          "type": "bind",
+          "source": "E:\\gao6gongdan\\工单10\\工单7索引",
+          "target": "/app/data/index-host",
+          "read_only": true,
+          "bind": {}
+        }
+      ]
+    },
+    "rag-ui": {
+      "command": [
+        "python",
+        "/app/app/main.py",
+        "--serve",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8201"
+      ],
+      "container_name": "rag-ui",
+      "depends_on": {
+        "redis": {
+          "condition": "service_healthy",
+          "required": true
+        }
+      },
+      "deploy": {
+        "resources": {
+          "limits": {
+            "cpus": 1,
+            "memory": "1073741824"
+          }
+        },
+        "placement": {}
+      },
+      "entrypoint": null,
+      "environment": {
+        "DEPLOY_BUILD_REF": "local-1.0.0",
+        "DEPLOY_INDEX_DIR": "/app/data/index",
+        "DEPLOY_LOG_DIR": "/app/logs",
+        "DEPLOY_LOG_JSON": "1",
+        "DEPLOY_MAX_CONCURRENCY": "4",
+        "DEPLOY_MODEL_DIR": "/app/data/models",
+        "DEPLOY_REDIS_ENABLED": "1",
+        "DEPLOY_REDIS_TIMEOUT_S": "0.5",
+        "DEPLOY_REDIS_URL": "redis://:ragfinqa@redis:6379/0",
+        "DEPLOY_SESSION_DIR": "/app/sessions",
+        "DEPLOY_SESSION_TTL_S": "86400",
+        "DEPLOY_UI_PORT": "8201",
+        "DEPLOY_UPLOAD_DIR": "/app/data/uploads",
+        "RAG_DATA__INDEX_DIR": "/app/data/index",
+        "RAG_DATA__PROCESSED_DIR": "/app/data/processed",
+        "RAG_DATA__RAW_DIR": "/app/data/raw",
+        "RAG_LLM__OLLAMA_BASE_URL": "http://host.docker.internal:11434",
+        "RAG_LLM__OLLAMA_EMBED_MODEL": "bge-m3:latest",
+        "RAG_LLM__OLLAMA_GEN_MODEL": "qwen2.5:3b",
+        "RAG_LOG__DIR": "/app/logs",
+        "RAG_LOG__LEVEL": "INFO",
+        "RAG_SERVER__FALLBACK_PORT": "8201",
+        "TZ": "Asia/Shanghai"
+      },
+      "extra_hosts": [
+        "host.docker.internal=host-gateway"
+      ],
+      "hostname": "rag-ui",
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8201/health',timeout=4).status==200 else 1)"
+        ],
+        "timeout": "8s",
+        "interval": "30s",
+        "retries": 3,
+        "start_period": "2m30s"
+      },
+      "image": "rag-finqa:1.0.0",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-file": "5",
+          "max-size": "20m",
+          "tag": "{{.Name}}"
+        }
+      },
+      "networks": {
+        "rag-net": null
+      },
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 8201,
+          "published": "8201",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped",
+      "volumes": [
+        {
+          "type": "volume",
+          "source": "rag-index",
+          "target": "/app/data/index",
+          "read_only": true,
+          "volume": {}
+        },
+        {
+          "type": "volume",
+          "source": "rag-log",
+          "target": "/app/logs",
+          "volume": {}
+        },
+        {
+          "type": "volume",
+          "source": "rag-session",
+          "target": "/app/sessions",
+          "volume": {}
+        },
+        {
+          "type": "volume",
+          "source": "rag-model",
+          "target": "/app/data/models",
+          "volume": {}
+        },
+        {
+          "type": "volume",
+          "source": "rag-upload",
+          "target": "/app/data/uploads",
+          "volume": {}
+        },
+        {
+          "type": "volume",
+          "source": "rag-runtime",
+          "target": "/app/data/runtime",
+          "volume": {}
+        }
+      ]
+    },
+    "redis": {
+      "command": [
+        "redis-server",
+        "--appendonly",
+        "yes",
+        "--appendfsync",
+        "everysec",
+        "--requirepass",
+        "ragfinqa",
+        "--maxmemory",
+        "256mb",
+        "--maxmemory-policy",
+        "allkeys-lru"
+      ],
+      "container_name": "rag-redis",
+      "deploy": {
+        "resources": {
+          "limits": {
+            "cpus": 0.5,
+            "memory": "335544320"
+          }
+        },
+        "placement": {}
+      },
+      "entrypoint": null,
+      "hostname": "redis",
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "redis-cli",
+          "-a",
+          "ragfinqa",
+          "ping"
+        ],
+        "timeout": "3s",
+        "interval": "10s",
+        "retries": 5,
+        "start_period": "10s"
+      },
+      "image": "redis:7-alpine",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-file": "5",
+          "max-size": "20m",
+          "tag": "{{.Name}}"
+        }
+      },
+      "networks": {
+        "rag-net": null
+      },
+      "ports": [
+        {
+          "mode": "ingress",
+          "target": 6379,
+          "published": "6379",
+          "protocol": "tcp"
+        }
+      ],
+      "restart": "unless-stopped",
+      "volumes": [
+        {
+          "type": "volume",
+          "source": "rag-redis",
+          "target": "/data",
+          "volume": {}
+        }
+      ]
+    }
+  },
+  "volumes": {
+    "rag-index": {
+      "name": "rag-finqa-index",
+      "labels": {
+        "purpose": "RAG 索引（faiss.index + vectors.npy + bm25.pkl + chunks_indexed.jsonl）"
+      }
+    },
+    "rag-log": {
+      "name": "rag-finqa-log",
+      "labels": {
+        "purpose": "运行日志（容器启动快照/业务日志/访问日志）"
+      }
+    },
+    "rag-model": {
+      "name": "rag-finqa-model",
+      "labels": {
+        "purpose": "模型/权重缓存目录（当前嵌入与生成走宿主机 Ollama，此处留扩展位）"
+      }
+    },
+    "rag-prometheus": {
+      "name": "rag-finqa-prometheus",
+      "labels": {
+        "purpose": "Prometheus TSDB 指标数据"
+      }
+    },
+    "rag-redis": {
+      "name": "rag-finqa-redis",
+      "labels": {
+        "purpose": "Redis 持久化（appendonly AOF + RDB）"
+      }
+    },
+    "rag-runtime": {
+      "name": "rag-finqa-runtime",
+      "labels": {
+        "purpose": "运行期 sqlite（qa_runtime.sqlite3）与答案缓存"
+      }
+    },
+    "rag-session": {
+      "name": "rag-finqa-session",
+      "labels": {
+        "purpose": "多轮会话（JSON），rag-api 与 rag-ui 共享 → 验收项③ 容器间数据共享"
+      }
+    },
+    "rag-upload": {
+      "name": "rag-finqa-upload",
+      "labels": {
+        "purpose": "用户上传语料（增量建索引用）"
+      }
+    }
+  },
+  "x-common": {
+    "logging": {
+      "driver": "json-file",
+      "options": {
+        "max-file": "5",
+        "max-size": "20m",
+        "tag": "{{.Name}}"
+      }
+    },
+    "networks": [
+      "rag-net"
+    ],
+    "restart": "unless-stopped"
+  },
+  "x-env-common": {
+    "DEPLOY_BUILD_REF": "local-1.0.0",
+    "DEPLOY_LOG_DIR": "/app/logs",
+    "DEPLOY_LOG_JSON": "1",
+    "DEPLOY_MAX_CONCURRENCY": "4",
+    "DEPLOY_MODEL_DIR": "/app/data/models",
+    "DEPLOY_REDIS_ENABLED": "1",
+    "DEPLOY_REDIS_TIMEOUT_S": "0.5",
+    "DEPLOY_REDIS_URL": "redis://:ragfinqa@redis:6379/0",
+    "DEPLOY_SESSION_DIR": "/app/sessions",
+    "DEPLOY_SESSION_TTL_S": "86400",
+    "DEPLOY_UPLOAD_DIR": "/app/data/uploads",
+    "RAG_DATA__INDEX_DIR": "/app/data/index",
+    "RAG_DATA__PROCESSED_DIR": "/app/data/processed",
+    "RAG_DATA__RAW_DIR": "/app/data/raw",
+    "RAG_LLM__OLLAMA_BASE_URL": "http://host.docker.internal:11434",
+    "RAG_LLM__OLLAMA_EMBED_MODEL": "bge-m3:latest",
+    "RAG_LLM__OLLAMA_GEN_MODEL": "qwen2.5:3b",
+    "RAG_LOG__DIR": "/app/logs",
+    "RAG_LOG__LEVEL": "INFO",
+    "TZ": "Asia/Shanghai"
+  },
+  "x-extra-hosts": {
+    "host.docker.internal": "host-gateway"
+  }
+}

@@ -1,0 +1,317 @@
+{
+  "脚本": "优化/脚本/测量部署优化指标.py",
+  "工单编号": "人工智能NLP-RAG 项目-金融问答系统部署",
+  "采集时间": "2026-10-13 19:00:41",
+  "口径说明": {
+    "实测": "本机真实执行得到（HTTP/文件/进程；容器不可用，见 部署/日志/docker提权失败证据.log）",
+    "核算": "由真实包体积与镜像层声明加总得到，非 docker build 实测"
+  },
+  "服务可达性": {
+    "api": "http://127.0.0.1:8200",
+    "healthz_code": 200,
+    "healthz_ms": 7.25,
+    "说明": "0 表示服务未启动；热路径/并发指标的『实测』口径依赖服务在跑"
+  },
+  "内存": {
+    "系统内存MB": {
+      "\\Memory\\Commit Limit": 51289718784.0,
+      "\\Memory\\Available MBytes": 3433.0,
+      "\\Memory\\Committed Bytes": 37297491968.0
+    },
+    "提交占比%": 72.72,
+    "API进程内存": {
+      "note": "Get-NetTCPConnection 未报告监听进程（沙箱下实测会漏报）；以下为内存占用最大的 3 个 python 进程（含 API 与其子进程）",
+      "top_python": [
+        {
+          "pid": 29448,
+          "ws_mb": 564.2,
+          "priv_mb": 2439.6
+        },
+        {
+          "pid": 24572,
+          "ws_mb": 478.8,
+          "priv_mb": 2409.8
+        },
+        {
+          "pid": 15180,
+          "ws_mb": 26.7,
+          "priv_mb": 19
+        }
+      ]
+    },
+    "测量脚本自身内存": {
+      "ws_mb": 26.7,
+      "priv_mb": 19
+    }
+  },
+  "冷启动": {
+    "nowarm": {
+      "mode": "nowarm",
+      "wall_s": 0.536,
+      "returncode": 0,
+      "import_s": 0.423,
+      "engine_init_s": 0.0,
+      "warmup_s": 0.0,
+      "total_s": 0.423,
+      "warmup_detail": {}
+    },
+    "warm": {
+      "mode": "warm",
+      "wall_s": 23.862,
+      "returncode": 0,
+      "import_s": 0.374,
+      "engine_init_s": 0.0,
+      "warmup_s": 22.739,
+      "total_s": 23.114,
+      "warmup_detail": {
+        "index_chunks": 8847,
+        "tokenizer": {
+          "cold_ms": 0.18,
+          "warm_ms": 0.14,
+          "tokens": 9,
+          "backend": "jieba"
+        },
+        "entity_tagger": {
+          "ok": true,
+          "sample_nouns": [
+            "武汉",
+            "新科",
+            "电子",
+            "股份",
+            "有限公司",
+            "注册资本"
+          ],
+          "elapsed_ms": 1569.85
+        },
+        "embedding": {
+          "backend": "ollama",
+          "model": "bge-m3:latest",
+          "dim": 1024,
+          "cold_ms": 4433.15,
+          "warm_ms": 28.26,
+          "total_ms": 4583.0
+        },
+        "fulltext_index": {
+          "fulltext_index": {
+            "chunks": 8847,
+            "fields": {
+              "content": 64134,
+              "title": 4795,
+              "keywords": 47593,
+              "summary": 42422
+            },
+            "ms": 13295.37
+          },
+          "models": [
+            {
+              "id": "bge-m3",
+              "dim": 1024,
+              "index_built": true
+            },
+            {
+              "id": "m3e-base",
+              "dim": 768,
+              "index_built": false
+            }
+          ],
+          "models_ms": 2.09,
+          "elapsed_ms": 13297.55
+        },
+        "generate": {
+          "ok": false,
+          "reason": "无可用生成后端（extractive 路径无需预热）"
+        },
+        "elapsed_ms": 22738.96
+      }
+    },
+    "对比": {
+      "含义": "容器启动到『能服务』的耗时：关预热 = 只有 QAEngine 初始化；开预热 = 额外构建全文索引/实体标注",
+      "预热代价_秒": 22.691,
+      "预热收益": "首请求不再承担 20 秒级全文索引构建；实测见『热路径』阶段",
+      "容器策略": "HEALTHCHECK --start-period=90~150s，主镜像 DEPLOY_WARMUP=1 / WITH_GENERATE=0"
+    }
+  },
+  "热路径": {
+    "/healthz": {
+      "次数": 10,
+      "全部200": true,
+      "最小ms": 1.56,
+      "中位ms": 2.3,
+      "最大ms": 28.07,
+      "响应字节": 48
+    },
+    "/health": {
+      "次数": 10,
+      "全部200": true,
+      "最小ms": 9.25,
+      "中位ms": 10.3,
+      "最大ms": 31.25,
+      "响应字节": 7161
+    },
+    "问答接口": [
+      {
+        "问题": "平安银行2019年年度报告中，报告期末的资产总额…",
+        "第几次": 1,
+        "code": 200,
+        "墙钟ms": 55.66,
+        "服务端total_ms": 3.75,
+        "retrieve_ms": 0.0,
+        "generate_ms": 0.0,
+        "命中缓存": true,
+        "生成方式": "rule_composer",
+        "答案长度": 73
+      },
+      {
+        "问题": "平安银行2019年年度报告中，报告期末的资产总额…",
+        "第几次": 2,
+        "code": 200,
+        "墙钟ms": 28.67,
+        "服务端total_ms": 5.99,
+        "retrieve_ms": 0.0,
+        "generate_ms": 0.0,
+        "命中缓存": true,
+        "生成方式": "rule_composer",
+        "答案长度": 73
+      },
+      {
+        "问题": "招商银行2019年年度报告的营业收入是多少？…",
+        "第几次": 1,
+        "code": 200,
+        "墙钟ms": 23.46,
+        "服务端total_ms": 3.73,
+        "retrieve_ms": 0.0,
+        "generate_ms": 0.0,
+        "命中缓存": true,
+        "生成方式": "llm_grounded",
+        "答案长度": 189
+      },
+      {
+        "问题": "招商银行2019年年度报告的营业收入是多少？…",
+        "第几次": 2,
+        "code": 200,
+        "墙钟ms": 27.96,
+        "服务端total_ms": 3.37,
+        "retrieve_ms": 0.0,
+        "generate_ms": 0.0,
+        "命中缓存": true,
+        "生成方式": "llm_grounded",
+        "答案长度": 189
+      }
+    ]
+  },
+  "并发探活": {
+    "并发线程": 8,
+    "请求数": 40,
+    "失败数": 0,
+    "墙钟ms": 47.21,
+    "QPS": 847.28,
+    "延迟ms_最小": 5.05,
+    "延迟ms_中位": 8.11,
+    "延迟ms_p95": 18.21,
+    "延迟ms_最大": 18.86
+  },
+  "卷读写": {
+    "会话写（原子替换）": {
+      "文件数": 200,
+      "总字节": 130000,
+      "总耗时ms": 133.19,
+      "单文件均ms": 0.666,
+      "吞吐MB/s": 0.93
+    },
+    "会话读": {
+      "文件数": 200,
+      "总字节": 130000,
+      "总耗时ms": 156.98,
+      "单文件均ms": 0.785,
+      "吞吐MB/s": 0.79
+    },
+    "索引卷stat": {
+      "耗时ms": 2.02,
+      "文件大小": {
+        "vectors.npy": 36237440,
+        "faiss.index": 36237357,
+        "bm25.pkl": 11753023,
+        "chunks_indexed.jsonl": 21148874,
+        "ids.json": 244122
+      },
+      "合计MB": 100.73
+    },
+    "索引顺序读": {
+      "文件": "vectors.npy",
+      "字节": 36237440,
+      "耗时ms": 20.59,
+      "吞吐MB/s": 1678.42
+    },
+    "探针清理": {
+      "删除文件数": 200
+    }
+  },
+  "依赖体积核算": {
+    "口径": "核算（各包在 site-packages 内的真实磁盘体积之和，非 docker build 实测）",
+    "包集合合计MB": {
+      "本方案（精简闭包）": 106.28,
+      "若在容器内跑本地大模型（被否决方案）": 463.96
+    },
+    "明细": {
+      "本方案（精简闭包）": [
+        "numpy",
+        "faiss_cpu",
+        "fastapi",
+        "uvicorn",
+        "fitz",
+        "pymupdf",
+        "jieba",
+        "redis",
+        "starlette",
+        "pydantic",
+        "anyio"
+      ],
+      "若在容器内跑本地大模型（被否决方案）": [
+        "torch",
+        "transformers",
+        "sentence_transformers",
+        "open_clip",
+        "huggingface_hub",
+        "tokenizers",
+        "safetensors",
+        "accelerate"
+      ]
+    },
+    "未安装包": {
+      "本方案（精简闭包）": [
+        "faiss_cpu",
+        "fitz",
+        "redis"
+      ],
+      "若在容器内跑本地大模型（被否决方案）": [
+        "open_clip",
+        "accelerate"
+      ]
+    },
+    "包版本": {
+      "numpy": "1.26.4",
+      "faiss-cpu": "1.7.4",
+      "fastapi": "0.109.0",
+      "uvicorn": "0.27.0",
+      "pymupdf": "1.28.2",
+      "jieba": "0.42.1",
+      "redis": null,
+      "torch": "2.11.0+cpu",
+      "transformers": "4.57.6"
+    },
+    "体积优化结论": {
+      "被剔除的本地大模型依赖MB": 463.96,
+      "保留的精简闭包MB": 106.28,
+      "说明": "剔除 torch/transformers/open_clip 等，改为调用宿主机 Ollama 提供嵌入与生成"
+    }
+  },
+  "本次运行时间": "2026-10-13 19:00:41",
+  "本次运行阶段": [
+    "冷启动",
+    "热路径",
+    "并发探活",
+    "卷读写",
+    "依赖体积核算",
+    "内存"
+  ]
+}

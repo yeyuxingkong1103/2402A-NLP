@@ -1,0 +1,21 @@
+{
+  "说明": "宿主机 Ollama 连通性实测（容器内等价地址 = host.docker.internal:11434）",
+  "host_alias": "host.docker.internal",
+  "host_alias_resolved_ip": "10.49.251.112",
+  "本机实测使用地址": "127.0.0.1",
+  "模型总数": 13,
+  "关键模型": [
+    "qwen2.5:3b",
+    "bge-m3:latest",
+    "bge-m3:567m-fp16"
+  ],
+  "http_status": 200,
+  "服务自报llm检查": {
+    "ok": true,
+    "backend": "ollama",
+    "model": "qwen2.5:3b",
+    "base_url": "http://127.0.0.1:11434",
+    "available": true,
+    "probe_ms": 60.34
+  }
+}

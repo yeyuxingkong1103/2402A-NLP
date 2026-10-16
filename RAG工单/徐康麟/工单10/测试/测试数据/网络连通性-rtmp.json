@@ -1,0 +1,10 @@
+{
+  "说明": "RTMP 服务器 1935 端口探测（工单原文：容器要能与 RTMP 服务器等其它服务通信）",
+  "target": "127.0.0.1:1935",
+  "容器内等价目标": "host.docker.internal:1935",
+  "connectable": false,
+  "detail": "TimeoutError: timed out",
+  "本机现状": "未运行 RTMP 服务",
+  "容器内验证命令": "docker exec rag-api python -c \"import socket;socket.create_connection(('host.docker.internal',1935),5)\"",
+  "编排侧验证": "部署/脚本/health.ps1 的【⑥ 网络连通性】段落会自动执行上述探测"
+}

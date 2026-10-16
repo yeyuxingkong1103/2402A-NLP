@@ -1,0 +1,9 @@
+entrypoint.sh 语法校验结果：静态检查（WSL 不可用：rc=4294967295 �b�~���0 
+
+���Nx� Wsl/Service/CreateInstance/E_ACCESSDEN）
+文件：E:\gao6gongdan\工单10\部署\docker\entrypoint.sh
+字节数：3513
+静态检查项：shebang / set -euo pipefail / exec "$@" 均已人工核对通过
+环境限制：C:\Windows\system32\bash.exe 是 WSL 启动器存根（bash -n 恒返回 1，实测）；
+         本机 `wsl` 亦被宿主拒绝（Wsl/Service/CreateInstance/E_ACCESS_DENIED，实测）。
+容器内验证方式：镜像构建后 `docker run --rm rag-finqa:1.0.0 bash -n /usr/local/bin/entrypoint.sh`。

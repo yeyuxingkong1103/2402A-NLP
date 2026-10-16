@@ -1,0 +1,20 @@
+业务代码顶层 import（第三方）与其对应发行包：
+  PIL                      → pillow
+  fastapi                  → fastapi
+  fitz                     → pymupdf
+  numpy                    → numpy
+  pydantic                 → pydantic
+  scipy                    → scipy
+
+requirements.txt 声明：
+  faiss-cpu
+  fastapi
+  jieba
+  numpy
+  pillow
+  pymupdf
+  redis
+  scipy
+  uvicorn
+
+结论：全部顶层第三方 import 均已被 requirements.txt 覆盖（pydantic 由 fastapi 引入）。

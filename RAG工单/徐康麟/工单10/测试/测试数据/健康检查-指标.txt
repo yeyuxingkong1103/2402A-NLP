@@ -1,0 +1,27 @@
+# HELP rag_api_requests_total HTTP 请求总数
+# TYPE rag_api_requests_total counter
+rag_api_requests_total 66
+# HELP rag_api_errors_total HTTP 4xx/5xx 总数
+# TYPE rag_api_errors_total counter
+rag_api_errors_total 4
+# HELP rag_api_ask_total 问答请求总数
+# TYPE rag_api_ask_total counter
+rag_api_ask_total 19
+# HELP rag_api_refused_total 拒答（不清楚）总数
+# TYPE rag_api_refused_total counter
+rag_api_refused_total 1
+# HELP rag_api_ask_latency_ms 问答耗时（毫秒）
+# TYPE rag_api_ask_latency_ms summary
+rag_api_ask_latency_ms_sum 673.73
+rag_api_ask_latency_ms_count 19
+rag_api_ask_latency_ms_max 101.91
+rag_api_ask_latency_ms_avg 35.46
+# HELP rag_api_uptime_seconds 进程存活秒数
+# TYPE rag_api_uptime_seconds gauge
+rag_api_uptime_seconds 159.87
+# HELP rag_engine_asked_total 引擎累计问答数
+# TYPE rag_engine_asked_total counter
+rag_engine_asked_total 19
+# HELP rag_engine_cache_hit_total 引擎缓存命中数
+# TYPE rag_engine_cache_hit_total counter
+rag_engine_cache_hit_total 19

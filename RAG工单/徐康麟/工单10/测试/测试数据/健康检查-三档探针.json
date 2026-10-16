@@ -1,0 +1,525 @@
+{
+  "说明": "GET /healthz、/health、/readyz 的真实响应（工单10 验收项②）",
+  "api_base": "http://127.0.0.1:8200",
+  "期望端口": 8200,
+  "实测": {
+    "/healthz": {
+      "status": 200,
+      "body": {
+        "status": "alive",
+        "pid": 24952,
+        "uptime_s": 159.8
+      }
+    },
+    "/health": {
+      "status": 200,
+      "body": {
+        "status": "ok",
+        "ready": true,
+        "work_order": "人工智能NLP-RAG 项目-金融问答系统部署",
+        "api_version": "1.0.0",
+        "build_ref": "local-1.0.0",
+        "port": 8200,
+        "uptime_s": 159.81,
+        "init_ms": 22174.28,
+        "runtime_db": "E:\\gao6gongdan\\工单10\\部署\\卷\\runtime\\qa_runtime.sqlite3",
+        "checks": {
+          "volume_logs": {
+            "ok": true,
+            "path": "E:\\gao6gongdan\\工单10\\部署\\卷\\logs",
+            "label": "日志卷",
+            "detail": "可读写"
+          },
+          "volume_sessions": {
+            "ok": true,
+            "path": "E:\\gao6gongdan\\工单10\\部署\\卷\\sessions",
+            "label": "会话卷",
+            "detail": "可读写"
+          },
+          "volume_index": {
+            "ok": true,
+            "path": "E:\\gao6gongdan\\工单10\\部署\\卷\\index",
+            "label": "索引卷",
+            "entries": 6,
+            "sample": [
+              "bge-m3_1024",
+              "images_clip.npy",
+              "images_clip_ids.json",
+              "images_clip_manifest.json",
+              "index_manifest.json",
+              "qa_runtime.sqlite3"
+            ],
+            "detail": "可读"
+          },
+          "volume_uploads": {
+            "ok": true,
+            "path": "E:\\gao6gongdan\\工单10\\部署\\卷\\uploads",
+            "label": "上传卷",
+            "detail": "可读写"
+          },
+          "volume_runtime": {
+            "ok": true,
+            "path": "E:\\gao6gongdan\\工单10\\部署\\卷\\runtime",
+            "label": "运行期卷（sqlite/缓存）",
+            "detail": "可读写"
+          },
+          "session_store": {
+            "ok": true,
+            "backend": "redis+file",
+            "file": {
+              "ok": true,
+              "detail": "可写：E:\\gao6gongdan\\工单10\\部署\\卷\\sessions",
+              "sessions": 33
+            },
+            "redis": {
+              "ok": true,
+              "detail": "PING 成功：redis://127.0.0.1:6379/15（客户端：内置 MiniRedis/RESP，无需 redis 包）",
+              "client": "miniredis",
+              "url": "redis://127.0.0.1:6379/15",
+              "prefix": "rag:finqa:",
+              "session_keys": 26,
+              "sample": [
+                "rag:finqa:session:contract-check-5c692a39",
+                "rag:finqa:session:refusal-check",
+                "rag:finqa:session:acc-A1",
+                "rag:finqa:session:multiturn-1791888801",
+                "rag:finqa:session:opt-probe"
+              ]
+            },
+            "degraded_reason": "",
+            "session_dir": "E:\\gao6gongdan\\工单10\\部署\\卷\\sessions",
+            "sessions_on_disk": 33,
+            "redis_enabled": true
+          },
+          "engine": {
+            "ok": true,
+            "status": "ok",
+            "checks": {
+              "interpreter": {
+                "ok": true,
+                "python": "3.11.15",
+                "executable": "E:\\gao6gongdan\\工单1\\.venv\\Scripts\\python.exe"
+              },
+              "index": {
+                "ok": true,
+                "chunks": 8847,
+                "dim": 1024,
+                "faiss": true,
+                "image_chunks": 105,
+                "path": "E:\\gao6gongdan\\工单10\\部署\\卷\\index\\bge-m3_1024",
+                "bm25_vocab": 64134
+              },
+              "llm": {
+                "ok": true,
+                "backend": "ollama",
+                "model": "qwen2.5:3b",
+                "base_url": "http://127.0.0.1:11434",
+                "available": true,
+                "probe_ms": 60.34
+              },
+              "index_meta": {
+                "ok": true,
+                "path": "E:\\gao6gongdan\\工单10\\部署\\卷\\index\\bge-m3_1024",
+                "model": "bge-m3:latest",
+                "dim": 1024,
+                "count": 8847,
+                "updated_at": "2026-10-08T12:55:35+08:00",
+                "normalized": true,
+                "dtype": "float32",
+                "page_basis": "1-based-physical",
+                "faiss": true,
+                "faiss_index_type": "IndexFlatIP",
+                "faiss_file": "faiss.index",
+                "faiss_note": "faiss.write_index 在本机非 ASCII 路径不可用（1.7.4 窄字符 fopen），已改用 faiss.serialize_index 字节序列化",
+                "by_modality": {
+                  "text": 7325,
+                  "table": 1417,
+                  "image": 105
+                },
+                "chunk_count": 8847,
+                "embed_backend": "ollama",
+                "incremental": {
+                  "enabled": true,
+                  "reused": 0,
+                  "embedded": 8847,
+                  "chunks": 8847,
+                  "reuse_ratio": 0.0,
+                  "verify": null,
+                  "elapsed_ms": 273472.35
+                },
+                "images": {
+                  "enabled": true,
+                  "source_file": "E:\\gao6gongdan\\工单7\\研发\\data\\processed\\image_blocks.jsonl",
+                  "records": 175,
+                  "skipped_files": [
+                    "images.jsonl"
+                  ],
+                  "fallback": false,
+                  "merged_groups": 105,
+                  "merged_from_records": 175,
+                  "chunks": 105,
+                  "by_corpus": {
+                    "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf": 3,
+                    "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf": 27,
+                    "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf": 2,
+                    "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf": 4,
+                    "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf": 3,
+                    "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf": 21,
+                    "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf": 37,
+                    "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf": 4,
+                    "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf": 4
+                  },
+                  "corpora_without_image_blocks": [],
+                  "coverage_note": "图像内容解析范围 = 2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf、2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf、2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf、2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf、2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf、2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf、2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf、2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf、2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf（图像题证据页所在语料）；未纳入图像块 = 无。说明：招股说明书1 的 image_blocks/charts/diagrams 均为 0（T2 未提供该语料的图像块），本索引只收录 T2 实际产出的图像块，**不代为声明 PDF1 的图像已被解析**；对 16 题无影响（第 5、6 题的证据页 39/72 均在招股说明书2）。如需全语料图像解析，属 T2 的 extract_images.py --all 范畴，代价须由 T2 实测给出。",
+                  "evidence_weight_policy": "文本/表格块 evidence_weight=1.0；图像块 diagram/chart=1.0、picture=0.4。依据：picture（页眉 banner、签章页大图等）只有 CLIP 零样本标签，属**弱证据**（T2 实测提醒），与 diagram/chart 同权会挤掉正文证据。该字段只是**建议权重**，是否使用由检索层（T5）决定；检索层也可改用 modality=true 的硬过滤或单独通道（设计/接口设计.md §3.4 的 modality 参数）。"
+                },
+                "content_snapshot": "chunks_indexed.jsonl",
+                "content_sha1_sample": [
+                  [
+                    "20200214-p1-img-279-0",
+                    "41b9ccdc694e6e2b9c22c8ee11f9163a69066379"
+                  ],
+                  [
+                    "20200214-p1-x0",
+                    "ff521295399f30dda2bd9e9fc693a699f0b8878a"
+                  ],
+                  [
+                    "20200214-p2-x0",
+                    "399b8d0d9a4e1d232a2ae9ada49c2be0d015c817"
+                  ]
+                ]
+              }
+            },
+            "stats": {
+              "asked": 19,
+              "refused": 0,
+              "cache_hit": 19
+            },
+            "config": {
+              "top_k": 5,
+              "prompt_top_k": 3,
+              "embed_model": "bge-m3:latest",
+              "gen_model": "qwen2.5:3b",
+              "backend_cfg": "auto"
+            }
+          }
+        },
+        "warmup": {
+          "index_chunks": 8847,
+          "tokenizer": {
+            "cold_ms": 0.18,
+            "warm_ms": 0.1,
+            "tokens": 9,
+            "backend": "jieba"
+          },
+          "entity_tagger": {
+            "ok": true,
+            "sample_nouns": [
+              "武汉",
+              "新科",
+              "电子",
+              "股份",
+              "有限公司",
+              "注册资本"
+            ],
+            "elapsed_ms": 1918.27
+          },
+          "embedding": {
+            "backend": "ollama",
+            "model": "bge-m3:latest",
+            "dim": 1024,
+            "cold_ms": 2069.69,
+            "warm_ms": 22.22,
+            "total_ms": 2249.55
+          },
+          "fulltext_index": {
+            "fulltext_index": {
+              "chunks": 8847,
+              "fields": {
+                "content": 64134,
+                "title": 4795,
+                "keywords": 47593,
+                "summary": 42422
+              },
+              "ms": 14699.0
+            },
+            "models": [
+              {
+                "id": "bge-m3",
+                "dim": 1024,
+                "index_built": true
+              },
+              {
+                "id": "m3e-base",
+                "dim": 768,
+                "index_built": false
+              }
+            ],
+            "models_ms": 2.6,
+            "elapsed_ms": 14701.69
+          },
+          "generate": {
+            "ok": false,
+            "reason": "无可用生成后端（extractive 路径无需预热）"
+          },
+          "elapsed_ms": 22161.32
+        }
+      }
+    },
+    "/readyz": {
+      "status": 200,
+      "body": {
+        "status": "ok",
+        "ready": true,
+        "work_order": "人工智能NLP-RAG 项目-金融问答系统部署",
+        "api_version": "1.0.0",
+        "build_ref": "local-1.0.0",
+        "port": 8200,
+        "uptime_s": 159.82,
+        "init_ms": 22174.28,
+        "runtime_db": "E:\\gao6gongdan\\工单10\\部署\\卷\\runtime\\qa_runtime.sqlite3",
+        "checks": {
+          "volume_logs": {
+            "ok": true,
+            "path": "E:\\gao6gongdan\\工单10\\部署\\卷\\logs",
+            "label": "日志卷",
+            "detail": "可读写"
+          },
+          "volume_sessions": {
+            "ok": true,
+            "path": "E:\\gao6gongdan\\工单10\\部署\\卷\\sessions",
+            "label": "会话卷",
+            "detail": "可读写"
+          },
+          "volume_index": {
+            "ok": true,
+            "path": "E:\\gao6gongdan\\工单10\\部署\\卷\\index",
+            "label": "索引卷",
+            "entries": 6,
+            "sample": [
+              "bge-m3_1024",
+              "images_clip.npy",
+              "images_clip_ids.json",
+              "images_clip_manifest.json",
+              "index_manifest.json",
+              "qa_runtime.sqlite3"
+            ],
+            "detail": "可读"
+          },
+          "volume_uploads": {
+            "ok": true,
+            "path": "E:\\gao6gongdan\\工单10\\部署\\卷\\uploads",
+            "label": "上传卷",
+            "detail": "可读写"
+          },
+          "volume_runtime": {
+            "ok": true,
+            "path": "E:\\gao6gongdan\\工单10\\部署\\卷\\runtime",
+            "label": "运行期卷（sqlite/缓存）",
+            "detail": "可读写"
+          },
+          "session_store": {
+            "ok": true,
+            "backend": "redis+file",
+            "file": {
+              "ok": true,
+              "detail": "可写：E:\\gao6gongdan\\工单10\\部署\\卷\\sessions",
+              "sessions": 33
+            },
+            "redis": {
+              "ok": true,
+              "detail": "PING 成功：redis://127.0.0.1:6379/15（客户端：内置 MiniRedis/RESP，无需 redis 包）",
+              "client": "miniredis",
+              "url": "redis://127.0.0.1:6379/15",
+              "prefix": "rag:finqa:",
+              "session_keys": 26,
+              "sample": [
+                "rag:finqa:session:contract-check-5c692a39",
+                "rag:finqa:session:refusal-check",
+                "rag:finqa:session:acc-A1",
+                "rag:finqa:session:multiturn-1791888801",
+                "rag:finqa:session:opt-probe"
+              ]
+            },
+            "degraded_reason": "",
+            "session_dir": "E:\\gao6gongdan\\工单10\\部署\\卷\\sessions",
+            "sessions_on_disk": 33,
+            "redis_enabled": true
+          },
+          "engine": {
+            "ok": true,
+            "status": "ok",
+            "checks": {
+              "interpreter": {
+                "ok": true,
+                "python": "3.11.15",
+                "executable": "E:\\gao6gongdan\\工单1\\.venv\\Scripts\\python.exe"
+              },
+              "index": {
+                "ok": true,
+                "chunks": 8847,
+                "dim": 1024,
+                "faiss": true,
+                "image_chunks": 105,
+                "path": "E:\\gao6gongdan\\工单10\\部署\\卷\\index\\bge-m3_1024",
+                "bm25_vocab": 64134
+              },
+              "llm": {
+                "ok": true,
+                "backend": "ollama",
+                "model": "qwen2.5:3b",
+                "base_url": "http://127.0.0.1:11434",
+                "available": true,
+                "probe_ms": 60.34
+              },
+              "index_meta": {
+                "ok": true,
+                "path": "E:\\gao6gongdan\\工单10\\部署\\卷\\index\\bge-m3_1024",
+                "model": "bge-m3:latest",
+                "dim": 1024,
+                "count": 8847,
+                "updated_at": "2026-10-08T12:55:35+08:00",
+                "normalized": true,
+                "dtype": "float32",
+                "page_basis": "1-based-physical",
+                "faiss": true,
+                "faiss_index_type": "IndexFlatIP",
+                "faiss_file": "faiss.index",
+                "faiss_note": "faiss.write_index 在本机非 ASCII 路径不可用（1.7.4 窄字符 fopen），已改用 faiss.serialize_index 字节序列化",
+                "by_modality": {
+                  "text": 7325,
+                  "table": 1417,
+                  "image": 105
+                },
+                "chunk_count": 8847,
+                "embed_backend": "ollama",
+                "incremental": {
+                  "enabled": true,
+                  "reused": 0,
+                  "embedded": 8847,
+                  "chunks": 8847,
+                  "reuse_ratio": 0.0,
+                  "verify": null,
+                  "elapsed_ms": 273472.35
+                },
+                "images": {
+                  "enabled": true,
+                  "source_file": "E:\\gao6gongdan\\工单7\\研发\\data\\processed\\image_blocks.jsonl",
+                  "records": 175,
+                  "skipped_files": [
+                    "images.jsonl"
+                  ],
+                  "fallback": false,
+                  "merged_groups": 105,
+                  "merged_from_records": 175,
+                  "chunks": 105,
+                  "by_corpus": {
+                    "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf": 3,
+                    "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf": 27,
+                    "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf": 2,
+                    "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf": 4,
+                    "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf": 3,
+                    "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf": 21,
+                    "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf": 37,
+                    "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf": 4,
+                    "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf": 4
+                  },
+                  "corpora_without_image_blocks": [],
+                  "coverage_note": "图像内容解析范围 = 2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf、2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf、2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf、2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf、2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf、2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf、2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf、2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf、2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf（图像题证据页所在语料）；未纳入图像块 = 无。说明：招股说明书1 的 image_blocks/charts/diagrams 均为 0（T2 未提供该语料的图像块），本索引只收录 T2 实际产出的图像块，**不代为声明 PDF1 的图像已被解析**；对 16 题无影响（第 5、6 题的证据页 39/72 均在招股说明书2）。如需全语料图像解析，属 T2 的 extract_images.py --all 范畴，代价须由 T2 实测给出。",
+                  "evidence_weight_policy": "文本/表格块 evidence_weight=1.0；图像块 diagram/chart=1.0、picture=0.4。依据：picture（页眉 banner、签章页大图等）只有 CLIP 零样本标签，属**弱证据**（T2 实测提醒），与 diagram/chart 同权会挤掉正文证据。该字段只是**建议权重**，是否使用由检索层（T5）决定；检索层也可改用 modality=true 的硬过滤或单独通道（设计/接口设计.md §3.4 的 modality 参数）。"
+                },
+                "content_snapshot": "chunks_indexed.jsonl",
+                "content_sha1_sample": [
+                  [
+                    "20200214-p1-img-279-0",
+                    "41b9ccdc694e6e2b9c22c8ee11f9163a69066379"
+                  ],
+                  [
+                    "20200214-p1-x0",
+                    "ff521295399f30dda2bd9e9fc693a699f0b8878a"
+                  ],
+                  [
+                    "20200214-p2-x0",
+                    "399b8d0d9a4e1d232a2ae9ada49c2be0d015c817"
+                  ]
+                ]
+              }
+            },
+            "stats": {
+              "asked": 19,
+              "refused": 0,
+              "cache_hit": 19
+            },
+            "config": {
+              "top_k": 5,
+              "prompt_top_k": 3,
+              "embed_model": "bge-m3:latest",
+              "gen_model": "qwen2.5:3b",
+              "backend_cfg": "auto"
+            }
+          }
+        },
+        "warmup": {
+          "index_chunks": 8847,
+          "tokenizer": {
+            "cold_ms": 0.18,
+            "warm_ms": 0.1,
+            "tokens": 9,
+            "backend": "jieba"
+          },
+          "entity_tagger": {
+            "ok": true,
+            "sample_nouns": [
+              "武汉",
+              "新科",
+              "电子",
+              "股份",
+              "有限公司",
+              "注册资本"
+            ],
+            "elapsed_ms": 1918.27
+          },
+          "embedding": {
+            "backend": "ollama",
+            "model": "bge-m3:latest",
+            "dim": 1024,
+            "cold_ms": 2069.69,
+            "warm_ms": 22.22,
+            "total_ms": 2249.55
+          },
+          "fulltext_index": {
+            "fulltext_index": {
+              "chunks": 8847,
+              "fields": {
+                "content": 64134,
+                "title": 4795,
+                "keywords": 47593,
+                "summary": 42422
+              },
+              "ms": 14699.0
+            },
+            "models": [
+              {
+                "id": "bge-m3",
+                "dim": 1024,
+                "index_built": true
+              },
+              {
+                "id": "m3e-base",
+                "dim": 768,
+                "index_built": false
+              }
+            ],
+            "models_ms": 2.6,
+            "elapsed_ms": 14701.69
+          },
+          "generate": {
+            "ok": false,
+            "reason": "无可用生成后端（extractive 路径无需预热）"
+          },
+          "elapsed_ms": 22161.32
+        }
+      }
+    }
+  }
+}

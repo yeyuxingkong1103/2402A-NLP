@@ -1,0 +1,27 @@
+{
+  "service": "金融问答系统（RAG）容器 API",
+  "work_order": "人工智能NLP-RAG 项目-金融问答系统部署",
+  "api_version": "1.0.0",
+  "python": "3.11.15",
+  "platform": "Windows-10-10.0.22631-SP0",
+  "containerized": false,
+  "endpoints": [
+    "GET /health",
+    "GET /healthz",
+    "GET /readyz",
+    "GET /metrics",
+    "POST /api/v1/ask",
+    "GET /api/v1/sessions",
+    "GET /api/v1/index",
+    "POST /api/v1/retrieve",
+    "GET /docs",
+    "GET /openapi.json"
+  ],
+  "ports": {
+    "api": 8200,
+    "ui": 8201
+  },
+  "session_backend": "redis+file",
+  "sessions_on_disk": 33,
+  "uptime_s": 159.88
+}
