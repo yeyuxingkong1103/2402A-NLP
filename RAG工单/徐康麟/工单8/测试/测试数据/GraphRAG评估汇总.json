@@ -1,0 +1,705 @@
+{
+  "工单": "人工智能NLP-RAG-基于Graph RAG 实现金融问答",
+  "生成时间": "2026-10-12 20:51:00",
+  "口径": {
+    "问题集": "E:\\gao6gongdan\\工单8\\研发\\data\\测试问题集.jsonl",
+    "问题集来源": "工单7 研发/评估/测试问题集.jsonl（17 题）",
+    "eval_question.md": "附件目录内未提供该文件，故以 工单7 的 17 题测试集作为检索问题集（设计/需求分析.md §5）",
+    "判分": "直接复用 工单7 研发/评估/判分.py（阈值 0.6/0.3/0.6，数字边界口径一致）",
+    "top_k": 10,
+    "use_cache": false,
+    "生成模型": "qwen2.5:3b (ollama)",
+    "embed_model": "bge-m3:latest（工单7 索引，1024 维）",
+    "图谱": {
+      "节点": 9817,
+      "边": 4861,
+      "schema": "graphrag-fin-1.0",
+      "hop": 2,
+      "graph_slots": ""
+    },
+    "配置指纹": "d2de7b19ad5c59b3"
+  },
+  "总数": 17,
+  "有效题数": 17,
+  "异常题数": 0,
+  "异常题号": [],
+  "准确率": {
+    "严格判对题数": 5,
+    "严格准确率": 0.2941,
+    "判对题号": [
+      "Q05",
+      "Q06",
+      "Q15",
+      "Q16",
+      "Q17"
+    ],
+    "部分正确题数": 8,
+    "部分正确题号": [
+      "Q01",
+      "Q03",
+      "Q07",
+      "Q08",
+      "Q09",
+      "Q10",
+      "Q12",
+      "Q14"
+    ],
+    "宽松准确率(严格+部分)": 0.7647,
+    "平均关键词覆盖率": 0.3997
+  },
+  "检索召回": {
+    "平均recall@5": 0.7563,
+    "平均recall@10": 0.8025,
+    "recall@5=1.0的题数": 8,
+    "recall@10=1.0的题数": 9
+  },
+  "响应时间ms": {
+    "样本数": 17,
+    "平均": 4080.4071,
+    "中位": 4179.61,
+    "P90": 5240.42,
+    "P95": 5262.86,
+    "最大": 8274.11,
+    "最小": 1963.19,
+    "检索_平均": 128.2135,
+    "图谱扩展_平均": 4.6829,
+    "生成_平均": 3946.9359
+  },
+  "SLA": {
+    "阈值ms": 3000,
+    "达标题数": 5,
+    "达标率": 0.2941,
+    "超时题号": [
+      "Q01",
+      "Q03",
+      "Q04",
+      "Q07",
+      "Q08",
+      "Q09",
+      "Q10",
+      "Q11",
+      "Q13",
+      "Q14",
+      "Q15",
+      "Q17"
+    ]
+  },
+  "拒答": {
+    "拒答题数": 0,
+    "拒答率": 0.0,
+    "拒答题号": []
+  },
+  "页命中": {
+    "命中题数": 15,
+    "命中率": 0.8824
+  },
+  "跨语料泄漏": {
+    "题数": 1,
+    "题号": [
+      "Q09"
+    ]
+  },
+  "图谱扩展增量": {
+    "参与消融的题数": 17,
+    "基础检索_recall@5": 0.7297,
+    "图谱增强_recall@5": 0.7563,
+    "recall@5_提升": 0.0266,
+    "基础检索_recall@10": 0.8025,
+    "图谱增强_recall@10": 0.8025,
+    "recall@10_提升": 0.0,
+    "图谱独有块进入Top5的题数": 0,
+    "图谱独有块进入Top5的题号": [],
+    "图谱独有块进入Top5总数": 0,
+    "逐题明细": [
+      {
+        "id": "Q01",
+        "base_recall_at_5": 1.0,
+        "base_recall_at_10": 1.0,
+        "graph_recall_at_5": 1.0,
+        "graph_recall_at_10": 1.0,
+        "recall_at_5_delta": 0.0,
+        "recall_at_10_delta": 0.0,
+        "graph_only_in_top5": 0,
+        "graph_only_ids": [],
+        "base_top5_ids": [
+          "20200214-p5-x1",
+          "20200214-p5-x0",
+          "20200214-p81-t0-0",
+          "20200214-p39-t0-0",
+          "20200214-p23-t0-0"
+        ],
+        "graph_top5_ids": [
+          "20200214-p5-x1",
+          "20200214-p5-x0",
+          "20200214-p81-t0-0",
+          "20200214-p39-t0-0",
+          "20200214-p23-t0-0"
+        ]
+      },
+      {
+        "id": "Q02",
+        "base_recall_at_5": 0.8333,
+        "base_recall_at_10": 0.8333,
+        "graph_recall_at_5": 0.8333,
+        "graph_recall_at_10": 0.8333,
+        "recall_at_5_delta": 0.0,
+        "recall_at_10_delta": 0.0,
+        "graph_only_in_top5": 0,
+        "graph_only_ids": [],
+        "base_top5_ids": [
+          "20200321-p5-x0",
+          "20200321-p83-x0",
+          "20200321-p207-t1-0",
+          "20200321-p55-x0",
+          "20200321-p5-x1"
+        ],
+        "graph_top5_ids": [
+          "20200321-p5-x0",
+          "20200321-p83-x0",
+          "20200321-p207-t1-0",
+          "20200321-p5-x1",
+          "20200321-p55-x0"
+        ]
+      },
+      {
+        "id": "Q03",
+        "base_recall_at_5": 0.2857,
+        "base_recall_at_10": 0.4286,
+        "graph_recall_at_5": 0.2857,
+        "graph_recall_at_10": 0.4286,
+        "recall_at_5_delta": 0.0,
+        "recall_at_10_delta": 0.0,
+        "graph_only_in_top5": 0,
+        "graph_only_ids": [],
+        "base_top5_ids": [
+          "20200214-p125-t0-0",
+          "20200214-p227-x0",
+          "20200214-p125-x0",
+          "20200214-p43-x1",
+          "20200214-p227-x1"
+        ],
+        "graph_top5_ids": [
+          "20200214-p125-t0-0",
+          "20200214-p227-x0",
+          "20200214-p43-x1",
+          "20200214-p125-x0",
+          "20200214-p227-x1"
+        ]
+      },
+      {
+        "id": "Q04",
+        "base_recall_at_5": 0.0,
+        "base_recall_at_10": 0.1429,
+        "graph_recall_at_5": 0.0,
+        "graph_recall_at_10": 0.1429,
+        "recall_at_5_delta": 0.0,
+        "recall_at_10_delta": 0.0,
+        "graph_only_in_top5": 0,
+        "graph_only_ids": [],
+        "base_top5_ids": [
+          "20200321-p48-x1",
+          "20210326-p29-x3",
+          "20200321-p48-x0",
+          "20210326-p29-x0",
+          "20210319-p26-x1"
+        ],
+        "graph_top5_ids": [
+          "20200321-p48-x1",
+          "20210326-p29-x3",
+          "20200321-p48-x0",
+          "20210326-p29-x0",
+          "20210319-p26-x1"
+        ]
+      },
+      {
+        "id": "Q05",
+        "base_recall_at_5": 1.0,
+        "base_recall_at_10": 1.0,
+        "graph_recall_at_5": 1.0,
+        "graph_recall_at_10": 1.0,
+        "recall_at_5_delta": 0.0,
+        "recall_at_10_delta": 0.0,
+        "graph_only_in_top5": 0,
+        "graph_only_ids": [],
+        "base_top5_ids": [
+          "20200321-p251-t2-0",
+          "20200321-p3-x0",
+          "20200321-p251-t3-0",
+          "20200321-p251-x0",
+          "20200321-p3-x1"
+        ],
+        "graph_top5_ids": [
+          "20200321-p3-x0",
+          "20200321-p251-t2-0",
+          "20200321-p3-x1",
+          "20200321-p251-t3-0",
+          "20200321-p251-x0"
+        ]
+      },
+      {
+        "id": "Q06",
+        "base_recall_at_5": 1.0,
+        "base_recall_at_10": 1.0,
+        "graph_recall_at_5": 1.0,
+        "graph_recall_at_10": 1.0,
+        "recall_at_5_delta": 0.0,
+        "recall_at_10_delta": 0.0,
+        "graph_only_in_top5": 0,
+        "graph_only_ids": [],
+        "base_top5_ids": [
+          "20210319-p2-x0",
+          "20210319-p83-t0-0",
+          "20210319-p2-x1",
+          "20210319-p100-t0-0",
+          "20210319-p83-x0"
+        ],
+        "graph_top5_ids": [
+          "20210319-p2-x0",
+          "20210319-p83-t0-0",
+          "20210319-p2-x1",
+          "20210319-p100-t0-0",
+          "20210319-p83-x0"
+        ]
+      },
+      {
+        "id": "Q07",
+        "base_recall_at_5": 0.7143,
+        "base_recall_at_10": 0.7143,
+        "graph_recall_at_5": 0.7143,
+        "graph_recall_at_10": 0.7143,
+        "recall_at_5_delta": 0.0,
+        "recall_at_10_delta": 0.0,
+        "graph_only_in_top5": 0,
+        "graph_only_ids": [],
+        "base_top5_ids": [
+          "20200214-p19-t1-0",
+          "20200214-p44-t0-0",
+          "20200214-p20-t1-0",
+          "20200214-p24-t0-0",
+          "20200214-p43-x1"
+        ],
+        "graph_top5_ids": [
+          "20200214-p19-t1-0",
+          "20200214-p44-t0-0",
+          "20200214-p20-t1-0",
+          "20200214-p24-t0-0",
+          "20200214-p43-x1"
+        ]
+      },
+      {
+        "id": "Q08",
+        "base_recall_at_5": 0.5714,
+        "base_recall_at_10": 0.8571,
+        "graph_recall_at_5": 0.8571,
+        "graph_recall_at_10": 0.8571,
+        "recall_at_5_delta": 0.2857,
+        "recall_at_10_delta": 0.0,
+        "graph_only_in_top5": 0,
+        "graph_only_ids": [],
+        "base_top5_ids": [
+          "20200321-p15-t0-0",
+          "20200321-p15-x0",
+          "20200321-p15-x1",
+          "20200321-p19-x0",
+          "20200321-p257-t0-0"
+        ],
+        "graph_top5_ids": [
+          "20200321-p15-t0-0",
+          "20200321-p15-x0",
+          "20200321-p7-x0",
+          "20200321-p19-x0",
+          "20200321-p15-x1"
+        ]
+      },
+      {
+        "id": "Q09",
+        "base_recall_at_5": 0.5,
+        "base_recall_at_10": 0.5,
+        "graph_recall_at_5": 0.5,
+        "graph_recall_at_10": 0.5,
+        "recall_at_5_delta": 0.0,
+        "recall_at_10_delta": 0.0,
+        "graph_only_in_top5": 0,
+        "graph_only_ids": [],
+        "base_top5_ids": [
+          "20200321-p19-x0",
+          "20200221-p40-x0",
+          "20200321-p19-t0-0",
+          "20200221-p41-x2",
+          "20200221-p40-x1"
+        ],
+        "graph_top5_ids": [
+          "20200321-p19-x0",
+          "20200221-p40-x0",
+          "20200214-p1-x0",
+          "20200321-p19-t0-0",
+          "20200221-p41-x2"
+        ]
+      },
+      {
+        "id": "Q10",
+        "base_recall_at_5": 0.6667,
+        "base_recall_at_10": 1.0,
+        "graph_recall_at_5": 0.8333,
+        "graph_recall_at_10": 1.0,
+        "recall_at_5_delta": 0.1666,
+        "recall_at_10_delta": 0.0,
+        "graph_only_in_top5": 0,
+        "graph_only_ids": [],
+        "base_top5_ids": [
+          "20210319-p115-x1",
+          "20210319-p115-x0",
+          "20210319-p11-t1-0",
+          "20210319-p12-t0-0",
+          "20210319-p11-t2-0"
+        ],
+        "graph_top5_ids": [
+          "20210319-p115-x1",
+          "20210319-p115-x0",
+          "20210319-p11-t1-0",
+          "20210319-p12-t0-0",
+          "20210319-p30-x0"
+        ]
+      },
+      {
+        "id": "Q11",
+        "base_recall_at_5": 1.0,
+        "base_recall_at_10": 1.0,
+        "graph_recall_at_5": 1.0,
+        "graph_recall_at_10": 1.0,
+        "recall_at_5_delta": 0.0,
+        "recall_at_10_delta": 0.0,
+        "graph_only_in_top5": 0,
+        "graph_only_ids": [],
+        "base_top5_ids": [
+          "20210326-p8-x0",
+          "20210326-p8-t0-0",
+          "20210326-p11-t0-0",
+          "20210326-p8-x1",
+          "20210326-p15-t0-0"
+        ],
+        "graph_top5_ids": [
+          "20210326-p8-x0",
+          "20210326-p8-t0-0",
+          "20210326-p11-t0-0",
+          "20210326-p8-x1",
+          "20210326-p15-t0-0"
+        ]
+      },
+      {
+        "id": "Q12",
+        "base_recall_at_5": 0.8333,
+        "base_recall_at_10": 0.8333,
+        "graph_recall_at_5": 0.8333,
+        "graph_recall_at_10": 0.8333,
+        "recall_at_5_delta": 0.0,
+        "recall_at_10_delta": 0.0,
+        "graph_only_in_top5": 0,
+        "graph_only_ids": [],
+        "base_top5_ids": [
+          "20220328-13ed9d5b-p152-t0-0",
+          "20220328-13ed9d5b-p43-t0-0",
+          "20220328-13ed9d5b-p39-t2-0",
+          "20220328-13ed9d5b-p223-t1-0",
+          "20220328-13ed9d5b-p223-t2-0"
+        ],
+        "graph_top5_ids": [
+          "20220328-13ed9d5b-p152-t0-0",
+          "20220328-13ed9d5b-p43-t0-0",
+          "20220328-13ed9d5b-p39-t2-0",
+          "20220328-13ed9d5b-p223-t1-0",
+          "20220328-13ed9d5b-p223-t2-0"
+        ]
+      },
+      {
+        "id": "Q13",
+        "base_recall_at_5": 0.0,
+        "base_recall_at_10": 0.3333,
+        "graph_recall_at_5": 0.0,
+        "graph_recall_at_10": 0.3333,
+        "recall_at_5_delta": 0.0,
+        "recall_at_10_delta": 0.0,
+        "graph_only_in_top5": 0,
+        "graph_only_ids": [],
+        "base_top5_ids": [
+          "20200326-p8-t0-0",
+          "20200326-p8-x0",
+          "20200326-p104-t1-0",
+          "20200326-p13-t0-0",
+          "20200326-p104-t0-0"
+        ],
+        "graph_top5_ids": [
+          "20200326-p8-t0-0",
+          "20200326-p8-x0",
+          "20200326-p104-t1-0",
+          "20200326-p13-t0-0",
+          "20200326-p104-t0-0"
+        ]
+      },
+      {
+        "id": "Q14",
+        "base_recall_at_5": 1.0,
+        "base_recall_at_10": 1.0,
+        "graph_recall_at_5": 1.0,
+        "graph_recall_at_10": 1.0,
+        "recall_at_5_delta": 0.0,
+        "recall_at_10_delta": 0.0,
+        "graph_only_in_top5": 0,
+        "graph_only_ids": [],
+        "base_top5_ids": [
+          "20220328-4a2b168a-p17-t1-0",
+          "20220328-4a2b168a-p34-t0-0",
+          "20220328-4a2b168a-p44-t1-0",
+          "20220328-4a2b168a-p231-t0-0",
+          "20220328-4a2b168a-p241-t1-0"
+        ],
+        "graph_top5_ids": [
+          "20220328-4a2b168a-p17-t1-0",
+          "20220328-4a2b168a-p34-t0-0",
+          "20220328-4a2b168a-p44-t1-0",
+          "20220328-4a2b168a-p231-t0-0",
+          "20220328-4a2b168a-p241-t1-0"
+        ]
+      },
+      {
+        "id": "Q15",
+        "base_recall_at_5": 1.0,
+        "base_recall_at_10": 1.0,
+        "graph_recall_at_5": 1.0,
+        "graph_recall_at_10": 1.0,
+        "recall_at_5_delta": 0.0,
+        "recall_at_10_delta": 0.0,
+        "graph_only_in_top5": 0,
+        "graph_only_ids": [],
+        "base_top5_ids": [
+          "20220331-p4-x0",
+          "20220331-p39-x1",
+          "20220331-p4-x1",
+          "20220331-p229-t2-0",
+          "20220331-p236-t2-0"
+        ],
+        "graph_top5_ids": [
+          "20220331-p4-x0",
+          "20220331-p39-x1",
+          "20220331-p4-x1",
+          "20220331-p229-t2-0",
+          "20220331-p236-t2-0"
+        ]
+      },
+      {
+        "id": "Q16",
+        "base_recall_at_5": 1.0,
+        "base_recall_at_10": 1.0,
+        "graph_recall_at_5": 1.0,
+        "graph_recall_at_10": 1.0,
+        "recall_at_5_delta": 0.0,
+        "recall_at_10_delta": 0.0,
+        "graph_only_in_top5": 0,
+        "graph_only_ids": [],
+        "base_top5_ids": [
+          "20200221-p20-x0",
+          "20200221-p131-x0",
+          "20200221-p7-x0",
+          "20200221-p20-x1",
+          "20200221-p6-x0"
+        ],
+        "graph_top5_ids": [
+          "20200221-p20-x0",
+          "20200221-p7-x0",
+          "20200221-p131-x0",
+          "20200221-p6-x0",
+          "20200221-p20-x1"
+        ]
+      },
+      {
+        "id": "Q17",
+        "base_recall_at_5": 1.0,
+        "base_recall_at_10": 1.0,
+        "graph_recall_at_5": 1.0,
+        "graph_recall_at_10": 1.0,
+        "recall_at_5_delta": 0.0,
+        "recall_at_10_delta": 0.0,
+        "graph_only_in_top5": 0,
+        "graph_only_ids": [],
+        "base_top5_ids": [
+          "20220328-13ed9d5b-p3-x0",
+          "20220328-13ed9d5b-p3-x1",
+          "20220328-13ed9d5b-p56-img-x-0",
+          "20220328-13ed9d5b-p31-x0",
+          "20220328-13ed9d5b-p56-t0-0"
+        ],
+        "graph_top5_ids": [
+          "20220328-13ed9d5b-p3-x0",
+          "20220328-13ed9d5b-p3-x1",
+          "20220328-13ed9d5b-p31-x0",
+          "20220328-13ed9d5b-p56-img-x-0",
+          "20220328-13ed9d5b-p5-x0"
+        ]
+      }
+    ]
+  },
+  "与工单7对比": {
+    "基线来源": "E:\\gao6gongdan\\工单7\\测试\\测试数据\\评估结果.jsonl",
+    "基线汇总来源": "E:\\gao6gongdan\\工单7\\测试\\测试数据\\评估汇总.json",
+    "可比题数": 17,
+    "工单7_严格准确率": 0.2353,
+    "工单8_严格准确率": 0.2941,
+    "严格准确率_提升": 0.0588,
+    "工单7_平均recall@5": 0.7319,
+    "工单8_平均recall@5": 0.7563,
+    "recall@5_提升": 0.0244,
+    "工单7_平均响应时间ms": 1500.6612,
+    "工单8_平均响应时间ms": 4080.4071,
+    "响应时间_变化ms": 2579.75,
+    "工单7_索引chunk_total": 8847,
+    "基线生成时间": "2026-10-08 12:56:25"
+  },
+  "按题型分组": {
+    "定性题": {
+      "题数": 5,
+      "判对题数": 2,
+      "判对率": 0.4,
+      "平均关键词覆盖率": 0.3676,
+      "平均recall@5": 0.8238,
+      "平均recall@10": 0.8524,
+      "平均总耗时ms": 4614.79,
+      "拒答题数": 0
+    },
+    "跨文档对比题": {
+      "题数": 2,
+      "判对题数": 0,
+      "判对率": 0.0,
+      "平均关键词覆盖率": 0.25,
+      "平均recall@5": 0.25,
+      "平均recall@10": 0.3215,
+      "平均总耗时ms": 4148.555,
+      "拒答题数": 0
+    },
+    "数值题": {
+      "题数": 9,
+      "判对题数": 3,
+      "判对率": 0.3333,
+      "平均关键词覆盖率": 0.4952,
+      "平均recall@5": 0.9153,
+      "平均recall@10": 0.9339,
+      "平均总耗时ms": 3757.3611,
+      "拒答题数": 0
+    },
+    "英文题": {
+      "题数": 1,
+      "判对题数": 0,
+      "判对率": 0.0,
+      "平均关键词覆盖率": 0.0,
+      "平均recall@5": 0.0,
+      "平均recall@10": 0.3333,
+      "平均总耗时ms": 4179.61,
+      "拒答题数": 0
+    }
+  },
+  "运行元信息": {
+    "warmup": {
+      "index_chunks": 8847,
+      "index_dir": "E:\\gao6gongdan\\工单7\\研发\\data\\index\\bge-m3_1024",
+      "graph": {
+        "nodes": 9817,
+        "edges": 4861,
+        "ready": true,
+        "load_ms": 204.87
+      },
+      "llm_available": true,
+      "elapsed_ms": 4514.15
+    },
+    "interpreter": "E:\\gao6gongdan\\工单1\\.venv\\Scripts\\python.exe",
+    "cwd": "E:\\gao6gongdan\\工单8",
+    "elapsed_ms": 76306.71,
+    "config": {
+      "repo_root": "E:\\gao6gongdan\\工单8",
+      "base_repo": "E:\\gao6gongdan\\工单7",
+      "index_dir": "E:\\gao6gongdan\\工单7\\研发\\data\\index",
+      "processed_dir": "E:\\gao6gongdan\\工单7\\研发\\data\\processed",
+      "graph_dir": "E:\\gao6gongdan\\工单8\\研发\\data\\graph",
+      "raw_dir": "E:\\gao6gongdan\\工单8\\研发\\data\\raw",
+      "question_set": "E:\\gao6gongdan\\工单8\\研发\\data\\测试问题集.jsonl",
+      "log_dir": "E:\\gao6gongdan\\工单8\\部署\\日志",
+      "base_eval_summary": "E:\\gao6gongdan\\工单7\\测试\\测试数据\\评估汇总.json",
+      "base_eval_jsonl": "E:\\gao6gongdan\\工单7\\测试\\测试数据\\评估结果.jsonl",
+      "extract": {
+        "include_table_chunks": false,
+        "max_scan_chars": 4000,
+        "confidence": {
+          "org_fullname": 0.95,
+          "org_short": 0.8,
+          "institution": 0.9,
+          "person_title": 0.88,
+          "person_bare": 0.55,
+          "metric": 0.92,
+          "amount": 0.9,
+          "ratio": 0.9,
+          "date": 0.85,
+          "product": 0.7,
+          "relation_pattern": 0.86,
+          "relation_cooccur": 0.55,
+          "relation_llm": 0.75
+        },
+        "mentions_per_entity": 6,
+        "max_doc_ratio": 0.08,
+        "min_entity_len": 2,
+        "max_relations_per_sentence": 6,
+        "max_entity_len": 30,
+        "uninformative_ratio_max": 10.0
+      },
+      "retrieval": {
+        "top_k": 10,
+        "base_k": 10,
+        "use_cache": false,
+        "hop": 2,
+        "max_expand_nodes": 40,
+        "max_graph_chunks": 15,
+        "graph_seed_score": 0.055,
+        "graph_hop1_score": 0.035,
+        "graph_hop2_score": 0.022,
+        "graph_slots": "",
+        "graph_augment_max": 5,
+        "graph_corpus_filter": true,
+        "min_entity_name_len": 2,
+        "prompt_top_k": 5,
+        "evidence_max_per_page": 2,
+        "evidence_prefer_text": true,
+        "page_context_extra": 0,
+        "min_confidence": 0.55
+      },
+      "llm": {
+        "enabled": true,
+        "base_url": "http://127.0.0.1:11434",
+        "model": "qwen2.5:3b",
+        "sample_chunks": 500,
+        "sample_seed": 20260108,
+        "max_chars_per_chunk": 320,
+        "timeout_s": 45.0,
+        "num_ctx": 2048,
+        "max_relations_per_chunk": 3,
+        "retry": 0,
+        "concurrency": 1,
+        "keep_alive": "120s"
+      },
+      "viz": {
+        "top_nodes": 120,
+        "canvas": [
+          2400,
+          1600
+        ],
+        "iterations": 320,
+        "repulsion": 12000.0,
+        "spring": 0.012,
+        "damping": 0.86,
+        "label_min_degree": 2,
+        "max_edges": 400,
+        "min_edges": 120,
+        "random_seed": 42,
+        "legend": true,
+        "node_radius_min": 7,
+        "node_radius_max": 26
+      }
+    }
+  }
+}

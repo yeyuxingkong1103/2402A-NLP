@@ -1,0 +1,151 @@
+{
+  "work_order": "人工智能NLP-RAG-基于Graph RAG 实现金融问答",
+  "built_at": "2026-10-12 20:49:02",
+  "chunks_source": "E:\\gao6gongdan\\工单7\\研发\\data\\index\\bge-m3_1024\\chunks_indexed.jsonl",
+  "chunks_scanned": 7430,
+  "entities": 9817,
+  "relations": 4861,
+  "mentions": 22681,
+  "entities_by_type": {
+    "company": 2543,
+    "institution": 2238,
+    "date": 625,
+    "product": 628,
+    "person": 46,
+    "amount": 457,
+    "metric": 2442,
+    "ratio": 830,
+    "city": 8
+  },
+  "relations_by_type": {
+    "母子公司": 852,
+    "同比变动": 243,
+    "披露": 1683,
+    "拥有": 951,
+    "任职": 26,
+    "指标取值": 556,
+    "发行": 232,
+    "持股": 219,
+    "归属于": 75,
+    "位于": 24
+  },
+  "relations_by_extractor": {
+    "rule_cooccur": 3480,
+    "rule_change": 243,
+    "rule_title": 26,
+    "rule_trigger": 614,
+    "rule_clause": 429,
+    "rule_belong": 45,
+    "rule_city": 24
+  },
+  "counters": {
+    "chunk_scanned": 7430,
+    "dropped_institution_stopword": 205,
+    "dropped_metric_form": 4276,
+    "dropped_org_form": 960,
+    "dropped_person_form": 601,
+    "dropped_product_form": 1451,
+    "dropped_ratio_uninformative": 2014,
+    "dropped_self_loop": 86,
+    "dropped_type_mismatch_任职": 110,
+    "dropped_type_mismatch_位于": 16,
+    "dropped_type_mismatch_发行": 85,
+    "dropped_type_mismatch_同比变动": 246,
+    "dropped_type_mismatch_归属于": 65,
+    "dropped_type_mismatch_披露": 5,
+    "dropped_type_mismatch_拥有": 169,
+    "dropped_type_mismatch_持股": 193,
+    "dropped_type_mismatch_指标取值": 8,
+    "dropped_type_mismatch_母子公司": 1354,
+    "entity_new_amount": 2323,
+    "entity_new_city": 8,
+    "entity_new_company": 2543,
+    "entity_new_date": 1660,
+    "entity_new_institution": 2238,
+    "entity_new_metric": 9333,
+    "entity_new_person": 46,
+    "entity_new_product": 3354,
+    "entity_new_ratio": 1774,
+    "pruned_high_frequency": 4,
+    "pruned_low_support": 13458,
+    "relation_duplicate_kept_stronger": 2202,
+    "relation_任职": 26,
+    "relation_位于": 24,
+    "relation_发行": 310,
+    "relation_同比变动": 304,
+    "relation_归属于": 77,
+    "relation_披露": 2650,
+    "relation_拥有": 1480,
+    "relation_持股": 326,
+    "relation_指标取值": 1286,
+    "relation_母子公司": 852
+  },
+  "prune": {
+    "chunks_scanned": 7430,
+    "max_doc_ratio": 0.08,
+    "limit_chunks": 594,
+    "pruned": 4,
+    "samples": [
+      {
+        "id": "2019年度",
+        "name": "2019年度",
+        "type": "date",
+        "count": 1203,
+        "limit": 594
+      },
+      {
+        "id": "2019年12月31日",
+        "name": "2019年12月31日",
+        "type": "date",
+        "count": 1569,
+        "limit": 594
+      },
+      {
+        "id": "2020年12月31日",
+        "name": "2020年12月31日",
+        "type": "date",
+        "count": 757,
+        "limit": 594
+      },
+      {
+        "id": "2018年12月31日",
+        "name": "2018年12月31日",
+        "type": "date",
+        "count": 848,
+        "limit": 594
+      }
+    ]
+  },
+  "prune_low_support": {
+    "min_mentions": 2,
+    "pruned": 13458,
+    "samples": [
+      "本报告涉及未来计划",
+      "深发展",
+      "为股东创造价值",
+      "零售进一步巩固收入",
+      "大对公六四占比",
+      "净利润增速",
+      "且这份成绩单建立在扎实的资产",
+      "智慧经营平台",
+      "通过智慧经营平台",
+      "数据化能力促进模式",
+      "推动企业直接融资占比",
+      "473亿元",
+      "46亿元",
+      "客户可以较低成本",
+      "让金融覆盖"
+    ]
+  },
+  "llm_supplement": {
+    "enabled": false
+  },
+  "elapsed_ms": 5217.16,
+  "outputs": {
+    "entities": "E:\\gao6gongdan\\工单8\\研发\\data\\graph\\entities.jsonl",
+    "relations": "E:\\gao6gongdan\\工单8\\研发\\data\\graph\\relations.jsonl",
+    "graph": "E:\\gao6gongdan\\工单8\\研发\\data\\graph\\graph.json",
+    "graphml": "E:\\gao6gongdan\\工单8\\研发\\data\\graph\\graph.graphml"
+  },
+  "config_fingerprint": "d2de7b19ad5c59b3"
+}

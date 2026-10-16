@@ -1,0 +1,94 @@
+# 工单8 部署配置（阈值与路径，可被环境变量覆盖）
+#
+# 工单编号：人工智能NLP-RAG-基于Graph RAG 实现金融问答
+#
+# 说明：
+#   * 本文件是**配置快照**（人读用），真源仍是 `研发/app/graphrag/config.py`；
+#   * 覆盖方式：环境变量 `GRAPHRAG_<段>__<字段>`（段 = EXTRACT / RETRIEVAL / LLM / VIZ），
+#     例如 `$env:GRAPHRAG_RETRIEVAL__HOP='1'`；
+#   * 任何修改都会被记进缓存指纹（`config.fingerprint()`），检索缓存随之失效。
+
+{
+  "work_order": "人工智能NLP-RAG-基于Graph RAG 实现金融问答",
+  "paths": {
+    "index_dir": "E:\\gao6gongdan\\工单7\\研发\\data\\index",
+    "index_dir_note": "★ 只读引用 工单7 已建索引（bge-m3_1024，8847 块），本工单不重新解析/嵌入",
+    "processed_dir": "E:\\gao6gongdan\\工单7\\研发\\data\\processed",
+    "graph_dir": "E:\\gao6gongdan\\工单8\\研发\\data\\graph",
+    "raw_dir": "E:\\gao6gongdan\\工单8\\研发\\data\\raw",
+    "question_set": "E:\\gao6gongdan\\工单8\\研发\\data\\测试问题集.jsonl",
+    "log_dir": "E:\\gao6gongdan\\工单8\\部署\\日志",
+    "base_eval_summary": "E:\\gao6gongdan\\工单7\\测试\\测试数据\\评估汇总.json",
+    "base_eval_jsonl": "E:\\gao6gongdan\\工单7\\测试\\测试数据\\评估结果.jsonl"
+  },
+  "server": {
+    "host": "127.0.0.1",
+    "port": 8124,
+    "note": "工单7 用 8123，本工单用 8124，避免串台"
+  },
+  "extract": {
+    "include_table_chunks": false,
+    "max_scan_chars": 4000,
+    "mentions_per_entity": 6,
+    "max_doc_ratio": 0.08,
+    "max_entity_len": 30,
+    "min_entity_len": 2,
+    "max_relations_per_sentence": 6,
+    "uninformative_ratio_max": 10.0,
+    "confidence": {
+      "org_fullname": 0.95, "org_short": 0.8, "institution": 0.9,
+      "person_title": 0.88, "person_bare": 0.55, "metric": 0.92,
+      "amount": 0.9, "ratio": 0.9, "date": 0.85, "product": 0.7,
+      "relation_pattern": 0.86, "relation_cooccur": 0.55, "relation_llm": 0.75
+    }
+  },
+  "retrieval": {
+    "top_k": 10,
+    "hop": 2,
+    "max_expand_nodes": 40,
+    "max_graph_chunks": 15,
+    "graph_seed_score": 0.055,
+    "graph_hop1_score": 0.035,
+    "graph_hop2_score": 0.022,
+    "graph_slots": "",
+    "graph_slots_note": "空 = 图谱块只追加不占名额（实测：占名额会把答案块挤出 Top-K）",
+    "graph_augment_max": 5,
+    "graph_corpus_filter": true,
+    "min_confidence": 0.55,
+    "min_entity_name_len": 2,
+    "prompt_top_k": 5,
+    "evidence_max_per_page": 2,
+    "evidence_prefer_text": true,
+    "page_context_extra": 0,
+    "page_context_extra_note": "0 = 关闭按页补全（9 家公司混排时会补进别家公司表格）",
+    "use_cache": false
+  },
+  "llm": {
+    "base_url": "http://127.0.0.1:11434",
+    "model": "qwen2.5:3b",
+    "sample_chunks": 400,
+    "sample_seed": 20260108,
+    "max_chars_per_chunk": 320,
+    "timeout_s": 45.0,
+    "num_ctx": 2048,
+    "max_relations_per_chunk": 3,
+    "keep_alive": "0s",
+    "keep_alive_note": "用完即卸载模型，禁止两个 Ollama 模型同时驻留（资源纪律 §5.5）"
+  },
+  "viz": {
+    "top_nodes": 120,
+    "canvas": [2400, 1600],
+    "iterations": 320,
+    "repulsion": 12000.0,
+    "spring": 0.012,
+    "damping": 0.86,
+    "label_min_degree": 2,
+    "max_edges": 400,
+    "min_edges": 120,
+    "min_degree": 2,
+    "random_seed": 42,
+    "legend": true,
+    "node_radius_min": 7,
+    "node_radius_max": 26
+  }
+}
