@@ -1,8 +1,0 @@
-{
- "components":{
-  "begin":{"obj":{"component_name":"Begin","params":{"prologue":"文档质检与分类入库"}},"downstream":["document_quality:0"],"upstream":[]},
-  "document_quality:0":{"obj":{"component_name":"DocumentQualityAssessment","params":{"paths":["/ragflow/industrial_documents"],"output_dir":"/ragflow/quality_reports"}},"upstream":["begin"],"downstream":["document_router:0"]},
-  "document_router:0":{"obj":{"component_name":"DocumentIngestionRouter","params":{"quality_node":"document_quality:0","max_documents":1}},"upstream":["document_quality:0"],"downstream":["message:0"]},
-  "message:0":{"obj":{"component_name":"Message","params":{"content":["质检结果：{document_quality:0@report}；分流执行：{document_router:0@parse_results}"]}},"upstream":["document_router:0"],"downstream":[]}
- },"history":[],"path":[],"globals":{"sys.query":""},"variables":{}
-}
