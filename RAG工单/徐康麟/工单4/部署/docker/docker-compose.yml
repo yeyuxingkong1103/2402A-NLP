@@ -1,0 +1,81 @@
+# =============================================================================
+# 工单：人工智能NLP-RAG-图像内容解析及检索优化
+# 文件：部署/docker/docker-compose.yml —— FastAPI 服务 + 纯标准库中文 Web（本地一键起）
+#
+# ⚠️ 运行状态（如实标注）：本机沙箱拒绝 Docker 命名管道，**未执行过 up/build**；
+#    已做的校验：`docker compose -f 部署/docker/docker-compose.yml config`（解析通过，见交付物核验）。
+#    在可访问 Docker 守护进程的环境里：
+#        docker compose -f 部署/docker/docker-compose.yml up -d --build
+#        curl http://127.0.0.1:8600/health
+#
+# 依赖约定：语料/索引/权重**不进镜像**，用只读卷挂载；嵌入与生成走**宿主机 Ollama**。
+# =============================================================================
+name: gongdan4-rag
+
+services:
+  rag-api:
+    build:
+      context: ../..                        # 构建上下文 = 仓库根（工单4）
+      dockerfile: 部署/docker/Dockerfile
+    image: gongdan4-rag-api:local
+    container_name: gongdan4-rag-api
+    command: ["python", "部署/脚本/serve_api.py", "--host", "0.0.0.0", "--port", "8600"]
+    ports:
+      - "8600:8600"
+    environment:
+      # 宿主机 Ollama（嵌入 bge-m3:latest + 生成 qwen2.5:3b）；容器内 127.0.0.1 不是宿主机
+      RAG_LLM__OLLAMA_BASE_URL: "http://host.docker.internal:11434"
+      # 索引目录 = 父目录（研发/data/index）；bge-m3_1024/ 子目录由程序自行解析
+      RAG_DATA__INDEX_DIR: "/app/研发/data/index"
+      RAG_DATA__RAW_DIR: "/app/研发/data/raw"
+      RAG_DATA__PROCESSED_DIR: "/app/研发/data/processed"
+      RAG_LOG__DIR: "/app/部署/日志"
+      PYTHONUTF8: "1"
+      PYTHONIOENCODING: "utf-8"
+    volumes:
+      - ../../研发/data/raw:/app/研发/data/raw:ro            # 只读语料（红线：禁止改动）
+      - ../../研发/data/processed:/app/研发/data/processed:ro
+      - ../../研发/data/index:/app/研发/data/index:ro        # 向量/BM25/清单
+      - ../../研发/data/models:/app/研发/data/models:ro      # 中文 CLIP 权重（服务端不加载，留作解析用）
+      - ../../部署/日志:/app/部署/日志                       # 结构化日志可写
+    extra_hosts:
+      - "host.docker.internal:host-gateway"                # Linux 宿主需要；Windows/macOS 自带
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8600/health', timeout=10).status == 200 else 1)"]
+      interval: 30s
+      timeout: 15s
+      start_period: 180s
+      retries: 5
+    restart: unless-stopped
+
+  rag-web:
+    # 纯标准库中文 Web 界面（研发/app/ui/serve_fallback.py）：依赖最少、离线可用
+    build:
+      context: ../..
+      dockerfile: 部署/docker/Dockerfile
+    image: gongdan4-rag-api:local
+    container_name: gongdan4-rag-web
+    command: ["python", "研发/app/main.py", "--serve", "--host", "0.0.0.0", "--port", "8123"]
+    ports:
+      - "8123:8123"
+    environment:
+      RAG_LLM__OLLAMA_BASE_URL: "http://host.docker.internal:11434"
+      RAG_DATA__INDEX_DIR: "/app/研发/data/index"
+      RAG_LOG__DIR: "/app/部署/日志"
+      PYTHONUTF8: "1"
+      PYTHONIOENCODING: "utf-8"
+    volumes:
+      - ../../研发/data/raw:/app/研发/data/raw:ro
+      - ../../研发/data/processed:/app/研发/data/processed:ro
+      - ../../研发/data/index:/app/研发/data/index:ro
+      - ../../部署/日志:/app/部署/日志
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8123/health', timeout=10).status == 200 else 1)"]
+      interval: 30s
+      timeout: 15s
+      start_period: 180s
+      retries: 5
+    profiles: ["web"]                                        # 默认不起；要起就加 --profile web
+    restart: unless-stopped

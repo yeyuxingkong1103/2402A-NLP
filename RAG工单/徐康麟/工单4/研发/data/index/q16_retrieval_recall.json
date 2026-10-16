@@ -1,0 +1,3618 @@
+{
+  "q5_q6_image_recall": {
+    "checks": [
+      {
+        "qid": 5,
+        "corpus": "招股说明书2.pdf",
+        "page": 39,
+        "evidence_pages": [
+          39,
+          40,
+          113
+        ],
+        "query": "组织结构图 销售部有几个部门构成 大客户销售部有几个销售处构成",
+        "answer_keywords": [
+          "4个部门",
+          "电话及网络销售部",
+          "渠道销售部",
+          "大客户销售部",
+          "国际贸易部",
+          "6个销售处",
+          "北京",
+          "广州",
+          "成都",
+          "深圳",
+          "武汉",
+          "珠海"
+        ],
+        "chunk_ids": [
+          "pdf2-p39-img-x-0"
+        ],
+        "modality_sub": [
+          "diagram"
+        ],
+        "extraction_methods": [
+          "geometry+connector_lines"
+        ],
+        "answer_keywords_present": [
+          "4个部门",
+          "电话及网络销售部",
+          "渠道销售部",
+          "大客户销售部",
+          "国际贸易部",
+          "6个销售处",
+          "北京",
+          "广州",
+          "成都",
+          "深圳",
+          "武汉",
+          "珠海"
+        ],
+        "answer_keywords_missing": [],
+        "bm25_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf2-p39-img-x-0",
+            "score": 49.6744,
+            "corpus": "招股说明书2.pdf",
+            "page": 39,
+            "type": "image"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf2-p40-x1",
+            "score": 25.3865,
+            "corpus": "招股说明书2.pdf",
+            "page": 40,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p118-img-x-0",
+            "score": 23.8725,
+            "corpus": "招股说明书1.pdf",
+            "page": 118,
+            "type": "image"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf2-p106-img-x-0",
+            "score": 22.9108,
+            "corpus": "招股说明书2.pdf",
+            "page": 106,
+            "type": "image"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p108-img-x-0",
+            "score": 22.517,
+            "corpus": "招股说明书1.pdf",
+            "page": 108,
+            "type": "image"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p120-img-x-0",
+            "score": 20.8627,
+            "corpus": "招股说明书1.pdf",
+            "page": 120,
+            "type": "image"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p112-img-x-0",
+            "score": 20.653,
+            "corpus": "招股说明书1.pdf",
+            "page": 112,
+            "type": "image"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p114-img-x-0",
+            "score": 20.4037,
+            "corpus": "招股说明书1.pdf",
+            "page": 114,
+            "type": "image"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p114-x1",
+            "score": 19.898,
+            "corpus": "招股说明书1.pdf",
+            "page": 114,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf2-p239-x0",
+            "score": 19.3886,
+            "corpus": "招股说明书2.pdf",
+            "page": 239,
+            "type": "text"
+          }
+        ],
+        "bm25_recalled": true,
+        "bm25_evidence_chunks": [
+          "pdf2-p39-img-x-0",
+          "pdf2-p40-x1"
+        ],
+        "bm25_evidence_recalled": true,
+        "vector_recalled": false,
+        "vector_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf2-p40-x1",
+            "score": 0.7315,
+            "corpus": "招股说明书2.pdf",
+            "page": 40,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf2-p114-x1",
+            "score": 0.6537,
+            "corpus": "招股说明书2.pdf",
+            "page": 114,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p108-img-x-0",
+            "score": 0.6389,
+            "corpus": "招股说明书1.pdf",
+            "page": 108,
+            "type": "image"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf2-p113-x1",
+            "score": 0.6261,
+            "corpus": "招股说明书2.pdf",
+            "page": 113,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf2-p61-t0-0",
+            "score": 0.6148,
+            "corpus": "招股说明书2.pdf",
+            "page": 61,
+            "type": "table"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p114-img-x-0",
+            "score": 0.6099,
+            "corpus": "招股说明书1.pdf",
+            "page": 114,
+            "type": "image"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf2-p117-x0",
+            "score": 0.6087,
+            "corpus": "招股说明书2.pdf",
+            "page": 117,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p118-img-x-0",
+            "score": 0.6057,
+            "corpus": "招股说明书1.pdf",
+            "page": 118,
+            "type": "image"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p118-x1",
+            "score": 0.6054,
+            "corpus": "招股说明书1.pdf",
+            "page": 118,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf2-p41-x2",
+            "score": 0.5953,
+            "corpus": "招股说明书2.pdf",
+            "page": 41,
+            "type": "text"
+          }
+        ],
+        "vector_evidence_chunks": [
+          "pdf2-p40-x1",
+          "pdf2-p113-x1"
+        ],
+        "vector_evidence_recalled": true,
+        "recall_basis": "证据页集合在 BM25 Top-10 或向量 Top-10 内被召回（含图像块或正文互证块）",
+        "passed": true
+      },
+      {
+        "qid": 6,
+        "corpus": "招股说明书2.pdf",
+        "page": 72,
+        "evidence_pages": [
+          72
+        ],
+        "query": "2008年中国IC市场应用结构与增长图 增长率最快的是哪个行业 负增长的是哪个行业",
+        "answer_keywords": [
+          "汽车",
+          "IC卡",
+          "负增长"
+        ],
+        "chunk_ids": [
+          "pdf2-p72-img-1692-0"
+        ],
+        "modality_sub": [
+          "chart"
+        ],
+        "extraction_methods": [
+          "geometry+anchor+template_ocr"
+        ],
+        "answer_keywords_present": [
+          "汽车",
+          "IC卡",
+          "负增长"
+        ],
+        "answer_keywords_missing": [],
+        "bm25_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf2-p72-img-1692-0",
+            "score": 66.0484,
+            "corpus": "招股说明书2.pdf",
+            "page": 72,
+            "type": "image"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf2-p65-x1",
+            "score": 39.7738,
+            "corpus": "招股说明书2.pdf",
+            "page": 65,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf2-p72-x0",
+            "score": 39.4036,
+            "corpus": "招股说明书2.pdf",
+            "page": 72,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf2-p83-x0",
+            "score": 36.9554,
+            "corpus": "招股说明书2.pdf",
+            "page": 83,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf2-p71-x0",
+            "score": 35.9285,
+            "corpus": "招股说明书2.pdf",
+            "page": 71,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf2-p309-x1",
+            "score": 31.9357,
+            "corpus": "招股说明书2.pdf",
+            "page": 309,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf2-p320-x0",
+            "score": 27.9046,
+            "corpus": "招股说明书2.pdf",
+            "page": 320,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf2-p17-x0",
+            "score": 27.6155,
+            "corpus": "招股说明书2.pdf",
+            "page": 17,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf2-p17-x1",
+            "score": 27.3733,
+            "corpus": "招股说明书2.pdf",
+            "page": 17,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf2-p66-x0",
+            "score": 27.0339,
+            "corpus": "招股说明书2.pdf",
+            "page": 66,
+            "type": "text"
+          }
+        ],
+        "bm25_recalled": true,
+        "bm25_evidence_chunks": [
+          "pdf2-p72-img-1692-0",
+          "pdf2-p72-x0"
+        ],
+        "bm25_evidence_recalled": true,
+        "vector_recalled": false,
+        "vector_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf2-p40-x1",
+            "score": 0.7315,
+            "corpus": "招股说明书2.pdf",
+            "page": 40,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf2-p114-x1",
+            "score": 0.6537,
+            "corpus": "招股说明书2.pdf",
+            "page": 114,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p108-img-x-0",
+            "score": 0.6389,
+            "corpus": "招股说明书1.pdf",
+            "page": 108,
+            "type": "image"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf2-p113-x1",
+            "score": 0.6261,
+            "corpus": "招股说明书2.pdf",
+            "page": 113,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf2-p61-t0-0",
+            "score": 0.6148,
+            "corpus": "招股说明书2.pdf",
+            "page": 61,
+            "type": "table"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p114-img-x-0",
+            "score": 0.6099,
+            "corpus": "招股说明书1.pdf",
+            "page": 114,
+            "type": "image"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf2-p117-x0",
+            "score": 0.6087,
+            "corpus": "招股说明书2.pdf",
+            "page": 117,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p118-img-x-0",
+            "score": 0.6057,
+            "corpus": "招股说明书1.pdf",
+            "page": 118,
+            "type": "image"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p118-x1",
+            "score": 0.6054,
+            "corpus": "招股说明书1.pdf",
+            "page": 118,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf2-p41-x2",
+            "score": 0.5953,
+            "corpus": "招股说明书2.pdf",
+            "page": 41,
+            "type": "text"
+          }
+        ],
+        "vector_evidence_chunks": [],
+        "vector_evidence_recalled": false,
+        "recall_basis": "证据页集合在 BM25 Top-10 或向量 Top-10 内被召回（含图像块或正文互证块）",
+        "passed": true
+      }
+    ],
+    "passed": true,
+    "vector_path": true,
+    "keyword_rules": {
+      "numeric_keywords_contextual": true,
+      "place_names_bare_by_design": true,
+      "rule": "数值类关键字一律带语境（如 '4个部门' / '6个销售处'）；**裸数字不作为关键字** —— 裸 '4'/'6' 会被页码、金额、年份误命中，使 keyword_hit 虚高。",
+      "place_name_note": "城市/地名类关键字保持裸城市名（与 设计/验收标准.md §3.1 同源），因为正文互证页写的是「在北京、广州、成都、深圳、武汉、珠海各设有 1 家销售处」；代价是城市名**偏弱**（'武汉' 会被公司名「武汉力源…」误命中）→ 城市类只作弱判据，计数类必须带语境。",
+      "normalization": "匹配前统一：去空白、去千分位逗号、全角转半角（见 _norm_for_match）；两个自检（图像题自检 / 16 题自检）**使用同一个归一化函数**（T3 复核指出的口径不一致已修）",
+      "counts_definition": {
+        "bm25_page_hit_count": "BM25 Top-10 内存在「该题证据页」上的块（粗判，仅定位）",
+        "bm25_keyword_hit_count": "BM25 Top-10 命中块的**合并正文**含该题全部关键字（细判）",
+        "vector_page_hit_count": "向量 Top-10 内存在「该题证据页」上的块",
+        "vector_keyword_hit_count": "向量 Top-10 命中块的**合并正文**含该题全部关键字",
+        "no_hit_ids": "BM25 与向量两路的证据页命中**都**为空的题号（比上面四个计数更严格）"
+      },
+      "authoritative_judge": "最终判对/判错以 T6 的 golden 判分为准（测试/common/golden.py）；本文件的计数只用于检索层调参（如 T5 定 RRF 权重），不得当作准确率。",
+      "layer_mapping_to_golden": {
+        "本文件 bm25_page_hit_count/vector_page_hit_count": "= golden.check_retrieval_hit_layers 的 hit_page_level（诊断层B，页级口径）",
+        "本文件 bm25_keyword_hit_count/vector_keyword_hit_count": "关键字级细判；不等于 T6 的命中率主指标，T6 主指标用 hit_complete（权威层）",
+        "golden.check_retrieval_hit_layers 三层": [
+          "hit_complete（权威层，命中率主指标）",
+          "hit_any_evidence（诊断层A，含子句片段）",
+          "hit_page_level（诊断层B，页级）"
+        ]
+      }
+    },
+    "image_chunk_total": 77
+  },
+  "q16_retrieval_recall": {
+    "total": 16,
+    "vector_path": true,
+    "questions": [
+      {
+        "id": 5,
+        "corpus": "招股说明书2.pdf",
+        "evidence_pages": [
+          39,
+          40,
+          113
+        ],
+        "question": "武汉力源信息技术股份有限公司组织结构图中，销售部有几个部门构成，其中大客户销售部有几个销售处构成？",
+        "keywords": [
+          "4个部门",
+          "6个销售处",
+          "电话及网络销售部",
+          "渠道销售部",
+          "大客户销售部",
+          "国际贸易部",
+          "北京",
+          "广州",
+          "成都",
+          "深圳",
+          "武汉",
+          "珠海"
+        ],
+        "bm25_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf2-p39-img-x-0",
+            "score": 53.4523,
+            "corpus": "招股说明书2.pdf",
+            "page": 39,
+            "type": "image"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf2-p38-img-x-0",
+            "score": 28.4878,
+            "corpus": "招股说明书2.pdf",
+            "page": 38,
+            "type": "image"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf2-p38-x0",
+            "score": 26.9311,
+            "corpus": "招股说明书2.pdf",
+            "page": 38,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf2-p40-x1",
+            "score": 25.3865,
+            "corpus": "招股说明书2.pdf",
+            "page": 40,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf2-p239-x0",
+            "score": 25.0351,
+            "corpus": "招股说明书2.pdf",
+            "page": 239,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p118-img-x-0",
+            "score": 23.8725,
+            "corpus": "招股说明书1.pdf",
+            "page": 118,
+            "type": "image"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf2-p106-img-x-0",
+            "score": 22.9108,
+            "corpus": "招股说明书2.pdf",
+            "page": 106,
+            "type": "image"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p108-img-x-0",
+            "score": 22.517,
+            "corpus": "招股说明书1.pdf",
+            "page": 108,
+            "type": "image"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf2-p113-x0",
+            "score": 21.2151,
+            "corpus": "招股说明书2.pdf",
+            "page": 113,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p120-img-x-0",
+            "score": 20.8627,
+            "corpus": "招股说明书1.pdf",
+            "page": 120,
+            "type": "image"
+          }
+        ],
+        "bm25_page_hit": true,
+        "bm25_answers": [
+          "4个部门",
+          "6个销售处",
+          "电话及网络销售部",
+          "渠道销售部",
+          "大客户销售部",
+          "国际贸易部",
+          "北京",
+          "广州",
+          "成都",
+          "深圳",
+          "武汉",
+          "珠海"
+        ],
+        "keyword_hit_bm25": true,
+        "vector_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf2-p40-x0",
+            "score": 0.7187,
+            "corpus": "招股说明书2.pdf",
+            "page": 40,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf2-p113-x0",
+            "score": 0.6916,
+            "corpus": "招股说明书2.pdf",
+            "page": 113,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf2-p117-x0",
+            "score": 0.6863,
+            "corpus": "招股说明书2.pdf",
+            "page": 117,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf2-p112-x0",
+            "score": 0.6844,
+            "corpus": "招股说明书2.pdf",
+            "page": 112,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf2-p309-x1",
+            "score": 0.683,
+            "corpus": "招股说明书2.pdf",
+            "page": 309,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf2-p96-x0",
+            "score": 0.6825,
+            "corpus": "招股说明书2.pdf",
+            "page": 96,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf2-p67-x0",
+            "score": 0.6803,
+            "corpus": "招股说明书2.pdf",
+            "page": 67,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf2-p121-x0",
+            "score": 0.678,
+            "corpus": "招股说明书2.pdf",
+            "page": 121,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf2-p239-x0",
+            "score": 0.6748,
+            "corpus": "招股说明书2.pdf",
+            "page": 239,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf2-p309-x0",
+            "score": 0.6717,
+            "corpus": "招股说明书2.pdf",
+            "page": 309,
+            "type": "text"
+          }
+        ],
+        "vector_page_hit": true,
+        "vector_answers": [
+          "6个销售处",
+          "大客户销售部",
+          "北京",
+          "广州",
+          "成都",
+          "深圳",
+          "武汉",
+          "珠海"
+        ],
+        "keyword_hit_vector": false,
+        "chunks_on_evidence_pages": 7,
+        "passed": true
+      },
+      {
+        "id": 6,
+        "corpus": "招股说明书2.pdf",
+        "evidence_pages": [
+          72
+        ],
+        "question": "武汉力源信息技术股份有限公司招股意向书中，从2008年中国IC市场应用结构与增长图中可以看出，增长率最快的是哪个行业？负增长的是哪个行业？",
+        "keywords": [
+          "汽车",
+          "IC卡"
+        ],
+        "bm25_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf2-p72-img-1692-0",
+            "score": 66.549,
+            "corpus": "招股说明书2.pdf",
+            "page": 72,
+            "type": "image"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf2-p72-x0",
+            "score": 46.4861,
+            "corpus": "招股说明书2.pdf",
+            "page": 72,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf2-p83-x0",
+            "score": 44.1544,
+            "corpus": "招股说明书2.pdf",
+            "page": 83,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf2-p71-x0",
+            "score": 43.5807,
+            "corpus": "招股说明书2.pdf",
+            "page": 71,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf2-p65-x1",
+            "score": 39.7738,
+            "corpus": "招股说明书2.pdf",
+            "page": 65,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf2-p309-x1",
+            "score": 35.2425,
+            "corpus": "招股说明书2.pdf",
+            "page": 309,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf2-p320-x0",
+            "score": 35.2241,
+            "corpus": "招股说明书2.pdf",
+            "page": 320,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf2-p310-x0",
+            "score": 34.8715,
+            "corpus": "招股说明书2.pdf",
+            "page": 310,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf2-p17-x0",
+            "score": 34.4759,
+            "corpus": "招股说明书2.pdf",
+            "page": 17,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf2-p66-x0",
+            "score": 33.9814,
+            "corpus": "招股说明书2.pdf",
+            "page": 66,
+            "type": "text"
+          }
+        ],
+        "bm25_page_hit": true,
+        "bm25_answers": [
+          "汽车",
+          "IC卡"
+        ],
+        "keyword_hit_bm25": true,
+        "vector_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf2-p72-img-1692-0",
+            "score": 0.7646,
+            "corpus": "招股说明书2.pdf",
+            "page": 72,
+            "type": "image"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf2-p83-x0",
+            "score": 0.759,
+            "corpus": "招股说明书2.pdf",
+            "page": 83,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf2-p71-x0",
+            "score": 0.7309,
+            "corpus": "招股说明书2.pdf",
+            "page": 71,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf2-p72-x0",
+            "score": 0.6938,
+            "corpus": "招股说明书2.pdf",
+            "page": 72,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf2-p320-x0",
+            "score": 0.6874,
+            "corpus": "招股说明书2.pdf",
+            "page": 320,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf2-p90-x0",
+            "score": 0.6848,
+            "corpus": "招股说明书2.pdf",
+            "page": 90,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf2-p17-x0",
+            "score": 0.6773,
+            "corpus": "招股说明书2.pdf",
+            "page": 17,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf2-p310-x0",
+            "score": 0.6758,
+            "corpus": "招股说明书2.pdf",
+            "page": 310,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf2-p255-x0",
+            "score": 0.665,
+            "corpus": "招股说明书2.pdf",
+            "page": 255,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf2-p84-x0",
+            "score": 0.664,
+            "corpus": "招股说明书2.pdf",
+            "page": 84,
+            "type": "text"
+          }
+        ],
+        "vector_page_hit": true,
+        "vector_answers": [
+          "汽车",
+          "IC卡"
+        ],
+        "keyword_hit_vector": true,
+        "chunks_on_evidence_pages": 3,
+        "passed": true
+      },
+      {
+        "id": 1,
+        "corpus": "招股说明书2.pdf",
+        "evidence_pages": [
+          22,
+          24
+        ],
+        "question": "武汉力源信息技术股份有限公司本次发行股数是多少，占发行后总股本的比例是多少？",
+        "keywords": [
+          "1,670",
+          "25.04"
+        ],
+        "bm25_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf2-p24-x0",
+            "score": 28.3014,
+            "corpus": "招股说明书2.pdf",
+            "page": 24,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf2-p250-x0",
+            "score": 28.0153,
+            "corpus": "招股说明书2.pdf",
+            "page": 250,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p3-x0",
+            "score": 26.4517,
+            "corpus": "招股说明书1.pdf",
+            "page": 3,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p22-x2",
+            "score": 25.9059,
+            "corpus": "招股说明书1.pdf",
+            "page": 22,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf2-p2-x0",
+            "score": 25.4827,
+            "corpus": "招股说明书2.pdf",
+            "page": 2,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p31-x0",
+            "score": 24.3914,
+            "corpus": "招股说明书1.pdf",
+            "page": 31,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p22-t2-0",
+            "score": 24.2608,
+            "corpus": "招股说明书1.pdf",
+            "page": 22,
+            "type": "table"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf2-p54-x0",
+            "score": 23.6744,
+            "corpus": "招股说明书2.pdf",
+            "page": 54,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf2-p350-x0",
+            "score": 21.8238,
+            "corpus": "招股说明书2.pdf",
+            "page": 350,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf2-p4-x0",
+            "score": 21.7119,
+            "corpus": "招股说明书2.pdf",
+            "page": 4,
+            "type": "text"
+          }
+        ],
+        "bm25_page_hit": true,
+        "bm25_answers": [
+          "1,670",
+          "25.04"
+        ],
+        "keyword_hit_bm25": true,
+        "vector_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf2-p24-x0",
+            "score": 0.8065,
+            "corpus": "招股说明书2.pdf",
+            "page": 24,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf2-p2-x0",
+            "score": 0.8035,
+            "corpus": "招股说明书2.pdf",
+            "page": 2,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf2-p4-x0",
+            "score": 0.7772,
+            "corpus": "招股说明书2.pdf",
+            "page": 4,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf2-p22-x0",
+            "score": 0.775,
+            "corpus": "招股说明书2.pdf",
+            "page": 22,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf2-p306-x0",
+            "score": 0.7607,
+            "corpus": "招股说明书2.pdf",
+            "page": 306,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf2-p54-x0",
+            "score": 0.7486,
+            "corpus": "招股说明书2.pdf",
+            "page": 54,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf2-p55-x0",
+            "score": 0.7453,
+            "corpus": "招股说明书2.pdf",
+            "page": 55,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf2-p38-x0",
+            "score": 0.7362,
+            "corpus": "招股说明书2.pdf",
+            "page": 38,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf2-p21-x0",
+            "score": 0.7349,
+            "corpus": "招股说明书2.pdf",
+            "page": 21,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf2-p23-x0",
+            "score": 0.7343,
+            "corpus": "招股说明书2.pdf",
+            "page": 23,
+            "type": "text"
+          }
+        ],
+        "vector_page_hit": true,
+        "vector_answers": [
+          "1,670",
+          "25.04"
+        ],
+        "keyword_hit_vector": true,
+        "chunks_on_evidence_pages": 8,
+        "passed": true
+      },
+      {
+        "id": 2,
+        "corpus": "招股说明书2.pdf",
+        "evidence_pages": [
+          22,
+          30,
+          306,
+          144
+        ],
+        "question": "武汉力源信息技术股份有限公司本次募集资金拟投资哪些项目？",
+        "keywords": [
+          "3,393.40",
+          "1,526.38",
+          "2,492.78",
+          "9,000.00",
+          "其他与主营业务相关的营运资金"
+        ],
+        "bm25_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf2-p9-x0",
+            "score": 22.5185,
+            "corpus": "招股说明书2.pdf",
+            "page": 9,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf2-p306-x0",
+            "score": 21.2481,
+            "corpus": "招股说明书2.pdf",
+            "page": 306,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p481-x0",
+            "score": 20.9413,
+            "corpus": "招股说明书1.pdf",
+            "page": 481,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf2-p144-x0",
+            "score": 20.8648,
+            "corpus": "招股说明书2.pdf",
+            "page": 144,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf2-p329-x0",
+            "score": 20.7643,
+            "corpus": "招股说明书2.pdf",
+            "page": 329,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p483-x0",
+            "score": 20.4902,
+            "corpus": "招股说明书1.pdf",
+            "page": 483,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p482-x0",
+            "score": 20.0996,
+            "corpus": "招股说明书1.pdf",
+            "page": 482,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf2-p330-x0",
+            "score": 20.0292,
+            "corpus": "招股说明书2.pdf",
+            "page": 330,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf2-p31-x0",
+            "score": 19.4558,
+            "corpus": "招股说明书2.pdf",
+            "page": 31,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p30-x0",
+            "score": 19.2824,
+            "corpus": "招股说明书1.pdf",
+            "page": 30,
+            "type": "text"
+          }
+        ],
+        "bm25_page_hit": true,
+        "bm25_answers": [
+          "3,393.40",
+          "1,526.38",
+          "2,492.78"
+        ],
+        "keyword_hit_bm25": false,
+        "vector_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf2-p306-x0",
+            "score": 0.7893,
+            "corpus": "招股说明书2.pdf",
+            "page": 306,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf2-p325-x0",
+            "score": 0.7302,
+            "corpus": "招股说明书2.pdf",
+            "page": 325,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf2-p326-x0",
+            "score": 0.7262,
+            "corpus": "招股说明书2.pdf",
+            "page": 326,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf2-p22-x0",
+            "score": 0.7239,
+            "corpus": "招股说明书2.pdf",
+            "page": 22,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf2-p144-x0",
+            "score": 0.7208,
+            "corpus": "招股说明书2.pdf",
+            "page": 144,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf2-p307-x0",
+            "score": 0.7082,
+            "corpus": "招股说明书2.pdf",
+            "page": 307,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf2-p329-x0",
+            "score": 0.7023,
+            "corpus": "招股说明书2.pdf",
+            "page": 329,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf2-p252-x0",
+            "score": 0.7,
+            "corpus": "招股说明书2.pdf",
+            "page": 252,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf2-p335-x0",
+            "score": 0.6996,
+            "corpus": "招股说明书2.pdf",
+            "page": 335,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf2-p1-x0",
+            "score": 0.698,
+            "corpus": "招股说明书2.pdf",
+            "page": 1,
+            "type": "text"
+          }
+        ],
+        "vector_page_hit": true,
+        "vector_answers": [
+          "3,393.40",
+          "1,526.38",
+          "2,492.78",
+          "9,000.00",
+          "其他与主营业务相关的营运资金"
+        ],
+        "keyword_hit_vector": true,
+        "chunks_on_evidence_pages": 13,
+        "passed": true
+      },
+      {
+        "id": 3,
+        "corpus": "招股说明书2.pdf",
+        "evidence_pages": [
+          157,
+          21,
+          158
+        ],
+        "question": "与武汉力源信息技术股份有限公司存在控制关系的关联方是谁，持股比例和本公司关系是什么？",
+        "keywords": [
+          "赵马克",
+          "42.35"
+        ],
+        "bm25_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf2-p157-x0",
+            "score": 33.837,
+            "corpus": "招股说明书2.pdf",
+            "page": 157,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf2-p157-t0-0",
+            "score": 29.9009,
+            "corpus": "招股说明书2.pdf",
+            "page": 157,
+            "type": "table"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf2-p158-x0",
+            "score": 24.897,
+            "corpus": "招股说明书2.pdf",
+            "page": 158,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf2-p157-t1-0",
+            "score": 22.3154,
+            "corpus": "招股说明书2.pdf",
+            "page": 157,
+            "type": "table"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf2-p11-x0",
+            "score": 20.4282,
+            "corpus": "招股说明书2.pdf",
+            "page": 11,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p461-x0",
+            "score": 18.9793,
+            "corpus": "招股说明书1.pdf",
+            "page": 461,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p262-x1",
+            "score": 18.9484,
+            "corpus": "招股说明书1.pdf",
+            "page": 262,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf2-p61-x0",
+            "score": 18.0427,
+            "corpus": "招股说明书2.pdf",
+            "page": 61,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf2-p184-x0",
+            "score": 17.4664,
+            "corpus": "招股说明书2.pdf",
+            "page": 184,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf2-p170-x0",
+            "score": 17.1836,
+            "corpus": "招股说明书2.pdf",
+            "page": 170,
+            "type": "text"
+          }
+        ],
+        "bm25_page_hit": true,
+        "bm25_answers": [
+          "赵马克",
+          "42.35"
+        ],
+        "keyword_hit_bm25": true,
+        "vector_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf2-p158-x0",
+            "score": 0.7334,
+            "corpus": "招股说明书2.pdf",
+            "page": 158,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf2-p33-x0",
+            "score": 0.7254,
+            "corpus": "招股说明书2.pdf",
+            "page": 33,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf2-p157-x0",
+            "score": 0.7126,
+            "corpus": "招股说明书2.pdf",
+            "page": 157,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf2-p178-x0",
+            "score": 0.6981,
+            "corpus": "招股说明书2.pdf",
+            "page": 178,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf2-p184-x0",
+            "score": 0.6927,
+            "corpus": "招股说明书2.pdf",
+            "page": 184,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf2-p61-x0",
+            "score": 0.6914,
+            "corpus": "招股说明书2.pdf",
+            "page": 61,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf2-p21-x0",
+            "score": 0.6889,
+            "corpus": "招股说明书2.pdf",
+            "page": 21,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf2-p38-x0",
+            "score": 0.684,
+            "corpus": "招股说明书2.pdf",
+            "page": 38,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf2-p2-x0",
+            "score": 0.6829,
+            "corpus": "招股说明书2.pdf",
+            "page": 2,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf2-p179-x0",
+            "score": 0.6824,
+            "corpus": "招股说明书2.pdf",
+            "page": 179,
+            "type": "text"
+          }
+        ],
+        "vector_page_hit": true,
+        "vector_answers": [
+          "赵马克",
+          "42.35"
+        ],
+        "keyword_hit_vector": true,
+        "chunks_on_evidence_pages": 15,
+        "passed": true
+      },
+      {
+        "id": 4,
+        "corpus": "招股说明书2.pdf",
+        "evidence_pages": [
+          157,
+          158
+        ],
+        "question": "与武汉力源信息技术股份有限公司不存在控制关系的关联方企业有哪些？",
+        "keywords": [
+          "融冰投资",
+          "武汉博润",
+          "上海博润",
+          "听音投资",
+          "联众聚源",
+          "力源贸易",
+          "普芯达"
+        ],
+        "bm25_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf2-p157-x0",
+            "score": 29.1885,
+            "corpus": "招股说明书2.pdf",
+            "page": 157,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf2-p157-t1-0",
+            "score": 23.0062,
+            "corpus": "招股说明书2.pdf",
+            "page": 157,
+            "type": "table"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf2-p157-t0-0",
+            "score": 21.0137,
+            "corpus": "招股说明书2.pdf",
+            "page": 157,
+            "type": "table"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf2-p158-x0",
+            "score": 20.3895,
+            "corpus": "招股说明书2.pdf",
+            "page": 158,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf2-p11-x0",
+            "score": 17.478,
+            "corpus": "招股说明书2.pdf",
+            "page": 11,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf2-p172-x0",
+            "score": 15.9922,
+            "corpus": "招股说明书2.pdf",
+            "page": 172,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf2-p170-x0",
+            "score": 15.1541,
+            "corpus": "招股说明书2.pdf",
+            "page": 170,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p461-x0",
+            "score": 15.0785,
+            "corpus": "招股说明书1.pdf",
+            "page": 461,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf2-p32-x0",
+            "score": 14.7454,
+            "corpus": "招股说明书2.pdf",
+            "page": 32,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf2-p38-img-x-0",
+            "score": 14.4856,
+            "corpus": "招股说明书2.pdf",
+            "page": 38,
+            "type": "image"
+          }
+        ],
+        "bm25_page_hit": true,
+        "bm25_answers": [
+          "融冰投资",
+          "武汉博润",
+          "上海博润",
+          "听音投资",
+          "联众聚源",
+          "力源贸易",
+          "普芯达"
+        ],
+        "keyword_hit_bm25": true,
+        "vector_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf2-p158-x0",
+            "score": 0.7104,
+            "corpus": "招股说明书2.pdf",
+            "page": 158,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf2-p184-x0",
+            "score": 0.6953,
+            "corpus": "招股说明书2.pdf",
+            "page": 184,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf2-p157-x0",
+            "score": 0.6669,
+            "corpus": "招股说明书2.pdf",
+            "page": 157,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf2-p159-x1",
+            "score": 0.6659,
+            "corpus": "招股说明书2.pdf",
+            "page": 159,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf2-p59-x0",
+            "score": 0.6616,
+            "corpus": "招股说明书2.pdf",
+            "page": 59,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf2-p156-x0",
+            "score": 0.6485,
+            "corpus": "招股说明书2.pdf",
+            "page": 156,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf2-p342-x0",
+            "score": 0.6419,
+            "corpus": "招股说明书2.pdf",
+            "page": 342,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf2-p64-x0",
+            "score": 0.6396,
+            "corpus": "招股说明书2.pdf",
+            "page": 64,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf2-p172-x0",
+            "score": 0.6382,
+            "corpus": "招股说明书2.pdf",
+            "page": 172,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf2-p53-x0",
+            "score": 0.638,
+            "corpus": "招股说明书2.pdf",
+            "page": 53,
+            "type": "text"
+          }
+        ],
+        "vector_page_hit": true,
+        "vector_answers": [
+          "融冰投资",
+          "武汉博润",
+          "上海博润",
+          "听音投资",
+          "联众聚源",
+          "力源贸易",
+          "普芯达"
+        ],
+        "keyword_hit_vector": true,
+        "chunks_on_evidence_pages": 7,
+        "passed": true
+      },
+      {
+        "id": 260,
+        "corpus": "招股说明书1.pdf",
+        "evidence_pages": [
+          129
+        ],
+        "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+        "keywords": [
+          "6,464.51",
+          "14,414.16",
+          "18,780.67",
+          "4,627.14"
+        ],
+        "bm25_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p129-x2",
+            "score": 25.5446,
+            "corpus": "招股说明书1.pdf",
+            "page": 129,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p39-x0",
+            "score": 23.497,
+            "corpus": "招股说明书1.pdf",
+            "page": 39,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p130-x0",
+            "score": 23.283,
+            "corpus": "招股说明书1.pdf",
+            "page": 130,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p185-x0",
+            "score": 22.4026,
+            "corpus": "招股说明书1.pdf",
+            "page": 185,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p42-x0",
+            "score": 21.1555,
+            "corpus": "招股说明书1.pdf",
+            "page": 42,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p343-x1",
+            "score": 20.6638,
+            "corpus": "招股说明书1.pdf",
+            "page": 343,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p329-x1",
+            "score": 19.7251,
+            "corpus": "招股说明书1.pdf",
+            "page": 329,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p26-x0",
+            "score": 18.9379,
+            "corpus": "招股说明书1.pdf",
+            "page": 26,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p9-x1",
+            "score": 17.48,
+            "corpus": "招股说明书1.pdf",
+            "page": 9,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p7-x0",
+            "score": 17.1568,
+            "corpus": "招股说明书1.pdf",
+            "page": 7,
+            "type": "text"
+          }
+        ],
+        "bm25_page_hit": true,
+        "bm25_answers": [
+          "6,464.51",
+          "14,414.16",
+          "18,780.67",
+          "4,627.14"
+        ],
+        "keyword_hit_bm25": true,
+        "vector_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p186-x0",
+            "score": 0.7705,
+            "corpus": "招股说明书1.pdf",
+            "page": 186,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p475-x0",
+            "score": 0.7641,
+            "corpus": "招股说明书1.pdf",
+            "page": 475,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p182-x0",
+            "score": 0.759,
+            "corpus": "招股说明书1.pdf",
+            "page": 182,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p125-x0",
+            "score": 0.7567,
+            "corpus": "招股说明书1.pdf",
+            "page": 125,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p130-t0-0",
+            "score": 0.7516,
+            "corpus": "招股说明书1.pdf",
+            "page": 130,
+            "type": "table"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p406-x0",
+            "score": 0.7495,
+            "corpus": "招股说明书1.pdf",
+            "page": 406,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p283-x0",
+            "score": 0.7474,
+            "corpus": "招股说明书1.pdf",
+            "page": 283,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p378-x0",
+            "score": 0.7455,
+            "corpus": "招股说明书1.pdf",
+            "page": 378,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p332-x0",
+            "score": 0.7394,
+            "corpus": "招股说明书1.pdf",
+            "page": 332,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p5-x0",
+            "score": 0.7377,
+            "corpus": "招股说明书1.pdf",
+            "page": 5,
+            "type": "text"
+          }
+        ],
+        "vector_page_hit": false,
+        "vector_answers": [],
+        "keyword_hit_vector": false,
+        "chunks_on_evidence_pages": 3,
+        "passed": true
+      },
+      {
+        "id": 95,
+        "corpus": "招股说明书1.pdf",
+        "evidence_pages": [
+          160
+        ],
+        "question": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+        "keywords": [
+          "视频指挥系统技术标准",
+          "军事科学院"
+        ],
+        "bm25_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p160-x0",
+            "score": 24.5375,
+            "corpus": "招股说明书1.pdf",
+            "page": 160,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p181-x0",
+            "score": 20.0331,
+            "corpus": "招股说明书1.pdf",
+            "page": 181,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p155-x0",
+            "score": 19.7106,
+            "corpus": "招股说明书1.pdf",
+            "page": 155,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p159-x1",
+            "score": 16.6415,
+            "corpus": "招股说明书1.pdf",
+            "page": 159,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p177-x0",
+            "score": 16.5051,
+            "corpus": "招股说明书1.pdf",
+            "page": 177,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p193-x1",
+            "score": 15.1978,
+            "corpus": "招股说明书1.pdf",
+            "page": 193,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p182-x1",
+            "score": 15.1944,
+            "corpus": "招股说明书1.pdf",
+            "page": 182,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p269-x0",
+            "score": 15.0118,
+            "corpus": "招股说明书1.pdf",
+            "page": 269,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p241-x1",
+            "score": 14.9416,
+            "corpus": "招股说明书1.pdf",
+            "page": 241,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p158-x0",
+            "score": 14.7279,
+            "corpus": "招股说明书1.pdf",
+            "page": 158,
+            "type": "text"
+          }
+        ],
+        "bm25_page_hit": true,
+        "bm25_answers": [
+          "视频指挥系统技术标准",
+          "军事科学院"
+        ],
+        "keyword_hit_bm25": true,
+        "vector_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p160-x0",
+            "score": 0.7075,
+            "corpus": "招股说明书1.pdf",
+            "page": 160,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p181-x0",
+            "score": 0.7004,
+            "corpus": "招股说明书1.pdf",
+            "page": 181,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p155-x0",
+            "score": 0.6818,
+            "corpus": "招股说明书1.pdf",
+            "page": 155,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p494-x0",
+            "score": 0.6613,
+            "corpus": "招股说明书1.pdf",
+            "page": 494,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p22-t0-0",
+            "score": 0.6556,
+            "corpus": "招股说明书1.pdf",
+            "page": 22,
+            "type": "table"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p120-x0",
+            "score": 0.6548,
+            "corpus": "招股说明书1.pdf",
+            "page": 120,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p96-x0",
+            "score": 0.6546,
+            "corpus": "招股说明书1.pdf",
+            "page": 96,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p223-x0",
+            "score": 0.6532,
+            "corpus": "招股说明书1.pdf",
+            "page": 223,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p349-x0",
+            "score": 0.65,
+            "corpus": "招股说明书1.pdf",
+            "page": 349,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p220-x0",
+            "score": 0.6474,
+            "corpus": "招股说明书1.pdf",
+            "page": 220,
+            "type": "text"
+          }
+        ],
+        "vector_page_hit": true,
+        "vector_answers": [
+          "视频指挥系统技术标准",
+          "军事科学院"
+        ],
+        "keyword_hit_vector": true,
+        "chunks_on_evidence_pages": 2,
+        "passed": true
+      },
+      {
+        "id": 33,
+        "corpus": "招股说明书1.pdf",
+        "evidence_pages": [
+          129
+        ],
+        "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别是多少？",
+        "keywords": [
+          "82.10",
+          "97.31",
+          "94.84",
+          "94.34"
+        ],
+        "bm25_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p129-x2",
+            "score": 38.7878,
+            "corpus": "招股说明书1.pdf",
+            "page": 129,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p185-x0",
+            "score": 30.3737,
+            "corpus": "招股说明书1.pdf",
+            "page": 185,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p378-x2",
+            "score": 28.228,
+            "corpus": "招股说明书1.pdf",
+            "page": 378,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p39-x0",
+            "score": 27.1961,
+            "corpus": "招股说明书1.pdf",
+            "page": 39,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p36-x2",
+            "score": 27.1485,
+            "corpus": "招股说明书1.pdf",
+            "page": 36,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p40-x0",
+            "score": 26.9082,
+            "corpus": "招股说明书1.pdf",
+            "page": 40,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p343-x1",
+            "score": 26.2041,
+            "corpus": "招股说明书1.pdf",
+            "page": 343,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p329-x1",
+            "score": 26.1987,
+            "corpus": "招股说明书1.pdf",
+            "page": 329,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p131-x1",
+            "score": 26.1135,
+            "corpus": "招股说明书1.pdf",
+            "page": 131,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p130-x0",
+            "score": 25.9162,
+            "corpus": "招股说明书1.pdf",
+            "page": 130,
+            "type": "text"
+          }
+        ],
+        "bm25_page_hit": true,
+        "bm25_answers": [
+          "82.10",
+          "97.31",
+          "94.84",
+          "94.34"
+        ],
+        "keyword_hit_bm25": true,
+        "vector_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p186-x0",
+            "score": 0.7958,
+            "corpus": "招股说明书1.pdf",
+            "page": 186,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p182-x0",
+            "score": 0.7917,
+            "corpus": "招股说明书1.pdf",
+            "page": 182,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p5-x0",
+            "score": 0.7719,
+            "corpus": "招股说明书1.pdf",
+            "page": 5,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p125-x0",
+            "score": 0.7682,
+            "corpus": "招股说明书1.pdf",
+            "page": 125,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p475-x0",
+            "score": 0.7554,
+            "corpus": "招股说明书1.pdf",
+            "page": 475,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p343-x0",
+            "score": 0.7522,
+            "corpus": "招股说明书1.pdf",
+            "page": 343,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p406-x0",
+            "score": 0.7494,
+            "corpus": "招股说明书1.pdf",
+            "page": 406,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p283-x0",
+            "score": 0.7473,
+            "corpus": "招股说明书1.pdf",
+            "page": 283,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p378-x0",
+            "score": 0.7455,
+            "corpus": "招股说明书1.pdf",
+            "page": 378,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p40-x0",
+            "score": 0.7416,
+            "corpus": "招股说明书1.pdf",
+            "page": 40,
+            "type": "text"
+          }
+        ],
+        "vector_page_hit": false,
+        "vector_answers": [
+          "82.10",
+          "97.31",
+          "94.84",
+          "94.34"
+        ],
+        "keyword_hit_vector": true,
+        "chunks_on_evidence_pages": 3,
+        "passed": true
+      },
+      {
+        "id": 34,
+        "corpus": "招股说明书1.pdf",
+        "evidence_pages": [
+          152
+        ],
+        "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+        "keywords": [
+          "电子元器件制造企业",
+          "金属壳体制造企业"
+        ],
+        "bm25_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p152-x2",
+            "score": 31.2749,
+            "corpus": "招股说明书1.pdf",
+            "page": 152,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p153-x0",
+            "score": 30.3808,
+            "corpus": "招股说明书1.pdf",
+            "page": 153,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p136-x0",
+            "score": 21.9131,
+            "corpus": "招股说明书1.pdf",
+            "page": 136,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p135-x0",
+            "score": 21.7931,
+            "corpus": "招股说明书1.pdf",
+            "page": 135,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p139-x0",
+            "score": 19.0846,
+            "corpus": "招股说明书1.pdf",
+            "page": 139,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p136-x1",
+            "score": 18.569,
+            "corpus": "招股说明书1.pdf",
+            "page": 136,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p18-x0",
+            "score": 17.4633,
+            "corpus": "招股说明书1.pdf",
+            "page": 18,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p256-x0",
+            "score": 16.9935,
+            "corpus": "招股说明书1.pdf",
+            "page": 256,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p151-x1",
+            "score": 16.8842,
+            "corpus": "招股说明书1.pdf",
+            "page": 151,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p534-x0",
+            "score": 16.8612,
+            "corpus": "招股说明书1.pdf",
+            "page": 534,
+            "type": "text"
+          }
+        ],
+        "bm25_page_hit": true,
+        "bm25_answers": [
+          "电子元器件制造企业",
+          "金属壳体制造企业"
+        ],
+        "keyword_hit_bm25": true,
+        "vector_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p153-x0",
+            "score": 0.7483,
+            "corpus": "招股说明书1.pdf",
+            "page": 153,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p102-img-811-0",
+            "score": 0.7001,
+            "corpus": "招股说明书1.pdf",
+            "page": 102,
+            "type": "image"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p106-img-825-0",
+            "score": 0.6914,
+            "corpus": "招股说明书1.pdf",
+            "page": 106,
+            "type": "image"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p456-x0",
+            "score": 0.6885,
+            "corpus": "招股说明书1.pdf",
+            "page": 456,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p209-x0",
+            "score": 0.6884,
+            "corpus": "招股说明书1.pdf",
+            "page": 209,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p494-x0",
+            "score": 0.688,
+            "corpus": "招股说明书1.pdf",
+            "page": 494,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p107-img-832-1",
+            "score": 0.686,
+            "corpus": "招股说明书1.pdf",
+            "page": 107,
+            "type": "image"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p535-img-1693-0",
+            "score": 0.6845,
+            "corpus": "招股说明书1.pdf",
+            "page": 535,
+            "type": "image"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p101-img-809-0",
+            "score": 0.6817,
+            "corpus": "招股说明书1.pdf",
+            "page": 101,
+            "type": "image"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p455-x0",
+            "score": 0.6813,
+            "corpus": "招股说明书1.pdf",
+            "page": 455,
+            "type": "text"
+          }
+        ],
+        "vector_page_hit": false,
+        "vector_answers": [],
+        "keyword_hit_vector": false,
+        "chunks_on_evidence_pages": 3,
+        "passed": true
+      },
+      {
+        "id": 957,
+        "corpus": "招股说明书1.pdf",
+        "evidence_pages": [
+          154,
+          332
+        ],
+        "question": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+        "keywords": [
+          "视频指挥"
+        ],
+        "bm25_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p26-x0",
+            "score": 22.0708,
+            "corpus": "招股说明书1.pdf",
+            "page": 26,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p154-x2",
+            "score": 21.9034,
+            "corpus": "招股说明书1.pdf",
+            "page": 154,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p181-x0",
+            "score": 20.2264,
+            "corpus": "招股说明书1.pdf",
+            "page": 181,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p160-x0",
+            "score": 20.1589,
+            "corpus": "招股说明书1.pdf",
+            "page": 160,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p155-x0",
+            "score": 19.9058,
+            "corpus": "招股说明书1.pdf",
+            "page": 155,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p174-x0",
+            "score": 19.4067,
+            "corpus": "招股说明书1.pdf",
+            "page": 174,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p382-x0",
+            "score": 17.3915,
+            "corpus": "招股说明书1.pdf",
+            "page": 382,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p172-x0",
+            "score": 17.381,
+            "corpus": "招股说明书1.pdf",
+            "page": 172,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p241-x1",
+            "score": 16.7339,
+            "corpus": "招股说明书1.pdf",
+            "page": 241,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p531-x0",
+            "score": 16.3695,
+            "corpus": "招股说明书1.pdf",
+            "page": 531,
+            "type": "text"
+          }
+        ],
+        "bm25_page_hit": true,
+        "bm25_answers": [
+          "视频指挥"
+        ],
+        "keyword_hit_bm25": true,
+        "vector_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p26-x0",
+            "score": 0.7014,
+            "corpus": "招股说明书1.pdf",
+            "page": 26,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p155-x0",
+            "score": 0.6928,
+            "corpus": "招股说明书1.pdf",
+            "page": 155,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p181-x0",
+            "score": 0.6772,
+            "corpus": "招股说明书1.pdf",
+            "page": 181,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p223-x0",
+            "score": 0.6688,
+            "corpus": "招股说明书1.pdf",
+            "page": 223,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p172-x0",
+            "score": 0.6688,
+            "corpus": "招股说明书1.pdf",
+            "page": 172,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p180-x0",
+            "score": 0.665,
+            "corpus": "招股说明书1.pdf",
+            "page": 180,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p153-x0",
+            "score": 0.6648,
+            "corpus": "招股说明书1.pdf",
+            "page": 153,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p494-x0",
+            "score": 0.6635,
+            "corpus": "招股说明书1.pdf",
+            "page": 494,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p120-x0",
+            "score": 0.6634,
+            "corpus": "招股说明书1.pdf",
+            "page": 120,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p382-x0",
+            "score": 0.6631,
+            "corpus": "招股说明书1.pdf",
+            "page": 382,
+            "type": "text"
+          }
+        ],
+        "vector_page_hit": false,
+        "vector_answers": [
+          "视频指挥"
+        ],
+        "keyword_hit_vector": true,
+        "chunks_on_evidence_pages": 6,
+        "passed": true
+      },
+      {
+        "id": 793,
+        "corpus": "招股说明书1.pdf",
+        "evidence_pages": [
+          152
+        ],
+        "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？",
+        "keywords": [
+          "军队",
+          "政府机关",
+          "能源"
+        ],
+        "bm25_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p152-x2",
+            "score": 31.9931,
+            "corpus": "招股说明书1.pdf",
+            "page": 152,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p153-x0",
+            "score": 30.966,
+            "corpus": "招股说明书1.pdf",
+            "page": 153,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p135-x0",
+            "score": 26.2362,
+            "corpus": "招股说明书1.pdf",
+            "page": 135,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p136-x0",
+            "score": 25.4869,
+            "corpus": "招股说明书1.pdf",
+            "page": 136,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p136-x1",
+            "score": 23.7057,
+            "corpus": "招股说明书1.pdf",
+            "page": 136,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p139-x0",
+            "score": 20.8066,
+            "corpus": "招股说明书1.pdf",
+            "page": 139,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p102-img-811-0",
+            "score": 20.5245,
+            "corpus": "招股说明书1.pdf",
+            "page": 102,
+            "type": "image"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p153-x1",
+            "score": 19.8417,
+            "corpus": "招股说明书1.pdf",
+            "page": 153,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf2-p89-x0",
+            "score": 19.5952,
+            "corpus": "招股说明书2.pdf",
+            "page": 89,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p225-x0",
+            "score": 19.1292,
+            "corpus": "招股说明书1.pdf",
+            "page": 225,
+            "type": "text"
+          }
+        ],
+        "bm25_page_hit": true,
+        "bm25_answers": [
+          "军队",
+          "政府机关",
+          "能源"
+        ],
+        "keyword_hit_bm25": true,
+        "vector_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p153-x0",
+            "score": 0.7426,
+            "corpus": "招股说明书1.pdf",
+            "page": 153,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p102-img-811-0",
+            "score": 0.6645,
+            "corpus": "招股说明书1.pdf",
+            "page": 102,
+            "type": "image"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p135-x0",
+            "score": 0.6623,
+            "corpus": "招股说明书1.pdf",
+            "page": 135,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p152-x2",
+            "score": 0.6559,
+            "corpus": "招股说明书1.pdf",
+            "page": 152,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p106-img-825-0",
+            "score": 0.6545,
+            "corpus": "招股说明书1.pdf",
+            "page": 106,
+            "type": "image"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p151-x0",
+            "score": 0.6538,
+            "corpus": "招股说明书1.pdf",
+            "page": 151,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p152-x0",
+            "score": 0.6435,
+            "corpus": "招股说明书1.pdf",
+            "page": 152,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p171-x0",
+            "score": 0.6423,
+            "corpus": "招股说明书1.pdf",
+            "page": 171,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p382-x0",
+            "score": 0.6388,
+            "corpus": "招股说明书1.pdf",
+            "page": 382,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p136-x0",
+            "score": 0.6353,
+            "corpus": "招股说明书1.pdf",
+            "page": 136,
+            "type": "text"
+          }
+        ],
+        "vector_page_hit": true,
+        "vector_answers": [
+          "军队",
+          "政府机关",
+          "能源"
+        ],
+        "keyword_hit_vector": true,
+        "chunks_on_evidence_pages": 3,
+        "passed": true
+      },
+      {
+        "id": 795,
+        "corpus": "招股说明书1.pdf",
+        "evidence_pages": [
+          27,
+          157
+        ],
+        "question": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+        "keywords": [
+          "国家科技进步一等奖"
+        ],
+        "bm25_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p157-x2",
+            "score": 46.3491,
+            "corpus": "招股说明书1.pdf",
+            "page": 157,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p94-x0",
+            "score": 40.7558,
+            "corpus": "招股说明书1.pdf",
+            "page": 94,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p181-x0",
+            "score": 37.3681,
+            "corpus": "招股说明书1.pdf",
+            "page": 181,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p96-x0",
+            "score": 37.3002,
+            "corpus": "招股说明书1.pdf",
+            "page": 96,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p155-x0",
+            "score": 37.0952,
+            "corpus": "招股说明书1.pdf",
+            "page": 155,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p241-x1",
+            "score": 33.0526,
+            "corpus": "招股说明书1.pdf",
+            "page": 241,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p182-x1",
+            "score": 32.8312,
+            "corpus": "招股说明书1.pdf",
+            "page": 182,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p27-x1",
+            "score": 31.6938,
+            "corpus": "招股说明书1.pdf",
+            "page": 27,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p158-x1",
+            "score": 31.64,
+            "corpus": "招股说明书1.pdf",
+            "page": 158,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p158-x0",
+            "score": 20.6675,
+            "corpus": "招股说明书1.pdf",
+            "page": 158,
+            "type": "text"
+          }
+        ],
+        "bm25_page_hit": true,
+        "bm25_answers": [
+          "国家科技进步一等奖"
+        ],
+        "keyword_hit_bm25": true,
+        "vector_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p94-x0",
+            "score": 0.7378,
+            "corpus": "招股说明书1.pdf",
+            "page": 94,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p181-x0",
+            "score": 0.7294,
+            "corpus": "招股说明书1.pdf",
+            "page": 181,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p96-x0",
+            "score": 0.7276,
+            "corpus": "招股说明书1.pdf",
+            "page": 96,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p155-x0",
+            "score": 0.7107,
+            "corpus": "招股说明书1.pdf",
+            "page": 155,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p241-x1",
+            "score": 0.685,
+            "corpus": "招股说明书1.pdf",
+            "page": 241,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p182-x1",
+            "score": 0.6429,
+            "corpus": "招股说明书1.pdf",
+            "page": 182,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p217-x0",
+            "score": 0.6414,
+            "corpus": "招股说明书1.pdf",
+            "page": 217,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p488-x0",
+            "score": 0.6343,
+            "corpus": "招股说明书1.pdf",
+            "page": 488,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p223-x0",
+            "score": 0.6307,
+            "corpus": "招股说明书1.pdf",
+            "page": 223,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p480-x0",
+            "score": 0.6292,
+            "corpus": "招股说明书1.pdf",
+            "page": 480,
+            "type": "text"
+          }
+        ],
+        "vector_page_hit": false,
+        "vector_answers": [
+          "国家科技进步一等奖"
+        ],
+        "keyword_hit_vector": true,
+        "chunks_on_evidence_pages": 6,
+        "passed": true
+      },
+      {
+        "id": 543,
+        "corpus": "招股说明书1.pdf",
+        "evidence_pages": [
+          22
+        ],
+        "question": "武汉兴图新科电子股份有限公司注册资本是多少？",
+        "keywords": [
+          "5,520"
+        ],
+        "bm25_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p52-x0",
+            "score": 15.4509,
+            "corpus": "招股说明书1.pdf",
+            "page": 52,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p286-x0",
+            "score": 14.5574,
+            "corpus": "招股说明书1.pdf",
+            "page": 286,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p59-x0",
+            "score": 14.4643,
+            "corpus": "招股说明书1.pdf",
+            "page": 59,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p68-x0",
+            "score": 14.3262,
+            "corpus": "招股说明书1.pdf",
+            "page": 68,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p58-x2",
+            "score": 13.8019,
+            "corpus": "招股说明书1.pdf",
+            "page": 58,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p22-x0",
+            "score": 13.7994,
+            "corpus": "招股说明书1.pdf",
+            "page": 22,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p534-x0",
+            "score": 13.6888,
+            "corpus": "招股说明书1.pdf",
+            "page": 534,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p19-x0",
+            "score": 12.946,
+            "corpus": "招股说明书1.pdf",
+            "page": 19,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p18-x0",
+            "score": 12.5063,
+            "corpus": "招股说明书1.pdf",
+            "page": 18,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p64-x0",
+            "score": 12.2164,
+            "corpus": "招股说明书1.pdf",
+            "page": 64,
+            "type": "text"
+          }
+        ],
+        "bm25_page_hit": true,
+        "bm25_answers": [
+          "5,520"
+        ],
+        "keyword_hit_bm25": true,
+        "vector_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p22-t0-0",
+            "score": 0.804,
+            "corpus": "招股说明书1.pdf",
+            "page": 22,
+            "type": "table"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p63-x0",
+            "score": 0.7876,
+            "corpus": "招股说明书1.pdf",
+            "page": 63,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p54-x0",
+            "score": 0.7587,
+            "corpus": "招股说明书1.pdf",
+            "page": 54,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p468-x0",
+            "score": 0.7546,
+            "corpus": "招股说明书1.pdf",
+            "page": 468,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p68-x0",
+            "score": 0.7515,
+            "corpus": "招股说明书1.pdf",
+            "page": 68,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p56-x0",
+            "score": 0.7502,
+            "corpus": "招股说明书1.pdf",
+            "page": 56,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p64-x0",
+            "score": 0.746,
+            "corpus": "招股说明书1.pdf",
+            "page": 64,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p22-x0",
+            "score": 0.7453,
+            "corpus": "招股说明书1.pdf",
+            "page": 22,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p56-x1",
+            "score": 0.7438,
+            "corpus": "招股说明书1.pdf",
+            "page": 56,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p23-x0",
+            "score": 0.7421,
+            "corpus": "招股说明书1.pdf",
+            "page": 23,
+            "type": "text"
+          }
+        ],
+        "vector_page_hit": true,
+        "vector_answers": [
+          "5,520"
+        ],
+        "keyword_hit_vector": true,
+        "chunks_on_evidence_pages": 6,
+        "passed": true
+      },
+      {
+        "id": 531,
+        "corpus": "招股说明书1.pdf",
+        "evidence_pages": [
+          22
+        ],
+        "question": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+        "keywords": [
+          "程家明"
+        ],
+        "bm25_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p534-x0",
+            "score": 17.1859,
+            "corpus": "招股说明书1.pdf",
+            "page": 534,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p52-x0",
+            "score": 15.7464,
+            "corpus": "招股说明书1.pdf",
+            "page": 52,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p68-x0",
+            "score": 14.6687,
+            "corpus": "招股说明书1.pdf",
+            "page": 68,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p33-x0",
+            "score": 14.368,
+            "corpus": "招股说明书1.pdf",
+            "page": 33,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p22-x0",
+            "score": 14.1028,
+            "corpus": "招股说明书1.pdf",
+            "page": 22,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p73-x0",
+            "score": 13.1358,
+            "corpus": "招股说明书1.pdf",
+            "page": 73,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p19-x0",
+            "score": 12.946,
+            "corpus": "招股说明书1.pdf",
+            "page": 19,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p64-x0",
+            "score": 12.5842,
+            "corpus": "招股说明书1.pdf",
+            "page": 64,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p18-x0",
+            "score": 12.5063,
+            "corpus": "招股说明书1.pdf",
+            "page": 18,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p61-x0",
+            "score": 12.3515,
+            "corpus": "招股说明书1.pdf",
+            "page": 61,
+            "type": "text"
+          }
+        ],
+        "bm25_page_hit": true,
+        "bm25_answers": [
+          "程家明"
+        ],
+        "keyword_hit_bm25": true,
+        "vector_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p22-t0-0",
+            "score": 0.7722,
+            "corpus": "招股说明书1.pdf",
+            "page": 22,
+            "type": "table"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p52-x0",
+            "score": 0.7457,
+            "corpus": "招股说明书1.pdf",
+            "page": 52,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p22-x0",
+            "score": 0.7443,
+            "corpus": "招股说明书1.pdf",
+            "page": 22,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p63-x0",
+            "score": 0.7341,
+            "corpus": "招股说明书1.pdf",
+            "page": 63,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p68-x0",
+            "score": 0.7276,
+            "corpus": "招股说明书1.pdf",
+            "page": 68,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p74-x0",
+            "score": 0.7222,
+            "corpus": "招股说明书1.pdf",
+            "page": 74,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p67-x1",
+            "score": 0.7204,
+            "corpus": "招股说明书1.pdf",
+            "page": 67,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p534-x0",
+            "score": 0.7191,
+            "corpus": "招股说明书1.pdf",
+            "page": 534,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p255-x0",
+            "score": 0.7149,
+            "corpus": "招股说明书1.pdf",
+            "page": 255,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p81-x0",
+            "score": 0.7032,
+            "corpus": "招股说明书1.pdf",
+            "page": 81,
+            "type": "text"
+          }
+        ],
+        "vector_page_hit": true,
+        "vector_answers": [
+          "程家明"
+        ],
+        "keyword_hit_vector": true,
+        "chunks_on_evidence_pages": 6,
+        "passed": true
+      },
+      {
+        "id": 207,
+        "corpus": "招股说明书1.pdf",
+        "evidence_pages": [
+          30,
+          479
+        ],
+        "question": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+        "keywords": [
+          "15,000.00"
+        ],
+        "bm25_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p483-x3",
+            "score": 43.8764,
+            "corpus": "招股说明书1.pdf",
+            "page": 483,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p484-x0",
+            "score": 42.7819,
+            "corpus": "招股说明书1.pdf",
+            "page": 484,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p484-x1",
+            "score": 39.2782,
+            "corpus": "招股说明书1.pdf",
+            "page": 484,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p30-x0",
+            "score": 38.845,
+            "corpus": "招股说明书1.pdf",
+            "page": 30,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p491-x0",
+            "score": 38.508,
+            "corpus": "招股说明书1.pdf",
+            "page": 491,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p479-x0",
+            "score": 38.145,
+            "corpus": "招股说明书1.pdf",
+            "page": 479,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p490-x1",
+            "score": 37.7231,
+            "corpus": "招股说明书1.pdf",
+            "page": 490,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p481-x0",
+            "score": 34.3431,
+            "corpus": "招股说明书1.pdf",
+            "page": 481,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p479-x1",
+            "score": 32.1527,
+            "corpus": "招股说明书1.pdf",
+            "page": 479,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p483-x2",
+            "score": 31.0975,
+            "corpus": "招股说明书1.pdf",
+            "page": 483,
+            "type": "text"
+          }
+        ],
+        "bm25_page_hit": true,
+        "bm25_answers": [
+          "15,000.00"
+        ],
+        "keyword_hit_bm25": true,
+        "vector_top10": [
+          {
+            "rank": 1,
+            "chunk_id": "pdf1-p479-x0",
+            "score": 0.8056,
+            "corpus": "招股说明书1.pdf",
+            "page": 479,
+            "type": "text"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "pdf1-p30-x0",
+            "score": 0.795,
+            "corpus": "招股说明书1.pdf",
+            "page": 30,
+            "type": "text"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "pdf1-p491-x0",
+            "score": 0.7916,
+            "corpus": "招股说明书1.pdf",
+            "page": 491,
+            "type": "text"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "pdf1-p477-x0",
+            "score": 0.7427,
+            "corpus": "招股说明书1.pdf",
+            "page": 477,
+            "type": "text"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "pdf1-p31-x0",
+            "score": 0.742,
+            "corpus": "招股说明书1.pdf",
+            "page": 31,
+            "type": "text"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "pdf1-p3-x0",
+            "score": 0.7402,
+            "corpus": "招股说明书1.pdf",
+            "page": 3,
+            "type": "text"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "pdf1-p277-x0",
+            "score": 0.7341,
+            "corpus": "招股说明书1.pdf",
+            "page": 277,
+            "type": "text"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "pdf1-p71-x0",
+            "score": 0.7321,
+            "corpus": "招股说明书1.pdf",
+            "page": 71,
+            "type": "text"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "pdf1-p32-x0",
+            "score": 0.7277,
+            "corpus": "招股说明书1.pdf",
+            "page": 32,
+            "type": "text"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "pdf1-p23-x0",
+            "score": 0.7265,
+            "corpus": "招股说明书1.pdf",
+            "page": 23,
+            "type": "text"
+          }
+        ],
+        "vector_page_hit": true,
+        "vector_answers": [
+          "15,000.00"
+        ],
+        "keyword_hit_vector": true,
+        "chunks_on_evidence_pages": 6,
+        "passed": true
+      }
+    ],
+    "bm25_page_hit_count": 16,
+    "bm25_keyword_hit_count": 15,
+    "vector_page_hit_count": 11,
+    "vector_keyword_hit_count": 13,
+    "no_hit_ids": [],
+    "keyword_rules": {
+      "numeric_keywords_contextual": true,
+      "place_names_bare_by_design": true,
+      "rule": "数值类关键字一律带语境（如 '4个部门' / '6个销售处'）；**裸数字不作为关键字** —— 裸 '4'/'6' 会被页码、金额、年份误命中，使 keyword_hit 虚高。",
+      "place_name_note": "城市/地名类关键字保持裸城市名（与 设计/验收标准.md §3.1 同源），因为正文互证页写的是「在北京、广州、成都、深圳、武汉、珠海各设有 1 家销售处」；代价是城市名**偏弱**（'武汉' 会被公司名「武汉力源…」误命中）→ 城市类只作弱判据，计数类必须带语境。",
+      "normalization": "匹配前统一：去空白、去千分位逗号、全角转半角（见 _norm_for_match）；两个自检（图像题自检 / 16 题自检）**使用同一个归一化函数**（T3 复核指出的口径不一致已修）",
+      "counts_definition": {
+        "bm25_page_hit_count": "BM25 Top-10 内存在「该题证据页」上的块（粗判，仅定位）",
+        "bm25_keyword_hit_count": "BM25 Top-10 命中块的**合并正文**含该题全部关键字（细判）",
+        "vector_page_hit_count": "向量 Top-10 内存在「该题证据页」上的块",
+        "vector_keyword_hit_count": "向量 Top-10 命中块的**合并正文**含该题全部关键字",
+        "no_hit_ids": "BM25 与向量两路的证据页命中**都**为空的题号（比上面四个计数更严格）"
+      },
+      "authoritative_judge": "最终判对/判错以 T6 的 golden 判分为准（测试/common/golden.py）；本文件的计数只用于检索层调参（如 T5 定 RRF 权重），不得当作准确率。",
+      "layer_mapping_to_golden": {
+        "本文件 bm25_page_hit_count/vector_page_hit_count": "= golden.check_retrieval_hit_layers 的 hit_page_level（诊断层B，页级口径）",
+        "本文件 bm25_keyword_hit_count/vector_keyword_hit_count": "关键字级细判；不等于 T6 的命中率主指标，T6 主指标用 hit_complete（权威层）",
+        "golden.check_retrieval_hit_layers 三层": [
+          "hit_complete（权威层，命中率主指标）",
+          "hit_any_evidence（诊断层A，含子句片段）",
+          "hit_page_level（诊断层B，页级）"
+        ]
+      }
+    },
+    "all_questions_have_page_hit": true
+  },
+  "keyword_rules": {
+    "numeric_keywords_contextual": true,
+    "place_names_bare_by_design": true,
+    "rule": "数值类关键字一律带语境（如 '4个部门' / '6个销售处'）；**裸数字不作为关键字** —— 裸 '4'/'6' 会被页码、金额、年份误命中，使 keyword_hit 虚高。",
+    "place_name_note": "城市/地名类关键字保持裸城市名（与 设计/验收标准.md §3.1 同源），因为正文互证页写的是「在北京、广州、成都、深圳、武汉、珠海各设有 1 家销售处」；代价是城市名**偏弱**（'武汉' 会被公司名「武汉力源…」误命中）→ 城市类只作弱判据，计数类必须带语境。",
+    "normalization": "匹配前统一：去空白、去千分位逗号、全角转半角（见 _norm_for_match）；两个自检（图像题自检 / 16 题自检）**使用同一个归一化函数**（T3 复核指出的口径不一致已修）",
+    "counts_definition": {
+      "bm25_page_hit_count": "BM25 Top-10 内存在「该题证据页」上的块（粗判，仅定位）",
+      "bm25_keyword_hit_count": "BM25 Top-10 命中块的**合并正文**含该题全部关键字（细判）",
+      "vector_page_hit_count": "向量 Top-10 内存在「该题证据页」上的块",
+      "vector_keyword_hit_count": "向量 Top-10 命中块的**合并正文**含该题全部关键字",
+      "no_hit_ids": "BM25 与向量两路的证据页命中**都**为空的题号（比上面四个计数更严格）"
+    },
+    "authoritative_judge": "最终判对/判错以 T6 的 golden 判分为准（测试/common/golden.py）；本文件的计数只用于检索层调参（如 T5 定 RRF 权重），不得当作准确率。",
+    "layer_mapping_to_golden": {
+      "本文件 bm25_page_hit_count/vector_page_hit_count": "= golden.check_retrieval_hit_layers 的 hit_page_level（诊断层B，页级口径）",
+      "本文件 bm25_keyword_hit_count/vector_keyword_hit_count": "关键字级细判；不等于 T6 的命中率主指标，T6 主指标用 hit_complete（权威层）",
+      "golden.check_retrieval_hit_layers 三层": [
+        "hit_complete（权威层，命中率主指标）",
+        "hit_any_evidence（诊断层A，含子句片段）",
+        "hit_page_level（诊断层B，页级）"
+      ]
+    }
+  },
+  "refreshed_by": "build_index.py --verify-only（只重算自检证据，**不改动任何索引文件**）",
+  "refreshed_at": "2026-10-06T20:42:18+08:00"
+}

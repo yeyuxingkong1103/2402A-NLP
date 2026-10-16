@@ -1,0 +1,48 @@
+{
+  "generated_by": "部署/脚本/rotate_logs.ps1",
+  "run_at": "2026-10-07T08:31:18",
+  "log_dir": "E:\\gao6gongdan\\工单4\\部署\\日志",
+  "policy": {
+    "threshold_mb": 8,
+    "keep_lines": 3000,
+    "max_archives": 5,
+    "force": false,
+    "strategy": "归档为 gzip（整份）+ 活动文件保留最近 N 行；归档超上限时删最旧"
+  },
+  "services_listening": [
+    8123
+  ],
+  "exit_code": 0,
+  "files": [
+    {
+      "file": "app.log",
+      "action": "rotated",
+      "method": "copytruncate",
+      "before_bytes": 41982526,
+      "before_human": "40.04 MiB",
+      "after_bytes": 1664249,
+      "after_human": "1.59 MiB",
+      "archived_bytes": 41982526,
+      "archived_lines": 75670,
+      "archive_path": "E:\\gao6gongdan\\工单4\\部署\\日志\\归档\\app.20261007-083110.log.gz",
+      "archive_gz_bytes": 3056558,
+      "archive_verify": "回读校验一致（字节数+行数）",
+      "kept_lines": 3000,
+      "kept_verify": "保留样例逐行 JSON 校验通过",
+      "deleted_archives": []
+    },
+    {
+      "file": "error.log",
+      "action": "keep",
+      "before_bytes": 5739,
+      "reason": "未达阈值 8 MB"
+    },
+    {
+      "file": "rag_trace.jsonl",
+      "action": "keep",
+      "before_bytes": 5928715,
+      "reason": "未达阈值 8 MB"
+    }
+  ],
+  "note": "处理前后体积均为本次实跑实测；归档为「保留」而非删除（超上限的最旧归档单独列出）。"
+}
