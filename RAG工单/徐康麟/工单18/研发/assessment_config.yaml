@@ -1,0 +1,276 @@
+# =============================================================================
+# 工单编号：人工智能NLP-RAG-实现文档质量评估Skill 并集成至智能体工作流工单
+# 文件：研发/assessment_config.yaml
+# 说明：DocumentQualityAssessmentSkill 的**唯一**参数来源。
+#       代码中不允许出现任何判断阈值字面量（验收项：阈值必须配置化，不硬编码）。
+#       加载入口：document_quality_assessment/config.py::load_config
+#       环境变量覆盖：DQA_ 前缀 + 双下划线路径，例如
+#         $env:DQA_SCAN__SCAN_RATIO_THRESHOLD='0.6'
+#         $env:DQA_PERFORMANCE__MAX_WORKERS='8'
+# =============================================================================
+config_version: "1.0.0"
+
+# -----------------------------------------------------------------------------
+# 一、文件格式分布统计（功能 1）
+# -----------------------------------------------------------------------------
+format_stats:
+  # 参与统计的扩展名 → 格式大类标签
+  extension_groups:
+    ".pdf":  PDF
+    ".docx": Office_Doc
+    ".doc":  Office_Doc
+    ".pptx": Office_Doc
+    ".xlsx": Office_Doc
+    ".md":   Markdown
+    ".markdown": Markdown
+    ".txt":  Text
+    ".csv":  Text
+    ".json": Text
+    ".jsonl": Text
+    ".html": Web
+    ".htm":  Web
+  # 不在上表内的一律记为 Other（仍然计入总数，保证占比之和 = 1）
+  unknown_group: Other
+  # 报告里"占比"保留的小数位
+  ratio_digits: 4
+
+# -----------------------------------------------------------------------------
+# 二、PDF 文字型 / 扫描型 / 混合型分流（功能 2）—— 启发式，阈值全部可配
+# -----------------------------------------------------------------------------
+scan_detection:
+  # 单页有效字符数低于该值 → 该页判为"低文本页"（工单原文口径的扫描页候选）
+  page_char_threshold: 50
+  # 判定 PDF 整体类型时，最多只抽检前 N 页（0 = 全部页）；抽检可大幅提速
+  max_pages_sampled: 0
+  # 扫描页占比 > scan_ratio_threshold      → Scan_PDF（扫描型）
+  scan_ratio_threshold: 0.7
+  # 扫描页占比 >= mixed_ratio_threshold    → Mixed_PDF（混合型）
+  # 低于 mixed_ratio_threshold             → Text_PDF（文字型）
+  mixed_ratio_threshold: 0.2
+  # 页级"图像覆盖率"辅助判据：图像面积 / 页面面积 超过该值的页，即使抽到少量文本也视为扫描页
+  image_area_ratio_threshold: 0.6
+  # 是否要求"扫描页必须被大图铺满"（true = 更保守）。
+  #   false（默认，工单原文口径）：字符数 < page_char_threshold 即算扫描页；
+  #   true（本数据集实测校准后的加严口径）：
+  #       字符数 < page_char_threshold 且（抽不到任何文本 或 图像覆盖率 >= image_area_ratio_threshold）
+  #       才计入扫描页占比；不满足的记为"低文本页(low_text)"，只进待确认列表、不影响分流结论。
+  #   实测依据（见 优化/评估结果/阈值标定.md）：本数据集说明书附图页只有页眉页脚约 37 字符、
+  #   图像覆盖率仅 0.12~0.37，若按字面口径会被误计为扫描页；真扫描页图像覆盖率 ≥ 0.6。
+  require_image_for_scan: true
+  # 抽检页数 ≥ 该值时才允许用"抽检样本"结论；否则一律标 mixed 并进待确认列表
+  min_pages_for_confident_sample: 3
+  # 0 字节 / 打开失败 / 加密 / 无页 的 PDF 处置
+  corrupted_marker: Corrupted
+  # 加密 PDF 是否尝试空密码解密
+  try_empty_password: true
+  # 单页文本抽取上限（防御性：极少数 PDF 单页文本几 MB）
+  max_chars_per_page: 200000
+
+# -----------------------------------------------------------------------------
+# 三、文档长度分布（功能 3）
+# -----------------------------------------------------------------------------
+length_stats:
+  quantiles: [0.25, 0.50, 0.75, 0.90, 0.99]
+  quantile_names: ["P25", "P50", "P75", "P90", "P99"]
+  # 长度区间（字符数）直方图分箱；[下界, 上界)，最后一箱上界用 null 表示 ∞
+  histogram_bins:
+    - {label: "0",            lo: 0,     hi: 1}
+    - {label: "1-99",         lo: 1,     hi: 100}
+    - {label: "100-499",      lo: 100,   hi: 500}
+    - {label: "500-999",      lo: 500,   hi: 1000}
+    - {label: "1K-5K",        lo: 1000,  hi: 5000}
+    - {label: "5K-20K",       lo: 5000,  hi: 20000}
+    - {label: "20K-50K",      lo: 20000, hi: 50000}
+    - {label: "50K-100K",     lo: 50000, hi: 100000}
+    - {label: "100K+",        lo: 100000, hi: null}
+  # 过短 / 过长阈值（同时用于 Too_Short / Too_Long 标签）
+  too_short_chars: 100
+  too_long_chars: 100000
+  # 长度统计只对"文本可提取"的文档生效（扫描型 PDF 提取不到文本，字符数计 0）
+  count_zero_for_scanned: true
+
+# -----------------------------------------------------------------------------
+# 四、重复检测：MD5 精确 + SimHash 近似（功能 4）
+# -----------------------------------------------------------------------------
+duplicate_detection:
+  # 计算 MD5 时只读前 N 字节（0 = 全文件）；大文件提速，且足以区分不同文件
+  md5_read_bytes: 0
+  simhash:
+    enabled: true
+    # 参与 SimHash 的正文字符上限（超出截断，避免超长文档拖慢）
+    max_chars: 20000
+    # 分片（shingle）窗口大小：按字符切 k-gram
+    shingle_size: 4
+    # 分片步长
+    shingle_step: 2
+    # 海明距离 ≤ 该值 → 判为"高相似（疑似版本冲突）"，进入待确认列表
+    hamming_threshold: 3
+    # 每个 shingle 的权重（次数）
+    bits: 64
+    # 相似片段对照：每条候选对给出的片段条数 / 片段长度
+    snippet_count: 3
+    snippet_chars: 80
+  # 候选对预筛：按文件长度分桶，仅比较长度接近的文档（0 = 不预筛，两两全比）
+  # 预筛规则：|len_a - len_b| / max(len_a, len_b, 1) <= length_ratio_tolerance
+  prefilter_by_length: true
+  length_ratio_tolerance: 0.25
+  # 待确认列表最多输出条数（0 = 不限）
+  max_conflict_items: 0
+  # MD5 完全相同的文件组最多输出组数
+  max_md5_groups: 0
+
+# -----------------------------------------------------------------------------
+# 五、敏感信息检测（功能 5）
+# -----------------------------------------------------------------------------
+sensitive_detection:
+  enabled: true
+  # 只在文本前 N 字符内扫描（0 = 全文）
+  scan_max_chars: 0
+  # 上下文片段：命中位置前后各取 N 个字符
+  context_chars: 30
+  # 每条待审核记录最多输出几个上下文片段
+  max_contexts_per_hit: 2
+  rules:
+    - name: 手机号
+      type: phone_cn
+      enabled: true
+      pattern: '(?<!\d)1[3-9]\d{9}(?!\d)'
+      # 二次校验：号码不能是 11 位连号/重复号（如 13800138000 之外的 11111111111）
+      validate_repeat_digits: true
+      severity: medium
+    - name: 电子邮箱
+      type: email
+      enabled: true
+      pattern: '[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}'
+      severity: medium
+    - name: 身份证号
+      type: id_card_cn
+      enabled: true
+      # 18 位（含 X 校验位）后 4 位不再放宽；同时兜底 15 位老式身份证
+      pattern: '(?<!\d)([1-9]\d{5}(?:19|20)\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])\d{3}[\dXx])(?!\d)'
+      # 是否用 GB 11643-1999 加权校验码校验 18 位身份证（显著降低误报）
+      validate_checksum: true
+      severity: high
+    - name: 银行卡号
+      type: bank_card
+      # 工单原文明确要求"银行卡检测默认关闭（误报率太高）"
+      enabled: false
+      pattern: '(?<!\d)(?:62|4\d|5[1-5]|3[47])\d{12,18}(?!\d)'
+      validate_luhn: true
+      severity: low
+  # 待审核列表最多输出条数（0 = 不限）
+  max_review_items: 0
+  # 同一文件内同一规则最多输出多少条命中（0 = 不限）
+  max_hits_per_file_per_rule: 0
+  # 敏感信息检测的文本来源：仅正文（不含文件名）；文件名是否也扫（默认不扫）
+  scan_filenames: false
+
+# -----------------------------------------------------------------------------
+# 六、文档分类标签体系（标签规则全部在此定义，代码不得硬编码）
+# -----------------------------------------------------------------------------
+tagging:
+  # 判定顺序 = 下列列表顺序（先命中先定"主标签"），全部命中的次要标签进 tags 列表
+  priority:
+    - Corrupted
+    - Duplicate
+    - Has_Sensitive
+    - Scan_PDF
+    - Mixed_PDF
+    - Text_PDF
+    - Office_Doc
+    - Markdown
+    - Plain_Text
+    - Web_Doc
+    - Too_Short
+    - Too_Long
+    - Empty
+    - Normal
+  # 标签定义：key 为标签名，命中条件由 kind + 阈值字段决定（数值型阈值放在本节点下）
+  definitions:
+    Corrupted:      {kind: corrupted,            description: "文件 0 字节 / 无法打开 / 加密未解密 / PDF 无页"}
+    Duplicate:      {kind: md5_duplicate,        description: "MD5 与其他文件完全相同"}
+    Has_Sensitive:  {kind: has_sensitive,        description: "命中至少一条已启用的敏感信息规则"}
+    Scan_PDF:       {kind: pdf_scan,             description: "扫描页占比 > scan_ratio_threshold，需先 OCR"}
+    Mixed_PDF:      {kind: pdf_mixed,            description: "扫描页占比介于 mixed 与 scan 阈值之间，需混合解析"}
+    Text_PDF:       {kind: pdf_text,             description: "扫描页占比 < mixed_ratio_threshold，可直接抽文本"}
+    Office_Doc:     {kind: format_group,         match_group: Office_Doc, description: "docx/doc/pptx/xlsx 等 Office 文档"}
+    Markdown:       {kind: format_group,         match_group: Markdown,   description: "Markdown 文档"}
+    Plain_Text:     {kind: format_group,         match_group: Text,       description: "纯文本 / csv / json"}
+    Web_Doc:        {kind: format_group,         match_group: Web,        description: "HTML/HTM 网页"}
+    Too_Short:      {kind: too_short,            description: "字符数 < length_stats.too_short_chars"}
+    Too_Long:       {kind: too_long,             description: "字符数 > length_stats.too_long_chars"}
+    Empty:          {kind: empty,                description: "字符数为 0 但非纯扫描件（纯扫描件已由 Scan_PDF 表达，不重复计 Empty）"}
+    Normal:         {kind: normal,               description: "未命中上述任一异常标签"}
+
+# -----------------------------------------------------------------------------
+# 七、标签 → 解析器路由（工作流 document_ingestion_workflow 读这一段）
+# -----------------------------------------------------------------------------
+routing:
+  # 顺序敏感：从上往下第一个匹配的标签决定路由分支
+  rules:
+    - {tag: Corrupted,     parser: quarantine_isolator,   action: 隔离区,         description: "损坏/加密失败文件移入隔离区，人工复核"}
+    - {tag: Scan_PDF,      parser: ocr_parser,            action: OCR解析,        description: "扫描型 PDF → OCR 解析器（本机无 OCR 引擎时为占位/降级分支）"}
+    - {tag: Mixed_PDF,     parser: hybrid_parser,         action: 混合解析,       description: "混合型 PDF → 文本层抽取 + 缺页 OCR 回填"}
+    - {tag: Text_PDF,      parser: text_pdf_parser,       action: 直接抽文本,     description: "文字型 PDF → PyMuPDF 直接抽文本"}
+    - {tag: Office_Doc,    parser: docx_parser,           action: docx抽取,       description: "Office 文档 → docx 段落/表格抽取"}
+    - {tag: Markdown,      parser: markdown_parser,       action: Markdown抽取,   description: "Markdown → 直接读文本并剥离语法"}
+    - {tag: Plain_Text,    parser: plain_text_parser,     action: 纯文本读取,     description: "txt/csv/json → 直接读文本"}
+    - {tag: Web_Doc,       parser: html_parser,           action: HTML抽取,       description: "HTML → 去标签取正文"}
+    - {tag: Too_Short,     parser: low_priority_parser,   action: 低优先入队,     description: "过短文档 → 低优先解析队列"}
+    - {tag: Too_Long,      parser: chunk_parser,          action: 分块解析,       description: "过长文档 → 先分块再解析"}
+    - {tag: Has_Sensitive, parser: guarded_parser,        action: 脱敏后解析,     description: "命中敏感信息 → 先脱敏再入库"}
+    - {tag: Duplicate,     parser: dedup_parser,          action: 去重后解析,     description: "MD5 重复 → 仅保留首份"}
+    - {tag: Normal,        parser: default_parser,        action: 默认解析,       description: "兜底分支"}
+  # 找不到任何匹配标签时的兜底解析器
+  default_parser: default_parser
+  # 需要重点提示"降级"的解析器（本机缺 OCR 引擎）
+  degraded_parsers: [ocr_parser]
+
+# -----------------------------------------------------------------------------
+# 八、性能与进度（工单备注 3：进度反馈 + 中断恢复）
+# -----------------------------------------------------------------------------
+performance:
+  # 并行进程数（PDF 解析是 CPU 密集，用进程池；Windows 下 spawn）
+  max_workers: 4
+  # 每处理 N 个文件刷一次进度 + 落一次 state.json（断点续跑的检查点间隔）
+  progress_every: 50
+  checkpoint_every: 100
+  # 单文件处理硬超时（秒），超时记为 Corrupted(timeout)
+  per_file_timeout_sec: 120
+  # 是否启用 MD5 结果缓存（按 路径+mtime+size 命中）
+  enable_cache: true
+  # 串行执行时每 N 个文件强制一次 gc.collect()，避免大 PDF 解析后内存不释放
+  gc_every: 100
+  # == 资源耗尽自动重试（实测：长进程连续解析 1700 份 PDF 会偶发 MemoryError，
+  #    逐个重跑 84/84 全部成功，属瞬时可恢复故障，故加自动重试而不直接判 Corrupted）==
+  # 单个文件的重试次数（含首次，即 2 表示最多再试 1 次）
+  max_attempts_per_file: 2
+  # 重试前是否强制 gc.collect()
+  gc_before_retry: true
+  # 触发重试的错误关键字（小写子串匹配 error 字段）
+  retryable_error_keywords: ["memoryerror", "memory_error", "temporarily_unavailable", "resource"]
+  # 抽样上限（0 = 不抽样，全量）
+  sample_limit: 0
+  # 递归遍历子目录
+  recursive: true
+
+# -----------------------------------------------------------------------------
+# 九、输出与状态文件（全部相对仓库根 E:\gao6gongdan\工单18）
+# -----------------------------------------------------------------------------
+output:
+  # 断点续跑状态文件（工单原文点名：研发/data/state.json）
+  state_file: "研发/data/state.json"
+  # 结构化全量报告
+  json_report: "研发/data/reports/quality_report.json"
+  # 自包含 HTML 简报（可离线打开）
+  html_report: "研发/data/reports/quality_report.html"
+  # 逐文件明细（jsonl，便于后续路由/审计）
+  per_file_jsonl: "研发/data/reports/per_file.jsonl"
+  # 路由决策日志（工作流写入）
+  routing_log: "部署/日志/routing_decisions.jsonl"
+  # 运行日志
+  run_log: "部署/日志/inspection.log"
+  # 报告内嵌的明细条数上限（0 = 全部）
+  max_per_file_in_report: 0
+  html_max_rows: 60
+  report_title: "知识库文档质量评估报告"
