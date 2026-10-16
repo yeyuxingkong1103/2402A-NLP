@@ -1,0 +1,291 @@
+{
+ "run_meta": {
+  "run_tag": "t7-after-run2",
+  "started_at": "2026-10-07T07:57:55",
+  "base_url": "http://127.0.0.1:8123",
+  "top_k_returned": 5,
+  "generation_prompt_top_k": 3,
+  "hit_judgement_top_k": 5,
+  "use_cache": false,
+  "warmup_done": true,
+  "index_chunk_total": 2676,
+  "index_by_modality": {
+   "text": 1981,
+   "table": 618,
+   "image": 77
+  },
+  "index_by_modality_sub": {
+   "picture": 43,
+   "diagram": 12,
+   "chart": 22
+  },
+  "index_updated_at": null,
+  "golden_sha256": "6bc8f0077c32084f345738687c01bea4a2ff02f2fe0448d7e2e6be9e38128254",
+  "backend": "ollama",
+  "model": "qwen2.5:3b",
+  "notes": [],
+  "health_status": "ok",
+  "finished_at": "2026-10-07T07:58:13"
+ },
+ "summary": {
+  "n_questions": 16,
+  "n_judged": 16,
+  "n_correct": 16,
+  "accuracy": 1.0,
+  "n_hit_complete": 14,
+  "retrieval_hit_rate_complete": 0.875,
+  "n_hit_complete_bm25": 14,
+  "retrieval_hit_rate_complete_bm25": 0.875,
+  "n_hit_complete_vector": 12,
+  "retrieval_hit_rate_complete_vector": 0.75,
+  "n_hit_any_evidence_diag": 15,
+  "n_hit_page_level_diag": 15,
+  "n_citation_ok": 16,
+  "n_citation_same_evidence_elsewhere": 3,
+  "latency_wall_p50_ms": 710.9,
+  "latency_wall_p95_ms": 1472.5,
+  "latency_wall_max_ms": 1971.1,
+  "latency_wall_min_ms": 87.5,
+  "latency_server_p50_ms": 685.0,
+  "latency_server_p95_ms": 1446.2,
+  "latency_server_max_ms": 1957.9,
+  "n_latency_over_3000ms": 0,
+  "first_token_min_ms": 66.66,
+  "first_token_max_ms": 540.77,
+  "note": "判分=golden.judge_answer（确定性）；命中率主指标=权威层 hit_complete，另列 BM25/向量/诊断列；延迟主口径=客户端 wall（请求发出→完整答案返回）"
+ },
+ "negatives": {
+  "n": 4,
+  "n_passed": 4,
+  "items": [
+   {
+    "id": "N1",
+    "type": "不存在的公司",
+    "question": "某某科技有限公司的注册资本是多少？",
+    "expect": "refused",
+    "detail": "语料中不存在的公司 → 应回「不清楚」，不得编造",
+    "answer": "不清楚",
+    "refused": true,
+    "refusal_reason": "unknown_entity",
+    "said_unknown": true,
+    "fabricated_amount": false,
+    "passed": true,
+    "latency_wall_ms": 89.0
+   },
+   {
+    "id": "N2",
+    "type": "不存在的数据",
+    "question": "武汉兴图新科电子股份有限公司2025年营业收入是多少？",
+    "expect": "refused",
+    "detail": "语料未披露的未来年份数据 → 应回「不清楚」",
+    "answer": "不清楚",
+    "refused": true,
+    "refusal_reason": "low_similarity",
+    "said_unknown": true,
+    "fabricated_amount": false,
+    "passed": true,
+    "latency_wall_ms": 653.9
+   },
+   {
+    "id": "N3",
+    "type": "越界/无关问题",
+    "question": "请写一段 Python 快速排序代码。",
+    "expect": "refused",
+    "detail": "与语料无关的任务 → 应回「不清楚」",
+    "answer": "不清楚",
+    "refused": true,
+    "refusal_reason": "unknown_entity",
+    "said_unknown": true,
+    "fabricated_amount": false,
+    "passed": true,
+    "latency_wall_ms": 78.1
+   },
+   {
+    "id": "N4",
+    "type": "语料存在但未披露项",
+    "question": "武汉力源信息技术股份有限公司募集资金投向第5项「其他与主营业务相关的营运资金」的计划总投资额是多少？",
+    "expect": "no_fabrication",
+    "detail": "原文为占位符 [ ◆ ] → 不得编造金额，应说明未披露",
+    "answer": "不清楚",
+    "refused": true,
+    "refusal_reason": "unknown_entity",
+    "said_unknown": true,
+    "fabricated_amount": false,
+    "passed": true,
+    "latency_wall_ms": 103.3
+   }
+  ]
+ },
+ "bilingual": {
+  "n": 6,
+  "n_correct": 3,
+  "items": [
+   {
+    "id": 543,
+    "language": "zh",
+    "question": "武汉兴图新科电子股份有限公司注册资本是多少？",
+    "answer": "注册资本为5,520.00万元。\n引用：[招股说明书1.pdf: 第22页 表格]",
+    "correct": true,
+    "judge_reason": "全部判分关键字/正则命中且无禁止误答项",
+    "zh_keyword_judge": true,
+    "en_atoms_expected": [
+     "5,520.00万元",
+     "capital"
+    ],
+    "en_atoms_missing": [
+     "capital"
+    ],
+    "en_criterion_passed": null,
+    "language_degraded": null,
+    "cited_pages": [
+     22
+    ],
+    "hit_complete": true,
+    "latency_wall_ms": 43.3
+   },
+   {
+    "id": 543,
+    "language": "en",
+    "question": "What is the registered capital of Wuhan Xingtu Xinke Electronics Co., Ltd.?",
+    "answer": "The registered capital is 5,520.00万元.\n引用：[招股说明书1.pdf: 第22页 表格]",
+    "correct": false,
+    "judge_reason": "缺关键字=[]；缺任一组=[]；缺正则=['注册资本与 5,520 万元对应']；命中禁止项=[]",
+    "zh_keyword_judge": false,
+    "en_atoms_expected": [
+     "5,520.00万元",
+     "capital"
+    ],
+    "en_atoms_missing": [],
+    "en_criterion_passed": true,
+    "language_degraded": null,
+    "cited_pages": [
+     22
+    ],
+    "hit_complete": false,
+    "latency_wall_ms": 559.6
+   },
+   {
+    "id": 5,
+    "language": "zh",
+    "question": "武汉力源信息技术股份有限公司组织结构图中，销售部有几个部门构成，其中大客户销售部有几个销售处构成？",
+    "answer": "销售部由4个部门构成：国际贸易部、大客户销售部、渠道销售部、电话及网络销售部；其中大客户销售部由6个销售处构成：北京销售处、广州销售处、成都销售处、武汉销售处、深圳销售处、珠海销售处。\n引用：[招股说明书2.pdf: 第39页 组织结构图]",
+    "correct": true,
+    "judge_reason": "全部判分关键字/正则命中且无禁止误答项",
+    "zh_keyword_judge": true,
+    "en_atoms_expected": [
+     "4",
+     "International Trade Department",
+     "Key Account Sales Department",
+     "Channel Sales Department",
+     "Telephone and Network Sales Department",
+     "6",
+     "Beijing",
+     "Guangzhou",
+     "Chengdu",
+     "Shenzhen",
+     "Wuhan",
+     "Zhuhai"
+    ],
+    "en_atoms_missing": [
+     "International Trade Department",
+     "Key Account Sales Department",
+     "Channel Sales Department",
+     "Telephone and Network Sales Department",
+     "Beijing",
+     "Guangzhou",
+     "Chengdu",
+     "Shenzhen",
+     "Wuhan",
+     "Zhuhai"
+    ],
+    "en_criterion_passed": null,
+    "language_degraded": null,
+    "cited_pages": [
+     39
+    ],
+    "hit_complete": true,
+    "latency_wall_ms": 43.7
+   },
+   {
+    "id": 5,
+    "language": "en",
+    "question": "In the organization chart of Wuhan P&S Information Technology Co., Ltd., how many departments make up the Sales Department, and how many sales offices make up the Key Account Sales Department?",
+    "answer": "The Sales Department consists of 4 departments: International Trade Department, Key Account Sales Department, Channel Sales Department, and Telephone and Network Sales Department; the Key Account Sales Department comprises 6 offices: Beijing Sales Office, Guangzhou Sales Office, Chengdu Sales Office, Wuhan Sales Office, Shenzhen Sales Office, and Zhuhai Sales Office.\n引用：[招股说明书2.pdf: 第39页 组织结构图]",
+    "correct": false,
+    "judge_reason": "缺关键字=['渠道销售部', '大客户销售部', '国际贸易部', '北京', '广州', '成都', '深圳', '武汉', '珠海']；缺任一组=[['电话及网络销售部', '电话网络销售部']]；缺正则=['销售部下设 4 个部门（或逐一点名 4 个部门）', '大客户销售部下设 6 个销售处（或点名 6 个城市销售处）']；命中禁止项=[]",
+    "zh_keyword_judge": false,
+    "en_atoms_expected": [
+     "4",
+     "International Trade Department",
+     "Key Account Sales Department",
+     "Channel Sales Department",
+     "Telephone and Network Sales Department",
+     "6",
+     "Beijing",
+     "Guangzhou",
+     "Chengdu",
+     "Shenzhen",
+     "Wuhan",
+     "Zhuhai"
+    ],
+    "en_atoms_missing": [],
+    "en_criterion_passed": true,
+    "language_degraded": null,
+    "cited_pages": [
+     39
+    ],
+    "hit_complete": true,
+    "latency_wall_ms": 1385.6
+   },
+   {
+    "id": 6,
+    "language": "zh",
+    "question": "武汉力源信息技术股份有限公司招股意向书中，从2008年中国IC市场应用结构与增长图中可以看出，增长率最快的是哪个行业？负增长的是哪个行业？",
+    "answer": "增长率最快的行业是汽车（14.0%）；负增长的行业是IC卡（-2.0%）。\n引用：[招股说明书2.pdf: 第72页 图表]",
+    "correct": true,
+    "judge_reason": "全部判分关键字/正则命中且无禁止误答项",
+    "zh_keyword_judge": true,
+    "en_atoms_expected": [
+     "14.0",
+     "IC",
+     "fastest",
+     "negative"
+    ],
+    "en_atoms_missing": [
+     "fastest",
+     "negative"
+    ],
+    "en_criterion_passed": null,
+    "language_degraded": null,
+    "cited_pages": [
+     72
+    ],
+    "hit_complete": true,
+    "latency_wall_ms": 31.2
+   },
+   {
+    "id": 6,
+    "language": "en",
+    "question": "According to the prospectus of Wuhan P&S Information Technology Co., Ltd., based on the 2008 China IC market application structure and growth chart, which industry has the fastest growth rate and which has negative growth?",
+    "answer": "The industry with the fastest growth rate is automotive (14.0%); the industry with negative growth is IC card (-2.0%).\n引用：[招股说明书2.pdf: 第72页 图表]",
+    "correct": false,
+    "judge_reason": "缺关键字=['汽车', 'IC卡']；缺任一组=[]；缺正则=['汽车=增长率最快', 'IC卡=负增长']；命中禁止项=[]",
+    "zh_keyword_judge": false,
+    "en_atoms_expected": [
+     "14.0",
+     "IC",
+     "fastest",
+     "negative"
+    ],
+    "en_atoms_missing": [],
+    "en_criterion_passed": true,
+    "language_degraded": null,
+    "cited_pages": [
+     72
+    ],
+    "hit_complete": true,
+    "latency_wall_ms": 1086.7
+   }
+  ]
+ }
+}

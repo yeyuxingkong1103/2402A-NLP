@@ -1,0 +1,68 @@
+{
+  "generated_by": "部署/脚本/rotate_logs.ps1",
+  "run_at": "2026-10-07T08:46:52",
+  "log_dir": "E:\\gao6gongdan\\工单4\\部署\\日志",
+  "policy": {
+    "threshold_mb": 8,
+    "keep_lines": 3000,
+    "max_archives": 5,
+    "force": true,
+    "strategy": "归档为 gzip（整份）+ 活动文件保留最近 N 行；归档超上限时删最旧"
+  },
+  "services_listening": [],
+  "exit_code": 0,
+  "files": [
+    {
+      "file": "app.log",
+      "action": "rotated",
+      "method": "rename",
+      "before_bytes": 1698643,
+      "before_human": "1.62 MiB",
+      "after_bytes": 1664636,
+      "after_human": "1.59 MiB",
+      "archived_bytes": 1698643,
+      "archived_lines": 3063,
+      "archive_path": "E:\\gao6gongdan\\工单4\\部署\\日志\\归档\\app.20261007-084646.log.gz",
+      "archive_gz_bytes": 141824,
+      "archive_verify": "回读校验一致（字节数+行数）",
+      "kept_lines": 3000,
+      "kept_verify": "保留样例逐行 JSON 校验通过",
+      "deleted_archives": []
+    },
+    {
+      "file": "error.log",
+      "action": "rotated",
+      "method": "rename",
+      "before_bytes": 5739,
+      "before_human": "5.6 KiB",
+      "after_bytes": 5743,
+      "after_human": "5.6 KiB",
+      "archived_bytes": 5739,
+      "archived_lines": 4,
+      "archive_path": "E:\\gao6gongdan\\工单4\\部署\\日志\\归档\\error.20261007-084648.log.gz",
+      "archive_gz_bytes": 1372,
+      "archive_verify": "回读校验一致（字节数+行数）",
+      "kept_lines": 4,
+      "kept_verify": "保留样例逐行 JSON 校验通过",
+      "deleted_archives": []
+    },
+    {
+      "file": "rag_trace.jsonl",
+      "action": "rotated",
+      "method": "rename",
+      "before_bytes": 5933836,
+      "before_human": "5.66 MiB",
+      "after_bytes": 1472259,
+      "after_human": "1.40 MiB",
+      "archived_bytes": 5933836,
+      "archived_lines": 12235,
+      "archive_path": "E:\\gao6gongdan\\工单4\\部署\\日志\\归档\\rag_trace.20261007-084648.jsonl.gz",
+      "archive_gz_bytes": 398315,
+      "archive_verify": "回读校验一致（字节数+行数）",
+      "kept_lines": 3000,
+      "kept_verify": "保留样例逐行 JSON 校验通过",
+      "deleted_archives": []
+    }
+  ],
+  "note": "处理前后体积均为本次实跑实测；归档为「保留」而非删除（超上限的最旧归档单独列出）。"
+}

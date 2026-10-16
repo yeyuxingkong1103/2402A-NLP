@@ -1,0 +1,91 @@
+{
+  "$comment": "工单：人工智能NLP-RAG-图像内容解析及检索优化 —— T6 评测输出结构契约（骨架）。所有成绩字段在未实跑时必须是 null，禁止预填占位数。检索命中按通道分列（BM25 / 向量 / 任一），禁止只报合并值。",
+  "run_meta": {
+    "run_tag": null,
+    "started_at": null,
+    "finished_at": null,
+    "base_url": null,
+    "model": null,
+    "warmup_done": null,
+    "exclusive_ollama_verified": null,
+    "generation_top_k": null,
+    "hit_judgement_top_k": 5,
+    "channels": ["bm25", "vector"],
+    "transport": null,
+    "note": "待 T6 实跑填充"
+  },
+  "index_facts": {
+    "$comment": "上游事实（T4 刷新后的现役索引，源自 研发/data/index/index_manifest.json）；T6 须复核后引用，非评测成绩",
+    "total_chunks": 2676,
+    "text_chunks": 1981,
+    "table_chunks": 618,
+    "image_chunks": 77,
+    "image_by_corpus": {"招股说明书1": 38, "招股说明书2": 39},
+    "image_sub": {"picture": 43, "diagram": 12, "chart": 22},
+    "evidence_weight": {"diagram": 1.0, "chart": 1.0, "picture": 0.4},
+    "vectors_shape": [2676, 1024],
+    "version_trace": "T6 报告必须记录所引用 index_manifest 的 chunk_total（现役 2676）以保证数据版本可追溯",
+    "note": "picture 仅 CLIP 零样本标签，属弱证据（0.4），不得与正文同权；索引文件非事务切换，T6 必须在 T5 重载索引后取数"
+  },
+  "per_question": [
+    {
+      "order": 1,
+      "id": 5,
+      "category": "图像结构",
+      "pdf": null,
+      "question": null,
+      "system_answer": null,
+      "golden_answer": null,
+      "correct": null,
+      "judge_detail": null,
+      "evidence_pages_complete": null,
+      "cited_pages": null,
+      "citation_ok": null,
+      "retrieval_hit_complete_bm25": null,
+      "retrieval_hit_complete_vector": null,
+      "retrieval_hit_complete_any": null,
+      "retrieval_hit_any_evidence_any": null,
+      "retrieval_hit_page_level_diagnostic": null,
+      "retrieval_detail": null,
+      "extraction_method": null,
+      "latency_total_ms": null,
+      "latency_first_token_ms": null,
+      "cache_hit": null,
+      "error": null,
+      "note": "待 T6 实跑填充"
+    }
+  ],
+  "summary": {
+    "n_questions": 16,
+    "n_correct": null,
+    "accuracy": null,
+    "n_retrieval_hit_complete_bm25": null,
+    "retrieval_hit_rate_complete_bm25": null,
+    "n_retrieval_hit_complete_vector": null,
+    "retrieval_hit_rate_complete_vector": null,
+    "n_retrieval_hit_complete_any": null,
+    "retrieval_hit_rate_complete_any": null,
+    "n_retrieval_hit_any_evidence": null,
+    "n_retrieval_hit_page_level_diagnostic": null,
+    "latency_p50_ms": null,
+    "latency_p95_ms": null,
+    "latency_max_ms": null,
+    "n_latency_over_3000ms": null,
+    "note": "待 T6 实跑填充；命中率必须按通道分列（BM25 / 向量 / 任一），页级命中仅作诊断列；判分口径见 测试/测试数据/golden_复核报告.md §6"
+  },
+  "negative_cases": [
+    {"id": "N1", "question": null, "refused": null, "answer": null, "note": "待 T6 实跑填充"},
+    {"id": "N2", "question": null, "refused": null, "answer": null, "note": "待 T6 实跑填充"},
+    {"id": "N3", "question": null, "refused": null, "answer": null, "note": "待 T6 实跑填充"},
+    {"id": "N4", "question": null, "refused": null, "answer": null, "note": "待 T6 实跑填充"}
+  ],
+  "bilingual_cases": [
+    {"id": null, "language": "zh", "correct": null, "answer": null, "note": "待 T6 实跑填充"},
+    {"id": null, "language": "en", "correct": null, "answer": null, "language_degraded": null, "note": "待 T6 实跑填充"}
+  ],
+  "upstream_checks": {
+    "$comment": "T6 须复核的上游修复项",
+    "vector_top_k_rank_page_consistent": null,
+    "note": "待 T6 全量抽查：每条 vector_top10 须同时有 rank（1-based 名次）与 page（真实物理页，与 chunk_id 的 pN 一致）"
+  }
+}

@@ -1,0 +1,22 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>工单5 多轮对话准确率汇总</title><style>
+* { box-sizing: border-box; }
+body { margin:0; padding:18px 22px; background:#f5f6f8;
+       font-family:"Microsoft YaHei","Segoe UI",system-ui,sans-serif; color:#1f2329; }
+h1 { font-size:19px; margin:0 0 2px; }
+.sub { color:#6b7280; font-size:12px; margin-bottom:14px; }
+.card { background:#fff; border:1px solid #e3e6ea; border-radius:10px; padding:14px 16px; margin-bottom:14px; }
+.card h2 { font-size:15px; margin:0 0 10px; padding-bottom:7px; border-bottom:2px solid #eef1f4; }
+table { border-collapse:collapse; width:100%; font-size:12.5px; }
+th,td { border:1px solid #e3e6ea; padding:5px 8px; text-align:left; vertical-align:top; }
+th { background:#f0f3f7; font-weight:600; }
+.pass { color:#0a7a35; font-weight:700; }
+.fail { color:#c02626; font-weight:700; }
+.kv { display:flex; flex-wrap:wrap; gap:8px; }
+.kpi { flex:0 0 auto; min-width:150px; background:#f7f9fc; border:1px solid #e3e6ea;
+       border-radius:8px; padding:9px 12px; }
+.kpi .n { font-size:21px; font-weight:700; color:#14428a; }
+.kpi .l { font-size:11.5px; color:#6b7280; margin-top:3px; }
+.kpi.ok .n { color:#0a7a35; } .kpi.bad .n { color:#c02626; }
+.note { font-size:11.5px; color:#6b7280; margin-top:9px; line-height:1.6; }
+.mono { font-family:Consolas,monospace; font-size:12px; }
+</style></head><body><h1>工单5 多轮对话准确率汇总</h1><div class="sub">工单5：人工智能NLP-RAG-Query 理解优化　|　产物目录 E:\gao6gongdan\工单5\测试\测试数据\多轮评测结果\mt-local</div><div class="card"><h2>总览</h2><div class="kv"><div class="kpi ok"><div class="n">5/5</div><div class="l">多轮逐轮判过（主口径）</div></div><div class="kpi "><div class="n">None/1</div><div class="l">会话整体口径</div></div><div class="kpi "><div class="n">872.3</div><div class="l">最大逐轮延迟 (ms)</div></div><div class="kpi "><div class="n">2168.3</div><div class="l">冷启动 (ms，不计入)</div></div><div class="kpi "><div class="n">True</div><div class="l">use_cache</div></div><div class="kpi "><div class="n">local</div><div class="l">评测模式</div></div></div></div><div class="card"><h2>多轮序列逐轮结果</h2><table><tr><th>id</th><th>轮</th><th>用户问句</th><th>改写后的独立问句</th><th>策略</th><th>焦点实体</th><th>答案（摘要）</th><th>判定</th><th>wall(ms)</th><th>改写(ms)</th></tr><tr><td>MT1</td><td>1</td><td>报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？</td><td>报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？</td><td class="mono">none</td><td>武汉兴图新科电子股份有限公司</td><td>发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的收入分别为6,464.51万元、14,414.16万元、18,</td><td><span class="pass">通过</span></td><td>872.3</td><td>0.21</td></tr><tr><td>MT2</td><td>2</td><td>他参与的哪个工程荣获了国家科技进步一等奖？</td><td>武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？</td><td class="mono">pronoun</td><td>武汉兴图新科电子股份有限公司</td><td>某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统）荣获国家科技进步一等奖。 引用：</td><td><span class="pass">通过</span></td><td>653.3</td><td>0.14</td></tr><tr><td>MT3</td><td>3</td><td>这个公司的法定代表人是谁？</td><td>武汉兴图新科电子股份有限公司的法定代表人是谁？</td><td class="mono">pronoun</td><td>武汉兴图新科电子股份有限公司</td><td>法定代表人是程家明。 引用：[招股说明书1.pdf: 第68页 表格]</td><td><span class="pass">通过</span></td><td>288.2</td><td>0.07</td></tr><tr><td>MT4</td><td>4</td><td>那武汉力源信息技术股份有限公司呢？</td><td>武汉力源信息技术股份有限公司的法定代表人是谁？</td><td class="mono">ellipsis_entity_switch</td><td>武汉力源信息技术股份有限公司</td><td>法定代表人是赵马克。 引用：[招股说明书2.pdf: 第23页]</td><td><span class="pass">通过</span></td><td>205.2</td><td>0.11</td></tr><tr><td>MT5</td><td>5</td><td>武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有哪些销售处？</td><td>武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有哪些销售处？</td><td class="mono">none</td><td>武汉力源信息技术股份有限公司</td><td>销售部由4个部门构成：国际贸易部、大客户销售部、渠道销售部、电话及网络销售部；其中大客户销售部由6个销售处构成：北京销售处、广州</td><td><span class="pass">通过</span></td><td>835.8</td><td>0.15</td></tr></table></div></body></html>
