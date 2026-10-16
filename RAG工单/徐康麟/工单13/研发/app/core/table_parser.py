@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """工单4 表格归一化与跨页续表合并（工单3 同源实现，只读复制后按工单4 契约适配；工单4 契约见 设计/接口设计.md §2.3）。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 实测背景（环境事实 §3.2/§8.8）：
     * ``page.find_tables()`` 存在两个真实缺陷：**合并单元格产生 None**、**格内换行**；
@@ -38,7 +38,7 @@ from .text_utils import (
     text_digest,
 )
 
-WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
+WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
 
 # 表标题提示词：STRONG 是「标题级」短语（表格单元格里不会出现），WEAK 仅作参考
 TITLE_STRONG: tuple[str, ...] = (

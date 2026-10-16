@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """工单4 可答性判定与拒答（「不清楚」是**正确响应**，不是错误）。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 设计依据：
     * 设计/接口设计.md §3.3「拒答（正确行为，仍是 200）」；
@@ -37,7 +37,7 @@ from typing import Any, Mapping, Sequence
 
 from .text_utils import tokenize
 
-WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
+WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
 
 UNKNOWN_TEXT = "不清楚"
 

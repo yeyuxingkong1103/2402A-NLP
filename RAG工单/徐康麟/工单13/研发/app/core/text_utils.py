@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """工单4 文本/数字/分词/命中判定工具（工单3 同源实现，只读复制后按工单4 契约适配）。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 要点：
     * ``normalize_cell`` 落实 R1（去 ``\\n``、折叠空白、中文分段拼接）与「``[ ◆ ]`` → 未披露」占位符规则；
@@ -23,7 +23,7 @@ from typing import Any, Iterable, Iterator, Mapping, Sequence
 
 from .errors import RagError  # noqa: F401 —— 便于上层统一 except RagError
 
-WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
+WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
 
 # 未披露占位符：合并单元格值可能是符号而非 None（实测 PDF2 物理 2/22/24/27/306 共 5 页 22 处）
 UNDISCLOSED = "未披露"

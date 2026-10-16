@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """工单4 问句理解（意图 / 实体 / 主体路由 / 答案形态）。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 设计依据：
     * 设计/接口设计.md §4.2（retriever / qa_engine 契约）；
@@ -34,7 +34,7 @@ from typing import Any, Mapping, Sequence
 from .language import LanguageInfo, resolve_language
 from .text_utils import STOPWORDS, extract_numbers, normalize_text, tokenize
 
-WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
+WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
 
 #: 「强结论措辞」：问句出现这些词说明要的是**结论性判断**（最快/负增长/最高/位列），
 #: 而不是一份清单 —— 它们优先于「哪些」参与答案形态判定（T7 修正，见 _decide_shape）

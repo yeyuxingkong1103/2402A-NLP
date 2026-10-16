@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """工单4 轻量持久化（``sqlite3`` 标准库）：问答历史、会话、答案级缓存。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 工单6 增补：人工智能NLP-RAG-混合检索任务
     —— ``cache_key(..., extra=...)`` 新增形参：把检索策略指纹并入答案级缓存键，
     避免同一问句在「向量检索」下算出的答案被「全文检索」直接复用（策略对比将因此失去意义）。
@@ -30,7 +30,7 @@ from typing import Any, Mapping, Sequence
 
 from ..core.errors import StorageError
 
-WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
+WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
 
 _SCHEMA = """
 CREATE TABLE IF NOT EXISTS qa_history (

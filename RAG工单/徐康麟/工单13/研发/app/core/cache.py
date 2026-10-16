@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """工单4 多级缓存与批处理工具（T7 新增；问答热路径的可观测缓存层）。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 为什么要这一层（T7 任务书「其余必须实现的优化项」1/2/4）：
     * **问题归一化缓存**：把「问句 → 归一化键」的清洗结果缓存，避免每问都做正则+分词；
@@ -32,7 +32,7 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping, Sequence
 
-WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
+WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
 
 #: 缓存默认上限（环境变量 ``RAG_CACHE__*`` 可覆盖）
 DEFAULT_MAX_ENTRIES = 512

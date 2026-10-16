@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """工单4 PDF 逐页解析与产物落盘（工单3 同源实现，只读复制后按工单4 契约适配；契约见 工单4 设计/接口设计.md §2.3、§5）。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 硬约束：
     * **页码 1-based 物理页**：``PageText.page = i + 1``，取页一律 ``doc[i]``，越界抛 ChunkError；
@@ -27,7 +27,7 @@ from .errors import ChunkError, PdfParseError, StorageError, wrap
 from .table_parser import TableBlock
 from .text_utils import write_jsonl
 
-WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
+WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
 
 # 设计 §5.3 冻结 DDL（表名/列名不可改；新增列允许）
 SQLITE_DDL: str = """

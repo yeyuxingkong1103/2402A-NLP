@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """工单4 向量索引（FAISS 为主用，numpy 精确检索为等价兜底）（工单3 同源实现，只读复制后按工单4 契约适配；契约见 设计/接口设计.md §5.1）。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 设计要点：
     * 索引按**嵌入模型分目录**存放（`{index_dir}/{model_slug}/`），**不同维度不得混用**：
@@ -25,7 +25,7 @@ import numpy as np
 from .errors import IndexDimensionError, IndexMissingError, RagError
 from .chunker import Chunk
 
-WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
+WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
 
 VECTORS_FILE = "vectors.npy"
 IDS_FILE = "ids.json"

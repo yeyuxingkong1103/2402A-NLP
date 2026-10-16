@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """工单4 自实现 BM25 索引（工单3 同源实现，只读复制后按工单4 契约适配；§号沿用 工单3 设计文档编号，工单4 契约见 设计/接口设计.md §5.1）。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 为什么自实现：本机**缺失 `rank_bm25` 且断网无法安装**（实测 find_spec 未命中），
 按硬性要求自实现 BM25（jieba 分词）。
@@ -28,7 +28,7 @@ from .chunker import Chunk
 from .errors import IndexDimensionError, IndexMissingError, RagError
 from .text_utils import extract_numbers, text_digest, tokenize
 
-WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
+WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
 
 BM25_PICKLE = "bm25.pkl"
 BM25_META = "bm25.meta.json"

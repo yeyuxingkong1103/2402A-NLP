@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """工单4 统一异常体系（工单3 同源实现，只读复制后按工单4 契约适配）。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 纪律：
     1. 禁止 ``except: pass``、禁止空 ``except`` 分支；
@@ -15,7 +15,7 @@ import traceback
 from typing import Any
 
 # 工单编号常量：所有日志与异常载荷都会带上，便于跨工单检索
-WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
+WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
 
 # 错误码 → 中文说明（设计 §3.3）
 ERROR_CODES: dict[str, str] = {

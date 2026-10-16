@@ -61,14 +61,14 @@ def main() -> int:
 
     # 只有「达标 且 关键词命中率不低于 3b」才算可替换
     base = next((r for r in ok if r["模型"] == "qwen2.5:3b"), None)
-   建议 = []
+    suggestions: list[str] = []
     for r in ok:
         if r["模型"] == "qwen2.5:3b":
             continue
         if base and r["是否达标SLA"] and r["关键词命中率"] >= base["关键词命中率"]:
-            建议.append(f"{r['模型']}：{r['端到端ms']:.0f} ms、关键词命中 "
-                        f"{r['关键词命中率']:.0%}（基线 3b 为 {base['端到端ms']:.0f} ms / "
-                        f"{base['关键词命中率']:.0%}）→ **可考虑替换**")
+            suggestions.append(f"{r['模型']}：{r['端到端ms']:.0f} ms、关键词命中 "
+                               f"{r['关键词命中率']:.0%}（基线 3b 为 {base['端到端ms']:.0f} ms / "
+                               f"{base['关键词命中率']:.0%}）→ **可考虑替换**")
     payload = {
         "工单编号": "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化",
         "完善项": "A3 Q10 跨模型对比（同题同提示）",
@@ -77,14 +77,14 @@ def main() -> int:
                 "答案质量用参考关键词命中率（营业收入/净利润/总资产/净资产收益率）",
         "SLA_ms": SLA_MS,
         "结果": rows,
-        "可替换建议": 建议 or ["无模型同时满足「达标 SLA」与「答案质量不低于基线」——不建议为压延迟牺牲答案质量"],
+        "可替换建议": suggestions or ["无模型同时满足「达标 SLA」与「答案质量不低于基线」——不建议为压延迟牺牲答案质量"],
         "结论": "",
     }
     if base:
         payload["结论"] = (
             f"基线 qwen2.5:3b 端到端 {base['端到端ms']:.0f} ms（{'达标' if base['是否达标SLA'] else '超线'}）、"
             f"关键词命中 {base['关键词命中率']:.0%}。"
-            + ("；".join(建议) if 建议 else
+            + ("；".join(suggestions) if suggestions else
                "；候选模型中未能同时兼顾延迟与答案质量，故**维持现有模型**，"
                "不在检索侧做无效优化（检索仅 65 ms，已无空间）。")
         )

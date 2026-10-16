@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """工单4 轻量重排（无模型、确定性、可解释；按需可选 LLM 重排但默认关闭）。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 为什么自实现：本机 pip 通道不通（设计/环境事实.md §3），没有可用的 cross-encoder 重排模型；
 任务书要求「FAISS 向量检索 + BM25 混合 + **轻量重排**」且「单次问答 ≤3 秒」，因此重排必须
@@ -35,7 +35,7 @@ from typing import Any, Mapping, Sequence
 
 from .text_utils import extract_numbers, normalize_text, tokenize
 
-WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
+WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
 
 #: 各特征默认权重（可用 RAG_RETRIEVAL__* 覆盖的实验点，见日志 rerank.features）
 DEFAULT_WEIGHTS: dict[str, float] = {

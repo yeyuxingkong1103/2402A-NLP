@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """工单4 配置与语料发现（工单3 同源实现，只读复制后按工单4 契约适配；工单4 契约见 设计/接口设计.md §4、§5.1）。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 职责：
     * 冻结的 dataclass 配置树（PathsConfig / LLMSettings / RetrievalSettings /
@@ -33,7 +33,7 @@ from .errors import ConfigError
 WORK_ORDER = "人工智能NLP-RAG-功能测试及评估"
 
 # 上游基线工单号（沿用代码来源标注，便于审计「哪些代码来自工单6」）
-BASELINE_WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
+BASELINE_WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
 
 # 仓库根：研发/app/core/config.py → parents[3] = 工单7
 REPO_ROOT: Path = Path(__file__).resolve().parents[3]

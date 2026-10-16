@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """工单4 提示词加载器（``研发/app/prompts/*.txt``，UTF-8）。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 契约：
     * 提示词**只从文件读取**（便于评审与逐版留痕），代码里不内联长提示词；
@@ -17,7 +17,7 @@ from typing import Any
 
 from .errors import RagError
 
-WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
+WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
 
 PROMPTS_DIR: Path = Path(__file__).resolve().parents[1] / "prompts"
 _CACHE: dict[str, tuple[float, str]] = {}

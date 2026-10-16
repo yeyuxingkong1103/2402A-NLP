@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """工单4 多轮会话（``session_id`` 维度）与指代消解辅助。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 设计依据：设计/接口设计.md §3.3（``session_id`` 多轮）与 §2.2（``--interactive`` 交互式 CLI）。
 
@@ -22,7 +22,7 @@ import time
 from dataclasses import dataclass, field
 from typing import Any
 
-WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
+WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
 
 #: 指代词 / 省略主体标记（出现且问句本身没有主体名时触发上文补全）
 #:

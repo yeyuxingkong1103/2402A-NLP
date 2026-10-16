@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-"""工单4 Web 界面（**纯标准库兜底实现**，零第三方依赖）：``研发/app/ui/serve_fallback.py``。
+"""工单13 Web 界面（**纯标准库兜底实现**，零第三方依赖）：``研发/app/ui/serve_fallback.py``。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 为什么用标准库：本机 pip 通道不通（设计/环境事实.md §3），``fastapi``/``uvicorn`` 虽在
 工单1 venv 中可用，但为了保证「任何解释器都能起 Web 界面」，这里用 ``http.server`` 实现；
@@ -32,9 +32,9 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any
 from urllib.parse import urlparse
 
-WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
+WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
 
-TITLE = "招股说明书图像内容 RAG 问答系统（工单4）"
+TITLE = "RAG 性能剖析与优化问答系统（工单13）"
 
 #: 示例问题（含图像题：第 5 题组织结构图 / 第 6 题 IC 市场图表）
 DEMO_QUESTIONS: list[dict[str, str]] = [
@@ -97,7 +97,7 @@ _PAGE_HTML = """<!DOCTYPE html>
 <body>
 <header>
   <h1>__TITLE__</h1>
-  <p>双招股说明书（力源信息 / 兴图新科）· 文本 + 表格 + 图像三类证据 · 答案带页级引用 · 支持中英文提问</p>
+  <p>4 份 A 股年报（招商银行 / 中国平安 / 平安银行 / 邮储银行）· 文本 + 表格 + 图像三类证据 · 答案带页级引用 · 支持中英文提问</p>
 </header>
 <main>
   <section class="card">
@@ -375,7 +375,7 @@ def main(argv: list[str] | None = None) -> int:
     from app.core.qa_engine import QAEngine
     from app.storage.sqlite_manager import SqliteManager
 
-    parser = argparse.ArgumentParser(description=f"工单4 Web 界面（纯标准库）：{WORK_ORDER}")
+    parser = argparse.ArgumentParser(description=f"工单13 Web 界面（纯标准库）：{WORK_ORDER}")
     parser.add_argument("--host", default=None)
     parser.add_argument("--port", type=int, default=None)
     parser.add_argument("--no-warmup", action="store_true")

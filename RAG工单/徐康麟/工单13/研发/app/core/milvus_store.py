@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """工单4 Milvus 适配器接口（FAISS 为主用，本模块为**可选**的向量库替换实现）。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 定位与纪律（**不得含糊**）：
     * 提示词要求「向量库用 FAISS 或 Milvus」——工单4 选定 **FAISS 为主用**
@@ -35,7 +35,7 @@ import numpy as np
 
 from .errors import RagError, StorageError
 
-WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
+WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
 
 DEFAULT_URI = "http://127.0.0.1:19530"
 DEFAULT_COLLECTION = "rag_image_qa_chunks"

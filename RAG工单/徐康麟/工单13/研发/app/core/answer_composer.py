@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """工单4 证据化答案合成器（**逐项完整枚举**的确定性实现；无 LLM 也能给出可从 PDF 回溯的答案）。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 为什么需要它（任务书 ★A / ★B）：
     * 判分口径是「``answer_keywords`` **全集匹配**，缺一即判错」，且**枚举项必须用证据原文全称**；
@@ -32,7 +32,7 @@ from typing import Any, Iterable, Mapping, Sequence
 from .subject_binding import (bind_subject, extract_person_value, is_person_field,
                               issuer_in_body)
 
-WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
+WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
 
 #: 句末标点（中文/英文）
 _SENT_END = re.compile(r"(?<=[。！？；!?;])\s*")

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """工单4 引用构造与回溯（页码口径：**1-based 物理页码**）。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 设计依据（设计/接口设计.md §3.3 / §4.2 / §5.3）：
     * ``citations[].page`` 必须是 **1-based 物理页码**，``page_basis`` 固定 ``"1-based-physical"``；
@@ -19,7 +19,7 @@ from typing import Any, Iterable, Mapping, Sequence
 
 from .errors import CitationError
 
-WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
+WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
 
 PAGE_BASIS = "1-based-physical"
 

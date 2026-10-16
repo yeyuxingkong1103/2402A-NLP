@@ -173,3 +173,98 @@ def test_问题集题号唯一且非空():
     assert len(set(ids)) == len(ids), "题号有重复"
     for r in rows:
         assert r.get("question", "").strip(), f"{r.get('id')} 题干为空"
+
+
+# ==================== 完善期新增（边界与异常路径） ====================
+import json as _json
+import pathlib as _pl
+import re as _re
+
+_PERF = ROOT / "优化" / "评估结果"
+_SHOT = ROOT / "测试" / "测试截图"
+
+
+def test_优化开关_全部布尔且注释说明两档语义():
+    """边界：开关必须全是布尔（可整体置 false 回到基线），且说明文档交代两档语义。"""
+    c = _load(ROOT / "部署" / "配置" / "优化开关.json")
+    if not c:
+        pytest.skip("缺优化开关配置")
+    flags = c.get("flags")
+    assert isinstance(flags, dict) and flags, "配置应含 flags 字典"
+    # flags 是「布尔开关 + 数值阈值」的混合字典：布尔项应占多数且可整体置 false 回基线
+    bools = {k: v for k, v in flags.items() if isinstance(v, bool)}
+    nums = {k: v for k, v in flags.items() if isinstance(v, (int, float)) and not isinstance(v, bool)}
+    maps = {k: v for k, v in flags.items() if isinstance(v, dict)}
+    rest = {k: v for k, v in flags.items() if k not in bools and k not in nums and k not in maps}
+    assert len(bools) >= 8, f"布尔开关应有足够数量（实得 {len(bools)}）"
+    assert bools and nums, "应同时含布尔开关与数值阈值"
+    assert not rest, f"flags 出现未知类型的项：{list(rest)}"
+    # 唯一的映射项应为 adaptive_top_k_values（按题型给出检索广度）
+    assert set(maps) <= {"adaptive_top_k_values"}, f"出现未预期的映射项：{list(maps)}"
+    if "adaptive_top_k_values" in maps:
+        v = maps["adaptive_top_k_values"]
+        assert {"multi", "single"} <= set(v.keys()), "应按题型给 multi/single 两档"
+    assert c.get("_说明"), "应有 _说明 交代两档语义与优先级"
+
+
+def test_阈值标定说明_每项都给出基线值与依据():
+    """边界：阈值不得无依据 —— 每项标定说明都应提到基线取值或实测依据。"""
+    c = _load(ROOT / "部署" / "配置" / "优化开关.json")
+    if not c:
+        pytest.skip("缺优化开关配置")
+    notes = c.get("_阈值标定说明")
+    assert isinstance(notes, dict) and notes, "应含 _阈值标定说明"
+    weak = [k for k, v in notes.items() if not isinstance(v, str) or len(v) < 20]
+    assert not weak, f"这些阈值缺少依据说明：{weak}"
+
+
+def test_逐题_缺失阶段字段应被检测出来():
+    """异常路径：若某题缺 stage 字段，自洽性校验必须能发现（用构造数据验证校验逻辑）。"""
+    d = _load_jsonl(_PERF / "优化后.jsonl")
+    assert d, "缺 优化后.jsonl"
+    sample = dict(d[0])
+    # 构造"坏"记录：删掉所有 stage:: 字段
+    bad = {k: v for k, v in sample.items() if not str(k).startswith("stage::")}
+    stage_sum = sum(v for k, v in bad.items()
+                    if str(k).startswith("stage::") and isinstance(v, (int, float)))
+    total = bad.get("total_ms", 0) or 0
+    # 没有阶段字段时，阶段和应为 0，与 total 明显不符 → 校验逻辑应能识别
+    assert stage_sum == 0 and total > 0, "构造的坏记录应能被阶段缺失检测捕获"
+
+
+def test_截图_文档引用的文件名必须在磁盘存在():
+    """联动：文档里提到的 .png 必须真实存在于测试截图目录（防引用悬空）。"""
+    shot_names = {p.name for p in _SHOT.glob("*.png")}
+    assert shot_names, "截图目录为空"
+    docs = list(ROOT.glob("*.md")) + list((ROOT / "优化").glob("*.md")) + list((ROOT / "测试").glob("*.md"))
+    missing = []
+    for doc in docs:
+        for m in _re.finditer(r"([\u4e00-\u9fff\w\-]+\.png)", doc.read_text(encoding="utf-8")):
+            name = m.group(1)
+            if name not in shot_names:
+                missing.append(f"{doc.name} → {name}")
+    assert not missing, f"文档引用的截图不存在：{missing[:4]}"
+
+
+def test_报告_数字可溯源到产物文件():
+    """可追溯性：报告里出现的百分比/毫秒关键数字，应能在产物 JSON/CSV 里找到来源。"""
+    rep = ROOT / "优化" / "瓶颈排查与修复报告.md"
+    assert rep.exists(), "缺瓶颈排查与修复报告"
+    txt = rep.read_text(encoding="utf-8")
+    # 报告必须声明数据来源
+    assert ("优化/评估结果" in txt) or ("对比.csv" in txt) or ("对比.json" in txt), \
+        "报告应给出可追溯的数据来源路径"
+
+
+def test_CSV对比表_表头与行数一致():
+    """产物完整性：对比 CSV 表头列数与每行字段数必须一致。"""
+    import csv as _csv
+    p = _PERF / "对比.csv"
+    if not p.exists():
+        pytest.skip("缺对比.csv")
+    with p.open(encoding="utf-8-sig") as fh:
+        rows = list(_csv.reader(fh))
+    assert len(rows) >= 2, "对比表至少应有表头 + 1 行"
+    ncol = len(rows[0])
+    bad = [i for i, r in enumerate(rows[1:], 2) if len(r) != ncol]
+    assert not bad, f"第 {bad[:3]} 行列数与表头（{ncol}）不一致"

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """工单4 自实现结构化 JSON 日志（工单3 同源实现，只读复制后按工单4 契约适配；落盘 部署/日志/rag_trace.jsonl）。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 为什么自实现：本机 ``loguru`` 目录存在（元数据 0.7.3）但 ``import loguru``
 抛 ``ModuleNotFoundError: No module named 'win32_setctime'``，**实际不可用**，

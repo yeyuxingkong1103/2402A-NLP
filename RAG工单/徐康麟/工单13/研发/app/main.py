@@ -265,7 +265,7 @@ def _run_batch(engine: QAEngine, args: argparse.Namespace, log) -> int:
 def _run_interactive(engine: QAEngine, args: argparse.Namespace) -> int:
     """交互式多轮问答（``--interactive``；``:q`` 退出，``:new`` 新会话）。"""
     session_id = args.session_id or f"cli-{int(time.time())}"
-    print(f"工单4 RAG 问答（交互模式）｜会话 {session_id}｜输入 :q 退出，:new 新建会话")
+    print(f"工单13 RAG 问答（交互模式）｜会话 {session_id}｜输入 :q 退出，:new 新建会话")
     while True:
         try:
             question = input("问> ").strip()

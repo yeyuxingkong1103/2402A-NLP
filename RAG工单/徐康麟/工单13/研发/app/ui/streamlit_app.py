@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-"""工单4 Streamlit 版中文 Web 界面（有依赖的环境使用）：``研发/app/ui/streamlit_app.py``。
+"""工单13 Streamlit 版中文 Web 界面（有依赖的环境使用）：``研发/app/ui/streamlit_app.py``。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 环境事实（设计/环境事实.md §2）：主解释器 **没有 streamlit**，但备用 GPU 解释器
 ``E:\\gao6gongdan\\工单1\\.gao6gongdan-src\\python.exe`` 自带 ``streamlit 1.37.1``。运行方式：
@@ -23,8 +23,8 @@ from typing import Any
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
-TITLE = "招股说明书图像内容 RAG 问答系统（工单4）"
+WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
+TITLE = "RAG 性能剖析与优化问答系统（工单13）"
 
 
 def build_engine() -> Any:
@@ -48,7 +48,7 @@ def render(engine: Any) -> None:
 
     st.set_page_config(page_title=TITLE, page_icon="📄", layout="wide")
     st.title(TITLE)
-    st.caption("双招股说明书（力源信息 / 兴图新科）· 文本 + 表格 + 图像三类证据 · 答案带 1-based 物理页码引用")
+    st.caption("4 份 A 股年报（招商银行 / 中国平安 / 平安银行 / 邮储银行）· 文本 + 表格 + 图像三类证据 · 答案带 1-based 物理页码引用")
     if "engine" not in st.session_state:
         st.session_state.engine = engine
         st.session_state.session_id = "st-001"

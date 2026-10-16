@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """工单4 语言识别与中英文双路径支持。
 
-工单编号：人工智能NLP-RAG-图像内容解析及检索优化
+工单编号：人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化
 
 职责：
     * ``detect_language`` —— 按 CJK / 拉丁字符占比判定 ``zh`` / ``en`` / ``mixed``；
@@ -19,7 +19,7 @@ import re
 from dataclasses import asdict, dataclass
 from typing import Any
 
-WORK_ORDER = "人工智能NLP-RAG-图像内容解析及检索优化"
+WORK_ORDER = "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化"
 
 _CJK = re.compile(r"[\u4e00-\u9fff]")
 _LATIN = re.compile(r"[A-Za-z]")
