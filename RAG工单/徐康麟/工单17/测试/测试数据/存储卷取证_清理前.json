@@ -1,0 +1,289 @@
+{
+  "work_order": "人工智能NLP-RAG-解决API 服务并发瓶颈与资源泄漏工单",
+  "tag": "清理前",
+  "vol_root": "E:\\gao6gongdan\\工单17\\部署\\卷",
+  "uploads": {
+    "dir": "E:\\gao6gongdan\\工单17\\部署\\卷\\uploads",
+    "file_count": 2304,
+    "total_bytes": 16179781299,
+    "total_mb": 15430.2,
+    "unique_content_groups": 10,
+    "duplicate_groups": 9,
+    "wasted_bytes": 16116518773,
+    "wasted_mb": 15369.9,
+    "wasted_pct": 99.61,
+    "top_duplicate_groups": [
+      {
+        "original_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+        "size_bytes": 10124340,
+        "copies": 250,
+        "kept_example": "t-0239da62__2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+        "wasted_bytes": 2520960660
+      },
+      {
+        "original_name": "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf",
+        "size_bytes": 9097203,
+        "copies": 255,
+        "kept_example": "t-00a51a07__2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf",
+        "wasted_bytes": 2310689562
+      },
+      {
+        "original_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+        "size_bytes": 8877222,
+        "copies": 258,
+        "kept_example": "t-01c7d5f3__2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+        "wasted_bytes": 2281446054
+      },
+      {
+        "original_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+        "size_bytes": 8341645,
+        "copies": 261,
+        "kept_example": "t-0175443b__2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+        "wasted_bytes": 2168827700
+      },
+      {
+        "original_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+        "size_bytes": 6864418,
+        "copies": 255,
+        "kept_example": "t-017a144c__2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+        "wasted_bytes": 1743562172
+      },
+      {
+        "original_name": "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf",
+        "size_bytes": 5453661,
+        "copies": 258,
+        "kept_example": "t-00bf0686__2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf",
+        "wasted_bytes": 1401590877
+      },
+      {
+        "original_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+        "size_bytes": 5045044,
+        "copies": 256,
+        "kept_example": "t-00ebc41f__2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+        "wasted_bytes": 1286486220
+      },
+      {
+        "original_name": "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf",
+        "size_bytes": 4792343,
+        "copies": 258,
+        "kept_example": "t-0202242d__2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf",
+        "wasted_bytes": 1231632151
+      },
+      {
+        "original_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+        "size_bytes": 4666627,
+        "copies": 252,
+        "kept_example": "t-016b3c08__2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+        "wasted_bytes": 1171323377
+      }
+    ],
+    "sample_sha256": {
+      "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf": {
+        "hashes": [
+          "dbb873735633943668bec493b071c599d72d7101c2bbd1e33223c20ca06d4add",
+          "dbb873735633943668bec493b071c599d72d7101c2bbd1e33223c20ca06d4add",
+          "dbb873735633943668bec493b071c599d72d7101c2bbd1e33223c20ca06d4add",
+          "dbb873735633943668bec493b071c599d72d7101c2bbd1e33223c20ca06d4add",
+          "dbb873735633943668bec493b071c599d72d7101c2bbd1e33223c20ca06d4add",
+          "dbb873735633943668bec493b071c599d72d7101c2bbd1e33223c20ca06d4add",
+          "dbb873735633943668bec493b071c599d72d7101c2bbd1e33223c20ca06d4add",
+          "dbb873735633943668bec493b071c599d72d7101c2bbd1e33223c20ca06d4add"
+        ],
+        "all_identical": true,
+        "count": 8
+      },
+      "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf": {
+        "hashes": [
+          "270dd50b295589493a44f2ea3460cfa1f952013b20d78d2967a717a1b45a86dd",
+          "270dd50b295589493a44f2ea3460cfa1f952013b20d78d2967a717a1b45a86dd",
+          "270dd50b295589493a44f2ea3460cfa1f952013b20d78d2967a717a1b45a86dd",
+          "270dd50b295589493a44f2ea3460cfa1f952013b20d78d2967a717a1b45a86dd",
+          "270dd50b295589493a44f2ea3460cfa1f952013b20d78d2967a717a1b45a86dd",
+          "270dd50b295589493a44f2ea3460cfa1f952013b20d78d2967a717a1b45a86dd",
+          "270dd50b295589493a44f2ea3460cfa1f952013b20d78d2967a717a1b45a86dd",
+          "270dd50b295589493a44f2ea3460cfa1f952013b20d78d2967a717a1b45a86dd"
+        ],
+        "all_identical": true,
+        "count": 8
+      },
+      "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf": {
+        "hashes": [
+          "0593e63dece4248aa062797885c84fb31e6621e0b9025850633237b3e8cf7baf",
+          "0593e63dece4248aa062797885c84fb31e6621e0b9025850633237b3e8cf7baf",
+          "0593e63dece4248aa062797885c84fb31e6621e0b9025850633237b3e8cf7baf",
+          "0593e63dece4248aa062797885c84fb31e6621e0b9025850633237b3e8cf7baf",
+          "0593e63dece4248aa062797885c84fb31e6621e0b9025850633237b3e8cf7baf",
+          "0593e63dece4248aa062797885c84fb31e6621e0b9025850633237b3e8cf7baf",
+          "0593e63dece4248aa062797885c84fb31e6621e0b9025850633237b3e8cf7baf",
+          "0593e63dece4248aa062797885c84fb31e6621e0b9025850633237b3e8cf7baf"
+        ],
+        "all_identical": true,
+        "count": 8
+      }
+    }
+  },
+  "logs": {
+    "dir": "E:\\gao6gongdan\\工单17\\部署\\卷\\logs",
+    "file_count": 4,
+    "total_bytes": 697265797,
+    "total_mb": 665.0,
+    "by_ext": {
+      ".log": 2,
+      ".jsonl": 2
+    },
+    "biggest": [
+      {
+        "file": "app.log",
+        "mb": 599.97
+      },
+      {
+        "file": "rag_trace.jsonl",
+        "mb": 62.57
+      },
+      {
+        "file": "parse_tasks.jsonl",
+        "mb": 2.43
+      },
+      {
+        "file": "error.log",
+        "mb": 0.0
+      }
+    ]
+  },
+  "sessions": {
+    "dir": "E:\\gao6gongdan\\工单17\\部署\\卷\\sessions",
+    "file_count": 2012,
+    "total_bytes": 2186069,
+    "total_mb": 2.1,
+    "by_ext": {
+      ".json": 2012
+    },
+    "biggest": [
+      {
+        "file": "lim-19.json",
+        "mb": 0.01
+      },
+      {
+        "file": "lim-12.json",
+        "mb": 0.01
+      },
+      {
+        "file": "lim-10.json",
+        "mb": 0.01
+      },
+      {
+        "file": "lim-8.json",
+        "mb": 0.01
+      },
+      {
+        "file": "lim-7.json",
+        "mb": 0.01
+      },
+      {
+        "file": "lim-16.json",
+        "mb": 0.01
+      },
+      {
+        "file": "lim-13.json",
+        "mb": 0.01
+      },
+      {
+        "file": "lim-11.json",
+        "mb": 0.01
+      },
+      {
+        "file": "lim-1.json",
+        "mb": 0.01
+      },
+      {
+        "file": "lim-0.json",
+        "mb": 0.01
+      }
+    ]
+  },
+  "runtime": {
+    "dir": "E:\\gao6gongdan\\工单17\\部署\\卷\\runtime",
+    "file_count": 3,
+    "total_bytes": 118406912,
+    "total_mb": 112.9,
+    "by_ext": {
+      ".sqlite3": 1,
+      ".sqlite3-shm": 1,
+      ".sqlite3-wal": 1
+    },
+    "biggest": [
+      {
+        "file": "qa_runtime.sqlite3",
+        "mb": 108.91
+      },
+      {
+        "file": "qa_runtime.sqlite3-wal",
+        "mb": 3.98
+      },
+      {
+        "file": "qa_runtime.sqlite3-shm",
+        "mb": 0.03
+      }
+    ]
+  },
+  "部署_日志": {
+    "dir": "E:\\gao6gongdan\\工单17\\部署\\日志",
+    "file_count": 25,
+    "total_bytes": 46131,
+    "total_mb": 0.0,
+    "by_ext": {
+      ".log": 22,
+      ".json": 2,
+      ".jsonl": 1
+    },
+    "biggest": [
+      {
+        "file": "app.log",
+        "mb": 0.04
+      },
+      {
+        "file": "本地运行-API-基准_优化前-20261013-192645.err.log",
+        "mb": 0.0
+      },
+      {
+        "file": "本地进程.json",
+        "mb": 0.0
+      },
+      {
+        "file": "python基线.json",
+        "mb": 0.0
+      },
+      {
+        "file": "本地运行-API-限流饱和-20261013-204052.err.log",
+        "mb": 0.0
+      },
+      {
+        "file": "本地运行-API-基准_优化前-20261013-192758.err.log",
+        "mb": 0.0
+      },
+      {
+        "file": "本地运行-API-优化后_限流8队列4-20261013-203826.err.log",
+        "mb": 0.0
+      },
+      {
+        "file": "本地运行-API-优化后_限流8-20261013-201910.err.log",
+        "mb": 0.0
+      },
+      {
+        "file": "本地运行-API-优化后_限流8-20261013-200912.err.log",
+        "mb": 0.0
+      },
+      {
+        "file": "本地运行-API-优化后_限流8-20261013-195227.err.log",
+        "mb": 0.0
+      }
+    ]
+  },
+  "summary": {
+    "总占用_mb": 16210.3,
+    "上传卷_mb": 15430.2,
+    "上传重复浪费_mb": 15369.9,
+    "上传文件数": 2304,
+    "上传唯一内容组": 10
+  }
+}

@@ -1,0 +1,357 @@
+{
+  "work_order": "人工智能NLP-RAG-解决API 服务并发瓶颈与资源泄漏工单",
+  "tag": "优化后",
+  "perf_enabled": "1",
+  "rounds": 6,
+  "per_round": 8,
+  "rss_mb": {
+    "start": 2413.5,
+    "end": 2426.2,
+    "delta": 12.7,
+    "first_round": 2418.4,
+    "last_round": 2425.2,
+    "growth_pct": 0.28
+  },
+  "objects": {
+    "start": 360023,
+    "end": 363954,
+    "delta": 3931,
+    "watched_delta": {
+      "dict": 871,
+      "list": 1158,
+      "tuple": 1429,
+      "set": 2,
+      "str": 0,
+      "bytes": 0,
+      "Answer": 48,
+      "Turn": 48,
+      "Chunk": 0,
+      "Hit": 0,
+      "GateResult": 0,
+      "RerankFeatures": 0,
+      "Comprehension": 0
+    }
+  },
+  "tracemalloc_top": [
+    {
+      "trace": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\dataclasses.py:1323",
+      "size_diff_kb": 461.94,
+      "size_kb": 461.94,
+      "count_diff": 2927
+    },
+    {
+      "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\qa_engine.py:540",
+      "size_diff_kb": 219.35,
+      "size_kb": 219.35,
+      "count_diff": 257
+    },
+    {
+      "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\retriever.py:714",
+      "size_diff_kb": 200.62,
+      "size_kb": 200.62,
+      "count_diff": 576
+    },
+    {
+      "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\answerability.py:168",
+      "size_diff_kb": 181.46,
+      "size_kb": 181.46,
+      "count_diff": 2445
+    },
+    {
+      "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\answerability.py:170",
+      "size_diff_kb": 128.0,
+      "size_kb": 128.0,
+      "count_diff": 1
+    },
+    {
+      "trace": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\dataclasses.py:1321",
+      "size_diff_kb": 101.79,
+      "size_kb": 101.79,
+      "count_diff": 1902
+    },
+    {
+      "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\qa_engine.py:467",
+      "size_diff_kb": 77.67,
+      "size_kb": 77.67,
+      "count_diff": 91
+    },
+    {
+      "trace": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\dataclasses.py:1295",
+      "size_diff_kb": 64.34,
+      "size_kb": 64.34,
+      "count_diff": 485
+    },
+    {
+      "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\logging_conf.py:304",
+      "size_diff_kb": 29.3,
+      "size_kb": 29.3,
+      "count_diff": 250
+    },
+    {
+      "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\logging_conf.py:68",
+      "size_diff_kb": 25.71,
+      "size_kb": 25.71,
+      "count_diff": 454
+    },
+    {
+      "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\qa_engine.py:392",
+      "size_diff_kb": 22.62,
+      "size_kb": 22.62,
+      "count_diff": 48
+    },
+    {
+      "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\logging_conf.py:507",
+      "size_diff_kb": 22.38,
+      "size_kb": 22.38,
+      "count_diff": 191
+    },
+    {
+      "trace": "E:\\gao6gongdan\\工单1\\.venv\\Lib\\site-packages\\jieba\\__init__.py:258",
+      "size_diff_kb": 21.94,
+      "size_kb": 21.94,
+      "count_diff": 288
+    },
+    {
+      "trace": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\re\\_compiler.py:761",
+      "size_diff_kb": 21.09,
+      "size_kb": 21.09,
+      "count_diff": 36
+    },
+    {
+      "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\answer_composer.py:203",
+      "size_diff_kb": 20.3,
+      "size_kb": 20.3,
+      "count_diff": 342
+    },
+    {
+      "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\storage\\sqlite_manager.py:187",
+      "size_diff_kb": 18.23,
+      "size_kb": 18.23,
+      "count_diff": 59
+    },
+    {
+      "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\cache.py:201",
+      "size_diff_kb": 17.95,
+      "size_kb": 17.95,
+      "count_diff": 342
+    },
+    {
+      "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\citation.py:85",
+      "size_diff_kb": 14.81,
+      "size_kb": 14.81,
+      "count_diff": 48
+    },
+    {
+      "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\generator.py:448",
+      "size_diff_kb": 12.96,
+      "size_kb": 12.96,
+      "count_diff": 40
+    },
+    {
+      "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\generator.py:255",
+      "size_diff_kb": 12.75,
+      "size_kb": 12.75,
+      "count_diff": 96
+    }
+  ],
+  "curve": [
+    {
+      "round": 1,
+      "rss_mb": 2418.4,
+      "objects": 361269,
+      "watched": {
+        "dict": 14262,
+        "list": 290722,
+        "tuple": 6578,
+        "set": 370,
+        "str": 0,
+        "bytes": 0,
+        "Answer": 8,
+        "Turn": 8,
+        "Chunk": 0,
+        "Hit": 0,
+        "GateResult": 0,
+        "RerankFeatures": 0,
+        "Comprehension": 0
+      },
+      "engine": {
+        "asked": 8,
+        "cache_hit": 0,
+        "memory_cache": 8,
+        "memory_cache_max": 256,
+        "memory_cache_ttl_s": 1800.0,
+        "memory_cache_evictions": 0,
+        "memory_cache_expired": 0
+      }
+    },
+    {
+      "round": 2,
+      "rss_mb": 2419.4,
+      "objects": 361765,
+      "watched": {
+        "dict": 14405,
+        "list": 290911,
+        "tuple": 6682,
+        "set": 370,
+        "str": 0,
+        "bytes": 0,
+        "Answer": 16,
+        "Turn": 16,
+        "Chunk": 0,
+        "Hit": 0,
+        "GateResult": 0,
+        "RerankFeatures": 0,
+        "Comprehension": 0
+      },
+      "engine": {
+        "asked": 16,
+        "cache_hit": 0,
+        "memory_cache": 16,
+        "memory_cache_max": 256,
+        "memory_cache_ttl_s": 1800.0,
+        "memory_cache_evictions": 0,
+        "memory_cache_expired": 0
+      }
+    },
+    {
+      "round": 3,
+      "rss_mb": 2424.2,
+      "objects": 362289,
+      "watched": {
+        "dict": 14550,
+        "list": 291103,
+        "tuple": 6812,
+        "set": 370,
+        "str": 0,
+        "bytes": 0,
+        "Answer": 24,
+        "Turn": 24,
+        "Chunk": 0,
+        "Hit": 0,
+        "GateResult": 0,
+        "RerankFeatures": 0,
+        "Comprehension": 0
+      },
+      "engine": {
+        "asked": 24,
+        "cache_hit": 0,
+        "memory_cache": 24,
+        "memory_cache_max": 256,
+        "memory_cache_ttl_s": 1800.0,
+        "memory_cache_evictions": 0,
+        "memory_cache_expired": 0
+      }
+    },
+    {
+      "round": 4,
+      "rss_mb": 2424.2,
+      "objects": 362553,
+      "watched": {
+        "dict": 14694,
+        "list": 291294,
+        "tuple": 6675,
+        "set": 370,
+        "str": 0,
+        "bytes": 0,
+        "Answer": 32,
+        "Turn": 32,
+        "Chunk": 0,
+        "Hit": 0,
+        "GateResult": 0,
+        "RerankFeatures": 0,
+        "Comprehension": 0
+      },
+      "engine": {
+        "asked": 32,
+        "cache_hit": 0,
+        "memory_cache": 32,
+        "memory_cache_max": 256,
+        "memory_cache_ttl_s": 1800.0,
+        "memory_cache_evictions": 0,
+        "memory_cache_expired": 0
+      }
+    },
+    {
+      "round": 5,
+      "rss_mb": 2425.2,
+      "objects": 363006,
+      "watched": {
+        "dict": 14839,
+        "list": 291486,
+        "tuple": 6733,
+        "set": 370,
+        "str": 0,
+        "bytes": 0,
+        "Answer": 40,
+        "Turn": 40,
+        "Chunk": 0,
+        "Hit": 0,
+        "GateResult": 0,
+        "RerankFeatures": 0,
+        "Comprehension": 0
+      },
+      "engine": {
+        "asked": 40,
+        "cache_hit": 0,
+        "memory_cache": 40,
+        "memory_cache_max": 256,
+        "memory_cache_ttl_s": 1800.0,
+        "memory_cache_evictions": 0,
+        "memory_cache_expired": 0
+      }
+    },
+    {
+      "round": 6,
+      "rss_mb": 2425.2,
+      "objects": 363206,
+      "watched": {
+        "dict": 14982,
+        "list": 291676,
+        "tuple": 6744,
+        "set": 370,
+        "str": 0,
+        "bytes": 0,
+        "Answer": 48,
+        "Turn": 48,
+        "Chunk": 0,
+        "Hit": 0,
+        "GateResult": 0,
+        "RerankFeatures": 0,
+        "Comprehension": 0
+      },
+      "engine": {
+        "asked": 48,
+        "cache_hit": 0,
+        "memory_cache": 48,
+        "memory_cache_max": 256,
+        "memory_cache_ttl_s": 1800.0,
+        "memory_cache_evictions": 0,
+        "memory_cache_expired": 0
+      }
+    }
+  ],
+  "engine_final": {
+    "asked": 48,
+    "refused": 0,
+    "cache_hit": 0,
+    "memory_cache": 48,
+    "memory_cache_max": 256,
+    "memory_cache_ttl_s": 1800.0,
+    "memory_cache_evictions": 0,
+    "memory_cache_expired": 0,
+    "storage": {
+      "db": "E:\\gao6gongdan\\工单17\\部署\\卷\\runtime\\mem_probe_优化后.sqlite3",
+      "qa_total": 48,
+      "refused_total": 0,
+      "cache_entries": 48,
+      "sessions": 48,
+      "cache_table_max": 2000,
+      "cache_pruned_total": 0,
+      "commits_total": 144,
+      "writes_total": 48,
+      "perf_enabled": true,
+      "sqlite_batch": 1
+    }
+  },
+  "runtime_db": "E:\\gao6gongdan\\工单17\\部署\\卷\\runtime\\mem_probe_优化后.sqlite3"
+}

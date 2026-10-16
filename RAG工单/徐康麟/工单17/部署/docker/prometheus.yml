@@ -1,0 +1,27 @@
+# 工单编号：人工智能NLP-RAG 项目-金融问答系统部署
+# 文件：部署/docker/prometheus.yml —— Prometheus 抓取配置
+#
+# 目标：rag-api 的 /metrics（Prometheus 文本格式，见 研发/service/api.py）。
+# 这些指标同时被 优化/部署优化说明.md 与（后续）工单17 并发压测复用，口径保持一致。
+
+global:
+  scrape_interval: 15s
+  scrape_timeout: 10s
+  evaluation_interval: 15s
+  external_labels:
+    work_order: "人工智能NLP-RAG 项目-金融问答系统部署"
+    env: "local-docker"
+
+scrape_configs:
+  # ① RAG 问答服务自身指标（请求数 / 错误数 / 问答耗时 / 拒答数）
+  - job_name: rag-api
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["rag-api:8200"]
+        labels:
+          service: rag-api
+
+  # ② Prometheus 自监控（确认采集链路本身正常）
+  - job_name: prometheus
+    static_configs:
+      - targets: ["localhost:9090"]

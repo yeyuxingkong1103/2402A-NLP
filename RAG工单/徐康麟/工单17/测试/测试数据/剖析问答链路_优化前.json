@@ -1,0 +1,334 @@
+{
+  "work_order": "人工智能NLP-RAG-解决API 服务并发瓶颈与资源泄漏工单",
+  "tag": "优化前",
+  "perf_enabled": "0",
+  "n_requests": 8,
+  "warmup": {
+    "index_chunks": 8847,
+    "tokenizer": {
+      "cold_ms": 0.18,
+      "warm_ms": 0.1,
+      "tokens": 9,
+      "backend": "jieba"
+    },
+    "entity_tagger": {
+      "ok": true,
+      "sample_nouns": [
+        "武汉",
+        "新科",
+        "电子",
+        "股份",
+        "有限公司",
+        "注册资本"
+      ],
+      "elapsed_ms": 1568.53
+    },
+    "embedding": {
+      "backend": "ollama",
+      "model": "bge-m3:latest",
+      "dim": 1024,
+      "cold_ms": 4657.8,
+      "warm_ms": 39.74,
+      "total_ms": 4819.22
+    },
+    "fulltext_index": {
+      "fulltext_index": {
+        "chunks": 8847,
+        "fields": {
+          "content": 64134,
+          "title": 4795,
+          "keywords": 47593,
+          "summary": 42422
+        },
+        "ms": 13397.18
+      },
+      "models": [
+        {
+          "id": "bge-m3",
+          "dim": 1024,
+          "index_built": true
+        },
+        {
+          "id": "m3e-base",
+          "dim": 768,
+          "index_built": false
+        }
+      ],
+      "models_ms": 0.81,
+      "elapsed_ms": 13398.05
+    },
+    "generate": {
+      "ok": false,
+      "reason": "无可用生成后端（extractive 路径无需预热）"
+    },
+    "elapsed_ms": 23451.62
+  },
+  "urlopen_calls": {
+    "total": 19,
+    "by_url": {
+      "http://127.0.0.1:11434/api/tags": 7,
+      "http://127.0.0.1:11434/api/embed": 6,
+      "http://127.0.0.1:11434/api/generate": 6
+    },
+    "api_tags": 7,
+    "api_embed": 6,
+    "api_generate": 6,
+    "per_request_total": 2.375,
+    "per_request_api_tags": 0.875
+  },
+  "latency_ms": {
+    "mean": 2807.2,
+    "min": 766.14,
+    "max": 5177.59,
+    "non_cache_n": 6
+  },
+  "stage_ms": {
+    "retrieve_mean": 942.76,
+    "generate_mean": 1079.86,
+    "total_mean": 2106.04
+  },
+  "rss_mb": {
+    "before": 2412.2,
+    "after": 2413.6,
+    "delta": 1.4
+  },
+  "engine_stats": {
+    "asked": 8,
+    "refused": 0,
+    "cache_hit": 2,
+    "memory_cache": 6,
+    "memory_cache_max": 512,
+    "memory_cache_ttl_s": 0.0,
+    "memory_cache_evictions": 0,
+    "memory_cache_expired": 0,
+    "storage": null
+  },
+  "results": [
+    {
+      "i": 1,
+      "question": "平安银行2019年的营业收入是多少？",
+      "total_ms": 5177.59,
+      "refused": false,
+      "cache_hit": false,
+      "latency_ms": {
+        "retrieve": 171.5,
+        "generate": 4623.13,
+        "first_token": 4682.04,
+        "total": 5177.04
+      }
+    },
+    {
+      "i": 2,
+      "question": "招商银行2019年的营业收入和净利润分别是多少？",
+      "total_ms": 4601.56,
+      "refused": false,
+      "cache_hit": false,
+      "latency_ms": {
+        "retrieve": 3655.07,
+        "generate": 939.36,
+        "first_token": 4325.46,
+        "total": 4601.01
+      }
+    },
+    {
+      "i": 3,
+      "question": "平安银行2019年末的不良贷款率是多少？",
+      "total_ms": 1058.39,
+      "refused": false,
+      "cache_hit": false,
+      "latency_ms": {
+        "retrieve": 113.01,
+        "generate": 939.2,
+        "first_token": 979.47,
+        "total": 1057.76
+      }
+    },
+    {
+      "i": 4,
+      "question": "平安银行2019年末的拨备覆盖率是多少？",
+      "total_ms": 792.72,
+      "refused": false,
+      "cache_hit": false,
+      "latency_ms": {
+        "retrieve": 117.88,
+        "generate": 668.67,
+        "first_token": 691.22,
+        "total": 792.18
+      }
+    },
+    {
+      "i": 5,
+      "question": "招商银行2019年年度报告的董事长是谁？",
+      "total_ms": 766.14,
+      "refused": false,
+      "cache_hit": false,
+      "latency_ms": {
+        "retrieve": 112.38,
+        "generate": 647.8,
+        "first_token": 699.25,
+        "total": 765.64
+      }
+    },
+    {
+      "i": 6,
+      "question": "中信证券2020年年度报告中，公司负责人是谁？",
+      "total_ms": 4446.79,
+      "refused": false,
+      "cache_hit": false,
+      "latency_ms": {
+        "retrieve": 3372.27,
+        "generate": 820.74,
+        "first_token": 4144.95,
+        "total": 4446.33
+      }
+    },
+    {
+      "i": 7,
+      "question": "平安银行2019年的营业收入是多少？",
+      "total_ms": 3.53,
+      "refused": false,
+      "cache_hit": true,
+      "latency_ms": {
+        "retrieve": 0.0,
+        "generate": 0.0,
+        "first_token": 0.0,
+        "total": 3.25
+      }
+    },
+    {
+      "i": 8,
+      "question": "招商银行2019年的营业收入和净利润分别是多少？",
+      "total_ms": 5.52,
+      "refused": false,
+      "cache_hit": true,
+      "latency_ms": {
+        "retrieve": 0.0,
+        "generate": 0.0,
+        "first_token": 0.0,
+        "total": 5.12
+      }
+    }
+  ],
+  "cprofile_top": [
+    {
+      "ncalls": "36341",
+      "tottime": "function",
+      "cumtime": "(35220",
+      "func": "calls) in 0.408 seconds"
+    },
+    {
+      "ncalls": "1",
+      "tottime": "0.000",
+      "cumtime": "0.408",
+      "func": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\qa_engine.py:225(answer)"
+    },
+    {
+      "ncalls": "34",
+      "tottime": "0.000",
+      "cumtime": "0.322",
+      "func": "{method 'readline' of '_io.BufferedReader' objects}"
+    },
+    {
+      "ncalls": "16",
+      "tottime": "0.000",
+      "cumtime": "0.322",
+      "func": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\socket.py:704(readinto)"
+    },
+    {
+      "ncalls": "16",
+      "tottime": "0.322",
+      "cumtime": "0.322",
+      "func": "{method 'recv_into' of '_socket.socket' objects}"
+    },
+    {
+      "ncalls": "3",
+      "tottime": "0.000",
+      "cumtime": "0.248",
+      "func": "E:\\gao6gongdan\\工单17\\研发\\剖析\\剖析问答链路.py:55(_counting_urlopen)"
+    },
+    {
+      "ncalls": "3",
+      "tottime": "0.000",
+      "cumtime": "0.248",
+      "func": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\urllib\\request.py:139(urlopen)"
+    },
+    {
+      "ncalls": "3",
+      "tottime": "0.000",
+      "cumtime": "0.248",
+      "func": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\urllib\\request.py:500(open)"
+    },
+    {
+      "ncalls": "3",
+      "tottime": "0.000",
+      "cumtime": "0.248",
+      "func": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\urllib\\request.py:529(_open)"
+    },
+    {
+      "ncalls": "6",
+      "tottime": "0.000",
+      "cumtime": "0.248",
+      "func": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\urllib\\request.py:489(_call_chain)"
+    },
+    {
+      "ncalls": "3",
+      "tottime": "0.000",
+      "cumtime": "0.248",
+      "func": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\urllib\\request.py:1376(http_open)"
+    },
+    {
+      "ncalls": "3",
+      "tottime": "0.000",
+      "cumtime": "0.248",
+      "func": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\urllib\\request.py:1307(do_open)"
+    },
+    {
+      "ncalls": "1",
+      "tottime": "0.000",
+      "cumtime": "0.240",
+      "func": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\generator.py:113(generate)"
+    },
+    {
+      "ncalls": "1",
+      "tottime": "0.000",
+      "cumtime": "0.233",
+      "func": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\llm_client.py:411(generate_full)"
+    },
+    {
+      "ncalls": "10",
+      "tottime": "0.000",
+      "cumtime": "0.232",
+      "func": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\llm_client.py:377(generate)"
+    },
+    {
+      "ncalls": "10",
+      "tottime": "0.000",
+      "cumtime": "0.232",
+      "func": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\llm_client.py:397(_iter_pieces)"
+    },
+    {
+      "ncalls": "10",
+      "tottime": "0.000",
+      "cumtime": "0.232",
+      "func": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\llm_client.py:324(_stream_ollama)"
+    },
+    {
+      "ncalls": "3",
+      "tottime": "0.000",
+      "cumtime": "0.216",
+      "func": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\http\\client.py:1371(getresponse)"
+    },
+    {
+      "ncalls": "3",
+      "tottime": "0.000",
+      "cumtime": "0.216",
+      "func": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\http\\client.py:323(begin)"
+    },
+    {
+      "ncalls": "3",
+      "tottime": "0.000",
+      "cumtime": "0.214",
+      "func": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\http\\client.py:290(_read_status)"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "work_order": "人工智能NLP-RAG-解决API 服务并发瓶颈与资源泄漏工单",
+  "base_url": "http://127.0.0.1:8200",
+  "concurrency": 20,
+  "duration_s": 60.0,
+  "total_requests": 5550,
+  "ok": 5550,
+  "rejected_429": 0,
+  "other": 0,
+  "perf_before": {
+    "inflight": 0,
+    "max_inflight": 8,
+    "queued": 0,
+    "queue_max": 4,
+    "inflight_peak": 0,
+    "accepted": 0,
+    "rejected": 0,
+    "timeouts": 0,
+    "enabled": true,
+    "waited_total_s": 0.0
+  },
+  "peak_inflight": 8,
+  "peak_queued": 4,
+  "probe_p95_ms": 27.53,
+  "probe_samples": 543,
+  "cases": [
+    {
+      "用例": "过载时的在途上限",
+      "期望": "在途 ≤ PERF_MAX_INFLIGHT（观测峰值 8）",
+      "实际": "峰值在途 8，峰值排队 4",
+      "通过": true
+    },
+    {
+      "用例": "过载时快速失败（429）而不是堆积",
+      "期望": "出现 429，且带 detail/inflight/queued/max_inflight/queue_max/retry_after_s",
+      "实际": "未出现 429（本次负载未超限：200×5550）",
+      "通过": true
+    },
+    {
+      "用例": "健康探针在高压下仍可答（事件循环不被阻塞）",
+      "期望": "并发压测中 /healthz P95 ≤ 200 ms",
+      "实际": "/healthz 采样 543 次，P95 = 27.59 ms",
+      "通过": true
+    },
+    {
+      "用例": "过载不产生 5xx",
+      "期望": "5xx = 0（过载走 429，不是 500）",
+      "实际": "非 200/429 的响应 0 次",
+      "通过": true
+    }
+  ]
+}

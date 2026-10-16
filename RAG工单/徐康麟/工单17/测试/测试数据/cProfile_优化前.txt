@@ -1,0 +1,38 @@
+         36341 function calls (35220 primitive calls) in 0.408 seconds
+
+   Ordered by: cumulative time
+   List reduced from 617 to 30 due to restriction <30>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.408    0.408 E:\gao6gongdan\工单17\研发\app\core\qa_engine.py:225(answer)
+       34    0.000    0.000    0.322    0.009 {method 'readline' of '_io.BufferedReader' objects}
+       16    0.000    0.000    0.322    0.020 E:\Anaconda\envs\fastapi_faq\Lib\socket.py:704(readinto)
+       16    0.322    0.020    0.322    0.020 {method 'recv_into' of '_socket.socket' objects}
+        3    0.000    0.000    0.248    0.083 E:\gao6gongdan\工单17\研发\剖析\剖析问答链路.py:55(_counting_urlopen)
+        3    0.000    0.000    0.248    0.083 E:\Anaconda\envs\fastapi_faq\Lib\urllib\request.py:139(urlopen)
+        3    0.000    0.000    0.248    0.083 E:\Anaconda\envs\fastapi_faq\Lib\urllib\request.py:500(open)
+        3    0.000    0.000    0.248    0.083 E:\Anaconda\envs\fastapi_faq\Lib\urllib\request.py:529(_open)
+        6    0.000    0.000    0.248    0.041 E:\Anaconda\envs\fastapi_faq\Lib\urllib\request.py:489(_call_chain)
+        3    0.000    0.000    0.248    0.083 E:\Anaconda\envs\fastapi_faq\Lib\urllib\request.py:1376(http_open)
+        3    0.000    0.000    0.248    0.083 E:\Anaconda\envs\fastapi_faq\Lib\urllib\request.py:1307(do_open)
+        1    0.000    0.000    0.240    0.240 E:\gao6gongdan\工单17\研发\app\core\generator.py:113(generate)
+        1    0.000    0.000    0.233    0.233 E:\gao6gongdan\工单17\研发\app\core\llm_client.py:411(generate_full)
+       10    0.000    0.000    0.232    0.023 E:\gao6gongdan\工单17\研发\app\core\llm_client.py:377(generate)
+       10    0.000    0.000    0.232    0.023 E:\gao6gongdan\工单17\研发\app\core\llm_client.py:397(_iter_pieces)
+       10    0.000    0.000    0.232    0.023 E:\gao6gongdan\工单17\研发\app\core\llm_client.py:324(_stream_ollama)
+        3    0.000    0.000    0.216    0.072 E:\Anaconda\envs\fastapi_faq\Lib\http\client.py:1371(getresponse)
+        3    0.000    0.000    0.216    0.072 E:\Anaconda\envs\fastapi_faq\Lib\http\client.py:323(begin)
+        3    0.000    0.000    0.214    0.071 E:\Anaconda\envs\fastapi_faq\Lib\http\client.py:290(_read_status)
+        1    0.000    0.000    0.155    0.155 E:\gao6gongdan\工单17\研发\app\core\retriever.py:629(retrieve)
+        1    0.000    0.000    0.154    0.154 E:\gao6gongdan\工单17\研发\app\core\retriever.py:451(hybrid_search)
+        1    0.000    0.000    0.133    0.133 E:\gao6gongdan\工单17\研发\app\core\embedder.py:345(embed_query)
+        1    0.000    0.000    0.133    0.133 E:\gao6gongdan\工单17\研发\app\core\embedder.py:318(embed_texts)
+        2    0.000    0.000    0.128    0.064 E:\gao6gongdan\工单17\研发\app\core\embedder.py:85(_http_json)
+       10    0.000    0.000    0.110    0.011 E:\gao6gongdan\工单17\研发\app\core\llm_client.py:274(_iter_ollama_lines)
+       26    0.000    0.000    0.109    0.004 E:\Anaconda\envs\fastapi_faq\Lib\http\client.py:566(_get_chunk_left)
+       10    0.000    0.000    0.109    0.011 E:\Anaconda\envs\fastapi_faq\Lib\http\client.py:699(readline)
+       10    0.000    0.000    0.109    0.011 {function HTTPResponse.readline at 0x0000020B58445F80}
+       11    0.000    0.000    0.108    0.010 E:\Anaconda\envs\fastapi_faq\Lib\http\client.py:690(peek)
+       11    0.000    0.000    0.108    0.010 E:\Anaconda\envs\fastapi_faq\Lib\http\client.py:730(_peek_chunked)
+
+

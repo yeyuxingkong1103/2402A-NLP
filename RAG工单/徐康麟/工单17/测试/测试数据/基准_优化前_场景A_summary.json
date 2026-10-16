@@ -1,0 +1,100 @@
+{
+  "total": 14780,
+  "success": 14780,
+  "failed": 0,
+  "rate_limited": 0,
+  "http_5xx": 0,
+  "http_4xx": 0,
+  "timeouts": 0,
+  "connection_errors": 0,
+  "refused_answers": 0,
+  "latency_ms": {
+    "n": 14780,
+    "min": 86.83,
+    "mean": 243.59,
+    "p50": 208.57,
+    "p90": 318.91,
+    "p95": 517.4,
+    "p99": 789.41,
+    "max": 1071.07
+  },
+  "qa_latency_ms": {
+    "n": 14780,
+    "p50": 208.57,
+    "p95": 517.4,
+    "p99": 789.41
+  },
+  "by_endpoint": {
+    "ask": {
+      "n": 14780,
+      "ok": 14780,
+      "p95_ms": 517.4,
+      "mean_ms": 243.59
+    }
+  },
+  "inflight_peak": 20,
+  "work_order": "人工智能NLP-RAG-解决API 服务并发瓶颈与资源泄漏工单",
+  "tag": "基准_优化前",
+  "scenario": "A",
+  "concurrency": 20,
+  "threads": {
+    "qa": 20,
+    "upload": 0
+  },
+  "duration_s_target": 180,
+  "actual_duration_s": 180.16,
+  "think_ms": 0,
+  "base_url": "http://127.0.0.1:8200",
+  "api_pid": 2696,
+  "started_at": 1791890586.921462,
+  "finished_at": 1791890767.320507,
+  "circuit_breaker": null,
+  "rps": 82.038,
+  "success_rps": 82.038,
+  "failed_rate_pct": 0.0,
+  "memory": {
+    "api_process": {
+      "samples": 37,
+      "usable": 37,
+      "field": "api_private_mb",
+      "first_window_mean_mb": 2456.7,
+      "last_window_mean_mb": 2459.97,
+      "growth_mb": 3.27,
+      "growth_pct": 0.13,
+      "slope_mb_per_min": 1.6401,
+      "min_mb": 2448.71,
+      "max_mb": 2466.91,
+      "trend": "持续上涨"
+    },
+    "api_process_rss": {
+      "samples": 37,
+      "usable": 37,
+      "field": "api_rss_mb",
+      "first_window_mean_mb": 666.11,
+      "last_window_mean_mb": 669.36,
+      "growth_mb": 3.25,
+      "growth_pct": 0.49,
+      "slope_mb_per_min": 1.721,
+      "min_mb": 655.84,
+      "max_mb": 676.69,
+      "trend": "持续上涨"
+    },
+    "system": {
+      "avail_min_mb": 3270.9,
+      "commit_pct_max": 73.25
+    }
+  },
+  "acceptance": {
+    "p95_ms": 517.4,
+    "p95_target_ms": 3000.0,
+    "p95_pass": true,
+    "failed": 0,
+    "failed_zero_pass": true,
+    "rps": 82.038,
+    "memory_growth_pct": 0.13,
+    "memory_growth_target_pct": 10.0,
+    "memory_growth_pass": true,
+    "memory_slope_mb_per_min": 1.6401,
+    "memory_trend": "持续上涨"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "work_order": "人工智能NLP-RAG-解决API 服务并发瓶颈与资源泄漏工单",
+  "label": "优化前",
+  "base_url": "http://127.0.0.1:8200",
+  "pdf": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+  "pdf_bytes": 8341645,
+  "uploads": 60,
+  "http_ok": 60,
+  "http_codes": {
+    "200": 60
+  },
+  "elapsed_s": 14.05,
+  "uploads_dir_before": {
+    "dir": "E:\\gao6gongdan\\工单17\\部署\\卷\\uploads",
+    "files": 2304,
+    "bytes": 16179781299,
+    "mb": 15430.24,
+    "biggest_mb": 9.66,
+    "biggest": "t-0239da62__2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf"
+  },
+  "uploads_dir_after": {
+    "dir": "E:\\gao6gongdan\\工单17\\部署\\卷\\uploads",
+    "files": 2364,
+    "bytes": 16680279999,
+    "mb": 15907.55,
+    "biggest_mb": 9.66,
+    "biggest": "t-0239da62__2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf"
+  },
+  "logs_dir_before": {
+    "dir": "E:\\gao6gongdan\\工单17\\部署\\卷\\logs",
+    "files": 4,
+    "bytes": 697316060,
+    "mb": 665.01,
+    "biggest_mb": 600.01,
+    "biggest": "app.log"
+  },
+  "logs_dir_after": {
+    "dir": "E:\\gao6gongdan\\工单17\\部署\\卷\\logs",
+    "files": 4,
+    "bytes": 697410516,
+    "mb": 665.1,
+    "biggest_mb": 600.07,
+    "biggest": "app.log"
+  },
+  "delta_uploads_bytes": 500498700,
+  "delta_uploads_mb": 477.31,
+  "delta_logs_bytes": 94456,
+  "delta_logs_mb": 0.09,
+  "bytes_per_upload": 8341645.0,
+  "ratio_to_pdf_size": 1.0,
+  "task_queue_dedup": {},
+  "task_queue_counts": {
+    "submitted": null,
+    "done": null,
+    "failed": null,
+    "rejected": null
+  },
+  "perm_enabled": null,
+  "checked_at": "2026-10-14T18:52:54"
+}

@@ -1,0 +1,53 @@
+# 工单编号：人工智能NLP-RAG-解决API 服务并发瓶颈与资源泄漏工单
+# 文件：研发/requirements.txt
+#
+# ⚠️ 本工单 **没有新增任何第三方依赖**（共享约定 §2：本机 pip 通道不通，
+#    且禁止裸 pip install —— 会写进只读的 工单1 venv）。
+#    全部新增能力（HTTP 连接池 / 限流闸门 / 单例与探测缓存 / 解析队列 / 剖析）
+#    都用 **Python 标准库** 实现：
+#      http.client, threading, queue, concurrent.futures, ctypes, tracemalloc,
+#      gc, cProfile, pstats, urllib, json, sqlite3。
+#
+# 下表是**运行本工单所需**的既有依赖（来自工单1 的 venv，已装，无需再装）。
+# 版本以 `python -c "import X; print(X.__version__)"` 实测为准。
+
+# —— Web 服务 ——
+fastapi
+uvicorn
+starlette
+pydantic
+
+# —— 检索与向量 ——
+numpy
+faiss-cpu
+
+# —— PDF 解析（上传解析任务用；本机已有 PyMuPDF）——
+PyMuPDF
+
+# —— 测试 ——
+pytest
+httpx            # fastapi.testclient 依赖
+
+# —— 可选（基座脚本用；本工单不依赖）——
+requests
+openai
+transformers
+sentence-transformers
+torch
+jieba
+scikit-learn
+
+# =============================================================================
+# 实测环境（设计/环境事实.md §1）
+#   解释器：E:\gao6gongdan\工单1\.venv\Scripts\python.exe
+#   Python：3.11.15（Anaconda packaged，--system-site-packages 型，
+#                   base = E:\Anaconda\envs\fastapi_faq）
+#   【缺失】cv2 / pytesseract / paddleocr / easyocr / onnxruntime / gradio /
+#           streamlit / pdfplumber / pandas / loguru / matplotlib /
+#           open_clip / clip / timm / accelerate
+#   ⇒ 图表用 PIL 自绘；剖析用标准库；不引入任何新包。
+#
+# 外部服务（非 pip 依赖）：
+#   Ollama   127.0.0.1:11434   qwen2.5:3b（生成） + bge-m3:latest（嵌入, 1024 维）
+#   Redis    127.0.0.1:6379    （会话共享；客户端为自研 RESP，无需 redis 包）
+# =============================================================================

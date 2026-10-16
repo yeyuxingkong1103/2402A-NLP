@@ -1,0 +1,32 @@
+# 工单编号：人工智能NLP-RAG 项目-金融问答系统部署
+# 文件：部署/docker/requirements.txt —— 容器镜像内的 Python 依赖（**最小闭包**）
+#
+# 取舍说明（为什么就这几个）：
+#   * faiss-cpu  —— 工单7 的向量索引是 faiss:IndexFlatIP，必须装。
+#   * numpy      —— faiss/numpy 索引读取（*.npy）必需；faiss-cpu 会带上它，显式钉版本更可控。
+#   * fastapi / uvicorn —— 对外正式 API（POST /api/v1/ask、GET /health）。
+#   * pymupdf    —— 工单7 的 pdf_parser 依赖 fitz（解析年报 PDF / 定位引用页）。
+#   * jieba      —— 中文分词（BM25 全文检索与查询理解都要）。
+#   * redis      —— 会话/缓存跨容器共享。**注意**：它现在是"可选依赖"——
+#                   service/session_store.py 内置了标准库 RESP 客户端（MiniRedis），
+#                   没装 redis 包也能连 Redis（实测本机就是这样跑通了 redis+file 双写）。
+#                   仍建议装上：官方客户端有连接池，长跑更稳。
+#   * Pillow / scipy —— 只被 app/core/chart_extractor.py **模块级** import（PIL / scipy.ndimage），
+#                   而该模块在当前问答链路中**不会被加载**（实测：服务启动后 sys.modules 里
+#                   没有 chart_extractor / scipy / PIL）。即属于"潜在 ImportError"：
+#                   一旦有人 import 它（做图表数值抽取），缺包就炸。合计约 45 MB，补齐更稳妥。
+#
+# **故意不装**：torch / transformers / sentence-transformers / open_clip（合计 2~3 GB），
+#   因为嵌入与生成统一走**宿主机 Ollama**（bge-m3 嵌入 + qwen2.5:3b 生成），
+#   容器只做编排与检索——这是本工单体积优化的最大一笔（见 优化/部署优化说明.md）。
+#   若确实需要容器内本地跑 CLIP 图文向量，另建 `--target clip` 扩展镜像，不要塞进主镜像。
+
+numpy==1.26.4
+faiss-cpu==1.8.0
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+pymupdf==1.24.14
+jieba==0.42.1
+redis==5.0.8
+Pillow==10.4.0
+scipy==1.11.4

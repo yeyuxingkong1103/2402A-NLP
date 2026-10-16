@@ -1,0 +1,111 @@
+{
+  "total": 883,
+  "success": 882,
+  "failed": 1,
+  "rate_limited": 0,
+  "http_5xx": 0,
+  "http_4xx": 0,
+  "timeouts": 0,
+  "connection_errors": 1,
+  "refused_answers": 0,
+  "latency_ms": {
+    "n": 882,
+    "min": 177.76,
+    "mean": 1714.83,
+    "p50": 858.18,
+    "p90": 7527.0,
+    "p95": 8098.25,
+    "p99": 8665.41,
+    "max": 10315.64
+  },
+  "qa_latency_ms": {
+    "n": 112,
+    "p50": 7969.43,
+    "p95": 8824.15,
+    "p99": 9800.57
+  },
+  "by_endpoint": {
+    "upload": {
+      "n": 770,
+      "ok": 770,
+      "p95_ms": 1280.24,
+      "mean_ms": 833.36
+    },
+    "ask": {
+      "n": 112,
+      "ok": 112,
+      "p95_ms": 8824.15,
+      "mean_ms": 7774.96
+    }
+  },
+  "inflight_peak": 10,
+  "work_order": "人工智能NLP-RAG-解决API 服务并发瓶颈与资源泄漏工单",
+  "tag": "基准_优化前",
+  "scenario": "B",
+  "concurrency": 10,
+  "threads": {
+    "qa": 5,
+    "upload": 5
+  },
+  "duration_s_target": 180,
+  "actual_duration_s": 181.06,
+  "think_ms": 300,
+  "base_url": "http://127.0.0.1:8200",
+  "unique_sessions": false,
+  "api_pid": 31292,
+  "started_at": 1791891241.6015885,
+  "finished_at": 1791891422.902116,
+  "circuit_breaker": null,
+  "rps": 4.877,
+  "success_rps": 4.871,
+  "failed_rate_pct": 0.113,
+  "memory": {
+    "api_process": {
+      "samples": 37,
+      "usable": 37,
+      "field": "api_private_mb",
+      "first_window_mean_mb": 2538.21,
+      "last_window_mean_mb": 2557.65,
+      "growth_mb": 19.44,
+      "growth_pct": 0.77,
+      "slope_mb_per_min": 7.4948,
+      "min_mb": 2509.65,
+      "max_mb": 2582.97,
+      "trend": "持续上涨"
+    },
+    "api_process_rss": {
+      "samples": 37,
+      "usable": 37,
+      "field": "api_rss_mb",
+      "first_window_mean_mb": 746.73,
+      "last_window_mean_mb": 765.58,
+      "growth_mb": 18.85,
+      "growth_pct": 2.52,
+      "slope_mb_per_min": 7.6987,
+      "min_mb": 720.62,
+      "max_mb": 790.17,
+      "trend": "持续上涨"
+    },
+    "system": {
+      "avail_min_mb": 1660.5,
+      "commit_pct_max": 73.5
+    }
+  },
+  "acceptance": {
+    "p95_ms": 8098.25,
+    "p95_target_ms": 3000.0,
+    "p95_pass": false,
+    "failed": 1,
+    "failed_zero_pass": false,
+    "rps": 4.877,
+    "memory_growth_pct": 0.77,
+    "memory_growth_target_pct": 10.0,
+    "memory_growth_pass": true,
+    "memory_slope_mb_per_min": 7.4948,
+    "memory_trend": "持续上涨",
+    "qa_p95_ms": 8824.15,
+    "qa_p95_target_ms": 5000.0,
+    "qa_p95_pass": false,
+    "service_stable": false
+  }
+}

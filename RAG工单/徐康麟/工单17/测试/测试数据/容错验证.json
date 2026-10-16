@@ -1,0 +1,50 @@
+{
+  "work_order": "人工智能NLP-RAG-解决API 服务并发瓶颈与资源泄漏工单",
+  "base_url": "http://127.0.0.1:8200",
+  "tag": "优化后",
+  "checked_at": "2026-10-13T20:40:23",
+  "cases": [
+    {
+      "故障注入": "服务可达性",
+      "行为": "/healthz → HTTP 200",
+      "留痕": "部署/日志/本地运行-API-*.log",
+      "通过": true
+    },
+    {
+      "故障注入": "上传损坏 PDF",
+      "行为": "HTTP 400：PDF 已损坏或无法解析：FileDataError: Failed to open file 'E:\\\\gao6gon",
+      "留痕": "响应体 + 部署/日志/*.log",
+      "通过": true
+    },
+    {
+      "故障注入": "非 PDF 扩展名",
+      "行为": "HTTP 400：只接受 .pdf 文件（收到 note.txt）",
+      "留痕": "响应体",
+      "通过": true
+    },
+    {
+      "故障注入": "合法 PDF（对照）",
+      "行为": "HTTP 202 → 任务 done（265 页，149.76 ms，worker=parse-0）",
+      "留痕": "部署/日志/parse_tasks.jsonl",
+      "通过": true
+    },
+    {
+      "故障注入": "主动卸载 Ollama（keep_alive=0s）",
+      "行为": "HTTP 200：{\"ok\": true, \"unloaded\": [\"bge-m3:latest\"], \"errors\": [], \"keep_alive\": \"0s\", \"count\": 1, ",
+      "留痕": "响应体 + 服务日志 api.unload",
+      "通过": true
+    },
+    {
+      "故障注入": "查询不存在的任务",
+      "行为": "HTTP 404：任务不存在：not-exist",
+      "留痕": "响应体",
+      "通过": true
+    },
+    {
+      "故障注入": "空问题（参数校验）",
+      "行为": "HTTP 422",
+      "留痕": "响应体（FastAPI 422）",
+      "通过": true
+    }
+  ]
+}

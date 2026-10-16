@@ -1,0 +1,391 @@
+{
+  "work_order": "人工智能NLP-RAG-解决API 服务并发瓶颈与资源泄漏工单",
+  "rows": [
+    {
+      "tag": "优化前",
+      "perf_enabled": "0",
+      "urlopen_total": 19,
+      "urlopen_per_request": 2.375,
+      "api_tags": 7,
+      "api_tags_per_request": 0.875,
+      "api_embed": 6,
+      "api_generate": 6,
+      "by_url": {
+        "http://127.0.0.1:11434/api/tags": 7,
+        "http://127.0.0.1:11434/api/embed": 6,
+        "http://127.0.0.1:11434/api/generate": 6
+      },
+      "retrieve_mean_ms": 942.76,
+      "generate_mean_ms": 1079.86,
+      "total_mean_ms": 2106.04,
+      "latency_mean_ms": 2807.2,
+      "rss": {
+        "before": 2412.2,
+        "after": 2413.6,
+        "delta": 1.4
+      },
+      "memory_cache": 6,
+      "storage": null,
+      "cprofile_top": [
+        {
+          "ncalls": "36341",
+          "tottime": "function",
+          "cumtime": "(35220",
+          "func": "calls) in 0.408 seconds"
+        },
+        {
+          "ncalls": "1",
+          "tottime": "0.000",
+          "cumtime": "0.408",
+          "func": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\qa_engine.py:225(answer)"
+        },
+        {
+          "ncalls": "34",
+          "tottime": "0.000",
+          "cumtime": "0.322",
+          "func": "{method 'readline' of '_io.BufferedReader' objects}"
+        },
+        {
+          "ncalls": "16",
+          "tottime": "0.000",
+          "cumtime": "0.322",
+          "func": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\socket.py:704(readinto)"
+        },
+        {
+          "ncalls": "16",
+          "tottime": "0.322",
+          "cumtime": "0.322",
+          "func": "{method 'recv_into' of '_socket.socket' objects}"
+        },
+        {
+          "ncalls": "3",
+          "tottime": "0.000",
+          "cumtime": "0.248",
+          "func": "E:\\gao6gongdan\\工单17\\研发\\剖析\\剖析问答链路.py:55(_counting_urlopen)"
+        },
+        {
+          "ncalls": "3",
+          "tottime": "0.000",
+          "cumtime": "0.248",
+          "func": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\urllib\\request.py:139(urlopen)"
+        },
+        {
+          "ncalls": "3",
+          "tottime": "0.000",
+          "cumtime": "0.248",
+          "func": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\urllib\\request.py:500(open)"
+        }
+      ],
+      "tracemalloc_rss": {
+        "start": 2414.3,
+        "end": 2425.1,
+        "delta": 10.8,
+        "first_round": 2418.3,
+        "last_round": 2425.1,
+        "growth_pct": 0.28
+      },
+      "tracemalloc_objects": {
+        "start": 359936,
+        "end": 363998,
+        "delta": 4062,
+        "watched_delta": {
+          "dict": 871,
+          "list": 1158,
+          "tuple": 1562,
+          "set": 2,
+          "str": 0,
+          "bytes": 0,
+          "Answer": 48,
+          "Turn": 48,
+          "Chunk": 0,
+          "Hit": 0,
+          "GateResult": 0,
+          "RerankFeatures": 0,
+          "Comprehension": 0
+        }
+      },
+      "tracemalloc_top": [
+        {
+          "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\qa_engine.py:455",
+          "size_diff_kb": 217.5,
+          "size_kb": 217.5,
+          "count_diff": 960
+        },
+        {
+          "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\retriever.py:714",
+          "size_diff_kb": 200.62,
+          "size_kb": 200.62,
+          "count_diff": 576
+        },
+        {
+          "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\answerability.py:168",
+          "size_diff_kb": 181.46,
+          "size_kb": 181.46,
+          "count_diff": 2445
+        },
+        {
+          "trace": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\dataclasses.py:1295",
+          "size_diff_kb": 135.75,
+          "size_kb": 135.75,
+          "count_diff": 912
+        },
+        {
+          "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\answerability.py:170",
+          "size_diff_kb": 128.0,
+          "size_kb": 128.0,
+          "count_diff": 1
+        },
+        {
+          "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\qa_engine.py:449",
+          "size_diff_kb": 89.25,
+          "size_kb": 89.25,
+          "count_diff": 672
+        },
+        {
+          "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\qa_engine.py:467",
+          "size_diff_kb": 77.67,
+          "size_kb": 77.67,
+          "count_diff": 91
+        },
+        {
+          "trace": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\dataclasses.py:1321",
+          "size_diff_kb": 72.54,
+          "size_kb": 72.54,
+          "count_diff": 1326
+        },
+        {
+          "trace": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\dataclasses.py:1323",
+          "size_diff_kb": 61.44,
+          "size_kb": 61.44,
+          "count_diff": 623
+        },
+        {
+          "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\logging_conf.py:304",
+          "size_diff_kb": 30.35,
+          "size_kb": 30.35,
+          "count_diff": 259
+        }
+      ],
+      "tracemalloc_curve_last": {
+        "round": 6,
+        "rss_mb": 2425.1,
+        "objects": 363170,
+        "watched": {
+          "dict": 14980,
+          "list": 291686,
+          "tuple": 6781,
+          "set": 370,
+          "str": 0,
+          "bytes": 0,
+          "Answer": 48,
+          "Turn": 48,
+          "Chunk": 0,
+          "Hit": 0,
+          "GateResult": 0,
+          "RerankFeatures": 0,
+          "Comprehension": 0
+        },
+        "engine": {
+          "asked": 48,
+          "cache_hit": 0,
+          "memory_cache": 48,
+          "memory_cache_max": 512,
+          "memory_cache_ttl_s": 0.0,
+          "memory_cache_evictions": 0,
+          "memory_cache_expired": 0
+        }
+      }
+    },
+    {
+      "tag": "优化后",
+      "perf_enabled": "1",
+      "urlopen_total": 0,
+      "urlopen_per_request": 0.0,
+      "api_tags": 0,
+      "api_tags_per_request": 0.0,
+      "api_embed": 0,
+      "api_generate": 0,
+      "by_url": {},
+      "retrieve_mean_ms": 973.44,
+      "generate_mean_ms": 1170.08,
+      "total_mean_ms": 2238.13,
+      "latency_mean_ms": 2984.5,
+      "rss": {
+        "before": 2412.7,
+        "after": 2414.0,
+        "delta": 1.3
+      },
+      "memory_cache": 6,
+      "storage": null,
+      "cprofile_top": [
+        {
+          "ncalls": "42181",
+          "tottime": "function",
+          "cumtime": "(40260",
+          "func": "calls) in 0.834 seconds"
+        },
+        {
+          "ncalls": "1",
+          "tottime": "0.000",
+          "cumtime": "0.834",
+          "func": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\qa_engine.py:225(answer)"
+        },
+        {
+          "ncalls": "25",
+          "tottime": "0.000",
+          "cumtime": "0.783",
+          "func": "{method 'readline' of '_io.BufferedReader' objects}"
+        },
+        {
+          "ncalls": "15",
+          "tottime": "0.000",
+          "cumtime": "0.783",
+          "func": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\socket.py:704(readinto)"
+        },
+        {
+          "ncalls": "15",
+          "tottime": "0.783",
+          "cumtime": "0.783",
+          "func": "{method 'recv_into' of '_socket.socket' objects}"
+        },
+        {
+          "ncalls": "1",
+          "tottime": "0.000",
+          "cumtime": "0.758",
+          "func": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\generator.py:113(generate)"
+        },
+        {
+          "ncalls": "1",
+          "tottime": "0.000",
+          "cumtime": "0.753",
+          "func": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\llm_client.py:411(generate_full)"
+        },
+        {
+          "ncalls": "10",
+          "tottime": "0.000",
+          "cumtime": "0.752",
+          "func": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\llm_client.py:377(generate)"
+        }
+      ],
+      "tracemalloc_rss": {
+        "start": 2413.5,
+        "end": 2426.2,
+        "delta": 12.7,
+        "first_round": 2418.4,
+        "last_round": 2425.2,
+        "growth_pct": 0.28
+      },
+      "tracemalloc_objects": {
+        "start": 360023,
+        "end": 363954,
+        "delta": 3931,
+        "watched_delta": {
+          "dict": 871,
+          "list": 1158,
+          "tuple": 1429,
+          "set": 2,
+          "str": 0,
+          "bytes": 0,
+          "Answer": 48,
+          "Turn": 48,
+          "Chunk": 0,
+          "Hit": 0,
+          "GateResult": 0,
+          "RerankFeatures": 0,
+          "Comprehension": 0
+        }
+      },
+      "tracemalloc_top": [
+        {
+          "trace": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\dataclasses.py:1323",
+          "size_diff_kb": 461.94,
+          "size_kb": 461.94,
+          "count_diff": 2927
+        },
+        {
+          "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\qa_engine.py:540",
+          "size_diff_kb": 219.35,
+          "size_kb": 219.35,
+          "count_diff": 257
+        },
+        {
+          "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\retriever.py:714",
+          "size_diff_kb": 200.62,
+          "size_kb": 200.62,
+          "count_diff": 576
+        },
+        {
+          "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\answerability.py:168",
+          "size_diff_kb": 181.46,
+          "size_kb": 181.46,
+          "count_diff": 2445
+        },
+        {
+          "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\answerability.py:170",
+          "size_diff_kb": 128.0,
+          "size_kb": 128.0,
+          "count_diff": 1
+        },
+        {
+          "trace": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\dataclasses.py:1321",
+          "size_diff_kb": 101.79,
+          "size_kb": 101.79,
+          "count_diff": 1902
+        },
+        {
+          "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\qa_engine.py:467",
+          "size_diff_kb": 77.67,
+          "size_kb": 77.67,
+          "count_diff": 91
+        },
+        {
+          "trace": "E:\\Anaconda\\envs\\fastapi_faq\\Lib\\dataclasses.py:1295",
+          "size_diff_kb": 64.34,
+          "size_kb": 64.34,
+          "count_diff": 485
+        },
+        {
+          "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\logging_conf.py:304",
+          "size_diff_kb": 29.3,
+          "size_kb": 29.3,
+          "count_diff": 250
+        },
+        {
+          "trace": "E:\\gao6gongdan\\工单17\\研发\\app\\core\\logging_conf.py:68",
+          "size_diff_kb": 25.71,
+          "size_kb": 25.71,
+          "count_diff": 454
+        }
+      ],
+      "tracemalloc_curve_last": {
+        "round": 6,
+        "rss_mb": 2425.2,
+        "objects": 363206,
+        "watched": {
+          "dict": 14982,
+          "list": 291676,
+          "tuple": 6744,
+          "set": 370,
+          "str": 0,
+          "bytes": 0,
+          "Answer": 48,
+          "Turn": 48,
+          "Chunk": 0,
+          "Hit": 0,
+          "GateResult": 0,
+          "RerankFeatures": 0,
+          "Comprehension": 0
+        },
+        "engine": {
+          "asked": 48,
+          "cache_hit": 0,
+          "memory_cache": 48,
+          "memory_cache_max": 256,
+          "memory_cache_ttl_s": 1800.0,
+          "memory_cache_evictions": 0,
+          "memory_cache_expired": 0
+        }
+      }
+    }
+  ]
+}
