@@ -1,0 +1,100 @@
+{
+  "工单": "人工智能NLP-RAG-功能测试及评估",
+  "模式": "probe-cold（冷启动构件分项实测）",
+  "生成时间": "2026-10-07 21:23:01",
+  "说明": "本探针在独立干净进程中按「冷路径的实际调用顺序」逐个量测首次调用开销；与 --mode full 的 cold_start 是两次独立测量，CPU 竞争状态略有差异。",
+  "进程内自脚本首行到各阶段": [],
+  "构件": {
+    "import_app": {
+      "ms": 518.9,
+      "note": "脚本首行 → import app.core.config/qa_engine 完成"
+    },
+    "load_bundle": {
+      "ms": 4615.53,
+      "ok": true,
+      "note": "索引加载（chunks/vectors/bm25）",
+      "detail": "\"IndexBundle(index_dir='E:\\\\\\\\gao6gongdan\\\\\\\\工单7\\\\\\\\研发\\\\\\\\data\\\\\\\\index\\\\\\\\bge-m3_1024', chunks={'20200214-p1-x0': {'chunk_id': '20200214-p1-x0', 'file_name': '2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf', 'pag"
+    },
+    "warmup_tokenizer": {
+      "ms": 1.56,
+      "ok": true,
+      "note": "jieba 分词器初始化",
+      "detail": "{\"cold_ms\": 0.7, \"warm_ms\": 0.26, \"tokens\": 9, \"backend\": \"jieba\"}"
+    },
+    "warmup_entity_tagger": {
+      "ms": 2035.08,
+      "ok": true,
+      "note": "实体标注器（词性表）",
+      "detail": "{\"ok\": true, \"sample_nouns\": [\"武汉\", \"新科\", \"电子\", \"股份\", \"有限公司\", \"注册资本\"], \"elapsed_ms\": 2034.85}"
+    },
+    "embed_warmup": {
+      "ms": 267.16,
+      "ok": true,
+      "note": "嵌入模型预热（Ollama bge-m3）",
+      "detail": "{\"backend\": \"ollama\", \"model\": \"bge-m3:latest\", \"dim\": 1024, \"cold_ms\": 80.76, \"warm_ms\": 81.97, \"total_ms\": 266.91}"
+    },
+    "resolve_backend": {
+      "ms": 28.51,
+      "ok": true,
+      "note": "生成后端探测（≤probe_timeout_s）",
+      "detail": "\"LLMBackendInfo(name='ollama', model='qwen2.5:3b', base_url='http://127.0.0.1:11434', available=True, probe_ms=27.26, error=None)\""
+    },
+    "warmup_generate": {
+      "ms": 295.5,
+      "ok": true,
+      "note": "生成模型预热（keep_alive）",
+      "detail": "{\"ok\": true, \"elapsed_ms\": 295.01, \"model\": \"qwen2.5:3b\", \"response_head\": \"你好！有什么我可以\"}"
+    },
+    "warmup_strategy": {
+      "ms": 18701.51,
+      "ok": true,
+      "note": "多字段倒排索引（全文检索通道）",
+      "detail": "{\"fulltext_index\": {\"chunks\": 8742, \"fields\": {\"content\": 63938, \"title\": 4769, \"keywords\": 47452, \"summary\": 42249}, \"ms\": 18699.99}, \"models\": [{\"id\": \"bge-m3\", \"dim\": 1024, \"index_built\": true}, {\"id\": \"m3e-base\", \"di"
+    }
+  },
+  "构件后首问": {
+    "ms": 1346.96,
+    "latency_ms": {
+      "retrieve": 177.54,
+      "generate": 1064.33,
+      "first_token": 488.82,
+      "total": 1345.23
+    }
+  },
+  "构件合计ms": 26463.75,
+  "进程总墙钟s": 28.16,
+  "环境": {
+    "解释器": "E:\\gao6gongdan\\工单1\\.venv\\Scripts\\python.exe",
+    "python": "3.11.15",
+    "cwd": "E:\\gao6gongdan\\工单7",
+    "cpu_count": 12,
+    "修订": {
+      "retriever.py": "45ae1b648c015d4b",
+      "answer_composer.py": "da908a5caf4076f3",
+      "generator.py": "1be2c097ff899eee",
+      "qa_engine.py": "4dc387e8c6b1c65e",
+      "answerability.py": "1f01bb8fbc79f257",
+      "query_understanding.py": "fb16916c58b8dafd",
+      "reranker.py": "4679c942c4ba00f4",
+      "fusion.py": "89a870a96f89cb3d",
+      "citation.py": "6bb500ce28137f83",
+      "bm25_index.py": "bf2990e9305c470d",
+      "cache.py": "d72920b265f69b32",
+      "dialogue_cache.py": "2a5a0c68e0a1c9ef"
+    },
+    "ollama运行前": [
+      {
+        "name": "qwen2.5:3b",
+        "size": 2159374499,
+        "size_vram": 2159374499,
+        "expires_at": "2026-10-07T21:53:29.3256669+08:00"
+      },
+      {
+        "name": "bge-m3:latest",
+        "size": 664000265,
+        "size_vram": 664000265,
+        "expires_at": "2026-10-07T21:28:28.1403642+08:00"
+      }
+    ]
+  }
+}

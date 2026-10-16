@@ -1,0 +1,13 @@
+# 工单4 FastAPI 服务运行依赖（版本号 = 本机实测「设计/环境事实.md §2.3」的同一套，非臆造）
+# 用途：部署/docker/Dockerfile 安装用。本机禁止裸 pip install（落点是只读的工单1 venv），
+#      如确需在本机补装：python -m pip install --target 研发/第三方库 -r 本文件
+fastapi==0.109.0
+uvicorn==0.27.0
+pydantic==2.5.3
+numpy==1.26.4
+faiss-cpu==1.7.4
+PyMuPDF==1.28.2
+jieba==0.42.1
+scikit-learn==1.8.0
+requests==2.33.1
+openai==1.10.0

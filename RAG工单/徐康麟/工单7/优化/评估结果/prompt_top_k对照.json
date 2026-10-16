@@ -1,0 +1,1011 @@
+{
+  "工单": "人工智能NLP-RAG-功能测试及评估",
+  "模式": "probe-promptk",
+  "生成时间": "2026-10-07 21:28:03",
+  "子集题号": [
+    "Q01",
+    "Q02",
+    "Q03",
+    "Q04",
+    "Q05",
+    "Q06",
+    "Q07",
+    "Q08"
+  ],
+  "top_k": 10,
+  "口径": "两臂除 RAG_RETRIEVAL__PROMPT_TOP_K 外配置完全相同；均 use_cache=True，但**每臂开跑前都清空检索缓存与生成缓存**，故两臂的缓存状态对称、所测即真实检索 + 真实生成；质量用 研发/评估/判分.py 的 keyword_coverage（严格判对阈值 0.6）",
+  "对照": {
+    "3": {
+      "标签": "prompt_top_k=3（引擎默认）",
+      "统计": {
+        "样本数": 8,
+        "有效样本数": 8,
+        "异常样本数": 0,
+        "总耗时": {
+          "样本数": 8,
+          "均值": 1177.84,
+          "中位": 1096.47,
+          "P50": 1096.47,
+          "P90": 1881.59,
+          "P95": 2013.18,
+          "最大": 2144.78,
+          "最小": 454.06
+        },
+        "检索": {
+          "样本数": 8,
+          "均值": 179.03,
+          "中位": 121.88,
+          "P50": 121.88,
+          "P90": 313.76,
+          "P95": 422.21,
+          "最大": 530.65,
+          "最小": 91.97
+        },
+        "生成": {
+          "样本数": 8,
+          "均值": 852.9,
+          "中位": 662.57,
+          "P50": 662.57,
+          "P90": 1718.96,
+          "P95": 1859.34,
+          "最大": 1999.72,
+          "最小": 0.0
+        },
+        "首字": {
+          "样本数": 8,
+          "均值": 646.95,
+          "中位": 563.86,
+          "P50": 563.86,
+          "P90": 1101.77,
+          "P95": 1262.2,
+          "最大": 1422.62,
+          "最小": 198.46
+        },
+        "SLA": {
+          "阈值ms": 3000.0,
+          "达标题数": 8,
+          "样本数": 8,
+          "达标率": 1.0,
+          "超时题号": [],
+          "达标率_首字": 1.0
+        }
+      },
+      "逐题": [
+        {
+          "scenario": "promptk_3",
+          "id": "Q01",
+          "lang": "zh",
+          "question": "平安银行2019年年度报告的董事长致辞中，提到该行盈利增长的关键因素有哪些？请结合业务结构、盈利趋势与风险状况说明。",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:27:42",
+          "latency_ms": {
+            "retrieve": 94.35,
+            "generate": 283.99,
+            "first_token": 198.46,
+            "total": 454.06
+          },
+          "error": null,
+          "wall_ms": 454.98,
+          "refused": false,
+          "answer_chars": 683,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "bd3c1f4caeae57c965eb122392e0feec13410df2"
+          },
+          "cited_pages": [
+            81
+          ],
+          "refusal_reason": null,
+          "keyword_coverage": 0.0,
+          "keywords_hit": 0,
+          "keywords_total": 7,
+          "keywords_missing": [
+            "零售进一步巩固收入贡献的支柱地位",
+            "对公、资金同业",
+            "营收、净利润增速创转型以来新高",
+            "逾期60天以上贷款占比",
+            "拨备覆盖率不断提升",
+            "1,379.58",
+            "281.95"
+          ],
+          "answer_excerpt": "共4项：1、资产重组时所作承诺中国平安拟以其所持的90.75%原平安银行股份及269,005.23万元现金认购本行非公开发行的1,638,336,654股股份（本次重大资产重组）时承诺：1、本次重大资产重组完成后，在中国平安作为深发展的控股股东期间，针对中国平安以及中国平安控制的其他企业未来拟从事或实质性获得深发展同类业务或商业机会，且该等业务或商业机会所形成的资产和业务与深发展可能构成潜在同业竞争的情况，中国平安以及中国平安控制的其他企业将不从事与深发展相同或相近的业务，以避免与深发展的业务经营构成直接或间接的竞争。2、在本次重大资产重组完成后，就中国平安及中国平安控制的其他企业与深发展之间发生的构成深发展关联交易的事项，中国平安及中国平安控制的其他企业将遵循市场交易的公开、公平、公正的原则，按照公允、合理的市场价格与深发展进行交易，并依据有关法律、法规及规范性文件的规定履行决策程序，依法履行信息披露义务。中国平安保证中国平安及中国平安控制的其他企业将不通过与深发展的交易取得任何不正当的利益或使深发展承担任何不正当的义务。3、本次重大资产重组完成后，在中国平安作为深发展的控股股东期间"
+        },
+        {
+          "scenario": "promptk_3",
+          "id": "Q02",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中提到的创新商业模式有哪些？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:27:43",
+          "latency_ms": {
+            "retrieve": 114.97,
+            "generate": 1167.87,
+            "first_token": 964.27,
+            "total": 1290.44
+          },
+          "error": null,
+          "wall_ms": 1291.42,
+          "refused": false,
+          "answer_chars": 211,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "1650a90fa56d9bfaf29c17ba3fd8886a4c6c4156"
+          },
+          "cited_pages": [
+            207
+          ],
+          "refusal_reason": null,
+          "keyword_coverage": 0.0,
+          "keywords_hit": 0,
+          "keywords_total": 6,
+          "keywords_missing": [
+            "聚焦高频生活场景",
+            "联合合作伙伴共同为用户提供优质服务",
+            "逾越者联盟",
+            "咖啡零售、出行预订、影票销售",
+            "开放的新生态模式",
+            "蛋壳平台"
+          ],
+          "answer_excerpt": "共3项：1、公司名称；2、招商信诺人寿保险有限公司(注(i))2,800,0003,868,96450.2,800,0003,868,96450.00%；3、招联消费金融有限公司(注(ii))2,800,0003,868,96450.2,800,0003,868,96450.00%。\n引用：[2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf: 第207页 表格]"
+        },
+        {
+          "scenario": "promptk_3",
+          "id": "Q03",
+          "lang": "zh",
+          "question": "平安银行的风险管理体系如何体现其应对宏观经济周期波动的能力？结合年报中的拨备覆盖率动态调整、资产质量控制，以及贷款结构优化策略，分析其应对经济下行周期的准备程度及可能的潜在压力。",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:27:45",
+          "latency_ms": {
+            "retrieve": 220.81,
+            "generate": 670.52,
+            "first_token": 597.06,
+            "total": 902.5
+          },
+          "error": null,
+          "wall_ms": 903.07,
+          "refused": false,
+          "answer_chars": 177,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "6ea3a1b0957706d66f323ee4c183c37c1ae6446a"
+          },
+          "cited_pages": [
+            43
+          ],
+          "refusal_reason": null,
+          "keyword_coverage": 0.0,
+          "keywords_hit": 0,
+          "keywords_total": 7,
+          "keywords_missing": [
+            "拨备覆盖率",
+            "183.12",
+            "不良贷款率",
+            "1.65",
+            "逾期60天以上贷款占比",
+            "绿色信贷",
+            "赤道原则"
+          ],
+          "answer_excerpt": "8贷款资产质量分析2019年，本行积极应对外部宏观经济变化，持续优化信贷结构，严格管控增量业务风险，防范和化解存量贷款可能出现的各类风险，积极通过一系列措施，加大不良资产清收处置力度，资产质量持续改善，风险抵补能力显著增强。\n引用：[2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf: 第43页]"
+        },
+        {
+          "scenario": "promptk_3",
+          "id": "Q04",
+          "lang": "zh",
+          "question": "分析这些银行和保险公司在面对经济周期波动时的共同策略与差异化策略，重点关注其在风险管理、资本结构优化和新兴领域（如绿色金融或科技金融）投资上的表现。如何评估这些策略在未来经济下行周期中的可持续性？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:27:48",
+          "latency_ms": {
+            "retrieve": 530.65,
+            "generate": 0.0,
+            "first_token": 530.65,
+            "total": 545.77
+          },
+          "error": null,
+          "wall_ms": 546.58,
+          "refused": true,
+          "answer_chars": 3,
+          "generation_method": "refused",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "01465e7baeeb71c05f12b7a554a8116558b37a77"
+          },
+          "cited_pages": [],
+          "refusal_reason": "unknown_entity",
+          "keyword_coverage": 0.0,
+          "keywords_hit": 0,
+          "keywords_total": 7,
+          "keywords_missing": [
+            "拨备覆盖率",
+            "核心一级资本充足率",
+            "资产负债匹配",
+            "负债久期",
+            "大数据风控",
+            "绿色金融",
+            "金融科技"
+          ],
+          "answer_excerpt": "不清楚"
+        },
+        {
+          "scenario": "promptk_3",
+          "id": "Q05",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中，董事长和行长（首席执行官）分别是谁？该行2019年度利润分配方案的每股现金分红是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:27:53",
+          "latency_ms": {
+            "retrieve": 111.97,
+            "generate": 447.84,
+            "first_token": 330.66,
+            "total": 567.55
+          },
+          "error": null,
+          "wall_ms": 568.7,
+          "refused": false,
+          "answer_chars": 304,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "82df1beb0eb9c6a0e52b36dfd3352fb7471bcf7b"
+          },
+          "cited_pages": [
+            251
+          ],
+          "refusal_reason": null,
+          "keyword_coverage": 0.0,
+          "keywords_hit": 0,
+          "keywords_total": 6,
+          "keywords_missing": [
+            "李建红",
+            "田惠宇",
+            "行长兼首席执行官",
+            "1.20元",
+            "860.85亿元",
+            "100.02亿元"
+          ],
+          "answer_excerpt": "[表标题]2019年度利润分配方案如下：单位：人民币百万元[来源]2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf第251页[Markdown]|2019年|2018年||||---|---|---|---||年内批准、宣告及分派上年度现金股利每股人民币0.94元||23,707|21,185||(2018年：每股人民币0.84元)||||[关键数字]23,70721,1850.940.8420192018。\n引用：[2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf: 第251页 表格]"
+        },
+        {
+          "scenario": "promptk_3",
+          "id": "Q06",
+          "lang": "zh",
+          "question": "中信证券2020年年度报告中，公司负责人是谁？经董事会审议的报告期利润分配预案是什么？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:27:54",
+          "latency_ms": {
+            "retrieve": 91.97,
+            "generate": 654.61,
+            "first_token": 200.38,
+            "total": 1768.79
+          },
+          "error": null,
+          "wall_ms": 1769.34,
+          "refused": false,
+          "answer_chars": 131,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "d58f58d3dfa44ba1abeacd673d3ab4428ef396cd"
+          },
+          "cited_pages": [
+            2
+          ],
+          "refusal_reason": null,
+          "keyword_coverage": 0.4,
+          "keywords_hit": 2,
+          "keywords_total": 5,
+          "keywords_missing": [
+            "李冏",
+            "史本良",
+            "第七届董事会第二十一次会议"
+          ],
+          "answer_excerpt": "公司负责人张佑君先生，经董事会审议的报告期利润分配预案为：每10股派发现金红利人民币4.00元（含税）。此预案尚需本公司股东大会批准。\n引用：[2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf: 第2页]"
+        },
+        {
+          "scenario": "promptk_3",
+          "id": "Q07",
+          "lang": "zh",
+          "question": "平安银行2019年年度报告中，该行2019年实现营业收入和净利润分别是多少？同比增速分别是多少？年末不良贷款率和拨备覆盖率分别是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:27:57",
+          "latency_ms": {
+            "retrieve": 138.73,
+            "generate": 1598.63,
+            "first_token": 931.53,
+            "total": 1748.83
+          },
+          "error": null,
+          "wall_ms": 1749.6,
+          "refused": false,
+          "answer_chars": 294,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "1ef677a5164d649463a51fc2421cc8502e6f4c8a"
+          },
+          "cited_pages": [
+            19
+          ],
+          "refusal_reason": null,
+          "keyword_coverage": 0.0,
+          "keywords_hit": 0,
+          "keywords_total": 7,
+          "keywords_missing": [
+            "1,379.58",
+            "281.95",
+            "18.2%",
+            "13.6%",
+            "1.65",
+            "183.12",
+            "155.24"
+          ],
+          "answer_excerpt": "（货币单位：人民币百万元）项目2019年12月31日2018年12月31日2017年12月31日本年末比上年末增减资产总额3,939,0703,418,5923,248,47415.2%股东权益312,983240,042222,05430.4%归属于普通股股东的股东权益273,035220,089202,10124.1%股本19,40617,17017,17013.0%归属于普通股股东的每股净资产（元/股）14.0712.8211.779.8%。\n引用：[2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf: 第19页 表格]"
+        },
+        {
+          "scenario": "promptk_3",
+          "id": "Q08",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中，该行全年营业收入、归属于本行股东的净利润、年末总资产和每股现金分红分别是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:28:00",
+          "latency_ms": {
+            "retrieve": 128.78,
+            "generate": 1999.72,
+            "first_token": 1422.62,
+            "total": 2144.78
+          },
+          "error": null,
+          "wall_ms": 2146.17,
+          "refused": false,
+          "answer_chars": 138,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "64ee5168fac53bf59bdc56b2302768037915fcfc"
+          },
+          "cited_pages": [
+            19
+          ],
+          "refusal_reason": null,
+          "keyword_coverage": 0.0,
+          "keywords_hit": 0,
+          "keywords_total": 7,
+          "keywords_missing": [
+            "2,697.03",
+            "928.67",
+            "7.42万亿",
+            "8.51%",
+            "15.28%",
+            "9.95%",
+            "1.20元"
+          ],
+          "answer_excerpt": "2019年全年营业收入248,555万元，归属于本行股东的净利润92,867万元，年末总资产74,172.40亿元，每股现金分红80,129万元。\n引用：[2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf: 第19页]"
+        }
+      ],
+      "关键词覆盖率_均值": 0.05,
+      "答案字符数_均值": 242.6,
+      "严格判对题数(覆盖率>=0.6且未拒答)": 0
+    },
+    "2": {
+      "标签": "prompt_top_k=2（实验臂）",
+      "统计": {
+        "样本数": 8,
+        "有效样本数": 8,
+        "异常样本数": 0,
+        "总耗时": {
+          "样本数": 8,
+          "均值": 863.24,
+          "中位": 671.26,
+          "P50": 671.26,
+          "P90": 1702.06,
+          "P95": 1769.12,
+          "最大": 1836.17,
+          "最小": 120.21
+        },
+        "检索": {
+          "样本数": 8,
+          "均值": 111.75,
+          "中位": 111.72,
+          "P50": 111.72,
+          "P90": 139.74,
+          "P95": 140.98,
+          "最大": 142.23,
+          "最小": 80.76
+        },
+        "生成": {
+          "样本数": 8,
+          "均值": 738.3,
+          "中位": 561.47,
+          "P50": 561.47,
+          "P90": 1565.52,
+          "P95": 1626.27,
+          "最大": 1687.03,
+          "最小": 0.0
+        },
+        "首字": {
+          "样本数": 8,
+          "均值": 419.14,
+          "中位": 217.18,
+          "P50": 217.18,
+          "P90": 1001.53,
+          "P95": 1194.69,
+          "最大": 1387.84,
+          "最小": 105.89
+        },
+        "SLA": {
+          "阈值ms": 3000.0,
+          "达标题数": 8,
+          "样本数": 8,
+          "达标率": 1.0,
+          "超时题号": [],
+          "达标率_首字": 1.0
+        }
+      },
+      "逐题": [
+        {
+          "scenario": "promptk_2",
+          "id": "Q01",
+          "lang": "zh",
+          "question": "平安银行2019年年度报告的董事长致辞中，提到该行盈利增长的关键因素有哪些？请结合业务结构、盈利趋势与风险状况说明。",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:27:42",
+          "latency_ms": {
+            "retrieve": 80.76,
+            "generate": 384.98,
+            "first_token": 217.2,
+            "total": 501.05
+          },
+          "error": null,
+          "wall_ms": 502.04,
+          "refused": false,
+          "answer_chars": 95,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "bd3c1f4caeae57c965eb122392e0feec13410df2"
+          },
+          "cited_pages": [
+            5
+          ],
+          "refusal_reason": null,
+          "keyword_coverage": 0.0,
+          "keywords_hit": 0,
+          "keywords_total": 7,
+          "keywords_missing": [
+            "零售进一步巩固收入贡献的支柱地位",
+            "对公、资金同业",
+            "营收、净利润增速创转型以来新高",
+            "逾期60天以上贷款占比",
+            "拨备覆盖率不断提升",
+            "1,379.58",
+            "281.95"
+          ],
+          "answer_excerpt": "业务结构优化，盈利趋势向好，资产质量优良，数据化经营能力提升。\n引用：[2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf: 第5页]"
+        },
+        {
+          "scenario": "promptk_2",
+          "id": "Q02",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中提到的创新商业模式有哪些？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:27:44",
+          "latency_ms": {
+            "retrieve": 101.5,
+            "generate": 428.49,
+            "first_token": 189.95,
+            "total": 537.7
+          },
+          "error": null,
+          "wall_ms": 538.88,
+          "refused": false,
+          "answer_chars": 103,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "1650a90fa56d9bfaf29c17ba3fd8886a4c6c4156"
+          },
+          "cited_pages": [
+            5
+          ],
+          "refusal_reason": null,
+          "keyword_coverage": 0.1667,
+          "keywords_hit": 1,
+          "keywords_total": 6,
+          "keywords_missing": [
+            "联合合作伙伴共同为用户提供优质服务",
+            "逾越者联盟",
+            "咖啡零售、出行预订、影票销售",
+            "开放的新生态模式",
+            "蛋壳平台"
+          ],
+          "answer_excerpt": "招商银行2019年年度报告中提到的创新商业模式包括聚焦高频生活场景，联合合作。\n引用：[2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf: 第5页]"
+        },
+        {
+          "scenario": "promptk_2",
+          "id": "Q03",
+          "lang": "zh",
+          "question": "平安银行的风险管理体系如何体现其应对宏观经济周期波动的能力？结合年报中的拨备覆盖率动态调整、资产质量控制，以及贷款结构优化策略，分析其应对经济下行周期的准备程度及可能的潜在压力。",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:27:46",
+          "latency_ms": {
+            "retrieve": 138.67,
+            "generate": 1687.03,
+            "first_token": 1387.84,
+            "total": 1836.17
+          },
+          "error": null,
+          "wall_ms": 1837.12,
+          "refused": false,
+          "answer_chars": 277,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "6ea3a1b0957706d66f323ee4c183c37c1ae6446a"
+          },
+          "cited_pages": [
+            125
+          ],
+          "refusal_reason": null,
+          "keyword_coverage": 0.0,
+          "keywords_hit": 0,
+          "keywords_total": 7,
+          "keywords_missing": [
+            "拨备覆盖率",
+            "183.12",
+            "不良贷款率",
+            "1.65",
+            "逾期60天以上贷款占比",
+            "绿色信贷",
+            "赤道原则"
+          ],
+          "answer_excerpt": "[表标题]125页表格[来源]2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf第125-129页（表头页125）[Markdown]|关键审计事项|我们在审计中如何应对关键审计事项||---|---||(一)发放贷款和垫款、债权投资和信用承诺的预期信用损失计量参见后附财务报表附注二、9(iv)和附注二、35(ii)以及附注三、6，附注三、8和附注三、27。\n引用：[2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf: 第125页 表格]"
+        },
+        {
+          "scenario": "promptk_2",
+          "id": "Q04",
+          "lang": "zh",
+          "question": "分析这些银行和保险公司在面对经济周期波动时的共同策略与差异化策略，重点关注其在风险管理、资本结构优化和新兴领域（如绿色金融或科技金融）投资上的表现。如何评估这些策略在未来经济下行周期中的可持续性？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:27:48",
+          "latency_ms": {
+            "retrieve": 105.89,
+            "generate": 0.0,
+            "first_token": 105.89,
+            "total": 120.21
+          },
+          "error": null,
+          "wall_ms": 121.25,
+          "refused": true,
+          "answer_chars": 3,
+          "generation_method": "refused",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "01465e7baeeb71c05f12b7a554a8116558b37a77"
+          },
+          "cited_pages": [],
+          "refusal_reason": "unknown_entity",
+          "keyword_coverage": 0.0,
+          "keywords_hit": 0,
+          "keywords_total": 7,
+          "keywords_missing": [
+            "拨备覆盖率",
+            "核心一级资本充足率",
+            "资产负债匹配",
+            "负债久期",
+            "大数据风控",
+            "绿色金融",
+            "金融科技"
+          ],
+          "answer_excerpt": "不清楚"
+        },
+        {
+          "scenario": "promptk_2",
+          "id": "Q05",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中，董事长和行长（首席执行官）分别是谁？该行2019年度利润分配方案的每股现金分红是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:27:54",
+          "latency_ms": {
+            "retrieve": 117.55,
+            "generate": 502.65,
+            "first_token": 249.41,
+            "total": 629.85
+          },
+          "error": null,
+          "wall_ms": 630.5,
+          "refused": false,
+          "answer_chars": 304,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "82df1beb0eb9c6a0e52b36dfd3352fb7471bcf7b"
+          },
+          "cited_pages": [
+            251
+          ],
+          "refusal_reason": null,
+          "keyword_coverage": 0.0,
+          "keywords_hit": 0,
+          "keywords_total": 6,
+          "keywords_missing": [
+            "李建红",
+            "田惠宇",
+            "行长兼首席执行官",
+            "1.20元",
+            "860.85亿元",
+            "100.02亿元"
+          ],
+          "answer_excerpt": "[表标题]2019年度利润分配方案如下：单位：人民币百万元[来源]2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf第251页[Markdown]|2019年|2018年||||---|---|---|---||年内批准、宣告及分派上年度现金股利每股人民币0.94元||23,707|21,185||(2018年：每股人民币0.84元)||||[关键数字]23,70721,1850.940.8420192018。\n引用：[2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf: 第251页 表格]"
+        },
+        {
+          "scenario": "promptk_2",
+          "id": "Q06",
+          "lang": "zh",
+          "question": "中信证券2020年年度报告中，公司负责人是谁？经董事会审议的报告期利润分配预案是什么？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:27:56",
+          "latency_ms": {
+            "retrieve": 85.02,
+            "generate": 620.29,
+            "first_token": 149.73,
+            "total": 712.68
+          },
+          "error": null,
+          "wall_ms": 713.64,
+          "refused": false,
+          "answer_chars": 131,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "d58f58d3dfa44ba1abeacd673d3ab4428ef396cd"
+          },
+          "cited_pages": [
+            2
+          ],
+          "refusal_reason": null,
+          "keyword_coverage": 0.4,
+          "keywords_hit": 2,
+          "keywords_total": 5,
+          "keywords_missing": [
+            "李冏",
+            "史本良",
+            "第七届董事会第二十一次会议"
+          ],
+          "answer_excerpt": "公司负责人张佑君先生，经董事会审议的报告期利润分配预案为：每10股派发现金红利人民币4.00元（含税）。此预案尚需本公司股东大会批准。\n引用：[2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf: 第2页]"
+        },
+        {
+          "scenario": "promptk_2",
+          "id": "Q07",
+          "lang": "zh",
+          "question": "平安银行2019年年度报告中，该行2019年实现营业收入和净利润分别是多少？同比增速分别是多少？年末不良贷款率和拨备覆盖率分别是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:27:59",
+          "latency_ms": {
+            "retrieve": 122.41,
+            "generate": 1513.44,
+            "first_token": 835.97,
+            "total": 1644.59
+          },
+          "error": null,
+          "wall_ms": 1645.64,
+          "refused": false,
+          "answer_chars": 294,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "1ef677a5164d649463a51fc2421cc8502e6f4c8a"
+          },
+          "cited_pages": [
+            19
+          ],
+          "refusal_reason": null,
+          "keyword_coverage": 0.0,
+          "keywords_hit": 0,
+          "keywords_total": 7,
+          "keywords_missing": [
+            "1,379.58",
+            "281.95",
+            "18.2%",
+            "13.6%",
+            "1.65",
+            "183.12",
+            "155.24"
+          ],
+          "answer_excerpt": "（货币单位：人民币百万元）项目2019年12月31日2018年12月31日2017年12月31日本年末比上年末增减资产总额3,939,0703,418,5923,248,47415.2%股东权益312,983240,042222,05430.4%归属于普通股股东的股东权益273,035220,089202,10124.1%股本19,40617,17017,17013.0%归属于普通股股东的每股净资产（元/股）14.0712.8211.779.8%。\n引用：[2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf: 第19页 表格]"
+        },
+        {
+          "scenario": "promptk_2",
+          "id": "Q08",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中，该行全年营业收入、归属于本行股东的净利润、年末总资产和每股现金分红分别是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:28:02",
+          "latency_ms": {
+            "retrieve": 142.23,
+            "generate": 769.52,
+            "first_token": 217.15,
+            "total": 923.64
+          },
+          "error": null,
+          "wall_ms": 924.75,
+          "refused": false,
+          "answer_chars": 139,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "64ee5168fac53bf59bdc56b2302768037915fcfc"
+          },
+          "cited_pages": [
+            15
+          ],
+          "refusal_reason": null,
+          "keyword_coverage": 0.0,
+          "keywords_hit": 0,
+          "keywords_total": 7,
+          "keywords_missing": [
+            "2,697.03",
+            "928.67",
+            "7.42万亿",
+            "8.51%",
+            "15.28%",
+            "9.95%",
+            "1.20元"
+          ],
+          "answer_excerpt": "2019年全年营业收入269,703万元，归属于本行股东的净利润92,867万元，年末总资产117,132万元，每股现金分红-5,660万元。\n引用：[2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf: 第15页 表格]"
+        }
+      ],
+      "关键词覆盖率_均值": 0.0708,
+      "答案字符数_均值": 168.2,
+      "严格判对题数(覆盖率>=0.6且未拒答)": 0
+    }
+  },
+  "逐题配对": [
+    {
+      "id": "Q01",
+      "total_3": 454.06,
+      "generate_3": 283.99,
+      "chars_3": 683,
+      "cov_3": 0.0,
+      "total_2": 501.05,
+      "generate_2": 384.98,
+      "chars_2": 95,
+      "cov_2": 0.0,
+      "delta_total": 46.99,
+      "delta_generate": 100.99,
+      "delta_chars": -588,
+      "delta_cov": 0.0
+    },
+    {
+      "id": "Q02",
+      "total_3": 1290.44,
+      "generate_3": 1167.87,
+      "chars_3": 211,
+      "cov_3": 0.0,
+      "total_2": 537.7,
+      "generate_2": 428.49,
+      "chars_2": 103,
+      "cov_2": 0.1667,
+      "delta_total": -752.74,
+      "delta_generate": -739.38,
+      "delta_chars": -108,
+      "delta_cov": 0.17
+    },
+    {
+      "id": "Q03",
+      "total_3": 902.5,
+      "generate_3": 670.52,
+      "chars_3": 177,
+      "cov_3": 0.0,
+      "total_2": 1836.17,
+      "generate_2": 1687.03,
+      "chars_2": 277,
+      "cov_2": 0.0,
+      "delta_total": 933.67,
+      "delta_generate": 1016.51,
+      "delta_chars": 100,
+      "delta_cov": 0.0
+    },
+    {
+      "id": "Q04",
+      "total_3": 545.77,
+      "generate_3": 0.0,
+      "chars_3": 3,
+      "cov_3": 0.0,
+      "total_2": 120.21,
+      "generate_2": 0.0,
+      "chars_2": 3,
+      "cov_2": 0.0,
+      "delta_total": -425.56,
+      "delta_generate": 0.0,
+      "delta_chars": 0,
+      "delta_cov": 0.0
+    },
+    {
+      "id": "Q05",
+      "total_3": 567.55,
+      "generate_3": 447.84,
+      "chars_3": 304,
+      "cov_3": 0.0,
+      "total_2": 629.85,
+      "generate_2": 502.65,
+      "chars_2": 304,
+      "cov_2": 0.0,
+      "delta_total": 62.3,
+      "delta_generate": 54.81,
+      "delta_chars": 0,
+      "delta_cov": 0.0
+    },
+    {
+      "id": "Q06",
+      "total_3": 1768.79,
+      "generate_3": 654.61,
+      "chars_3": 131,
+      "cov_3": 0.4,
+      "total_2": 712.68,
+      "generate_2": 620.29,
+      "chars_2": 131,
+      "cov_2": 0.4,
+      "delta_total": -1056.11,
+      "delta_generate": -34.32,
+      "delta_chars": 0,
+      "delta_cov": 0.0
+    },
+    {
+      "id": "Q07",
+      "total_3": 1748.83,
+      "generate_3": 1598.63,
+      "chars_3": 294,
+      "cov_3": 0.0,
+      "total_2": 1644.59,
+      "generate_2": 1513.44,
+      "chars_2": 294,
+      "cov_2": 0.0,
+      "delta_total": -104.24,
+      "delta_generate": -85.19,
+      "delta_chars": 0,
+      "delta_cov": 0.0
+    },
+    {
+      "id": "Q08",
+      "total_3": 2144.78,
+      "generate_3": 1999.72,
+      "chars_3": 138,
+      "cov_3": 0.0,
+      "total_2": 923.64,
+      "generate_2": 769.52,
+      "chars_2": 139,
+      "cov_2": 0.0,
+      "delta_total": -1221.14,
+      "delta_generate": -1230.2,
+      "delta_chars": 1,
+      "delta_cov": 0.0
+    }
+  ],
+  "差值": {
+    "总耗时均值ms": {
+      "prompt_top_k=3": 1177.84,
+      "prompt_top_k=2": 863.24
+    },
+    "总耗时P90ms": {
+      "prompt_top_k=3": 1881.59,
+      "prompt_top_k=2": 1702.06
+    },
+    "生成均值ms": {
+      "prompt_top_k=3": 852.9,
+      "prompt_top_k=2": 738.3
+    },
+    "生成P90ms": {
+      "prompt_top_k=3": 1718.96,
+      "prompt_top_k=2": 1565.52
+    },
+    "关键词覆盖率均值": {
+      "prompt_top_k=3": 0.05,
+      "prompt_top_k=2": 0.0708
+    },
+    "答案字符数均值": {
+      "prompt_top_k=3": 242.6,
+      "prompt_top_k=2": 168.2
+    },
+    "逐题配对_生成耗时变化": {
+      "题数": 8,
+      "均值ms": -114.6,
+      "中位ms": -17.16,
+      "变快的题数": 4,
+      "变慢的题数": 3
+    },
+    "逐题配对_总耗时变化": {
+      "题数": 8,
+      "均值ms": -314.6,
+      "中位ms": -264.9,
+      "变快的题数": 5,
+      "变慢的题数": 3
+    },
+    "生成耗时降幅%": 13.4,
+    "总耗时降幅%": 26.7,
+    "关键词覆盖率变化(绝对)": 0.0208
+  },
+  "环境": {
+    "解释器": "E:\\gao6gongdan\\工单1\\.venv\\Scripts\\python.exe",
+    "python": "3.11.15",
+    "cwd": "E:\\gao6gongdan\\工单7",
+    "warmup_ms": 27882.96,
+    "修订_start": {
+      "retriever.py": "45ae1b648c015d4b",
+      "answer_composer.py": "6699df2bf68c033f",
+      "generator.py": "baa1aa93b65a974f",
+      "qa_engine.py": "4dc387e8c6b1c65e",
+      "answerability.py": "1f01bb8fbc79f257",
+      "query_understanding.py": "fb16916c58b8dafd",
+      "reranker.py": "4679c942c4ba00f4",
+      "fusion.py": "89a870a96f89cb3d",
+      "citation.py": "6bb500ce28137f83",
+      "bm25_index.py": "bf2990e9305c470d",
+      "cache.py": "d72920b265f69b32",
+      "dialogue_cache.py": "2a5a0c68e0a1c9ef"
+    },
+    "修订_end": {
+      "retriever.py": "45ae1b648c015d4b",
+      "answer_composer.py": "6699df2bf68c033f",
+      "generator.py": "baa1aa93b65a974f",
+      "qa_engine.py": "4dc387e8c6b1c65e",
+      "answerability.py": "1f01bb8fbc79f257",
+      "query_understanding.py": "fb16916c58b8dafd",
+      "reranker.py": "4679c942c4ba00f4",
+      "fusion.py": "89a870a96f89cb3d",
+      "citation.py": "6bb500ce28137f83",
+      "bm25_index.py": "bf2990e9305c470d",
+      "cache.py": "d72920b265f69b32",
+      "dialogue_cache.py": "2a5a0c68e0a1c9ef"
+    }
+  }
+}

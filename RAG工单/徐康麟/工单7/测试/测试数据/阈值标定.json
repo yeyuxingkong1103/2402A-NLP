@@ -1,0 +1,208 @@
+{
+  "工单": "人工智能NLP-RAG-功能测试及评估",
+  "口径": "正样本=研发/评估/测试问题集.jsonl；负样本=语料外问句；max_vector=Top-10 内最大向量余弦；coverage=问句实词在 Top-3 证据中的覆盖率",
+  "当前配置": {
+    "min_score": 0.35,
+    "min_keyword_coverage": 0.45
+  },
+  "正样本": [
+    {
+      "max_vector": 0.7594,
+      "max_bm25": 37.62,
+      "coverage": 0.6667,
+      "corpus_hint": "20200214",
+      "n_hits": 10,
+      "id": "Q01"
+    },
+    {
+      "max_vector": 0.7339,
+      "max_bm25": 20.2,
+      "coverage": 0.75,
+      "corpus_hint": null,
+      "n_hits": 10,
+      "id": "Q02"
+    },
+    {
+      "max_vector": 0.7484,
+      "max_bm25": 49.46,
+      "coverage": 0.6471,
+      "corpus_hint": "20200214",
+      "n_hits": 10,
+      "id": "Q03"
+    },
+    {
+      "max_vector": 0.6626,
+      "max_bm25": 51.94,
+      "coverage": 0.6176,
+      "corpus_hint": null,
+      "n_hits": 10,
+      "id": "Q04"
+    },
+    {
+      "max_vector": 0.7797,
+      "max_bm25": 44.53,
+      "coverage": 0.8333,
+      "corpus_hint": null,
+      "n_hits": 10,
+      "id": "Q05"
+    },
+    {
+      "max_vector": 0.7742,
+      "max_bm25": 42.84,
+      "coverage": 0.9091,
+      "corpus_hint": "20210319",
+      "n_hits": 10,
+      "id": "Q06"
+    },
+    {
+      "max_vector": 0.8075,
+      "max_bm25": 67.04,
+      "coverage": 0.7391,
+      "corpus_hint": "20200214",
+      "n_hits": 10,
+      "id": "Q07"
+    },
+    {
+      "max_vector": 0.818,
+      "max_bm25": 38.02,
+      "coverage": 0.7895,
+      "corpus_hint": null,
+      "n_hits": 10,
+      "id": "Q08"
+    },
+    {
+      "max_vector": 0.7246,
+      "max_bm25": 36.0,
+      "coverage": 0.7778,
+      "corpus_hint": null,
+      "n_hits": 10,
+      "id": "Q09"
+    },
+    {
+      "max_vector": 0.8194,
+      "max_bm25": 38.47,
+      "coverage": 0.875,
+      "corpus_hint": "20210319",
+      "n_hits": 10,
+      "id": "Q10"
+    },
+    {
+      "max_vector": 0.8629,
+      "max_bm25": 43.64,
+      "coverage": 0.8182,
+      "corpus_hint": "20210326",
+      "n_hits": 10,
+      "id": "Q11"
+    },
+    {
+      "max_vector": 0.8004,
+      "max_bm25": 43.01,
+      "coverage": 0.8235,
+      "corpus_hint": null,
+      "n_hits": 10,
+      "id": "Q12"
+    },
+    {
+      "max_vector": 0.6792,
+      "max_bm25": 72.24,
+      "coverage": 0.2857,
+      "corpus_hint": null,
+      "n_hits": 10,
+      "id": "Q13"
+    },
+    {
+      "max_vector": 0.8267,
+      "max_bm25": 42.58,
+      "coverage": 0.7619,
+      "corpus_hint": "20220328-4a2b168a",
+      "n_hits": 10,
+      "id": "Q14"
+    },
+    {
+      "max_vector": 0.7862,
+      "max_bm25": 51.36,
+      "coverage": 0.8333,
+      "corpus_hint": "20220331",
+      "n_hits": 10,
+      "id": "Q15"
+    },
+    {
+      "max_vector": 0.8347,
+      "max_bm25": 59.7,
+      "coverage": 0.7895,
+      "corpus_hint": null,
+      "n_hits": 10,
+      "id": "Q16"
+    },
+    {
+      "max_vector": 0.7892,
+      "max_bm25": 118.2,
+      "coverage": 0.8667,
+      "corpus_hint": null,
+      "n_hits": 10,
+      "id": "Q17"
+    }
+  ],
+  "负样本": [
+    {
+      "max_vector": 0.5972,
+      "max_bm25": 13.97,
+      "coverage": 0.6667,
+      "corpus_hint": null,
+      "n_hits": 10,
+      "question": "特斯拉2019年的营业收入是多少？"
+    },
+    {
+      "max_vector": 0.6113,
+      "max_bm25": 10.03,
+      "coverage": 0.6,
+      "corpus_hint": null,
+      "n_hits": 10,
+      "question": "苹果公司2020年的净利润是多少？"
+    },
+    {
+      "max_vector": 0.4728,
+      "max_bm25": 0.0,
+      "coverage": 0.0,
+      "corpus_hint": null,
+      "n_hits": 10,
+      "question": "请问今天天气怎么样？"
+    },
+    {
+      "max_vector": 0.3554,
+      "max_bm25": 0.0,
+      "coverage": 0.0,
+      "corpus_hint": null,
+      "n_hits": 10,
+      "question": "李白是哪个朝代的诗人？"
+    },
+    {
+      "max_vector": 0.0,
+      "max_bm25": 9.77,
+      "coverage": 0.5,
+      "corpus_hint": null,
+      "n_hits": 10,
+      "question": "如何做红烧肉？"
+    },
+    {
+      "max_vector": 0.3945,
+      "max_bm25": 0.0,
+      "coverage": 0.0,
+      "corpus_hint": null,
+      "n_hits": 10,
+      "question": "量子纠缠的原理是什么？"
+    }
+  ],
+  "分布": {
+    "正样本_向量余弦_最小": 0.6626,
+    "正样本_向量余弦_中位": 0.7862,
+    "正样本_向量余弦_最大": 0.8629,
+    "负样本_向量余弦_最大": 0.6113,
+    "正样本_覆盖率_最小": 0.2857,
+    "正样本_覆盖率_中位": 0.7895,
+    "负样本_覆盖率_最大": 0.6667,
+    "正样本_覆盖率低于0.30的题数": 1
+  },
+  "建议_min_score": 0.64,
+  "结论": "正样本余弦下界 0.6626 > 负样本余弦上界 0.6113 → 可分；取中间偏正样本一侧的建议值 0.64。原值 0.12 落在负样本分布之下，会让「低覆盖率+低余弦」分支恒真，把可答题误拒（工单7 实测 3/17 误拒已据此修正）。"
+}

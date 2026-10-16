@@ -1,0 +1,152 @@
+{
+  "per_strategy": {
+    "vector": {
+      "label": "向量检索（嵌入召回 + 重排）",
+      "n": 2,
+      "correct": 2,
+      "accuracy": 100.0,
+      "hit_complete": 2,
+      "recall": 100.0,
+      "hit_any_evidence": 2,
+      "recall_any_evidence": 100.0,
+      "refused": 0,
+      "retrieval_ms": {
+        "n": 2,
+        "p50": 49.11,
+        "p95": 51.04,
+        "mean": 50.08,
+        "max": 51.04,
+        "over_3000": 0
+      },
+      "wall_ms": {
+        "n": 2,
+        "p50": 577.59,
+        "p95": 793.03,
+        "mean": 685.31,
+        "max": 793.03,
+        "over_3000": 0
+      },
+      "per_question": [
+        {
+          "id": 1,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 49.11,
+          "wall_ms": 577.59
+        },
+        {
+          "id": 95,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 51.04,
+          "wall_ms": 793.03
+        }
+      ]
+    },
+    "hybrid": {
+      "label": "混合检索（向量 + 全文 融合）",
+      "n": 2,
+      "correct": 2,
+      "accuracy": 100.0,
+      "hit_complete": 2,
+      "recall": 100.0,
+      "hit_any_evidence": 2,
+      "recall_any_evidence": 100.0,
+      "refused": 0,
+      "retrieval_ms": {
+        "n": 2,
+        "p50": 34.03,
+        "p95": 34.77,
+        "mean": 34.4,
+        "max": 34.77,
+        "over_3000": 0
+      },
+      "wall_ms": {
+        "n": 2,
+        "p50": 39.45,
+        "p95": 39.96,
+        "mean": 39.7,
+        "max": 39.96,
+        "over_3000": 0
+      },
+      "per_question": [
+        {
+          "id": 1,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 34.77,
+          "wall_ms": 39.96
+        },
+        {
+          "id": 95,
+          "correct": true,
+          "hit_complete": true,
+          "retrieval_ms": 34.03,
+          "wall_ms": 39.45
+        }
+      ]
+    }
+  },
+  "hybrid_gains": {
+    "hybrid_vs_vector": {
+      "accuracy_delta_pp": 0.0,
+      "recall_delta_pp": 0.0,
+      "fixed_ids": [],
+      "broken_ids": []
+    }
+  },
+  "overall": {
+    "n_runs": 4,
+    "accuracy": 100.0,
+    "recall": 100.0,
+    "retrieval_ms": {
+      "n": 4,
+      "p50": 49.11,
+      "p95": 51.04,
+      "mean": 42.24,
+      "max": 51.04,
+      "over_3000": 0
+    },
+    "wall_ms": {
+      "n": 4,
+      "p50": 577.59,
+      "p95": 793.03,
+      "mean": 362.51,
+      "max": 793.03,
+      "over_3000": 0
+    }
+  },
+  "targets": {
+    "accuracy_ge": 90.0,
+    "recall_ge": 95.0,
+    "latency_le_ms": 3000
+  },
+  "meta": {
+    "run_tag": "smoke",
+    "work_order": "人工智能NLP-RAG-混合检索任务",
+    "generated_at": "2026-10-07T16:04:29+08:00",
+    "strategies": [
+      "vector",
+      "hybrid"
+    ],
+    "question_ids": [
+      1,
+      95
+    ],
+    "cached": false,
+    "warmup": {
+      "elapsed_ms": 8092.43,
+      "fulltext_index": {
+        "chunks": 2676,
+        "fields": {
+          "content": 23607,
+          "title": 970,
+          "keywords": 14471,
+          "summary": 17366
+        },
+        "ms": 4103.81
+      }
+    },
+    "elapsed_s": 9.56
+  }
+}

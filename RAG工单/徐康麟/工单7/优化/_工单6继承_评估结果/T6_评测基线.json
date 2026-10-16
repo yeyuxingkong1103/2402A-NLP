@@ -1,0 +1,107 @@
+{
+ "source": "T6 端到端评测（测试/在线/run_16q_eval.py --run-tag t6-accept，no-cache 全量）",
+ "run_meta": {
+  "run_tag": "t6-accept",
+  "started_at": "2026-10-06T20:52:18",
+  "base_url": "http://127.0.0.1:8123",
+  "top_k_returned": 5,
+  "generation_prompt_top_k": 3,
+  "hit_judgement_top_k": 5,
+  "use_cache": false,
+  "warmup_done": true,
+  "index_chunk_total": 2676,
+  "index_by_modality": {
+   "text": 1981,
+   "table": 618,
+   "image": 77
+  },
+  "index_by_modality_sub": {
+   "picture": 43,
+   "diagram": 12,
+   "chart": 22
+  },
+  "index_updated_at": null,
+  "golden_sha256": "6bc8f0077c32084f345738687c01bea4a2ff02f2fe0448d7e2e6be9e38128254",
+  "backend": "ollama",
+  "model": "qwen2.5:3b",
+  "notes": [],
+  "health_status": "ok",
+  "finished_at": "2026-10-06T20:52:33"
+ },
+ "summary": {
+  "n_questions": 16,
+  "n_judged": 16,
+  "n_correct": 16,
+  "accuracy": 1.0,
+  "n_hit_complete": 14,
+  "retrieval_hit_rate_complete": 0.875,
+  "n_hit_complete_bm25": 14,
+  "retrieval_hit_rate_complete_bm25": 0.875,
+  "n_hit_complete_vector": 11,
+  "retrieval_hit_rate_complete_vector": 0.6875,
+  "n_hit_any_evidence_diag": 15,
+  "n_hit_page_level_diag": 15,
+  "n_citation_ok": 16,
+  "n_citation_same_evidence_elsewhere": 3,
+  "latency_wall_p50_ms": 595.8,
+  "latency_wall_p95_ms": 929.8,
+  "latency_wall_max_ms": 1062.8,
+  "latency_wall_min_ms": 237.4,
+  "latency_server_p50_ms": 582.8,
+  "latency_server_p95_ms": 903.2,
+  "latency_server_max_ms": 1049.5,
+  "n_latency_over_3000ms": 0,
+  "first_token_min_ms": 132.87,
+  "first_token_max_ms": 484.17,
+  "note": "判分=golden.judge_answer（确定性）；命中率主指标=权威层 hit_complete，另列 BM25/向量/诊断列；延迟主口径=客户端 wall（请求发出→完整答案返回）"
+ },
+ "by_channel": {
+  "bm25_hit_complete": 14,
+  "vector_hit_complete": 11,
+  "any_hit_complete": 14
+ },
+ "negative": {
+  "n": 4,
+  "n_passed": 3,
+  "failed": [
+   {
+    "id": "N1",
+    "question": "某某科技有限公司的注册资本是多少？",
+    "answer": "注册资本为100万元。\n引用：[招股说明书1.pdf: 第64页 表格]",
+    "root_cause": "泛化名实体未触发 unknown_entity 闸门；检索把『注册资本』匹配到 招股说明书1.pdf 第64页 表格（该页确有 100万元），拼出与该实体无关的答案"
+   }
+  ]
+ },
+ "bilingual": {
+  "zh_passed": 3,
+  "zh_total": 3,
+  "en_atom_passed": 0,
+  "en_total": 3,
+  "en_defects": [
+   {
+    "id": 543,
+    "issue": "静默回落中文（language_degraded 未置位）"
+   },
+   {
+    "id": 5,
+    "issue": "英文答案不完整：只答 4 个部门，缺 6 个销售处与城市"
+   },
+   {
+    "id": 6,
+    "issue": "英文图表题被拒答（low_similarity，cited_pages 空）"
+   }
+  ]
+ },
+ "handover_to_optimization": [
+  "数值问句的泛化名实体拒答闸门（N1）",
+  "英文路径：禁止静默回落 + 枚举完整性校验 + 英文图像意图召回",
+  "向量通道权威层命中 11/16 弱于 BM25 14/16（RRF/召回调优）"
+ ],
+ "evidence": {
+  "report": "测试/测试报告.md",
+  "csv": "测试/测试数据/qa_results.csv",
+  "jsonl": "测试/测试数据/qa_results.jsonl",
+  "screenshots": "测试/测试截图/（25 张）",
+  "repeat_run_control": "测试/测试数据/bilingual_重复运行对照.jsonl"
+ }
+}

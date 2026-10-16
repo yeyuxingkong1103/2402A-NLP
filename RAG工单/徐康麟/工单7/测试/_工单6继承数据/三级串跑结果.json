@@ -1,0 +1,28 @@
+{
+  "generated_by": "测试/run_tests.ps1",
+  "finished_at": "2026-10-07T08:58:53",
+  "exit_code": 0,
+  "skip_online": false,
+  "service_started_by_script": true,
+  "levels": [
+    {
+      "name": "离线层",
+      "targets": "研发/tests 测试/离线",
+      "exit_code": 0,
+      "summary": "140 passed, 1 warning in 2.71s"
+    },
+    {
+      "name": "在线层",
+      "targets": "测试/在线",
+      "exit_code": 0,
+      "summary": "12 passed, 2 xfailed in 5.12s"
+    },
+    {
+      "name": "用户层",
+      "targets": "测试/用户",
+      "exit_code": 0,
+      "summary": "7 passed, 1 skipped in 11.76s"
+    }
+  ],
+  "note": "三级串跑（离线 → 在线 → 用户）；exit_code 0 = 全部通过。数字来自本次实跑，未预填。"
+}

@@ -1,0 +1,620 @@
+# 响应时间基准 —— 真实控制台输出（工单：人工智能NLP-RAG-功能测试及评估）
+# 主机时刻 2026-10-07 21:23:01  解释器 E:\gao6gongdan\工单1\.venv\Scripts\python.exe
+
+########## [1/3] 冷启动构件分项实测：--mode probe-cold ##########
+[索引] 就绪：chunk_total=8742 run_id=r20261007-202723 embed=bge-m3:latest
+[probe-cold] 逐项量测冷启动构件（每项都是本进程内的**首次**调用）…
+  load_bundle               4615.53 ms  索引加载（chunks/vectors/bm25）
+  warmup_tokenizer             1.56 ms  jieba 分词器初始化
+  warmup_entity_tagger      2035.08 ms  实体标注器（词性表）
+  embed_warmup               267.16 ms  嵌入模型预热（Ollama bge-m3）
+  resolve_backend             28.51 ms  生成后端探测（≤probe_timeout_s）
+  warmup_generate            295.50 ms  生成模型预热（keep_alive）
+  warmup_strategy          18701.51 ms  多字段倒排索引（全文检索通道）
+  构件就绪后首问（对照）     1346.96 ms  latency={'retrieve': 177.54, 'generate': 1064.33, 'first_token': 488.82, 'total': 1345.23}
+
+[probe-cold] 构件合计 26463.75 ms；已写出 E:\gao6gongdan\工单7\优化\评估结果\响应时间基准_冷启动分项.json
+
+########## [2/3] 检索结果缓存 A/B：--mode probe-cache ##########
+[索引] 就绪：chunk_total=8742 run_id=r20261007-202723 embed=bge-m3:latest
+[probe-cache] 最小预热：索引 + 分词器 + 嵌入（不预热生成模型与全文倒排索引）…
+[probe-cache] 预热完成：{"index_chunks": 8742, "tokenizer": {"cold_ms": 0.27, "warm_ms": 0.17, "tokens": 9, "backend": "jieba"}, "embedding": {"backend": "ollama", "model": "bge-m3:latest", "dim": 1024, "cold_ms": 83.1, "warm_ms": 86.28, "total_ms": 236.28}, "elapsed_ms": 5195.56}
+
+[probe-cache] 同一问句：第 1 次（检索缓存未命中） vs 第 2 次（检索缓存命中）
+  1/17 Q01  miss=  208.46 ms  hit=    6.50 ms  省   201.96 ms
+  2/17 Q02  miss=  157.34 ms  hit=    5.67 ms  省   151.67 ms
+  3/17 Q03  miss=  187.45 ms  hit=    6.62 ms  省   180.83 ms
+  4/17 Q04  miss=  189.89 ms  hit=    5.44 ms  省   184.45 ms
+  5/17 Q05  miss=  170.24 ms  hit=    2.81 ms  省   167.43 ms
+  6/17 Q06  miss=  146.71 ms  hit=    5.98 ms  省   140.73 ms
+  7/17 Q07  miss=  141.02 ms  hit=    3.45 ms  省   137.57 ms
+  8/17 Q08  miss=  134.93 ms  hit=    5.27 ms  省   129.66 ms
+  9/17 Q09  miss=  157.67 ms  hit=    5.14 ms  省   152.53 ms
+  10/17 Q10  miss=  151.36 ms  hit=    3.89 ms  省   147.47 ms
+  11/17 Q11  miss=  149.28 ms  hit=    6.22 ms  省   143.06 ms
+  12/17 Q12  miss=  135.04 ms  hit=    3.07 ms  省   131.97 ms
+  13/17 Q13  miss=  210.12 ms  hit=    8.37 ms  省   201.75 ms
+  14/17 Q14  miss=  163.62 ms  hit=    5.39 ms  省   158.23 ms
+  15/17 Q15  miss=  152.20 ms  hit=    4.33 ms  省   147.87 ms
+  16/17 Q16  miss=  170.78 ms  hit=    5.69 ms  省   165.09 ms
+  17/17 Q17  miss=  182.34 ms  hit=    3.74 ms  省   178.60 ms
+
+[probe-cache] 已写出 E:\gao6gongdan\工单7\优化\评估结果\响应时间基准_检索缓存探针.json
+[probe-cache] 检索耗时 未命中均值 165.2 ms → 命中均值 5.15 ms，平均省 160.05 ms/题
+
+########## [3/3] 三场景主基准：--mode full --batch 4 --batch-sleep 5 ##########
+==============================================================================
+ 工单：人工智能NLP-RAG-功能测试及评估
+ 响应时间基准（三场景实测）
+==============================================================================
+脚本启动时刻 : 2026-10-07 21:24:00
+解释器       : E:\gao6gongdan\工单1\.venv\Scripts\python.exe
+Python       : 3.11.15
+工作目录     : E:\gao6gongdan\工单7
+SLA 阈值     : 3000 ms（任务书「响应时间 ≤ 3 秒」）
+串行/分批    : 每批 4 题，批间休眠 5 秒
+共享声明     : Ollama(127.0.0.1:11434) 为 CPU 单实例，与其它任务共享，数字含竞争波动
+
+[索引] 就绪：chunk_total=8742 run_id=r20261007-202723 embed=bge-m3:latest
+[问题集] 测试问题集.jsonl 载入 17 题：Q01, Q02, Q03, Q04, Q05, Q06, Q07, Q08, Q09, Q10, Q11, Q12, Q13, Q14, Q15, Q16, Q17
+
+[Ollama] 运行前驻留模型：[{"name": "qwen2.5:3b", "size": 2159374499, "size_vram": 2159374499, "expires_at": "2026-10-07T21:53:29.3256669+08:00"}, {"name": "bge-m3:latest", "size": 664000265, "size_vram": 664000265, "expires_at": "2026-10-07T21:28:59.6381025+08:00"}]
+
+[配置] {"top_k": 5, "vector_k": 20, "bm25_k": 20, "prompt_top_k": 3, "page_context_extra": 6, "cache_size(答案内存缓存)": 512, "embed_batch_size": 16, "gen_model": "qwen2.5:3b", "embed_model": "bge-m3:latest", "backend": "auto"}
+
+------------------------------------------------------------------------------
+[场景 1/5] 冷启动：新进程内**不预热**就发第 1 问（use_cache=False）
+------------------------------------------------------------------------------
+  冷启动首问：total=7940.95 ms (retrieve=153.24 generate=938.93 first=366.74)；引擎构造 0.07 ms；冷问墙钟 7942.07 ms；脚本首行至今 8582.36 ms
+
+------------------------------------------------------------------------------
+[预热] warmup(with_generate=True)：索引 + 分词器 + 实体标注 + 嵌入 + 全文索引 + 生成模型
+------------------------------------------------------------------------------
+  预热完成：19130.93 ms
+  {"index_chunks": 8742, "tokenizer": {"cold_ms": 0.31, "warm_ms": 0.18, "tokens": 9, "backend": "jieba"}, "entity_tagger": {"ok": true, "sample_nouns": ["武汉", "新科", "电子", "股份", "有限公司", "注册资本"], "elapsed_ms": 1.41}, "embedding": {"backend": "ollama", "model": "bge-m3:latest", "dim": 1024, "cold_ms": 18.63, "warm_ms": 42.23, "total_ms": 113.11}, "fulltext_index": {"fulltext_index": {"chunks": 8742, "fields": {"content": 63938, "title": 4769, "keywords": 47452, "summary": 42249}, "ms": 18889.19}, "models": [{"id": "bge-m3", "dim": 1024, "index_built": true}, {"id": "m3e-base", "dim": 768, "index_b
+[Ollama] 预热后驻留模型：[{"name": "qwen2.5:3b", "size": 2159374499, "size_vram": 2159374499, "expires_at": "2026-10-07T21:54:28.4248077+08:00"}, {"name": "bge-m3:latest", "size": 664000265, "size_vram": 664000265, "expires_at": "2026-10-07T21:29:28.3642591+08:00"}]
+
+------------------------------------------------------------------------------
+[场景 2/5] 预热后逐题：17 题，use_cache=False（真实检索 + 真实生成）
+------------------------------------------------------------------------------
+  [预热后|无缓存] 1/17 Q01  retrieve=  116.84 generate= 2047.13 first=  880.36 total= 2172.84 ms  ok
+  [预热后|无缓存] 2/17 Q02  retrieve=  121.02 generate= 1290.03 first=  958.62 total= 1419.18 ms  ok
+  [预热后|无缓存] 3/17 Q03  retrieve=  139.07 generate= 1283.21 first= 1114.85 total= 1435.22 ms  ok
+  [预热后|无缓存] 4/17 Q04  retrieve=  787.32 generate=    0.00 first=  787.32 total=  812.85 ms  ok
+  [预热后|无缓存] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [预热后|无缓存] 5/17 Q05  retrieve=  177.60 generate=  963.91 first=  516.71 total= 1148.55 ms  ok
+  [预热后|无缓存] 6/17 Q06  retrieve=   93.97 generate=  654.97 first=  196.63 total=  756.86 ms  ok
+  [预热后|无缓存] 7/17 Q07  retrieve=  105.64 generate= 1717.99 first=  227.41 total= 1832.42 ms  ok
+  [预热后|无缓存] 8/17 Q08  retrieve=  105.64 generate= 1588.15 first=  268.84 total= 1701.75 ms  ok
+  [预热后|无缓存] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [预热后|无缓存] 9/17 Q09  retrieve=  152.69 generate= 1144.70 first=  487.91 total= 1304.86 ms  ok
+  [预热后|无缓存] 10/17 Q10  retrieve=  107.37 generate= 2176.32 first=  239.00 total= 2290.76 ms  ok
+  [预热后|无缓存] 11/17 Q11  retrieve=   91.41 generate=  826.94 first=  223.28 total=  925.62 ms  ok
+  [预热后|无缓存] 12/17 Q12  retrieve=   87.84 generate=  638.15 first=  242.52 total=  732.53 ms  ok
+  [预热后|无缓存] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [预热后|无缓存] 13/17 Q13  retrieve=   91.32 generate= 1464.34 first=  137.50 total= 2303.24 ms  ok
+  [预热后|无缓存] 14/17 Q14  retrieve=   80.82 generate= 1040.61 first=  183.09 total= 1131.43 ms  ok
+  [预热后|无缓存] 15/17 Q15  retrieve=   90.88 generate= 1458.20 first=  215.08 total= 1558.25 ms  ok
+  [预热后|无缓存] 16/17 Q16  retrieve=   71.49 generate= 1353.68 first=  193.47 total= 1432.19 ms  ok
+  [预热后|无缓存] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [预热后|无缓存] 17/17 Q17  retrieve=  178.33 generate= 1000.91 first=  508.10 total= 1186.16 ms  ok
+
+------------------------------------------------------------------------------
+[场景 3/5] 答案缓存命中：同一问题第 2 次调用，use_cache=True（17 题）
+------------------------------------------------------------------------------
+  [缓存命中] 1/17 Q01  retrieve=    0.00 generate=    0.00 first=    0.00 total=    7.40 ms  ok
+  [缓存命中] 2/17 Q02  retrieve=    0.00 generate=    0.00 first=    0.00 total=    7.37 ms  ok
+  [缓存命中] 3/17 Q03  retrieve=    0.00 generate=    0.00 first=    0.00 total=    6.26 ms  ok
+  [缓存命中] 4/17 Q04  retrieve=    0.00 generate=    0.00 first=    0.00 total=    4.94 ms  ok
+  [缓存命中] 5/17 Q05  retrieve=    0.00 generate=    0.00 first=    0.00 total=    4.73 ms  ok
+  [缓存命中] 6/17 Q06  retrieve=    0.00 generate=    0.00 first=    0.00 total=    5.10 ms  ok
+  [缓存命中] 7/17 Q07  retrieve=    0.00 generate=    0.00 first=    0.00 total=    5.38 ms  ok
+  [缓存命中] 8/17 Q08  retrieve=    0.00 generate=    0.00 first=    0.00 total=    6.59 ms  ok
+  [缓存命中] 9/17 Q09  retrieve=    0.00 generate=    0.00 first=    0.00 total=    6.51 ms  ok
+  [缓存命中] 10/17 Q10  retrieve=    0.00 generate=    0.00 first=    0.00 total=    8.06 ms  ok
+  [缓存命中] 11/17 Q11  retrieve=    0.00 generate=    0.00 first=    0.00 total=    4.04 ms  ok
+  [缓存命中] 12/17 Q12  retrieve=    0.00 generate=    0.00 first=    0.00 total=    4.05 ms  ok
+  [缓存命中] 13/17 Q13  retrieve=    0.00 generate=    0.00 first=    0.00 total=   10.43 ms  ok
+  [缓存命中] 14/17 Q14  retrieve=    0.00 generate=    0.00 first=    0.00 total=    6.51 ms  ok
+  [缓存命中] 15/17 Q15  retrieve=    0.00 generate=    0.00 first=    0.00 total=    5.02 ms  ok
+  [缓存命中] 16/17 Q16  retrieve=    0.00 generate=    0.00 first=    0.00 total=    4.24 ms  ok
+  [缓存命中] 17/17 Q17  retrieve=    0.00 generate=    0.00 first=    0.00 total=    6.42 ms  ok
+  命中答案缓存的题数：17/17
+
+------------------------------------------------------------------------------
+[场景 4/5] 检索结果缓存命中：新建引擎实例（答案缓存为空）+ 清空生成缓存，use_cache=True（17 题）
+------------------------------------------------------------------------------
+  已清空生成级缓存：{'removed': 16}
+  [检索缓存命中] 1/17 Q01  retrieve=    0.37 generate=  825.22 first=  131.52 total=  859.39 ms  ok
+  [检索缓存命中] 2/17 Q02  retrieve=    0.66 generate=  542.25 first=  157.42 total=  549.60 ms  ok
+  [检索缓存命中] 3/17 Q03  retrieve=    0.59 generate=  456.12 first=  165.81 total=  467.72 ms  ok
+  [检索缓存命中] 4/17 Q04  retrieve=    0.48 generate=    0.00 first=    0.48 total=   14.64 ms  ok
+  [检索缓存命中] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [检索缓存命中] 5/17 Q05  retrieve=    0.37 generate=  649.06 first=  142.20 total=  657.16 ms  ok
+  [检索缓存命中] 6/17 Q06  retrieve=    0.52 generate= 1089.77 first=  524.86 total= 1098.71 ms  ok
+  [检索缓存命中] 7/17 Q07  retrieve=    0.40 generate= 2032.30 first=  102.14 total= 2039.90 ms  ok
+  [检索缓存命中] 8/17 Q08  retrieve=    0.64 generate= 2593.69 first=  438.44 total= 2601.34 ms  ok
+  [检索缓存命中] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [检索缓存命中] 9/17 Q09  retrieve=    0.36 generate= 2903.16 first= 1053.35 total= 2910.30 ms  ok
+  [检索缓存命中] 10/17 Q10  retrieve=    0.45 generate= 3111.51 first=  121.16 total= 3119.36 ms  超时
+  [检索缓存命中] 11/17 Q11  retrieve=    0.59 generate= 1380.45 first=  683.48 total= 1390.75 ms  ok
+  [检索缓存命中] 12/17 Q12  retrieve=    0.49 generate= 1068.20 first=  589.95 total= 1075.01 ms  ok
+  [检索缓存命中] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [检索缓存命中] 13/17 Q13  retrieve=    0.34 generate= 2024.15 first=  570.87 total= 2034.46 ms  ok
+  [检索缓存命中] 14/17 Q14  retrieve=    0.57 generate= 1664.98 first=  790.26 total= 1674.76 ms  ok
+  [检索缓存命中] 15/17 Q15  retrieve=    0.82 generate= 3053.67 first=  820.32 total= 3064.93 ms  超时
+  [检索缓存命中] 16/17 Q16  retrieve=    0.90 generate= 1474.77 first=  148.19 total= 1484.94 ms  ok
+  [检索缓存命中] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [检索缓存命中] 17/17 Q17  retrieve=    0.40 generate= 1005.68 first=  211.35 total= 1011.90 ms  ok
+
+------------------------------------------------------------------------------
+[场景 5/6] 答案级 SQLite 缓存（跨引擎实例 ≈ 服务重启后命中落盘缓存）：4 题
+------------------------------------------------------------------------------
+  SQLite 缓存库：E:\gao6gongdan\工单7\优化\评估结果\响应时间基准_答案缓存.sqlite3（本次运行专用，不触碰 研发/ 的运行时库）
+  [SQLite填充] 1/4 Q01  retrieve=    0.80 generate=    1.30 first=    0.80 total=   51.04 ms  ok
+  [SQLite填充] 2/4 Q02  retrieve=    0.78 generate=    3.43 first=    0.78 total=   14.81 ms  ok
+  [SQLite填充] 3/4 Q03  retrieve=    1.10 generate=    4.96 first=    1.10 total=   19.98 ms  ok
+  [SQLite填充] 4/4 Q04  retrieve=    0.65 generate=    0.00 first=    0.65 total=   23.27 ms  ok
+  [SQLite命中] 1/4 Q01  retrieve=    0.00 generate=    0.00 first=    0.00 total=   10.31 ms  ok
+  [SQLite命中] 2/4 Q02  retrieve=    0.00 generate=    0.00 first=    0.00 total=    8.78 ms  ok
+  [SQLite命中] 3/4 Q03  retrieve=    0.00 generate=    0.00 first=    0.00 total=    8.91 ms  ok
+  [SQLite命中] 4/4 Q04  retrieve=    0.00 generate=    0.00 first=    0.00 total=    8.48 ms  ok
+  命中 SQLite 答案缓存的题数：4/4（layer 应为 sqlite）
+
+------------------------------------------------------------------------------
+[场景 6/6] prompt_top_k 对照：同一子集（6 题）先 3 后 2，量化「注入提示词的证据块数」对生成耗时的影响
+------------------------------------------------------------------------------
+  [prompt_top_k=3] 1/6 Q01  retrieve=   81.15 generate=  654.93 first=  219.05 total=  744.00 ms  ok
+  [prompt_top_k=3] 2/6 Q02  retrieve=   75.44 generate=  543.69 first=  222.22 total=  625.53 ms  ok
+  [prompt_top_k=3] 3/6 Q03  retrieve=   88.79 generate=  479.91 first=  270.35 total=  576.66 ms  ok
+  [prompt_top_k=3] 4/6 Q04  retrieve=   88.33 generate=    0.00 first=   88.33 total=  101.44 ms  ok
+  [prompt_top_k=3] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [prompt_top_k=3] 5/6 Q05  retrieve=  135.19 generate=  779.00 first=  365.89 total=  923.85 ms  ok
+  [prompt_top_k=3] 6/6 Q06  retrieve=  123.24 generate=  629.57 first=  214.21 total=  761.10 ms  ok
+  已构造 prompt_top_k=2 的配置（retrieval.prompt_top_k=2）
+  该实例预热（不重复预热生成模型）用时 99.41 ms
+  [prompt_top_k=2] 1/6 Q01  retrieve=   80.89 generate=  372.09 first=  212.10 total=  482.25 ms  ok
+  [prompt_top_k=2] 2/6 Q02  retrieve=   85.32 generate=  448.23 first=  221.30 total=  541.37 ms  ok
+  [prompt_top_k=2] 3/6 Q03  retrieve=   79.20 generate= 1040.88 first=  278.82 total= 1128.14 ms  ok
+  [prompt_top_k=2] 4/6 Q04  retrieve=   84.43 generate=    0.00 first=   84.43 total=  100.81 ms  ok
+  [prompt_top_k=2] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [prompt_top_k=2] 5/6 Q05  retrieve=   89.40 generate=  754.76 first=  336.55 total=  852.99 ms  ok
+  [prompt_top_k=2] 6/6 Q06  retrieve=   93.38 generate=  677.95 first=  219.45 total=  782.58 ms  ok
+
+!! 警告：以下模块在本次基准运行期间被修改，结果不可严格归因到单一修订：
+    generator.py: 1be2c097ff899eee -> baa1aa93b65a974f
+
+==============================================================================
+ 分场景响应时间汇总（ms）
+==============================================================================
+场景                    样本    均值         中位         P90        最大         达标率      均值首字       
+------------------------------------------------------------------------------
+cold_start            1     7940.95    7940.95    7940.95    7940.95    0.0      366.74     
+warm_no_cache         17    1420.28    1419.18    2220.01    2303.24    1.0      434.16     
+answer_cache_hit      17    6.06       6.26       7.66       10.43      1.0      0.0        
+retrieval_cache_hit   17    1532.64    1390.75    2972.15    3119.36    0.8824   391.28     
+sqlite_fill           4     27.27      21.62      42.71      51.04      1.0      0.83       
+sqlite_cache_hit      4     9.12       8.84       9.89       10.31      1.0      0.0        
+probe_promptk_3       6     622.1      684.76     842.48     923.85     1.0      230.01     
+probe_promptk_2       6     648.02     661.98     990.57     1128.14    1.0      225.44     
+
+[落盘] E:\gao6gongdan\工单7\优化\评估结果\响应时间基准.json
+[落盘] E:\gao6gongdan\工单7\优化\评估结果\响应时间基准.md
+[落盘] 脚本总墙钟 136.36 s
+
+########## 三阶段全部结束，PowerShell 侧总墙钟 197.2 秒 ##########
+
+########## [4/5] prompt_top_k 性能+质量对照（配对交错）：--mode probe-promptk --limit 8 ##########
+==============================================================================
+ prompt_top_k 对照实验（性能 + 质量双维度；配对交错设计）
+==============================================================================
+子集：Q01、Q02、Q03、Q04、Q05、Q06、Q07、Q08（共 8 题）
+判分模块：E:\gao6gongdan\工单7\研发\评估\判分.py（关键词口径与评测官一致）
+设计：同题背靠背跑两臂；每臂前清空检索/生成缓存 ⇒ 两臂缓存状态对称
+
+[预热] warmup(with_generate=True)…
+[预热] 27882.96 ms
+[预热] prompt_top_k=2 实例：2（复用已建索引）
+
+  1/8 Q01  total 3→2: 454.06 → 501.05 ms (+46.99) ｜ generate: 283.99 → 384.98 ms (+100.99) ｜ 覆盖率 0.0 → 0.0
+  2/8 Q02  total 3→2: 1290.44 → 537.7 ms (-752.74) ｜ generate: 1167.87 → 428.49 ms (-739.38) ｜ 覆盖率 0.0 → 0.1667
+  3/8 Q03  total 3→2: 902.5 → 1836.17 ms (+933.67) ｜ generate: 670.52 → 1687.03 ms (+1016.51) ｜ 覆盖率 0.0 → 0.0
+  4/8 Q04  total 3→2: 545.77 → 120.21 ms (-425.56) ｜ generate: 0.0 → 0.0 ms (+0.00) ｜ 覆盖率 0.0 → 0.0
+  5/8 Q05  total 3→2: 567.55 → 629.85 ms (+62.30) ｜ generate: 447.84 → 502.65 ms (+54.81) ｜ 覆盖率 0.0 → 0.0
+  6/8 Q06  total 3→2: 1768.79 → 712.68 ms (-1056.11) ｜ generate: 654.61 → 620.29 ms (-34.32) ｜ 覆盖率 0.4 → 0.4
+  7/8 Q07  total 3→2: 1748.83 → 1644.59 ms (-104.24) ｜ generate: 1598.63 → 1513.44 ms (-85.19) ｜ 覆盖率 0.0 → 0.0
+  8/8 Q08  total 3→2: 2144.78 → 923.64 ms (-1221.14) ｜ generate: 1999.72 → 769.52 ms (-1230.20) ｜ 覆盖率 0.0 → 0.0
+
+==============================================================================
+ 结论
+==============================================================================
+{
+  "总耗时均值ms": {
+    "prompt_top_k=3": 1177.84,
+    "prompt_top_k=2": 863.24
+  },
+  "总耗时P90ms": {
+    "prompt_top_k=3": 1881.59,
+    "prompt_top_k=2": 1702.06
+  },
+  "生成均值ms": {
+    "prompt_top_k=3": 852.9,
+    "prompt_top_k=2": 738.3
+  },
+  "生成P90ms": {
+    "prompt_top_k=3": 1718.96,
+    "prompt_top_k=2": 1565.52
+  },
+  "关键词覆盖率均值": {
+    "prompt_top_k=3": 0.05,
+    "prompt_top_k=2": 0.0708
+  },
+  "答案字符数均值": {
+    "prompt_top_k=3": 242.6,
+    "prompt_top_k=2": 168.2
+  },
+  "逐题配对_生成耗时变化": {
+    "题数": 8,
+    "均值ms": -114.6,
+    "中位ms": -17.16,
+    "变快的题数": 4,
+    "变慢的题数": 3
+  },
+  "逐题配对_总耗时变化": {
+    "题数": 8,
+    "均值ms": -314.6,
+    "中位ms": -264.9,
+    "变快的题数": 5,
+    "变慢的题数": 3
+  },
+  "生成耗时降幅%": 13.4,
+  "总耗时降幅%": 26.7,
+  "关键词覆盖率变化(绝对)": 0.0208
+}
+[落盘] E:\gao6gongdan\工单7\优化\评估结果\prompt_top_k对照.json
+
+########## [5/5] 杂项开关实测（批量嵌入 + 对话级缓存）：--mode probe-misc --limit 3 ##########
+==============================================================================
+ 杂项开关实测：① 批量嵌入批大小扫描 ② 对话级缓存 A/B
+==============================================================================
+
+[①] 批量嵌入扫描（RAG_EMBEDDING__BATCH_SIZE）
+    说明：在线单问只嵌 1 条文本，批大小**不影响**在线首字延迟；
+          该开关只在【建索引/离线批量】时生效，故此处用真实语料块离线量测。
+    样本：32 条真实语料块（截断至 600 字符），维度 bge-m3:latest
+    batch_size=1   总耗时=  2772.85 ms  每条= 86.652 ms  往返=32
+    batch_size=2   总耗时=  3366.08 ms  每条=105.190 ms  往返=16
+    batch_size=4   总耗时=  4525.09 ms  每条=141.409 ms  往返=8
+    batch_size=8   总耗时=  2845.62 ms  每条= 88.926 ms  往返=4
+    batch_size=16  总耗时=  2035.52 ms  每条= 63.610 ms  往返=2
+    batch_size=32  总耗时=  2801.78 ms  每条= 87.556 ms  往返=1
+
+[②] 对话级缓存 A/B（MultiTurnEngine 内置 DialogueCache）
+    协议：同一会话内同一问句问两次 —— 第 1 次（对话缓存未命中）vs 第 2 次（命中）
+    1/3 Q01  miss=  647.64 ms  hit=   0.54 ms  layer=dialogue  省   647.10 ms
+    2/3 Q02  miss= 1533.60 ms  hit=   0.91 ms  layer=dialogue  省  1532.69 ms
+    3/3 Q03  miss= 1224.62 ms  hit=   0.45 ms  layer=dialogue  省  1224.17 ms
+
+[probe-misc] 已写出 E:\gao6gongdan\工单7\优化\评估结果\杂项开关实测.json
+
+########## 两阶段探针结束 ##########
+
+########## [6/6] 三场景主基准 第 2 轮（run2，当前修订）：--mode full --batch 4 --batch-sleep 5 ##########
+# run2 开始时刻 2026-10-07 21:29:21
+==============================================================================
+ 工单：人工智能NLP-RAG-功能测试及评估
+ 响应时间基准（三场景实测）
+==============================================================================
+脚本启动时刻 : 2026-10-07 21:29:21
+解释器       : E:\gao6gongdan\工单1\.venv\Scripts\python.exe
+Python       : 3.11.15
+工作目录     : E:\gao6gongdan\工单7
+SLA 阈值     : 3000 ms（任务书「响应时间 ≤ 3 秒」）
+串行/分批    : 每批 4 题，批间休眠 5 秒
+共享声明     : Ollama(127.0.0.1:11434) 为 CPU 单实例，与其它任务共享，数字含竞争波动
+
+[索引] 就绪：chunk_total=8742 run_id=r20261007-202723 embed=bge-m3:latest
+[问题集] 测试问题集.jsonl 载入 17 题：Q01, Q02, Q03, Q04, Q05, Q06, Q07, Q08, Q09, Q10, Q11, Q12, Q13, Q14, Q15, Q16, Q17
+
+[Ollama] 运行前驻留模型：[{"name": "qwen2.5:3b", "size": 2159374499, "size_vram": 2159374499, "expires_at": "2026-10-07T21:59:07.8942261+08:00"}, {"name": "bge-m3:latest", "size": 664000265, "size_vram": 664000265, "expires_at": "2026-10-07T21:34:07.0637586+08:00"}]
+
+[配置] {"top_k": 5, "vector_k": 20, "bm25_k": 20, "prompt_top_k": 3, "page_context_extra": 6, "cache_size(答案内存缓存)": 512, "embed_batch_size": 16, "gen_model": "qwen2.5:3b", "embed_model": "bge-m3:latest", "backend": "auto"}
+
+------------------------------------------------------------------------------
+[场景 1/5] 冷启动：新进程内**不预热**就发第 1 问（use_cache=False）
+------------------------------------------------------------------------------
+  冷启动首问：total=7467.83 ms (retrieve=90.24 generate=429.92 first=164.32)；引擎构造 0.05 ms；冷问墙钟 7468.95 ms；脚本首行至今 8040.48 ms
+
+------------------------------------------------------------------------------
+[预热] warmup(with_generate=True)：索引 + 分词器 + 实体标注 + 嵌入 + 全文索引 + 生成模型
+------------------------------------------------------------------------------
+  预热完成：19802.14 ms
+  {"index_chunks": 8742, "tokenizer": {"cold_ms": 0.33, "warm_ms": 0.16, "tokens": 9, "backend": "jieba"}, "entity_tagger": {"ok": true, "sample_nouns": ["武汉", "新科", "电子", "股份", "有限公司", "注册资本"], "elapsed_ms": 1.49}, "embedding": {"backend": "ollama", "model": "bge-m3:latest", "dim": 1024, "cold_ms": 28.73, "warm_ms": 25.31, "total_ms": 104.41}, "fulltext_index": {"fulltext_index": {"chunks": 8742, "fields": {"content": 63938, "title": 4769, "keywords": 47452, "summary": 42249}, "ms": 19170.4}, "models": [{"id": "bge-m3", "dim": 1024, "index_built": true}, {"id": "m3e-base", "dim": 768, "index_bu
+[Ollama] 预热后驻留模型：[{"name": "qwen2.5:3b", "size": 2159374499, "size_vram": 2159374499, "expires_at": "2026-10-07T21:59:49.4665853+08:00"}, {"name": "bge-m3:latest", "size": 664000265, "size_vram": 664000265, "expires_at": "2026-10-07T21:34:39.5668775+08:00"}]
+
+------------------------------------------------------------------------------
+[场景 2/5] 预热后逐题：17 题，use_cache=False（真实检索 + 真实生成）
+------------------------------------------------------------------------------
+  [预热后|无缓存] 1/17 Q01  retrieve=   88.79 generate=  309.57 first=  187.40 total=  407.25 ms  ok
+  [预热后|无缓存] 2/17 Q02  retrieve=   81.13 generate=  502.31 first=  222.91 total=  589.18 ms  ok
+  [预热后|无缓存] 3/17 Q03  retrieve=   83.41 generate=  447.80 first=  239.65 total=  539.71 ms  ok
+  [预热后|无缓存] 4/17 Q04  retrieve=  469.78 generate=    0.00 first=  469.78 total=  483.36 ms  ok
+  [预热后|无缓存] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [预热后|无缓存] 5/17 Q05  retrieve=  128.77 generate=  673.87 first=  413.84 total=  807.95 ms  ok
+  [预热后|无缓存] 6/17 Q06  retrieve=  117.60 generate=  887.43 first=  460.30 total= 1012.05 ms  ok
+  [预热后|无缓存] 7/17 Q07  retrieve=  148.98 generate=  922.40 first=  319.33 total= 1080.31 ms  ok
+  [预热后|无缓存] 8/17 Q08  retrieve=  111.22 generate= 1154.87 first=  559.80 total= 1275.74 ms  ok
+  [预热后|无缓存] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [预热后|无缓存] 9/17 Q09  retrieve=  153.83 generate=  498.23 first=  325.55 total=  665.22 ms  ok
+  [预热后|无缓存] 10/17 Q10  retrieve=   97.17 generate= 2312.22 first= 1392.91 total= 2415.86 ms  ok
+  [预热后|无缓存] 11/17 Q11  retrieve=  116.86 generate= 2220.53 first= 1637.04 total= 2347.97 ms  ok
+  [预热后|无缓存] 12/17 Q12  retrieve=  139.73 generate= 2441.11 first= 2090.47 total= 2590.59 ms  ok
+  [预热后|无缓存] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [预热后|无缓存] 13/17 Q13  retrieve=  114.01 generate= 5015.52 first= 2444.79 total= 6247.48 ms  超时
+  [预热后|无缓存] 14/17 Q14  retrieve=  114.86 generate= 2034.77 first= 1259.67 total= 2164.44 ms  ok
+  [预热后|无缓存] 15/17 Q15  retrieve=  143.16 generate= 1972.14 first= 1376.98 total= 2179.31 ms  ok
+  [预热后|无缓存] 16/17 Q16  retrieve=  107.16 generate= 2264.52 first= 1772.71 total= 2386.32 ms  ok
+  [预热后|无缓存] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [预热后|无缓存] 17/17 Q17  retrieve=  144.21 generate=  826.61 first=  332.55 total=  997.31 ms  ok
+
+------------------------------------------------------------------------------
+[场景 3/5] 答案缓存命中：同一问题第 2 次调用，use_cache=True（17 题）
+------------------------------------------------------------------------------
+  [缓存命中] 1/17 Q01  retrieve=    0.00 generate=    0.00 first=    0.00 total=   16.99 ms  ok
+  [缓存命中] 2/17 Q02  retrieve=    0.00 generate=    0.00 first=    0.00 total=   13.12 ms  ok
+  [缓存命中] 3/17 Q03  retrieve=    0.00 generate=    0.00 first=    0.00 total=   17.26 ms  ok
+  [缓存命中] 4/17 Q04  retrieve=    0.00 generate=    0.00 first=    0.00 total=   18.93 ms  ok
+  [缓存命中] 5/17 Q05  retrieve=    0.00 generate=    0.00 first=    0.00 total=   11.75 ms  ok
+  [缓存命中] 6/17 Q06  retrieve=    0.00 generate=    0.00 first=    0.00 total=   10.59 ms  ok
+  [缓存命中] 7/17 Q07  retrieve=    0.00 generate=    0.00 first=    0.00 total=    8.16 ms  ok
+  [缓存命中] 8/17 Q08  retrieve=    0.00 generate=    0.00 first=    0.00 total=    7.24 ms  ok
+  [缓存命中] 9/17 Q09  retrieve=    0.00 generate=    0.00 first=    0.00 total=    7.89 ms  ok
+  [缓存命中] 10/17 Q10  retrieve=    0.00 generate=    0.00 first=    0.00 total=    8.17 ms  ok
+  [缓存命中] 11/17 Q11  retrieve=    0.00 generate=    0.00 first=    0.00 total=    5.29 ms  ok
+  [缓存命中] 12/17 Q12  retrieve=    0.00 generate=    0.00 first=    0.00 total=    5.18 ms  ok
+  [缓存命中] 13/17 Q13  retrieve=    0.00 generate=    0.00 first=    0.00 total=    9.31 ms  ok
+  [缓存命中] 14/17 Q14  retrieve=    0.00 generate=    0.00 first=    0.00 total=    6.07 ms  ok
+  [缓存命中] 15/17 Q15  retrieve=    0.00 generate=    0.00 first=    0.00 total=    8.55 ms  ok
+  [缓存命中] 16/17 Q16  retrieve=    0.00 generate=    0.00 first=    0.00 total=    6.32 ms  ok
+  [缓存命中] 17/17 Q17  retrieve=    0.00 generate=    0.00 first=    0.00 total=    6.69 ms  ok
+  命中答案缓存的题数：17/17
+
+------------------------------------------------------------------------------
+[场景 4/5] 检索结果缓存命中：新建引擎实例（答案缓存为空）+ 清空生成缓存，use_cache=True（17 题）
+------------------------------------------------------------------------------
+  已清空生成级缓存：{'removed': 16}
+  [检索缓存命中] 1/17 Q01  retrieve=    0.77 generate=  965.01 first=  720.02 total= 1007.75 ms  ok
+  [检索缓存命中] 2/17 Q02  retrieve=    1.04 generate=  469.35 first=  136.45 total=  478.25 ms  ok
+  [检索缓存命中] 3/17 Q03  retrieve=    0.99 generate= 1127.40 first=  829.75 total= 1141.99 ms  ok
+  [检索缓存命中] 4/17 Q04  retrieve=    1.40 generate=    0.00 first=    1.40 total=  148.31 ms  ok
+  [检索缓存命中] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [检索缓存命中] 5/17 Q05  retrieve=    1.39 generate=  646.43 first=  341.43 total=  657.38 ms  ok
+  [检索缓存命中] 6/17 Q06  retrieve=    1.09 generate=  645.36 first=  101.24 total=  662.89 ms  ok
+  [检索缓存命中] 7/17 Q07  retrieve=    0.47 generate=  862.21 first=  110.01 total=  871.71 ms  ok
+  [检索缓存命中] 8/17 Q08  retrieve=    0.75 generate=  865.38 first=  160.68 total=  875.93 ms  ok
+  [检索缓存命中] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [检索缓存命中] 9/17 Q09  retrieve=    0.42 generate=  692.88 first=  224.59 total=  699.18 ms  ok
+  [检索缓存命中] 10/17 Q10  retrieve=    0.41 generate= 2212.30 first=  140.56 total= 2218.41 ms  ok
+  [检索缓存命中] 11/17 Q11  retrieve=    0.69 generate=  847.01 first=  172.33 total=  858.09 ms  ok
+  [检索缓存命中] 12/17 Q12  retrieve=    0.52 generate=  638.83 first=  146.48 total=  646.94 ms  ok
+  [检索缓存命中] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [检索缓存命中] 13/17 Q13  retrieve=    0.55 generate= 1956.46 first=  175.81 total= 1972.65 ms  ok
+  [检索缓存命中] 14/17 Q14  retrieve=    0.65 generate= 1035.07 first=   97.86 total= 1044.58 ms  ok
+  [检索缓存命中] 15/17 Q15  retrieve=    0.68 generate=  854.48 first=  145.23 total=  864.46 ms  ok
+  [检索缓存命中] 16/17 Q16  retrieve=    0.63 generate=  731.73 first=  136.78 total=  739.80 ms  ok
+  [检索缓存命中] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [检索缓存命中] 17/17 Q17  retrieve=    0.56 generate= 1057.10 first=  221.12 total= 1064.77 ms  ok
+
+------------------------------------------------------------------------------
+[场景 5/6] 答案级 SQLite 缓存（跨引擎实例 ≈ 服务重启后命中落盘缓存）：4 题
+------------------------------------------------------------------------------
+  SQLite 缓存库：E:\gao6gongdan\工单7\优化\评估结果\响应时间基准_答案缓存.sqlite3（本次运行专用，不触碰 研发/ 的运行时库）
+  [SQLite填充] 1/4 Q01  retrieve=    0.82 generate=    1.08 first=    0.82 total=   41.96 ms  ok
+  [SQLite填充] 2/4 Q02  retrieve=    0.71 generate=    4.09 first=    0.71 total=   13.99 ms  ok
+  [SQLite填充] 3/4 Q03  retrieve=    0.91 generate=    2.51 first=    0.91 total=   15.13 ms  ok
+  [SQLite填充] 4/4 Q04  retrieve=    0.66 generate=    0.00 first=    0.66 total=   24.17 ms  ok
+  [SQLite命中] 1/4 Q01  retrieve=    0.00 generate=    0.00 first=    0.00 total=   12.86 ms  ok
+  [SQLite命中] 2/4 Q02  retrieve=    0.00 generate=    0.00 first=    0.00 total=    9.63 ms  ok
+  [SQLite命中] 3/4 Q03  retrieve=    0.00 generate=    0.00 first=    0.00 total=   11.81 ms  ok
+  [SQLite命中] 4/4 Q04  retrieve=    0.00 generate=    0.00 first=    0.00 total=   11.18 ms  ok
+  命中 SQLite 答案缓存的题数：4/4（layer 应为 sqlite）
+
+------------------------------------------------------------------------------
+[场景 6/6] prompt_top_k 对照：同一子集（6 题）先 3 后 2，量化「注入提示词的证据块数」对生成耗时的影响
+------------------------------------------------------------------------------
+  [prompt_top_k=3] 1/6 Q01  retrieve=  102.62 generate=  330.23 first=  251.78 total=  440.05 ms  ok
+  [prompt_top_k=3] 2/6 Q02  retrieve=   78.61 generate=  446.71 first=  213.15 total=  531.43 ms  ok
+  [prompt_top_k=3] 3/6 Q03  retrieve=   92.12 generate=  472.35 first=  253.52 total=  572.46 ms  ok
+  [prompt_top_k=3] 4/6 Q04  retrieve=  102.56 generate=    0.00 first=  102.56 total=  120.47 ms  ok
+  [prompt_top_k=3] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [prompt_top_k=3] 5/6 Q05  retrieve=  160.94 generate=  665.00 first=  390.65 total=  831.47 ms  ok
+  [prompt_top_k=3] 6/6 Q06  retrieve=   71.82 generate=  627.16 first=  165.27 total=  705.27 ms  ok
+  已构造 prompt_top_k=2 的配置（retrieval.prompt_top_k=2）
+  该实例预热（不重复预热生成模型）用时 111.04 ms
+  [prompt_top_k=2] 1/6 Q01  retrieve=   79.52 generate=  530.36 first=  372.39 total=  638.04 ms  ok
+  [prompt_top_k=2] 2/6 Q02  retrieve=   69.58 generate=  405.13 first=  188.98 total=  480.18 ms  ok
+  [prompt_top_k=2] 3/6 Q03  retrieve=   86.79 generate=  699.34 first=  280.45 total=  794.33 ms  ok
+  [prompt_top_k=2] 4/6 Q04  retrieve=   88.75 generate=    0.00 first=   88.75 total=  100.05 ms  ok
+  [prompt_top_k=2] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [prompt_top_k=2] 5/6 Q05  retrieve=  113.75 generate=  720.42 first=  490.11 total=  839.30 ms  ok
+  [prompt_top_k=2] 6/6 Q06  retrieve=  107.88 generate=  649.02 first=  217.38 total=  762.43 ms  ok
+
+==============================================================================
+ 分场景响应时间汇总（ms）
+==============================================================================
+场景                    样本    均值         中位         P90        最大         达标率      均值首字       
+------------------------------------------------------------------------------
+cold_start            1     7467.83    7467.83    7467.83    7467.83    0.0      164.32     
+warm_no_cache         17    1658.24    1080.31    2485.75    6247.48    0.9412   912.1      
+answer_cache_hit      17    9.85       8.17       17.1       18.93      1.0      0.0        
+retrieval_cache_hit   17    938.42     864.46     1474.25    2218.41    1.0      227.16     
+sqlite_fill           4     23.81      19.65      36.62      41.96      1.0      0.78       
+sqlite_cache_hit      4     11.37      11.5       12.54      12.86      1.0      0.0        
+probe_promptk_3       6     533.52     551.94     768.37     831.47     1.0      229.49     
+probe_promptk_2       6     602.39     700.23     816.82     839.3      1.0      273.01     
+
+[落盘] E:\gao6gongdan\工单7\优化\评估结果\响应时间基准.json
+[落盘] E:\gao6gongdan\工单7\优化\评估结果\响应时间基准.md
+[落盘] 脚本总墙钟 129.71 s
+
+########## run2 结束 2026-10-07 21:31:33 ##########
+
+########## [7] 三场景主基准 第 3 轮（run3）：--mode full --out 优化\评估结果\响应时间基准_run3.json ##########
+# run3 开始时刻 2026-10-07 21:31:42
+==============================================================================
+ 工单：人工智能NLP-RAG-功能测试及评估
+ 响应时间基准（三场景实测）
+==============================================================================
+脚本启动时刻 : 2026-10-07 21:31:42
+解释器       : E:\gao6gongdan\工单1\.venv\Scripts\python.exe
+Python       : 3.11.15
+工作目录     : E:\gao6gongdan\工单7
+SLA 阈值     : 3000 ms（任务书「响应时间 ≤ 3 秒」）
+串行/分批    : 每批 4 题，批间休眠 5 秒
+共享声明     : Ollama(127.0.0.1:11434) 为 CPU 单实例，与其它任务共享，数字含竞争波动
+
+[索引] 就绪：chunk_total=8742 run_id=r20261007-202723 embed=bge-m3:latest
+[问题集] 测试问题集.jsonl 载入 17 题：Q01, Q02, Q03, Q04, Q05, Q06, Q07, Q08, Q09, Q10, Q11, Q12, Q13, Q14, Q15, Q16, Q17
+
+[Ollama] 运行前驻留模型：[{"name": "qwen2.5:3b", "size": 2159374499, "size_vram": 2159374499, "expires_at": "2026-10-07T22:01:31.3248208+08:00"}, {"name": "bge-m3:latest", "size": 664000265, "size_vram": 664000265, "expires_at": "2026-10-07T21:36:30.6556464+08:00"}]
+
+[配置] {"top_k": 5, "vector_k": 20, "bm25_k": 20, "prompt_top_k": 3, "page_context_extra": 6, "cache_size(答案内存缓存)": 512, "embed_batch_size": 16, "gen_model": "qwen2.5:3b", "embed_model": "bge-m3:latest", "backend": "auto"}
+
+------------------------------------------------------------------------------
+[场景 1/5] 冷启动：新进程内**不预热**就发第 1 问（use_cache=False）
+------------------------------------------------------------------------------
+  冷启动首问：total=7339.18 ms (retrieve=163.65 generate=612.9 first=503.01)；引擎构造 0.03 ms；冷问墙钟 7340.43 ms；脚本首行至今 7896.94 ms
+
+------------------------------------------------------------------------------
+[预热] warmup(with_generate=True)：索引 + 分词器 + 实体标注 + 嵌入 + 全文索引 + 生成模型
+------------------------------------------------------------------------------
+  预热完成：19930.1 ms
+  {"index_chunks": 8742, "tokenizer": {"cold_ms": 0.5, "warm_ms": 0.3, "tokens": 9, "backend": "jieba"}, "entity_tagger": {"ok": true, "sample_nouns": ["武汉", "新科", "电子", "股份", "有限公司", "注册资本"], "elapsed_ms": 1.48}, "embedding": {"backend": "ollama", "model": "bge-m3:latest", "dim": 1024, "cold_ms": 25.11, "warm_ms": 23.04, "total_ms": 101.66}, "fulltext_index": {"fulltext_index": {"chunks": 8742, "fields": {"content": 63938, "title": 4769, "keywords": 47452, "summary": 42249}, "ms": 19325.7}, "models": [{"id": "bge-m3", "dim": 1024, "index_built": true}, {"id": "m3e-base", "dim": 768, "index_buil
+[Ollama] 预热后驻留模型：[{"name": "qwen2.5:3b", "size": 2159374499, "size_vram": 2159374499, "expires_at": "2026-10-07T22:02:10.3622399+08:00"}, {"name": "bge-m3:latest", "size": 664000265, "size_vram": 664000265, "expires_at": "2026-10-07T21:36:59.4740025+08:00"}]
+
+------------------------------------------------------------------------------
+[场景 2/5] 预热后逐题：17 题，use_cache=False（真实检索 + 真实生成）
+------------------------------------------------------------------------------
+  [预热后|无缓存] 1/17 Q01  retrieve=  110.49 generate=  375.79 first=  213.30 total=  495.37 ms  ok
+  [预热后|无缓存] 2/17 Q02  retrieve=   91.09 generate=  943.68 first=  597.04 total= 1044.26 ms  ok
+  [预热后|无缓存] 3/17 Q03  retrieve=   90.84 generate=  494.73 first=  287.67 total=  592.81 ms  ok
+  [预热后|无缓存] 4/17 Q04  retrieve=  403.85 generate=    0.00 first=  403.85 total=  417.23 ms  ok
+  [预热后|无缓存] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [预热后|无缓存] 5/17 Q05  retrieve=  138.70 generate=  964.67 first=  883.94 total= 1109.80 ms  ok
+  [预热后|无缓存] 6/17 Q06  retrieve=  114.31 generate=  594.83 first=  235.83 total=  719.56 ms  ok
+  [预热后|无缓存] 7/17 Q07  retrieve=   91.59 generate= 1068.85 first=  411.72 total= 1167.40 ms  ok
+  [预热后|无缓存] 8/17 Q08  retrieve=   93.06 generate= 1549.50 first=  956.53 total= 1652.97 ms  ok
+  [预热后|无缓存] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [预热后|无缓存] 9/17 Q09  retrieve=  118.42 generate= 1060.85 first=  618.25 total= 1187.43 ms  ok
+  [预热后|无缓存] 10/17 Q10  retrieve=   85.81 generate= 4856.29 first= 1978.54 total= 4950.13 ms  超时
+  [预热后|无缓存] 11/17 Q11  retrieve=   97.35 generate= 1563.71 first=  958.99 total= 1670.05 ms  ok
+  [预热后|无缓存] 12/17 Q12  retrieve=  113.21 generate= 1387.10 first= 1024.45 total= 1511.54 ms  ok
+  [预热后|无缓存] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [预热后|无缓存] 13/17 Q13  retrieve=   86.75 generate= 3321.29 first= 1530.42 total= 3956.26 ms  超时
+  [预热后|无缓存] 14/17 Q14  retrieve=  173.39 generate= 1501.52 first=  706.46 total= 1688.99 ms  ok
+  [预热后|无缓存] 15/17 Q15  retrieve=  122.87 generate=  944.57 first=  316.12 total= 1079.57 ms  ok
+  [预热后|无缓存] 16/17 Q16  retrieve=  133.28 generate=  800.56 first=  322.10 total=  944.30 ms  ok
+  [预热后|无缓存] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [预热后|无缓存] 17/17 Q17  retrieve=  171.91 generate= 1344.24 first=  517.80 total= 1524.53 ms  ok
+
+------------------------------------------------------------------------------
+[场景 3/5] 答案缓存命中：同一问题第 2 次调用，use_cache=True（17 题）
+------------------------------------------------------------------------------
+  [缓存命中] 1/17 Q01  retrieve=    0.00 generate=    0.00 first=    0.00 total=    9.41 ms  ok
+  [缓存命中] 2/17 Q02  retrieve=    0.00 generate=    0.00 first=    0.00 total=    8.27 ms  ok
+  [缓存命中] 3/17 Q03  retrieve=    0.00 generate=    0.00 first=    0.00 total=    8.40 ms  ok
+  [缓存命中] 4/17 Q04  retrieve=    0.00 generate=    0.00 first=    0.00 total=   11.36 ms  ok
+  [缓存命中] 5/17 Q05  retrieve=    0.00 generate=    0.00 first=    0.00 total=    5.73 ms  ok
+  [缓存命中] 6/17 Q06  retrieve=    0.00 generate=    0.00 first=    0.00 total=    8.02 ms  ok
+  [缓存命中] 7/17 Q07  retrieve=    0.00 generate=    0.00 first=    0.00 total=    9.61 ms  ok
+  [缓存命中] 8/17 Q08  retrieve=    0.00 generate=    0.00 first=    0.00 total=   10.63 ms  ok
+  [缓存命中] 9/17 Q09  retrieve=    0.00 generate=    0.00 first=    0.00 total=   10.40 ms  ok
+  [缓存命中] 10/17 Q10  retrieve=    0.00 generate=    0.00 first=    0.00 total=    8.89 ms  ok
+  [缓存命中] 11/17 Q11  retrieve=    0.00 generate=    0.00 first=    0.00 total=    9.50 ms  ok
+  [缓存命中] 12/17 Q12  retrieve=    0.00 generate=    0.00 first=    0.00 total=    8.14 ms  ok
+  [缓存命中] 13/17 Q13  retrieve=    0.00 generate=    0.00 first=    0.00 total=   13.66 ms  ok
+  [缓存命中] 14/17 Q14  retrieve=    0.00 generate=    0.00 first=    0.00 total=    9.82 ms  ok
+  [缓存命中] 15/17 Q15  retrieve=    0.00 generate=    0.00 first=    0.00 total=    8.59 ms  ok
+  [缓存命中] 16/17 Q16  retrieve=    0.00 generate=    0.00 first=    0.00 total=    8.92 ms  ok
+  [缓存命中] 17/17 Q17  retrieve=    0.00 generate=    0.00 first=    0.00 total=   11.62 ms  ok
+  命中答案缓存的题数：17/17
+
+------------------------------------------------------------------------------
+[场景 4/5] 检索结果缓存命中：新建引擎实例（答案缓存为空）+ 清空生成缓存，use_cache=True（17 题）
+------------------------------------------------------------------------------
+  已清空生成级缓存：{'removed': 16}
+  [检索缓存命中] 1/17 Q01  retrieve=    0.77 generate=  556.16 first=  284.91 total=  634.01 ms  ok
+  [检索缓存命中] 2/17 Q02  retrieve=    0.74 generate=  618.12 first=  235.54 total=  628.41 ms  ok
+  [检索缓存命中] 3/17 Q03  retrieve=    0.72 generate=  499.39 first=  211.13 total=  510.49 ms  ok
+  [检索缓存命中] 4/17 Q04  retrieve=    0.74 generate=    0.00 first=    0.74 total=   44.44 ms  ok
+  [检索缓存命中] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [检索缓存命中] 5/17 Q05  retrieve=    0.64 generate=  675.44 first=  283.34 total=  688.99 ms  ok
+  [检索缓存命中] 6/17 Q06  retrieve=    2.20 generate=  679.58 first=  131.02 total=  693.23 ms  ok
+  [检索缓存命中] 7/17 Q07  retrieve=    0.63 generate=  910.58 first=  153.00 total=  921.41 ms  ok
+  [检索缓存命中] 8/17 Q08  retrieve=    0.56 generate=  871.37 first=  183.10 total=  879.53 ms  ok
+  [检索缓存命中] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [检索缓存命中] 9/17 Q09  retrieve=    0.53 generate=  819.90 first=  281.23 total=  827.48 ms  ok
+  [检索缓存命中] 10/17 Q10  retrieve=    0.95 generate= 1222.52 first=  186.77 total= 1233.13 ms  ok
+  [检索缓存命中] 11/17 Q11  retrieve=    1.55 generate=  940.81 first=  206.44 total=  955.72 ms  ok
+  [检索缓存命中] 12/17 Q12  retrieve=    1.32 generate=  724.81 first=  243.60 total=  739.50 ms  ok
+  [检索缓存命中] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [检索缓存命中] 13/17 Q13  retrieve=    0.43 generate= 2111.79 first=  459.30 total= 2126.12 ms  ok
+  [检索缓存命中] 14/17 Q14  retrieve=    0.45 generate=  966.10 first=   83.45 total=  974.09 ms  ok
+  [检索缓存命中] 15/17 Q15  retrieve=    0.51 generate=  828.08 first=  119.44 total=  838.39 ms  ok
+  [检索缓存命中] 16/17 Q16  retrieve=    0.42 generate=  722.49 first=  127.16 total=  728.85 ms  ok
+  [检索缓存命中] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [检索缓存命中] 17/17 Q17  retrieve=    0.34 generate= 1056.54 first=  320.89 total= 1062.44 ms  ok
+
+------------------------------------------------------------------------------
+[场景 5/6] 答案级 SQLite 缓存（跨引擎实例 ≈ 服务重启后命中落盘缓存）：4 题
+------------------------------------------------------------------------------
+  SQLite 缓存库：E:\gao6gongdan\工单7\优化\评估结果\响应时间基准_答案缓存.sqlite3（本次运行专用，不触碰 研发/ 的运行时库）
+  [SQLite填充] 1/4 Q01  retrieve=    0.81 generate=    1.45 first=    0.81 total=   43.54 ms  ok
+  [SQLite填充] 2/4 Q02  retrieve=    0.43 generate=    2.49 first=    0.43 total=   10.39 ms  ok
+  [SQLite填充] 3/4 Q03  retrieve=    0.70 generate=    2.66 first=    0.70 total=   11.07 ms  ok
+  [SQLite填充] 4/4 Q04  retrieve=    0.43 generate=    0.00 first=    0.43 total=   19.39 ms  ok
+  [SQLite命中] 1/4 Q01  retrieve=    0.00 generate=    0.00 first=    0.00 total=   11.83 ms  ok
+  [SQLite命中] 2/4 Q02  retrieve=    0.00 generate=    0.00 first=    0.00 total=    8.93 ms  ok
+  [SQLite命中] 3/4 Q03  retrieve=    0.00 generate=    0.00 first=    0.00 total=    9.99 ms  ok
+  [SQLite命中] 4/4 Q04  retrieve=    0.00 generate=    0.00 first=    0.00 total=    8.82 ms  ok
+  命中 SQLite 答案缓存的题数：4/4（layer 应为 sqlite）
+
+------------------------------------------------------------------------------
+[场景 6/6] prompt_top_k 对照：同一子集（6 题）先 3 后 2，量化「注入提示词的证据块数」对生成耗时的影响
+------------------------------------------------------------------------------
+  [prompt_top_k=3] 1/6 Q01  retrieve=   99.15 generate=  377.55 first=  237.60 total=  484.09 ms  ok
+  [prompt_top_k=3] 2/6 Q02  retrieve=  109.75 generate=  454.38 first=  250.16 total=  570.93 ms  ok
+  [prompt_top_k=3] 3/6 Q03  retrieve=   92.20 generate=  454.47 first=  255.79 total=  560.65 ms  ok
+  [prompt_top_k=3] 4/6 Q04  retrieve=  114.97 generate=    0.00 first=  114.97 total=  130.95 ms  ok
+  [prompt_top_k=3] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [prompt_top_k=3] 5/6 Q05  retrieve=  130.21 generate=  542.05 first=  366.11 total=  680.47 ms  ok
+  [prompt_top_k=3] 6/6 Q06  retrieve=   85.25 generate=  628.50 first=  176.27 total=  721.03 ms  ok
+  已构造 prompt_top_k=2 的配置（retrieval.prompt_top_k=2）
+  该实例预热（不重复预热生成模型）用时 103.93 ms
+  [prompt_top_k=2] 1/6 Q01  retrieve=   81.88 generate=  369.51 first=  225.22 total=  485.96 ms  ok
+  [prompt_top_k=2] 2/6 Q02  retrieve=   74.99 generate=  432.39 first=  213.56 total=  514.06 ms  ok
+  [prompt_top_k=2] 3/6 Q03  retrieve=   80.10 generate=  626.22 first=  278.74 total=  717.21 ms  ok
+  [prompt_top_k=2] 4/6 Q04  retrieve=   92.57 generate=    0.00 first=   92.57 total=  108.78 ms  ok
+  [prompt_top_k=2] —— 批间休眠 5s（与其它任务共享 CPU，避免长时间独占）——
+  [prompt_top_k=2] 5/6 Q05  retrieve=  162.99 generate=  802.22 first=  623.29 total=  970.76 ms  ok
+  [prompt_top_k=2] 6/6 Q06  retrieve=   88.48 generate=  460.57 first=  187.36 total=  556.84 ms  ok
+
+==============================================================================
+ 分场景响应时间汇总（ms）
+==============================================================================
+场景                    样本    均值         中位         P90        最大         达标率      均值首字       
+------------------------------------------------------------------------------
+cold_start            1     7339.18    7339.18    7339.18    7339.18    0.0      503.01     
+warm_no_cache         17    1512.48    1167.4     2595.9     4950.13    0.8824   703.71     
+answer_cache_hit      17    9.47       9.41       11.46      13.66      1.0      0.0        
+retrieval_cache_hit   17    852.13     827.48     1130.72    2126.12    1.0      206.53     
+sqlite_fill           4     21.1       15.23      36.3       43.54      1.0      0.59       
+sqlite_cache_hit      4     9.89       9.46       11.28      11.83      1.0      0.0        
+probe_promptk_3       6     524.69     565.79     700.75     721.03     1.0      233.48     
+probe_promptk_2       6     558.94     535.45     843.99     970.76     1.0      270.12     
+
+[落盘] E:\gao6gongdan\工单7\优化\评估结果\响应时间基准_run3.json
+[落盘] E:\gao6gongdan\工单7\优化\评估结果\响应时间基准_run3.md
+[落盘] 脚本总墙钟 125.47 s
+
+########## run3 结束 2026-10-07 21:33:49 ##########

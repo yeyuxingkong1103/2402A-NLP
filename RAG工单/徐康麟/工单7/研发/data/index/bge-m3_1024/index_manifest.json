@@ -1,0 +1,480 @@
+{
+  "run_id": "r20261008-124624",
+  "built_at": "2026-10-08T12:55:51+08:00",
+  "created_at": "2026-10-08T12:55:51+08:00",
+  "work_order": "人工智能NLP-RAG-功能测试及评估",
+  "embed_model": "bge-m3:latest",
+  "embed_dim": 1024,
+  "vector_backend": "faiss:IndexFlatIP",
+  "chunk_total": 8847,
+  "chunk_by_modality": {
+    "text": 7325,
+    "table": 1417,
+    "image": 105
+  },
+  "chunk_by_corpus": {
+    "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf": 727,
+    "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf": 855,
+    "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf": 1342,
+    "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf": 907,
+    "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf": 1251,
+    "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf": 623,
+    "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf": 816,
+    "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf": 1210,
+    "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf": 1116
+  },
+  "page_basis": "1-based-physical",
+  "source_hashes": {
+    "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf": "6C4585390B721246",
+    "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf": "304D8CFC4DD36008",
+    "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf": "0593E63DECE4248A",
+    "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf": "DBB8737356339436",
+    "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf": "69B60791628CA510",
+    "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf": "CD10E9A60065ADF8",
+    "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf": "27897D840144C77D",
+    "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf": "DB082915C6E01C47",
+    "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf": "270DD50B29558949"
+  },
+  "corpus_keys": {
+    "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf": "20200214",
+    "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf": "20200221",
+    "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf": "20200321",
+    "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf": "20200326",
+    "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf": "20210319",
+    "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf": "20210326",
+    "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf": "20220328-13ed9d5b",
+    "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf": "20220328-4a2b168a",
+    "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf": "20220331"
+  },
+  "clip": {
+    "enabled": true,
+    "manifest": "研发/data/index/images_clip_manifest.json",
+    "model": null,
+    "dim": 512,
+    "images": null,
+    "device": "cpu",
+    "failures": null
+  },
+  "known_limitations": [
+    {
+      "id": "image_chunk_id_vs_source_id",
+      "statement": "本索引的 `chunk_id`（如 `pdf2-p72-img-1692-0`）与 T2（图像工程师）产物里的图像块 id （如 `img:招股说明书2.pdf:p72:chart:x1692`）**不是一一对应关系**，禁止互相推导或直接字符串替换。",
+      "reason": "本索引按「同页 + 同 modality_sub」把同一张组合图的多个子图**合并成一个 chunk**（页 72 的 xref1692 条形图 + xref1693 3D 饼图即合并为 `pdf2-p72-img-1692-0`），且 `chunk_id` 里的 xref 片段只取「合并组内第一条记录」的 xref。",
+      "how_to_trace_back": "精确回溯请用 chunk 的 `source_chunk_id`（T2 原始 id）与 `sub_blocks`（每个子图带 xref/bbox/image_sha1）；`sub_bboxes` 给出合并后的各子图 bbox。",
+      "extra_semantics": {
+        "page": "一律 1-based 物理页码，且 chunk 带 `page_basis=\"1-based-physical\"`",
+        "diagram": "框图无位图，故 `xref=null`；回溯依据是 `structured.bbox_by_node` 与 `structured.recovered_text`（**不是** sub_blocks 的 xref）",
+        "chart/picture": "带位图 xref，可用 `xref` + `bbox` + 页码渲染回原区域"
+      },
+      "impact": "低：只影响「回溯」路径，不影响检索与引用页码（引用页码取 `page`，口径唯一）。"
+    },
+    {
+      "id": "faiss_write_index_non_ascii_path",
+      "statement": "本机 faiss **1.7.4** 的 `faiss.write_index` 在**非 ASCII 路径**（本仓库路径含中文「工单4」）上必失败：`FileIOWriter ... could not open ...: No such file or directory`（C++ 侧窄字符 fopen）。",
+      "mitigation": "已改用 `faiss.serialize_index` 取字节 + Python（支持 Unicode 路径）写 `faiss.index`；读取端优先 `faiss.read_index`，失败则回退 `faiss.deserialize_index`（同一序列化格式）。",
+      "evidence": "ids.json 的 `faiss_note` 字段 + 日志事件 `vector.faiss_write_fallback` / `vector.faiss_written(method=faiss.serialize_index)` / `vector.faiss_loaded`",
+      "impact": "无功能影响：索引由 FAISS IndexFlatIP 承载，numpy 精确检索为等价兜底（结果一致）。"
+    },
+    {
+      "id": "picture_is_weak_evidence",
+      "statement": "图像块里 `modality_sub=picture` 的文本只有 CLIP 零样本标签（页眉 banner、签章页大图等），属**弱证据**，其 `evidence_weight = 0.4`（diagram/chart 与文本/表格均为 1.0）。",
+      "how_to_use": "检索层应据此降权，或按 `type`/`modality_sub` 硬过滤 / 走单独通道；**不得**与 diagram/chart 等权，否则会挤掉正文证据。",
+      "impact": "只提供建议权重；是否使用由检索层（T5）决定。"
+    },
+    {
+      "id": "q16_counts_are_page_level_selfcheck",
+      "statement": "manifest 的 `q16_retrieval_recall` 与 `q05_q6_image_recall` 是**上游自检**，其「证据页命中」为**页级口径**（= T3 三层口径里的 `hit_page_level` 诊断层B）。",
+      "how_to_use": "T6 报告的命中率主指标必须用权威层 `hit_complete`（完整证据）；本自检计数只用于检索层调参，**不得当作准确率**。详见 `keyword_rules`。",
+      "impact": "口径不同会给出不同数字（如 id5：页级 True、权威层需另算），两者不可混用。"
+    },
+    {
+      "id": "image_coverage_from_t2",
+      "statement": "索引只收录 T2（图像工程师）实际产出的图像块；本轮两份 PDF 均有覆盖，但 T2 的 CLIP 编码有 `--clip-limit`（默认每份 PDF 300 张）上限，**超限的位图不会被编码**，因而不进本索引。",
+      "how_to_use": "需要全量图像语义时，属 T2 的 `extract_images.py --all` 范畴，代价须由其实测给出；本索引不代为声明「全部内嵌图已解析」。",
+      "evidence": "manifest.images.records / by_corpus / corpora_without_image_blocks + 研发/data/index/images_clip_manifest.json",
+      "impact": "对 16 题无影响（两道图像题证据页 39/72 均在覆盖范围内）。"
+    },
+    {
+      "id": "reproducibility_scope_metadata_files_not_byte_stable",
+      "statement": "**数据文件**（`vectors.npy` / `chunks_indexed.jsonl`）与 **`ids` 列表内容**跨运行字节/内容稳定（已实测幂等）；但 **`ids.json` / `index_manifest.json` 的文件字节不稳定**，差异**仅来自时间戳字段**（`ids.updated_at`；`manifest.built_at` / `created_at` / `vector.updated_at` —— 共 3 个 ISO 时间戳，captain 2026-10 逐一探测确认无其它易变字段）。",
+      "stable_across_runs": [
+        "vectors.npy（字节）",
+        "chunks_indexed.jsonl（字节）",
+        "bm25.pkl 内的 ids 列表内容",
+        "ids.json 的 ids 列表内容（语义指纹）"
+      ],
+      "not_byte_stable_and_why": {
+        "研发/data/index/bge-m3_1024/ids.json": "字段 updated_at",
+        "研发/data/index/index_manifest.json": "字段 built_at / created_at / vector.updated_at",
+        "研发/data/index/bge-m3_1024/index_manifest.json": "同上（两份 manifest 内容相同）"
+      },
+      "how_to_check_change": "判定「索引是否变化」请比对**数据文件**（`vectors.npy` / `chunks_indexed.jsonl`）或**内容指纹**（`ids` 列表）；**不要**比对元数据文件字节 —— 否则会得出「每次都变」的错误结论（正是工单4 修掉的那类问题）。",
+      "impact": "无功能影响；只影响「用文件 hash 判断索引是否变化」的做法。"
+    }
+  ],
+  "files": [
+    {
+      "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf",
+      "sha256_16": "6C4585390B721246",
+      "page_count": 265,
+      "text_chunks": 628,
+      "table_chunks": 96,
+      "image_chunks": 3,
+      "tables": 98,
+      "raw_tables": 105,
+      "continued_tables": 1,
+      "repeated_headers_removed": 6,
+      "degenerate_tables": 3,
+      "text_blocks": 6420,
+      "max_table_run": 16,
+      "table_pages": 65
+    },
+    {
+      "file_name": "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf",
+      "sha256_16": "304D8CFC4DD36008",
+      "page_count": 342,
+      "text_chunks": 822,
+      "table_chunks": 6,
+      "image_chunks": 27,
+      "tables": 22,
+      "raw_tables": 22,
+      "continued_tables": 0,
+      "repeated_headers_removed": 0,
+      "degenerate_tables": 16,
+      "text_blocks": 12292,
+      "max_table_run": 1,
+      "table_pages": 7
+    },
+    {
+      "file_name": "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf",
+      "sha256_16": "0593E63DECE4248A",
+      "page_count": 351,
+      "text_chunks": 1041,
+      "table_chunks": 299,
+      "image_chunks": 2,
+      "tables": 288,
+      "raw_tables": 368,
+      "continued_tables": 30,
+      "repeated_headers_removed": 50,
+      "degenerate_tables": 8,
+      "text_blocks": 6709,
+      "max_table_run": 79,
+      "table_pages": 200
+    },
+    {
+      "file_name": "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf",
+      "sha256_16": "DBB8737356339436",
+      "page_count": 421,
+      "text_chunks": 793,
+      "table_chunks": 110,
+      "image_chunks": 4,
+      "tables": 115,
+      "raw_tables": 124,
+      "continued_tables": 1,
+      "repeated_headers_removed": 8,
+      "degenerate_tables": 5,
+      "text_blocks": 7603,
+      "max_table_run": 21,
+      "table_pages": 102
+    },
+    {
+      "file_name": "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf",
+      "sha256_16": "69B60791628CA510",
+      "page_count": 370,
+      "text_chunks": 1129,
+      "table_chunks": 119,
+      "image_chunks": 3,
+      "tables": 131,
+      "raw_tables": 143,
+      "continued_tables": 3,
+      "repeated_headers_removed": 9,
+      "degenerate_tables": 13,
+      "text_blocks": 6365,
+      "max_table_run": 12,
+      "table_pages": 97
+    },
+    {
+      "file_name": "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf",
+      "sha256_16": "CD10E9A60065ADF8",
+      "page_count": 235,
+      "text_chunks": 550,
+      "table_chunks": 52,
+      "image_chunks": 21,
+      "tables": 83,
+      "raw_tables": 85,
+      "continued_tables": 0,
+      "repeated_headers_removed": 2,
+      "degenerate_tables": 31,
+      "text_blocks": 8599,
+      "max_table_run": 6,
+      "table_pages": 60
+    },
+    {
+      "file_name": "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf",
+      "sha256_16": "27897D840144C77D",
+      "page_count": 264,
+      "text_chunks": 615,
+      "table_chunks": 164,
+      "image_chunks": 37,
+      "tables": 194,
+      "raw_tables": 222,
+      "continued_tables": 0,
+      "repeated_headers_removed": 28,
+      "degenerate_tables": 31,
+      "text_blocks": 11223,
+      "max_table_run": 12,
+      "table_pages": 121
+    },
+    {
+      "file_name": "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf",
+      "sha256_16": "DB082915C6E01C47",
+      "page_count": 278,
+      "text_chunks": 919,
+      "table_chunks": 287,
+      "image_chunks": 4,
+      "tables": 283,
+      "raw_tables": 346,
+      "continued_tables": 0,
+      "repeated_headers_removed": 63,
+      "degenerate_tables": 6,
+      "text_blocks": 5590,
+      "max_table_run": 33,
+      "table_pages": 192
+    },
+    {
+      "file_name": "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf",
+      "sha256_16": "270DD50B29558949",
+      "page_count": 286,
+      "text_chunks": 828,
+      "table_chunks": 284,
+      "image_chunks": 4,
+      "tables": 299,
+      "raw_tables": 349,
+      "continued_tables": 1,
+      "repeated_headers_removed": 49,
+      "degenerate_tables": 21,
+      "text_blocks": 7868,
+      "max_table_run": 25,
+      "table_pages": 209
+    }
+  ],
+  "embedding": {
+    "backend": "ollama",
+    "model": "bge-m3:latest",
+    "dim": 1024,
+    "count": 8847,
+    "elapsed_ms": 273229.5
+  },
+  "bm25": {
+    "count": 8847,
+    "vocab_size": 64134,
+    "k1": 1.5,
+    "b": 0.75,
+    "table_chunks": 1417,
+    "image_chunks": 105
+  },
+  "vector": {
+    "model": "bge-m3:latest",
+    "dim": 1024,
+    "count": 8847,
+    "updated_at": "2026-10-08T12:55:35+08:00",
+    "normalized": true,
+    "dtype": "float32",
+    "page_basis": "1-based-physical",
+    "faiss": true,
+    "faiss_index_type": "IndexFlatIP",
+    "faiss_file": "faiss.index",
+    "faiss_note": "faiss.write_index 在本机非 ASCII 路径不可用（1.7.4 窄字符 fopen），已改用 faiss.serialize_index 字节序列化",
+    "by_modality": {
+      "text": 7325,
+      "table": 1417,
+      "image": 105
+    },
+    "chunk_count": 8847,
+    "embed_backend": "ollama",
+    "incremental": {
+      "enabled": true,
+      "reused": 0,
+      "embedded": 8847,
+      "chunks": 8847,
+      "reuse_ratio": 0.0,
+      "verify": null,
+      "elapsed_ms": 273472.35
+    },
+    "images": {
+      "enabled": true,
+      "source_file": "E:\\gao6gongdan\\工单7\\研发\\data\\processed\\image_blocks.jsonl",
+      "records": 175,
+      "skipped_files": [
+        "images.jsonl"
+      ],
+      "fallback": false,
+      "merged_groups": 105,
+      "merged_from_records": 175,
+      "chunks": 105,
+      "by_corpus": {
+        "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf": 3,
+        "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf": 27,
+        "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf": 2,
+        "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf": 4,
+        "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf": 3,
+        "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf": 21,
+        "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf": 37,
+        "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf": 4,
+        "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf": 4
+      },
+      "corpora_without_image_blocks": [],
+      "coverage_note": "图像内容解析范围 = 2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf、2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf、2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf、2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf、2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf、2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf、2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf、2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf、2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf（图像题证据页所在语料）；未纳入图像块 = 无。说明：招股说明书1 的 image_blocks/charts/diagrams 均为 0（T2 未提供该语料的图像块），本索引只收录 T2 实际产出的图像块，**不代为声明 PDF1 的图像已被解析**；对 16 题无影响（第 5、6 题的证据页 39/72 均在招股说明书2）。如需全语料图像解析，属 T2 的 extract_images.py --all 范畴，代价须由 T2 实测给出。",
+      "evidence_weight_policy": "文本/表格块 evidence_weight=1.0；图像块 diagram/chart=1.0、picture=0.4。依据：picture（页眉 banner、签章页大图等）只有 CLIP 零样本标签，属**弱证据**（T2 实测提醒），与 diagram/chart 同权会挤掉正文证据。该字段只是**建议权重**，是否使用由检索层（T5）决定；检索层也可改用 modality=true 的硬过滤或单独通道（设计/接口设计.md §3.4 的 modality 参数）。"
+    },
+    "content_snapshot": "chunks_indexed.jsonl",
+    "content_sha1_sample": [
+      [
+        "20200214-p1-img-279-0",
+        "41b9ccdc694e6e2b9c22c8ee11f9163a69066379"
+      ],
+      [
+        "20200214-p1-x0",
+        "ff521295399f30dda2bd9e9fc693a699f0b8878a"
+      ],
+      [
+        "20200214-p2-x0",
+        "399b8d0d9a4e1d232a2ae9ada49c2be0d015c817"
+      ]
+    ],
+    "index_dir": "E:\\gao6gongdan\\工单7\\研发\\data\\index\\bge-m3_1024",
+    "vectors_path": "E:\\gao6gongdan\\工单7\\研发\\data\\index\\bge-m3_1024\\vectors.npy",
+    "ids_path": "E:\\gao6gongdan\\工单7\\研发\\data\\index\\bge-m3_1024\\ids.json",
+    "elapsed_ms": 598.94
+  },
+  "chunk_by_modality_sub": {
+    "picture": 37,
+    "chart": 49,
+    "diagram": 19
+  },
+  "index_dir": "研发/data/index/bge-m3_1024",
+  "index_root": "研发/data/index",
+  "incremental": {
+    "enabled": true,
+    "reused": 0,
+    "embedded": 8847,
+    "chunks": 8847,
+    "reuse_ratio": 0.0,
+    "sources": [],
+    "verify": null,
+    "elapsed_ms": 273472.35
+  },
+  "images": {
+    "enabled": true,
+    "source_file": "E:\\gao6gongdan\\工单7\\研发\\data\\processed\\image_blocks.jsonl",
+    "records": 175,
+    "skipped_files": [
+      "images.jsonl"
+    ],
+    "fallback": false,
+    "merged_groups": 105,
+    "merged_from_records": 175,
+    "chunks": 105,
+    "by_corpus": {
+      "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf": 3,
+      "2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf": 27,
+      "2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf": 2,
+      "2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf": 4,
+      "2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf": 3,
+      "2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf": 21,
+      "2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf": 37,
+      "2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf": 4,
+      "2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf": 4
+    },
+    "corpora_without_image_blocks": [],
+    "coverage_note": "图像内容解析范围 = 2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf、2020-02-21__中国平安保险集团股份有限公司__601318__中国平安__2019年__年度报告.pdf、2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf、2020-03-26__中国邮政储蓄银行股份有限公司__601658__邮储银行__2019年__年度报告.pdf、2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf、2021-03-26__中国人寿保险股份有限公司__601628__中国人寿__2020年__年度报告.pdf、2022-03-28__中国太平洋保险集团股份有限公司__601601__中国太保__2021年__年度报告.pdf、2022-03-28__招商证券股份有限公司__600999__招商证券__2021年__年度报告.pdf、2022-03-31__国泰君安证券股份有限公司__601211__国泰君安__2021年__年度报告.pdf（图像题证据页所在语料）；未纳入图像块 = 无。说明：招股说明书1 的 image_blocks/charts/diagrams 均为 0（T2 未提供该语料的图像块），本索引只收录 T2 实际产出的图像块，**不代为声明 PDF1 的图像已被解析**；对 16 题无影响（第 5、6 题的证据页 39/72 均在招股说明书2）。如需全语料图像解析，属 T2 的 extract_images.py --all 范畴，代价须由 T2 实测给出。",
+    "evidence_weight_policy": "文本/表格块 evidence_weight=1.0；图像块 diagram/chart=1.0、picture=0.4。依据：picture（页眉 banner、签章页大图等）只有 CLIP 零样本标签，属**弱证据**（T2 实测提醒），与 diagram/chart 同权会挤掉正文证据。该字段只是**建议权重**，是否使用由检索层（T5）决定；检索层也可改用 modality=true 的硬过滤或单独通道（设计/接口设计.md §3.4 的 modality 参数）。"
+  },
+  "q5_q6_image_recall": {
+    "checks": [
+      {
+        "qid": 5,
+        "corpus": "招股说明书2.pdf",
+        "page": 39,
+        "evidence_pages": [
+          39,
+          40,
+          113
+        ],
+        "query": "组织结构图 销售部有几个部门构成 大客户销售部有几个销售处构成",
+        "answer_keywords": [
+          "4个部门",
+          "电话及网络销售部",
+          "渠道销售部",
+          "大客户销售部",
+          "国际贸易部",
+          "6个销售处",
+          "北京",
+          "广州",
+          "成都",
+          "深圳",
+          "武汉",
+          "珠海"
+        ],
+        "problem": "该页没有任何 type=image chunk（证据块未入索引）",
+        "passed": false
+      },
+      {
+        "qid": 6,
+        "corpus": "招股说明书2.pdf",
+        "page": 72,
+        "evidence_pages": [
+          72
+        ],
+        "query": "2008年中国IC市场应用结构与增长图 增长率最快的是哪个行业 负增长的是哪个行业",
+        "answer_keywords": [
+          "汽车",
+          "IC卡",
+          "负增长"
+        ],
+        "problem": "该页没有任何 type=image chunk（证据块未入索引）",
+        "passed": false
+      }
+    ],
+    "passed": false,
+    "vector_path": true,
+    "keyword_rules": {
+      "numeric_keywords_contextual": true,
+      "place_names_bare_by_design": true,
+      "rule": "数值类关键字一律带语境（如 '4个部门' / '6个销售处'）；**裸数字不作为关键字** —— 裸 '4'/'6' 会被页码、金额、年份误命中，使 keyword_hit 虚高。",
+      "place_name_note": "城市/地名类关键字保持裸城市名（与 设计/验收标准.md §3.1 同源），因为正文互证页写的是「在北京、广州、成都、深圳、武汉、珠海各设有 1 家销售处」；代价是城市名**偏弱**（'武汉' 会被公司名「武汉力源…」误命中）→ 城市类只作弱判据，计数类必须带语境。",
+      "normalization": "匹配前统一：去空白、去千分位逗号、全角转半角（见 _norm_for_match）；两个自检（图像题自检 / 16 题自检）**使用同一个归一化函数**（T3 复核指出的口径不一致已修）",
+      "counts_definition": {
+        "bm25_page_hit_count": "BM25 Top-10 内存在「该题证据页」上的块（粗判，仅定位）",
+        "bm25_keyword_hit_count": "BM25 Top-10 命中块的**合并正文**含该题全部关键字（细判）",
+        "vector_page_hit_count": "向量 Top-10 内存在「该题证据页」上的块",
+        "vector_keyword_hit_count": "向量 Top-10 命中块的**合并正文**含该题全部关键字",
+        "no_hit_ids": "BM25 与向量两路的证据页命中**都**为空的题号（比上面四个计数更严格）"
+      },
+      "authoritative_judge": "最终判对/判错以 T6 的 golden 判分为准（测试/common/golden.py）；本文件的计数只用于检索层调参（如 T5 定 RRF 权重），不得当作准确率。",
+      "layer_mapping_to_golden": {
+        "本文件 bm25_page_hit_count/vector_page_hit_count": "= golden.check_retrieval_hit_layers 的 hit_page_level（诊断层B，页级口径）",
+        "本文件 bm25_keyword_hit_count/vector_keyword_hit_count": "关键字级细判；不等于 T6 的命中率主指标，T6 主指标用 hit_complete（权威层）",
+        "golden.check_retrieval_hit_layers 三层": [
+          "hit_complete（权威层，命中率主指标）",
+          "hit_any_evidence（诊断层A，含子句片段）",
+          "hit_page_level（诊断层B，页级）"
+        ]
+      }
+    },
+    "image_chunk_total": 105
+  },
+  "q16_retrieval_recall": null,
+  "reused_chunks": false,
+  "deps": {
+    "pymupdf": "1.28.2",
+    "numpy": "1.26.4",
+    "jieba": "0.42.1",
+    "faiss": "1.7.4",
+    "pymilvus": "unavailable"
+  },
+  "elapsed_ms": 566891.94,
+  "warnings": [
+    "依赖 pymilvus 不可用 → Milvus 适配器仅提供接口桩，不作为运行依赖（已如实登记）"
+  ]
+}

@@ -1,0 +1,2916 @@
+{
+  "工单": "人工智能NLP-RAG-功能测试及评估",
+  "生成时间": "2026-10-07 21:31:31",
+  "脚本": "E:\\gao6gongdan\\工单7\\优化\\脚本\\响应时间基准.py",
+  "SLA_ms": 3000.0,
+  "共享CPU声明": "Ollama(127.0.0.1:11434) 为 CPU 单实例，与「评测官（17 题评估）」「测试官（回归）」等任务共享；本基准串行分批执行，批间休眠 5 秒，但数字仍含竞争波动，未做 CPU 独占隔离。",
+  "配置": {
+    "top_k": 10,
+    "use_cache(场景2/5)": false,
+    "session_prefix": "bench7",
+    "engine": {
+      "prompt_top_k": 3,
+      "vector_k": 20,
+      "bm25_k": 20,
+      "cache_size": 512,
+      "page_context_extra": 6
+    },
+    "gen_model": "qwen2.5:3b",
+    "embed_model": "bge-m3:latest",
+    "backend": "auto"
+  },
+  "环境": {
+    "解释器": "E:\\gao6gongdan\\工单1\\.venv\\Scripts\\python.exe",
+    "python": "3.11.15",
+    "cwd": "E:\\gao6gongdan\\工单7",
+    "cpu_count": 12,
+    "脚本启动时刻": "2026-10-07 21:29:21",
+    "结束时刻": "2026-10-07 21:31:31",
+    "脚本总墙钟s": 129.71,
+    "warmup_ms": 19802.14,
+    "warmup明细": {
+      "index_chunks": 8742,
+      "tokenizer": {
+        "cold_ms": 0.33,
+        "warm_ms": 0.16,
+        "tokens": 9,
+        "backend": "jieba"
+      },
+      "entity_tagger": {
+        "ok": true,
+        "sample_nouns": [
+          "武汉",
+          "新科",
+          "电子",
+          "股份",
+          "有限公司",
+          "注册资本"
+        ],
+        "elapsed_ms": 1.49
+      },
+      "embedding": {
+        "backend": "ollama",
+        "model": "bge-m3:latest",
+        "dim": 1024,
+        "cold_ms": 28.73,
+        "warm_ms": 25.31,
+        "total_ms": 104.41
+      },
+      "fulltext_index": {
+        "fulltext_index": {
+          "chunks": 8742,
+          "fields": {
+            "content": 63938,
+            "title": 4769,
+            "keywords": 47452,
+            "summary": 42249
+          },
+          "ms": 19170.4
+        },
+        "models": [
+          {
+            "id": "bge-m3",
+            "dim": 1024,
+            "index_built": true
+          },
+          {
+            "id": "m3e-base",
+            "dim": 768,
+            "index_built": false
+          }
+        ],
+        "models_ms": 0.94,
+        "elapsed_ms": 19171.43
+      },
+      "generate": {
+        "ok": true,
+        "elapsed_ms": 480.17,
+        "model": "qwen2.5:3b",
+        "response_head": "你好！有什么我可以"
+      },
+      "elapsed_ms": 19801.51
+    },
+    "ollama_运行前": [
+      {
+        "name": "qwen2.5:3b",
+        "size": 2159374499,
+        "size_vram": 2159374499,
+        "expires_at": "2026-10-07T21:59:07.8942261+08:00"
+      },
+      {
+        "name": "bge-m3:latest",
+        "size": 664000265,
+        "size_vram": 664000265,
+        "expires_at": "2026-10-07T21:34:07.0637586+08:00"
+      }
+    ],
+    "ollama_预热后": [
+      {
+        "name": "qwen2.5:3b",
+        "size": 2159374499,
+        "size_vram": 2159374499,
+        "expires_at": "2026-10-07T22:01:31.3248208+08:00"
+      },
+      {
+        "name": "bge-m3:latest",
+        "size": 664000265,
+        "size_vram": 664000265,
+        "expires_at": "2026-10-07T21:36:30.6556464+08:00"
+      }
+    ],
+    "修订_start": {
+      "retriever.py": "45ae1b648c015d4b",
+      "answer_composer.py": "6699df2bf68c033f",
+      "generator.py": "baa1aa93b65a974f",
+      "qa_engine.py": "d5a508b0c3379bdc",
+      "answerability.py": "1f01bb8fbc79f257",
+      "query_understanding.py": "fb16916c58b8dafd",
+      "reranker.py": "4679c942c4ba00f4",
+      "fusion.py": "89a870a96f89cb3d",
+      "citation.py": "6bb500ce28137f83",
+      "bm25_index.py": "bf2990e9305c470d",
+      "cache.py": "d72920b265f69b32",
+      "dialogue_cache.py": "2a5a0c68e0a1c9ef"
+    },
+    "修订_end": {
+      "retriever.py": "45ae1b648c015d4b",
+      "answer_composer.py": "6699df2bf68c033f",
+      "generator.py": "baa1aa93b65a974f",
+      "qa_engine.py": "d5a508b0c3379bdc",
+      "answerability.py": "1f01bb8fbc79f257",
+      "query_understanding.py": "fb16916c58b8dafd",
+      "reranker.py": "4679c942c4ba00f4",
+      "fusion.py": "89a870a96f89cb3d",
+      "citation.py": "6bb500ce28137f83",
+      "bm25_index.py": "bf2990e9305c470d",
+      "cache.py": "d72920b265f69b32",
+      "dialogue_cache.py": "2a5a0c68e0a1c9ef"
+    },
+    "评估期间被修改的模块": []
+  },
+  "场景": {
+    "cold_start": {
+      "说明": "新进程、未预热、第 1 问（只测 1 题）",
+      "统计": {
+        "样本数": 1,
+        "有效样本数": 1,
+        "异常样本数": 0,
+        "总耗时": {
+          "样本数": 1,
+          "均值": 7467.83,
+          "中位": 7467.83,
+          "P50": 7467.83,
+          "P90": 7467.83,
+          "P95": 7467.83,
+          "最大": 7467.83,
+          "最小": 7467.83
+        },
+        "检索": {
+          "样本数": 1,
+          "均值": 90.24,
+          "中位": 90.24,
+          "P50": 90.24,
+          "P90": 90.24,
+          "P95": 90.24,
+          "最大": 90.24,
+          "最小": 90.24
+        },
+        "生成": {
+          "样本数": 1,
+          "均值": 429.92,
+          "中位": 429.92,
+          "P50": 429.92,
+          "P90": 429.92,
+          "P95": 429.92,
+          "最大": 429.92,
+          "最小": 429.92
+        },
+        "首字": {
+          "样本数": 1,
+          "均值": 164.32,
+          "中位": 164.32,
+          "P50": 164.32,
+          "P90": 164.32,
+          "P95": 164.32,
+          "最大": 164.32,
+          "最小": 164.32
+        },
+        "SLA": {
+          "阈值ms": 3000.0,
+          "达标题数": 0,
+          "样本数": 1,
+          "达标率": 0.0,
+          "超时题号": [
+            "Q01"
+          ],
+          "达标率_首字": 1.0
+        }
+      },
+      "逐题": [
+        {
+          "scenario": "cold_start",
+          "id": "Q01",
+          "lang": "zh",
+          "question": "平安银行2019年年度报告的董事长致辞中，提到该行盈利增长的关键因素有哪些？请结合业务结构、盈利趋势与风险状况说明。",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:29:22",
+          "latency_ms": {
+            "retrieve": 90.24,
+            "generate": 429.92,
+            "first_token": 164.32,
+            "total": 7467.83
+          },
+          "error": null,
+          "wall_ms": 7468.91,
+          "refused": false,
+          "answer_chars": 683,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "bd3c1f4caeae57c965eb122392e0feec13410df2"
+          },
+          "cited_pages": [
+            81
+          ],
+          "refusal_reason": null,
+          "engine_construct_ms": 0.05,
+          "wall_since_script_start_ms": 8040.48,
+          "unaccounted_ms": 6947.67,
+          "note": "cold_start = 未预热；total 含索引加载 + 分词器初始化 + 嵌入模型冷加载 + 生成模型冷加载（若 Ollama 未驻留）；unaccounted_ms 即未被 retrieve/generate 两段覆盖的惰性冷初始化"
+        }
+      ]
+    },
+    "warm_no_cache": {
+      "说明": "warmup(with_generate=True) 后逐题首问（use_cache=False，无缓存水分）",
+      "统计": {
+        "样本数": 17,
+        "有效样本数": 17,
+        "异常样本数": 0,
+        "总耗时": {
+          "样本数": 17,
+          "均值": 1658.24,
+          "中位": 1080.31,
+          "P50": 1080.31,
+          "P90": 2485.75,
+          "P95": 3321.97,
+          "最大": 6247.48,
+          "最小": 407.25
+        },
+        "检索": {
+          "样本数": 17,
+          "均值": 138.86,
+          "中位": 116.86,
+          "P50": 116.86,
+          "P90": 150.92,
+          "P95": 217.02,
+          "最大": 469.78,
+          "最小": 81.13
+        },
+        "生成": {
+          "样本数": 17,
+          "均值": 1440.23,
+          "中位": 922.4,
+          "P50": 922.4,
+          "P90": 2363.78,
+          "P95": 2955.99,
+          "最大": 5015.52,
+          "最小": 0.0
+        },
+        "首字": {
+          "样本数": 17,
+          "均值": 912.1,
+          "中位": 469.78,
+          "P50": 469.78,
+          "P90": 1899.81,
+          "P95": 2161.33,
+          "最大": 2444.79,
+          "最小": 187.4
+        },
+        "SLA": {
+          "阈值ms": 3000.0,
+          "达标题数": 16,
+          "样本数": 17,
+          "达标率": 0.9412,
+          "超时题号": [
+            "Q13"
+          ],
+          "达标率_首字": 1.0
+        }
+      },
+      "逐题": [
+        {
+          "scenario": "warm_no_cache",
+          "id": "Q01",
+          "lang": "zh",
+          "question": "平安银行2019年年度报告的董事长致辞中，提到该行盈利增长的关键因素有哪些？请结合业务结构、盈利趋势与风险状况说明。",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:29:49",
+          "latency_ms": {
+            "retrieve": 88.79,
+            "generate": 309.57,
+            "first_token": 187.4,
+            "total": 407.25
+          },
+          "error": null,
+          "wall_ms": 408.0,
+          "refused": false,
+          "answer_chars": 683,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "bd3c1f4caeae57c965eb122392e0feec13410df2"
+          },
+          "cited_pages": [
+            81
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "warm_no_cache",
+          "id": "Q02",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中提到的创新商业模式有哪些？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:29:49",
+          "latency_ms": {
+            "retrieve": 81.13,
+            "generate": 502.31,
+            "first_token": 222.91,
+            "total": 589.18
+          },
+          "error": null,
+          "wall_ms": 590.02,
+          "refused": false,
+          "answer_chars": 211,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "1650a90fa56d9bfaf29c17ba3fd8886a4c6c4156"
+          },
+          "cited_pages": [
+            207
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "warm_no_cache",
+          "id": "Q03",
+          "lang": "zh",
+          "question": "平安银行的风险管理体系如何体现其应对宏观经济周期波动的能力？结合年报中的拨备覆盖率动态调整、资产质量控制，以及贷款结构优化策略，分析其应对经济下行周期的准备程度及可能的潜在压力。",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:29:50",
+          "latency_ms": {
+            "retrieve": 83.41,
+            "generate": 447.8,
+            "first_token": 239.65,
+            "total": 539.71
+          },
+          "error": null,
+          "wall_ms": 540.33,
+          "refused": false,
+          "answer_chars": 177,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "6ea3a1b0957706d66f323ee4c183c37c1ae6446a"
+          },
+          "cited_pages": [
+            43
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "warm_no_cache",
+          "id": "Q04",
+          "lang": "zh",
+          "question": "分析这些银行和保险公司在面对经济周期波动时的共同策略与差异化策略，重点关注其在风险管理、资本结构优化和新兴领域（如绿色金融或科技金融）投资上的表现。如何评估这些策略在未来经济下行周期中的可持续性？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:29:51",
+          "latency_ms": {
+            "retrieve": 469.78,
+            "generate": 0.0,
+            "first_token": 469.78,
+            "total": 483.36
+          },
+          "error": null,
+          "wall_ms": 483.87,
+          "refused": true,
+          "answer_chars": 3,
+          "generation_method": "refused",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "01465e7baeeb71c05f12b7a554a8116558b37a77"
+          },
+          "cited_pages": [],
+          "refusal_reason": "unknown_entity"
+        },
+        {
+          "scenario": "warm_no_cache",
+          "id": "Q05",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中，董事长和行长（首席执行官）分别是谁？该行2019年度利润分配方案的每股现金分红是多少？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:29:56",
+          "latency_ms": {
+            "retrieve": 128.77,
+            "generate": 673.87,
+            "first_token": 413.84,
+            "total": 807.95
+          },
+          "error": null,
+          "wall_ms": 808.65,
+          "refused": false,
+          "answer_chars": 304,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "82df1beb0eb9c6a0e52b36dfd3352fb7471bcf7b"
+          },
+          "cited_pages": [
+            251
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "warm_no_cache",
+          "id": "Q06",
+          "lang": "zh",
+          "question": "中信证券2020年年度报告中，公司负责人是谁？经董事会审议的报告期利润分配预案是什么？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:29:57",
+          "latency_ms": {
+            "retrieve": 117.6,
+            "generate": 887.43,
+            "first_token": 460.3,
+            "total": 1012.05
+          },
+          "error": null,
+          "wall_ms": 1013.17,
+          "refused": false,
+          "answer_chars": 131,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "d58f58d3dfa44ba1abeacd673d3ab4428ef396cd"
+          },
+          "cited_pages": [
+            2
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "warm_no_cache",
+          "id": "Q07",
+          "lang": "zh",
+          "question": "平安银行2019年年度报告中，该行2019年实现营业收入和净利润分别是多少？同比增速分别是多少？年末不良贷款率和拨备覆盖率分别是多少？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:29:58",
+          "latency_ms": {
+            "retrieve": 148.98,
+            "generate": 922.4,
+            "first_token": 319.33,
+            "total": 1080.31
+          },
+          "error": null,
+          "wall_ms": 1080.95,
+          "refused": false,
+          "answer_chars": 294,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "1ef677a5164d649463a51fc2421cc8502e6f4c8a"
+          },
+          "cited_pages": [
+            19
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "warm_no_cache",
+          "id": "Q08",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中，该行全年营业收入、归属于本行股东的净利润、年末总资产和每股现金分红分别是多少？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:29:59",
+          "latency_ms": {
+            "retrieve": 111.22,
+            "generate": 1154.87,
+            "first_token": 559.8,
+            "total": 1275.74
+          },
+          "error": null,
+          "wall_ms": 1276.83,
+          "refused": false,
+          "answer_chars": 138,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "64ee5168fac53bf59bdc56b2302768037915fcfc"
+          },
+          "cited_pages": [
+            19
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "warm_no_cache",
+          "id": "Q09",
+          "lang": "zh",
+          "question": "对比平安银行与招商银行2019年年度报告：两家银行2019年营业收入分别是多少？同比增速分别是多少？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:30:05",
+          "latency_ms": {
+            "retrieve": 153.83,
+            "generate": 498.23,
+            "first_token": 325.55,
+            "total": 665.22
+          },
+          "error": null,
+          "wall_ms": 667.22,
+          "refused": false,
+          "answer_chars": 103,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "5dca5d7457af87066725eb10d29eb378e0a55aff"
+          },
+          "cited_pages": [
+            41
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "warm_no_cache",
+          "id": "Q10",
+          "lang": "zh",
+          "question": "中信证券2020年年度报告中，公司全年营业收入、归属于公司股东净利润、年末总资产和净资产收益率分别是多少？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:30:06",
+          "latency_ms": {
+            "retrieve": 97.17,
+            "generate": 2312.22,
+            "first_token": 1392.91,
+            "total": 2415.86
+          },
+          "error": null,
+          "wall_ms": 2416.82,
+          "refused": false,
+          "answer_chars": 163,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "a276fb427365d4a28614c97596591f29832db8f1"
+          },
+          "cited_pages": [
+            115
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "warm_no_cache",
+          "id": "Q11",
+          "lang": "zh",
+          "question": "中国人寿2020年年度报告中，公司2020年营业收入、已赚保费和归属于母公司股东的净利润分别是多少（单位：人民币百万元）？净利润同比变动幅度是多少？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:30:08",
+          "latency_ms": {
+            "retrieve": 116.86,
+            "generate": 2220.53,
+            "first_token": 1637.04,
+            "total": 2347.97
+          },
+          "error": null,
+          "wall_ms": 2349.03,
+          "refused": false,
+          "answer_chars": 140,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "b24bafcef82d7658604d4d96eaa11e46540cd6a9"
+          },
+          "cited_pages": [
+            8
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "warm_no_cache",
+          "id": "Q12",
+          "lang": "zh",
+          "question": "中国太保2021年年度报告中，集团2021年营业收入、净利润、基本每股收益和每股净资产分别是多少？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:30:11",
+          "latency_ms": {
+            "retrieve": 139.73,
+            "generate": 2441.11,
+            "first_token": 2090.47,
+            "total": 2590.59
+          },
+          "error": null,
+          "wall_ms": 2591.67,
+          "refused": false,
+          "answer_chars": 314,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "a4931e82cfec0dfdf1ae963da409a00059d61485"
+          },
+          "cited_pages": [
+            152
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "warm_no_cache",
+          "id": "Q13",
+          "lang": "en",
+          "question": "According to Postal Savings Bank of China's 2019 Annual Report, what were the bank's net profit and its year-on-year growth rate, the NPL ratio, the provision coverage ratio, and the IT investment amount with its share of operating revenue in 2019?",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:30:18",
+          "latency_ms": {
+            "retrieve": 114.01,
+            "generate": 5015.52,
+            "first_token": 2444.79,
+            "total": 6247.48
+          },
+          "error": null,
+          "wall_ms": 6248.76,
+          "refused": false,
+          "answer_chars": 439,
+          "generation_method": "rule_composer",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "822b544293afca7ed2c847147814b7238b028d9c"
+          },
+          "cited_pages": [
+            218
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "warm_no_cache",
+          "id": "Q14",
+          "lang": "zh",
+          "question": "招商证券2021年年度报告中，公司2021年营业收入和归属于母公司股东的净利润分别是多少（单位：元）？本期比上年同期增减幅度分别是多少？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:30:24",
+          "latency_ms": {
+            "retrieve": 114.86,
+            "generate": 2034.77,
+            "first_token": 1259.67,
+            "total": 2164.44
+          },
+          "error": null,
+          "wall_ms": 2165.42,
+          "refused": false,
+          "answer_chars": 156,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "13617c3df748801dd7f77544eca60b1304465262"
+          },
+          "cited_pages": [
+            34
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "warm_no_cache",
+          "id": "Q15",
+          "lang": "zh",
+          "question": "国泰君安2021年年度报告中，公司全年合并口径营业收入、归母净利润分别是多少？同比增速和ROE分别是多少？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:30:27",
+          "latency_ms": {
+            "retrieve": 143.16,
+            "generate": 1972.14,
+            "first_token": 1376.98,
+            "total": 2179.31
+          },
+          "error": null,
+          "wall_ms": 2179.92,
+          "refused": false,
+          "answer_chars": 149,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "7ef61b4768610486559968d5d1818829275fa11e"
+          },
+          "cited_pages": [
+            39
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "warm_no_cache",
+          "id": "Q16",
+          "lang": "zh",
+          "question": "中国平安2019年年度报告中，公司2019年归属于母公司股东的净利润和营运利润分别是多少？全年每股现金股息是多少？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:30:29",
+          "latency_ms": {
+            "retrieve": 107.16,
+            "generate": 2264.52,
+            "first_token": 1772.71,
+            "total": 2386.32
+          },
+          "error": null,
+          "wall_ms": 2386.88,
+          "refused": false,
+          "answer_chars": 133,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "ceb101b02550c5f2aa08995c54f972ce8869c918"
+          },
+          "cited_pages": [
+            20
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "warm_no_cache",
+          "id": "Q17",
+          "lang": "zh",
+          "question": "中国太保2021年年度报告中，公司如何通过“保险产品+养老社区+专业服务”的新业务模式与“太保服务”建设提升客户经营能力？请结合“太保家园”“太保蓝本”“太医管家”等具体举措分析。",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:30:36",
+          "latency_ms": {
+            "retrieve": 144.21,
+            "generate": 826.61,
+            "first_token": 332.55,
+            "total": 997.31
+          },
+          "error": null,
+          "wall_ms": 998.37,
+          "refused": false,
+          "answer_chars": 141,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "495805aaa9f45a6faedae95fb2fd21201db804d7"
+          },
+          "cited_pages": [
+            3
+          ],
+          "refusal_reason": null
+        }
+      ]
+    },
+    "answer_cache_hit": {
+      "说明": "同一问题同进程第 2 次调用（use_cache=True）→ 命中答案级内存缓存",
+      "统计": {
+        "样本数": 17,
+        "有效样本数": 17,
+        "异常样本数": 0,
+        "总耗时": {
+          "样本数": 17,
+          "均值": 9.85,
+          "中位": 8.17,
+          "P50": 8.17,
+          "P90": 17.1,
+          "P95": 17.59,
+          "最大": 18.93,
+          "最小": 5.18
+        },
+        "检索": {
+          "样本数": 17,
+          "均值": 0.0,
+          "中位": 0.0,
+          "P50": 0.0,
+          "P90": 0.0,
+          "P95": 0.0,
+          "最大": 0.0,
+          "最小": 0.0
+        },
+        "生成": {
+          "样本数": 17,
+          "均值": 0.0,
+          "中位": 0.0,
+          "P50": 0.0,
+          "P90": 0.0,
+          "P95": 0.0,
+          "最大": 0.0,
+          "最小": 0.0
+        },
+        "首字": {
+          "样本数": 17,
+          "均值": 0.0,
+          "中位": 0.0,
+          "P50": 0.0,
+          "P90": 0.0,
+          "P95": 0.0,
+          "最大": 0.0,
+          "最小": 0.0
+        },
+        "SLA": {
+          "阈值ms": 3000.0,
+          "达标题数": 17,
+          "样本数": 17,
+          "达标率": 1.0,
+          "超时题号": [],
+          "达标率_首字": 1.0
+        }
+      },
+      "逐题": [
+        {
+          "scenario": "answer_cache_hit",
+          "id": "Q01",
+          "lang": "zh",
+          "question": "平安银行2019年年度报告的董事长致辞中，提到该行盈利增长的关键因素有哪些？请结合业务结构、盈利趋势与风险状况说明。",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:37",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 16.99
+          },
+          "error": null,
+          "wall_ms": 17.98,
+          "refused": false,
+          "answer_chars": 683,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "bd3c1f4caeae57c965eb122392e0feec13410df2",
+            "layer": "memory"
+          },
+          "cited_pages": [
+            81
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "answer_cache_hit",
+          "id": "Q02",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中提到的创新商业模式有哪些？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:37",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 13.12
+          },
+          "error": null,
+          "wall_ms": 13.9,
+          "refused": false,
+          "answer_chars": 211,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "1650a90fa56d9bfaf29c17ba3fd8886a4c6c4156",
+            "layer": "memory"
+          },
+          "cited_pages": [
+            207
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "answer_cache_hit",
+          "id": "Q03",
+          "lang": "zh",
+          "question": "平安银行的风险管理体系如何体现其应对宏观经济周期波动的能力？结合年报中的拨备覆盖率动态调整、资产质量控制，以及贷款结构优化策略，分析其应对经济下行周期的准备程度及可能的潜在压力。",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:37",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 17.26
+          },
+          "error": null,
+          "wall_ms": 18.3,
+          "refused": false,
+          "answer_chars": 177,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "6ea3a1b0957706d66f323ee4c183c37c1ae6446a",
+            "layer": "memory"
+          },
+          "cited_pages": [
+            43
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "answer_cache_hit",
+          "id": "Q04",
+          "lang": "zh",
+          "question": "分析这些银行和保险公司在面对经济周期波动时的共同策略与差异化策略，重点关注其在风险管理、资本结构优化和新兴领域（如绿色金融或科技金融）投资上的表现。如何评估这些策略在未来经济下行周期中的可持续性？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:37",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 18.93
+          },
+          "error": null,
+          "wall_ms": 19.42,
+          "refused": true,
+          "answer_chars": 3,
+          "generation_method": "refused",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "01465e7baeeb71c05f12b7a554a8116558b37a77",
+            "layer": "memory"
+          },
+          "cited_pages": [],
+          "refusal_reason": "unknown_entity"
+        },
+        {
+          "scenario": "answer_cache_hit",
+          "id": "Q05",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中，董事长和行长（首席执行官）分别是谁？该行2019年度利润分配方案的每股现金分红是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:37",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 11.75
+          },
+          "error": null,
+          "wall_ms": 12.4,
+          "refused": false,
+          "answer_chars": 304,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "82df1beb0eb9c6a0e52b36dfd3352fb7471bcf7b",
+            "layer": "memory"
+          },
+          "cited_pages": [
+            251
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "answer_cache_hit",
+          "id": "Q06",
+          "lang": "zh",
+          "question": "中信证券2020年年度报告中，公司负责人是谁？经董事会审议的报告期利润分配预案是什么？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:37",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 10.59
+          },
+          "error": null,
+          "wall_ms": 11.25,
+          "refused": false,
+          "answer_chars": 131,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "d58f58d3dfa44ba1abeacd673d3ab4428ef396cd",
+            "layer": "memory"
+          },
+          "cited_pages": [
+            2
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "answer_cache_hit",
+          "id": "Q07",
+          "lang": "zh",
+          "question": "平安银行2019年年度报告中，该行2019年实现营业收入和净利润分别是多少？同比增速分别是多少？年末不良贷款率和拨备覆盖率分别是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:37",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 8.16
+          },
+          "error": null,
+          "wall_ms": 8.78,
+          "refused": false,
+          "answer_chars": 294,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "1ef677a5164d649463a51fc2421cc8502e6f4c8a",
+            "layer": "memory"
+          },
+          "cited_pages": [
+            19
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "answer_cache_hit",
+          "id": "Q08",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中，该行全年营业收入、归属于本行股东的净利润、年末总资产和每股现金分红分别是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:37",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 7.24
+          },
+          "error": null,
+          "wall_ms": 7.79,
+          "refused": false,
+          "answer_chars": 138,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "64ee5168fac53bf59bdc56b2302768037915fcfc",
+            "layer": "memory"
+          },
+          "cited_pages": [
+            19
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "answer_cache_hit",
+          "id": "Q09",
+          "lang": "zh",
+          "question": "对比平安银行与招商银行2019年年度报告：两家银行2019年营业收入分别是多少？同比增速分别是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:37",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 7.89
+          },
+          "error": null,
+          "wall_ms": 8.49,
+          "refused": false,
+          "answer_chars": 103,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "5dca5d7457af87066725eb10d29eb378e0a55aff",
+            "layer": "memory"
+          },
+          "cited_pages": [
+            41
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "answer_cache_hit",
+          "id": "Q10",
+          "lang": "zh",
+          "question": "中信证券2020年年度报告中，公司全年营业收入、归属于公司股东净利润、年末总资产和净资产收益率分别是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:37",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 8.17
+          },
+          "error": null,
+          "wall_ms": 8.82,
+          "refused": false,
+          "answer_chars": 163,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "a276fb427365d4a28614c97596591f29832db8f1",
+            "layer": "memory"
+          },
+          "cited_pages": [
+            115
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "answer_cache_hit",
+          "id": "Q11",
+          "lang": "zh",
+          "question": "中国人寿2020年年度报告中，公司2020年营业收入、已赚保费和归属于母公司股东的净利润分别是多少（单位：人民币百万元）？净利润同比变动幅度是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:37",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 5.29
+          },
+          "error": null,
+          "wall_ms": 5.74,
+          "refused": false,
+          "answer_chars": 140,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "b24bafcef82d7658604d4d96eaa11e46540cd6a9",
+            "layer": "memory"
+          },
+          "cited_pages": [
+            8
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "answer_cache_hit",
+          "id": "Q12",
+          "lang": "zh",
+          "question": "中国太保2021年年度报告中，集团2021年营业收入、净利润、基本每股收益和每股净资产分别是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:37",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 5.18
+          },
+          "error": null,
+          "wall_ms": 5.87,
+          "refused": false,
+          "answer_chars": 314,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "a4931e82cfec0dfdf1ae963da409a00059d61485",
+            "layer": "memory"
+          },
+          "cited_pages": [
+            152
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "answer_cache_hit",
+          "id": "Q13",
+          "lang": "en",
+          "question": "According to Postal Savings Bank of China's 2019 Annual Report, what were the bank's net profit and its year-on-year growth rate, the NPL ratio, the provision coverage ratio, and the IT investment amount with its share of operating revenue in 2019?",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:37",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 9.31
+          },
+          "error": null,
+          "wall_ms": 10.06,
+          "refused": false,
+          "answer_chars": 439,
+          "generation_method": "rule_composer",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "822b544293afca7ed2c847147814b7238b028d9c",
+            "layer": "memory"
+          },
+          "cited_pages": [
+            218
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "answer_cache_hit",
+          "id": "Q14",
+          "lang": "zh",
+          "question": "招商证券2021年年度报告中，公司2021年营业收入和归属于母公司股东的净利润分别是多少（单位：元）？本期比上年同期增减幅度分别是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:37",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 6.07
+          },
+          "error": null,
+          "wall_ms": 7.06,
+          "refused": false,
+          "answer_chars": 156,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "13617c3df748801dd7f77544eca60b1304465262",
+            "layer": "memory"
+          },
+          "cited_pages": [
+            34
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "answer_cache_hit",
+          "id": "Q15",
+          "lang": "zh",
+          "question": "国泰君安2021年年度报告中，公司全年合并口径营业收入、归母净利润分别是多少？同比增速和ROE分别是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:37",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 8.55
+          },
+          "error": null,
+          "wall_ms": 9.12,
+          "refused": false,
+          "answer_chars": 149,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "7ef61b4768610486559968d5d1818829275fa11e",
+            "layer": "memory"
+          },
+          "cited_pages": [
+            39
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "answer_cache_hit",
+          "id": "Q16",
+          "lang": "zh",
+          "question": "中国平安2019年年度报告中，公司2019年归属于母公司股东的净利润和营运利润分别是多少？全年每股现金股息是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:37",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 6.32
+          },
+          "error": null,
+          "wall_ms": 6.67,
+          "refused": false,
+          "answer_chars": 133,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "ceb101b02550c5f2aa08995c54f972ce8869c918",
+            "layer": "memory"
+          },
+          "cited_pages": [
+            20
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "answer_cache_hit",
+          "id": "Q17",
+          "lang": "zh",
+          "question": "中国太保2021年年度报告中，公司如何通过“保险产品+养老社区+专业服务”的新业务模式与“太保服务”建设提升客户经营能力？请结合“太保家园”“太保蓝本”“太医管家”等具体举措分析。",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:37",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 6.69
+          },
+          "error": null,
+          "wall_ms": 7.29,
+          "refused": false,
+          "answer_chars": 141,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "495805aaa9f45a6faedae95fb2fd21201db804d7",
+            "layer": "memory"
+          },
+          "cited_pages": [
+            3
+          ],
+          "refusal_reason": null
+        }
+      ],
+      "缓存层统计": {
+        "enabled": true,
+        "fingerprint": "2b38bbcd833cade9",
+        "layers": {
+          "normalized": {
+            "name": "normalized",
+            "hits": 20,
+            "misses": 18,
+            "puts": 18,
+            "evictions": 0,
+            "expired": 0,
+            "saved_ms": 0.0,
+            "hit_rate": 0.5263,
+            "entries": 18,
+            "max_entries": 512,
+            "ttl_s": 3600.0
+          },
+          "retrieval": {
+            "name": "retrieval",
+            "hits": 0,
+            "misses": 0,
+            "puts": 18,
+            "evictions": 0,
+            "expired": 0,
+            "saved_ms": 2426.3700000000003,
+            "hit_rate": 0.0,
+            "entries": 17,
+            "max_entries": 512,
+            "ttl_s": 3600.0
+          },
+          "generation": {
+            "name": "generation",
+            "hits": 0,
+            "misses": 0,
+            "puts": 17,
+            "evictions": 0,
+            "expired": 0,
+            "saved_ms": 24913.82,
+            "hit_rate": 0.0,
+            "entries": 16,
+            "max_entries": 512,
+            "ttl_s": 3600.0
+          },
+          "rewrite": {
+            "name": "rewrite",
+            "hits": 1,
+            "misses": 1,
+            "puts": 1,
+            "evictions": 0,
+            "expired": 0,
+            "saved_ms": 1105.08,
+            "hit_rate": 0.5,
+            "entries": 1,
+            "max_entries": 128,
+            "ttl_s": 3600.0
+          }
+        }
+      }
+    },
+    "retrieval_cache_hit": {
+      "说明": "新引擎实例 + 生成缓存已清空，故只可能命中**检索结果缓存**；与场景 2 的 retrieve 分段对照即为检索缓存的收益",
+      "统计": {
+        "样本数": 17,
+        "有效样本数": 17,
+        "异常样本数": 0,
+        "总耗时": {
+          "样本数": 17,
+          "均值": 938.42,
+          "中位": 864.46,
+          "P50": 864.46,
+          "P90": 1474.25,
+          "P95": 2021.8,
+          "最大": 2218.41,
+          "最小": 148.31
+        },
+        "检索": {
+          "样本数": 17,
+          "均值": 0.77,
+          "中位": 0.68,
+          "P50": 0.68,
+          "P90": 1.21,
+          "P95": 1.39,
+          "最大": 1.4,
+          "最小": 0.41
+        },
+        "生成": {
+          "样本数": 17,
+          "均值": 918.06,
+          "中位": 854.48,
+          "P50": 854.48,
+          "P90": 1459.02,
+          "P95": 2007.63,
+          "最大": 2212.3,
+          "最小": 0.0
+        },
+        "首字": {
+          "样本数": 17,
+          "均值": 227.16,
+          "中位": 146.48,
+          "P50": 146.48,
+          "P90": 492.87,
+          "P95": 741.97,
+          "最大": 829.75,
+          "最小": 1.4
+        },
+        "SLA": {
+          "阈值ms": 3000.0,
+          "达标题数": 17,
+          "样本数": 17,
+          "达标率": 1.0,
+          "超时题号": [],
+          "达标率_首字": 1.0
+        }
+      },
+      "逐题": [
+        {
+          "scenario": "retrieval_cache_hit",
+          "id": "Q01",
+          "lang": "zh",
+          "question": "平安银行2019年年度报告的董事长致辞中，提到该行盈利增长的关键因素有哪些？请结合业务结构、盈利趋势与风险状况说明。",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:37",
+          "latency_ms": {
+            "retrieve": 0.77,
+            "generate": 965.01,
+            "first_token": 720.02,
+            "total": 1007.75
+          },
+          "error": null,
+          "wall_ms": 1008.66,
+          "refused": false,
+          "answer_chars": 683,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "bd3c1f4caeae57c965eb122392e0feec13410df2"
+          },
+          "cited_pages": [
+            81
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "retrieval_cache_hit",
+          "id": "Q02",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中提到的创新商业模式有哪些？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:38",
+          "latency_ms": {
+            "retrieve": 1.04,
+            "generate": 469.35,
+            "first_token": 136.45,
+            "total": 478.25
+          },
+          "error": null,
+          "wall_ms": 478.84,
+          "refused": false,
+          "answer_chars": 211,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "1650a90fa56d9bfaf29c17ba3fd8886a4c6c4156"
+          },
+          "cited_pages": [
+            207
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "retrieval_cache_hit",
+          "id": "Q03",
+          "lang": "zh",
+          "question": "平安银行的风险管理体系如何体现其应对宏观经济周期波动的能力？结合年报中的拨备覆盖率动态调整、资产质量控制，以及贷款结构优化策略，分析其应对经济下行周期的准备程度及可能的潜在压力。",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:39",
+          "latency_ms": {
+            "retrieve": 0.99,
+            "generate": 1127.4,
+            "first_token": 829.75,
+            "total": 1141.99
+          },
+          "error": null,
+          "wall_ms": 1142.62,
+          "refused": false,
+          "answer_chars": 177,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "6ea3a1b0957706d66f323ee4c183c37c1ae6446a"
+          },
+          "cited_pages": [
+            43
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "retrieval_cache_hit",
+          "id": "Q04",
+          "lang": "zh",
+          "question": "分析这些银行和保险公司在面对经济周期波动时的共同策略与差异化策略，重点关注其在风险管理、资本结构优化和新兴领域（如绿色金融或科技金融）投资上的表现。如何评估这些策略在未来经济下行周期中的可持续性？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:40",
+          "latency_ms": {
+            "retrieve": 1.4,
+            "generate": 0.0,
+            "first_token": 1.4,
+            "total": 148.31
+          },
+          "error": null,
+          "wall_ms": 148.88,
+          "refused": true,
+          "answer_chars": 3,
+          "generation_method": "refused",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "01465e7baeeb71c05f12b7a554a8116558b37a77"
+          },
+          "cited_pages": [],
+          "refusal_reason": "unknown_entity"
+        },
+        {
+          "scenario": "retrieval_cache_hit",
+          "id": "Q05",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中，董事长和行长（首席执行官）分别是谁？该行2019年度利润分配方案的每股现金分红是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:45",
+          "latency_ms": {
+            "retrieve": 1.39,
+            "generate": 646.43,
+            "first_token": 341.43,
+            "total": 657.38
+          },
+          "error": null,
+          "wall_ms": 658.78,
+          "refused": false,
+          "answer_chars": 304,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "82df1beb0eb9c6a0e52b36dfd3352fb7471bcf7b"
+          },
+          "cited_pages": [
+            251
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "retrieval_cache_hit",
+          "id": "Q06",
+          "lang": "zh",
+          "question": "中信证券2020年年度报告中，公司负责人是谁？经董事会审议的报告期利润分配预案是什么？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:46",
+          "latency_ms": {
+            "retrieve": 1.09,
+            "generate": 645.36,
+            "first_token": 101.24,
+            "total": 662.89
+          },
+          "error": null,
+          "wall_ms": 663.85,
+          "refused": false,
+          "answer_chars": 131,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "d58f58d3dfa44ba1abeacd673d3ab4428ef396cd"
+          },
+          "cited_pages": [
+            2
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "retrieval_cache_hit",
+          "id": "Q07",
+          "lang": "zh",
+          "question": "平安银行2019年年度报告中，该行2019年实现营业收入和净利润分别是多少？同比增速分别是多少？年末不良贷款率和拨备覆盖率分别是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:46",
+          "latency_ms": {
+            "retrieve": 0.47,
+            "generate": 862.21,
+            "first_token": 110.01,
+            "total": 871.71
+          },
+          "error": null,
+          "wall_ms": 872.92,
+          "refused": false,
+          "answer_chars": 294,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "1ef677a5164d649463a51fc2421cc8502e6f4c8a"
+          },
+          "cited_pages": [
+            19
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "retrieval_cache_hit",
+          "id": "Q08",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中，该行全年营业收入、归属于本行股东的净利润、年末总资产和每股现金分红分别是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:47",
+          "latency_ms": {
+            "retrieve": 0.75,
+            "generate": 865.38,
+            "first_token": 160.68,
+            "total": 875.93
+          },
+          "error": null,
+          "wall_ms": 876.75,
+          "refused": false,
+          "answer_chars": 138,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "64ee5168fac53bf59bdc56b2302768037915fcfc"
+          },
+          "cited_pages": [
+            19
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "retrieval_cache_hit",
+          "id": "Q09",
+          "lang": "zh",
+          "question": "对比平安银行与招商银行2019年年度报告：两家银行2019年营业收入分别是多少？同比增速分别是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:53",
+          "latency_ms": {
+            "retrieve": 0.42,
+            "generate": 692.88,
+            "first_token": 224.59,
+            "total": 699.18
+          },
+          "error": null,
+          "wall_ms": 699.76,
+          "refused": false,
+          "answer_chars": 103,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "5dca5d7457af87066725eb10d29eb378e0a55aff"
+          },
+          "cited_pages": [
+            41
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "retrieval_cache_hit",
+          "id": "Q10",
+          "lang": "zh",
+          "question": "中信证券2020年年度报告中，公司全年营业收入、归属于公司股东净利润、年末总资产和净资产收益率分别是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:54",
+          "latency_ms": {
+            "retrieve": 0.41,
+            "generate": 2212.3,
+            "first_token": 140.56,
+            "total": 2218.41
+          },
+          "error": null,
+          "wall_ms": 2219.4,
+          "refused": false,
+          "answer_chars": 177,
+          "generation_method": "rule_composer",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "a276fb427365d4a28614c97596591f29832db8f1"
+          },
+          "cited_pages": [
+            115
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "retrieval_cache_hit",
+          "id": "Q11",
+          "lang": "zh",
+          "question": "中国人寿2020年年度报告中，公司2020年营业收入、已赚保费和归属于母公司股东的净利润分别是多少（单位：人民币百万元）？净利润同比变动幅度是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:56",
+          "latency_ms": {
+            "retrieve": 0.69,
+            "generate": 847.01,
+            "first_token": 172.33,
+            "total": 858.09
+          },
+          "error": null,
+          "wall_ms": 859.11,
+          "refused": false,
+          "answer_chars": 140,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "b24bafcef82d7658604d4d96eaa11e46540cd6a9"
+          },
+          "cited_pages": [
+            8
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "retrieval_cache_hit",
+          "id": "Q12",
+          "lang": "zh",
+          "question": "中国太保2021年年度报告中，集团2021年营业收入、净利润、基本每股收益和每股净资产分别是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:30:57",
+          "latency_ms": {
+            "retrieve": 0.52,
+            "generate": 638.83,
+            "first_token": 146.48,
+            "total": 646.94
+          },
+          "error": null,
+          "wall_ms": 647.92,
+          "refused": false,
+          "answer_chars": 314,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "a4931e82cfec0dfdf1ae963da409a00059d61485"
+          },
+          "cited_pages": [
+            152
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "retrieval_cache_hit",
+          "id": "Q13",
+          "lang": "en",
+          "question": "According to Postal Savings Bank of China's 2019 Annual Report, what were the bank's net profit and its year-on-year growth rate, the NPL ratio, the provision coverage ratio, and the IT investment amount with its share of operating revenue in 2019?",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:31:03",
+          "latency_ms": {
+            "retrieve": 0.55,
+            "generate": 1956.46,
+            "first_token": 175.81,
+            "total": 1972.65
+          },
+          "error": null,
+          "wall_ms": 1973.85,
+          "refused": false,
+          "answer_chars": 439,
+          "generation_method": "rule_composer",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "822b544293afca7ed2c847147814b7238b028d9c"
+          },
+          "cited_pages": [
+            218
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "retrieval_cache_hit",
+          "id": "Q14",
+          "lang": "zh",
+          "question": "招商证券2021年年度报告中，公司2021年营业收入和归属于母公司股东的净利润分别是多少（单位：元）？本期比上年同期增减幅度分别是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:31:05",
+          "latency_ms": {
+            "retrieve": 0.65,
+            "generate": 1035.07,
+            "first_token": 97.86,
+            "total": 1044.58
+          },
+          "error": null,
+          "wall_ms": 1045.3,
+          "refused": false,
+          "answer_chars": 167,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "13617c3df748801dd7f77544eca60b1304465262"
+          },
+          "cited_pages": [
+            17
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "retrieval_cache_hit",
+          "id": "Q15",
+          "lang": "zh",
+          "question": "国泰君安2021年年度报告中，公司全年合并口径营业收入、归母净利润分别是多少？同比增速和ROE分别是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:31:06",
+          "latency_ms": {
+            "retrieve": 0.68,
+            "generate": 854.48,
+            "first_token": 145.23,
+            "total": 864.46
+          },
+          "error": null,
+          "wall_ms": 865.25,
+          "refused": false,
+          "answer_chars": 149,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "7ef61b4768610486559968d5d1818829275fa11e"
+          },
+          "cited_pages": [
+            39
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "retrieval_cache_hit",
+          "id": "Q16",
+          "lang": "zh",
+          "question": "中国平安2019年年度报告中，公司2019年归属于母公司股东的净利润和营运利润分别是多少？全年每股现金股息是多少？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:31:07",
+          "latency_ms": {
+            "retrieve": 0.63,
+            "generate": 731.73,
+            "first_token": 136.78,
+            "total": 739.8
+          },
+          "error": null,
+          "wall_ms": 740.62,
+          "refused": false,
+          "answer_chars": 133,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "ceb101b02550c5f2aa08995c54f972ce8869c918"
+          },
+          "cited_pages": [
+            20
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "retrieval_cache_hit",
+          "id": "Q17",
+          "lang": "zh",
+          "question": "中国太保2021年年度报告中，公司如何通过“保险产品+养老社区+专业服务”的新业务模式与“太保服务”建设提升客户经营能力？请结合“太保家园”“太保蓝本”“太医管家”等具体举措分析。",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:31:12",
+          "latency_ms": {
+            "retrieve": 0.56,
+            "generate": 1057.1,
+            "first_token": 221.12,
+            "total": 1064.77
+          },
+          "error": null,
+          "wall_ms": 1065.48,
+          "refused": false,
+          "answer_chars": 141,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "495805aaa9f45a6faedae95fb2fd21201db804d7"
+          },
+          "cited_pages": [
+            3
+          ],
+          "refusal_reason": null
+        }
+      ],
+      "检索层缓存统计_前后": {
+        "清空前": {
+          "name": "retrieval",
+          "hits": 0,
+          "misses": 0,
+          "puts": 18,
+          "evictions": 0,
+          "expired": 0,
+          "saved_ms": 2426.3700000000003,
+          "hit_rate": 0.0,
+          "entries": 17,
+          "max_entries": 512,
+          "ttl_s": 3600.0
+        },
+        "清空后": {
+          "name": "retrieval",
+          "hits": 17,
+          "misses": 0,
+          "puts": 18,
+          "evictions": 0,
+          "expired": 0,
+          "saved_ms": 2426.3700000000003,
+          "hit_rate": 1.0,
+          "entries": 17,
+          "max_entries": 512,
+          "ttl_s": 3600.0
+        }
+      }
+    },
+    "sqlite_fill": {
+      "说明": "新引擎实例 + 空 SQLite 库 ⇒ 真实重算并落盘（第 1 次的代价）",
+      "统计": {
+        "样本数": 4,
+        "有效样本数": 4,
+        "异常样本数": 0,
+        "总耗时": {
+          "样本数": 4,
+          "均值": 23.81,
+          "中位": 19.65,
+          "P50": 19.65,
+          "P90": 36.62,
+          "P95": 39.29,
+          "最大": 41.96,
+          "最小": 13.99
+        },
+        "检索": {
+          "样本数": 4,
+          "均值": 0.78,
+          "中位": 0.76,
+          "P50": 0.76,
+          "P90": 0.88,
+          "P95": 0.9,
+          "最大": 0.91,
+          "最小": 0.66
+        },
+        "生成": {
+          "样本数": 4,
+          "均值": 1.92,
+          "中位": 1.79,
+          "P50": 1.79,
+          "P90": 3.62,
+          "P95": 3.85,
+          "最大": 4.09,
+          "最小": 0.0
+        },
+        "首字": {
+          "样本数": 4,
+          "均值": 0.78,
+          "中位": 0.76,
+          "P50": 0.76,
+          "P90": 0.88,
+          "P95": 0.9,
+          "最大": 0.91,
+          "最小": 0.66
+        },
+        "SLA": {
+          "阈值ms": 3000.0,
+          "达标题数": 4,
+          "样本数": 4,
+          "达标率": 1.0,
+          "超时题号": [],
+          "达标率_首字": 1.0
+        }
+      },
+      "逐题": [
+        {
+          "scenario": "sqlite_fill",
+          "id": "Q01",
+          "lang": "zh",
+          "question": "平安银行2019年年度报告的董事长致辞中，提到该行盈利增长的关键因素有哪些？请结合业务结构、盈利趋势与风险状况说明。",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:31:14",
+          "latency_ms": {
+            "retrieve": 0.82,
+            "generate": 1.08,
+            "first_token": 0.82,
+            "total": 41.96
+          },
+          "error": null,
+          "wall_ms": 58.95,
+          "refused": false,
+          "answer_chars": 683,
+          "generation_method": "cache_hit",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "bd3c1f4caeae57c965eb122392e0feec13410df2"
+          },
+          "cited_pages": [
+            81
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "sqlite_fill",
+          "id": "Q02",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中提到的创新商业模式有哪些？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:31:14",
+          "latency_ms": {
+            "retrieve": 0.71,
+            "generate": 4.09,
+            "first_token": 0.71,
+            "total": 13.99
+          },
+          "error": null,
+          "wall_ms": 31.31,
+          "refused": false,
+          "answer_chars": 211,
+          "generation_method": "cache_hit",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "1650a90fa56d9bfaf29c17ba3fd8886a4c6c4156"
+          },
+          "cited_pages": [
+            207
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "sqlite_fill",
+          "id": "Q03",
+          "lang": "zh",
+          "question": "平安银行的风险管理体系如何体现其应对宏观经济周期波动的能力？结合年报中的拨备覆盖率动态调整、资产质量控制，以及贷款结构优化策略，分析其应对经济下行周期的准备程度及可能的潜在压力。",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:31:14",
+          "latency_ms": {
+            "retrieve": 0.91,
+            "generate": 2.51,
+            "first_token": 0.91,
+            "total": 15.13
+          },
+          "error": null,
+          "wall_ms": 31.29,
+          "refused": false,
+          "answer_chars": 177,
+          "generation_method": "cache_hit",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "6ea3a1b0957706d66f323ee4c183c37c1ae6446a"
+          },
+          "cited_pages": [
+            43
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "sqlite_fill",
+          "id": "Q04",
+          "lang": "zh",
+          "question": "分析这些银行和保险公司在面对经济周期波动时的共同策略与差异化策略，重点关注其在风险管理、资本结构优化和新兴领域（如绿色金融或科技金融）投资上的表现。如何评估这些策略在未来经济下行周期中的可持续性？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:31:14",
+          "latency_ms": {
+            "retrieve": 0.66,
+            "generate": 0.0,
+            "first_token": 0.66,
+            "total": 24.17
+          },
+          "error": null,
+          "wall_ms": 44.52,
+          "refused": true,
+          "answer_chars": 3,
+          "generation_method": "refused",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "01465e7baeeb71c05f12b7a554a8116558b37a77"
+          },
+          "cited_pages": [],
+          "refusal_reason": "unknown_entity"
+        }
+      ]
+    },
+    "sqlite_cache_hit": {
+      "说明": "**另一个**引擎实例（内存缓存为空）读同一 SQLite 库 ⇒ 等价于「服务重启后重复提问」",
+      "统计": {
+        "样本数": 4,
+        "有效样本数": 4,
+        "异常样本数": 0,
+        "总耗时": {
+          "样本数": 4,
+          "均值": 11.37,
+          "中位": 11.5,
+          "P50": 11.5,
+          "P90": 12.54,
+          "P95": 12.7,
+          "最大": 12.86,
+          "最小": 9.63
+        },
+        "检索": {
+          "样本数": 4,
+          "均值": 0.0,
+          "中位": 0.0,
+          "P50": 0.0,
+          "P90": 0.0,
+          "P95": 0.0,
+          "最大": 0.0,
+          "最小": 0.0
+        },
+        "生成": {
+          "样本数": 4,
+          "均值": 0.0,
+          "中位": 0.0,
+          "P50": 0.0,
+          "P90": 0.0,
+          "P95": 0.0,
+          "最大": 0.0,
+          "最小": 0.0
+        },
+        "首字": {
+          "样本数": 4,
+          "均值": 0.0,
+          "中位": 0.0,
+          "P50": 0.0,
+          "P90": 0.0,
+          "P95": 0.0,
+          "最大": 0.0,
+          "最小": 0.0
+        },
+        "SLA": {
+          "阈值ms": 3000.0,
+          "达标题数": 4,
+          "样本数": 4,
+          "达标率": 1.0,
+          "超时题号": [],
+          "达标率_首字": 1.0
+        }
+      },
+      "逐题": [
+        {
+          "scenario": "sqlite_cache_hit",
+          "id": "Q01",
+          "lang": "zh",
+          "question": "平安银行2019年年度报告的董事长致辞中，提到该行盈利增长的关键因素有哪些？请结合业务结构、盈利趋势与风险状况说明。",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:31:14",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 12.86
+          },
+          "error": null,
+          "wall_ms": 23.53,
+          "refused": false,
+          "answer_chars": 683,
+          "generation_method": "cache_hit",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "bd3c1f4caeae57c965eb122392e0feec13410df2",
+            "layer": "sqlite"
+          },
+          "cited_pages": [
+            81
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "sqlite_cache_hit",
+          "id": "Q02",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中提到的创新商业模式有哪些？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:31:14",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 9.63
+          },
+          "error": null,
+          "wall_ms": 20.11,
+          "refused": false,
+          "answer_chars": 211,
+          "generation_method": "cache_hit",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "1650a90fa56d9bfaf29c17ba3fd8886a4c6c4156",
+            "layer": "sqlite"
+          },
+          "cited_pages": [
+            207
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "sqlite_cache_hit",
+          "id": "Q03",
+          "lang": "zh",
+          "question": "平安银行的风险管理体系如何体现其应对宏观经济周期波动的能力？结合年报中的拨备覆盖率动态调整、资产质量控制，以及贷款结构优化策略，分析其应对经济下行周期的准备程度及可能的潜在压力。",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:31:14",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 11.81
+          },
+          "error": null,
+          "wall_ms": 21.94,
+          "refused": false,
+          "answer_chars": 177,
+          "generation_method": "cache_hit",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "6ea3a1b0957706d66f323ee4c183c37c1ae6446a",
+            "layer": "sqlite"
+          },
+          "cited_pages": [
+            43
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "sqlite_cache_hit",
+          "id": "Q04",
+          "lang": "zh",
+          "question": "分析这些银行和保险公司在面对经济周期波动时的共同策略与差异化策略，重点关注其在风险管理、资本结构优化和新兴领域（如绿色金融或科技金融）投资上的表现。如何评估这些策略在未来经济下行周期中的可持续性？",
+          "top_k": 10,
+          "use_cache": true,
+          "asked_at": "2026-10-07 21:31:14",
+          "latency_ms": {
+            "retrieve": 0.0,
+            "generate": 0.0,
+            "first_token": 0.0,
+            "total": 11.18
+          },
+          "error": null,
+          "wall_ms": 20.4,
+          "refused": true,
+          "answer_chars": 3,
+          "generation_method": "refused",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": true,
+            "key": "01465e7baeeb71c05f12b7a554a8116558b37a77",
+            "layer": "sqlite"
+          },
+          "cited_pages": [],
+          "refusal_reason": "unknown_entity"
+        }
+      ]
+    },
+    "probe_promptk_3": {
+      "说明": "对照臂：RAG_RETRIEVAL__PROMPT_TOP_K=3（引擎默认）",
+      "统计": {
+        "样本数": 6,
+        "有效样本数": 6,
+        "异常样本数": 0,
+        "总耗时": {
+          "样本数": 6,
+          "均值": 533.52,
+          "中位": 551.94,
+          "P50": 551.94,
+          "P90": 768.37,
+          "P95": 799.92,
+          "最大": 831.47,
+          "最小": 120.47
+        },
+        "检索": {
+          "样本数": 6,
+          "均值": 101.44,
+          "中位": 97.34,
+          "P50": 97.34,
+          "P90": 131.78,
+          "P95": 146.36,
+          "最大": 160.94,
+          "最小": 71.82
+        },
+        "生成": {
+          "样本数": 6,
+          "均值": 423.57,
+          "中位": 459.53,
+          "P50": 459.53,
+          "P90": 646.08,
+          "P95": 655.54,
+          "最大": 665.0,
+          "最小": 0.0
+        },
+        "首字": {
+          "样本数": 6,
+          "均值": 229.49,
+          "中位": 232.47,
+          "P50": 232.47,
+          "P90": 322.08,
+          "P95": 356.37,
+          "最大": 390.65,
+          "最小": 102.56
+        },
+        "SLA": {
+          "阈值ms": 3000.0,
+          "达标题数": 6,
+          "样本数": 6,
+          "达标率": 1.0,
+          "超时题号": [],
+          "达标率_首字": 1.0
+        }
+      },
+      "逐题": [
+        {
+          "scenario": "probe_promptk_3",
+          "id": "Q01",
+          "lang": "zh",
+          "question": "平安银行2019年年度报告的董事长致辞中，提到该行盈利增长的关键因素有哪些？请结合业务结构、盈利趋势与风险状况说明。",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:31:14",
+          "latency_ms": {
+            "retrieve": 102.62,
+            "generate": 330.23,
+            "first_token": 251.78,
+            "total": 440.05
+          },
+          "error": null,
+          "wall_ms": 440.95,
+          "refused": false,
+          "answer_chars": 683,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "bd3c1f4caeae57c965eb122392e0feec13410df2"
+          },
+          "cited_pages": [
+            81
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "probe_promptk_3",
+          "id": "Q02",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中提到的创新商业模式有哪些？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:31:14",
+          "latency_ms": {
+            "retrieve": 78.61,
+            "generate": 446.71,
+            "first_token": 213.15,
+            "total": 531.43
+          },
+          "error": null,
+          "wall_ms": 532.36,
+          "refused": false,
+          "answer_chars": 211,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "1650a90fa56d9bfaf29c17ba3fd8886a4c6c4156"
+          },
+          "cited_pages": [
+            207
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "probe_promptk_3",
+          "id": "Q03",
+          "lang": "zh",
+          "question": "平安银行的风险管理体系如何体现其应对宏观经济周期波动的能力？结合年报中的拨备覆盖率动态调整、资产质量控制，以及贷款结构优化策略，分析其应对经济下行周期的准备程度及可能的潜在压力。",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:31:15",
+          "latency_ms": {
+            "retrieve": 92.12,
+            "generate": 472.35,
+            "first_token": 253.52,
+            "total": 572.46
+          },
+          "error": null,
+          "wall_ms": 573.73,
+          "refused": false,
+          "answer_chars": 177,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "6ea3a1b0957706d66f323ee4c183c37c1ae6446a"
+          },
+          "cited_pages": [
+            43
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "probe_promptk_3",
+          "id": "Q04",
+          "lang": "zh",
+          "question": "分析这些银行和保险公司在面对经济周期波动时的共同策略与差异化策略，重点关注其在风险管理、资本结构优化和新兴领域（如绿色金融或科技金融）投资上的表现。如何评估这些策略在未来经济下行周期中的可持续性？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:31:15",
+          "latency_ms": {
+            "retrieve": 102.56,
+            "generate": 0.0,
+            "first_token": 102.56,
+            "total": 120.47
+          },
+          "error": null,
+          "wall_ms": 121.29,
+          "refused": true,
+          "answer_chars": 3,
+          "generation_method": "refused",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "01465e7baeeb71c05f12b7a554a8116558b37a77"
+          },
+          "cited_pages": [],
+          "refusal_reason": "unknown_entity"
+        },
+        {
+          "scenario": "probe_promptk_3",
+          "id": "Q05",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中，董事长和行长（首席执行官）分别是谁？该行2019年度利润分配方案的每股现金分红是多少？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:31:21",
+          "latency_ms": {
+            "retrieve": 160.94,
+            "generate": 665.0,
+            "first_token": 390.65,
+            "total": 831.47
+          },
+          "error": null,
+          "wall_ms": 832.08,
+          "refused": false,
+          "answer_chars": 304,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "82df1beb0eb9c6a0e52b36dfd3352fb7471bcf7b"
+          },
+          "cited_pages": [
+            251
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "probe_promptk_3",
+          "id": "Q06",
+          "lang": "zh",
+          "question": "中信证券2020年年度报告中，公司负责人是谁？经董事会审议的报告期利润分配预案是什么？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:31:21",
+          "latency_ms": {
+            "retrieve": 71.82,
+            "generate": 627.16,
+            "first_token": 165.27,
+            "total": 705.27
+          },
+          "error": null,
+          "wall_ms": 705.79,
+          "refused": false,
+          "answer_chars": 131,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "d58f58d3dfa44ba1abeacd673d3ab4428ef396cd"
+          },
+          "cited_pages": [
+            2
+          ],
+          "refusal_reason": null
+        }
+      ]
+    },
+    "probe_promptk_2": {
+      "说明": "实验臂：RAG_RETRIEVAL__PROMPT_TOP_K=2",
+      "统计": {
+        "样本数": 6,
+        "有效样本数": 6,
+        "异常样本数": 0,
+        "总耗时": {
+          "样本数": 6,
+          "均值": 602.39,
+          "中位": 700.23,
+          "P50": 700.23,
+          "P90": 816.82,
+          "P95": 828.06,
+          "最大": 839.3,
+          "最小": 100.05
+        },
+        "检索": {
+          "样本数": 6,
+          "均值": 91.05,
+          "中位": 87.77,
+          "P50": 87.77,
+          "P90": 110.81,
+          "P95": 112.28,
+          "最大": 113.75,
+          "最小": 69.58
+        },
+        "生成": {
+          "样本数": 6,
+          "均值": 500.71,
+          "中位": 589.69,
+          "P50": 589.69,
+          "P90": 709.88,
+          "P95": 715.15,
+          "最大": 720.42,
+          "最小": 0.0
+        },
+        "首字": {
+          "样本数": 6,
+          "均值": 273.01,
+          "中位": 248.91,
+          "P50": 248.91,
+          "P90": 431.25,
+          "P95": 460.68,
+          "最大": 490.11,
+          "最小": 88.75
+        },
+        "SLA": {
+          "阈值ms": 3000.0,
+          "达标题数": 6,
+          "样本数": 6,
+          "达标率": 1.0,
+          "超时题号": [],
+          "达标率_首字": 1.0
+        }
+      },
+      "逐题": [
+        {
+          "scenario": "probe_promptk_2",
+          "id": "Q01",
+          "lang": "zh",
+          "question": "平安银行2019年年度报告的董事长致辞中，提到该行盈利增长的关键因素有哪些？请结合业务结构、盈利趋势与风险状况说明。",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:31:22",
+          "latency_ms": {
+            "retrieve": 79.52,
+            "generate": 530.36,
+            "first_token": 372.39,
+            "total": 638.04
+          },
+          "error": null,
+          "wall_ms": 638.57,
+          "refused": false,
+          "answer_chars": 95,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "bd3c1f4caeae57c965eb122392e0feec13410df2"
+          },
+          "cited_pages": [
+            5
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "probe_promptk_2",
+          "id": "Q02",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中提到的创新商业模式有哪些？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:31:23",
+          "latency_ms": {
+            "retrieve": 69.58,
+            "generate": 405.13,
+            "first_token": 188.98,
+            "total": 480.18
+          },
+          "error": null,
+          "wall_ms": 480.91,
+          "refused": false,
+          "answer_chars": 103,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "1650a90fa56d9bfaf29c17ba3fd8886a4c6c4156"
+          },
+          "cited_pages": [
+            5
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "probe_promptk_2",
+          "id": "Q03",
+          "lang": "zh",
+          "question": "平安银行的风险管理体系如何体现其应对宏观经济周期波动的能力？结合年报中的拨备覆盖率动态调整、资产质量控制，以及贷款结构优化策略，分析其应对经济下行周期的准备程度及可能的潜在压力。",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:31:23",
+          "latency_ms": {
+            "retrieve": 86.79,
+            "generate": 699.34,
+            "first_token": 280.45,
+            "total": 794.33
+          },
+          "error": null,
+          "wall_ms": 795.02,
+          "refused": false,
+          "answer_chars": 277,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "6ea3a1b0957706d66f323ee4c183c37c1ae6446a"
+          },
+          "cited_pages": [
+            125
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "probe_promptk_2",
+          "id": "Q04",
+          "lang": "zh",
+          "question": "分析这些银行和保险公司在面对经济周期波动时的共同策略与差异化策略，重点关注其在风险管理、资本结构优化和新兴领域（如绿色金融或科技金融）投资上的表现。如何评估这些策略在未来经济下行周期中的可持续性？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:31:24",
+          "latency_ms": {
+            "retrieve": 88.75,
+            "generate": 0.0,
+            "first_token": 88.75,
+            "total": 100.05
+          },
+          "error": null,
+          "wall_ms": 100.61,
+          "refused": true,
+          "answer_chars": 3,
+          "generation_method": "refused",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "01465e7baeeb71c05f12b7a554a8116558b37a77"
+          },
+          "cited_pages": [],
+          "refusal_reason": "unknown_entity"
+        },
+        {
+          "scenario": "probe_promptk_2",
+          "id": "Q05",
+          "lang": "zh",
+          "question": "招商银行2019年年度报告中，董事长和行长（首席执行官）分别是谁？该行2019年度利润分配方案的每股现金分红是多少？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:31:29",
+          "latency_ms": {
+            "retrieve": 113.75,
+            "generate": 720.42,
+            "first_token": 490.11,
+            "total": 839.3
+          },
+          "error": null,
+          "wall_ms": 839.82,
+          "refused": false,
+          "answer_chars": 304,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "82df1beb0eb9c6a0e52b36dfd3352fb7471bcf7b"
+          },
+          "cited_pages": [
+            251
+          ],
+          "refusal_reason": null
+        },
+        {
+          "scenario": "probe_promptk_2",
+          "id": "Q06",
+          "lang": "zh",
+          "question": "中信证券2020年年度报告中，公司负责人是谁？经董事会审议的报告期利润分配预案是什么？",
+          "top_k": 10,
+          "use_cache": false,
+          "asked_at": "2026-10-07 21:31:30",
+          "latency_ms": {
+            "retrieve": 107.88,
+            "generate": 649.02,
+            "first_token": 217.38,
+            "total": 762.43
+          },
+          "error": null,
+          "wall_ms": 763.09,
+          "refused": false,
+          "answer_chars": 131,
+          "generation_method": "llm_grounded",
+          "backend": "ollama",
+          "model": "qwen2.5:3b",
+          "cache": {
+            "hit": false,
+            "key": "d58f58d3dfa44ba1abeacd673d3ab4428ef396cd"
+          },
+          "cited_pages": [
+            2
+          ],
+          "refusal_reason": null
+        }
+      ]
+    }
+  },
+  "时间线": [
+    {
+      "scenario": "cold_start",
+      "at": "2026-10-07 21:29:29",
+      "script_uptime_ms": 8040.48
+    },
+    {
+      "scenario": "warm_no_cache",
+      "at": "2026-10-07 21:30:37"
+    },
+    {
+      "scenario": "answer_cache_hit",
+      "at": "2026-10-07 21:30:37"
+    },
+    {
+      "scenario": "retrieval_cache_hit",
+      "at": "2026-10-07 21:31:13"
+    },
+    {
+      "scenario": "sqlite_probe",
+      "at": "2026-10-07 21:31:14"
+    },
+    {
+      "scenario": "promptk_probe",
+      "at": "2026-10-07 21:31:31"
+    }
+  ],
+  "prompt_top_k对照": {
+    "子集题号": [
+      "Q01",
+      "Q02",
+      "Q03",
+      "Q04",
+      "Q05",
+      "Q06"
+    ],
+    "说明": "{\"index_chunks\": 8742, \"tokenizer\": {\"cold_ms\": 0.38, \"warm_ms\": 0.19, \"tokens\": 9, \"backend\": \"jieba\"}, \"entity_tagger\": {\"ok\": true, \"sample_nouns\": [\"武汉\", \"新科\", \"电子\", \"股份\", \"有限公司\", \"注册资本\"], \"elapsed_ms\": 1.48}, \"embedding\": {\"backend\": \"ollama\", \"model\": \"bge-m3:latest\", \"dim\": 1024, \"cold_ms\": 32.91, \"warm_ms\": 23.55, \"total_ms\": 107.03}, \"fulltext_index\": {\"fulltext_index\": {\"chunks\": 8742, \""
+  }
+}

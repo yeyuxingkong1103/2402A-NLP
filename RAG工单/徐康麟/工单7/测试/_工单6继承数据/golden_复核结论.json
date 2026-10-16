@@ -1,0 +1,829 @@
+{
+ "generated_by": "研发/data/eval/构建_golden_qa.py",
+ "reviewed_by": "测试工程师（T3）",
+ "golden": [
+  "研发/data/eval/golden_qa.jsonl",
+  "测试/测试数据/golden_qa_16.jsonl"
+ ],
+ "n_questions": 16,
+ "verification": "每题证据页均在本构建期内用 fitz 打开 PDF 逐字/配对/关键字复核",
+ "items": [
+  {
+   "id": 5,
+   "order": 1,
+   "pdf": "招股说明书2",
+   "category": "图像结构",
+   "question": "武汉力源信息技术股份有限公司组织结构图中，销售部有几个部门构成，其中大客户销售部有几个销售处构成？",
+   "evidence_pages": [
+    39,
+    40,
+    113
+   ],
+   "evidence_pages_complete": [
+    39
+   ],
+   "evidence_pages_primary": [
+    39
+   ],
+   "supporting_pages": [
+    40,
+    113
+   ],
+   "related_pages": [],
+   "pages_opened_and_verified": [
+    {
+     "page": 39,
+     "role": "primary",
+     "kind": "diagram_text_layer",
+     "verified": true,
+     "detail": "逐字串长度 54",
+     "source": "PDF2 物理 39 组织结构图文本层（97 个 span；销售部→4 部门→6 销售处，列序连续，按 x 列聚类可由 T1 规则复原）"
+    },
+    {
+     "page": 40,
+     "role": "supporting",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 32",
+     "source": "PDF2 物理 40 正文②销售部（4 个部门的正文互证）"
+    },
+    {
+     "page": 113,
+     "role": "supporting",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 42",
+     "source": "PDF2 物理 113 正文（1 家分公司 vs 6 家销售处的正文互证）"
+    }
+   ],
+   "auto_discovered_alt_pages": [],
+   "verdict": "证据页与答案一致（框图 + 两处正文三重印证，含视觉复核）",
+   "agreement_with_captain": "与 captain 结论一致（证据页建议口径 [39,40,113] 采纳为 evidence_pages）",
+   "note": "T3 打开 PDF2 物理页 39：文本层 97 个 span，销售部@x≈322 / 大客户销售部@x≈349 / 6 个销售处@x=241,286,331,376,421,466（y 588..636，等距 ~45pt）；上海分公司@x≈388,y≈250 属总经理侧，与销售处不同层。渲染 2x 全页图并 read_image 视觉复核：销售部→[电话及网络销售部, 渠道销售部, 大客户销售部, 国际贸易部]，大客户销售部→[珠海, 深圳, 北京, 武汉, 广州, 成都]销售处，确认 4 与 6。",
+   "judge_selftest": {
+    "positive_correct": true,
+    "negatives_all_wrong": true
+   }
+  },
+  {
+   "id": 6,
+   "order": 2,
+   "pdf": "招股说明书2",
+   "category": "图像图表",
+   "question": "武汉力源信息技术股份有限公司招股意向书中，从2008年中国IC市场应用结构与增长图中可以看出，增长率最快的是哪个行业？负增长的是哪个行业？",
+   "evidence_pages": [
+    72
+   ],
+   "evidence_pages_complete": [
+    72
+   ],
+   "evidence_pages_primary": [
+    72
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "pages_opened_and_verified": [
+    {
+     "page": 72,
+     "role": "primary",
+     "kind": "chart_pairs",
+     "verified": true,
+     "detail": "图像通道配对 2 组；条形图 xref=1692 在页内=True；数值来自 read_image 视觉复核",
+     "source": "PDF2 物理 72 条形图（xref=1692，525×473，标题『增长率』）像素级抽取 + read_image 视觉复核；行业-增长率配对落在同一 chunk 即算命中"
+    },
+    {
+     "page": 72,
+     "role": "supporting",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 94",
+     "source": "PDF2 物理 72 正文（图表结论的文字交叉验证：工控 10.5% 位列第二、仅次于汽车）"
+    }
+   ],
+   "auto_discovered_alt_pages": [],
+   "verdict": "证据页与答案一致（两图均已逐图视觉复核，极值与方向确认）",
+   "agreement_with_captain": "与 captain 结论一致；已按 captain 要求弃用早期『两图重叠/左右对调』的说法",
+   "note": "T3 独立 read_image 复核 p72_xref1692（条形图）：IC卡 -2.0%、工控 10.5%、计算机 7.9%、其他 6.1%、汽车 14.0%、网络通信 2.6%、消费 5.1% → 汽车最高、IC卡唯一负增长；p72_xref1693（3D 饼图）7 个行业占比与正文『工控 7%、增长率 10.5%』互证。两图同 y 并列（bbox 仅相接 0.9pt，非重叠），左=1693 饼图 / 右=1692 条形图，与 captain 更正后结论一致。",
+   "judge_selftest": {
+    "positive_correct": true,
+    "negatives_all_wrong": true
+   }
+  },
+  {
+   "id": 1,
+   "order": 3,
+   "pdf": "招股说明书2",
+   "category": "表格数值",
+   "question": "武汉力源信息技术股份有限公司本次发行股数是多少，占发行后总股本的比例是多少？",
+   "evidence_pages": [
+    22,
+    24
+   ],
+   "evidence_pages_complete": [
+    22,
+    24
+   ],
+   "evidence_pages_primary": [
+    22
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "pages_opened_and_verified": [
+    {
+     "page": 22,
+     "role": "primary",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 28",
+     "source": "PDF2 物理 22『四、本次发行情况』表行逐字"
+    },
+    {
+     "page": 24,
+     "role": "alt",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 38",
+     "source": "PDF2 物理 24『本次发行概况』表行逐字"
+    }
+   ],
+   "auto_discovered_alt_pages": [],
+   "verdict": "证据页与答案一致（页 22、24 双页逐字命中）",
+   "agreement_with_captain": "与 captain 结论一致（页 22、24）",
+   "note": "T3 打开 PDF2 物理页 22/24：两页均逐字含『1,670 万股，占发行后总股本的比例为25.04%』；页脚分别为 21/23（物理=印刷+1，与 T1 页码口径一致）。跨文件陷阱已登记：PDF1（兴图新科）同一字段为 1,840 万股 / 不低于 25.00%，答成它即判错。",
+   "judge_selftest": {
+    "positive_correct": true,
+    "negatives_all_wrong": true
+   }
+  },
+  {
+   "id": 2,
+   "order": 4,
+   "pdf": "招股说明书2",
+   "category": "表格数值",
+   "question": "武汉力源信息技术股份有限公司本次募集资金拟投资哪些项目？",
+   "evidence_pages": [
+    22,
+    30,
+    144,
+    306
+   ],
+   "evidence_pages_complete": [
+    22,
+    306
+   ],
+   "evidence_pages_primary": [
+    22
+   ],
+   "supporting_pages": [
+    30,
+    144
+   ],
+   "related_pages": [],
+   "pages_opened_and_verified": [
+    {
+     "page": 22,
+     "role": "primary",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 88",
+     "source": "PDF2 物理 22『五、募集资金用途』表逐行逐字（第 5 项金额原文为 [ ◆ ]）"
+    },
+    {
+     "page": 306,
+     "role": "alt",
+     "kind": "pairs",
+     "verified": true,
+     "detail": "5 组配对；全部关键字承载=True；任一组承载=True",
+     "source": "PDF2 物理 306『募集资金运用计划及项目核准情况』表（备选完整证据页；表格列交错致无短逐字句，故用『项目名-金额』配对判定）"
+    },
+    {
+     "page": 30,
+     "role": "supporting",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 73",
+     "source": "PDF2 物理 30『募集资金投资项目风险』（5 个项目名称的正文互证，不含金额）"
+    },
+    {
+     "page": 144,
+     "role": "supporting",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 44",
+     "source": "PDF2 物理 144（项目落地位置旁证）"
+    }
+   ],
+   "auto_discovered_alt_pages": [],
+   "verdict": "证据页与答案一致（页 22 完整；页 306 备选完整；页 30/144 为部分证据）",
+   "agreement_with_captain": "与 captain 声明页 [22,30,306,144] 无冲突：本 golden 把 22/306 记为完整证据页，30/144 记为部分证据页（更严口径）",
+   "note": "T3 打开 PDF2 物理页 22：5 行项目名 + 4 个金额逐字命中，第 5 项原文『[ ◆ ]』；物理 306 亦含全部 9 个关键字（项目名+金额），但表格列交错（核准号/环保意见夹在行内），故其检索命中用『项目名-金额』配对判定；物理 30 仅有 5 个项目名称（无金额）、物理 144 仅有 3 个项目名称——已登记为 supporting，不得当作完整证据页。",
+   "judge_selftest": {
+    "positive_correct": true,
+    "negatives_all_wrong": true
+   }
+  },
+  {
+   "id": 3,
+   "order": 5,
+   "pdf": "招股说明书2",
+   "category": "文本事实",
+   "question": "与武汉力源信息技术股份有限公司存在控制关系的关联方是谁，持股比例和本公司关系是什么？",
+   "evidence_pages": [
+    21,
+    157,
+    158
+   ],
+   "evidence_pages_complete": [
+    21,
+    157
+   ],
+   "evidence_pages_primary": [
+    157
+   ],
+   "supporting_pages": [
+    158
+   ],
+   "related_pages": [],
+   "pages_opened_and_verified": [
+    {
+     "page": 157,
+     "role": "primary",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 42",
+     "source": "PDF2 物理 157『1、存在控制关系的关联方』表逐字"
+    },
+    {
+     "page": 21,
+     "role": "alt",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 73",
+     "source": "PDF2 物理 21『二、控股股东及实际控制人』正文逐字"
+    },
+    {
+     "page": 158,
+     "role": "supporting",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 12",
+     "source": "PDF2 物理 158（关联方关系图示；补充说明性证据，不含本题答案数值）"
+    }
+   ],
+   "auto_discovered_alt_pages": [],
+   "verdict": "证据页与答案一致（页 157 表 + 页 21 正文双证；页 158 为图示旁证）",
+   "agreement_with_captain": "与 captain 声明页 [157,21,158] 一致，仅将 158 降级为 supporting（复核结论更严）",
+   "note": "T3 打开 PDF2 物理页 157/21：42.35% 与赵马克在 157 表行与 21 正文中均逐字出现；页 158 含『4、公司的关联方关系图示』与普芯达详述，但**不含** 42.35% 与赵马克姓名，故记为 supporting（不得当作本题完整证据页）。跨文件混淆项：PDF1 的控股股东/实际控制人为程家明。",
+   "judge_selftest": {
+    "positive_correct": true,
+    "negatives_all_wrong": true
+   }
+  },
+  {
+   "id": 4,
+   "order": 6,
+   "pdf": "招股说明书2",
+   "category": "文本事实",
+   "question": "与武汉力源信息技术股份有限公司不存在控制关系的关联方企业有哪些？",
+   "evidence_pages": [
+    157,
+    158
+   ],
+   "evidence_pages_complete": [
+    157
+   ],
+   "evidence_pages_primary": [
+    157
+   ],
+   "supporting_pages": [
+    158
+   ],
+   "related_pages": [],
+   "pages_opened_and_verified": [
+    {
+     "page": 157,
+     "role": "primary",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 140",
+     "source": "PDF2 物理 157『2、不存在控制关系的关联方』表 7 行逐字"
+    },
+    {
+     "page": 158,
+     "role": "supporting",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 25",
+     "source": "PDF2 物理 158（普芯达详述，7 家中的第 7 家的旁证）"
+    }
+   ],
+   "auto_discovered_alt_pages": [],
+   "verdict": "证据页与答案一致（页 157 七家齐全）",
+   "agreement_with_captain": "与 captain 声明页 [157,158] 一致，158 降级为 supporting",
+   "note": "T3 打开 PDF2 物理页 157：7 家企业名与关系描述逐行逐字命中（融冰投资/武汉博润/上海博润/听音投资/联众聚源→持有 5% 以上股东；力源贸易→同一实际控制人控制的企业；普芯达→实际控制人近亲属控制的公司）。页 158 只含普芯达详述与『曾为关联方』的佰力电子/盈硅电子，记为 supporting 并登记为混淆项。",
+   "judge_selftest": {
+    "positive_correct": true,
+    "negatives_all_wrong": true
+   }
+  },
+  {
+   "id": 260,
+   "order": 7,
+   "pdf": "招股说明书1",
+   "category": "文本事实",
+   "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+   "evidence_pages": [
+    129
+   ],
+   "evidence_pages_complete": [
+    129
+   ],
+   "evidence_pages_primary": [
+    129
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "pages_opened_and_verified": [
+    {
+     "page": 129,
+     "role": "primary",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 119",
+     "source": "PDF1 物理 129 正文段落逐字（该页 find_tables()=0，本题**不是**表格题）"
+    }
+   ],
+   "auto_discovered_alt_pages": [],
+   "verdict": "证据页与答案一致（页 129 正文段落，与 id 33 同页但为同一句的不同取值）",
+   "agreement_with_captain": "与 captain 结论一致（页 129）",
+   "note": "T3 打开 PDF1 物理 129：该句在同一段落内同时给出 4 个金额与 4 个占比；该页 find_tables() 返回 0（正文段落，非表格）——与 id 33 共用一行证据但题义不同，判分关键字分别为金额组与占比组，**不得混为一谈**。页脚 1-1-128 → 物理=印刷+1。",
+   "judge_selftest": {
+    "positive_correct": true,
+    "negatives_all_wrong": true
+   }
+  },
+  {
+   "id": 95,
+   "order": 8,
+   "pdf": "招股说明书1",
+   "category": "文本事实",
+   "question": "武汉兴图新科电子股份有限公司参与制定了哪个技术标准？",
+   "evidence_pages": [
+    27,
+    160,
+    332
+   ],
+   "evidence_pages_complete": [
+    27,
+    160
+   ],
+   "evidence_pages_primary": [
+    160
+   ],
+   "supporting_pages": [
+    332
+   ],
+   "related_pages": [],
+   "pages_opened_and_verified": [
+    {
+     "page": 160,
+     "role": "primary",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 110",
+     "source": "PDF1 物理 160 正文逐字（含标准名、牵头单位）"
+    },
+    {
+     "page": 27,
+     "role": "alt",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 35",
+     "source": "PDF1 物理 27 正文（同一标准的简称写法，防漏召回）"
+    },
+    {
+     "page": 332,
+     "role": "supporting",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 47",
+     "source": "PDF1 物理 332 正文（标准参与身份的旁证）"
+    }
+   ],
+   "auto_discovered_alt_pages": [],
+   "verdict": "证据页与答案一致（页 160 主证；页 27 简称写法互证；页 332 标准参与身份旁证）",
+   "agreement_with_captain": "与 captain 结论一致（页 160），并额外补入页 27 的简称写法与页 332 旁证（防漏召回）",
+   "note": "T3 打开 PDF1 物理页 160/27/332：160 逐字含『全军第一个视频指挥系统技术标准（即 2019 年制订的《某视频指挥系统技术规范（1.0 版）》）……由军事科学院牵头』；27 用简称《某视频技术规范1.0》表述，故 golden 增设 keywords:any_of 以同时接受两种写法；332 只提到标准参与身份，记为 supporting。",
+   "judge_selftest": {
+    "positive_correct": true,
+    "negatives_all_wrong": true
+   }
+  },
+  {
+   "id": 33,
+   "order": 9,
+   "pdf": "招股说明书1",
+   "category": "文本事实",
+   "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入占主营业务收入的比重分别是多少？",
+   "evidence_pages": [
+    129
+   ],
+   "evidence_pages_complete": [
+    129
+   ],
+   "evidence_pages_primary": [
+    129
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "pages_opened_and_verified": [
+    {
+     "page": 129,
+     "role": "primary",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 100",
+     "source": "PDF1 物理 129 正文段落逐字（与 id 260 同句，本题取占比组）"
+    }
+   ],
+   "auto_discovered_alt_pages": [],
+   "verdict": "证据页与答案一致（页 129 正文段落，占比组）",
+   "agreement_with_captain": "与 captain 结论一致（页 129）",
+   "note": "T3 打开 PDF1 物理 129：占比 4 值逐字命中；该页 find_tables()=0（正文段落）。与 id 260 同页同句但判分关键字不同（本题=占比组，id 260=金额组），已分别登记，禁止互相顶替。",
+   "judge_selftest": {
+    "positive_correct": true,
+    "negatives_all_wrong": true
+   }
+  },
+  {
+   "id": 34,
+   "order": 10,
+   "pdf": "招股说明书1",
+   "category": "文本事实",
+   "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的上游涉及哪些企业？",
+   "evidence_pages": [
+    152
+   ],
+   "evidence_pages_complete": [
+    152
+   ],
+   "evidence_pages_primary": [
+    152
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "pages_opened_and_verified": [
+    {
+     "page": 152,
+     "role": "primary",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 102",
+     "source": "PDF1 物理 152 正文『1、行业上下游情况』逐字（上游+下游同段，题问上游）"
+    }
+   ],
+   "auto_discovered_alt_pages": [],
+   "verdict": "证据页与答案一致（页 152 唯一命中页）",
+   "agreement_with_captain": "与 captain 结论一致（页 152）；页 152 同时承载 id 793，需按题面区分上下游",
+   "note": "T3 打开 PDF1 物理 152：『电子元器件制造企业』『金属壳体制造企业』在全文中**仅此一页**命中（全文扫描）；同段紧邻的『下游行业为各类终端用户……』是 id 793 的答案，两题同页，判分关键字互斥，禁止混答。",
+   "judge_selftest": {
+    "positive_correct": true,
+    "negatives_all_wrong": true
+   }
+  },
+  {
+   "id": 957,
+   "order": 11,
+   "pdf": "招股说明书1",
+   "category": "文本事实",
+   "question": "武汉兴图新科电子股份有限公司在哪个领域已经成为重要供应商？",
+   "evidence_pages": [
+    26,
+    27,
+    154,
+    160,
+    332
+   ],
+   "evidence_pages_complete": [
+    26,
+    27,
+    154,
+    160
+   ],
+   "evidence_pages_primary": [
+    154
+   ],
+   "supporting_pages": [],
+   "related_pages": [
+    332
+   ],
+   "pages_opened_and_verified": [
+    {
+     "page": 154,
+     "role": "primary",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 78",
+     "source": "PDF1 物理 154『（五）发行人在行业中的竞争地位』逐字"
+    },
+    {
+     "page": 27,
+     "role": "alt",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 22",
+     "source": "PDF1 物理 27 正文逐字（同结论的不同页表述）"
+    },
+    {
+     "page": 160,
+     "role": "alt",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 22",
+     "source": "PDF1 物理 160 正文逐字（同结论的不同页表述）"
+    },
+    {
+     "page": 332,
+     "role": "related",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 47",
+     "source": "PDF1 物理 332（captain 曾列为本题证据页；复核结论：**不含『重要供应商』原句**，其承载的是技术标准参与身份，故登记为 related（相关但非本题证据页），不计入 evidence_pages）"
+    },
+    {
+     "page": 26,
+     "role": "alt",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "自动扫描命中",
+     "source": "自动发现：与页 154 同证据逐字（全文扫描）"
+    }
+   ],
+   "auto_discovered_alt_pages": [
+    26
+   ],
+   "verdict": "证据页与答案一致，但**收窄 captain 声明的 332**（复核分歧，详见报告）",
+   "agreement_with_captain": "与 captain 声明页 [154,332] **有分歧**：332 经复核不含本题证据原句，已收窄；已按复核结论登记",
+   "note": "T3 全文扫描『重要供应商』命中页 = [26,27,95,154,155,160,181,182,194,241,330]；**物理 332 不含『重要供应商』原句**（它承载的是『公司是军方视频指挥系统标准主要参与单位、系统验证单位』，更贴近 id 95 的技术标准题）。故本题完整证据页取 [27,154,160]（均逐字含『重要供应商』），332 登记为 related_pages 并给出其实际承载内容，避免出现『引用页 ≠ 含证据页』的虚高。",
+   "judge_selftest": {
+    "positive_correct": true,
+    "negatives_all_wrong": true
+   }
+  },
+  {
+   "id": 793,
+   "order": 12,
+   "pdf": "招股说明书1",
+   "category": "文本事实",
+   "question": "根据武汉兴图新科电子股份有限公司招股意向书，电子信息行业的下游主要包括哪些行业？",
+   "evidence_pages": [
+    152
+   ],
+   "evidence_pages_complete": [
+    152
+   ],
+   "evidence_pages_primary": [
+    152
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "pages_opened_and_verified": [
+    {
+     "page": 152,
+     "role": "primary",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 81",
+     "source": "PDF1 物理 152 正文逐字（题问下游）"
+    }
+   ],
+   "auto_discovered_alt_pages": [],
+   "verdict": "证据页与答案一致（页 152）",
+   "agreement_with_captain": "与 captain 结论一致（页 152）",
+   "note": "T3 打开 PDF1 物理 152：『政府机关』全文仅此一页命中；下游三行业逐字命中。页 152 同时是 id 34（上游）的证据页，两题同页，须按题面区分上下游。第二负例取自物理 154 的『公安武警、展览展示、能源、交通、金融、广电、气象』（竞争格局段落），该段落不得当作本题答案（含『能源』但缺『政府机关』与『军队』语境）。",
+   "judge_selftest": {
+    "positive_correct": true,
+    "negatives_all_wrong": true
+   }
+  },
+  {
+   "id": 795,
+   "order": 13,
+   "pdf": "招股说明书1",
+   "category": "文本事实",
+   "question": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+   "evidence_pages": [
+    27,
+    155,
+    157,
+    181,
+    182,
+    241
+   ],
+   "evidence_pages_complete": [
+    27,
+    155,
+    157,
+    181,
+    182,
+    241
+   ],
+   "evidence_pages_primary": [
+    27
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "pages_opened_and_verified": [
+    {
+     "page": 27,
+     "role": "primary",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 68",
+     "source": "PDF1 物理 27 正文逐字"
+    },
+    {
+     "page": 157,
+     "role": "alt",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 68",
+     "source": "PDF1 物理 157『②参与项目获得国家级奖项 A.国家科技进步一等奖』正文逐字"
+    },
+    {
+     "page": 155,
+     "role": "alt",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "自动扫描命中",
+     "source": "自动发现：与页 27 同证据逐字（全文扫描）"
+    },
+    {
+     "page": 181,
+     "role": "alt",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "自动扫描命中",
+     "source": "自动发现：与页 27 同证据逐字（全文扫描）"
+    },
+    {
+     "page": 182,
+     "role": "alt",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "自动扫描命中",
+     "source": "自动发现：与页 27 同证据逐字（全文扫描）"
+    },
+    {
+     "page": 241,
+     "role": "alt",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "自动扫描命中",
+     "source": "自动发现：与页 27 同证据逐字（全文扫描）"
+    }
+   ],
+   "auto_discovered_alt_pages": [
+    155,
+    181,
+    182,
+    241
+   ],
+   "verdict": "证据页与答案一致（页 27、157 双页逐字）",
+   "agreement_with_captain": "与 captain 结论一致（页 27、157）",
+   "note": "T3 打开 PDF1 物理页 27、157：两页均逐字含『2014 年 12 月……荣获国家科技进步一等奖』；全文另有 94/95/96/155/158/181/182/241 等页含该荣誉表述（招股书多处重复），本 golden 只把 27/157 列为权威证据页，其余不登记（避免证据页膨胀）。",
+   "judge_selftest": {
+    "positive_correct": true,
+    "negatives_all_wrong": true
+   }
+  },
+  {
+   "id": 543,
+   "order": 14,
+   "pdf": "招股说明书1",
+   "category": "表格数值",
+   "question": "武汉兴图新科电子股份有限公司注册资本是多少？",
+   "evidence_pages": [
+    22
+   ],
+   "evidence_pages_complete": [
+    22
+   ],
+   "evidence_pages_primary": [
+    22
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "pages_opened_and_verified": [
+    {
+     "page": 22,
+     "role": "primary",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 21",
+     "source": "PDF1 物理 22『（一）发行人基本情况』表逐字"
+    }
+   ],
+   "auto_discovered_alt_pages": [],
+   "verdict": "证据页与答案一致（页 22）",
+   "agreement_with_captain": "与 captain 结论一致（页 22，PDF1）",
+   "note": "T3 打开 PDF1 物理 22：注册资本 5,520.00 万元、法定代表人 程家明逐字命中（同一表格）。跨文件陷阱：PDF2（力源信息）注册资本为人民币 5,000 万元，答成 5,000 万元即判错。第二个负例考察单位偷换（美元/万元），本机无外汇口径，单位不符即判错。",
+   "judge_selftest": {
+    "positive_correct": true,
+    "negatives_all_wrong": true
+   }
+  },
+  {
+   "id": 531,
+   "order": 15,
+   "pdf": "招股说明书1",
+   "category": "表格数值",
+   "question": "武汉兴图新科电子股份有限公司法定代表人是谁？",
+   "evidence_pages": [
+    22
+   ],
+   "evidence_pages_complete": [
+    22
+   ],
+   "evidence_pages_primary": [
+    22
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "pages_opened_and_verified": [
+    {
+     "page": 22,
+     "role": "primary",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 21",
+     "source": "PDF1 物理 22『（一）发行人基本情况』表逐字"
+    }
+   ],
+   "auto_discovered_alt_pages": [],
+   "verdict": "证据页与答案一致（页 22）",
+   "agreement_with_captain": "与 captain 结论一致（页 22，PDF1）",
+   "note": "T3 打开 PDF1 物理 22：法定代表人为程家明逐字命中；同页『控股股东：程家明』『实际控制人：程家明』互证。跨文件陷阱：PDF2（力源信息）法定代表人为赵马克，答成赵马克即判错。",
+   "judge_selftest": {
+    "positive_correct": true,
+    "negatives_all_wrong": true
+   }
+  },
+  {
+   "id": 207,
+   "order": 16,
+   "pdf": "招股说明书1",
+   "category": "表格数值",
+   "question": "武汉兴图新科电子股份有限公司计划使用本次发行募集资金的多少用于补充流动资金？",
+   "evidence_pages": [
+    30,
+    479,
+    490
+   ],
+   "evidence_pages_complete": [
+    30,
+    479,
+    490
+   ],
+   "evidence_pages_primary": [
+    30
+   ],
+   "supporting_pages": [],
+   "related_pages": [],
+   "pages_opened_and_verified": [
+    {
+     "page": 30,
+     "role": "primary",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 41",
+     "source": "PDF1 物理 30『募集资金用途』表逐行逐字"
+    },
+    {
+     "page": 479,
+     "role": "alt",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 23",
+     "source": "PDF1 物理 479『本次发行募集资金运用计划』表逐行逐字"
+    },
+    {
+     "page": 490,
+     "role": "alt",
+     "kind": "verbatim",
+     "verified": true,
+     "detail": "逐字串长度 26",
+     "source": "PDF1 物理 490『（三）补充流动资金项目』正文（金额写作 15,000 万元，与 15,000.00 万元等价）"
+    }
+   ],
+   "auto_discovered_alt_pages": [],
+   "verdict": "证据页与答案一致（页 30、479、490 三页命中）",
+   "agreement_with_captain": "与 captain 声明页 [30,479] 一致，另补 490（正文口径，等价金额写法）",
+   "note": "T3 打开 PDF1 物理页 30/479/490：30 与 479 为募投表『3 补充流动资金 15,000.00』；490 为正文『拟使用本次发行募集资金15,000 万元用于补充流动资金』（金额写法少两位小数，经归一化等价处理）。全文『15,000』与『补充流动资金』同现页 = [30,479,490]，与声明页一致。",
+   "judge_selftest": {
+    "positive_correct": true,
+    "negatives_all_wrong": true
+   }
+  }
+ ]
+}

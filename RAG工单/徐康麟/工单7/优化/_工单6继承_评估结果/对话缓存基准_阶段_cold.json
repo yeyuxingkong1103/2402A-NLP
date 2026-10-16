@@ -1,0 +1,147 @@
+{
+ "phase": "cold",
+ "warmup_ms": 3486.28,
+ "warmup": {
+  "base": {
+   "index_chunks": 2676,
+   "tokenizer": {
+    "cold_ms": 0.2,
+    "warm_ms": 0.11,
+    "tokens": 9,
+    "backend": "jieba"
+   },
+   "entity_tagger": {
+    "ok": true,
+    "sample_nouns": [
+     "武汉",
+     "新科",
+     "电子",
+     "股份",
+     "有限公司",
+     "注册资本"
+    ],
+    "elapsed_ms": 1519.82
+   },
+   "embedding": {
+    "backend": "ollama",
+    "model": "bge-m3:latest",
+    "dim": 1024,
+    "cold_ms": 92.4,
+    "warm_ms": 194.69,
+    "total_ms": 351.25
+   },
+   "generate": {
+    "ok": true,
+    "elapsed_ms": 127.19,
+    "model": "qwen2.5:3b",
+    "response_head": "你好！有什么我可以"
+   },
+   "elapsed_ms": 3477.3
+  },
+  "entities": 6,
+  "corpora": [
+   "pdf1",
+   "pdf2"
+  ],
+  "max_turns": 3,
+  "elapsed_ms": 3486.27
+ },
+ "session_id": "bench-cold",
+ "rounds": [
+  {
+   "question": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+   "rewritten": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+   "key": "",
+   "source": "engine",
+   "ms": 865.91,
+   "cache_lookup_ms": 0.0,
+   "rewritten_query": "报告期内，武汉兴图新科电子股份有限公司来自军用领域的收入分别是多少？",
+   "strategy": "none",
+   "focus_entity": "武汉兴图新科电子股份有限公司",
+   "refused": false,
+   "turn_index": 1,
+   "cited_pages": [
+    129
+   ],
+   "answer": "发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的收入分别为6,464.51万元、14,414.16万元、18,780.67万元和4,627.14万元。\n引用：[招股说明书1.pdf: 第129页]",
+   "answer_head": "发行人产品主要应用于军队的信息化建设，报告期内，公司来自军用领域的收入分别为6,464.51万元、14,414.16万元、18,780.67万元和4,627.14万元。\n引用：[招股说明书1.pdf:",
+   "engine_total_ms": 864.83
+  },
+  {
+   "question": "他参与的哪个工程荣获了国家科技进步一等奖？",
+   "rewritten": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+   "key": "",
+   "source": "engine",
+   "ms": 633.97,
+   "cache_lookup_ms": 0.0,
+   "rewritten_query": "武汉兴图新科电子股份有限公司参与的哪个工程荣获了国家科技进步一等奖？",
+   "strategy": "pronoun",
+   "focus_entity": "武汉兴图新科电子股份有限公司",
+   "refused": false,
+   "turn_index": 2,
+   "cited_pages": [
+    181
+   ],
+   "answer": "某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统）荣获国家科技进步一等奖。\n引用：[招股说明书1.pdf: 第181页]",
+   "answer_head": "某大型研究所牵头承担的“某情报、指挥、控制与通信网络一体化工程”（即相当于美军的C4ISR系统）荣获国家科技进步一等奖。\n引用：[招股说明书1.pdf: 第181页]",
+   "engine_total_ms": 632.67
+  },
+  {
+   "question": "这个公司的法定代表人是谁？",
+   "rewritten": "武汉兴图新科电子股份有限公司的法定代表人是谁？",
+   "key": "",
+   "source": "engine",
+   "ms": 212.24,
+   "cache_lookup_ms": 0.0,
+   "rewritten_query": "武汉兴图新科电子股份有限公司的法定代表人是谁？",
+   "strategy": "pronoun",
+   "focus_entity": "武汉兴图新科电子股份有限公司",
+   "refused": false,
+   "turn_index": 3,
+   "cited_pages": [
+    68
+   ],
+   "answer": "法定代表人是程家明。\n引用：[招股说明书1.pdf: 第68页 表格]",
+   "answer_head": "法定代表人是程家明。\n引用：[招股说明书1.pdf: 第68页 表格]",
+   "engine_total_ms": 211.05
+  },
+  {
+   "question": "那武汉力源信息技术股份有限公司呢？",
+   "rewritten": "武汉力源信息技术股份有限公司的法定代表人是谁？",
+   "key": "",
+   "source": "engine",
+   "ms": 209.88,
+   "cache_lookup_ms": 0.0,
+   "rewritten_query": "武汉力源信息技术股份有限公司的法定代表人是谁？",
+   "strategy": "ellipsis_entity_switch",
+   "focus_entity": "武汉力源信息技术股份有限公司",
+   "refused": false,
+   "turn_index": 4,
+   "cited_pages": [
+    23
+   ],
+   "answer": "法定代表人是赵马克。\n引用：[招股说明书2.pdf: 第23页]",
+   "answer_head": "法定代表人是赵马克。\n引用：[招股说明书2.pdf: 第23页]",
+   "engine_total_ms": 208.69
+  },
+  {
+   "question": "武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有哪些销售处？",
+   "rewritten": "武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有哪些销售处？",
+   "key": "",
+   "source": "engine",
+   "ms": 806.46,
+   "cache_lookup_ms": 0.0,
+   "rewritten_query": "武汉力源信息技术股份有限公司组织结构图中，哪个销售部的销售处最多？有哪些销售处？",
+   "strategy": "none",
+   "focus_entity": "武汉力源信息技术股份有限公司",
+   "refused": false,
+   "turn_index": 5,
+   "cited_pages": [
+    39
+   ],
+   "answer": "销售部由4个部门构成：国际贸易部、大客户销售部、渠道销售部、电话及网络销售部；其中大客户销售部由6个销售处构成：北京销售处、广州销售处、成都销售处、武汉销售处、深圳销售处、珠海销售处。\n引用：[招股说明书2.pdf: 第39页 组织结构图]",
+   "answer_head": "销售部由4个部门构成：国际贸易部、大客户销售部、渠道销售部、电话及网络销售部；其中大客户销售部由6个销售处构成：北京销售处、广州销售处、成都销售处、武汉销售处、深圳销售处、珠海销售处。\n引用：[招股说",
+   "engine_total_ms": 805.33
+  }
+ ]
+}

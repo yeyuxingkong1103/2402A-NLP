@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><title>准确率 / 召回率汇总</title><style>
+:root { --fg:#1a1d24; --muted:#5b6472; --line:#dfe3ec; --bg:#fff; --accent:#1f6feb; }
+* { box-sizing:border-box; }
+body { font-family:"Microsoft YaHei","Segoe UI",system-ui,sans-serif; margin:0; padding:22px 26px;
+  background:#f4f6fb; color:var(--fg); font-size:14px; line-height:1.6; }
+.card { background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:18px 20px;
+  max-width:1500px; margin:0 auto 16px; box-shadow:0 1px 3px rgba(20,30,60,.06); }
+h1 { font-size:20px; margin:0 0 4px; }
+h2 { font-size:16px; margin:18px 0 8px; padding-bottom:5px; border-bottom:2px solid var(--accent); }
+.sub { color:var(--muted); font-size:12.5px; margin-bottom:12px; }
+table { width:100%; border-collapse:collapse; font-size:12.5px; margin:8px 0 4px; }
+th, td { border:1px solid var(--line); padding:6px 8px; text-align:left; vertical-align:top; }
+th { background:#eef2fa; font-weight:600; white-space:nowrap; }
+tbody tr:nth-child(even) { background:#fafbfe; }
+.ok { color:#0a7d34; font-weight:600; }
+.bad { color:#c0392b; font-weight:600; }
+.warn { color:#b7791f; font-weight:600; }
+.mono { font-family:Consolas,"Courier New",monospace; font-size:12px; }
+.note { background:#f7f9fd; border-left:3px solid var(--accent); padding:9px 12px; margin:10px 0;
+  font-size:12.5px; color:var(--muted); border-radius:0 6px 6px 0; }
+.kpi { display:flex; gap:12px; flex-wrap:wrap; margin:10px 0; }
+.kpi div { background:#f7f9fd; border:1px solid var(--line); border-radius:8px; padding:9px 14px; min-width:150px; }
+.kpi b { display:block; font-size:19px; color:var(--accent); }
+.kpi span { font-size:11.5px; color:var(--muted); }
+</style></head><body><div class="card"><h1>准确率 / 召回率汇总</h1><div class="sub">任务编号：<b>人工智能NLP-RAG-混合检索任务</b>　｜　判据：common/golden.py::judge_answer（确定性关键字+正则，非 LLM 自评）</div><div class="kpi"><div><b>30</b><span>总运行次数</span></div><div><b>90.0%</b><span>总准确率</span></div><div><b>80.0%</b><span>总召回率（权威层）</span></div><div><b>2392.43 ms</b><span>端到端 P95</span></div><div><b>0</b><span>超 3000 ms 轮次</span></div></div><table><thead><tr><th>检索策略</th><th>题数</th><th>准确率（目标 ≥90%）</th><th>召回率·权威层（目标 ≥95%）</th><th>召回率·仅可达题</th><th>召回率·诊断层A</th><th>拒答</th><th>检索耗时 P50/P95/max (ms)</th></tr></thead><tbody><tr><td>向量检索（嵌入召回 + 重排）</td><td>10</td><td><span class="bad">70.0%</span> (7/10)</td><td><span class="warn">60.0%</span> (6/10)</td><td><span class="warn">66.67%</span> (6/9)</td><td>90.0%</td><td>1</td><td>38.22 / 69.83 / 69.83</td></tr><tr><td>全文检索（倒排索引 + 布尔/短语/模糊）</td><td>10</td><td><span class="ok">100.0%</span> (10/10)</td><td><span class="warn">90.0%</span> (9/10)</td><td><span class="ok">100.0%</span> (9/9)</td><td>100.0%</td><td>0</td><td>8.49 / 13.74 / 13.74</td></tr><tr><td>混合检索（向量 + 全文 融合）</td><td>10</td><td><span class="ok">100.0%</span> (10/10)</td><td><span class="warn">90.0%</span> (9/10)</td><td><span class="ok">100.0%</span> (9/9)</td><td>100.0%</td><td>0</td><td>42.78 / 65.67 / 65.67</td></tr></tbody></table><h2>混合检索相比单一检索的提升</h2><table><thead><tr><th>对比</th><th>准确率变化</th><th>召回率变化</th><th>混合修正的题号</th><th>混合退化的题号</th></tr></thead><tbody><tr><td>混合 vs vector</td><td><span class="ok">+30.00 pp</span></td><td>+30.00 pp</td><td>[33, 34, 260]</td><td>无</td></tr><tr><td>混合 vs fulltext</td><td><span class="">+0.00 pp</span></td><td>+0.00 pp</td><td>无</td><td>无</td></tr></tbody></table><h2>证据可达性（穷举扫描 2676 块，不检索、不调模型）</h2><div class="note">题级可达 <b>9/10（90.0%）</b>；不可达题号 <b>[4]</b>；证据条可达 13/14。<br>判定谓词：与 common.golden._layer_hit 权威层同口径：verbatim 用连续子串；chart_pairs/pairs/labels 用「每个 pair 的每个分量同块出现」。<br>不可达的题，<b>任何检索策略、任何 Top-K</b> 都不可能命中权威层 &mdash;&mdash; 这是分块结构决定的判定口径上限，不是检索缺陷。</div></div></body></html>

@@ -1,0 +1,22 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>工单5 多轮对话响应时间</title><style>
+* { box-sizing: border-box; }
+body { margin:0; padding:18px 22px; background:#f5f6f8;
+       font-family:"Microsoft YaHei","Segoe UI",system-ui,sans-serif; color:#1f2329; }
+h1 { font-size:19px; margin:0 0 2px; }
+.sub { color:#6b7280; font-size:12px; margin-bottom:14px; }
+.card { background:#fff; border:1px solid #e3e6ea; border-radius:10px; padding:14px 16px; margin-bottom:14px; }
+.card h2 { font-size:15px; margin:0 0 10px; padding-bottom:7px; border-bottom:2px solid #eef1f4; }
+table { border-collapse:collapse; width:100%; font-size:12.5px; }
+th,td { border:1px solid #e3e6ea; padding:5px 8px; text-align:left; vertical-align:top; }
+th { background:#f0f3f7; font-weight:600; }
+.pass { color:#0a7a35; font-weight:700; }
+.fail { color:#c02626; font-weight:700; }
+.kv { display:flex; flex-wrap:wrap; gap:8px; }
+.kpi { flex:0 0 auto; min-width:150px; background:#f7f9fc; border:1px solid #e3e6ea;
+       border-radius:8px; padding:9px 12px; }
+.kpi .n { font-size:21px; font-weight:700; color:#14428a; }
+.kpi .l { font-size:11.5px; color:#6b7280; margin-top:3px; }
+.kpi.ok .n { color:#0a7a35; } .kpi.bad .n { color:#c02626; }
+.note { font-size:11.5px; color:#6b7280; margin-top:9px; line-height:1.6; }
+.mono { font-family:Consolas,monospace; font-size:12px; }
+</style></head><body><h1>工单5 多轮对话响应时间</h1><div class="sub">工单5：人工智能NLP-RAG-Query 理解优化　|　产物目录 E:\gao6gongdan\工单5\测试\测试数据\多轮评测结果\mt-local</div><div class="card"><h2>端到端延迟（客户端 wall，逐轮）</h2><div class="kv"><div class="kpi "><div class="n">653.3</div><div class="l">P50 (ms)</div></div><div class="kpi "><div class="n">872.3</div><div class="l">P95 (ms)</div></div><div class="kpi "><div class="n">872.3</div><div class="l">max (ms)</div></div><div class="kpi "><div class="n">205.2</div><div class="l">min (ms)</div></div><div class="kpi "><div class="n">571.0</div><div class="l">mean (ms)</div></div><div class="kpi ok"><div class="n">0</div><div class="l">超 3000ms 轮数</div></div><div class="kpi "><div class="n">2168.3</div><div class="l">冷启动 (ms，不计入)</div></div></div><div class="card"><h2>改写阶段（工单5 新增开销）</h2><div class="kv"><div class="kpi "><div class="n">0.1</div><div class="l">改写 P50 (ms)</div></div><div class="kpi "><div class="n">0.2</div><div class="l">改写 P95 (ms)</div></div><div class="kpi "><div class="n">0.2</div><div class="l">改写 max (ms)</div></div><div class="kpi ok"><div class="n">≤3000</div><div class="l">验收阈值 (ms)</div></div></div><div class="note">口径：客户端 wall = 请求发出 → 完整答案返回；冷启动轮（模型/索引首轮加载）单独记录且**不计入**统计。改写阶段是纯规则+状态实现，不调用生成模型。</div></div><div class="card"><h2>逐轮延迟</h2><table><tr><th>id</th><th>轮</th><th>策略</th><th>wall(ms)</th><th>改写(ms)</th><th>检索(ms)</th><th>生成(ms)</th><th>≤3000ms</th></tr><tr><td>MT1</td><td>1</td><td class="mono">none</td><td>872.3</td><td>0.21</td><td>54.67</td><td>813.36</td><td><span class="pass">是</span></td></tr><tr><td>MT2</td><td>2</td><td class="mono">pronoun</td><td>653.3</td><td>0.14</td><td>65.21</td><td>583.95</td><td><span class="pass">是</span></td></tr><tr><td>MT3</td><td>3</td><td class="mono">pronoun</td><td>288.2</td><td>0.07</td><td>87.81</td><td>196.05</td><td><span class="pass">是</span></td></tr><tr><td>MT4</td><td>4</td><td class="mono">ellipsis_entity_switch</td><td>205.2</td><td>0.11</td><td>50.22</td><td>152.1</td><td><span class="pass">是</span></td></tr><tr><td>MT5</td><td>5</td><td class="mono">none</td><td>835.8</td><td>0.15</td><td>76.69</td><td>756.31</td><td><span class="pass">是</span></td></tr></table></div></body></html>

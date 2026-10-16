@@ -1,0 +1,44 @@
+WARMUP_MS=23907.0
+ANSWER_MS=2604.9
+RES_TYPE= Answer
+RES_ATTRS= ['analysis', 'answer', 'backend', 'cache', 'chunks', 'citations', 'cited_pages', 'diagnostics', 'evidence', 'generation_method', 'language', 'latency_ms', 'model', 'question', 'refusal_detail', 'refusal_reason', 'refused', 'session_id', 'to_dict', 'trace_id']
+  analysis = {'question': '平安银行2019年年度报告中，该行2019年实现营业收入和净利润分别是多少？', 'language': 'zh', 'language_info': {'requested': 'auto', 'resolved': 'zh', 'cjk_chars': 28, 'latin_chars': 0, 'reason': '自动识别 detected=zh'}, 'tokens': ['平安', '银行', '2019', '年度报告', '该行', '2019', '实现', '营业', '收入', '净利润', '分别', '多少', '2019'], 'keywords': ['平安', '银行', '2019', '年度报告', '该行', '2019', '实现', '营业', '收入', '净利润', '分别', '多少', '2019'], 'field_terms': [], 'numbers': ['2019'], 'intents': ['asks_list', 'asks_numeric'], 'answer_shape': 'numeric_series', 'corpus_hint': 'pdf2020', 'issuer_hint': '平安银行股份有限公司', 'subject_terms': ['平安银行股份有限公司']}
+  answer = '不清楚'
+  backend = 'ollama'
+  cache = {'hit': False, 'key': '5d29ab3890ced48d166d9471db583763d6fb2b99'}
+  chunks = [{'chunk_id': '20200214-p20-t1-0', 'page': 20, 'page_basis': '1-based-physical', 'file_name': '2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf', 'type': 'table', 'modality': 'table', 'modality_sub': None, 'score': 2.378445, 'final_score': 2.378445, 'rrf_score': 0.03021353930031804, 'vector_rank': 2, 'bm25_rank': 11, 'bm25_score': 22.884465426213787, 'vector_score': 0.8132011890411377, 'text': '[表标题] （货币单位：人民币百万元）\n[来源] 2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf 第 20 页\n[Markdown]\n| 项目 | 2019 年第一季度 | 2019 年第二季度 | 2019 年第三季度 | 2019 年第四季度 |\n| --- | --- | --- | --- | --- |\n| 营业
+  citations = []
+  cited_pages = []
+  diagnostics = {'gate': {'answerable': True, 'reason': 'answerable', 'thresholds': {'min_score': 0.12, 'min_keyword_coverage': 0.45, 'min_vector_similarity_en': 0.45}, 'evidence': {'question': '平安银行2019年年度报告中，该行2019年实现营业收入和净利润分别是多少？', 'keywords': ['平安', '银行', '2019', '年度报告', '该行', '2019', '实现', '营业', '收入', '净利润', '分别', '多少', '2019'], 'top_score': 2.378445, 'max_vector_similarity': 0.8173843026161194, 'max_bm25_score': 31.711602982782164, 'coverage': 0.6923076923076923, 'corpus_hint': 'pdf2020', 'top_corpus': 'pdf2020', 'corpus_hint_hit': True, 'has_support_sentence': True, 'oov_keywords': []}}, 'retrieve_ms'
+  evidence = []
+  generation_method = 'refused'
+  language = 'zh'
+  latency_ms = {'retrieve': 473.84, 'generate': 2066.18, 'first_token': 473.84, 'total': 2603.88}
+  model = 'qwen2.5:3b'
+  question = '平安银行2019年年度报告中，该行2019年实现营业收入和净利润分别是多少？'
+  refusal_detail = '向量相似度与 BM25 分数双双低于底线'
+  refusal_reason = 'low_similarity'
+  refused = True
+  session_id = 'probe'
+  trace_id = 'bbf5549ba923'
+=== citations ===
+[]
+=== cited_pages ===
+[]
+=== latency_ms ===
+{"retrieve": 473.84, "generate": 2066.18, "first_token": 473.84, "total": 2603.88}
+=== evidence len === 0
+=== chunks len === 12
+CHUNK_TYPE= dict
+CHUNK_KEYS= ['chunk_id', 'page', 'page_basis', 'file_name', 'type', 'modality', 'modality_sub', 'score', 'final_score', 'rrf_score', 'vector_rank', 'bm25_rank', 'bm25_score', 'vector_score', 'text']
+{"chunk_id": "20200214-p20-t1-0", "page": 20, "page_basis": "1-based-physical", "file_name": "2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf", "type": "table", "modality": "table", "modality_sub": null, "score": 2.378445, "final_score": 2.378445, "rrf_score": 0.03021353930031804, "vector_rank": 2, "bm25_rank": 11, "bm25_score": 22.884465426213787, "vector_score": 0.8132011890411377, "text": "[表标题] （货币单位：人民币百万元）\n[来源] 2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf 第 20 页\n[Markdown]\n| 项目 | 2019 年第一季度 | 2019 年第二季度 | 2019 年第三季度 | 2019 年第四季度 |\n| --- | --- | --- | --- | --- |\n| 营业收入 | 32,476 | 35,353 | 35,129 | 35,000 |\n| 归属于本公司股东的净利润 | 7,446 | 7,957 | 8,218 | 4,574 |\n| 扣除非经常性损益后归属于本公司股东的净利润 | 7,422 | 7,894 | 8,211 | 4,559 |\n| 经营活动产生的现金流量净额 | 53,184 | (26,752) | 58,048 | (124,505) |\n[关键数字] 32,476 35,353 35,129 35,000 7,446 7,957 8,218 4,574 7,422 7,894 8,211 4,559 53,184 26,752 58,048 124,505 2019"}
+=== retrieve_only ===
+HITS_TYPE= dict
+HITS_LEN= 5
+retrieve_only ERROR: 0
+PROBE_DONE
+Traceback (most recent call last):
+  File "E:\gao6gongdan\工单7\测试\_工作\探测QA结构.py", line 69, in <module>
+    h0 = hits[0]
+         ~~~~^^^
+KeyError: 0

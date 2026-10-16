@@ -1,0 +1,143 @@
+{
+  "工单": "人工智能NLP-RAG-功能测试及评估",
+  "模式": "probe-misc",
+  "生成时间": "2026-10-07 21:28:07",
+  "环境": {
+    "解释器": "E:\\gao6gongdan\\工单1\\.venv\\Scripts\\python.exe",
+    "python": "3.11.15",
+    "cwd": "E:\\gao6gongdan\\工单7",
+    "修订": {
+      "retriever.py": "45ae1b648c015d4b",
+      "answer_composer.py": "6699df2bf68c033f",
+      "generator.py": "baa1aa93b65a974f",
+      "qa_engine.py": "4dc387e8c6b1c65e",
+      "answerability.py": "1f01bb8fbc79f257",
+      "query_understanding.py": "fb16916c58b8dafd",
+      "reranker.py": "4679c942c4ba00f4",
+      "fusion.py": "89a870a96f89cb3d",
+      "citation.py": "6bb500ce28137f83",
+      "bm25_index.py": "bf2990e9305c470d",
+      "cache.py": "d72920b265f69b32",
+      "dialogue_cache.py": "2a5a0c68e0a1c9ef"
+    }
+  },
+  "批量嵌入扫描": {
+    "样本数": 32,
+    "扫描": [
+      {
+        "batch_size": 1,
+        "总耗时ms": 2772.85,
+        "每条ms": 86.652,
+        "往返次数": 32,
+        "输出形状": "None",
+        "相对batch1加速比": 1.0
+      },
+      {
+        "batch_size": 2,
+        "总耗时ms": 3366.08,
+        "每条ms": 105.19,
+        "往返次数": 16,
+        "输出形状": "None",
+        "相对batch1加速比": 0.82
+      },
+      {
+        "batch_size": 4,
+        "总耗时ms": 4525.09,
+        "每条ms": 141.409,
+        "往返次数": 8,
+        "输出形状": "None",
+        "相对batch1加速比": 0.61
+      },
+      {
+        "batch_size": 8,
+        "总耗时ms": 2845.62,
+        "每条ms": 88.926,
+        "往返次数": 4,
+        "输出形状": "None",
+        "相对batch1加速比": 0.97
+      },
+      {
+        "batch_size": 16,
+        "总耗时ms": 2035.52,
+        "每条ms": 63.61,
+        "往返次数": 2,
+        "输出形状": "None",
+        "相对batch1加速比": 1.36
+      },
+      {
+        "batch_size": 32,
+        "总耗时ms": 2801.78,
+        "每条ms": 87.556,
+        "往返次数": 1,
+        "输出形状": "None",
+        "相对batch1加速比": 0.99
+      }
+    ],
+    "结论": "批大小只影响离线批量嵌入的往返次数与总耗时，对在线单问延迟无影响（在线路径每次只嵌 1 条，任何 batch_size 都退化为 1 次往返）"
+  },
+  "对话级缓存": {
+    "逐题": [
+      {
+        "id": "Q01",
+        "miss_ms": 647.64,
+        "hit_ms": 0.54,
+        "second_cache": {
+          "hit": true,
+          "layer": "dialogue"
+        },
+        "second_layer": "dialogue",
+        "saved_ms": 647.1,
+        "rewritten_1": "平安银行2019年年度报告的董事长致辞中，提到该行盈利增长的关键因素有哪些？请结合业务结构、盈利趋势与风险状况说明。",
+        "rewritten_2": "平安银行2019年年度报告的董事长致辞中，提到该行盈利增长的关键因素有哪些？请结合业务结构、盈利趋势与风险状况说明。"
+      },
+      {
+        "id": "Q02",
+        "miss_ms": 1533.6,
+        "hit_ms": 0.91,
+        "second_cache": {
+          "hit": true,
+          "layer": "dialogue"
+        },
+        "second_layer": "dialogue",
+        "saved_ms": 1532.69,
+        "rewritten_1": "招商银行2019年年度报告中提到的创新商业模式有哪些？",
+        "rewritten_2": "招商银行2019年年度报告中提到的创新商业模式有哪些？"
+      },
+      {
+        "id": "Q03",
+        "miss_ms": 1224.62,
+        "hit_ms": 0.45,
+        "second_cache": {
+          "hit": true,
+          "layer": "dialogue"
+        },
+        "second_layer": "dialogue",
+        "saved_ms": 1224.17,
+        "rewritten_1": "平安银行的风险管理体系如何体现其应对宏观经济周期波动的能力？结合年报中的拨备覆盖率动态调整、资产质量控制，以及贷款结构优化策略，分析其应对经济下行周期的准备程度及可能的潜在压力。",
+        "rewritten_2": "平安银行的风险管理体系如何体现其应对宏观经济周期波动的能力？结合年报中的拨备覆盖率动态调整、资产质量控制，以及贷款结构优化策略，分析其应对经济下行周期的准备程度及可能的潜在压力。"
+      }
+    ],
+    "命中layer=dialogue的题数": 3,
+    "样本数": 3,
+    "未命中均值ms": 1135.29,
+    "命中均值ms": 0.63,
+    "平均节省ms": 1134.65,
+    "引擎缓存统计": {
+      "hits": 3,
+      "misses": 3,
+      "hit_rate": 0.5,
+      "size": 3,
+      "evictions": 0,
+      "expired": 0,
+      "max_size": 512,
+      "ttl_s": 1800.0,
+      "puts": 3,
+      "invalidations": 0,
+      "sessions": 3,
+      "loaded": 0,
+      "load_errors": 0,
+      "save_errors": 0,
+      "persist_path": null
+    }
+  }
+}
