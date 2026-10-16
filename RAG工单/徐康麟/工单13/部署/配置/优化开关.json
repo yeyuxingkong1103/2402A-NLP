@@ -1,0 +1,48 @@
+{
+  "_说明": "工单13（人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化）性能优化开关。优先级：环境变量 RAG_PERF__<KEY 大写> > 本文件 > 代码内置默认（研发/app/core/perf.py:DEFAULT_FLAGS）。**全部置 false 即基线行为**（优化前口径）。",
+  "_工单": "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化",
+  "_生成时间": "2026-10-13",
+  "_使用方式": [
+    "python 研发/app/main.py --ask '...' --perf-profile optimized   # 优化后口径（读本文件 + 内置默认）",
+    "python 研发/app/main.py --ask '...' --perf-profile baseline    # 优化前口径（全部开关关闭）",
+    "python 研发/app/main.py --ask '...' --perf-set rerank_budget=60,parallel_channels=0   # 单项 A/B",
+    "环境变量方式：$env:RAG_PERF__PARALLEL_CHANNELS='0'"
+  ],
+  "flags": {
+    "warmup_enabled": true,
+    "warmup_fulltext": false,
+
+    "embed_backend_cache": true,
+    "embed_probe_ttl_s": 300.0,
+
+    "parallel_channels": true,
+    "parallel_workers": 2,
+
+    "rerank_prune": true,
+    "rerank_budget": 40,
+    "rerank_min_relative": 0.02,
+
+    "cache_enabled": true,
+
+    "context_io_cache": true,
+
+    "adaptive_top_k": true,
+    "adaptive_top_k_values": {"multi": 5, "single": 3, "default": 5},
+
+    "async_log": true,
+    "async_log_queue": 4096,
+
+    "generate_budget": true,
+    "generate_max_tokens": 512,
+    "context_char_budget": 6000,
+
+    "max_query_chars": 2000,
+    "ollama_timeout_s": 20.0
+  },
+  "_阈值标定说明": {
+    "rerank_budget": "RRF 融合后送特征重排的候选条数上限。基线 60；实测 40 与 60 的 Top-5 一致（见 优化/评估结果/等价性验证.json），重排耗时按候选数近似线性下降。",
+    "adaptive_top_k_values": "按 answer_shape 收敛检索广度：枚举/多点/对比题取 multi=5（与基线一致，不牺牲召回），单值/是否题取 single=3。",
+    "generate_max_tokens": "Ollama num_predict 上限，直接决定生成墙钟。基线取 config.llm.max_tokens=512；此处仍为 512（不做无证据的压缩，避免护栏失败导致答案质量下降）。",
+    "embed_probe_ttl_s": "嵌入/生成后端探测结论缓存 TTL（秒）。基线=每次调用都 HTTP 探测 /api/tags。"
+  }
+}

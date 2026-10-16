@@ -1,0 +1,800 @@
+{
+  "工单": "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化",
+  "生成时间": "2026-10-16 07:50:04",
+  "脚本": "E:\\gao6gongdan\\工单13\\研发\\scripts\\分段计时剖析.py",
+  "标签": "子集基线",
+  "档位": "baseline",
+  "口径": {
+    "缓存": "只写不读（use_cache=False）",
+    "轮数": 2,
+    "丢弃轮数": 1,
+    "计入统计题数": 6,
+    "题间休眠s": 0.2,
+    "top_k参数": null,
+    "SLA_ms": 3000.0,
+    "耗时口径": "perf_counter 单调时钟；total_ms 为引擎内部统计，wall_ms 为脚本墙钟"
+  },
+  "环境": {
+    "解释器": "E:\\gao6gongdan\\工单1\\.venv\\Scripts\\python.exe",
+    "python": "3.11.15",
+    "runtime": {
+      "work_order": "人工智能NLP-RAG-功能测试及评估",
+      "python": "3.11.15",
+      "executable": "E:\\gao6gongdan\\工单1\\.venv\\Scripts\\python.exe",
+      "repo_root": "E:\\gao6gongdan\\工单13",
+      "raw_dir": "E:\\gao6gongdan\\工单13\\研发\\data\\raw",
+      "processed_dir": "E:\\gao6gongdan\\工单13\\研发\\data\\processed",
+      "index_dir": "E:\\gao6gongdan\\工单13\\研发\\data\\index",
+      "log_dir": "E:\\gao6gongdan\\工单13\\部署\\日志"
+    }
+  },
+  "预热": {
+    "index_chunks": 8847,
+    "ms_index_load": 4322.91,
+    "tokenizer": {
+      "cold_ms": 0.27,
+      "warm_ms": 0.26,
+      "tokens": 9,
+      "backend": "jieba"
+    },
+    "entity_tagger": {
+      "ok": true,
+      "sample_nouns": [
+        "武汉",
+        "新科",
+        "电子",
+        "股份",
+        "有限公司",
+        "注册资本"
+      ],
+      "elapsed_ms": 2008.84
+    },
+    "ms_tokenizer": 2009.77,
+    "embedding": {
+      "backend": "ollama",
+      "model": "bge-m3:latest",
+      "dim": 1024,
+      "cold_ms": 54.74,
+      "warm_ms": 40.78,
+      "total_ms": 515.13
+    },
+    "ms_embedding": 515.5,
+    "fulltext_index": {
+      "skipped": true,
+      "reason": "RAG_PERF__WARMUP_FULLTEXT=0（默认链路不使用多字段倒排索引）"
+    },
+    "ms_fulltext_index": 0.0,
+    "generate": {
+      "ok": true,
+      "elapsed_ms": 748.11,
+      "model": "qwen2.5:3b",
+      "response_head": "你好！有什么我可以"
+    },
+    "ms_generate": 748.56,
+    "elapsed_ms": 7667.41
+  },
+  "优化开关": {
+    "warmup_enabled": true,
+    "warmup_fulltext": false,
+    "embed_backend_cache": false,
+    "embed_probe_ttl_s": 300.0,
+    "parallel_channels": false,
+    "parallel_workers": 2,
+    "rerank_prune": false,
+    "rerank_budget": 40,
+    "rerank_min_relative": 0.02,
+    "cache_enabled": false,
+    "context_io_cache": false,
+    "adaptive_top_k": false,
+    "async_log": false,
+    "async_log_queue": 4096,
+    "generate_budget": false,
+    "generate_max_tokens": 512,
+    "context_char_budget": 6000,
+    "max_query_chars": 2000,
+    "ollama_timeout_s": 20.0
+  },
+  "自适应top_k配置": {
+    "multi": 5,
+    "single": 3,
+    "default": 5
+  },
+  "统计": {
+    "样本数": 6,
+    "拒答数": 1,
+    "总耗时": {
+      "count": 6,
+      "mean": 6797.63,
+      "p50": 4642.37,
+      "p90": 15221.01,
+      "p95": 15300.66,
+      "p99": 15364.38,
+      "max": 15380.31,
+      "min": 256.44,
+      "std": 6501.95
+    },
+    "检索": {
+      "count": 6,
+      "mean": 168.02,
+      "p50": 167.05,
+      "p90": 191.09,
+      "p95": 202.8,
+      "p99": 212.17,
+      "max": 214.51,
+      "min": 125.58,
+      "std": 25.72
+    },
+    "生成": {
+      "count": 6,
+      "mean": 6615.42,
+      "p50": 4488.59,
+      "p90": 15046.51,
+      "p95": 15126.17,
+      "p99": 15189.9,
+      "max": 15205.83,
+      "min": 0.0,
+      "std": 6510.76
+    },
+    "首字": {
+      "count": 6,
+      "mean": 6411.64,
+      "p50": 4055.84,
+      "p90": 14941.6,
+      "p95": 15037.55,
+      "p99": 15114.3,
+      "max": 15133.49,
+      "min": 214.51,
+      "std": 6584.78
+    },
+    "墙钟": {
+      "count": 6,
+      "mean": 6814.34,
+      "p50": 4661.36,
+      "p90": 15235.33,
+      "p95": 15315.16,
+      "p99": 15379.02,
+      "max": 15394.99,
+      "min": 270.66,
+      "std": 6501.91
+    },
+    "SLA": {
+      "阈值ms": 3000.0,
+      "达标率": 0.5,
+      "达标题数": 3,
+      "超时题号": [
+        "Q01",
+        "Q02",
+        "Q05"
+      ]
+    },
+    "SLA_首字": {
+      "阈值ms": 3000.0,
+      "达标率": 0.5
+    },
+    "SLA_墙钟": {
+      "阈值ms": 3000.0,
+      "达标率": 0.5
+    },
+    "阶段": {
+      "stage::1_查询处理与增强": {
+        "count": 6,
+        "mean": 4.62,
+        "p50": 3.84,
+        "p90": 6.63,
+        "p95": 6.64,
+        "p99": 6.65,
+        "max": 6.65,
+        "min": 3.2,
+        "std": 1.45
+      },
+      "stage::2_检索": {
+        "count": 6,
+        "mean": 168.0,
+        "p50": 167.03,
+        "p90": 191.07,
+        "p95": 202.78,
+        "p99": 212.15,
+        "max": 214.49,
+        "min": 125.54,
+        "std": 25.72
+      },
+      "stage::3_上下文组装与提示工程": {
+        "count": 6,
+        "mean": 0.35,
+        "p50": 0.41,
+        "p90": 0.49,
+        "p95": 0.5,
+        "p99": 0.51,
+        "max": 0.51,
+        "min": 0.0,
+        "std": 0.17
+      },
+      "stage::4_LLM生成": {
+        "count": 6,
+        "mean": 6615.85,
+        "p50": 4489.0,
+        "p90": 15047.2,
+        "p95": 15126.98,
+        "p99": 15190.79,
+        "max": 15206.75,
+        "min": 0.0,
+        "std": 6510.99
+      },
+      "stage::5_后处理与响应格式化": {
+        "count": 6,
+        "mean": 9.13,
+        "p50": 9.17,
+        "p90": 14.49,
+        "p95": 16.84,
+        "p99": 18.72,
+        "max": 19.2,
+        "min": 0.21,
+        "std": 5.56
+      }
+    },
+    "阶段均值": {
+      "stage::1_查询处理与增强": 4.62,
+      "stage::2_检索": 168.0,
+      "stage::3_上下文组装与提示工程": 0.35,
+      "stage::4_LLM生成": 6615.85,
+      "stage::5_后处理与响应格式化": 9.13
+    },
+    "阶段占比": {
+      "1_查询处理与增强": 0.0007,
+      "2_检索": 0.0247,
+      "3_上下文组装与提示工程": 0.0001,
+      "4_LLM生成": 0.9732,
+      "5_后处理与响应格式化": 0.0013
+    },
+    "子阶段均值": {
+      "span::bm25_search": 17.14,
+      "span::context_assemble": 0.34,
+      "span::embed_query": 143.16,
+      "span::fusion_rerank": 5.25,
+      "span::generate_total": 6615.84,
+      "span::hybrid_search": 166.82,
+      "span::llm_generate": 6610.99,
+      "span::llm_guard": 0.33,
+      "span::llm_request": 6611.28,
+      "span::page_context": 0.16,
+      "span::vector_search": 5.73
+    }
+  },
+  "逐题": [
+    {
+      "round": 2,
+      "seq": 1,
+      "id": "Q01",
+      "question": "平安银行2019年年度报告的董事长致辞中，提到该行盈利增长的关键因素有哪些？请结合业务结构、盈利趋势与风险状况说明。",
+      "answer": "共4项：1、资产重组时所作承诺中国平安拟以其所持的90.75%原平安银行股份及269,005.23万元现金认购本行非公开发行的1,638,336,654股股份（本次重大资产重组）时承诺：1、本次重大资产重组完成后，在中国平安作为深发展的控股股东期间，针对中国平安以及中国平安控制的其他企业未来拟从事或实质性获得深发展同类业务或商业机会，且该等业务或商业机会所形成的资产和业务与深发展可能构成潜在同业竞争的情况，中国平安以及中国平安控制的其他企业将不从事与深发展相同或相近的业务，以避免与深发展的业务经营构成直接或间接的竞争。2、在本次重大资产重组完成后，就中国平安及中国平安控制的其他企业与深发展之间发生的构成深发展关联交易的事项，中国平安及中国平安控制的其他企业将遵循市场交易的公开、公平、公正的原则，按照公允、合理的市场价格与深发展进行交易，并依据有关法律、法规及规范性文件的规定履行决策程序，依法履行信息披露义务。中国平安保证中国平安及中国平安控制的其他企业将不通过与深发展的交易取得任何不正当的利益或使深发展承担任何不正当的义务。3、本次重大资产重组完成后，在中国平安作为深发展的控股股东期间，将维护深发展的独立性，保证深发展在人员、资产、财务、机构、业务等方面与中国平安以及中国平安控制的其他企业彼此间独立。；2、其他对公司中小股东所作承诺；3、承诺是否及时履行；4、未完成履行的具体原因及下一步计划（如有）原文未披露。\n引用：[2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf: 第81页 表格]",
+      "refused": false,
+      "refusal_reason": null,
+      "cited_pages": [
+        81
+      ],
+      "language": "zh",
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "generation_method": "llm_grounded",
+      "cache": {
+        "hit": false,
+        "key": "986a2ccd4d5d4bfdde679101beb4a4264c6865b1"
+      },
+      "wall_ms": 8109.07,
+      "total_ms": 8083.09,
+      "retrieve_ms": 167.67,
+      "generate_ms": 7908.77,
+      "first_token_ms": 7745.05,
+      "perf": {
+        "top_k": 5,
+        "top_k_mode": "fixed",
+        "stages": {
+          "1_查询处理与增强": 3.201,
+          "2_检索": 167.654,
+          "3_上下文组装与提示工程": 0.299,
+          "llm_first_token": 7577.38,
+          "4_LLM生成": 7909.318,
+          "5_后处理与响应格式化": 19.195,
+          "_其余(未归阶段)": 8.725
+        },
+        "spans": {
+          "vector_search": 2.541,
+          "embed_query": 148.46,
+          "bm25_search": 11.419,
+          "fusion_rerank": 6.062,
+          "hybrid_search": 166.835,
+          "page_context": 0.127,
+          "context_assemble": 0.291,
+          "llm_generate": 7905.83,
+          "llm_request": 7906.154,
+          "llm_guard": 0.546,
+          "generate_total": 7909.304
+        },
+        "counts": {
+          "vector_search": 1,
+          "embed_query": 1,
+          "bm25_search": 1,
+          "fusion_rerank": 1,
+          "hybrid_search": 1,
+          "page_context": 1,
+          "context_assemble": 1,
+          "llm_generate": 1,
+          "llm_request": 1,
+          "llm_guard": 1,
+          "generate_total": 1
+        },
+        "total_ms": 8108.392
+      },
+      "hit_ids": [
+        "20200214-p5-x1",
+        "20200214-p5-x0",
+        "20200214-p81-t0-0",
+        "20200214-p39-t0-0",
+        "20200214-p23-t0-0",
+        "20200214-p81-x0"
+      ],
+      "answer_chars": 683,
+      "stage::1_查询处理与增强": 3.201,
+      "stage::2_检索": 167.654,
+      "stage::3_上下文组装与提示工程": 0.299,
+      "stage::llm_first_token": 7577.38,
+      "stage::4_LLM生成": 7909.318,
+      "stage::5_后处理与响应格式化": 19.195,
+      "stage::_其余(未归阶段)": 8.725,
+      "span::vector_search": 2.541,
+      "span::embed_query": 148.46,
+      "span::bm25_search": 11.419,
+      "span::fusion_rerank": 6.062,
+      "span::hybrid_search": 166.835,
+      "span::page_context": 0.127,
+      "span::context_assemble": 0.291,
+      "span::llm_generate": 7905.83,
+      "span::llm_request": 7906.154,
+      "span::llm_guard": 0.546,
+      "span::generate_total": 7909.304
+    },
+    {
+      "round": 2,
+      "seq": 2,
+      "id": "Q02",
+      "question": "招商银行2019年年度报告中提到的创新商业模式有哪些？",
+      "answer": "共3项：1、公司名称；2、招商信诺人寿保险有限公司(注(i))2,800,0003,868,96450.2,800,0003,868,96450.00%；3、招联消费金融有限公司(注(ii))2,800,0003,868,96450.2,800,0003,868,96450.00%。\n引用：[2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf: 第207页 表格]",
+      "refused": false,
+      "refusal_reason": null,
+      "cited_pages": [
+        207
+      ],
+      "language": "zh",
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "generation_method": "llm_grounded",
+      "cache": {
+        "hit": false,
+        "key": "ed3f325cc290ebfe43c1e30b752fcf8c8f4fdd6c"
+      },
+      "wall_ms": 15394.99,
+      "total_ms": 15380.31,
+      "retrieve_ms": 166.28,
+      "generate_ms": 15205.83,
+      "first_token_ms": 15133.49,
+      "perf": {
+        "top_k": 5,
+        "top_k_mode": "fixed",
+        "stages": {
+          "1_查询处理与增强": 3.552,
+          "2_检索": 166.265,
+          "3_上下文组装与提示工程": 0.507,
+          "llm_first_token": 14967.21,
+          "4_LLM生成": 15206.747,
+          "5_后处理与响应格式化": 9.724,
+          "_其余(未归阶段)": 7.754
+        },
+        "spans": {
+          "vector_search": 5.028,
+          "embed_query": 148.017,
+          "bm25_search": 9.362,
+          "fusion_rerank": 6.705,
+          "hybrid_search": 165.12,
+          "page_context": 0.203,
+          "context_assemble": 0.492,
+          "llm_generate": 15198.84,
+          "llm_request": 15199.416,
+          "llm_guard": 0.928,
+          "generate_total": 15206.719
+        },
+        "counts": {
+          "vector_search": 1,
+          "embed_query": 1,
+          "bm25_search": 1,
+          "fusion_rerank": 1,
+          "hybrid_search": 1,
+          "page_context": 1,
+          "context_assemble": 1,
+          "llm_generate": 1,
+          "llm_request": 1,
+          "llm_guard": 1,
+          "generate_total": 1
+        },
+        "total_ms": 15394.549
+      },
+      "hit_ids": [
+        "20200321-p5-x0",
+        "20200321-p83-x0",
+        "20200321-p207-t1-0",
+        "20200321-p55-x0",
+        "20200321-p42-x0",
+        "20200321-p5-x1",
+        "20200321-p83-x1"
+      ],
+      "answer_chars": 211,
+      "stage::1_查询处理与增强": 3.552,
+      "stage::2_检索": 166.265,
+      "stage::3_上下文组装与提示工程": 0.507,
+      "stage::llm_first_token": 14967.21,
+      "stage::4_LLM生成": 15206.747,
+      "stage::5_后处理与响应格式化": 9.724,
+      "stage::_其余(未归阶段)": 7.754,
+      "span::vector_search": 5.028,
+      "span::embed_query": 148.017,
+      "span::bm25_search": 9.362,
+      "span::fusion_rerank": 6.705,
+      "span::hybrid_search": 165.12,
+      "span::page_context": 0.203,
+      "span::context_assemble": 0.492,
+      "span::llm_generate": 15198.84,
+      "span::llm_request": 15199.416,
+      "span::llm_guard": 0.928,
+      "span::generate_total": 15206.719
+    },
+    {
+      "round": 2,
+      "seq": 3,
+      "id": "Q03",
+      "question": "平安银行的风险管理体系如何体现其应对宏观经济周期波动的能力？结合年报中的拨备覆盖率动态调整、资产质量控制，以及贷款结构优化策略，分析其应对经济下行周期的准备程度及可能的潜在压力。",
+      "answer": "8贷款资产质量分析2019年，本行积极应对外部宏观经济变化，持续优化信贷结构，严格管控增量业务风险，防范和化解存量贷款可能出现的各类风险，积极通过一系列措施，加大不良资产清收处置力度，资产质量持续改善，风险抵补能力显著增强。\n引用：[2020-02-14__平安银行股份有限公司__000001__平安银行__2019年__年度报告.pdf: 第43页]",
+      "refused": false,
+      "refusal_reason": null,
+      "cited_pages": [
+        43
+      ],
+      "language": "zh",
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "generation_method": "llm_grounded",
+      "cache": {
+        "hit": false,
+        "key": "5da758f078a3f2b9c16163e8fb8bd85a1332da17"
+      },
+      "wall_ms": 821.98,
+      "total_ms": 802.59,
+      "retrieve_ms": 167.65,
+      "generate_ms": 622.35,
+      "first_token_ms": 366.63,
+      "perf": {
+        "top_k": 5,
+        "top_k_mode": "fixed",
+        "stages": {
+          "1_查询处理与增强": 6.622,
+          "2_检索": 167.63,
+          "3_上下文组装与提示工程": 0.406,
+          "llm_first_token": 198.98,
+          "4_LLM生成": 622.714,
+          "5_后处理与响应格式化": 9.792,
+          "_其余(未归阶段)": 14.23
+        },
+        "spans": {
+          "vector_search": 5.806,
+          "embed_query": 129.506,
+          "bm25_search": 30.199,
+          "fusion_rerank": 4.926,
+          "hybrid_search": 166.195,
+          "page_context": 0.197,
+          "context_assemble": 0.396,
+          "llm_generate": 617.79,
+          "llm_request": 618.1,
+          "llm_guard": 0.065,
+          "generate_total": 622.704
+        },
+        "counts": {
+          "vector_search": 1,
+          "embed_query": 1,
+          "bm25_search": 1,
+          "fusion_rerank": 1,
+          "hybrid_search": 1,
+          "page_context": 1,
+          "context_assemble": 1,
+          "llm_generate": 1,
+          "llm_request": 1,
+          "llm_guard": 1,
+          "generate_total": 1
+        },
+        "total_ms": 821.394
+      },
+      "hit_ids": [
+        "20200214-p125-t0-0",
+        "20200214-p227-x0",
+        "20200214-p43-x1",
+        "20200214-p5-x1",
+        "20200214-p229-x0",
+        "20200214-p125-x0",
+        "20200214-p227-x1"
+      ],
+      "answer_chars": 177,
+      "stage::1_查询处理与增强": 6.622,
+      "stage::2_检索": 167.63,
+      "stage::3_上下文组装与提示工程": 0.406,
+      "stage::llm_first_token": 198.98,
+      "stage::4_LLM生成": 622.714,
+      "stage::5_后处理与响应格式化": 9.792,
+      "stage::_其余(未归阶段)": 14.23,
+      "span::vector_search": 5.806,
+      "span::embed_query": 129.506,
+      "span::bm25_search": 30.199,
+      "span::fusion_rerank": 4.926,
+      "span::hybrid_search": 166.195,
+      "span::page_context": 0.197,
+      "span::context_assemble": 0.396,
+      "span::llm_generate": 617.79,
+      "span::llm_request": 618.1,
+      "span::llm_guard": 0.065,
+      "span::generate_total": 622.704
+    },
+    {
+      "round": 2,
+      "seq": 4,
+      "id": "Q04",
+      "question": "分析这些银行和保险公司在面对经济周期波动时的共同策略与差异化策略，重点关注其在风险管理、资本结构优化和新兴领域（如绿色金融或科技金融）投资上的表现。如何评估这些策略在未来经济下行周期中的可持续性？",
+      "answer": "不清楚",
+      "refused": true,
+      "refusal_reason": "unknown_entity",
+      "cited_pages": [],
+      "language": "zh",
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "generation_method": "refused",
+      "cache": {
+        "hit": false,
+        "key": "cb42c77a8a8de7199cbdc2e55e9b76a1e96743d2"
+      },
+      "wall_ms": 270.66,
+      "total_ms": 256.44,
+      "retrieve_ms": 214.51,
+      "generate_ms": 0.0,
+      "first_token_ms": 214.51,
+      "perf": {
+        "top_k": 5,
+        "top_k_mode": "fixed",
+        "stages": {
+          "1_查询处理与增强": 6.647,
+          "2_检索": 214.49,
+          "5_后处理与响应格式化": 0.215,
+          "3_上下文组装与提示工程": 0.0,
+          "4_LLM生成": 0.0,
+          "_其余(未归阶段)": 48.911
+        },
+        "spans": {
+          "vector_search": 10.987,
+          "embed_query": 183.96,
+          "bm25_search": 23.437,
+          "fusion_rerank": 4.15,
+          "hybrid_search": 213.011
+        },
+        "counts": {
+          "vector_search": 1,
+          "embed_query": 1,
+          "bm25_search": 1,
+          "fusion_rerank": 1,
+          "hybrid_search": 1
+        },
+        "total_ms": 270.263
+      },
+      "hit_ids": [
+        "20200321-p48-x1",
+        "20210326-p29-x3",
+        "20210319-p26-x1",
+        "20200321-p68-x1",
+        "20200214-p49-x0",
+        "20200321-p48-x0",
+        "20210326-p29-x0"
+      ],
+      "answer_chars": 3,
+      "stage::1_查询处理与增强": 6.647,
+      "stage::2_检索": 214.49,
+      "stage::5_后处理与响应格式化": 0.215,
+      "stage::3_上下文组装与提示工程": 0.0,
+      "stage::4_LLM生成": 0.0,
+      "stage::_其余(未归阶段)": 48.911,
+      "span::vector_search": 10.987,
+      "span::embed_query": 183.96,
+      "span::bm25_search": 23.437,
+      "span::fusion_rerank": 4.15,
+      "span::hybrid_search": 213.011
+    },
+    {
+      "round": 2,
+      "seq": 5,
+      "id": "Q05",
+      "question": "招商银行2019年年度报告中，董事长和行长（首席执行官）分别是谁？该行2019年度利润分配方案的每股现金分红是多少？",
+      "answer": "[表标题]2019年度利润分配方案如下：单位：人民币百万元[来源]2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf第251页[Markdown]|2019年|2018年||||---|---|---|---||年内批准、宣告及分派上年度现金股利每股人民币0.94元||23,707|21,185||(2018年：每股人民币0.84元)||||[关键数字]23,70721,1850.940.8420192018。\n引用：[2020-03-21__招商银行股份有限公司__600036__招商银行__2019年__年度报告.pdf: 第251页 表格]",
+      "refused": false,
+      "refusal_reason": null,
+      "cited_pages": [
+        251
+      ],
+      "language": "zh",
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "generation_method": "llm_grounded",
+      "cache": {
+        "hit": false,
+        "key": "53c01dc9348b33ae3022dfd88963fe257145e717"
+      },
+      "wall_ms": 15075.67,
+      "total_ms": 15061.7,
+      "retrieve_ms": 166.45,
+      "generate_ms": 14887.18,
+      "first_token_ms": 14749.71,
+      "perf": {
+        "top_k": 5,
+        "top_k_mode": "fixed",
+        "stages": {
+          "1_查询处理与增强": 3.987,
+          "2_检索": 166.434,
+          "3_上下文组装与提示工程": 0.421,
+          "llm_first_token": 14583.26,
+          "4_LLM生成": 14887.663,
+          "5_后处理与响应格式化": 8.607,
+          "_其余(未归阶段)": 8.164
+        },
+        "spans": {
+          "vector_search": 5.066,
+          "embed_query": 142.193,
+          "bm25_search": 17.142,
+          "fusion_rerank": 4.691,
+          "hybrid_search": 165.363,
+          "page_context": 0.184,
+          "context_assemble": 0.411,
+          "llm_generate": 14882.49,
+          "llm_request": 14882.775,
+          "llm_guard": 0.417,
+          "generate_total": 14887.647
+        },
+        "counts": {
+          "vector_search": 1,
+          "embed_query": 1,
+          "bm25_search": 1,
+          "fusion_rerank": 1,
+          "hybrid_search": 1,
+          "page_context": 1,
+          "context_assemble": 1,
+          "llm_generate": 1,
+          "llm_request": 1,
+          "llm_guard": 1,
+          "generate_total": 1
+        },
+        "total_ms": 15075.276
+      },
+      "hit_ids": [
+        "20200321-p251-t2-0",
+        "20200321-p3-x0",
+        "20200321-p251-t3-0",
+        "20200321-p251-t0-0",
+        "20200321-p93-x0",
+        "20200321-p251-t1-0",
+        "20200321-p3-x1"
+      ],
+      "answer_chars": 304,
+      "stage::1_查询处理与增强": 3.987,
+      "stage::2_检索": 166.434,
+      "stage::3_上下文组装与提示工程": 0.421,
+      "stage::llm_first_token": 14583.26,
+      "stage::4_LLM生成": 14887.663,
+      "stage::5_后处理与响应格式化": 8.607,
+      "stage::_其余(未归阶段)": 8.164,
+      "span::vector_search": 5.066,
+      "span::embed_query": 142.193,
+      "span::bm25_search": 17.142,
+      "span::fusion_rerank": 4.691,
+      "span::hybrid_search": 165.363,
+      "span::page_context": 0.184,
+      "span::context_assemble": 0.411,
+      "span::llm_generate": 14882.49,
+      "span::llm_request": 14882.775,
+      "span::llm_guard": 0.417,
+      "span::generate_total": 14887.647
+    },
+    {
+      "round": 2,
+      "seq": 6,
+      "id": "Q06",
+      "question": "中信证券2020年年度报告中，公司负责人是谁？经董事会审议的报告期利润分配预案是什么？",
+      "answer": "中信证券2020年年度报告中，公司负责人是张佑君先生，经董事会审议的报告期利润分配预案是每10股派发现金红利人民币4.00元（含税）。此预案尚需本公司股东大会批准。\n引用：[2021-03-19__中信证券股份有限公司__600030__中信证券__2020年__年度报告.pdf: 第2页]",
+      "refused": false,
+      "refusal_reason": null,
+      "cited_pages": [
+        2
+      ],
+      "language": "zh",
+      "backend": "ollama",
+      "model": "qwen2.5:3b",
+      "generation_method": "llm_grounded",
+      "cache": {
+        "hit": false,
+        "key": "1db7c6507cfd5d702e52d351f53a25b2ad5f2501"
+      },
+      "wall_ms": 1213.65,
+      "total_ms": 1201.65,
+      "retrieve_ms": 125.58,
+      "generate_ms": 1068.41,
+      "first_token_ms": 260.44,
+      "perf": {
+        "top_k": 5,
+        "top_k_mode": "fixed",
+        "stages": {
+          "1_查询处理与增强": 3.691,
+          "2_检索": 125.544,
+          "3_上下文组装与提示工程": 0.475,
+          "llm_first_token": 134.86,
+          "4_LLM生成": 1068.684,
+          "5_后处理与响应格式化": 7.243,
+          "_其余(未归阶段)": 7.565
+        },
+        "spans": {
+          "vector_search": 4.953,
+          "embed_query": 106.802,
+          "bm25_search": 11.28,
+          "fusion_rerank": 4.971,
+          "hybrid_search": 124.393,
+          "page_context": 0.227,
+          "context_assemble": 0.465,
+          "llm_generate": 1060.98,
+          "llm_request": 1061.224,
+          "llm_guard": 0.036,
+          "generate_total": 1068.673
+        },
+        "counts": {
+          "vector_search": 1,
+          "embed_query": 1,
+          "bm25_search": 1,
+          "fusion_rerank": 1,
+          "hybrid_search": 1,
+          "page_context": 1,
+          "context_assemble": 1,
+          "llm_generate": 1,
+          "llm_request": 1,
+          "llm_guard": 1,
+          "generate_total": 1
+        },
+        "total_ms": 1213.202
+      },
+      "hit_ids": [
+        "20210319-p2-x0",
+        "20210319-p83-t0-0",
+        "20210319-p100-t0-0",
+        "20210319-p46-x2",
+        "20210319-p106-x0",
+        "20210319-p2-x1",
+        "20210319-p83-x0"
+      ],
+      "answer_chars": 146,
+      "stage::1_查询处理与增强": 3.691,
+      "stage::2_检索": 125.544,
+      "stage::3_上下文组装与提示工程": 0.475,
+      "stage::llm_first_token": 134.86,
+      "stage::4_LLM生成": 1068.684,
+      "stage::5_后处理与响应格式化": 7.243,
+      "stage::_其余(未归阶段)": 7.565,
+      "span::vector_search": 4.953,
+      "span::embed_query": 106.802,
+      "span::bm25_search": 11.28,
+      "span::fusion_rerank": 4.971,
+      "span::hybrid_search": 124.393,
+      "span::page_context": 0.227,
+      "span::context_assemble": 0.465,
+      "span::llm_generate": 1060.98,
+      "span::llm_request": 1061.224,
+      "span::llm_guard": 0.036,
+      "span::generate_total": 1068.673
+    }
+  ]
+}

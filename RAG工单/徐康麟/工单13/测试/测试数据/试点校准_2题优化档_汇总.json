@@ -1,0 +1,186 @@
+{
+  "工单": "人工智能NLP-RAG 项目-RAG 性能瓶颈识别与优化",
+  "生成时间": "2026-10-16 07:42:26",
+  "脚本": "E:\\gao6gongdan\\工单13\\研发\\scripts\\分段计时剖析.py",
+  "标签": "优化后_试点",
+  "档位": "optimized",
+  "口径": {
+    "缓存": "只写不读（use_cache=False）",
+    "轮数": 1,
+    "丢弃轮数": 1,
+    "计入统计题数": 0,
+    "题间休眠s": 0.2,
+    "top_k参数": null,
+    "SLA_ms": 3000.0,
+    "耗时口径": "perf_counter 单调时钟；total_ms 为引擎内部统计，wall_ms 为脚本墙钟"
+  },
+  "环境": {
+    "解释器": "E:\\gao6gongdan\\工单1\\.venv\\Scripts\\python.exe",
+    "python": "3.11.15",
+    "runtime": {
+      "work_order": "人工智能NLP-RAG-功能测试及评估",
+      "python": "3.11.15",
+      "executable": "E:\\gao6gongdan\\工单1\\.venv\\Scripts\\python.exe",
+      "repo_root": "E:\\gao6gongdan\\工单13",
+      "raw_dir": "E:\\gao6gongdan\\工单13\\研发\\data\\raw",
+      "processed_dir": "E:\\gao6gongdan\\工单13\\研发\\data\\processed",
+      "index_dir": "E:\\gao6gongdan\\工单13\\研发\\data\\index",
+      "log_dir": "E:\\gao6gongdan\\工单13\\部署\\日志"
+    }
+  },
+  "预热": {
+    "index_chunks": 8847,
+    "ms_index_load": 4527.37,
+    "tokenizer": {
+      "cold_ms": 0.17,
+      "warm_ms": 0.09,
+      "tokens": 9,
+      "backend": "jieba"
+    },
+    "entity_tagger": {
+      "ok": true,
+      "sample_nouns": [
+        "武汉",
+        "新科",
+        "电子",
+        "股份",
+        "有限公司",
+        "注册资本"
+      ],
+      "elapsed_ms": 1465.19
+    },
+    "ms_tokenizer": 1465.66,
+    "embedding": {
+      "backend": "ollama",
+      "model": "bge-m3:latest",
+      "dim": 1024,
+      "cold_ms": 3147.11,
+      "warm_ms": 31.21,
+      "total_ms": 3240.57
+    },
+    "ms_embedding": 3240.84,
+    "fulltext_index": {
+      "skipped": true,
+      "reason": "RAG_PERF__WARMUP_FULLTEXT=0（默认链路不使用多字段倒排索引）"
+    },
+    "ms_fulltext_index": 0.0,
+    "generate": {
+      "ok": true,
+      "elapsed_ms": 10481.08,
+      "model": "qwen2.5:3b",
+      "response_head": "你好！有什么我可以"
+    },
+    "ms_generate": 10481.4,
+    "elapsed_ms": 19773.02
+  },
+  "优化开关": {
+    "warmup_enabled": true,
+    "warmup_fulltext": false,
+    "embed_backend_cache": true,
+    "embed_probe_ttl_s": 300.0,
+    "parallel_channels": true,
+    "parallel_workers": 2,
+    "rerank_prune": true,
+    "rerank_budget": 40,
+    "rerank_min_relative": 0.02,
+    "cache_enabled": true,
+    "context_io_cache": true,
+    "adaptive_top_k": true,
+    "async_log": true,
+    "async_log_queue": 4096,
+    "generate_budget": true,
+    "generate_max_tokens": 512,
+    "context_char_budget": 6000,
+    "max_query_chars": 2000,
+    "ollama_timeout_s": 20.0
+  },
+  "自适应top_k配置": {
+    "multi": 5,
+    "single": 3,
+    "default": 5
+  },
+  "统计": {
+    "样本数": 0,
+    "拒答数": 0,
+    "总耗时": {
+      "count": 0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p90": 0.0,
+      "p95": 0.0,
+      "p99": 0.0,
+      "max": 0.0,
+      "min": 0.0,
+      "std": 0.0
+    },
+    "检索": {
+      "count": 0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p90": 0.0,
+      "p95": 0.0,
+      "p99": 0.0,
+      "max": 0.0,
+      "min": 0.0,
+      "std": 0.0
+    },
+    "生成": {
+      "count": 0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p90": 0.0,
+      "p95": 0.0,
+      "p99": 0.0,
+      "max": 0.0,
+      "min": 0.0,
+      "std": 0.0
+    },
+    "首字": {
+      "count": 0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p90": 0.0,
+      "p95": 0.0,
+      "p99": 0.0,
+      "max": 0.0,
+      "min": 0.0,
+      "std": 0.0
+    },
+    "墙钟": {
+      "count": 0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p90": 0.0,
+      "p95": 0.0,
+      "p99": 0.0,
+      "max": 0.0,
+      "min": 0.0,
+      "std": 0.0
+    },
+    "SLA": {
+      "阈值ms": 3000.0,
+      "达标率": 0.0,
+      "达标题数": 0,
+      "超时题号": []
+    },
+    "SLA_首字": {
+      "阈值ms": 3000.0,
+      "达标率": 0.0
+    },
+    "SLA_墙钟": {
+      "阈值ms": 3000.0,
+      "达标率": 0.0
+    },
+    "阶段": {},
+    "阶段均值": {},
+    "阶段占比": {
+      "1_查询处理与增强": 0.0,
+      "2_检索": 0.0,
+      "3_上下文组装与提示工程": 0.0,
+      "4_LLM生成": 0.0,
+      "5_后处理与响应格式化": 0.0
+    },
+    "子阶段均值": {}
+  },
+  "逐题": []
+}
