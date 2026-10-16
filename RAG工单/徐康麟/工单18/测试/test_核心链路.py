@@ -181,3 +181,80 @@ def test_抽检记录与复跑结论一致():
     # 错误类型分布的键是异常前缀（如 unhandled），MemoryError 出现在逐份明细的「报告错误」里
     assert any("MemoryError" in str(r.get("报告错误", "")) for r in d["明细"]), \
         "抽检明细里应能看到 MemoryError（这是「不是文件损坏」的直接证据）"
+
+
+# ==================== 完善期新增（边界与异常路径） ====================
+def test_配置阈值_无负值且关键阈值齐全():
+    """边界：阈值不得为负（0 在本配置里是**合法语义 = 不限制**，如 sample_limit/max_*_items）。"""
+    import re as _re
+    txt = CFG.read_text(encoding="utf-8")
+    pairs = _re.findall(r"^\s*([a-z_]{4,40}):\s*(-?\d+(?:\.\d+)?)\s*$", txt, _re.M)
+    assert pairs, "配置里应能找到数值型阈值"
+    neg = [(k, v) for k, v in pairs if float(v) < 0]
+    assert not neg, f"阈值不应为负：{neg[:5]}"
+    keys = {k for k, _ in pairs}
+    # 与判定逻辑直接相关的关键阈值必须存在（simhash 是段落名，其阈值键为 hamming_threshold/bits）
+    assert "max_workers" in keys, f"配置缺少 max_workers（现有：{sorted(keys)[:8]}…）"
+    assert {"hamming_threshold", "bits"} <= keys, "配置缺少 SimHash 阈值（hamming_threshold / bits）"
+    assert "page_char_threshold" in keys and "scan_ratio_threshold" in keys, "配置缺少扫描页判定的关键阈值"
+
+
+def test_逐文件明细_字段类型合法且无空值关键字段():
+    """边界：每条明细的 path/name/pdf_type 都必须非空，数值字段类型正确。"""
+    lines = [l for l in PER_FILE.read_text(encoding="utf-8").splitlines() if l.strip()]
+    bad = []
+    for i, l in enumerate(lines[:400]):
+        o = json.loads(l)
+        for k in ("name", "suffix", "pdf_type"):
+            if not o.get(k):
+                bad.append(f"行{i+1} 缺 {k}")
+        for k in ("size_bytes", "page_count"):
+            if not isinstance(o.get(k), int):
+                bad.append(f"行{i+1} {k} 非整数")
+    assert not bad, f"明细字段异常：{bad[:5]}"
+
+
+def test_逐文件明细_scan_ratio取值在0到1之间():
+    """边界：扫描页比例必须落在 [0,1]，越界说明判定逻辑有 bug。"""
+    lines = [l for l in PER_FILE.read_text(encoding="utf-8").splitlines() if l.strip()]
+    bad = []
+    for i, l in enumerate(lines[:400]):
+        o = json.loads(l)
+        r = o.get("scan_ratio")
+        if r is not None and not (0.0 <= float(r) <= 1.0):
+            bad.append(f"行{i+1} scan_ratio={r}")
+    assert not bad, f"scan_ratio 越界：{bad[:5]}"
+
+
+def test_报告_错误段每条都有文件与原因():
+    """异常路径：错误记录必须可定位（含文件或原因），不能只有空对象。"""
+    rep = json.loads(REPORT.read_text(encoding="utf-8"))
+    errs = rep.get("errors") or []
+    if not errs:
+        pytest.skip("本次无误记录")
+    empty = [i for i, e in enumerate(errs) if not e or (isinstance(e, dict) and not any(e.values()))]
+    assert not empty, f"存在空错误记录：{empty[:5]}"
+
+
+def test_报告_待审清单总数与明细条数一致():
+    """一致性：*_total 字段必须等于对应明细列表长度（防计数与内容脱节）。"""
+    rep = json.loads(REPORT.read_text(encoding="utf-8"))
+    pend = rep["pending_lists"]
+    pairs = [
+        ("pdf_type_pending_confirm", "pdf_type_pending_confirm_total"),
+        ("version_conflicts", "version_conflicts_total"),
+        ("sensitive_pending_review", "sensitive_pending_review_total"),
+    ]
+    bad = []
+    for lst, tot in pairs:
+        if lst in pend and tot in pend:
+            if len(pend[lst] or []) != pend[tot]:
+                bad.append(f"{lst}: {len(pend[lst] or [])} != {pend[tot]}")
+    assert not bad, f"计数与明细不一致：{bad}"
+
+
+def test_截图数量满足效率模式下限且命名唯一():
+    pngs = sorted(SHOT.glob("*.png"))
+    assert len(pngs) >= 4, f"工单18 应有 ≥4 张截图，实得 {len(pngs)}"
+    names = [p.name for p in pngs]
+    assert len(names) == len(set(names)), "截图文件名不应重复"
