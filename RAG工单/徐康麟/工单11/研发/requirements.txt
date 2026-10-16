@@ -1,0 +1,28 @@
+# 工单11 研发依赖清单（requirements.txt 说明版）
+
+> **本工单未安装任何新依赖**。以下全部为工单1 venv 中**已存在**的包，仅供环境复核。
+
+| 包 | 是否已装 | 本工单用途 |
+| --- | --- | --- |
+| torch | ✅ 2.11.0+cpu | 训练与推理（CPU） |
+| transformers | ✅ | `AutoModel` / `AutoTokenizer` 本地离线加载 |
+| sentence-transformers | ✅（未调用） | 仅复用其目录规范（`modules.json` / `1_Pooling`） |
+| numpy | ✅ | 向量运算与指标计算 |
+| Pillow | ✅ | 折线图、柱状图、测试截图渲染 |
+| pytest | ✅ | `测试/` 下 4 个用例文件 |
+| requests | ✅ | 可选 Ollama 参照（配置默认关闭） |
+| jieba / scikit-learn / faiss / pymupdf | ✅（未调用） | — |
+
+## 明确未使用（本机缺失，且不安装）
+
+`accelerate`、`peft`、`datasets`、`pandas`、`matplotlib`、`loguru`、`streamlit`、`cv2`、`onnxruntime`
+
+安装这些包会：
+1. 触发联网 pip（本机 pip 网络路径实测会挂死）；
+2. 默认落点写进**只读**的 `工单1\.venv\Lib\site-packages`（红线违规）。
+
+若确需新增依赖，唯一合规方式是：
+```powershell
+python -m pip install --target 研发/第三方库 --no-deps <包>   # 且必须自加硬超时
+```
+本工单通过**自实现**（手写训练循环 + PIL 绘图）完全规避了这一需求。
